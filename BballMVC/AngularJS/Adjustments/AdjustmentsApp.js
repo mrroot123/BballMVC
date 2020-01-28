@@ -20,7 +20,8 @@
       $scope.title = "my App";
       activate();
 
-      function activate() {
+       function activate() {
+          //Lance added another comment line
          // Ajax call to controller
          // Get rows from ajax
          // build tr html for each adjustment row
