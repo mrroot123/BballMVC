@@ -25,6 +25,7 @@
          // Get rows from ajax
          // build tr html for each adjustment row
          // Append tr to table to display using jQuery function
+          //Line added to test git.
       }
    }
 })();
