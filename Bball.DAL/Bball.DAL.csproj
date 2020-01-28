@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.3.0\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B9DB69FF-5285-413F-BAE1-9A9433F5BC5D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Bball.DAL</RootNamespace>
+    <AssemblyName>Bball.DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.3.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.3.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Adjustment.cs">
+      <DependentUpon>BballModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AdjustmentsCode.cs">
+      <DependentUpon>BballModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BballModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BballModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BballModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BballModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BballModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BballModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="BoxScore.cs">
+      <DependentUpon>BballModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Line.cs">
+      <DependentUpon>BballModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Parsing\BoxScoresLast5Min.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tables\Adjustments.cs" />
+    <Compile Include="Tables\AdjustmentsDaily.cs" />
+    <Compile Include="Tables\BoxScore.cs" />
+    <Compile Include="Tables\DailySummary.cs" />
+    <Compile Include="Tables\LeagueInfo.cs" />
+    <Compile Include="Tables\Lines.cs" />
+    <Compile Include="Tables\Rotation.cs" />
+    <Compile Include="Tables\SeasonInfo.cs" />
+    <Compile Include="Tables\_TableTemplate.cs" />
+    <Compile Include="Team.cs">
+      <DependentUpon>BballModel.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <EntityDeploy Include="BballModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>BballModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="BballModel.edmx.diagram">
+      <DependentUpon>BballModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common4vb\HtmlParsing\HtmlParsing.vbproj">
+      <Project>{50702d84-0b14-4d58-a1a8-a2f3a9135fd4}</Project>
+      <Name>HtmlParsing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CommonClasses\DAL.Functions\SysDAL.Functions.csproj">
+      <Project>{f08657dc-56b9-4ea3-9bab-c3234c143145}</Project>
+      <Name>SysDAL.Functions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TestHtmlParser\HtmlParser\HtmlParser.csproj">
+      <Project>{a85dfe51-89d5-468e-90b8-c2d004bf29c2}</Project>
+      <Name>HtmlParser</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bball.DataBaseFunctions\Bball.DataBaseFunctions.csproj">
+      <Project>{337ecf5c-824b-4404-8636-8db6e405754b}</Project>
+      <Name>Bball.DataBaseFunctions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bball.VbClasses\Bball.VbClasses.vbproj">
+      <Project>{1adb0d1e-c267-482f-bcf3-618978f74730}</Project>
+      <Name>Bball.VbClasses</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BballMVC.DTOs\BballMVC.DTOs.csproj">
+      <Project>{853742b2-9d6c-4673-8a8d-8cfe9759939d}</Project>
+      <Name>BballMVC.DTOs</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="BballModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BballModel.edmx</DependentUpon>
+      <LastGenOutput>BballModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="BballModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BballModel.edmx</DependentUpon>
+      <LastGenOutput>BballModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.3.0\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.3.0\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.3.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.targets')" />
+</Project>

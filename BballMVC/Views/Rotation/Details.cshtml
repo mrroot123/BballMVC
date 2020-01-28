@@ -1,0 +1,82 @@
+﻿@model BballMVC.Models.Rotation
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Rotation</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TV)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TV)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SideLine)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SideLine)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalLine)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalLine)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalLineTeam)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalLineTeam)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalLineOpp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalLineOpp)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OpenTotalLine)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OpenTotalLine)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BoxScoreUrl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BoxScoreUrl)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdateDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UpdateDate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

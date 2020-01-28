@@ -1,0 +1,64 @@
+﻿@model IEnumerable<BballMVC.Models.DailySummary>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Daily Game Summary</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.GameDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LeagueName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Season)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubSeason)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubSeasonPeriod)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumOfMatchups)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.GameDate)
+
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LeagueName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Season)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SubSeason)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SubSeasonPeriod)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumOfMatchups)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.DailySummaryID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.DailySummaryID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.DailySummaryID })
+        </td>
+    </tr>
+}
+
+</table>

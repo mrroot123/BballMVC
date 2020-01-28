@@ -1,0 +1,42 @@
+﻿@model BballMVC.Models.Adjustments
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Adjustments</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Player)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Player)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TS)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TS)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

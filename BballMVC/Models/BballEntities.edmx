@@ -1,0 +1,1214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TTI_LeagueScoresModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view '00TTI_LeagueScores.dbo.Adjustments' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Adjustments">
+          <Key>
+            <PropertyRef Name="AdjustmentID" />
+            <PropertyRef Name="LeagueName" />
+            <PropertyRef Name="StartDate" />
+            <PropertyRef Name="Team" />
+            <PropertyRef Name="AdjustmentType" />
+            <PropertyRef Name="AdjustmentAmount" />
+            <PropertyRef Name="Description" />
+          </Key>
+          <Property Name="AdjustmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LeagueName" Type="nvarchar" MaxLength="8" Nullable="false" />
+          <Property Name="StartDate" Type="date" Nullable="false" />
+          <Property Name="EndDate" Type="date" />
+          <Property Name="Team" Type="nvarchar" MaxLength="3" Nullable="false" />
+          <Property Name="AdjustmentType" Type="nvarchar" MaxLength="1" Nullable="false" />
+          <Property Name="AdjustmentAmount" Type="real" Nullable="false" />
+          <Property Name="Player" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="ntext" Nullable="false" />
+          <Property Name="TS" Type="datetime" />
+        </EntityType>
+        <EntityType Name="AdjustmentsCodes">
+          <Key>
+            <PropertyRef Name="AdjustmentsCodesID" />
+          </Key>
+          <Property Name="AdjustmentsCodesID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="nchar" MaxLength="1" Nullable="false" />
+          <Property Name="Description" Type="nchar" MaxLength="15" Nullable="false" />
+          <Property Name="Range" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view '00TTI_LeagueScores.dbo.AdjustmentsDaily' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="AdjustmentsDaily">
+          <Key>
+            <PropertyRef Name="AdjustmentsDailyID" />
+            <PropertyRef Name="LeagueName" />
+            <PropertyRef Name="GameDate" />
+            <PropertyRef Name="RotNum" />
+            <PropertyRef Name="Team" />
+            <PropertyRef Name="AdjustmentAmount" />
+          </Key>
+          <Property Name="AdjustmentsDailyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LeagueName" Type="nvarchar" MaxLength="9" Nullable="false" />
+          <Property Name="GameDate" Type="date" Nullable="false" />
+          <Property Name="RotNum" Type="int" Nullable="false" />
+          <Property Name="Team" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="AdjustmentAmount" Type="float" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view '00TTI_LeagueScores.dbo.BoxScores' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="BoxScores">
+          <Key>
+            <PropertyRef Name="BoxScoresID" />
+            <PropertyRef Name="Exclude" />
+            <PropertyRef Name="LeagueName" />
+            <PropertyRef Name="GameDate" />
+            <PropertyRef Name="RotNum" />
+            <PropertyRef Name="Team" />
+            <PropertyRef Name="Opp" />
+            <PropertyRef Name="Venue" />
+            <PropertyRef Name="GameTime" />
+            <PropertyRef Name="Season" />
+            <PropertyRef Name="SubSeason" />
+            <PropertyRef Name="MinutesPlayed" />
+            <PropertyRef Name="OtPeriods" />
+            <PropertyRef Name="ScoreReg" />
+            <PropertyRef Name="ScoreOT" />
+            <PropertyRef Name="ScoreRegUs" />
+            <PropertyRef Name="ScoreRegOp" />
+            <PropertyRef Name="ScoreOTUs" />
+            <PropertyRef Name="ScoreOTOp" />
+            <PropertyRef Name="ScoreQ1Us" />
+            <PropertyRef Name="ScoreQ1Op" />
+            <PropertyRef Name="ScoreQ2Us" />
+            <PropertyRef Name="ScoreQ2Op" />
+            <PropertyRef Name="ScoreQ3Us" />
+            <PropertyRef Name="ScoreQ3Op" />
+            <PropertyRef Name="ScoreQ4Us" />
+            <PropertyRef Name="ScoreQ4Op" />
+            <PropertyRef Name="ShotsActualMadeUsPt1" />
+            <PropertyRef Name="ShotsActualMadeUsPt2" />
+            <PropertyRef Name="ShotsActualMadeUsPt3" />
+            <PropertyRef Name="ShotsActualMadeOpPt1" />
+            <PropertyRef Name="ShotsActualMadeOpPt2" />
+            <PropertyRef Name="ShotsActualMadeOpPt3" />
+            <PropertyRef Name="ShotsActualAttemptedUsPt1" />
+            <PropertyRef Name="ShotsActualAttemptedUsPt2" />
+            <PropertyRef Name="ShotsActualAttemptedUsPt3" />
+            <PropertyRef Name="ShotsActualAttemptedOpPt1" />
+            <PropertyRef Name="ShotsActualAttemptedOpPt2" />
+            <PropertyRef Name="ShotsActualAttemptedOpPt3" />
+            <PropertyRef Name="ShotsMadeUsRegPt1" />
+            <PropertyRef Name="ShotsMadeUsRegPt2" />
+            <PropertyRef Name="ShotsMadeUsRegPt3" />
+            <PropertyRef Name="ShotsMadeOpRegPt1" />
+            <PropertyRef Name="ShotsMadeOpRegPt2" />
+            <PropertyRef Name="ShotsMadeOpRegPt3" />
+            <PropertyRef Name="ShotsAttemptedUsRegPt1" />
+            <PropertyRef Name="ShotsAttemptedUsRegPt2" />
+            <PropertyRef Name="ShotsAttemptedUsRegPt3" />
+            <PropertyRef Name="ShotsAttemptedOpRegPt1" />
+            <PropertyRef Name="ShotsAttemptedOpRegPt2" />
+            <PropertyRef Name="ShotsAttemptedOpRegPt3" />
+            <PropertyRef Name="TurnOversUs" />
+            <PropertyRef Name="TurnOversOp" />
+            <PropertyRef Name="OffRBUs" />
+            <PropertyRef Name="OffRBOp" />
+            <PropertyRef Name="AssistsUs" />
+            <PropertyRef Name="AssistsOp" />
+            <PropertyRef Name="Source" />
+            <PropertyRef Name="LoadDate" />
+            <PropertyRef Name="LoadTimeSeconds" />
+          </Key>
+          <Property Name="BoxScoresID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Exclude" Type="bit" Nullable="false" />
+          <Property Name="LeagueName" Type="nvarchar" MaxLength="9" Nullable="false" />
+          <Property Name="GameDate" Type="date" Nullable="false" />
+          <Property Name="RotNum" Type="int" Nullable="false" />
+          <Property Name="Team" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="Opp" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="Venue" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="GameTime" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="Season" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="SubSeason" Type="nvarchar" MaxLength="7" Nullable="false" />
+          <Property Name="MinutesPlayed" Type="int" Nullable="false" />
+          <Property Name="OtPeriods" Type="int" Nullable="false" />
+          <Property Name="ScoreReg" Type="float" Nullable="false" />
+          <Property Name="ScoreOT" Type="float" Nullable="false" />
+          <Property Name="ScoreRegUs" Type="float" Nullable="false" />
+          <Property Name="ScoreRegOp" Type="float" Nullable="false" />
+          <Property Name="ScoreOTUs" Type="float" Nullable="false" />
+          <Property Name="ScoreOTOp" Type="float" Nullable="false" />
+          <Property Name="ScoreQ1Us" Type="float" Nullable="false" />
+          <Property Name="ScoreQ1Op" Type="float" Nullable="false" />
+          <Property Name="ScoreQ2Us" Type="float" Nullable="false" />
+          <Property Name="ScoreQ2Op" Type="float" Nullable="false" />
+          <Property Name="ScoreQ3Us" Type="float" Nullable="false" />
+          <Property Name="ScoreQ3Op" Type="float" Nullable="false" />
+          <Property Name="ScoreQ4Us" Type="float" Nullable="false" />
+          <Property Name="ScoreQ4Op" Type="float" Nullable="false" />
+          <Property Name="ShotsActualMadeUsPt1" Type="float" Nullable="false" />
+          <Property Name="ShotsActualMadeUsPt2" Type="float" Nullable="false" />
+          <Property Name="ShotsActualMadeUsPt3" Type="float" Nullable="false" />
+          <Property Name="ShotsActualMadeOpPt1" Type="float" Nullable="false" />
+          <Property Name="ShotsActualMadeOpPt2" Type="float" Nullable="false" />
+          <Property Name="ShotsActualMadeOpPt3" Type="float" Nullable="false" />
+          <Property Name="ShotsActualAttemptedUsPt1" Type="float" Nullable="false" />
+          <Property Name="ShotsActualAttemptedUsPt2" Type="float" Nullable="false" />
+          <Property Name="ShotsActualAttemptedUsPt3" Type="float" Nullable="false" />
+          <Property Name="ShotsActualAttemptedOpPt1" Type="float" Nullable="false" />
+          <Property Name="ShotsActualAttemptedOpPt2" Type="float" Nullable="false" />
+          <Property Name="ShotsActualAttemptedOpPt3" Type="float" Nullable="false" />
+          <Property Name="ShotsMadeUsRegPt1" Type="float" Nullable="false" />
+          <Property Name="ShotsMadeUsRegPt2" Type="float" Nullable="false" />
+          <Property Name="ShotsMadeUsRegPt3" Type="float" Nullable="false" />
+          <Property Name="ShotsMadeOpRegPt1" Type="float" Nullable="false" />
+          <Property Name="ShotsMadeOpRegPt2" Type="float" Nullable="false" />
+          <Property Name="ShotsMadeOpRegPt3" Type="float" Nullable="false" />
+          <Property Name="ShotsAttemptedUsRegPt1" Type="float" Nullable="false" />
+          <Property Name="ShotsAttemptedUsRegPt2" Type="float" Nullable="false" />
+          <Property Name="ShotsAttemptedUsRegPt3" Type="float" Nullable="false" />
+          <Property Name="ShotsAttemptedOpRegPt1" Type="float" Nullable="false" />
+          <Property Name="ShotsAttemptedOpRegPt2" Type="float" Nullable="false" />
+          <Property Name="ShotsAttemptedOpRegPt3" Type="float" Nullable="false" />
+          <Property Name="TurnOversUs" Type="float" Nullable="false" />
+          <Property Name="TurnOversOp" Type="float" Nullable="false" />
+          <Property Name="OffRBUs" Type="float" Nullable="false" />
+          <Property Name="OffRBOp" Type="float" Nullable="false" />
+          <Property Name="AssistsUs" Type="float" Nullable="false" />
+          <Property Name="AssistsOp" Type="float" Nullable="false" />
+          <Property Name="Source" Type="nvarchar" MaxLength="21" Nullable="false" />
+          <Property Name="LoadDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="LoadTimeSeconds" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view '00TTI_LeagueScores.dbo.BoxScoresLast5Min' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="BoxScoresLast5Min">
+          <Key>
+            <PropertyRef Name="BoxScoresLast5MinID" />
+            <PropertyRef Name="LeagueName" />
+            <PropertyRef Name="GameDate" />
+            <PropertyRef Name="RotNum" />
+            <PropertyRef Name="Team" />
+            <PropertyRef Name="Opp" />
+            <PropertyRef Name="Venue" />
+            <PropertyRef Name="Q4Last5MinScore" />
+            <PropertyRef Name="Q4Last1MinScore" />
+            <PropertyRef Name="Q4Score" />
+            <PropertyRef Name="Q4Last1MinScoreUs" />
+            <PropertyRef Name="Q4Last1MinScoreOp" />
+            <PropertyRef Name="Q4Last1MinWinningTeam" />
+            <PropertyRef Name="Q4Last1MinUsPt1" />
+            <PropertyRef Name="Q4Last1MinUsPt2" />
+            <PropertyRef Name="Q4Last1MinUsPt3" />
+            <PropertyRef Name="Q4Last1MinOpPt1" />
+            <PropertyRef Name="Q4Last1MinOpPt2" />
+            <PropertyRef Name="Q4Last1MinOpPt3" />
+            <PropertyRef Name="Source" />
+            <PropertyRef Name="LoadDate" />
+          </Key>
+          <Property Name="BoxScoresLast5MinID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LeagueName" Type="nvarchar" MaxLength="9" Nullable="false" />
+          <Property Name="GameDate" Type="date" Nullable="false" />
+          <Property Name="RotNum" Type="int" Nullable="false" />
+          <Property Name="Team" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="Opp" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="Venue" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="Q4Last5MinScore" Type="float" Nullable="false" />
+          <Property Name="Q4Last1MinScore" Type="float" Nullable="false" />
+          <Property Name="Q4Score" Type="float" Nullable="false" />
+          <Property Name="Q4Last1MinScoreUs" Type="float" Nullable="false" />
+          <Property Name="Q4Last1MinScoreOp" Type="float" Nullable="false" />
+          <Property Name="Q4Last1MinWinningTeam" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="Q4Last1MinUsPt1" Type="float" Nullable="false" />
+          <Property Name="Q4Last1MinUsPt2" Type="float" Nullable="false" />
+          <Property Name="Q4Last1MinUsPt3" Type="float" Nullable="false" />
+          <Property Name="Q4Last1MinOpPt1" Type="float" Nullable="false" />
+          <Property Name="Q4Last1MinOpPt2" Type="float" Nullable="false" />
+          <Property Name="Q4Last1MinOpPt3" Type="float" Nullable="false" />
+          <Property Name="Source" Type="nvarchar" MaxLength="21" Nullable="false" />
+          <Property Name="LoadDate" Type="datetime2" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DailySummary">
+          <Key>
+            <PropertyRef Name="DailySummaryID" />
+          </Key>
+          <Property Name="DailySummaryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GameDate" Type="date" Nullable="false" />
+          <Property Name="LeagueName" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Season" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="SubSeason" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="SubSeasonPeriod" Type="int" Nullable="false" />
+          <Property Name="NumOfMatchups" Type="int" Nullable="false" />
+          <Property Name="LgAvgStartDate" Type="date" />
+          <Property Name="LgAvgGamesBack" Type="int" />
+          <Property Name="LgAvgScoreAway" Type="float" Nullable="false" />
+          <Property Name="LgAvgScoreHome" Type="float" Nullable="false" />
+          <Property Name="LgAvgScoreFinal" Type="float" Nullable="false" />
+          <Property Name="LgAvgShotsMadeAwayPt1" Type="float" Nullable="false" />
+          <Property Name="LgAvgShotsMadeAwayPt2" Type="float" Nullable="false" />
+          <Property Name="LgAvgShotsMadeAwayPt3" Type="float" Nullable="false" />
+          <Property Name="LgAvgShotsMadeHomePt1" Type="float" Nullable="false" />
+          <Property Name="LgAvgShotsMadeHomePt2" Type="float" Nullable="false" />
+          <Property Name="LgAvgShotsMadeHomePt3" Type="float" Nullable="false" />
+          <Property Name="LgAvgLastMinPts" Type="float" Nullable="false" />
+          <Property Name="LgAvgLastMinPt1" Type="float" Nullable="false" />
+          <Property Name="LgAvgLastMinPt2" Type="float" Nullable="false" />
+          <Property Name="LgAvgLastMinPt3" Type="float" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view '00TTI_LeagueScores.dbo.Lines' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Lines">
+          <Key>
+            <PropertyRef Name="LineID" />
+            <PropertyRef Name="LeagueName" />
+            <PropertyRef Name="GameDate" />
+            <PropertyRef Name="RotNum" />
+            <PropertyRef Name="TeamAway" />
+            <PropertyRef Name="TeamHome" />
+            <PropertyRef Name="Line" />
+            <PropertyRef Name="PlayType" />
+            <PropertyRef Name="PlayDuration" />
+            <PropertyRef Name="CreateDate" />
+            <PropertyRef Name="LineSource" />
+          </Key>
+          <Property Name="LineID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LeagueName" Type="nchar" MaxLength="8" Nullable="false" />
+          <Property Name="GameDate" Type="date" Nullable="false" />
+          <Property Name="RotNum" Type="int" Nullable="false" />
+          <Property Name="TeamAway" Type="nchar" MaxLength="4" Nullable="false" />
+          <Property Name="TeamHome" Type="nchar" MaxLength="4" Nullable="false" />
+          <Property Name="Line" Type="float" Nullable="false" />
+          <Property Name="PlayType" Type="nchar" MaxLength="4" Nullable="false" />
+          <Property Name="PlayDuration" Type="nchar" MaxLength="4" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="LineSource" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view '00TTI_LeagueScores.dbo.ParmTable' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ParmTable">
+          <Key>
+            <PropertyRef Name="ParmTableID" />
+            <PropertyRef Name="ParmName" />
+            <PropertyRef Name="ParmValue" />
+            <PropertyRef Name="DotNetType" />
+            <PropertyRef Name="Description" />
+            <PropertyRef Name="CreateUser" />
+            <PropertyRef Name="CreateDate" />
+          </Key>
+          <Property Name="ParmTableID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ParmName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ParmValue" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="DotNetType" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Scope" Type="varchar" MaxLength="50" />
+          <Property Name="CreateUser" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdateUser" Type="varchar" MaxLength="50" />
+          <Property Name="UpdateDate" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view '00TTI_LeagueScores.dbo.Rotation' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Rotation">
+          <Key>
+            <PropertyRef Name="RotationID" />
+            <PropertyRef Name="LeagueName" />
+            <PropertyRef Name="GameDate" />
+            <PropertyRef Name="RotNum" />
+            <PropertyRef Name="Venue" />
+            <PropertyRef Name="Team" />
+            <PropertyRef Name="Opp" />
+            <PropertyRef Name="GameTime" />
+            <PropertyRef Name="BoxScoreSource" />
+            <PropertyRef Name="CreateDate" />
+          </Key>
+          <Property Name="RotationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LeagueName" Type="char" MaxLength="8" Nullable="false" />
+          <Property Name="GameDate" Type="date" Nullable="false" />
+          <Property Name="RotNum" Type="int" Nullable="false" />
+          <Property Name="Venue" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="Team" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="Opp" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="GameTime" Type="char" MaxLength="5" Nullable="false" />
+          <Property Name="TV" Type="char" MaxLength="10" />
+          <Property Name="SideLine" Type="float" />
+          <Property Name="TotalLine" Type="float" />
+          <Property Name="TotalLineTeam" Type="float" />
+          <Property Name="TotalLineOpp" Type="float" />
+          <Property Name="OpenTotalLine" Type="float" />
+          <Property Name="BoxScoreSource" Type="nchar" MaxLength="21" Nullable="false" />
+          <Property Name="BoxScoreUrl" Type="nvarchar(max)" />
+          <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime2" Precision="7" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view '00TTI_LeagueScores.dbo.SeasonInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="SeasonInfo">
+          <Key>
+            <PropertyRef Name="LeagueInfoID" />
+            <PropertyRef Name="LeagueName" />
+            <PropertyRef Name="StartDate" />
+            <PropertyRef Name="EndDate" />
+            <PropertyRef Name="Season" />
+            <PropertyRef Name="SubSeason" />
+            <PropertyRef Name="Bypass" />
+            <PropertyRef Name="IncludePre" />
+            <PropertyRef Name="IncludePost" />
+            <PropertyRef Name="BoxscoreSource" />
+          </Key>
+          <Property Name="LeagueInfoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LeagueName" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="StartDate" Type="date" Nullable="false" />
+          <Property Name="EndDate" Type="date" Nullable="false" />
+          <Property Name="Season" Type="nvarchar" MaxLength="4" Nullable="false" />
+          <Property Name="SubSeason" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Bypass" Type="bit" Nullable="false" />
+          <Property Name="IncludePre" Type="bit" Nullable="false" />
+          <Property Name="IncludePost" Type="bit" Nullable="false" />
+          <Property Name="BoxscoreSource" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view '00TTI_LeagueScores.dbo.Users' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="UserPassword" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="UserPassword" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="TTI_LeagueScoresModelStoreContainer">
+          <EntitySet Name="AdjustmentsCodes" EntityType="Self.AdjustmentsCodes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DailySummary" EntityType="Self.DailySummary" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Adjustments" EntityType="Self.Adjustments" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Adjustments].[AdjustmentID] AS [AdjustmentID], 
+    [Adjustments].[LeagueName] AS [LeagueName], 
+    [Adjustments].[StartDate] AS [StartDate], 
+    [Adjustments].[EndDate] AS [EndDate], 
+    [Adjustments].[Team] AS [Team], 
+    [Adjustments].[AdjustmentType] AS [AdjustmentType], 
+    [Adjustments].[AdjustmentAmount] AS [AdjustmentAmount], 
+    [Adjustments].[Player] AS [Player], 
+    [Adjustments].[Description] AS [Description], 
+    [Adjustments].[TS] AS [TS]
+    FROM [dbo].[Adjustments] AS [Adjustments]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="AdjustmentsDaily" EntityType="Self.AdjustmentsDaily" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [AdjustmentsDaily].[AdjustmentsDailyID] AS [AdjustmentsDailyID], 
+    [AdjustmentsDaily].[LeagueName] AS [LeagueName], 
+    [AdjustmentsDaily].[GameDate] AS [GameDate], 
+    [AdjustmentsDaily].[RotNum] AS [RotNum], 
+    [AdjustmentsDaily].[Team] AS [Team], 
+    [AdjustmentsDaily].[AdjustmentAmount] AS [AdjustmentAmount]
+    FROM [dbo].[AdjustmentsDaily] AS [AdjustmentsDaily]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="BoxScores" EntityType="Self.BoxScores" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [BoxScores].[BoxScoresID] AS [BoxScoresID], 
+    [BoxScores].[Exclude] AS [Exclude], 
+    [BoxScores].[LeagueName] AS [LeagueName], 
+    [BoxScores].[GameDate] AS [GameDate], 
+    [BoxScores].[RotNum] AS [RotNum], 
+    [BoxScores].[Team] AS [Team], 
+    [BoxScores].[Opp] AS [Opp], 
+    [BoxScores].[Venue] AS [Venue], 
+    [BoxScores].[GameTime] AS [GameTime], 
+    [BoxScores].[Season] AS [Season], 
+    [BoxScores].[SubSeason] AS [SubSeason], 
+    [BoxScores].[MinutesPlayed] AS [MinutesPlayed], 
+    [BoxScores].[OtPeriods] AS [OtPeriods], 
+    [BoxScores].[ScoreReg] AS [ScoreReg], 
+    [BoxScores].[ScoreOT] AS [ScoreOT], 
+    [BoxScores].[ScoreRegUs] AS [ScoreRegUs], 
+    [BoxScores].[ScoreRegOp] AS [ScoreRegOp], 
+    [BoxScores].[ScoreOTUs] AS [ScoreOTUs], 
+    [BoxScores].[ScoreOTOp] AS [ScoreOTOp], 
+    [BoxScores].[ScoreQ1Us] AS [ScoreQ1Us], 
+    [BoxScores].[ScoreQ1Op] AS [ScoreQ1Op], 
+    [BoxScores].[ScoreQ2Us] AS [ScoreQ2Us], 
+    [BoxScores].[ScoreQ2Op] AS [ScoreQ2Op], 
+    [BoxScores].[ScoreQ3Us] AS [ScoreQ3Us], 
+    [BoxScores].[ScoreQ3Op] AS [ScoreQ3Op], 
+    [BoxScores].[ScoreQ4Us] AS [ScoreQ4Us], 
+    [BoxScores].[ScoreQ4Op] AS [ScoreQ4Op], 
+    [BoxScores].[ShotsActualMadeUsPt1] AS [ShotsActualMadeUsPt1], 
+    [BoxScores].[ShotsActualMadeUsPt2] AS [ShotsActualMadeUsPt2], 
+    [BoxScores].[ShotsActualMadeUsPt3] AS [ShotsActualMadeUsPt3], 
+    [BoxScores].[ShotsActualMadeOpPt1] AS [ShotsActualMadeOpPt1], 
+    [BoxScores].[ShotsActualMadeOpPt2] AS [ShotsActualMadeOpPt2], 
+    [BoxScores].[ShotsActualMadeOpPt3] AS [ShotsActualMadeOpPt3], 
+    [BoxScores].[ShotsActualAttemptedUsPt1] AS [ShotsActualAttemptedUsPt1], 
+    [BoxScores].[ShotsActualAttemptedUsPt2] AS [ShotsActualAttemptedUsPt2], 
+    [BoxScores].[ShotsActualAttemptedUsPt3] AS [ShotsActualAttemptedUsPt3], 
+    [BoxScores].[ShotsActualAttemptedOpPt1] AS [ShotsActualAttemptedOpPt1], 
+    [BoxScores].[ShotsActualAttemptedOpPt2] AS [ShotsActualAttemptedOpPt2], 
+    [BoxScores].[ShotsActualAttemptedOpPt3] AS [ShotsActualAttemptedOpPt3], 
+    [BoxScores].[ShotsMadeUsRegPt1] AS [ShotsMadeUsRegPt1], 
+    [BoxScores].[ShotsMadeUsRegPt2] AS [ShotsMadeUsRegPt2], 
+    [BoxScores].[ShotsMadeUsRegPt3] AS [ShotsMadeUsRegPt3], 
+    [BoxScores].[ShotsMadeOpRegPt1] AS [ShotsMadeOpRegPt1], 
+    [BoxScores].[ShotsMadeOpRegPt2] AS [ShotsMadeOpRegPt2], 
+    [BoxScores].[ShotsMadeOpRegPt3] AS [ShotsMadeOpRegPt3], 
+    [BoxScores].[ShotsAttemptedUsRegPt1] AS [ShotsAttemptedUsRegPt1], 
+    [BoxScores].[ShotsAttemptedUsRegPt2] AS [ShotsAttemptedUsRegPt2], 
+    [BoxScores].[ShotsAttemptedUsRegPt3] AS [ShotsAttemptedUsRegPt3], 
+    [BoxScores].[ShotsAttemptedOpRegPt1] AS [ShotsAttemptedOpRegPt1], 
+    [BoxScores].[ShotsAttemptedOpRegPt2] AS [ShotsAttemptedOpRegPt2], 
+    [BoxScores].[ShotsAttemptedOpRegPt3] AS [ShotsAttemptedOpRegPt3], 
+    [BoxScores].[TurnOversUs] AS [TurnOversUs], 
+    [BoxScores].[TurnOversOp] AS [TurnOversOp], 
+    [BoxScores].[OffRBUs] AS [OffRBUs], 
+    [BoxScores].[OffRBOp] AS [OffRBOp], 
+    [BoxScores].[AssistsUs] AS [AssistsUs], 
+    [BoxScores].[AssistsOp] AS [AssistsOp], 
+    [BoxScores].[Source] AS [Source], 
+    [BoxScores].[LoadDate] AS [LoadDate], 
+    [BoxScores].[LoadTimeSeconds] AS [LoadTimeSeconds]
+    FROM [dbo].[BoxScores] AS [BoxScores]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="BoxScoresLast5Min" EntityType="Self.BoxScoresLast5Min" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [BoxScoresLast5Min].[BoxScoresLast5MinID] AS [BoxScoresLast5MinID], 
+    [BoxScoresLast5Min].[LeagueName] AS [LeagueName], 
+    [BoxScoresLast5Min].[GameDate] AS [GameDate], 
+    [BoxScoresLast5Min].[RotNum] AS [RotNum], 
+    [BoxScoresLast5Min].[Team] AS [Team], 
+    [BoxScoresLast5Min].[Opp] AS [Opp], 
+    [BoxScoresLast5Min].[Venue] AS [Venue], 
+    [BoxScoresLast5Min].[Q4Last5MinScore] AS [Q4Last5MinScore], 
+    [BoxScoresLast5Min].[Q4Last1MinScore] AS [Q4Last1MinScore], 
+    [BoxScoresLast5Min].[Q4Score] AS [Q4Score], 
+    [BoxScoresLast5Min].[Q4Last1MinScoreUs] AS [Q4Last1MinScoreUs], 
+    [BoxScoresLast5Min].[Q4Last1MinScoreOp] AS [Q4Last1MinScoreOp], 
+    [BoxScoresLast5Min].[Q4Last1MinWinningTeam] AS [Q4Last1MinWinningTeam], 
+    [BoxScoresLast5Min].[Q4Last1MinUsPt1] AS [Q4Last1MinUsPt1], 
+    [BoxScoresLast5Min].[Q4Last1MinUsPt2] AS [Q4Last1MinUsPt2], 
+    [BoxScoresLast5Min].[Q4Last1MinUsPt3] AS [Q4Last1MinUsPt3], 
+    [BoxScoresLast5Min].[Q4Last1MinOpPt1] AS [Q4Last1MinOpPt1], 
+    [BoxScoresLast5Min].[Q4Last1MinOpPt2] AS [Q4Last1MinOpPt2], 
+    [BoxScoresLast5Min].[Q4Last1MinOpPt3] AS [Q4Last1MinOpPt3], 
+    [BoxScoresLast5Min].[Source] AS [Source], 
+    [BoxScoresLast5Min].[LoadDate] AS [LoadDate]
+    FROM [dbo].[BoxScoresLast5Min] AS [BoxScoresLast5Min]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Lines" EntityType="Self.Lines" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Lines].[LineID] AS [LineID], 
+    [Lines].[LeagueName] AS [LeagueName], 
+    [Lines].[GameDate] AS [GameDate], 
+    [Lines].[RotNum] AS [RotNum], 
+    [Lines].[TeamAway] AS [TeamAway], 
+    [Lines].[TeamHome] AS [TeamHome], 
+    [Lines].[Line] AS [Line], 
+    [Lines].[PlayType] AS [PlayType], 
+    [Lines].[PlayDuration] AS [PlayDuration], 
+    [Lines].[CreateDate] AS [CreateDate], 
+    [Lines].[LineSource] AS [LineSource]
+    FROM [dbo].[Lines] AS [Lines]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ParmTable" EntityType="Self.ParmTable" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ParmTable].[ParmTableID] AS [ParmTableID], 
+    [ParmTable].[ParmName] AS [ParmName], 
+    [ParmTable].[ParmValue] AS [ParmValue], 
+    [ParmTable].[DotNetType] AS [DotNetType], 
+    [ParmTable].[Description] AS [Description], 
+    [ParmTable].[Scope] AS [Scope], 
+    [ParmTable].[CreateUser] AS [CreateUser], 
+    [ParmTable].[CreateDate] AS [CreateDate], 
+    [ParmTable].[UpdateUser] AS [UpdateUser], 
+    [ParmTable].[UpdateDate] AS [UpdateDate]
+    FROM [dbo].[ParmTable] AS [ParmTable]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Rotation" EntityType="Self.Rotation" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Rotation].[RotationID] AS [RotationID], 
+    [Rotation].[LeagueName] AS [LeagueName], 
+    [Rotation].[GameDate] AS [GameDate], 
+    [Rotation].[RotNum] AS [RotNum], 
+    [Rotation].[Venue] AS [Venue], 
+    [Rotation].[Team] AS [Team], 
+    [Rotation].[Opp] AS [Opp], 
+    [Rotation].[GameTime] AS [GameTime], 
+    [Rotation].[TV] AS [TV], 
+    [Rotation].[SideLine] AS [SideLine], 
+    [Rotation].[TotalLine] AS [TotalLine], 
+    [Rotation].[TotalLineTeam] AS [TotalLineTeam], 
+    [Rotation].[TotalLineOpp] AS [TotalLineOpp], 
+    [Rotation].[OpenTotalLine] AS [OpenTotalLine], 
+    [Rotation].[BoxScoreSource] AS [BoxScoreSource], 
+    [Rotation].[BoxScoreUrl] AS [BoxScoreUrl], 
+    [Rotation].[CreateDate] AS [CreateDate], 
+    [Rotation].[UpdateDate] AS [UpdateDate]
+    FROM [dbo].[Rotation] AS [Rotation]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="SeasonInfo" EntityType="Self.SeasonInfo" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [SeasonInfo].[LeagueInfoID] AS [LeagueInfoID], 
+    [SeasonInfo].[LeagueName] AS [LeagueName], 
+    [SeasonInfo].[StartDate] AS [StartDate], 
+    [SeasonInfo].[EndDate] AS [EndDate], 
+    [SeasonInfo].[Season] AS [Season], 
+    [SeasonInfo].[SubSeason] AS [SubSeason], 
+    [SeasonInfo].[Bypass] AS [Bypass], 
+    [SeasonInfo].[IncludePre] AS [IncludePre], 
+    [SeasonInfo].[IncludePost] AS [IncludePost], 
+    [SeasonInfo].[BoxscoreSource] AS [BoxscoreSource]
+    FROM [dbo].[SeasonInfo] AS [SeasonInfo]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Users" EntityType="Self.Users" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Users].[UserID] AS [UserID], 
+    [Users].[UserName] AS [UserName], 
+    [Users].[UserPassword] AS [UserPassword]
+    FROM [dbo].[Users] AS [Users]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TTI_LeagueScoresModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AdjustmentsCodes">
+          <Key>
+            <PropertyRef Name="AdjustmentsCodesID" />
+          </Key>
+          <Property Name="AdjustmentsCodesID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="15" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Range" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DailySummary">
+          <Key>
+            <PropertyRef Name="DailySummaryID" />
+          </Key>
+          <Property Name="DailySummaryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GameDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="LeagueName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Season" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="SubSeason" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="SubSeasonPeriod" Type="Int32" Nullable="false" />
+          <Property Name="NumOfMatchups" Type="Int32" Nullable="false" />
+          <Property Name="LgAvgStartDate" Type="DateTime" Precision="0" />
+          <Property Name="LgAvgGamesBack" Type="Int32" />
+          <Property Name="LgAvgScoreAway" Type="Double" Nullable="false" />
+          <Property Name="LgAvgScoreHome" Type="Double" Nullable="false" />
+          <Property Name="LgAvgScoreFinal" Type="Double" Nullable="false" />
+          <Property Name="LgAvgShotsMadeAwayPt1" Type="Double" Nullable="false" />
+          <Property Name="LgAvgShotsMadeAwayPt2" Type="Double" Nullable="false" />
+          <Property Name="LgAvgShotsMadeAwayPt3" Type="Double" Nullable="false" />
+          <Property Name="LgAvgShotsMadeHomePt1" Type="Double" Nullable="false" />
+          <Property Name="LgAvgShotsMadeHomePt2" Type="Double" Nullable="false" />
+          <Property Name="LgAvgShotsMadeHomePt3" Type="Double" Nullable="false" />
+          <Property Name="LgAvgLastMinPts" Type="Double" Nullable="false" />
+          <Property Name="LgAvgLastMinPt1" Type="Double" Nullable="false" />
+          <Property Name="LgAvgLastMinPt2" Type="Double" Nullable="false" />
+          <Property Name="LgAvgLastMinPt3" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Adjustments">
+          <Key>
+            <PropertyRef Name="AdjustmentID" />
+            <PropertyRef Name="LeagueName" />
+            <PropertyRef Name="StartDate" />
+            <PropertyRef Name="Team" />
+            <PropertyRef Name="AdjustmentType" />
+            <PropertyRef Name="AdjustmentAmount" />
+            <PropertyRef Name="Description" />
+          </Key>
+          <Property Name="AdjustmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LeagueName" Type="String" MaxLength="8" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Precision="0" />
+          <Property Name="Team" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AdjustmentType" Type="String" MaxLength="1" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AdjustmentAmount" Type="Single" Nullable="false" />
+          <Property Name="Player" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TS" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="AdjustmentsDaily">
+          <Key>
+            <PropertyRef Name="AdjustmentsDailyID" />
+            <PropertyRef Name="LeagueName" />
+            <PropertyRef Name="GameDate" />
+            <PropertyRef Name="RotNum" />
+            <PropertyRef Name="Team" />
+            <PropertyRef Name="AdjustmentAmount" />
+          </Key>
+          <Property Name="AdjustmentsDailyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LeagueName" Type="String" MaxLength="9" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GameDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="RotNum" Type="Int32" Nullable="false" />
+          <Property Name="Team" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AdjustmentAmount" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BoxScores">
+          <Key>
+            <PropertyRef Name="BoxScoresID" />
+            <PropertyRef Name="Exclude" />
+            <PropertyRef Name="LeagueName" />
+            <PropertyRef Name="GameDate" />
+            <PropertyRef Name="RotNum" />
+            <PropertyRef Name="Team" />
+            <PropertyRef Name="Opp" />
+            <PropertyRef Name="Venue" />
+            <PropertyRef Name="GameTime" />
+            <PropertyRef Name="Season" />
+            <PropertyRef Name="SubSeason" />
+            <PropertyRef Name="MinutesPlayed" />
+            <PropertyRef Name="OtPeriods" />
+            <PropertyRef Name="ScoreReg" />
+            <PropertyRef Name="ScoreOT" />
+            <PropertyRef Name="ScoreRegUs" />
+            <PropertyRef Name="ScoreRegOp" />
+            <PropertyRef Name="ScoreOTUs" />
+            <PropertyRef Name="ScoreOTOp" />
+            <PropertyRef Name="ScoreQ1Us" />
+            <PropertyRef Name="ScoreQ1Op" />
+            <PropertyRef Name="ScoreQ2Us" />
+            <PropertyRef Name="ScoreQ2Op" />
+            <PropertyRef Name="ScoreQ3Us" />
+            <PropertyRef Name="ScoreQ3Op" />
+            <PropertyRef Name="ScoreQ4Us" />
+            <PropertyRef Name="ScoreQ4Op" />
+            <PropertyRef Name="ShotsActualMadeUsPt1" />
+            <PropertyRef Name="ShotsActualMadeUsPt2" />
+            <PropertyRef Name="ShotsActualMadeUsPt3" />
+            <PropertyRef Name="ShotsActualMadeOpPt1" />
+            <PropertyRef Name="ShotsActualMadeOpPt2" />
+            <PropertyRef Name="ShotsActualMadeOpPt3" />
+            <PropertyRef Name="ShotsActualAttemptedUsPt1" />
+            <PropertyRef Name="ShotsActualAttemptedUsPt2" />
+            <PropertyRef Name="ShotsActualAttemptedUsPt3" />
+            <PropertyRef Name="ShotsActualAttemptedOpPt1" />
+            <PropertyRef Name="ShotsActualAttemptedOpPt2" />
+            <PropertyRef Name="ShotsActualAttemptedOpPt3" />
+            <PropertyRef Name="ShotsMadeUsRegPt1" />
+            <PropertyRef Name="ShotsMadeUsRegPt2" />
+            <PropertyRef Name="ShotsMadeUsRegPt3" />
+            <PropertyRef Name="ShotsMadeOpRegPt1" />
+            <PropertyRef Name="ShotsMadeOpRegPt2" />
+            <PropertyRef Name="ShotsMadeOpRegPt3" />
+            <PropertyRef Name="ShotsAttemptedUsRegPt1" />
+            <PropertyRef Name="ShotsAttemptedUsRegPt2" />
+            <PropertyRef Name="ShotsAttemptedUsRegPt3" />
+            <PropertyRef Name="ShotsAttemptedOpRegPt1" />
+            <PropertyRef Name="ShotsAttemptedOpRegPt2" />
+            <PropertyRef Name="ShotsAttemptedOpRegPt3" />
+            <PropertyRef Name="TurnOversUs" />
+            <PropertyRef Name="TurnOversOp" />
+            <PropertyRef Name="OffRBUs" />
+            <PropertyRef Name="OffRBOp" />
+            <PropertyRef Name="AssistsUs" />
+            <PropertyRef Name="AssistsOp" />
+            <PropertyRef Name="Source" />
+            <PropertyRef Name="LoadDate" />
+            <PropertyRef Name="LoadTimeSeconds" />
+          </Key>
+          <Property Name="BoxScoresID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Exclude" Type="Boolean" Nullable="false" />
+          <Property Name="LeagueName" Type="String" MaxLength="9" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GameDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="RotNum" Type="Int32" Nullable="false" />
+          <Property Name="Team" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Opp" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Venue" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GameTime" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Season" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SubSeason" Type="String" MaxLength="7" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MinutesPlayed" Type="Int32" Nullable="false" />
+          <Property Name="OtPeriods" Type="Int32" Nullable="false" />
+          <Property Name="ScoreReg" Type="Double" Nullable="false" />
+          <Property Name="ScoreOT" Type="Double" Nullable="false" />
+          <Property Name="ScoreRegUs" Type="Double" Nullable="false" />
+          <Property Name="ScoreRegOp" Type="Double" Nullable="false" />
+          <Property Name="ScoreOTUs" Type="Double" Nullable="false" />
+          <Property Name="ScoreOTOp" Type="Double" Nullable="false" />
+          <Property Name="ScoreQ1Us" Type="Double" Nullable="false" />
+          <Property Name="ScoreQ1Op" Type="Double" Nullable="false" />
+          <Property Name="ScoreQ2Us" Type="Double" Nullable="false" />
+          <Property Name="ScoreQ2Op" Type="Double" Nullable="false" />
+          <Property Name="ScoreQ3Us" Type="Double" Nullable="false" />
+          <Property Name="ScoreQ3Op" Type="Double" Nullable="false" />
+          <Property Name="ScoreQ4Us" Type="Double" Nullable="false" />
+          <Property Name="ScoreQ4Op" Type="Double" Nullable="false" />
+          <Property Name="ShotsActualMadeUsPt1" Type="Double" Nullable="false" />
+          <Property Name="ShotsActualMadeUsPt2" Type="Double" Nullable="false" />
+          <Property Name="ShotsActualMadeUsPt3" Type="Double" Nullable="false" />
+          <Property Name="ShotsActualMadeOpPt1" Type="Double" Nullable="false" />
+          <Property Name="ShotsActualMadeOpPt2" Type="Double" Nullable="false" />
+          <Property Name="ShotsActualMadeOpPt3" Type="Double" Nullable="false" />
+          <Property Name="ShotsActualAttemptedUsPt1" Type="Double" Nullable="false" />
+          <Property Name="ShotsActualAttemptedUsPt2" Type="Double" Nullable="false" />
+          <Property Name="ShotsActualAttemptedUsPt3" Type="Double" Nullable="false" />
+          <Property Name="ShotsActualAttemptedOpPt1" Type="Double" Nullable="false" />
+          <Property Name="ShotsActualAttemptedOpPt2" Type="Double" Nullable="false" />
+          <Property Name="ShotsActualAttemptedOpPt3" Type="Double" Nullable="false" />
+          <Property Name="ShotsMadeUsRegPt1" Type="Double" Nullable="false" />
+          <Property Name="ShotsMadeUsRegPt2" Type="Double" Nullable="false" />
+          <Property Name="ShotsMadeUsRegPt3" Type="Double" Nullable="false" />
+          <Property Name="ShotsMadeOpRegPt1" Type="Double" Nullable="false" />
+          <Property Name="ShotsMadeOpRegPt2" Type="Double" Nullable="false" />
+          <Property Name="ShotsMadeOpRegPt3" Type="Double" Nullable="false" />
+          <Property Name="ShotsAttemptedUsRegPt1" Type="Double" Nullable="false" />
+          <Property Name="ShotsAttemptedUsRegPt2" Type="Double" Nullable="false" />
+          <Property Name="ShotsAttemptedUsRegPt3" Type="Double" Nullable="false" />
+          <Property Name="ShotsAttemptedOpRegPt1" Type="Double" Nullable="false" />
+          <Property Name="ShotsAttemptedOpRegPt2" Type="Double" Nullable="false" />
+          <Property Name="ShotsAttemptedOpRegPt3" Type="Double" Nullable="false" />
+          <Property Name="TurnOversUs" Type="Double" Nullable="false" />
+          <Property Name="TurnOversOp" Type="Double" Nullable="false" />
+          <Property Name="OffRBUs" Type="Double" Nullable="false" />
+          <Property Name="OffRBOp" Type="Double" Nullable="false" />
+          <Property Name="AssistsUs" Type="Double" Nullable="false" />
+          <Property Name="AssistsOp" Type="Double" Nullable="false" />
+          <Property Name="Source" Type="String" MaxLength="21" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LoadDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="LoadTimeSeconds" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Lines">
+          <Key>
+            <PropertyRef Name="LineID" />
+            <PropertyRef Name="LeagueName" />
+            <PropertyRef Name="GameDate" />
+            <PropertyRef Name="RotNum" />
+            <PropertyRef Name="TeamAway" />
+            <PropertyRef Name="TeamHome" />
+            <PropertyRef Name="Line" />
+            <PropertyRef Name="PlayType" />
+            <PropertyRef Name="PlayDuration" />
+            <PropertyRef Name="CreateDate" />
+            <PropertyRef Name="LineSource" />
+          </Key>
+          <Property Name="LineID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LeagueName" Type="String" MaxLength="8" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="GameDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="RotNum" Type="Int32" Nullable="false" />
+          <Property Name="TeamAway" Type="String" MaxLength="4" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="TeamHome" Type="String" MaxLength="4" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Line" Type="Double" Nullable="false" />
+          <Property Name="PlayType" Type="String" MaxLength="4" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="PlayDuration" Type="String" MaxLength="4" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="LineSource" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="BballEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AdjustmentsCodes" EntityType="Self.AdjustmentsCodes" />
+          <EntitySet Name="DailySummary" EntityType="Self.DailySummary" />
+          <EntitySet Name="Adjustments" EntityType="Self.Adjustments" />
+          <EntitySet Name="AdjustmentsDaily" EntityType="Self.AdjustmentsDaily" />
+          <EntitySet Name="BoxScores" EntityType="Self.BoxScores" />
+          <EntitySet Name="Lines" EntityType="Self.Lines" />
+          <EntitySet Name="SeasonInfo" EntityType="TTI_LeagueScoresModel.SeasonInfo" />
+          <EntitySet Name="ParmTables" EntityType="TTI_LeagueScoresModel.ParmTable" />
+          <EntitySet Name="BoxScoresLast5Min" EntityType="TTI_LeagueScoresModel.BoxScoresLast5Min" />
+          <EntitySet Name="Users" EntityType="TTI_LeagueScoresModel.User" />
+          <EntitySet Name="Rotation" EntityType="TTI_LeagueScoresModel.Rotation" />
+        </EntityContainer>
+        <EntityType Name="SeasonInfo">
+          <Key>
+            <PropertyRef Name="LeagueInfoID" />
+            <PropertyRef Name="LeagueName" />
+            <PropertyRef Name="StartDate" />
+            <PropertyRef Name="EndDate" />
+            <PropertyRef Name="Season" />
+            <PropertyRef Name="SubSeason" />
+            <PropertyRef Name="Bypass" />
+            <PropertyRef Name="IncludePre" />
+            <PropertyRef Name="IncludePost" />
+            <PropertyRef Name="BoxscoreSource" />
+          </Key>
+          <Property Name="LeagueInfoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LeagueName" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Season" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="SubSeason" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Bypass" Type="Boolean" Nullable="false" />
+          <Property Name="IncludePre" Type="Boolean" Nullable="false" />
+          <Property Name="IncludePost" Type="Boolean" Nullable="false" />
+          <Property Name="BoxscoreSource" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ParmTable">
+          <Key>
+            <PropertyRef Name="ParmTableID" />
+            <PropertyRef Name="ParmName" />
+            <PropertyRef Name="ParmValue" />
+            <PropertyRef Name="DotNetType" />
+            <PropertyRef Name="Description" />
+            <PropertyRef Name="CreateUser" />
+            <PropertyRef Name="CreateDate" />
+          </Key>
+          <Property Name="ParmTableID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ParmName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ParmValue" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="DotNetType" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Scope" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateUser" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateUser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="BoxScoresLast5Min">
+          <Key>
+            <PropertyRef Name="BoxScoresLast5MinID" />
+            <PropertyRef Name="LeagueName" />
+            <PropertyRef Name="GameDate" />
+            <PropertyRef Name="RotNum" />
+            <PropertyRef Name="Team" />
+            <PropertyRef Name="Opp" />
+            <PropertyRef Name="Venue" />
+            <PropertyRef Name="Q4Last5MinScore" />
+            <PropertyRef Name="Q4Last1MinScore" />
+            <PropertyRef Name="Q4Score" />
+            <PropertyRef Name="Q4Last1MinScoreUs" />
+            <PropertyRef Name="Q4Last1MinScoreOp" />
+            <PropertyRef Name="Q4Last1MinWinningTeam" />
+            <PropertyRef Name="Q4Last1MinUsPt1" />
+            <PropertyRef Name="Q4Last1MinUsPt2" />
+            <PropertyRef Name="Q4Last1MinUsPt3" />
+            <PropertyRef Name="Q4Last1MinOpPt1" />
+            <PropertyRef Name="Q4Last1MinOpPt2" />
+            <PropertyRef Name="Q4Last1MinOpPt3" />
+            <PropertyRef Name="Source" />
+            <PropertyRef Name="LoadDate" />
+          </Key>
+          <Property Name="BoxScoresLast5MinID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LeagueName" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="true" />
+          <Property Name="GameDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="RotNum" Type="Int32" Nullable="false" />
+          <Property Name="Team" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="Opp" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="Venue" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Q4Last5MinScore" Type="Double" Nullable="false" />
+          <Property Name="Q4Last1MinScore" Type="Double" Nullable="false" />
+          <Property Name="Q4Score" Type="Double" Nullable="false" />
+          <Property Name="Q4Last1MinScoreUs" Type="Double" Nullable="false" />
+          <Property Name="Q4Last1MinScoreOp" Type="Double" Nullable="false" />
+          <Property Name="Q4Last1MinWinningTeam" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="Q4Last1MinUsPt1" Type="Double" Nullable="false" />
+          <Property Name="Q4Last1MinUsPt2" Type="Double" Nullable="false" />
+          <Property Name="Q4Last1MinUsPt3" Type="Double" Nullable="false" />
+          <Property Name="Q4Last1MinOpPt1" Type="Double" Nullable="false" />
+          <Property Name="Q4Last1MinOpPt2" Type="Double" Nullable="false" />
+          <Property Name="Q4Last1MinOpPt3" Type="Double" Nullable="false" />
+          <Property Name="Source" Type="String" Nullable="false" MaxLength="21" FixedLength="false" Unicode="true" />
+          <Property Name="LoadDate" Type="DateTime" Nullable="false" Precision="7" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="UserPassword" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="UserPassword" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Rotation">
+          <Key>
+            <PropertyRef Name="RotationID" />
+            <PropertyRef Name="LeagueName" />
+            <PropertyRef Name="GameDate" />
+            <PropertyRef Name="RotNum" />
+            <PropertyRef Name="Venue" />
+            <PropertyRef Name="Team" />
+            <PropertyRef Name="Opp" />
+            <PropertyRef Name="GameTime" />
+            <PropertyRef Name="BoxScoreSource" />
+            <PropertyRef Name="CreateDate" />
+          </Key>
+          <Property Name="RotationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LeagueName" Type="String" Nullable="false" MaxLength="8" FixedLength="true" Unicode="false" />
+          <Property Name="GameDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="RotNum" Type="Int32" Nullable="false" />
+          <Property Name="Venue" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="Team" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="Opp" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="GameTime" Type="String" Nullable="false" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="TV" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="SideLine" Type="Double" />
+          <Property Name="TotalLine" Type="Double" />
+          <Property Name="TotalLineTeam" Type="Double" />
+          <Property Name="TotalLineOpp" Type="Double" />
+          <Property Name="OpenTotalLine" Type="Double" />
+          <Property Name="BoxScoreSource" Type="String" Nullable="false" MaxLength="21" FixedLength="true" Unicode="true" />
+          <Property Name="BoxScoreUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="7" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TTI_LeagueScoresModelStoreContainer" CdmEntityContainer="BballEntities1">
+          <EntitySetMapping Name="AdjustmentsCodes">
+            <EntityTypeMapping TypeName="TTI_LeagueScoresModel.AdjustmentsCodes">
+              <MappingFragment StoreEntitySet="AdjustmentsCodes">
+                <ScalarProperty Name="AdjustmentsCodesID" ColumnName="AdjustmentsCodesID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Range" ColumnName="Range" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DailySummary">
+            <EntityTypeMapping TypeName="TTI_LeagueScoresModel.DailySummary">
+              <MappingFragment StoreEntitySet="DailySummary">
+                <ScalarProperty Name="DailySummaryID" ColumnName="DailySummaryID" />
+                <ScalarProperty Name="GameDate" ColumnName="GameDate" />
+                <ScalarProperty Name="LeagueName" ColumnName="LeagueName" />
+                <ScalarProperty Name="Season" ColumnName="Season" />
+                <ScalarProperty Name="SubSeason" ColumnName="SubSeason" />
+                <ScalarProperty Name="SubSeasonPeriod" ColumnName="SubSeasonPeriod" />
+                <ScalarProperty Name="NumOfMatchups" ColumnName="NumOfMatchups" />
+                <ScalarProperty Name="LgAvgStartDate" ColumnName="LgAvgStartDate" />
+                <ScalarProperty Name="LgAvgGamesBack" ColumnName="LgAvgGamesBack" />
+                <ScalarProperty Name="LgAvgScoreAway" ColumnName="LgAvgScoreAway" />
+                <ScalarProperty Name="LgAvgScoreHome" ColumnName="LgAvgScoreHome" />
+                <ScalarProperty Name="LgAvgScoreFinal" ColumnName="LgAvgScoreFinal" />
+                <ScalarProperty Name="LgAvgShotsMadeAwayPt1" ColumnName="LgAvgShotsMadeAwayPt1" />
+                <ScalarProperty Name="LgAvgShotsMadeAwayPt2" ColumnName="LgAvgShotsMadeAwayPt2" />
+                <ScalarProperty Name="LgAvgShotsMadeAwayPt3" ColumnName="LgAvgShotsMadeAwayPt3" />
+                <ScalarProperty Name="LgAvgShotsMadeHomePt1" ColumnName="LgAvgShotsMadeHomePt1" />
+                <ScalarProperty Name="LgAvgShotsMadeHomePt2" ColumnName="LgAvgShotsMadeHomePt2" />
+                <ScalarProperty Name="LgAvgShotsMadeHomePt3" ColumnName="LgAvgShotsMadeHomePt3" />
+                <ScalarProperty Name="LgAvgLastMinPts" ColumnName="LgAvgLastMinPts" />
+                <ScalarProperty Name="LgAvgLastMinPt1" ColumnName="LgAvgLastMinPt1" />
+                <ScalarProperty Name="LgAvgLastMinPt2" ColumnName="LgAvgLastMinPt2" />
+                <ScalarProperty Name="LgAvgLastMinPt3" ColumnName="LgAvgLastMinPt3" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Adjustments">
+            <EntityTypeMapping TypeName="TTI_LeagueScoresModel.Adjustments">
+              <MappingFragment StoreEntitySet="Adjustments">
+                <ScalarProperty Name="AdjustmentID" ColumnName="AdjustmentID" />
+                <ScalarProperty Name="LeagueName" ColumnName="LeagueName" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="Team" ColumnName="Team" />
+                <ScalarProperty Name="AdjustmentType" ColumnName="AdjustmentType" />
+                <ScalarProperty Name="AdjustmentAmount" ColumnName="AdjustmentAmount" />
+                <ScalarProperty Name="Player" ColumnName="Player" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="TS" ColumnName="TS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AdjustmentsDaily">
+            <EntityTypeMapping TypeName="TTI_LeagueScoresModel.AdjustmentsDaily">
+              <MappingFragment StoreEntitySet="AdjustmentsDaily">
+                <ScalarProperty Name="AdjustmentsDailyID" ColumnName="AdjustmentsDailyID" />
+                <ScalarProperty Name="LeagueName" ColumnName="LeagueName" />
+                <ScalarProperty Name="GameDate" ColumnName="GameDate" />
+                <ScalarProperty Name="RotNum" ColumnName="RotNum" />
+                <ScalarProperty Name="Team" ColumnName="Team" />
+                <ScalarProperty Name="AdjustmentAmount" ColumnName="AdjustmentAmount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BoxScores">
+            <EntityTypeMapping TypeName="TTI_LeagueScoresModel.BoxScores">
+              <MappingFragment StoreEntitySet="BoxScores">
+                <ScalarProperty Name="BoxScoresID" ColumnName="BoxScoresID" />
+                <ScalarProperty Name="Exclude" ColumnName="Exclude" />
+                <ScalarProperty Name="LeagueName" ColumnName="LeagueName" />
+                <ScalarProperty Name="GameDate" ColumnName="GameDate" />
+                <ScalarProperty Name="RotNum" ColumnName="RotNum" />
+                <ScalarProperty Name="Team" ColumnName="Team" />
+                <ScalarProperty Name="Opp" ColumnName="Opp" />
+                <ScalarProperty Name="Venue" ColumnName="Venue" />
+                <ScalarProperty Name="GameTime" ColumnName="GameTime" />
+                <ScalarProperty Name="Season" ColumnName="Season" />
+                <ScalarProperty Name="SubSeason" ColumnName="SubSeason" />
+                <ScalarProperty Name="MinutesPlayed" ColumnName="MinutesPlayed" />
+                <ScalarProperty Name="OtPeriods" ColumnName="OtPeriods" />
+                <ScalarProperty Name="ScoreReg" ColumnName="ScoreReg" />
+                <ScalarProperty Name="ScoreOT" ColumnName="ScoreOT" />
+                <ScalarProperty Name="ScoreRegUs" ColumnName="ScoreRegUs" />
+                <ScalarProperty Name="ScoreRegOp" ColumnName="ScoreRegOp" />
+                <ScalarProperty Name="ScoreOTUs" ColumnName="ScoreOTUs" />
+                <ScalarProperty Name="ScoreOTOp" ColumnName="ScoreOTOp" />
+                <ScalarProperty Name="ScoreQ1Us" ColumnName="ScoreQ1Us" />
+                <ScalarProperty Name="ScoreQ1Op" ColumnName="ScoreQ1Op" />
+                <ScalarProperty Name="ScoreQ2Us" ColumnName="ScoreQ2Us" />
+                <ScalarProperty Name="ScoreQ2Op" ColumnName="ScoreQ2Op" />
+                <ScalarProperty Name="ScoreQ3Us" ColumnName="ScoreQ3Us" />
+                <ScalarProperty Name="ScoreQ3Op" ColumnName="ScoreQ3Op" />
+                <ScalarProperty Name="ScoreQ4Us" ColumnName="ScoreQ4Us" />
+                <ScalarProperty Name="ScoreQ4Op" ColumnName="ScoreQ4Op" />
+                <ScalarProperty Name="ShotsActualMadeUsPt1" ColumnName="ShotsActualMadeUsPt1" />
+                <ScalarProperty Name="ShotsActualMadeUsPt2" ColumnName="ShotsActualMadeUsPt2" />
+                <ScalarProperty Name="ShotsActualMadeUsPt3" ColumnName="ShotsActualMadeUsPt3" />
+                <ScalarProperty Name="ShotsActualMadeOpPt1" ColumnName="ShotsActualMadeOpPt1" />
+                <ScalarProperty Name="ShotsActualMadeOpPt2" ColumnName="ShotsActualMadeOpPt2" />
+                <ScalarProperty Name="ShotsActualMadeOpPt3" ColumnName="ShotsActualMadeOpPt3" />
+                <ScalarProperty Name="ShotsActualAttemptedUsPt1" ColumnName="ShotsActualAttemptedUsPt1" />
+                <ScalarProperty Name="ShotsActualAttemptedUsPt2" ColumnName="ShotsActualAttemptedUsPt2" />
+                <ScalarProperty Name="ShotsActualAttemptedUsPt3" ColumnName="ShotsActualAttemptedUsPt3" />
+                <ScalarProperty Name="ShotsActualAttemptedOpPt1" ColumnName="ShotsActualAttemptedOpPt1" />
+                <ScalarProperty Name="ShotsActualAttemptedOpPt2" ColumnName="ShotsActualAttemptedOpPt2" />
+                <ScalarProperty Name="ShotsActualAttemptedOpPt3" ColumnName="ShotsActualAttemptedOpPt3" />
+                <ScalarProperty Name="ShotsMadeUsRegPt1" ColumnName="ShotsMadeUsRegPt1" />
+                <ScalarProperty Name="ShotsMadeUsRegPt2" ColumnName="ShotsMadeUsRegPt2" />
+                <ScalarProperty Name="ShotsMadeUsRegPt3" ColumnName="ShotsMadeUsRegPt3" />
+                <ScalarProperty Name="ShotsMadeOpRegPt1" ColumnName="ShotsMadeOpRegPt1" />
+                <ScalarProperty Name="ShotsMadeOpRegPt2" ColumnName="ShotsMadeOpRegPt2" />
+                <ScalarProperty Name="ShotsMadeOpRegPt3" ColumnName="ShotsMadeOpRegPt3" />
+                <ScalarProperty Name="ShotsAttemptedUsRegPt1" ColumnName="ShotsAttemptedUsRegPt1" />
+                <ScalarProperty Name="ShotsAttemptedUsRegPt2" ColumnName="ShotsAttemptedUsRegPt2" />
+                <ScalarProperty Name="ShotsAttemptedUsRegPt3" ColumnName="ShotsAttemptedUsRegPt3" />
+                <ScalarProperty Name="ShotsAttemptedOpRegPt1" ColumnName="ShotsAttemptedOpRegPt1" />
+                <ScalarProperty Name="ShotsAttemptedOpRegPt2" ColumnName="ShotsAttemptedOpRegPt2" />
+                <ScalarProperty Name="ShotsAttemptedOpRegPt3" ColumnName="ShotsAttemptedOpRegPt3" />
+                <ScalarProperty Name="TurnOversUs" ColumnName="TurnOversUs" />
+                <ScalarProperty Name="TurnOversOp" ColumnName="TurnOversOp" />
+                <ScalarProperty Name="OffRBUs" ColumnName="OffRBUs" />
+                <ScalarProperty Name="OffRBOp" ColumnName="OffRBOp" />
+                <ScalarProperty Name="AssistsUs" ColumnName="AssistsUs" />
+                <ScalarProperty Name="AssistsOp" ColumnName="AssistsOp" />
+                <ScalarProperty Name="Source" ColumnName="Source" />
+                <ScalarProperty Name="LoadDate" ColumnName="LoadDate" />
+                <ScalarProperty Name="LoadTimeSeconds" ColumnName="LoadTimeSeconds" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lines">
+            <EntityTypeMapping TypeName="TTI_LeagueScoresModel.Lines">
+              <MappingFragment StoreEntitySet="Lines">
+                <ScalarProperty Name="LineID" ColumnName="LineID" />
+                <ScalarProperty Name="LeagueName" ColumnName="LeagueName" />
+                <ScalarProperty Name="GameDate" ColumnName="GameDate" />
+                <ScalarProperty Name="RotNum" ColumnName="RotNum" />
+                <ScalarProperty Name="TeamAway" ColumnName="TeamAway" />
+                <ScalarProperty Name="TeamHome" ColumnName="TeamHome" />
+                <ScalarProperty Name="Line" ColumnName="Line" />
+                <ScalarProperty Name="PlayType" ColumnName="PlayType" />
+                <ScalarProperty Name="PlayDuration" ColumnName="PlayDuration" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="LineSource" ColumnName="LineSource" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SeasonInfo">
+            <EntityTypeMapping TypeName="TTI_LeagueScoresModel.SeasonInfo">
+              <MappingFragment StoreEntitySet="SeasonInfo">
+                <ScalarProperty Name="BoxscoreSource" ColumnName="BoxscoreSource" />
+                <ScalarProperty Name="IncludePost" ColumnName="IncludePost" />
+                <ScalarProperty Name="IncludePre" ColumnName="IncludePre" />
+                <ScalarProperty Name="Bypass" ColumnName="Bypass" />
+                <ScalarProperty Name="SubSeason" ColumnName="SubSeason" />
+                <ScalarProperty Name="Season" ColumnName="Season" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="LeagueName" ColumnName="LeagueName" />
+                <ScalarProperty Name="LeagueInfoID" ColumnName="LeagueInfoID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ParmTables">
+            <EntityTypeMapping TypeName="TTI_LeagueScoresModel.ParmTable">
+              <MappingFragment StoreEntitySet="ParmTable">
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="Scope" ColumnName="Scope" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="DotNetType" ColumnName="DotNetType" />
+                <ScalarProperty Name="ParmValue" ColumnName="ParmValue" />
+                <ScalarProperty Name="ParmName" ColumnName="ParmName" />
+                <ScalarProperty Name="ParmTableID" ColumnName="ParmTableID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BoxScoresLast5Min">
+            <EntityTypeMapping TypeName="TTI_LeagueScoresModel.BoxScoresLast5Min">
+              <MappingFragment StoreEntitySet="BoxScoresLast5Min">
+                <ScalarProperty Name="LoadDate" ColumnName="LoadDate" />
+                <ScalarProperty Name="Source" ColumnName="Source" />
+                <ScalarProperty Name="Q4Last1MinOpPt3" ColumnName="Q4Last1MinOpPt3" />
+                <ScalarProperty Name="Q4Last1MinOpPt2" ColumnName="Q4Last1MinOpPt2" />
+                <ScalarProperty Name="Q4Last1MinOpPt1" ColumnName="Q4Last1MinOpPt1" />
+                <ScalarProperty Name="Q4Last1MinUsPt3" ColumnName="Q4Last1MinUsPt3" />
+                <ScalarProperty Name="Q4Last1MinUsPt2" ColumnName="Q4Last1MinUsPt2" />
+                <ScalarProperty Name="Q4Last1MinUsPt1" ColumnName="Q4Last1MinUsPt1" />
+                <ScalarProperty Name="Q4Last1MinWinningTeam" ColumnName="Q4Last1MinWinningTeam" />
+                <ScalarProperty Name="Q4Last1MinScoreOp" ColumnName="Q4Last1MinScoreOp" />
+                <ScalarProperty Name="Q4Last1MinScoreUs" ColumnName="Q4Last1MinScoreUs" />
+                <ScalarProperty Name="Q4Score" ColumnName="Q4Score" />
+                <ScalarProperty Name="Q4Last1MinScore" ColumnName="Q4Last1MinScore" />
+                <ScalarProperty Name="Q4Last5MinScore" ColumnName="Q4Last5MinScore" />
+                <ScalarProperty Name="Venue" ColumnName="Venue" />
+                <ScalarProperty Name="Opp" ColumnName="Opp" />
+                <ScalarProperty Name="Team" ColumnName="Team" />
+                <ScalarProperty Name="RotNum" ColumnName="RotNum" />
+                <ScalarProperty Name="GameDate" ColumnName="GameDate" />
+                <ScalarProperty Name="LeagueName" ColumnName="LeagueName" />
+                <ScalarProperty Name="BoxScoresLast5MinID" ColumnName="BoxScoresLast5MinID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="TTI_LeagueScoresModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rotation">
+            <EntityTypeMapping TypeName="TTI_LeagueScoresModel.Rotation">
+              <MappingFragment StoreEntitySet="Rotation">
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="BoxScoreUrl" ColumnName="BoxScoreUrl" />
+                <ScalarProperty Name="BoxScoreSource" ColumnName="BoxScoreSource" />
+                <ScalarProperty Name="OpenTotalLine" ColumnName="OpenTotalLine" />
+                <ScalarProperty Name="TotalLineOpp" ColumnName="TotalLineOpp" />
+                <ScalarProperty Name="TotalLineTeam" ColumnName="TotalLineTeam" />
+                <ScalarProperty Name="TotalLine" ColumnName="TotalLine" />
+                <ScalarProperty Name="SideLine" ColumnName="SideLine" />
+                <ScalarProperty Name="TV" ColumnName="TV" />
+                <ScalarProperty Name="GameTime" ColumnName="GameTime" />
+                <ScalarProperty Name="Opp" ColumnName="Opp" />
+                <ScalarProperty Name="Team" ColumnName="Team" />
+                <ScalarProperty Name="Venue" ColumnName="Venue" />
+                <ScalarProperty Name="RotNum" ColumnName="RotNum" />
+                <ScalarProperty Name="GameDate" ColumnName="GameDate" />
+                <ScalarProperty Name="LeagueName" ColumnName="LeagueName" />
+                <ScalarProperty Name="RotationID" ColumnName="RotationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

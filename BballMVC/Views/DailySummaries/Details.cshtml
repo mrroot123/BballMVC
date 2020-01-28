@@ -1,0 +1,66 @@
+﻿@model BballMVC.Models.DailySummary
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>DailySummary</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.GameDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GameDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LeagueName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LeagueName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Season)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Season)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SubSeason)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubSeason)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SubSeasonPeriod)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubSeasonPeriod)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumOfMatchups)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumOfMatchups)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.DailySummaryID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

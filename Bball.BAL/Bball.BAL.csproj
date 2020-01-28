@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3A1280EA-5C97-4EF5-9EC2-15BB5B272A6C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Bball.BAL</RootNamespace>
+    <AssemblyName>Bball.BAL</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="LoadBoxScores.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\CommonClasses\DAL.Functions\SysDAL.Functions.csproj">
+      <Project>{f08657dc-56b9-4ea3-9bab-c3234c143145}</Project>
+      <Name>SysDAL.Functions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CommonCS\Trace\Trace.csproj">
+      <Project>{36511eba-996e-4ab7-bdf2-148181d1b7c1}</Project>
+      <Name>Trace</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bball.DAL\Bball.DAL.csproj">
+      <Project>{b9db69ff-5285-413f-bae1-9a9433f5bc5d}</Project>
+      <Name>Bball.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bball.DataBaseFunctions\Bball.DataBaseFunctions.csproj">
+      <Project>{337ecf5c-824b-4404-8636-8db6e405754b}</Project>
+      <Name>Bball.DataBaseFunctions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bball.VbClasses\Bball.VbClasses.vbproj">
+      <Project>{1adb0d1e-c267-482f-bcf3-618978f74730}</Project>
+      <Name>Bball.VbClasses</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BballMVC.DTOs\BballMVC.DTOs.csproj">
+      <Project>{853742b2-9d6c-4673-8a8d-8cfe9759939d}</Project>
+      <Name>BballMVC.DTOs</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

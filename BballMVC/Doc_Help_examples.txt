@@ -1,0 +1,81 @@
+﻿
+TOC
+
+ VSIX Installer - Advanced Installer for Visual Studio 2017 - Installed 12/24/2019 learn how to use
+
+Application Functions
+   Insert Row -          
+      SqlFunctions.DALInsertRow(DailySummaryTable, ColumnNames, populateDTO(NumOfMatchups), populateBoxScoreValuesForInsert, _ConnectionString);
+   Query
+      SysDAL.DALfunctions.ExecuteSqlQuery(string ConnectionString, string strSql, List<object> ocRows, object oRow, PopulateDTO delPopulateDTO)
+
+DonBest Url
+   http://www.donbest.com/nba/odds/20200109.html Opening Lines
+   http://www.donbest.com/nba/scores_summary/3-509-20200110-sum/ HalfTime odds 1st or 2nd???
+
+Modify Table Structure
+   1) Change in SS
+   -- Populate Null columns
+   -- Go into Table Design and remove Nulls where applicable
+   2) Get new columns
+   -- Select top 1000
+   -- Cut & Paste cols WITHOUT ID Field into Textpad
+   -- run macro Sql Col names
+   -- Paste cols into Table class "{TableName}Columns" constant
+   -- In Textpad Change all , --> \n in and paste rows of column names into Step 4
+   -- BUILD
+   3) Rebuild Model in BballMVC Edmx
+   -- Open edmx, Delete Table, BUILD
+   -- right clk on space, update model, Add Table, BUILD -- new model generated
+   -- copy Model to DTOs
+   4) IN Bball.DAL.Tables Update populate{TableName}Values ex: populateBoxScoresValues
+   -- Open D:\My Documents\Projects\Code Misc\Code Generators \ CodeGenerator.xlsm
+   -- Goto Sheet: populateTABLEValues method 
+   -- Update DTO Name (cell C1)
+   -- Paste rows from text pad in Values column
+   -- Paste Result col rows to populate_ocValuesForInsert
+      This will move values from the DTO to ocValues for INSERT sql method -- Writing Rows
+
+   5) Update columns in method Populate{TableName}DTO manually
+   -- This method will pop the DTO from the Sql RDR on a QUERY             -- Reading Rows
+
+
+BoxScores Changes
+   1) changed stat fields from INT to FLOAT
+   2) col name changes
+   -- ScoreReg => ScoreRegTeam
+   -- ScoreOT  => ScoreOTTeam 
+   3) Added cols
+   -- ScoreReg => now both teams
+   -- ScoreOT  => now both teams 
+
+   Insert Row Procedure
+   1) Method: Populate{TableName}DTO
+   Make new Method
+      DALInsertRow ==> {TableName}DTO, {TableName}Columns, delPopulateDTOValues
+   2) Method: {TableName}.Insert{TableName} ==> ( {TableName}DTO )
+            List<string> ocColumns = ColumnNames.Split(',').OfType<string>().ToList();
+            List<string> ocValues = new List<string>();
+            delPopulateDTOValues(ocValues, DTO);   // Execute Delegate
+            string ConnectionString = SqlFunctions.GetConnectionString();
+            string SQL = SysDAL.DALfunctions.GenSql(TableName, ocColumns);
+            int rc = SysDAL.DALfunctions.InsertRow(ConnectionString, SQL, ocColumns, ocValues);
+
+     static void PopulateDTO(List<object> ocRows, object oRow, SqlDataReader rdr)
+      {
+         SeasonInfoDTO oSeasonInfoDTO = (SeasonInfoDTO)oRow;
+         oSeasonInfoDTO.LeagueName = rdr["LeagueName"].ToString();
+
+Sql Server Import from MS Access
+   1) Save Access DB as T:\Bball Database\LeagueScores.mdb - Delete old .mdb first
+   2) Make all ShortText cols LongText - Rename Access Tables if necessary
+   3) SS Import - R Clk on DB, Task, Import
+   -- Source: MS Access Jet   Dest: SS Native Client 11.0
+   -- Make sure Run Immediaely not save as SSIS is checked
+   4) Alter SS Table VarChar cols back to char
+
+INSERT INTO table2
+SELECT * FROM table1
+
+INSERT INTO table2 (col1, Col2 ...)
+SELECT col1, Col2 ... FROM table1
