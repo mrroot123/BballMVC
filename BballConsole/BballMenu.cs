@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using Bball.BAL;
-using HtmlParsing.Common4vb.HtmlParsing;
+//using HtmlParsing.Common4vb.HtmlParsing;
 
 
 namespace BballConsole
 {
-   class BballMenu
+    class BballMenu
    {
       static string[] menu = new string[] {
            "1) Load Boxscore Range"
@@ -18,8 +16,8 @@ namespace BballConsole
       };
       static void Main(string[] args)
       {
-         Trace.Trace.SetTraceFile(@"t:\Trace.txt");
-         Trace.Trace.SetLogFile(@"t:\Bball\BballErrorLog.txt");
+         Trace.Trace.SetTraceFile(@"Trace.txt");
+         Trace.Trace.SetLogFile(@"BballErrorLog.txt");
 
          string s = "";
          DateTime StartGameDate = Convert.ToDateTime("10/16/2018");
@@ -71,24 +69,24 @@ namespace BballConsole
       static void writeHtmlToDisk()
       {
          string s = "";
-         string url;
-         string FileName;
-         while (s != "x")
-         {
-            Console.Write("Enter x to EXIT or ");
-            Console.Write("Enter URL: ");
-            url = Console.ReadLine().ToLower();
-            if (url.ToLower() == "x")
-               return;
-            const string defaultFileName = @"T:\Bball\Html\html.txt";
-            Console.Write($"Enter FileName or Return to Default to {defaultFileName}: ");
-            FileName = Console.ReadLine().ToLower();
-            if (string.IsNullOrEmpty(FileName))
-               FileName = defaultFileName;
-            ParseHtml2 o = new ParseHtml2(url, "", "");
-            o.WriteHtmlToDisk(FileName);
+         //string url;
+         //string FileName;
+         //while (s != "x")
+         //{
+         //   Console.Write("Enter x to EXIT or ");
+         //   Console.Write("Enter URL: ");
+         //   url = Console.ReadLine().ToLower();
+         //   if (url.ToLower() == "x")
+         //      return;
+         //   const string defaultFileName = @"T:\Bball\Html\html.txt";
+         //   Console.Write($"Enter FileName or Return to Default to {defaultFileName}: ");
+         //   FileName = Console.ReadLine().ToLower();
+         //   if (string.IsNullOrEmpty(FileName))
+         //      FileName = defaultFileName;
+         //   ParseHtml2 o = new ParseHtml2(url, "", "");
+         //   o.WriteHtmlToDisk(FileName);
 
-         }  // while
+         //}  // while
       }
       
    }  // class

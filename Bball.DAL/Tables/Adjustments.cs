@@ -15,21 +15,27 @@ namespace Bball.DAL.Tables
 {
    public class Adjustments
    {
-      const string TableName = "Adjustments";
-      const string TableColumns = "LeagueName,StartDate,EndDate,Team,AdjustmentType,AdjustmentAmount,Player,Description,TS";
+        const string TableName = "Adjustments";
+        const string TableColumns = "LeagueName,StartDate,EndDate,Team,AdjustmentType,AdjustmentAmount,Player,Description,TS";
 
-      private string _ConnectionString;
-      private LeagueDTO _oLeagueDTO = new LeagueDTO();
-      private DateTime _GameDate;
-      public Adjustments(DateTime GameDate, string LeagueName, string ConnectionString)
-      {
-         _ConnectionString = ConnectionString;
-         new LeagueInfo(LeagueName, _oLeagueDTO, _ConnectionString);  // Init _oLeagueDTO
-         _GameDate = GameDate;
+        private string _ConnectionString;
+        private LeagueDTO _oLeagueDTO = new LeagueDTO();
+        private DateTime _GameDate;
+        public Adjustments(DateTime GameDate, string LeagueName, string ConnectionString)
+        {
+            _ConnectionString = ConnectionString;
+            new LeagueInfo(LeagueName, _oLeagueDTO, _ConnectionString);  // Init _oLeagueDTO
+            _GameDate = GameDate;
 
-      }
+        }
 
+        public string GetAdjustments (string leagueName)
+        {
+            //TO-DO fill out 
+            return "";
+        }
 
+     
       //string QueryAdjustmentsSql = ""
       //   + "SELECT * FROM Adjustments  "
       //   + $"  WHERE LeagueName = '{LeagueName}' "
@@ -201,6 +207,7 @@ namespace Bball.DAL.Tables
          Rotation oRotation = new Rotation(ocRotation, GameDate, _oLeagueDTO, ConnectionString, strLoadDateTime);
          oRotation.GetRotation();
       }
+
 
    }  // class Adjustments
 

@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BballMVC.Models;
+using BballMVC.DTOs;
 
 namespace BballMVC.Controllers
 {
@@ -18,6 +19,18 @@ namespace BballMVC.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        [HttpGet]
+        public JsonResult GetAdjustments(string LeagueName)
+        {
+            List<AdjustmentDTO> ocAdjustmentDTO = new List<AdjustmentDTO>();
+
+            ocAdjustmentDTO.Add(new AdjustmentDTO() { AdjustmentID = 1, StartDate = DateTime.Now, Team = "ATL", AdjustmentType = "I", AdjustmentAmount = 1, Player = "Jones", Description = "Knee", TS = DateTime.Now });
+            ocAdjustmentDTO.Add(new AdjustmentDTO() { AdjustmentID = 2, StartDate = DateTime.Now, Team = "CHI", AdjustmentType = "S", AdjustmentAmount = 1, Player = "", Description = "", TS = DateTime.Now });
+            ocAdjustmentDTO.Add(new AdjustmentDTO() { AdjustmentID = 3, StartDate = DateTime.Now, Team = "DET", AdjustmentType = "I", AdjustmentAmount = 0, Player = "Smith", Description = "Knee", TS = DateTime.Now });
+
+            return Json(ocAdjustmentDTO, JsonRequestBehavior.AllowGet);
         }
 
         // GET: Adjustments/Details/5

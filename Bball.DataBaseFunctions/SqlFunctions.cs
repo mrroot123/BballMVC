@@ -9,8 +9,10 @@ namespace Bball.DataBaseFunctions
    public static class SqlFunctions
    {
       const string BballConnectionStringName = "BballEntities";
-      const string SqlServerConnectionStringTest =
-         @"Data Source=Localhost\SQLEXPRESS2012;Initial Catalog=00TTI_LeagueScores;Integrated Security=SSPI";
+        const string SqlServerConnectionStringOLD =
+           @"Data Source=Localhost\SQLEXPRESS2012;Initial Catalog=00TTI_LeagueScores;Integrated Security=SSPI";
+        const string SqlServerConnectionStringTest =
+         @"Data Source=Localhost\SQLEXPRESS;Initial Catalog=00TTI_LeagueScores;Integrated Security=SSPI";
       const string SqlServerConnectionStringArvixe =
          @"Data Source=Localhost\;   Initial Catalog=00TTI_LeagueScores;Integrated Security=false;User ID=theroot;Password=788788kd";
 
