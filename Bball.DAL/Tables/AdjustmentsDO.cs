@@ -9,11 +9,11 @@ using System.IO;
 using System.Xml.Serialization;
 using BballMVC.DTOs;
 using Bball.DataBaseFunctions;
-
+using System.Data.SqlClient;
 
 namespace Bball.DAL.Tables
 {
-   public class Adjustments
+   public class AdjustmentsDO
    {
         const string TableName = "Adjustments";
         const string TableColumns = "LeagueName,StartDate,EndDate,Team,AdjustmentType,AdjustmentAmount,Player,Description,TS";
@@ -21,10 +21,12 @@ namespace Bball.DAL.Tables
         private string _ConnectionString;
         private LeagueDTO _oLeagueDTO = new LeagueDTO();
         private DateTime _GameDate;
-        public Adjustments(DateTime GameDate, string LeagueName, string ConnectionString)
+        public AdjustmentsDO()
+        { }
+        public AdjustmentsDO(DateTime GameDate, string LeagueName, string ConnectionString)
         {
             _ConnectionString = ConnectionString;
-            new LeagueInfo(LeagueName, _oLeagueDTO, _ConnectionString);  // Init _oLeagueDTO
+            new LeagueInfoDO(LeagueName, _oLeagueDTO, _ConnectionString);  // Init _oLeagueDTO
             _GameDate = GameDate;
 
         }
@@ -92,7 +94,7 @@ namespace Bball.DAL.Tables
             writeAdjustment(adjRow);
          }
 
-         AdjustmentsDaily oAdjustmentsDaily = new AdjustmentsDaily(_ConnectionString);
+         AdjustmentsDailyDO oAdjustmentsDaily = new AdjustmentsDailyDO(_ConnectionString);
          oAdjustmentsDaily.DeleteDailyAdjustments(GameDate, LeagueName);
 
          foreach (var matchup in ocRotation)
@@ -183,7 +185,7 @@ namespace Bball.DAL.Tables
          ocValues.Add(oAdjustmentDTO.TS.ToString());
 
       }
-      private void writeAdjustmentDaily(AdjustmentsDaily oAdjustmentsDaily, DateTime GameDate, string LeagueName, int RotNum, string Team, double AdjustmentAmount)
+      private void writeAdjustmentDaily(AdjustmentsDailyDO oAdjustmentsDaily, DateTime GameDate, string LeagueName, int RotNum, string Team, double AdjustmentAmount)
       {
          AdjustmentsDailyDTO oAdjustmentsDailyDTO = new AdjustmentsDailyDTO()
          {
@@ -204,15 +206,50 @@ namespace Bball.DAL.Tables
       // kdtodo refactor into rotation class
       void populateRotation(SortedList<string, CoversDTO> ocRotation, DateTime GameDate, string ConnectionString, string strLoadDateTime)
       {
-         Rotation oRotation = new Rotation(ocRotation, GameDate, _oLeagueDTO, ConnectionString, strLoadDateTime);
+         RotationDO oRotation = new RotationDO(ocRotation, GameDate, _oLeagueDTO, ConnectionString, strLoadDateTime);
          oRotation.GetRotation();
       }
 
 
-   }  // class Adjustments
+    #region todaysAdjustments
+    public List<AdjustmentDTO> GetTodaysAdjustments(string LeagueName)
+    {
+        string ConnectionString = Bball.DataBaseFunctions.SqlFunctions.GetConnectionString();
+        List<AdjustmentDTO> ocAdjustmentDTO = new List<AdjustmentDTO>();
+
+        List<string> SqlParmNames = new List<string>() { "LeagueName" };
+        List<object> SqlParmValues = new List<object>() { LeagueName };
+
+        SysDAL.DALfunctions.ExecuteStoredProcedureQuery(ConnectionString, "uspQueryAdjustments"
+                            , SqlParmNames, SqlParmValues, ocAdjustmentDTO, populateDTOFromRdr);
+        return ocAdjustmentDTO;
+    }
+    static void populateDTOFromRdr(object oRow, SqlDataReader rdr)
+    {
+
+        AdjustmentDTO oAdjustmentDTO = new AdjustmentDTO();
+
+        oAdjustmentDTO.AdjustmentID = (int)rdr["AdjustmentID"];
+        oAdjustmentDTO.LeagueName = (string)rdr["LeagueName"];
+        oAdjustmentDTO.StartDate = (DateTime)rdr["StartDate"];
+        oAdjustmentDTO.EndDate = (DateTime)rdr["EndDate"];
+        oAdjustmentDTO.Team = (string)rdr["Team"];
+        oAdjustmentDTO.AdjustmentType = (string)rdr["AdjustmentType"];
+        oAdjustmentDTO.AdjustmentAmount = (float)rdr["AdjustmentAmount"];
+        oAdjustmentDTO.Player = (string)rdr["Player"];
+        oAdjustmentDTO.Description = (string)rdr["Description"];
+        oAdjustmentDTO.TS = (DateTime)rdr["TS"];
+
+        List<AdjustmentDTO> ocAdjustmentDTO = (List<AdjustmentDTO>)oRow;
+        ocAdjustmentDTO.Add(oAdjustmentDTO);
+    }
+    #endregion todaysAdjustments
 
 
-   public class Row
+    }  // class Adjustments
+
+
+    public class Row
    {
       public string Team { get; set; }
       public string Type { get; set; }

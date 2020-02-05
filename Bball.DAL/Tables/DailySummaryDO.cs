@@ -10,7 +10,7 @@ using System.Data.SqlClient;
 
 namespace Bball.DAL.Tables
 {
-   public class DailySummary
+   public class DailySummaryDO
    {
       public const string DailySummaryTable = "DailySummary";
       private const string ColumnNames = "GameDate,LeagueName,Season,SubSeason,SubSeasonPeriod,NumOfMatchups,LgAvgStartDate,LgAvgGamesBack,LgAvgScoreAway,LgAvgScoreHome,LgAvgScoreFinal,LgAvgShotsMadeAwayPt1,LgAvgShotsMadeAwayPt2,LgAvgShotsMadeAwayPt3,LgAvgShotsMadeHomePt1,LgAvgShotsMadeHomePt2,LgAvgShotsMadeHomePt3,LgAvgLastMinPts,LgAvgLastMinPt1,LgAvgLastMinPt2,LgAvgLastMinPt3";
@@ -20,7 +20,7 @@ namespace Bball.DAL.Tables
       string _ConnectionString;
       string _strLoadDateTime;
 
-      public DailySummary(DateTime GameDate, LeagueDTO oLeagueDTO, string ConnectionString, string strLoadDateTime)
+      public DailySummaryDO(DateTime GameDate, LeagueDTO oLeagueDTO, string ConnectionString, string strLoadDateTime)
       {
          _GameDate = GameDate;
          _oLeagueDTO = oLeagueDTO;
@@ -98,7 +98,7 @@ namespace Bball.DAL.Tables
       }
       private DailySummaryDTO populateDTO(int NumOfMatchups)
       {
-         SeasonInfo oSeasonInfo = new SeasonInfo(_GameDate, _oLeagueDTO.LeagueName);
+         SeasonInfoDO oSeasonInfo = new SeasonInfoDO(_GameDate, _oLeagueDTO.LeagueName);
 
          // Populate Basic columns
          DailySummaryDTO oDailySummaryDTO = new DailySummaryDTO()

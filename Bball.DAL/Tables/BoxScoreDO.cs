@@ -8,7 +8,7 @@ using Bball.DataBaseFunctions;
 
 namespace Bball.DAL.Tables
 {
-   public class BoxScore
+   public class BoxScoreDO
    {
       #region Notes
       // Dynamically Accessprops in class

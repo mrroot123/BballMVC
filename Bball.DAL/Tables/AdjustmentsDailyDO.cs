@@ -9,7 +9,7 @@ using Bball.DataBaseFunctions;
 
 namespace Bball.DAL.Tables
 {
-   public class AdjustmentsDaily
+   public class AdjustmentsDailyDO
    {
       const string TableName = "AdjustmentsDaily";
       const string ColumnNames = "LeagueName,GameDate,RotNum,Team,AdjustmentAmount";
@@ -19,12 +19,12 @@ namespace Bball.DAL.Tables
       string _ConnectionString;
       string _strLoadDateTime;
 
-      public AdjustmentsDaily(string ConnectionString)
+      public AdjustmentsDailyDO(string ConnectionString)
       {
          _ConnectionString = ConnectionString;
       }
 
-      public AdjustmentsDaily(DateTime GameDate, LeagueDTO oLeagueDTO, string ConnectionString, string strLoadDateTime)
+      public AdjustmentsDailyDO(DateTime GameDate, LeagueDTO oLeagueDTO, string ConnectionString, string strLoadDateTime)
       {
          _GameDate = GameDate;
          _oLeagueDTO = oLeagueDTO;

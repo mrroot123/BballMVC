@@ -8,12 +8,12 @@ using System.Data.SqlClient;
 
 namespace Bball.DAL.Tables
 {
-   public class LeagueInfo
+   public class LeagueInfoDO
    {
       public string LeagueInfoTable = "LeagueInfo";
       static LeagueDTO NbaDTO = new LeagueDTO { LeagueName = "NBA", Periods = 4, MinutesPerPeriod = 12, OverTimeMinutes = 5, MultiYearLeague = true };
 
-      public LeagueInfo(string LeagueName, LeagueDTO oLeagueDTO, string ConnectionString)
+      public LeagueInfoDO(string LeagueName, LeagueDTO oLeagueDTO, string ConnectionString)
       {
          int rows = SysDAL.DALfunctions.ExecuteSqlQuery(ConnectionString, getRowSql(LeagueName), null, oLeagueDTO, PopulateDTO);
          if (rows == 0)  throw new Exception($"LeagueInfo row not found for League: {LeagueName}");

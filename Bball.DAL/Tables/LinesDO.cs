@@ -9,7 +9,7 @@ using System.Data.SqlClient;
 
 namespace Bball.DAL.Tables
 {
-   public class Lines
+   public class LinesDO
    {
       const string TableName = "Lines";
       const string TableColumns = "LeagueName,GameDate,RotNum,TeamAway,TeamHome,Line,PlayType,PlayDuration,CreateDate,LineSource";
@@ -20,7 +20,7 @@ namespace Bball.DAL.Tables
       string _strLoadDateTime;
 
       // Constructor
-      public Lines(DateTime GameDate, LeagueDTO oLeagueDTO, string ConnectionString, string strLoadDateTime)
+      public LinesDO(DateTime GameDate, LeagueDTO oLeagueDTO, string ConnectionString, string strLoadDateTime)
       {
          _GameDate = GameDate;
          _oLeagueDTO = oLeagueDTO;

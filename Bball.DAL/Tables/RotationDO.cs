@@ -9,7 +9,7 @@ using System.Data.SqlClient;
 
 namespace Bball.DAL.Tables
 {
-   public class Rotation
+   public class RotationDO
    {
       public const string RotationTable = "Rotation";
 
@@ -21,7 +21,7 @@ namespace Bball.DAL.Tables
       string _ConnectionString;
       string _strLoadDateTime;
 
-      public Rotation(SortedList<string, CoversDTO> ocRotation, DateTime GameDate, LeagueDTO oLeagueDTO, string ConnectionString, string strLoadDateTime)
+      public RotationDO(SortedList<string, CoversDTO> ocRotation, DateTime GameDate, LeagueDTO oLeagueDTO, string ConnectionString, string strLoadDateTime)
       {
          _ocRotation = ocRotation;
          _GameDate = GameDate;
@@ -31,7 +31,7 @@ namespace Bball.DAL.Tables
       }
       public static void PopulateRotation(SortedList<string, CoversDTO> ocRotation, DateTime GameDate, LeagueDTO _oLeagueDTO, string ConnectionString, string strLoadDateTime)
       {
-         Rotation oRotation = new Rotation(ocRotation, GameDate, _oLeagueDTO, ConnectionString, strLoadDateTime);
+         RotationDO oRotation = new RotationDO(ocRotation, GameDate, _oLeagueDTO, ConnectionString, strLoadDateTime);
          oRotation.GetRotation();
       }
       #region GetRows
@@ -111,7 +111,7 @@ namespace Bball.DAL.Tables
       }
       private void insertLines()
       {
-         Lines oLines = new Lines(_GameDate, _oLeagueDTO, _ConnectionString, _strLoadDateTime);
+         LinesDO oLines = new LinesDO(_GameDate, _oLeagueDTO, _ConnectionString, _strLoadDateTime);
          oLines.InsertLinesFromRotation();
       }
       #endregion GetRows
@@ -119,7 +119,7 @@ namespace Bball.DAL.Tables
       #region WriteRows
       private void writeRotation()
       {
-         DailySummary oDailySummary = new DailySummary(_GameDate, _oLeagueDTO, _ConnectionString, _strLoadDateTime);
+         DailySummaryDO oDailySummary = new DailySummaryDO(_GameDate, _oLeagueDTO, _ConnectionString, _strLoadDateTime);
          oDailySummary.RefreshRow(_ocRotation.Count);
 
          deleteRotation();

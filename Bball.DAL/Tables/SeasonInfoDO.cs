@@ -9,7 +9,7 @@ using Bball.DataBaseFunctions;
 namespace Bball.DAL.Tables
 {
 
-   public class SeasonInfo
+   public class SeasonInfoDO
    {
       public const string SeasonInfoTable = "SeasonInfo";
       public SeasonInfoDTO oSeasonInfoDTO = new SeasonInfoDTO();
@@ -18,7 +18,7 @@ namespace Bball.DAL.Tables
       public DateTime GameDate { get; set; }
       String _LeagueName;
 
-      public SeasonInfo(DateTime GameDate, String LeagueName)
+      public SeasonInfoDO(DateTime GameDate, String LeagueName)
       {
          this.GameDate = GameDate;
          _LeagueName = LeagueName;
