@@ -3,96 +3,112 @@
 @{
     ViewBag.Title = "Create";
 }
+<style>
+    #box {
+        width: 750px;
+        height: 500px;
+        background: #FFF;
+        text-align: center;
+        position: fixed;
+        margin-left: -75px;
+        margin-top: -75px;
+        left: 50%;
+        top: 50%;
+        z-index: 20;
+        display: none;
+    }
 
+    #screen {
+        position: absolute;
+        left: 0;
+        top: 0;
+        background: #000;
+    }
+</style>
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Adjustments</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.LeagueName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.LeagueName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.LeagueName, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
+<div class="row ">
+    <div class="col-md-3">
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Team, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Team, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Team, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.AdjustmentType, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.AdjustmentType, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.AdjustmentType, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.AdjustmentAmount, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.AdjustmentAmount, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.AdjustmentAmount, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Player, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Player, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Player, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.TS, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TS, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TS, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
     </div>
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading text-center">
+                Adjustment Entry
+
+            </div>
+            <div class="panel-body text-center">
+
+
+                <div class="row ">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-3 col-sm-3 col-xs-3">
+                        <span class="help-block text-muted small-font">Adj Type</span>
+                        <select class="form-control" id="AdjType_id">
+                            <option value="I">Injury</option>
+                            <option value="T">Team</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-3">
+                        <span class="help-block text-muted small-font">  Team</span>
+                        <select class="form-control" id="Team_id">
+                            <option value="ATL">ATL</option>
+                            <option value="BOS">BOS</option>
+                            <option value="OKC">OKC</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-3">
+                        <span class="help-block text-muted small-font">  Adj Amount</span>
+                        <input type="text" class="form-control" placeholder=" Adj Amount" />
+                    </div>
+                    <div class="col-md-1"></div>
+                </div>
+                <div class="row ">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-6 pad-adjust">
+                        <span class="help-block text-muted small-font pull-left">  Player</span>
+                        <input type="text" class="form-control" placeholder="Player" />
+                    </div>
+                    <div class="col-md-4"></div>
+                </div>
+                <div class="row ">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-6 pad-adjust">
+                        <span class="help-block text-muted small-font pull-left">  Description</span>
+                        <input type="text" class="form-control" placeholder="Description" />
+                    </div>
+                    <div class="col-md-4"></div>
+                </div>
+
+                <div class="row ">
+                    <div class="col-md-6">&nbsp;</div>
+                </div>
+                <div class="row ">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-3 col-sm-3 col-xs-3 pad-adjust">
+                        <input type="submit" class="btn btn-danger" value="CANCEL" />
+                    </div>
+                    <div class="col-md-5 col-sm-5 col-xs-5 pad-adjust">
+                        <input type="submit" class="btn btn-success btn-block" value="Update" />
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-3">
+
+    </div>
+    <div >
+    </div>
+</div>
 }
 
 <div>
