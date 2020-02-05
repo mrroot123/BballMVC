@@ -41,13 +41,13 @@ namespace UnitTest_CS
          initAll(GameDate, LeagueName);
 
        //  SeasonInfoDTO oSeasonInfoDTO = new SeasonInfoDTO();
-         SeasonInfo oSeasonInfo = new SeasonInfo(_GameDate, _oLeagueDTO.LeagueName);
+         SeasonInfoDO oSeasonInfo = new SeasonInfoDO(_GameDate, _oLeagueDTO.LeagueName);
         // oSeasonInfo.PopulateSeasonInfoDTO(oSeasonInfoDTO);
          if (oSeasonInfo.oSeasonInfoDTO.Bypass) return;
 
          // 2) Act
          DailySummaryDTO oDailySummaryDTO = new DailySummaryDTO();
-         DailySummary oDailySummary = new DailySummary(_GameDate, _oLeagueDTO, _ConnectionString, _strLoadDateTime);
+         DailySummaryDO oDailySummary = new DailySummaryDO(_GameDate, _oLeagueDTO, _ConnectionString, _strLoadDateTime);
          oDailySummary.RefreshRow(5);
          int rows = oDailySummary.GetRow(oDailySummaryDTO);
 
