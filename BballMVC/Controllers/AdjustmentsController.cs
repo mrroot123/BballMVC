@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using BballMVC.Models;
 using BballMVC.DTOs;
+using Bball.BAL;
 
 namespace BballMVC.Controllers
 {
@@ -24,13 +25,20 @@ namespace BballMVC.Controllers
         [HttpGet]
         public JsonResult GetAdjustments(string LeagueName)
         {
-            List<AdjustmentDTO> ocAdjustmentDTO = new List<AdjustmentDTO>();
-
-            ocAdjustmentDTO.Add(new AdjustmentDTO() { AdjustmentID = 1, StartDate = DateTime.Now, Team = "ATL", AdjustmentType = "I", AdjustmentAmount = 1, Player = "Jones", Description = "Knee", TS = DateTime.Now });
-            ocAdjustmentDTO.Add(new AdjustmentDTO() { AdjustmentID = 2, StartDate = DateTime.Now, Team = "CHI", AdjustmentType = "S", AdjustmentAmount = 1, Player = "", Description = "", TS = DateTime.Now });
-            ocAdjustmentDTO.Add(new AdjustmentDTO() { AdjustmentID = 3, StartDate = DateTime.Now, Team = "DET", AdjustmentType = "I", AdjustmentAmount = 0, Player = "Smith", Description = "Knee", TS = DateTime.Now });
+            AdjustmentsBO oAdjustmentsBO = new AdjustmentsBO();
+            List<AdjustmentDTO> ocAdjustmentDTO = oAdjustmentsBO.GetTodaysAdjustments(LeagueName);
 
             return Json(ocAdjustmentDTO, JsonRequestBehavior.AllowGet);
+        }
+
+        //Keith needs to revisit this
+        [HttpPost]
+        public JsonResult PostNewAdjustment(AdjustmentDTO oAdjustmentDTO)
+        {
+            AdjustmentsBO oAdjustmentsBO = new AdjustmentsBO();
+          //  List<AdjustmentDTO> ocAdjustmentDTO = oAdjustmentsBO.GetTodaysAdjustments(LeagueName);
+
+            return Json(oAdjustmentsBO, JsonRequestBehavior.AllowGet);
         }
 
         // GET: Adjustments/Details/5

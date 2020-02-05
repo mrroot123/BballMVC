@@ -1,16 +1,20 @@
 ﻿(function () {
     'use strict';
-    var app = angular.module('app', []);
-    app.controller('appController',
-        function ($scope, $compile) {
-            $scope.apptitle = "Adjustment";
-            GetAdjustments($scope, $compile);
-        }
-    );
+    try {
 
-    function controller($scope) {
-        // not used
+
+        var app = angular.module('app', []);
+        app.controller('appController',
+            function ($scope, $compile) {
+                $scope.apptitle = "Adjustment";
+                GetAdjustments($scope, $compile);
+            }
+        );
     }
+    catch (error) {
+        console.error(error);
+    }
+
 })();
 
 function GetAdjustments($scope, $compile) {
@@ -19,7 +23,7 @@ function GetAdjustments($scope, $compile) {
     $.ajax({
         type: "GET",
         url: "/Adjustments/GetAdjustments",
-        data: LeagueName,
+        data: { LeagueName: LeagueName },
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
@@ -61,8 +65,9 @@ function GetAdjustments($scope, $compile) {
             //<script src="moment.js"></script>;
             var a = parseJsonDate(oAdjustment.StartDate);
             let tr = "";
-            tr += '<td><input type="text" class="col-sm-4" id="TB" onchange="hideButton()" /></td>';
-            tr += '<td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete"><span class="glyphicon glyphicon-trash"></span></button></p></td>';
+            tr += '<td><input type="text" class="deleteClicked col-sm-4 col-md-6 col-lg-8" data-AdjID="'
+                + oAdjustment.AdjustmentID + '" /></td>';
+            tr += '<td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs del" data-title="Delete" data-toggle="modal" data-target="#delete"><span class="glyphicon glyphicon-trash"></span></button></p></td>';
             tr += wrapTag('td', parseJsonDate(oAdjustment.StartDate));
             tr += wrapTag('td', oAdjustment.AdjustmentType);
             tr += wrapTag('td', oAdjustment.Team);
@@ -83,7 +88,9 @@ function GetAdjustments($scope, $compile) {
         }
         // https://momentjs.com/
         function parseJsonDate(jsonDateString) {
-            return new Date(parseInt(jsonDateString.replace('/Date(', '')));
+            var a = new Date(parseInt(jsonDateString.replace('/Date(', '')));
+            var b = a.toDateString().substr(4);
+            return b;
         }
         function wrapTag(tag, innerHtml) {
             let ar = tag.split(" ");
@@ -96,4 +103,10 @@ function FormatResponse(response) {
     return "status: " + response.status + "\n"
         + "statusText: " + response.statusText + "\n"
         + "responseText: " + response.responseText;
+}
+function InsertAdjustment() {
+    let oAdjustment = {};
+    oAdjustment.Description = $Scope.Description;
+
+    // Ajax call POST
 }
