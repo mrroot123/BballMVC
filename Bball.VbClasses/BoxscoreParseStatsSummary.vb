@@ -132,26 +132,25 @@ Namespace Bball.VbClasses
          'CONN  24 16 13 15 68
 
          oTable.GetHtmlEle("tr")                        ' Bypass Qtr hdr row
-         oTable.WriteHtmlToDisk("T:\htmlx.txt")
-         For ixVenue = AWAY To HOME
-            Dim oTR As ParseHtml2 = New ParseHtml2(oTable.GetHtmlEle("tr"))     'get  QTRs
+            For ixVenue = AWAY To HOME
+                Dim oTR As ParseHtml2 = New ParseHtml2(oTable.GetHtmlEle("tr"))     'get  QTRs
 
-            Dim tm As String
-            tm = oTR.GetHtmlEle("td")                            ' Bypass Team td
+                Dim tm As String
+                tm = oTR.GetHtmlEle("td")                            ' Bypass Team td
 
-            arVenuePeriodScores(ixVenue) = New List(Of String)()
+                arVenuePeriodScores(ixVenue) = New List(Of String)()
 
-            Do While True
-               Dim td As String
-               td = oTR.GetHtmlEle("td")
-               If InStr(oTR.OuterHtml, "col") = 0 Then
-                  Exit Do
-               End If
-               arVenuePeriodScores(ixVenue).Add(editTD(td))
-            Loop
-         Next
+                Do While True
+                    Dim td As String
+                    td = oTR.GetHtmlEle("td")
+                    If InStr(oTR.OuterHtml, "col") = 0 Then
+                        Exit Do
+                    End If
+                    arVenuePeriodScores(ixVenue).Add(editTD(td))
+                Loop
+            Next
 
-      End Sub
+        End Sub
       Private Function editTD(td As String) As String
          Dim sb As StringBuilder = New StringBuilder()
 
