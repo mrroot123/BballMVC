@@ -45,7 +45,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\CommonClasses\DAL.Functions\SysDAL.Functions.csproj">
+    <ProjectReference Include="..\..\..\CommonClasses\DAL.Functions\SysDAL.Functions.csproj">
       <Project>{f08657dc-56b9-4ea3-9bab-c3234c143145}</Project>
       <Name>SysDAL.Functions</Name>
     </ProjectReference>

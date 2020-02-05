@@ -111,15 +111,15 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\CommonClasses\DAL.Functions\SysDAL.Functions.csproj">
+    <ProjectReference Include="..\..\..\CommonClasses\DAL.Functions\SysDAL.Functions.csproj">
       <Project>{f08657dc-56b9-4ea3-9bab-c3234c143145}</Project>
       <Name>SysDAL.Functions</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\CommonClasses\HtmlParser\HtmlParser.csproj">
+    <ProjectReference Include="..\..\..\CommonClasses\HtmlParser\HtmlParser.csproj">
       <Project>{a85dfe51-89d5-468e-90b8-c2d004bf29c2}</Project>
       <Name>HtmlParser</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\CommonClasses\HtmlParsing\HtmlParsing.vbproj">
+    <ProjectReference Include="..\..\..\CommonClasses\HtmlParsing\HtmlParsing.vbproj">
       <Project>{50702d84-0b14-4d58-a1a8-a2f3a9135fd4}</Project>
       <Name>HtmlParsing</Name>
     </ProjectReference>

@@ -9,7 +9,7 @@ namespace Bball.DataBaseFunctions
    public static class SqlFunctions
    {
       const string BballConnectionStringName = "BballEntities";
-        const string SqlServerConnectionStringOLD =
+        const string SqlServerConnectionStringKeith =
            @"Data Source=Localhost\SQLEXPRESS2012;Initial Catalog=00TTI_LeagueScores;Integrated Security=SSPI";
         const string SqlServerConnectionStringTest =
          @"Data Source=Localhost\SQLEXPRESS;Initial Catalog=00TTI_LeagueScores;Integrated Security=SSPI";
@@ -19,10 +19,15 @@ namespace Bball.DataBaseFunctions
 
       public static string GetConnectionString()
       {
-         if (System.AppDomain.CurrentDomain.BaseDirectory.IndexOf("mrroot") < 0)
-            return SqlServerConnectionStringTest;
+         if (System.AppDomain.CurrentDomain.BaseDirectory.IndexOf(@"mrroot\") >= 0)
+            return SqlServerConnectionStringArvixe;
 
-         return SqlServerConnectionStringArvixe;
+         if (System.AppDomain.CurrentDomain.BaseDirectory.IndexOf("wwwroot") >= 0)
+            return SqlServerConnectionStringKeith;
+
+         return SqlServerConnectionStringTest;
+
+         
       }
       public static string GetConnectionString(string ConnectionStringName)
       {

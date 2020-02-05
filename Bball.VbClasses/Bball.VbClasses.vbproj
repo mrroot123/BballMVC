@@ -106,11 +106,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\CommonClasses\HtmlParser\HtmlParser.csproj">
+    <ProjectReference Include="..\..\..\CommonClasses\HtmlParser\HtmlParser.csproj">
       <Project>{a85dfe51-89d5-468e-90b8-c2d004bf29c2}</Project>
       <Name>HtmlParser</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\CommonClasses\HtmlParsing\HtmlParsing.vbproj">
+    <ProjectReference Include="..\..\..\CommonClasses\HtmlParsing\HtmlParsing.vbproj">
       <Project>{50702d84-0b14-4d58-a1a8-a2f3a9135fd4}</Project>
       <Name>HtmlParsing</Name>
     </ProjectReference>

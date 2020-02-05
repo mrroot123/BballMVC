@@ -23,17 +23,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bball.DataBaseFunctions", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest_CS", "UnitTest_CS\UnitTest_CS.csproj", "{6F5A58F7-2F67-4203-A403-7A2D655E9DA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BballTableUpdates", "BballTableUpdates\BballTableUpdates.csproj", "{2455C2F1-2DA6-4DB6-BACC-E6F71FC16F52}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlParser", "..\..\CommonClasses\HtmlParser\HtmlParser.csproj", "{A85DFE51-89D5-468E-90B8-C2D004BF29C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SysDAL.Functions", "..\CommonClasses\DAL.Functions\SysDAL.Functions.csproj", "{F08657DC-56B9-4EA3-9BAB-C3234C143145}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "HtmlParsing", "..\..\CommonClasses\HtmlParsing\HtmlParsing.vbproj", "{50702D84-0B14-4D58-A1A8-A2F3A9135FD4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlParser", "..\CommonClasses\HtmlParser\HtmlParser.csproj", "{A85DFE51-89D5-468E-90B8-C2D004BF29C2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StringExtensionMethods", "..\..\CommonClasses\StringExtensionMethods\StringExtensionMethods.csproj", "{783FEC2B-B8B4-439B-88FD-6B0A1D698938}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "HtmlParsing", "..\CommonClasses\HtmlParsing\HtmlParsing.vbproj", "{50702D84-0B14-4D58-A1A8-A2F3A9135FD4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SysDAL.Functions", "..\..\CommonClasses\DAL.Functions\SysDAL.Functions.csproj", "{F08657DC-56B9-4EA3-9BAB-C3234C143145}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StringExtensionMethods", "..\CommonClasses\StringExtensionMethods\StringExtensionMethods.csproj", "{783FEC2B-B8B4-439B-88FD-6B0A1D698938}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trace", "..\CommonClasses\Trace\Trace.csproj", "{36511EBA-996E-4AB7-BDF2-148181D1B7C1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trace", "..\..\CommonClasses\Trace\Trace.csproj", "{36511EBA-996E-4AB7-BDF2-148181D1B7C1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,14 +79,6 @@ Global
 		{6F5A58F7-2F67-4203-A403-7A2D655E9DA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F5A58F7-2F67-4203-A403-7A2D655E9DA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F5A58F7-2F67-4203-A403-7A2D655E9DA4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2455C2F1-2DA6-4DB6-BACC-E6F71FC16F52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2455C2F1-2DA6-4DB6-BACC-E6F71FC16F52}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2455C2F1-2DA6-4DB6-BACC-E6F71FC16F52}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2455C2F1-2DA6-4DB6-BACC-E6F71FC16F52}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F08657DC-56B9-4EA3-9BAB-C3234C143145}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F08657DC-56B9-4EA3-9BAB-C3234C143145}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F08657DC-56B9-4EA3-9BAB-C3234C143145}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F08657DC-56B9-4EA3-9BAB-C3234C143145}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A85DFE51-89D5-468E-90B8-C2D004BF29C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A85DFE51-89D5-468E-90B8-C2D004BF29C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A85DFE51-89D5-468E-90B8-C2D004BF29C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -101,6 +91,10 @@ Global
 		{783FEC2B-B8B4-439B-88FD-6B0A1D698938}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{783FEC2B-B8B4-439B-88FD-6B0A1D698938}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{783FEC2B-B8B4-439B-88FD-6B0A1D698938}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F08657DC-56B9-4EA3-9BAB-C3234C143145}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F08657DC-56B9-4EA3-9BAB-C3234C143145}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F08657DC-56B9-4EA3-9BAB-C3234C143145}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F08657DC-56B9-4EA3-9BAB-C3234C143145}.Release|Any CPU.Build.0 = Release|Any CPU
 		{36511EBA-996E-4AB7-BDF2-148181D1B7C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{36511EBA-996E-4AB7-BDF2-148181D1B7C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36511EBA-996E-4AB7-BDF2-148181D1B7C1}.Release|Any CPU.ActiveCfg = Release|Any CPU

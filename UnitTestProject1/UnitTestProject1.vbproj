@@ -115,11 +115,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\CommonClasses\DAL.Functions\SysDAL.Functions.csproj">
+    <ProjectReference Include="..\..\..\CommonClasses\DAL.Functions\SysDAL.Functions.csproj">
       <Project>{f08657dc-56b9-4ea3-9bab-c3234c143145}</Project>
       <Name>SysDAL.Functions</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\CommonClasses\HtmlParsing\HtmlParsing.vbproj">
+    <ProjectReference Include="..\..\..\CommonClasses\HtmlParsing\HtmlParsing.vbproj">
       <Project>{50702d84-0b14-4d58-a1a8-a2f3a9135fd4}</Project>
       <Name>HtmlParsing</Name>
     </ProjectReference>
