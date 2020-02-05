@@ -83,15 +83,15 @@
     </Compile>
     <Compile Include="Parsing\BoxScoresLast5Min.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tables\Adjustments.cs" />
-    <Compile Include="Tables\AdjustmentsDaily.cs" />
-    <Compile Include="Tables\BoxScore.cs" />
-    <Compile Include="Tables\DailySummary.cs" />
-    <Compile Include="Tables\LeagueInfo.cs" />
-    <Compile Include="Tables\Lines.cs" />
-    <Compile Include="Tables\Rotation.cs" />
-    <Compile Include="Tables\SeasonInfo.cs" />
-    <Compile Include="Tables\_TableTemplate.cs" />
+    <Compile Include="Tables\AdjustmentsDO.cs" />
+    <Compile Include="Tables\AdjustmentsDailyDO.cs" />
+    <Compile Include="Tables\BoxScoreDO.cs" />
+    <Compile Include="Tables\DailySummaryDO.cs" />
+    <Compile Include="Tables\LeagueInfoDO.cs" />
+    <Compile Include="Tables\LinesDO.cs" />
+    <Compile Include="Tables\RotationDO.cs" />
+    <Compile Include="Tables\SeasonInfoDO.cs" />
+    <Compile Include="Tables\_TableTemplateDO.cs" />
     <Compile Include="Team.cs">
       <DependentUpon>BballModel.tt</DependentUpon>
     </Compile>
@@ -150,10 +150,6 @@
       <DependentUpon>BballModel.edmx</DependentUpon>
       <LastGenOutput>BballModel.cs</LastGenOutput>
     </Content>
-    <Content Include="Scripts\moment-with-locales.js" />
-    <Content Include="Scripts\moment-with-locales.min.js" />
-    <Content Include="Scripts\moment.js" />
-    <Content Include="Scripts\moment.min.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
