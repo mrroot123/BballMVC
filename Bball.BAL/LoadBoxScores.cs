@@ -18,25 +18,25 @@ namespace Bball.BAL
       private string _strLoadDateTime;
       private string _ConnectionString = SqlFunctions.GetConnectionString();
       //private DateTime _GameDate;
-      private SeasonInfo _oSeasonInfo; 
+      private SeasonInfoDO _oSeasonInfo; 
 
       public  DateTime DefaultDate = Convert.ToDateTime("1/1/2000");  // kdtodo move to constants
       // Constructor
       public LoadBoxScores(string LeagueName, string strLoadDateTime, DateTime StartGameDate)
       {
-         new LeagueInfo(LeagueName, _oLeagueDTO, _ConnectionString);  // Init _oLeagueDTO
+         new LeagueInfoDO(LeagueName, _oLeagueDTO, _ConnectionString);  // Init _oLeagueDTO
          _strLoadDateTime = strLoadDateTime;
-         DateTime GameDate = BoxScore.GetMaxBoxScoresGameDate(_ConnectionString, LeagueName, DefaultDate);
+         DateTime GameDate = BoxScoreDO.GetMaxBoxScoresGameDate(_ConnectionString, LeagueName, DefaultDate);
          if (GameDate == DefaultDate)
             GameDate = StartGameDate;
          else
             GameDate = GameDate.AddDays(1);
 
-         _oSeasonInfo  = new SeasonInfo(GameDate, _oLeagueDTO.LeagueName);
+         _oSeasonInfo  = new SeasonInfoDO(GameDate, _oLeagueDTO.LeagueName);
          if (_oSeasonInfo.oSeasonInfoDTO.Bypass)
             _oSeasonInfo.GetNextGameDate();
          //
-         Rotation.DeleteRestOfRotation(GameDate, LeagueName);
+         RotationDO.DeleteRestOfRotation(GameDate, LeagueName);
       }
 
       public void LoadTodaysRotation()
@@ -49,10 +49,10 @@ namespace Bball.BAL
 
             SortedList<string, CoversDTO> ocRotation = new SortedList<string, CoversDTO>();
             Trace.Trace.StartEvent($"LoadTodaysRotation.PopulateRotation loop {i}");
-            Rotation.PopulateRotation(ocRotation, _oSeasonInfo.GameDate, _oLeagueDTO,  _ConnectionString, _strLoadDateTime);
+            RotationDO.PopulateRotation(ocRotation, _oSeasonInfo.GameDate, _oLeagueDTO,  _ConnectionString, _strLoadDateTime);
 
             Trace.Trace.StartEvent($"oAdjustments {i}");
-            Adjustments oAdjustments = new Adjustments(_oSeasonInfo.GameDate, _oLeagueDTO.LeagueName, _ConnectionString);
+            AdjustmentsDO oAdjustments = new AdjustmentsDO(_oSeasonInfo.GameDate, _oLeagueDTO.LeagueName, _ConnectionString);
             oAdjustments.ProcessDailyAdjustments(_oSeasonInfo.GameDate, _oLeagueDTO.LeagueName);
             _oSeasonInfo.GameDate = _oSeasonInfo.GameDate.AddDays(1);
          }
@@ -89,7 +89,7 @@ namespace Bball.BAL
 
          SortedList<string, CoversDTO> ocRotation = new SortedList<string, CoversDTO>();
 
-         Rotation.PopulateRotation(ocRotation, _oSeasonInfo.GameDate, _oLeagueDTO, _ConnectionString, _strLoadDateTime);
+         RotationDO.PopulateRotation(ocRotation, _oSeasonInfo.GameDate, _oLeagueDTO, _ConnectionString, _strLoadDateTime);
          if (ocRotation.Count == 0) return 0;   // No Games for GameDate
 
          foreach (var matchup in ocRotation)
@@ -112,7 +112,7 @@ namespace Bball.BAL
                   BoxScoresDTO BoxScoresDTO = new BoxScoresDTO();
                   oCoversBoxscore.PopulateBoxScoresDTO(BoxScoresDTO, arVenue[i], _oSeasonInfo.oSeasonInfoDTO.Season, _oSeasonInfo.oSeasonInfoDTO.SubSeason, LoadDateTime
                                                    , oCoversBoxscore.LoadTimeSecound, "Covers");
-                  Bball.DAL.Tables.BoxScore.InsertBoxScores(BoxScoresDTO);
+                  Bball.DAL.Tables.BoxScoreDO.InsertBoxScores(BoxScoresDTO);
                }
                catch (Exception ex)
                {
@@ -137,7 +137,7 @@ namespace Bball.BAL
             try
             { 
                //Bball.DAL.Tables.
-               BoxScore.InsertAwayHomeRowsBoxScoresLast5Min(oLast5MinDTOHome);
+               BoxScoreDO.InsertAwayHomeRowsBoxScoresLast5Min(oLast5MinDTOHome);
             }
             catch (Exception ex)
             {
@@ -149,7 +149,7 @@ namespace Bball.BAL
             }
          } // foreach
 
-         Adjustments oAdjustments = new Adjustments(GameDate, _oLeagueDTO.LeagueName, _ConnectionString);
+         AdjustmentsDO oAdjustments = new AdjustmentsDO(GameDate, _oLeagueDTO.LeagueName, _ConnectionString);
          oAdjustments.ProcessDailyAdjustments(GameDate, _oLeagueDTO.LeagueName);
 
          return ocRotation.Count;  // return NumOfMatchups
