@@ -65,9 +65,10 @@ function GetAdjustments($scope, $compile) {
             //<script src="moment.js"></script>;
             var a = parseJsonDate(oAdjustment.StartDate);
             let tr = "";
-            tr += '<td><input type="text" class="deleteClicked col-sm-4 col-md-6 col-lg-8" data-AdjID="'
-                + oAdjustment.AdjustmentID + '" /></td>';
-            tr += '<td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs del" data-title="Delete" data-toggle="modal" data-target="#delete"><span class="glyphicon glyphicon-trash"></span></button></p></td>';
+            tr += '<td><input type="text" class="deleteClicked col-sm-4 col-md-6 col-lg-8" id="TX'
+                + oAdjustment.AdjustmentID + '" onchange="txBox(this)" /></td>';
+            tr += '<td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" id="DL'
+                + oAdjustment.AdjustmentID + '" data-title="Delete" data-toggle="modal" data-target="#delete" onclick="delButton(this)"> <span class="glyphicon glyphicon-trash"></span></button ></p ></td > ';
             tr += wrapTag('td', parseJsonDate(oAdjustment.StartDate));
             tr += wrapTag('td', oAdjustment.AdjustmentType);
             tr += wrapTag('td', oAdjustment.Team);
@@ -79,13 +80,7 @@ function GetAdjustments($scope, $compile) {
             return tr;
         }
 
-        function hideButton() {
-            var a = document.getElementById(TB)
-        }
 
-        function greyText() {
-
-        }
         // https://momentjs.com/
         function parseJsonDate(jsonDateString) {
             var a = new Date(parseInt(jsonDateString.replace('/Date(', '')));
@@ -105,8 +100,15 @@ function FormatResponse(response) {
         + "responseText: " + response.responseText;
 }
 function InsertAdjustment() {
+    console.log("here");
     let oAdjustment = {};
+    oAdjustment.AdjustmentType = $Scope.AdjustmentType;
+    oAdjustment.Team = $Scope.Team;
+    oAdjustment.AdjustmentAmount = $Scope.AdjustmentAmount;
+    oAdjustment.Player = $Scope.Player;
     oAdjustment.Description = $Scope.Description;
+    consol.log(oAdjustment.Team);
+    consol.log(oAdjustment.Player);
 
     // Ajax call POST
 }
