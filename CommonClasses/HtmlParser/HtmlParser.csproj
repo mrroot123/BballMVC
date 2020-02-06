@@ -1,16 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3A1280EA-5C97-4EF5-9EC2-15BB5B272A6C}</ProjectGuid>
+    <ProjectGuid>{A85DFE51-89D5-468E-90B8-C2D004BF29C2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Bball.BAL</RootNamespace>
-    <AssemblyName>Bball.BAL</AssemblyName>
+    <RootNamespace>HtmlParser</RootNamespace>
+    <AssemblyName>HtmlParser</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -40,31 +41,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdjustmentsBO.cs" />
-    <Compile Include="LoadBoxScores.cs" />
+    <Compile Include="HtmlParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Bball.DAL\Bball.DAL.csproj">
-      <Project>{b9db69ff-5285-413f-bae1-9a9433f5bc5d}</Project>
-      <Name>Bball.DAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Bball.DataBaseFunctions\Bball.DataBaseFunctions.csproj">
-      <Project>{337ecf5c-824b-4404-8636-8db6e405754b}</Project>
-      <Name>Bball.DataBaseFunctions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Bball.VbClasses\Bball.VbClasses.vbproj">
-      <Project>{1adb0d1e-c267-482f-bcf3-618978f74730}</Project>
-      <Name>Bball.VbClasses</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BballMVC.DTOs\BballMVC.DTOs.csproj">
-      <Project>{853742b2-9d6c-4673-8a8d-8cfe9759939d}</Project>
-      <Name>BballMVC.DTOs</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CommonClasses\DAL.Functions\SysDAL.Functions.csproj">
-      <Project>{f08657dc-56b9-4ea3-9bab-c3234c143145}</Project>
-      <Name>SysDAL.Functions</Name>
+    <ProjectReference Include="..\StringExtensionMethods\StringExtensionMethods.csproj">
+      <Project>{783fec2b-b8b4-439b-88fd-6b0a1d698938}</Project>
+      <Name>StringExtensionMethods</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
 </Project>

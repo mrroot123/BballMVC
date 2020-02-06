@@ -115,14 +115,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\CommonClasses\DAL.Functions\SysDAL.Functions.csproj">
-      <Project>{f08657dc-56b9-4ea3-9bab-c3234c143145}</Project>
-      <Name>SysDAL.Functions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\CommonClasses\HtmlParsing\HtmlParsing.vbproj">
-      <Project>{50702d84-0b14-4d58-a1a8-a2f3a9135fd4}</Project>
-      <Name>HtmlParsing</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Bball.BAL\Bball.BAL.csproj">
       <Project>{3a1280ea-5c97-4ef5-9ec2-15bb5b272a6c}</Project>
       <Name>Bball.BAL</Name>
@@ -138,6 +130,18 @@
     <ProjectReference Include="..\BballMVC.DTOs\BballMVC.DTOs.csproj">
       <Project>{853742b2-9d6c-4673-8a8d-8cfe9759939d}</Project>
       <Name>BballMVC.DTOs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CommonClasses\DAL.Functions\SysDAL.Functions.csproj">
+      <Project>{f08657dc-56b9-4ea3-9bab-c3234c143145}</Project>
+      <Name>SysDAL.Functions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CommonClasses\HtmlParser\HtmlParser.csproj">
+      <Project>{a85dfe51-89d5-468e-90b8-c2d004bf29c2}</Project>
+      <Name>HtmlParser</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CommonClasses\HtmlParsing\HtmlParsing.vbproj">
+      <Project>{50702d84-0b14-4d58-a1a8-a2f3a9135fd4}</Project>
+      <Name>HtmlParsing</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

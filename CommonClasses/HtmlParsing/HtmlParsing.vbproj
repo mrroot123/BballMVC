@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1ADB0D1E-C267-482F-BCF3-618978F74730}</ProjectGuid>
+    <ProjectGuid>{50702D84-0B14-4D58-A1A8-A2F3A9135FD4}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Bball.VbClasses</RootNamespace>
-    <AssemblyName>Bball.VbClasses</AssemblyName>
+    <RootNamespace>HtmlParsing</RootNamespace>
+    <AssemblyName>HtmlParsing</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Windows</MyType>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
@@ -18,7 +18,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>Bball.VbClasses.xml</DocumentationFile>
+    <DocumentationFile>HtmlParsing.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -27,7 +27,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>Bball.VbClasses.xml</DocumentationFile>
+    <DocumentationFile>HtmlParsing.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
@@ -63,13 +63,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BballConstants.vb" />
-    <Compile Include="BoxscoreParseStatsSummary.vb" />
-    <Compile Include="BoxscoreTeamTotalsDTO.vb" />
-    <Compile Include="BoxscoreTeamTotalsParse.vb" />
-    <Compile Include="CoversBoxscore.vb" />
-    <Compile Include="CoversClass.vb" />
-    <Compile Include="CoversRotation.vb" />
+    <Compile Include="VBFunctions.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -85,6 +79,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="ParseHtml2.vb" />
+    <Compile Include="WebPageGet.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -104,31 +100,6 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Bball.DataBaseFunctions\Bball.DataBaseFunctions.csproj">
-      <Project>{337ecf5c-824b-4404-8636-8db6e405754b}</Project>
-      <Name>Bball.DataBaseFunctions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BballMVC.DTOs\BballMVC.DTOs.csproj">
-      <Project>{853742b2-9d6c-4673-8a8d-8cfe9759939d}</Project>
-      <Name>BballMVC.DTOs</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CommonClasses\DAL.Functions\SysDAL.Functions.csproj">
-      <Project>{f08657dc-56b9-4ea3-9bab-c3234c143145}</Project>
-      <Name>SysDAL.Functions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CommonClasses\HtmlParser\HtmlParser.csproj">
-      <Project>{a85dfe51-89d5-468e-90b8-c2d004bf29c2}</Project>
-      <Name>HtmlParser</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CommonClasses\HtmlParsing\HtmlParsing.vbproj">
-      <Project>{50702d84-0b14-4d58-a1a8-a2f3a9135fd4}</Project>
-      <Name>HtmlParsing</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
