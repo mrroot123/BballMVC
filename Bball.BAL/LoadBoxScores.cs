@@ -48,15 +48,15 @@ namespace Bball.BAL
             string _strLoadDateTime = _oSeasonInfo.GameDate.ToString();
 
             SortedList<string, CoversDTO> ocRotation = new SortedList<string, CoversDTO>();
-            Trace.Trace.StartEvent($"LoadTodaysRotation.PopulateRotation loop {i}");
+            //Trace.Trace.StartEvent($"LoadTodaysRotation.PopulateRotation loop {i}");
             RotationDO.PopulateRotation(ocRotation, _oSeasonInfo.GameDate, _oLeagueDTO,  _ConnectionString, _strLoadDateTime);
 
-            Trace.Trace.StartEvent($"oAdjustments {i}");
+            //Trace.Trace.StartEvent($"oAdjustments {i}");
             AdjustmentsDO oAdjustments = new AdjustmentsDO(_oSeasonInfo.GameDate, _oLeagueDTO.LeagueName, _ConnectionString);
             oAdjustments.ProcessDailyAdjustments(_oSeasonInfo.GameDate, _oLeagueDTO.LeagueName);
             _oSeasonInfo.GameDate = _oSeasonInfo.GameDate.AddDays(1);
          }
-         Trace.Trace.TurnTraceOff();
+         //Trace.Trace.TurnTraceOff();
       }
 
       public void LoadBoxScoreRange()
@@ -145,7 +145,7 @@ namespace Bball.BAL
                   + $"{_oLeagueDTO.LeagueName}: {GameDate}  {oCoversDTO.RotNum}:  {oCoversDTO.TeamAway}-{oCoversDTO.TeamHome} "
                   + "\n" + Bball.DAL.Parsing.BoxScoresLast5Min.BuildBoxScoresLast5MinUrl(oLast5MinDTOHome);
                // throw new Exception(SysDAL.DALfunctions.StackTraceFormat(msg, ex, ""));
-               Trace.Trace.Log(SysDAL.DALfunctions.StackTraceFormat(msg, ex, ""));
+               //Trace.Trace.Log(SysDAL.DALfunctions.StackTraceFormat(msg, ex, ""));
             }
          } // foreach
 
