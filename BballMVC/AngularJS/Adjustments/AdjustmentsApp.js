@@ -8,6 +8,18 @@
             function ($scope, $compile) {
                 $scope.apptitle = "Adjustment";
                 GetAdjustments($scope, $compile);
+
+                $scope.InsertAdjustment = function () {
+                    // your inser code
+                   /**  let URL = "";
+                    AjaxPost(URL, oAdjustment)
+                        .then(data => {
+                            
+                        })
+                        .catch(error => {
+                            alert(' Error: ' + error);
+                        });*/
+                }; 
             }
         );
     }
@@ -107,8 +119,32 @@ function InsertAdjustment() {
     oAdjustment.AdjustmentAmount = $Scope.AdjustmentAmount;
     oAdjustment.Player = $Scope.Player;
     oAdjustment.Description = $Scope.Description;
-    consol.log(oAdjustment.Team);
-    consol.log(oAdjustment.Player);
+    console.log(oAdjustment.Team);
+    console.log(oAdjustment.Player);
+    console.log("test");
 
     // Ajax call POST
 }
+
+
+function AjaxPost(URL, Data) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: URL,
+            type: 'POST',
+            data: JSON.stringify(Data),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                alert('success: ' + data);
+                resolve(data);
+            },
+            error: function (error) {
+                alert('error');
+                reject(error);
+            }
+        });   // ajax
+    });   // Promise
+}  // AjaxPost
+
+
+
