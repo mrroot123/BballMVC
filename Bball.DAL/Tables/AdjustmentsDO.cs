@@ -232,7 +232,7 @@ namespace Bball.DAL.Tables
         oAdjustmentDTO.AdjustmentID = (int)rdr["AdjustmentID"];
         oAdjustmentDTO.LeagueName = (string)rdr["LeagueName"];
         oAdjustmentDTO.StartDate = (DateTime)rdr["StartDate"];
-        oAdjustmentDTO.EndDate = (DateTime)rdr["EndDate"];
+        oAdjustmentDTO.EndDate = rdr["EndDate"] == DBNull.Value ? null : (DateTime?)rdr["EndDate"];
         oAdjustmentDTO.Team = (string)rdr["Team"];
         oAdjustmentDTO.AdjustmentType = (string)rdr["AdjustmentType"];
         oAdjustmentDTO.AdjustmentAmount = (float)rdr["AdjustmentAmount"];
