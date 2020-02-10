@@ -14,8 +14,6 @@ namespace BballConsole
       };
       static void Main(string[] args)
       {
-         Trace.Trace.SetTraceFile(@"t:\Trace.txt");
-         Trace.Trace.SetLogFile(@"t:\Bball\BballErrorLog.txt");
 
          string s = "";
          DateTime StartGameDate = Convert.ToDateTime("10/16/2018");
@@ -52,7 +50,6 @@ namespace BballConsole
             catch (Exception ex)
             {
                string msg = SysDAL.DALfunctions.StackTraceFormat(ex);
-               Trace.Trace.Log(msg);
                Console.WriteLine(msg);
             }
 

@@ -29,12 +29,6 @@ namespace Bball.DataBaseFunctions
 
          
       }
-      public static string GetConnectionString(string ConnectionStringName)
-      {
-         // old code - can eventially be reomved
-
-         return GetConnectionString();
-      }
 
       public static DateTime GetMaxGameDate(string ConnectionString, string LeagueName, string TableName, DateTime DefaultDate)
       {
@@ -61,7 +55,7 @@ namespace Bball.DataBaseFunctions
          SqlParmValues.Add(TeamName);
 
          string StoredProcedureName = "TeamLookup";
-         string ConnectionString = GetConnectionString(BballConnectionStringName);
+         string ConnectionString = GetConnectionString();
 
          string s = DALfunctions.ExecuteStoredProcedureQueryReturnSingleParm(ConnectionString, StoredProcedureName, SqlParmNames, SqlParmValues);
          if (String.IsNullOrEmpty(s))
@@ -87,7 +81,8 @@ namespace Bball.DataBaseFunctions
          SqlParmValues.Add(TeamNameInDatabase);
 
          string StoredProcedureName = "TeamLookupTeamNameByTeamNameInDatabase";
-         string ConnectionString = GetConnectionString(BballConnectionStringName);
+         string ConnectionString = GetConnectionString(
+            );
 
          string s = DALfunctions.ExecuteStoredProcedureQueryReturnSingleParm(ConnectionString, StoredProcedureName, SqlParmNames, SqlParmValues);
          if (String.IsNullOrEmpty(s))
@@ -116,7 +111,7 @@ namespace Bball.DataBaseFunctions
          SqlParmValues.Add(TeamName);
 
          string StoredProcedureName = "TeamLookupSourceToSource";
-         string ConnectionString = GetConnectionString(BballConnectionStringName);
+         string ConnectionString = GetConnectionString();
 
          string s = DALfunctions.ExecuteStoredProcedureQueryReturnSingleParm(ConnectionString, StoredProcedureName, SqlParmNames, SqlParmValues);
          return s;
