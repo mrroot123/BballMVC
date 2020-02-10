@@ -78,9 +78,10 @@
        });
 
        app.controller('appController', function ($scope, $compile, f, ajx) {
-           GetAdjustments($scope, $compile);
+          let GetAdjustmentsParms = { scope: $scope, compile: $compile, f: f, LeagueName: LeagueName, ajx: ajx };
+          GetAdjustments(GetAdjustmentsParms);
 
-           $scope.InsertAdjustment = function () {
+          $scope.InsertAdjustment = function () {
               let oAdjustment = {};
               oAdjustment.AdjustmentType = this.AdjustmentType;
               oAdjustment.Team = this.Team;
@@ -97,6 +98,32 @@
                     alert('Insert Error: ' + error);
                  });
            }; // InsertAdjustment
+          $scope.processUpdates = function () {
+             let ocAdjustmentDTO = [];
+             let rowNum = 1;
+             while ($("#adjAmt_" + rowNum).val() !== undefined) {
+                if ($("#cb_" + rowNum).prop('checked')) {
+                   ocAdjustmentDTO.push({ AdjustmentID: parseInt($("#adjAmt_" + rowNum).attr("data-id")) });
+                }
+                else if ($("#adjAmt_" + rowNum).val()) {
+                   ocAdjustmentDTO.push({ AdjustmentID: parseInt($("#adjAmt_" + rowNum).attr("data-id")), AdjustmentAmount: parseFloat($("#adjAmt_" + rowNum).val()) });
+                }
+                rowNum++;
+             }  // while
+             if (ocAdjustmentDTO.length === 0) {
+                f.DisplayMessage("No Updates were made");
+                return;
+             }
+             let URL = "/Adjustments/PostProcessUpdates";
+             ajx.AjaxPost(URL, ocAdjustmentDTO)
+                .then(data => {
+                   GetAdjustments(GetAdjustmentsParms);
+                   f.DisplayMessage("Updates Complete");
+                })
+                .catch(error => {
+                   f.DisplayMessage(FormatResponse(error));
+                });
+          };   // processUpdates 
 
        }); // controler
     }
