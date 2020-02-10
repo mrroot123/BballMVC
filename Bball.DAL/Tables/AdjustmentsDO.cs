@@ -37,7 +37,7 @@ namespace Bball.DAL.Tables
             return "";
         }
 
-     
+     //test Version_2 kdtodo
       //string QueryAdjustmentsSql = ""
       //   + "SELECT * FROM Adjustments  "
       //   + $"  WHERE LeagueName = '{LeagueName}' "
