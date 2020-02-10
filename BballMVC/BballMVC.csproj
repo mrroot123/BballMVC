@@ -231,7 +231,6 @@
     </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Doc_Help_examples.txt" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -243,6 +242,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="_Documentation\Doc_Help_examples.txt" />
     <EntityDeploy Include="Models\BballEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>BballEntities.Designer.cs</LastGenOutput>
@@ -314,6 +314,7 @@
     <Content Include="Views\Rotation\Details.cshtml" />
     <Content Include="Views\Rotation\Edit.cshtml" />
     <Content Include="Views\Rotation\Index.cshtml" />
+    <Content Include="_Documentation\BballMVC_Doc.xlsx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AngularJS\_Common\" />

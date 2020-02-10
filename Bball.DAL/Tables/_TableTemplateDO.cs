@@ -61,6 +61,7 @@ namespace Bball.DAL.Tables
       }
       #endregion GetRows
 
+      #region InsertRow
       public void InsertRow()
       {
          ThisDTO oThisDTO = populateDTO();
@@ -81,7 +82,7 @@ namespace Bball.DAL.Tables
          ocValues.Add(oThisDTO.GameDate.ToString());
          ocValues.Add(oThisDTO.LeagueName.ToString());
       }
-
+      #endregion InsertRow
 
    }  // class
 
