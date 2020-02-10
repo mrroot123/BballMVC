@@ -7,6 +7,7 @@ Imports BballMVC.DTOs
 'Imports Bball.DAL
 'Imports Bball.VbClassesInterfaces.Bball.VbClassesInterfaces
 Imports Bball.DataBaseFunctions
+Imports SysDAL.DALfunctions
 
 Namespace Bball.VbClasses
    Public Class CoversRotation
@@ -176,7 +177,7 @@ Namespace Bball.VbClasses
                _ocRotation.Add(oCoversDTO.RotNum.ToString(), oCoversDTO)
             Catch ex As Exception
                Dim msg = IIf(InStr(ex.Message, "CallStack=") > 0, ex.Message, ex.Message & $" - CallStack= {ex.StackTrace}")
-               Throw New Exception($"CoversRotation.GetRotation: Error - {poLeagueDTO.LeagueName} {pGameDate} - TeamAway: {oCoversDTO.TeamAway} - TeamHome: {oCoversDTO.TeamHome} - {msg}")
+               Throw New Exception(StackTraceFormat($"CoversRotation.GetRotation: Error - {poLeagueDTO.LeagueName} {pGameDate} - TeamAway: {oCoversDTO.TeamAway} - TeamHome: {oCoversDTO.TeamHome}", ex, ""))
 
             End Try
 

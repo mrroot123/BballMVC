@@ -8,16 +8,12 @@ namespace BballConsole
     class BballMenu
    {
       static string[] menu = new string[] {
-           "1) Load Boxscore Range"
-         , "2) Load Boxscore"
-         , "3) Load Today's Rotation"
-         , "4) Write Html to Disk"
+           "1) Load Today's Rotation"
+         , "2) Write Html to Disk"
          , "X) Exit"
       };
       static void Main(string[] args)
       {
-         //Trace.Trace.SetTraceFile(@"Trace.txt");
-         //Trace.Trace.SetLogFile(@"BballErrorLog.txt");
 
          string s = "";
          DateTime StartGameDate = Convert.ToDateTime("10/16/2018");
@@ -27,23 +23,23 @@ namespace BballConsole
             {
                switch (s)
                {
-                  case "1":
+                  case "x":
                      LoadBoxScores l = new LoadBoxScores("NBA", DateTime.Now.ToString(), StartGameDate);
 
                      l.LoadBoxScoreRange();  //       DateTime.Today.AddDays(-4));
                      break;
 
-                  case "2":
+                  case "y":
                      LoadBoxScores l2 = new LoadBoxScores("NBA", DateTime.Now.ToLongDateString(), StartGameDate);
                      l2.LoadBoxScore(DateTime.Today.AddDays(-1));
                      break;
 
-                  case "3":
+                  case "1":
                      LoadBoxScores l3 = new LoadBoxScores("NBA", DateTime.Now.ToLongDateString(), StartGameDate);
                      l3.LoadTodaysRotation();
                      break;
 
-                  case "4":
+                  case "2":
                      writeHtmlToDisk();
                      break;
 
@@ -54,7 +50,6 @@ namespace BballConsole
             catch (Exception ex)
             {
                string msg = SysDAL.DALfunctions.StackTraceFormat(ex);
-               //Trace.Trace.Log(msg);
                Console.WriteLine(msg);
             }
 

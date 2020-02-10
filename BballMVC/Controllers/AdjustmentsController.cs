@@ -33,7 +33,7 @@ namespace BballMVC.Controllers
 
         //Keith needs to revisit this
         [HttpPost]
-        public JsonResult PostNewAdjustment(AdjustmentDTO oAdjustmentDTO)
+        public JsonResult PostInsertAdjustment(AdjustmentDTO oAdjustmentDTO)
         {
             AdjustmentsBO oAdjustmentsBO = new AdjustmentsBO();
           //  List<AdjustmentDTO> ocAdjustmentDTO = oAdjustmentsBO.GetTodaysAdjustments(LeagueName);

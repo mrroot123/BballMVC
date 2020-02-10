@@ -1,15 +1,104 @@
 ﻿(function () {
     'use strict';
     try {
+       var app = angular.module('app', []);
+       app.service('ajx', function () {
+
+          this.AjaxGet = function (URL, Data) {
+             return new Promise((resolve, reject) => {
+                $.ajax({
+                   url: URL,
+                   type: 'GET',
+                   data: Data,
+                   contentType: 'application/json; charset=utf-8',
+                   success: function (data) {
+                      resolve(data);
+                   },
+                   error: function (error) {
+                      reject(error);
+                   }
+                });   // ajax
+             });   // Promise
+          };  // AjaxGet
+
+          this.AjaxPost = function (URL, Data) {
+             return new Promise((resolve, reject) => {
+                $.ajax({
+                   url: URL,
+                   type: 'POST',
+                   data: JSON.stringify(Data),
+                   contentType: 'application/json; charset=utf-8',
+                   success: function (returnData) {
+                      resolve(returnData);
+                   },
+                   error: function (error) {
+                      reject(error);
+                   }
+                });   // ajax
+             });   // Promise
+          };  // AjaxPost
+
+          this.fun = function () {
+
+          };
+          this.FormatResponse = function (response) {
+             return "status: " + response.status + "\n"
+                + "statusText: " + response.statusText + "\n"
+                + "responseText: " + response.responseText;
+          };
 
 
-        var app = angular.module('app', []);
-        app.controller('appController',
-            function ($scope, $compile) {
-                $scope.apptitle = "Adjustment";
-                GetAdjustments($scope, $compile);
-            }
-        );
+       });
+
+       app.service('f', function () {
+
+          this.parseJsonDate = function (jsonDateString) {
+             return new Date(parseInt(jsonDateString.replace('/Date(', '')));
+          };
+
+          this.wrapTag = function (tag, innerHtml) {
+             let ar = tag.split(" ");
+             return "<" + tag + ">" + innerHtml + "</" + ar[0] + ">";
+          };
+
+          this.FormatResponse = function (response) {
+             return "status: " + response.status + "\n"
+                + "statusText: " + response.statusText + "\n"
+                + "responseText: " + response.responseText;
+
+          };
+
+          this.DisplayMessage = function (msg) {
+             alert(msg);
+          };
+
+          this.fun = function () {
+
+          };
+       });
+
+       app.controller('appController', function ($scope, $compile, f, ajx) {
+           GetAdjustments($scope, $compile);
+
+           $scope.InsertAdjustment = function () {
+              let oAdjustment = {};
+              oAdjustment.AdjustmentType = this.AdjustmentType;
+              oAdjustment.Team = this.Team;
+              oAdjustment.AdjustmentAmount = this.AdjustmentAmount;
+              oAdjustment.Player = this.Player;
+              oAdjustment.Description = this.Description;
+              let URL = "/Adjustments/PostInsertAdjustment";
+
+              ajx.AjaxPost(URL, oAdjustment)
+                 .then(data => {
+                    console.log(data);
+                 })
+                 .catch(error => {
+                    alert('Insert Error: ' + error);
+                 });
+           }; // InsertAdjustment
+
+       }); // controler
     }
     catch (error) {
         console.error(error);
@@ -99,7 +188,7 @@ function FormatResponse(response) {
         + "statusText: " + response.statusText + "\n"
         + "responseText: " + response.responseText;
 }
-function InsertAdjustment() {
+function xInsertAdjustment() {
     console.log("here");
     let oAdjustment = {};
     oAdjustment.AdjustmentType = $Scope.AdjustmentType;

@@ -29,21 +29,6 @@ namespace Bball.DataBaseFunctions
 
          
       }
-      public static string GetConnectionString(string ConnectionStringName)
-      {
-         //ConnectionStringSettings mySetting = System.Configuration.ConfigurationManager.ConnectionStrings[ConnectionStringName];
-         //if (mySetting == null || string.IsNullOrEmpty(mySetting.ConnectionString))
-         //   throw new Exception("Fatal error: missing connecting string in web.config file");
-         //return mySetting.ConnectionString;
-         // string x = @"metadata=res://*/BballModel.csdl|res://*/BballModel.ssdl|res://*/BballModel.msl;provider=System.Data.SqlClient;provider connection string=&quot; data source = FERRARI616\SQLEXPRESS2012; initial catalog = 00TTI_LeagueScores; integrated security = True; MultipleActiveResultSets = True; App = EntityFramework & quot; ";
-         // If InStr(Server.MapPath(""), "mrroot", CompareMethod.Text) = 0 Then
-         // System.AppDomain.CurrentDomain.BaseDirectory
-         //if (System.Web.HttpContext.Current.Server.MapPath("").IndexOf("mrroot") < 0)
-         if (System.AppDomain.CurrentDomain.BaseDirectory.IndexOf("mrroot") < 0)
-            return SqlServerConnectionStringTest;
-
-         return SqlServerConnectionStringArvixe;
-      }
 
       public static DateTime GetMaxGameDate(string ConnectionString, string LeagueName, string TableName, DateTime DefaultDate)
       {
@@ -70,7 +55,7 @@ namespace Bball.DataBaseFunctions
          SqlParmValues.Add(TeamName);
 
          string StoredProcedureName = "TeamLookup";
-         string ConnectionString = GetConnectionString(BballConnectionStringName);
+         string ConnectionString = GetConnectionString();
 
          string s = DALfunctions.ExecuteStoredProcedureQueryReturnSingleParm(ConnectionString, StoredProcedureName, SqlParmNames, SqlParmValues);
          if (String.IsNullOrEmpty(s))
@@ -96,7 +81,8 @@ namespace Bball.DataBaseFunctions
          SqlParmValues.Add(TeamNameInDatabase);
 
          string StoredProcedureName = "TeamLookupTeamNameByTeamNameInDatabase";
-         string ConnectionString = GetConnectionString(BballConnectionStringName);
+         string ConnectionString = GetConnectionString(
+            );
 
          string s = DALfunctions.ExecuteStoredProcedureQueryReturnSingleParm(ConnectionString, StoredProcedureName, SqlParmNames, SqlParmValues);
          if (String.IsNullOrEmpty(s))
@@ -125,7 +111,7 @@ namespace Bball.DataBaseFunctions
          SqlParmValues.Add(TeamName);
 
          string StoredProcedureName = "TeamLookupSourceToSource";
-         string ConnectionString = GetConnectionString(BballConnectionStringName);
+         string ConnectionString = GetConnectionString();
 
          string s = DALfunctions.ExecuteStoredProcedureQueryReturnSingleParm(ConnectionString, StoredProcedureName, SqlParmNames, SqlParmValues);
          return s;
