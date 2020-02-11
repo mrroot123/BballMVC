@@ -60,11 +60,7 @@ namespace Bball.DAL.Tables
          string strSql = $"DELETE From {TableName} Where LeagueName = '{LeagueName}' AND GameDate = '{GameDate.ToShortDateString()}'";
          int rows = SysDAL.DALfunctions.ExecuteSqlNonQuery(SqlFunctions.GetConnectionString(), strSql);
       }
-      //public int GetRow(DailySummaryDTO oDailySummaryDTO)
-      //{
-      //   int rows = SysDAL.DALfunctions.ExecuteSqlQuery(_ConnectionString, getRowSql(), null, oDailySummaryDTO, LoadReadRowToDTO);
-      //   return rows;
-      //}
+
 
    }  // class
 

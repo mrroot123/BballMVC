@@ -49,9 +49,9 @@ namespace Bball.DAL.Tables
 
       private int getRotationFromDatabase()
       {
-         List<object> oCoversList = new List<object>();
+         List<CoversDTO> oCoversList = new List<CoversDTO>();
 
-         int rows = SysDAL.DALfunctions.ExecuteSqlQuery(_ConnectionString, RotationRowSql(), oCoversList, null, LoadRotationRows);
+         int rows = SysDAL.DALfunctions.ExecuteSqlQuery(_ConnectionString, RotationRowSql(), oCoversList,  LoadRotationRows);
 
          if (oCoversList.Count == 0)
             refreshRotation();
@@ -63,7 +63,7 @@ namespace Bball.DAL.Tables
 
          return rows;
       }
-      static void LoadRotationRows(List<object> ocRows, object oRow, SqlDataReader rdr)
+      static void LoadRotationRows(object ocRows, SqlDataReader rdr)
       {
          if (rdr["Venue"].ToString().Trim() == "Away")
          { 
@@ -87,7 +87,8 @@ namespace Bball.DAL.Tables
             oCoversDTO.Period = 0;
             oCoversDTO.SecondsLeftInPeriod = 0;
 
-            ocRows.Add(oCoversDTO);
+            List<CoversDTO> ocCoversDTO = (List<CoversDTO>)ocRows;
+            ocCoversDTO.Add(oCoversDTO);
          }
       }
 

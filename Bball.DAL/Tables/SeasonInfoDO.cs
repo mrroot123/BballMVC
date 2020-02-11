@@ -18,6 +18,7 @@ namespace Bball.DAL.Tables
       public DateTime GameDate { get; set; }
       String _LeagueName;
 
+      // constructor
       public SeasonInfoDO(DateTime GameDate, String LeagueName)
       {
          this.GameDate = GameDate;
@@ -44,7 +45,7 @@ namespace Bball.DAL.Tables
       private  void populateSeasonInfoDTO()
       {
          int rows = SysDAL.DALfunctions.ExecuteSqlQuery(SqlFunctions.GetConnectionString(), SeasonInfoRowSql()
-                       , null, oSeasonInfoDTO, PopulateDTO);
+                       ,  oSeasonInfoDTO, PopulateDTO);
          if (rows == 0)
             throw new Exception($"SeasonInfo row not found - League: {_LeagueName}  GameDate: {GameDate}");
       }
@@ -67,7 +68,7 @@ namespace Bball.DAL.Tables
 
          return Sql;
       }
-      static void PopulateDTO(List<object> ocRows, object oRow, SqlDataReader rdr)
+      static void PopulateDTO(object oRow, SqlDataReader rdr)
       {
          SeasonInfoDTO oSeasonInfoDTO = (SeasonInfoDTO)oRow;
          oSeasonInfoDTO.LeagueName = rdr["LeagueName"].ToString().Trim();

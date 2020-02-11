@@ -42,10 +42,10 @@ namespace Bball.DAL.Tables
       #region GetRows
       public int GetRow(LinesDTO oLinesDTO)
       {
-         int rows = SysDAL.DALfunctions.ExecuteSqlQuery(_ConnectionString, getRowSql(), null, oLinesDTO, populateDTOFromRdr);
+         int rows = SysDAL.DALfunctions.ExecuteSqlQuery(_ConnectionString, getRowSql(), oLinesDTO, populateDTOFromRdr);
          return rows;
       }
-      static void populateDTOFromRdr(List<object> ocRows, object oRow, SqlDataReader rdr)
+      static void populateDTOFromRdr(object oRow, SqlDataReader rdr)
       {
          // Column Updates Procedure
          // 1) Update Table Columns
