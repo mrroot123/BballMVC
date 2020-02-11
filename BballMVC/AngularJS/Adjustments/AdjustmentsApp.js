@@ -89,6 +89,7 @@
 
          $scope.InsertAdjustment = function () {
             let oAdjustment = {};
+            oAdjustment.LeagueName = "NBA";
             oAdjustment.AdjustmentType = this.AdjustmentType;
             oAdjustment.Team = this.Team;
             oAdjustment.AdjustmentAmount = this.AdjustmentAmount;
