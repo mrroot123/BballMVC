@@ -32,10 +32,10 @@ namespace Bball.DAL.Tables
       #region GetRows
       public int GetRow(ThisDTO oThisDTO)
       {
-         int rows = SysDAL.DALfunctions.ExecuteSqlQuery(_ConnectionString, getRowSql(), null, oThisDTO, populateDTOFromRdr);
+         int rows = SysDAL.DALfunctions.ExecuteSqlQuery(_ConnectionString, getRowSql(), oThisDTO, populateDTOFromRdr);
          return rows;
       }
-      static void populateDTOFromRdr(List<object> ocRows, object oRow, SqlDataReader rdr)
+      static void populateDTOFromRdr(object oRow, SqlDataReader rdr)
       {
          // Column Updates Procedure
          // 1) Update Table Columns
@@ -61,6 +61,7 @@ namespace Bball.DAL.Tables
       }
       #endregion GetRows
 
+      #region InsertRow
       public void InsertRow()
       {
          ThisDTO oThisDTO = populateDTO();
@@ -81,7 +82,7 @@ namespace Bball.DAL.Tables
          ocValues.Add(oThisDTO.GameDate.ToString());
          ocValues.Add(oThisDTO.LeagueName.ToString());
       }
-
+      #endregion InsertRow
 
    }  // class
 

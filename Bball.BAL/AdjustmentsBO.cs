@@ -13,5 +13,18 @@ namespace Bball.BAL
             return oAdjustments.GetTodaysAdjustments(LeagueName);
 
         }
+
+        public void InsertNewAdjustment(AdjustmentDTO oAdjustmentDTO)
+        {
+            Bball.DAL.Tables.AdjustmentsDO newAdjustment = new Bball.DAL.Tables.AdjustmentsDO();
+            newAdjustment.InsertAdjustmentRow(oAdjustmentDTO);
+        }
+
+        public void UpdateAdjustments(List<AdjustmentDTO> ocAdjustmentDTO)
+        {
+            Bball.DAL.Tables.AdjustmentsDO updAdjustment = new Bball.DAL.Tables.AdjustmentsDO();
+            updAdjustment.UpdateAdjustmentRow(ocAdjustmentDTO);
+
+        }
     }
 }

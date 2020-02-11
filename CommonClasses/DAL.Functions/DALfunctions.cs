@@ -9,12 +9,11 @@ namespace SysDAL
 
    public static class DALfunctions
    {
-      public delegate void PopulateDTO(List<object> ocRows, object oRow, SqlDataReader rdr);
-      public delegate void PopulateDTO2(object oRow, SqlDataReader rdr);
+      public delegate void PopulateDTOx(List<object> ocRows, object oRow, SqlDataReader rdr);
+      public delegate void PopulateDTO(object oRow, SqlDataReader rdr);
 
-        public static int ExecuteSqlNonQuery(string ConnectionString, string strSql)
-       //  , List<object> ocRows, object oRow, PopulateDTO delPopulateDTO)
-
+      #region ExecuteSql
+      public static int ExecuteSqlNonQuery(string ConnectionString, string strSql)
       {
          int rowsAffected = 0;
          try
@@ -38,7 +37,7 @@ namespace SysDAL
          return rowsAffected;
       }
 
-      public static int ExecuteSqlQuery(string ConnectionString, string strSql, List<object> ocRows, object oRow, PopulateDTO delPopulateDTO)
+      public static int ExecuteSqlQuery(string ConnectionString, string strSql,  object oRow, PopulateDTO delPopulateDTO)
       {
          int ctrRows = 0;
          try
@@ -57,7 +56,7 @@ namespace SysDAL
                   while (rdr.Read())
                   {
                      ctrRows++;
-                     delPopulateDTO(ocRows, oRow, rdr);
+                     delPopulateDTO( oRow, rdr);
                   }
                }
             }  // using conn
@@ -100,135 +99,49 @@ namespace SysDAL
          }
          return parmValue;
       }
-      public static string xExecuteStoredProcedureQuery(string ConnectionString, string StoredProcedureName
-                             , List<string> SqlParmNames, List<object> SqlParmValues)
+      #endregion ExecuteSql
+
+      #region StoredProcs
+      public static string ExecuteStoredProcedureQuery(string ConnectionString, string StoredProcedureName
+                              , List<string> SqlParmNames, List<object> SqlParmValues, object oRow, PopulateDTO delegatePopulateDTO)
       {
          string s = "";
          try
          {
-            //  1)  Get Conn     SqlConnection oSqlConnection 
-            //  2)  Open DB      oSqlConnection.Open();
-            //  3)  create Com obj  oSqlCommand = new SqlCommand(StoredProcedureName, oSqlConnection);
-            //  4) set the command object so it knows to execute a stored procedure
-            //  5) add parameters to command, which will be passed to the stored procedure
-            //  6)  Read Rows    SqlDataReader rdr = oSqlCommand.ExecuteReader();
-            using (SqlConnection oSqlConnection = new SqlConnection(ConnectionString))
-            {
-               oSqlConnection.Open();  //  2)  Open DB 
-               // 3)  create a command object identifying the stored procedure
-               SqlCommand oSqlCommand = new SqlCommand(StoredProcedureName, oSqlConnection);
-               // 4) set the command object so it knows to execute a stored procedure
-               oSqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-
-               // 5) add parameter to command, which will be passed to the stored procedure
-               // SqlParmNames, SqlParmValues
-               for (int i = 0; i < SqlParmNames.Count; i++)
-                  oSqlCommand.Parameters.Add(new SqlParameter(SqlParmNames[i], SqlParmValues[i]));
-
-               // 6) execute the command to Read Rows
-               using (SqlDataReader rdr = oSqlCommand.ExecuteReader())
+               using (SqlConnection oSqlConnection = new SqlConnection(ConnectionString))
                {
-                  var sch = rdr.GetSchemaTable();
+                  oSqlConnection.Open();
 
-                  // rdr.MetaData.metaDataArray[0].column
-                  // iterate through results, printing each to console
-                  while (rdr.Read())
+                  // 1.  create a command object identifying the stored procedure
+                  SqlCommand oSqlCommand = new SqlCommand(StoredProcedureName, oSqlConnection);
+
+                  // 2. set the command object so it knows to execute a stored procedure
+                  oSqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+
+                  // 3. add parameter to command, which will be passed to the stored procedure
+                  // SqlParmNames, SqlParmValues
+                  for (int i = 0; i < SqlParmNames.Count; i++)
+                     oSqlCommand.Parameters.Add(new SqlParameter(SqlParmNames[i], SqlParmValues[i]));
+
+                  // execute the command
+                  using (SqlDataReader rdr = oSqlCommand.ExecuteReader())
                   {
-                     s = rdr.GetFieldValue<string>(0);
+
+                     while (rdr.Read())
+                     {
+                           delegatePopulateDTO(oRow, rdr);
+                     }
                   }
-               }
-            }  // using conn
+               }  // using conn
          }
          catch (Exception ex)
          {
-            var msg = ex.Message.IndexOf("CallStack=") > -1 ? ex.Message : ex.Message + $" - CallStack= {ex.StackTrace}";
-            throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name}\nStored Procedure: {StoredProcedureName}\nConnectionString: {ConnectionString}\nError Message: {msg}");
+               var msg = ex.Message.IndexOf("CallStack=") > -1 ? ex.Message : ex.Message + $" - CallStack= {ex.StackTrace}";
+               throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name}\nStored Procedure: {StoredProcedureName}\nConnectionString: {ConnectionString}\nError Message: {msg}");
          }
          return s;
       }  // ExecuteStoredProcedureQuery
 
-        public static string ExecuteStoredProcedureQuery(string ConnectionString, string StoredProcedureName
-                               , List<string> SqlParmNames, List<object> SqlParmValues, object oRow, PopulateDTO2 delegatePopulateDTO)
-        {
-            string s = "";
-            try
-            {
-                using (SqlConnection oSqlConnection = new SqlConnection(ConnectionString))
-                {
-                    oSqlConnection.Open();
-
-                    // 1.  create a command object identifying the stored procedure
-                    SqlCommand oSqlCommand = new SqlCommand(StoredProcedureName, oSqlConnection);
-
-                    // 2. set the command object so it knows to execute a stored procedure
-                    oSqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-
-                    // 3. add parameter to command, which will be passed to the stored procedure
-                    // SqlParmNames, SqlParmValues
-                    for (int i = 0; i < SqlParmNames.Count; i++)
-                        oSqlCommand.Parameters.Add(new SqlParameter(SqlParmNames[i], SqlParmValues[i]));
-
-                    // execute the command
-                    using (SqlDataReader rdr = oSqlCommand.ExecuteReader())
-                    {
-
-                        while (rdr.Read())
-                        {
-                            delegatePopulateDTO(oRow, rdr);
-                        }
-                    }
-                }  // using conn
-            }
-            catch (Exception ex)
-            {
-                var msg = ex.Message.IndexOf("CallStack=") > -1 ? ex.Message : ex.Message + $" - CallStack= {ex.StackTrace}";
-                throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name}\nStored Procedure: {StoredProcedureName}\nConnectionString: {ConnectionString}\nError Message: {msg}");
-            }
-            return s;
-        }  // ExecuteStoredProcedureQuery
-
-        public static string ExecuteStoredProcedureQuery(string ConnectionString, string StoredProcedureName
-                             , List<string> SqlParmNames, List<object> SqlParmValues, List<object> ocRows, object oRow, PopulateDTO delegatePopulateDTO)
-      {
-         string s = "";
-         try
-         {
-            using (SqlConnection oSqlConnection = new SqlConnection(ConnectionString))
-            {
-               oSqlConnection.Open();
-
-               // 1.  create a command object identifying the stored procedure
-               SqlCommand oSqlCommand = new SqlCommand(StoredProcedureName, oSqlConnection);
-
-               // 2. set the command object so it knows to execute a stored procedure
-               oSqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-
-               // 3. add parameter to command, which will be passed to the stored procedure
-               // SqlParmNames, SqlParmValues
-               for (int i = 0; i < SqlParmNames.Count; i++)
-                  oSqlCommand.Parameters.Add(new SqlParameter(SqlParmNames[i], SqlParmValues[i]));
-
-               // execute the command
-               using (SqlDataReader rdr = oSqlCommand.ExecuteReader())
-               {
-                  var sch = rdr.GetSchemaTable();
-
-                  // rdr.MetaData.metaDataArray[0].column
-                  // iterate through results, printing each to console
-                  while (rdr.Read())
-                  {
-                     delegatePopulateDTO(ocRows, oRow, rdr);
-                  }
-               }
-            }  // using conn
-         }
-         catch (Exception ex)
-         {
-            var msg = ex.Message.IndexOf("CallStack=") > -1 ? ex.Message : ex.Message + $" - CallStack= {ex.StackTrace}";
-            throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name}\nStored Procedure: {StoredProcedureName}\nConnectionString: {ConnectionString}\nError Message: {msg}");
-         }
-         return s;
-      }  // ExecuteStoredProcedureQuery
 
       public static string ExecuteStoredProcedureQueryReturnSingleParm(string ConnectionString, string StoredProcedureName
                              , List<string> SqlParmNames, List<object> SqlParmValues)
@@ -254,10 +167,6 @@ namespace SysDAL
                // execute the command
                using (SqlDataReader rdr = oSqlCommand.ExecuteReader())
                {
-                  var sch = rdr.GetSchemaTable();
-
-                  // rdr.MetaData.metaDataArray[0].column
-                  // iterate through results, printing each to console
                   while (rdr.Read())
                   {
                      s = rdr.GetFieldValue<string>(0);
@@ -306,8 +215,8 @@ namespace SysDAL
          }
          return rowsAffected;
       }  // ExecuteStoredProcedureNonQuery
-
-
+      #endregion StoredProcs
+      #region genSql
       public static string GenSql(string sqlString, List<string> ocColumnNames, List<string> ocColumnValues)
       {
          if (ocColumnNames.Count != ocColumnValues.Count)
@@ -340,10 +249,11 @@ namespace SysDAL
          string sql = $"INSERT INTO {TableName} ({columnNames.ToString()}) VALUES ({columnValues.ToString()})";
          return sql;
       }
+      #endregion genSql
       public static int InsertRow(string ConnectionString, string sqlString, List<string> ocColumnNames, List<string> ocColumnValues)
       {
-         //string sqlString = "INSERT INTO table (col1, col2, col3) VALUES (@val1, @val2, @val2xx)";
-         //string sqlString = "INSERT INTO test (Name, f2) VALUES (@val1, @val2)";
+         //string sqlString = "INSERT INTO table (col1, col2, col3) VALUES (@val1, @val2, @val3)";
+         //string sqlString = "INSERT INTO test  (Name, f2)         VALUES (@val1, @val2)";
          // comm.Parameters.AddWithValue("@val1", txtbox1.Text);
 
          if (ocColumnNames.Count != ocColumnValues.Count)
@@ -378,6 +288,7 @@ namespace SysDAL
 
       }  // InsertRow
 
+      #region debuggingArea
       public static string StackTraceFormat(Exception ex) => StackTraceFormat("", ex, "");
       
       public static string StackTraceFormat(String PreMsg, Exception ex, string PostMsg)
@@ -430,6 +341,97 @@ namespace SysDAL
 
          return sb.ToString();
       }
+      #endregion debuggingArea
    }  // class
 
 }  // namespace
+
+//public static string xExecuteStoredProcedureQuery(string ConnectionString, string StoredProcedureName
+//                       , List<string> SqlParmNames, List<object> SqlParmValues)
+//{
+//   string s = "";
+//   try
+//   {
+//      //  1)  Get Conn     SqlConnection oSqlConnection 
+//      //  2)  Open DB      oSqlConnection.Open();
+//      //  3)  create Com obj  oSqlCommand = new SqlCommand(StoredProcedureName, oSqlConnection);
+//      //  4) set the command object so it knows to execute a stored procedure
+//      //  5) add parameters to command, which will be passed to the stored procedure
+//      //  6)  Read Rows    SqlDataReader rdr = oSqlCommand.ExecuteReader();
+//      using (SqlConnection oSqlConnection = new SqlConnection(ConnectionString))
+//      {
+//         oSqlConnection.Open();  //  2)  Open DB 
+//         // 3)  create a command object identifying the stored procedure
+//         SqlCommand oSqlCommand = new SqlCommand(StoredProcedureName, oSqlConnection);
+//         // 4) set the command object so it knows to execute a stored procedure
+//         oSqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+
+//         // 5) add parameter to command, which will be passed to the stored procedure
+//         // SqlParmNames, SqlParmValues
+//         for (int i = 0; i < SqlParmNames.Count; i++)
+//            oSqlCommand.Parameters.Add(new SqlParameter(SqlParmNames[i], SqlParmValues[i]));
+
+//         // 6) execute the command to Read Rows
+//         using (SqlDataReader rdr = oSqlCommand.ExecuteReader())
+//         {
+//            var sch = rdr.GetSchemaTable();
+
+//            // rdr.MetaData.metaDataArray[0].column
+//            // iterate through results, printing each to console
+//            while (rdr.Read())
+//            {
+//               s = rdr.GetFieldValue<string>(0);
+//            }
+//         }
+//      }  // using conn
+//   }
+//   catch (Exception ex)
+//   {
+//      var msg = ex.Message.IndexOf("CallStack=") > -1 ? ex.Message : ex.Message + $" - CallStack= {ex.StackTrace}";
+//      throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name}\nStored Procedure: {StoredProcedureName}\nConnectionString: {ConnectionString}\nError Message: {msg}");
+//   }
+//   return s;
+//}  // ExecuteStoredProcedureQuery
+
+//public static string xExecuteStoredProcedureQuery(string ConnectionString, string StoredProcedureName
+//                       , List<string> SqlParmNames, List<object> SqlParmValues, List<object> ocRows, object oRow, PopulateDTO delegatePopulateDTO)
+//{
+//   string s = "";
+//   try
+//   {
+//      using (SqlConnection oSqlConnection = new SqlConnection(ConnectionString))
+//      {
+//         oSqlConnection.Open();
+
+//         // 1.  create a command object identifying the stored procedure
+//         SqlCommand oSqlCommand = new SqlCommand(StoredProcedureName, oSqlConnection);
+
+//         // 2. set the command object so it knows to execute a stored procedure
+//         oSqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+
+//         // 3. add parameter to command, which will be passed to the stored procedure
+//         // SqlParmNames, SqlParmValues
+//         for (int i = 0; i < SqlParmNames.Count; i++)
+//            oSqlCommand.Parameters.Add(new SqlParameter(SqlParmNames[i], SqlParmValues[i]));
+
+//         // execute the command
+//         using (SqlDataReader rdr = oSqlCommand.ExecuteReader())
+//         {
+//            var sch = rdr.GetSchemaTable();
+
+//            // rdr.MetaData.metaDataArray[0].column
+//            // iterate through results, printing each to console
+//            while (rdr.Read())
+//            {
+//               delegatePopulateDTO(ocRows, oRow, rdr);
+//            }
+//         }
+//      }  // using conn
+//   }
+//   catch (Exception ex)
+//   {
+//      var msg = ex.Message.IndexOf("CallStack=") > -1 ? ex.Message : ex.Message + $" - CallStack= {ex.StackTrace}";
+//      throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name}\nStored Procedure: {StoredProcedureName}\nConnectionString: {ConnectionString}\nError Message: {msg}");
+//   }
+//   return s;
+//}  // ExecuteStoredProcedureQuery

@@ -15,11 +15,11 @@ namespace Bball.DAL.Tables
 
       public LeagueInfoDO(string LeagueName, LeagueDTO oLeagueDTO, string ConnectionString)
       {
-         int rows = SysDAL.DALfunctions.ExecuteSqlQuery(ConnectionString, getRowSql(LeagueName), null, oLeagueDTO, PopulateDTO);
+         int rows = SysDAL.DALfunctions.ExecuteSqlQuery(ConnectionString, getRowSql(LeagueName), oLeagueDTO, PopulateDTO);
          if (rows == 0)  throw new Exception($"LeagueInfo row not found for League: {LeagueName}");
 
       }
-      static void PopulateDTO(List<object> ocRows, object oRow, SqlDataReader rdr)
+      static void PopulateDTO( object oRow, SqlDataReader rdr)
       {
          LeagueDTO oLeagueDTO = (LeagueDTO)oRow;
 

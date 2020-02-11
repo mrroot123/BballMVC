@@ -36,9 +36,20 @@ namespace BballMVC.Controllers
         public JsonResult PostInsertAdjustment(AdjustmentDTO oAdjustmentDTO)
         {
             AdjustmentsBO oAdjustmentsBO = new AdjustmentsBO();
-          //  List<AdjustmentDTO> ocAdjustmentDTO = oAdjustmentsBO.GetTodaysAdjustments(LeagueName);
+            oAdjustmentsBO.InsertNewAdjustment(oAdjustmentDTO);
 
             return Json(oAdjustmentsBO, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult PostProcessUpdates(List<AdjustmentDTO> ocAdjustmentDTO)
+        {
+            AdjustmentsBO oAdjustmentsBO = new AdjustmentsBO();
+            oAdjustmentsBO.UpdateAdjustments(ocAdjustmentDTO);
+            return Json("Success");
+
+            //  return Json(new { success = true, responseText = "Your message successfuly sent!" }, JsonRequestBehavior.AllowGet);
+
         }
 
         // GET: Adjustments/Details/5

@@ -1,12 +1,11 @@
-﻿<script src="..\..\AngularJS\Adjustments\AdjustmentsApp.js"></script>
-<script src="~/AngularJS/Adjustments/AdjustmentsApp.js"></script>
+﻿<script src="~/AngularJS/Adjustments/AdjustmentsApp.js"></script>
 <script>
     $(function () {
         var pop = function () {
             $('#screen').css({ "display": "block", opacity: 0.7, "width": $(document).width(), "height": $(document).height() });
             $('#box').css({ "display": "block" });
         }
-        $('#button').click(pop);
+        $('#button').click(pop);  // Invoked by New Adj button click
         $(window).resize(function () {
             $('#box').css("display") == 'block' ? pop.call($('#button')) : "";
         });
@@ -73,7 +72,7 @@
                 </div>
 
                 <div class="btn-group">
-                    <button class="btn btn-default " type="button" data-toggle=" tooltip" title="Update">
+                    <button class="btn btn-default " type="button" data-toggle=" tooltip" title="Update" ng-click="ProcessUpdates()">
                         <span class="glyphicon glyphicon-pencil"></span>&nbsp;
                     </button>
                 </div>

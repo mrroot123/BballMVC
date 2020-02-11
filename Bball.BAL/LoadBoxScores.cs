@@ -144,8 +144,7 @@ namespace Bball.BAL
                string msg = $"BoxScoreL5Min Load Error - "
                   + $"{_oLeagueDTO.LeagueName}: {GameDate}  {oCoversDTO.RotNum}:  {oCoversDTO.TeamAway}-{oCoversDTO.TeamHome} "
                   + "\n" + Bball.DAL.Parsing.BoxScoresLast5Min.BuildBoxScoresLast5MinUrl(oLast5MinDTOHome);
-               // throw new Exception(SysDAL.DALfunctions.StackTraceFormat(msg, ex, ""));
-               //Trace.Trace.Log(SysDAL.DALfunctions.StackTraceFormat(msg, ex, ""));
+               throw new Exception(SysDAL.DALfunctions.StackTraceFormat(msg, ex, ""));
             }
          } // foreach
 

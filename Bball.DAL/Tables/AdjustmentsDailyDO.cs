@@ -19,11 +19,12 @@ namespace Bball.DAL.Tables
       string _ConnectionString;
       string _strLoadDateTime;
 
+      #region Constructors
+      // Constructors
       public AdjustmentsDailyDO(string ConnectionString)
       {
          _ConnectionString = ConnectionString;
       }
-
       public AdjustmentsDailyDO(DateTime GameDate, LeagueDTO oLeagueDTO, string ConnectionString, string strLoadDateTime)
       {
          _GameDate = GameDate;
@@ -31,24 +32,12 @@ namespace Bball.DAL.Tables
          _ConnectionString = ConnectionString;
          _strLoadDateTime = strLoadDateTime;
       }
+      #endregion Constructors
+
       public void InsertRow(AdjustmentsDailyDTO oAdjustmentsDailyDTO)
       {
-
          SqlFunctions.DALInsertRow(TableName, ColumnNames, oAdjustmentsDailyDTO, populateDTO, _ConnectionString);
       }
-
-      public void DeleteDailyAdjustments(DateTime GameDate, string LeagueName)
-      {
-
-         string strSql = $"DELETE From {TableName} Where LeagueName = '{LeagueName}' AND GameDate = '{GameDate.ToShortDateString()}'";
-         int rows = SysDAL.DALfunctions.ExecuteSqlNonQuery(SqlFunctions.GetConnectionString(), strSql);
-      }
-      //public int GetRow(DailySummaryDTO oDailySummaryDTO)
-      //{
-      //   int rows = SysDAL.DALfunctions.ExecuteSqlQuery(_ConnectionString, getRowSql(), null, oDailySummaryDTO, LoadReadRowToDTO);
-      //   return rows;
-      //}
-
 
       static void populateDTO(List<string> ocValues, object DTO)
       {
@@ -65,6 +54,14 @@ namespace Bball.DAL.Tables
          ocValues.Add(oAdjustmentsDailyDTO.Team.ToString());
          ocValues.Add(oAdjustmentsDailyDTO.AdjustmentAmount.ToString());
       }
+
+      public void DeleteDailyAdjustments(DateTime GameDate, string LeagueName)
+      {
+         string strSql = $"DELETE From {TableName} Where LeagueName = '{LeagueName}' AND GameDate = '{GameDate.ToShortDateString()}'";
+         int rows = SysDAL.DALfunctions.ExecuteSqlNonQuery(SqlFunctions.GetConnectionString(), strSql);
+      }
+
+
    }  // class
 
 

@@ -31,7 +31,7 @@ namespace Bball.DAL.Tables
       #region GetRows
       public int GetRow(DailySummaryDTO oDailySummaryDTO)
       {
-         int rows = SysDAL.DALfunctions.ExecuteSqlQuery(_ConnectionString, getRowSql(), null, oDailySummaryDTO, LoadReadRowToDTO);
+         int rows = SysDAL.DALfunctions.ExecuteSqlQuery(_ConnectionString, getRowSql(), oDailySummaryDTO, LoadReadRowToDTO);
          return rows;
       }
       private string getRowSql()
@@ -44,7 +44,7 @@ namespace Bball.DAL.Tables
          return Sql;
       }
 
-      static void LoadReadRowToDTO(List<object> ocRows, object oRow, SqlDataReader rdr)
+      static void LoadReadRowToDTO(object oRow, SqlDataReader rdr)
       {
          DailySummaryDTO oDailySummaryDTO = (DailySummaryDTO)oRow;
 
@@ -56,7 +56,7 @@ namespace Bball.DAL.Tables
          oDailySummaryDTO.SubSeasonPeriod = (int)rdr["SubSeasonPeriod"];
          oDailySummaryDTO.NumOfMatchups = (int)rdr["NumOfMatchups"];
       }
-      static void LoadLgAvgStatsToDTO(List<object> ocRows, object oRow, SqlDataReader rdr)
+      static void LoadLgAvgStatsToDTO(object oRow, SqlDataReader rdr)
       {
          DailySummaryDTO oDailySummaryDTO = (DailySummaryDTO)oRow;
 
@@ -117,7 +117,7 @@ namespace Bball.DAL.Tables
             { _GameDate.ToShortDateString(), _oLeagueDTO.LeagueName, oSeasonInfo.oSeasonInfoDTO.Season, oSeasonInfo.oSeasonInfoDTO.SubSeason };
 
          SysDAL.DALfunctions.ExecuteStoredProcedureQuery(_ConnectionString, "uspQueryLeagueAverages"
-                             , SqlParmNames, SqlParmValues, null, oDailySummaryDTO, LoadLgAvgStatsToDTO);
+                             , SqlParmNames, SqlParmValues, oDailySummaryDTO, LoadLgAvgStatsToDTO);
          return oDailySummaryDTO;
       }
 
