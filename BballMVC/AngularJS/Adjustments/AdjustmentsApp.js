@@ -57,6 +57,20 @@
 
       app.service('f', function () {
 
+         this.DisplayMessage = function (msg) {
+            alert(msg);
+         };
+
+         this.FormatResponse = function (response) {
+            return "status: " + response.status + "\n"
+               + "statusText: " + response.statusText + "\n"
+               + "responseText: " + response.responseText;
+         };
+
+         this.MessageSuccess = function (msg) {
+            alert("Success: " + msg);
+         };
+
          this.parseJsonDate = function (jsonDateString) {
             return new Date(parseInt(jsonDateString.replace('/Date(', '')));
          };
@@ -64,17 +78,6 @@
          this.wrapTag = function (tag, innerHtml) {
             let ar = tag.split(" ");
             return "<" + tag + ">" + innerHtml + "</" + ar[0] + ">";
-         };
-
-         this.FormatResponse = function (response) {
-            return "status: " + response.status + "\n"
-               + "statusText: " + response.statusText + "\n"
-               + "responseText: " + response.responseText;
-
-         };
-
-         this.DisplayMessage = function (msg) {
-            alert(msg);
          };
 
          this.fun = function () {
@@ -99,10 +102,10 @@
 
             ajx.AjaxPost(URL, oAdjustment)
                .then(data => {
-                  console.log(data);
+                  f.MessageSuccess("Insert Complete");
                })
                .catch(error => {
-                  alert('Insert Error: ' + error);
+                  f.DisplayMessage("Adjustment Insert Error/n" + f.FormatResponse(error));
                });
          }; // InsertAdjustment
 
@@ -216,26 +219,7 @@ function GetAdjustments(Parms) {
 }  // GetAdjustments
 
 
-function xInsertAdjustment() {
-   let oAdjustment = {
-      // YOUR $Scope code here
-      LeagueName: "NBA"
-      , Team: " "
-      , AdjustmentType: " "
-      , AdjustmentAmount: " "
-      , Player: " "
-      , Description: " "
-   };
-   let URL = "/Adjustments/PostInsertAdjustment";
 
-   AjaxPost(URL, oAdjustment)
-      .then(data => {
-         console.log(data);
-      })
-      .catch(error => {
-         alert('Insert Error: ' + error);
-      });
-}  // InsertAdjustment
 
 function AjaxGet(URL, Data) {
    return new Promise((resolve, reject) => {
