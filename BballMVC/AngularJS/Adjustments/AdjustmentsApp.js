@@ -109,7 +109,7 @@
                });
          }; // InsertAdjustment
 
-         $scope.processUpdates = function () {
+         $scope.ProcessUpdates = function () {
             let ocAdjustmentDTO = [];
             let rowNum = 1;
             while ($("#adjAmt_" + rowNum).val() !== undefined) {
