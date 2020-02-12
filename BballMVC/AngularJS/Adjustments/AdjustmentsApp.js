@@ -106,7 +106,8 @@
                })
                .catch(error => {
                   f.DisplayMessage("Adjustment Insert Error/n" + f.FormatResponse(error));
-               });
+                 });
+             end();
          }; // InsertAdjustment
 
          $scope.ProcessUpdates = function () {
@@ -261,4 +262,18 @@ function FormatResponse(response) {
    return "status: " + response.status + "\n"
       + "statusText: " + response.statusText + "\n"
       + "responseText: " + response.responseText;
+}
+
+function ClearForm() {
+    $("#AdjType").val('');
+    $("#Team").val('');
+    document.getElementById("AdjAmount").value = "";
+    document.getElementById("Player").value = "";
+    document.getElementById("Description").value = "";
+}
+
+function end() {
+    $('#box').css({ "display": "none" });
+    $('#screen').css({ "display": "block", opacity: 1, "width": $(document).width(), "height": $(document).height() });
+    ClearForm();
 }
