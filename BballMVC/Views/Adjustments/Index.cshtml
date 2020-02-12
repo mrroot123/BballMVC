@@ -2,7 +2,7 @@
 <script>
     $(function () {
         var pop = function () {
-            $('#screen').css({ "display": "block", opacity: 0.7, "width": $(document).width(), "height": $(document).height() });
+            $('#screen').css({ "display": "block", opacity: 0.2, "width": $(document).width(), "height": $(document).height() });
             $('#box').css({ "display": "block" });
         }
         $('#button').click(pop);  // Invoked by New Adj button click
@@ -11,9 +11,6 @@
         });
     });
 
-    function end() {
-        $('#box').css({ "display": "none" });
-    }
 
     function delButton(obj) {
         var start = obj.id;
@@ -57,11 +54,12 @@
     }
 
     #screen {
+        
     }
 </style>
 
 <div ng-app="app" ng-controller="appController">
-    <div class="container">
+    <div class="container" id="screen">
         {{apptitle}} -
 
         <div class="row" style="margin-top: 10px;margin-bottom:10px;">
@@ -178,14 +176,14 @@
                         <div class="col-md-2"></div>
                         <div class="col-md-5 col-sm-4 col-xs-3">
                             <span class="help-block text-muted small-font">Adj Type</span>
-                            <select class="form-control" ng-model="AdjustmentType">
+                            <select class="form-control" ng-model="AdjustmentType" id="AdjType">
                                 <option value="I">Injury</option>
                                 <option value="T">Team</option>
                             </select>
                         </div>
                         <div class="col-md-5 col-sm-4 col-xs-3">
                             <span class="help-block text-muted small-font">  Team</span>
-                            <select class="form-control" ng-model="Team">
+                            <select class="form-control" ng-model="Team" id="Team">
                                 <option value="ATL">ATL</option>
                                 <option value="BOS">BOS</option>
                                 <option value="OKC">OKC</option>
@@ -196,7 +194,7 @@
                         <div class="col-md-2"></div>
                         <div class="col-md-6 pad-adjust col-sm-4">
                             <span class="help-block text-muted small-font pull-left">  Adj Amount</span><br />
-                            <input type="text" class="form-control" placeholder=" Adj Amount" ng-model="AdjustmentAmount" />
+                            <input type="text" class="form-control" placeholder=" Adj Amount" ng-model="AdjustmentAmount" id="AdjAmount"/>
                         </div>
                         <div class="col-md-4 col-sm-3"></div>
                     </div>
@@ -204,7 +202,7 @@
                         <div class="col-md-2"></div>
                         <div class="col-md-5 pad-adjust col-sm-3">
                             <span class="help-block text-muted small-font pull-left">  Player</span><br />
-                            <input type="text" class="form-control" placeholder="Player" ng-model="Player" />
+                            <input type="text" class="form-control" placeholder="Player" ng-model="Player" id="Player" />
                         </div>
                         <div class="col-md-4 col-sm-3"></div>
                     </div>
@@ -212,7 +210,7 @@
                         <div class="col-md-2"></div>
                         <div class="col-md-6 pad-adjust col-sm-4">
                             <span class="help-block text-muted small-font pull-left">  Description</span><br />
-                            <input type="text" class="form-control" placeholder="Description" ng-model="Description" />
+                            <input type="text" class="form-control" placeholder="Description" ng-model="Description" id="Description" />
                         </div>
                         <div class="col-md-4 col-sm-3"></div>
                     </div>
