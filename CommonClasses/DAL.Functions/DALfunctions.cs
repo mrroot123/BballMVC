@@ -142,6 +142,48 @@ namespace SysDAL
          return s;
       }  // ExecuteStoredProcedureQuery
 
+      public static string ExecuteStoredProcedureQueries(string ConnectionString, string StoredProcedureName
+                              , List<string> SqlParmNames, List<object> SqlParmValues, List<object> oRows, List<PopulateDTO> delegatePopulateDTOs)
+      {
+         string s = "";
+         try
+         {
+            using (SqlConnection oSqlConnection = new SqlConnection(ConnectionString))
+            {
+               oSqlConnection.Open();
+
+               // 1.  create a command object identifying the stored procedure
+               SqlCommand oSqlCommand = new SqlCommand(StoredProcedureName, oSqlConnection);
+
+               // 2. set the command object so it knows to execute a stored procedure
+               oSqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+
+               // 3. add parameter to command, which will be passed to the stored procedure
+               // SqlParmNames, SqlParmValues
+               for (int i = 0; i < SqlParmNames.Count; i++)
+                  oSqlCommand.Parameters.Add(new SqlParameter(SqlParmNames[i], SqlParmValues[i]));
+               int ix = 0;
+               foreach (var oRow in oRows)
+               {
+                  var delegatePopulateDTO = delegatePopulateDTOs[ix];
+                  // execute the command
+                  using (SqlDataReader rdr = oSqlCommand.ExecuteReader())
+                  {
+                     while (rdr.Read())
+                        delegatePopulateDTO(oRow, rdr);
+                  }  // rdr
+               }
+            }  // using conn
+         }
+         catch (Exception ex)
+         {
+            var msg = ex.Message.IndexOf("CallStack=") > -1 ? ex.Message : ex.Message + $" - CallStack= {ex.StackTrace}";
+            throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name}\nStored Procedure: {StoredProcedureName}\nConnectionString: {ConnectionString}\nError Message: {msg}");
+         }
+         return s;
+      }  // ExecuteStoredProcedureQuery
+
+
 
       public static string ExecuteStoredProcedureQueryReturnSingleParm(string ConnectionString, string StoredProcedureName
                              , List<string> SqlParmNames, List<object> SqlParmValues)

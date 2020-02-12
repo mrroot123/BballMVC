@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdjustmentDTO.cs" />
+    <Compile Include="AdjustmentInitDTO.cs" />
     <Compile Include="AdjustmentsDailyDTO.cs" />
     <Compile Include="BoxScoresDTO.cs" />
     <Compile Include="BoxScoresLast5MinDTO.cs" />
