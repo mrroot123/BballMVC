@@ -275,7 +275,57 @@ namespace Bball.DAL.Tables
         List<AdjustmentDTO> ocAdjustmentDTO = (List<AdjustmentDTO>)oRow;
         ocAdjustmentDTO.Add(oAdjustmentDTO);
     }
-    #endregion todaysAdjustments
+        #endregion todaysAdjustments
+
+    static void populateTeamDTOFromRdr(object oRow, SqlDataReader rdr)
+    {
+            AdjustmentInitDataDTO oAdjustmentInitDataDTO = new AdjustmentInitDataDTO();
+            String s = (string)rdr["Team"];
+            List<string> ocTeams = (List<string>)oRow;
+            ocTeams.Add(s);
+
+        }
+
+        static void populateAdjCodesDTOFromRdr(object oRow, SqlDataReader rdr)
+        {
+            String s = (string)rdr["AdjustmentCodes"];
+            List<string> ocAdjustmentCodes = (List<string>)oRow;
+            ocAdjustmentCodes.Add(s);
+
+        }
+
+        public List<AdjustmentInitDataDTO> GetAdjustmentInfo(string LeagueName)
+        {
+            string ConnectionString = Bball.DataBaseFunctions.SqlFunctions.GetConnectionString();
+
+
+            AdjustmentInitDataDTO oAdjustmentInitDataDTO = new AdjustmentInitDataDTO();
+
+            oAdjustmentInitDataDTO.ocAdjustment = new List<AdjustmentDTO>();
+            oAdjustmentInitDataDTO.ocTeams = new List<string>();
+            oAdjustmentInitDataDTO.ocAdjustmentNames = new List<string>();
+
+            List<object> ocDTOs = new List<object>();
+            ocDTOs.Add(oAdjustmentInitDataDTO.ocAdjustment);
+            ocDTOs.Add(oAdjustmentInitDataDTO.ocTeams);
+            ocDTOs.Add(oAdjustmentInitDataDTO.ocAdjustmentNames);
+
+            List<string> ocAdjustmentNames;
+
+            List<SysDAL.DALfunctions.PopulateDTO> ocDelegates = new List<SysDAL.DALfunctions.PopulateDTO>();
+            ocDelegates.Add(populateDTOFromRdr);
+            ocDelegates.Add(populateTeamDTOFromRdr);
+            ocDelegates.Add(populateAdjCodesDTOFromRdr);
+
+            List<string> SqlParmNames = new List<string>() { "LeagueName" };
+            List<object> SqlParmValues = new List<object>() { LeagueName };
+
+            SysDAL.DALfunctions.ExecuteStoredProcedureQueries(ConnectionString, "uspQueryAdjustmentInfo"
+                              , SqlParmNames, SqlParmValues, ocDTOs, ocDelegates);
+
+            //still unsure what to return
+            return oAdjustmentInitDataDTO;
+        }
 
 
     }  // class Adjustments
