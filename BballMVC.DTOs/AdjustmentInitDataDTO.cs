@@ -8,8 +8,8 @@ namespace BballMVC.DTOs
 {
    public class AdjustmentInitDataDTO
    {
-      List<AdjustmentDTO> ocAdjustment;
-      List<string> ocTeams;
-      List<string> ocAdjustmentNames;
+      public List<AdjustmentDTO> ocAdjustment;
+      public List<string> ocTeams;
+      public List<string> ocAdjustmentNames;
    }
 }
