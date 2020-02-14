@@ -31,8 +31,17 @@ namespace BballMVC.Controllers
             return Json(ocAdjustmentDTO, JsonRequestBehavior.AllowGet);
         }
 
-        //Keith needs to revisit this
-        [HttpPost]
+      [HttpGet]
+      public JsonResult GetAdjustmentInfo(string LeagueName)
+      {
+         AdjustmentsBO oAdjustmentsBO = new AdjustmentsBO();
+         AdjustmentInitDataDTO oAdjustmentInitDataDTO = oAdjustmentsBO.GetAdjustmentInfo(LeagueName);
+
+         return Json(oAdjustmentInitDataDTO, JsonRequestBehavior.AllowGet);
+      }
+
+      //Keith needs to revisit this
+      [HttpPost]
         public JsonResult PostInsertAdjustment(AdjustmentDTO oAdjustmentDTO)
         {
             AdjustmentsBO oAdjustmentsBO = new AdjustmentsBO();

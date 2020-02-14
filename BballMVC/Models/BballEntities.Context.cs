@@ -12,6 +12,8 @@ namespace BballMVC.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class BballEntities1 : DbContext
     {
@@ -36,5 +38,255 @@ namespace BballMVC.Models
         public virtual DbSet<BoxScoresLast5Min> BoxScoresLast5Min { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Rotation> Rotation { get; set; }
+        public virtual DbSet<Team> Team { get; set; }
+    
+        public virtual int Bball_UpdateAdjs(Nullable<System.DateTime> processDate, Nullable<int> testMode)
+        {
+            var processDateParameter = processDate.HasValue ?
+                new ObjectParameter("ProcessDate", processDate) :
+                new ObjectParameter("ProcessDate", typeof(System.DateTime));
+    
+            var testModeParameter = testMode.HasValue ?
+                new ObjectParameter("testMode", testMode) :
+                new ObjectParameter("testMode", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Bball_UpdateAdjs", processDateParameter, testModeParameter);
+        }
+    
+        public virtual ObjectResult<string> spTeamLookup(Nullable<System.DateTime> startDate, string leagueName, string teamSource, string teamName)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var leagueNameParameter = leagueName != null ?
+                new ObjectParameter("LeagueName", leagueName) :
+                new ObjectParameter("LeagueName", typeof(string));
+    
+            var teamSourceParameter = teamSource != null ?
+                new ObjectParameter("TeamSource", teamSource) :
+                new ObjectParameter("TeamSource", typeof(string));
+    
+            var teamNameParameter = teamName != null ?
+                new ObjectParameter("TeamName", teamName) :
+                new ObjectParameter("TeamName", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("spTeamLookup", startDateParameter, leagueNameParameter, teamSourceParameter, teamNameParameter);
+        }
+    
+        public virtual ObjectResult<string> TeamLookup(Nullable<System.DateTime> startDate, string leagueName, string teamSource, string teamName)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var leagueNameParameter = leagueName != null ?
+                new ObjectParameter("LeagueName", leagueName) :
+                new ObjectParameter("LeagueName", typeof(string));
+    
+            var teamSourceParameter = teamSource != null ?
+                new ObjectParameter("TeamSource", teamSource) :
+                new ObjectParameter("TeamSource", typeof(string));
+    
+            var teamNameParameter = teamName != null ?
+                new ObjectParameter("TeamName", teamName) :
+                new ObjectParameter("TeamName", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("TeamLookup", startDateParameter, leagueNameParameter, teamSourceParameter, teamNameParameter);
+        }
+    
+        public virtual int TeamLookupByCovers(string leagueName, Nullable<System.DateTime> gameDate, string teamSearchArg)
+        {
+            var leagueNameParameter = leagueName != null ?
+                new ObjectParameter("LeagueName", leagueName) :
+                new ObjectParameter("LeagueName", typeof(string));
+    
+            var gameDateParameter = gameDate.HasValue ?
+                new ObjectParameter("GameDate", gameDate) :
+                new ObjectParameter("GameDate", typeof(System.DateTime));
+    
+            var teamSearchArgParameter = teamSearchArg != null ?
+                new ObjectParameter("TeamSearchArg", teamSearchArg) :
+                new ObjectParameter("TeamSearchArg", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("TeamLookupByCovers", leagueNameParameter, gameDateParameter, teamSearchArgParameter);
+        }
+    
+        public virtual ObjectResult<TeamLookupSourceToSource_Result> TeamLookupSourceToSource(Nullable<System.DateTime> startDate, string leagueName, string teamSourceFrom, string teamSourceTo, string teamName)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var leagueNameParameter = leagueName != null ?
+                new ObjectParameter("LeagueName", leagueName) :
+                new ObjectParameter("LeagueName", typeof(string));
+    
+            var teamSourceFromParameter = teamSourceFrom != null ?
+                new ObjectParameter("TeamSourceFrom", teamSourceFrom) :
+                new ObjectParameter("TeamSourceFrom", typeof(string));
+    
+            var teamSourceToParameter = teamSourceTo != null ?
+                new ObjectParameter("TeamSourceTo", teamSourceTo) :
+                new ObjectParameter("TeamSourceTo", typeof(string));
+    
+            var teamNameParameter = teamName != null ?
+                new ObjectParameter("TeamName", teamName) :
+                new ObjectParameter("TeamName", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<TeamLookupSourceToSource_Result>("TeamLookupSourceToSource", startDateParameter, leagueNameParameter, teamSourceFromParameter, teamSourceToParameter, teamNameParameter);
+        }
+    
+        public virtual ObjectResult<string> TeamLookupTeamNameByTeamNameInDatabase(Nullable<System.DateTime> startDate, string leagueName, string teamSource, string teamNameInDatabase)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var leagueNameParameter = leagueName != null ?
+                new ObjectParameter("LeagueName", leagueName) :
+                new ObjectParameter("LeagueName", typeof(string));
+    
+            var teamSourceParameter = teamSource != null ?
+                new ObjectParameter("TeamSource", teamSource) :
+                new ObjectParameter("TeamSource", typeof(string));
+    
+            var teamNameInDatabaseParameter = teamNameInDatabase != null ?
+                new ObjectParameter("TeamNameInDatabase", teamNameInDatabase) :
+                new ObjectParameter("TeamNameInDatabase", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("TeamLookupTeamNameByTeamNameInDatabase", startDateParameter, leagueNameParameter, teamSourceParameter, teamNameInDatabaseParameter);
+        }
+    
+
+    
+        public virtual int uspCalcTodaysMatchups(string userName, string leagueName, Nullable<System.DateTime> gameDate, Nullable<bool> display)
+        {
+            var userNameParameter = userName != null ?
+                new ObjectParameter("UserName", userName) :
+                new ObjectParameter("UserName", typeof(string));
+    
+            var leagueNameParameter = leagueName != null ?
+                new ObjectParameter("LeagueName", leagueName) :
+                new ObjectParameter("LeagueName", typeof(string));
+    
+            var gameDateParameter = gameDate.HasValue ?
+                new ObjectParameter("GameDate", gameDate) :
+                new ObjectParameter("GameDate", typeof(System.DateTime));
+    
+            var displayParameter = display.HasValue ?
+                new ObjectParameter("Display", display) :
+                new ObjectParameter("Display", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("uspCalcTodaysMatchups", userNameParameter, leagueNameParameter, gameDateParameter, displayParameter);
+        }
+    
+        public virtual int uspInsertAdjustments(string leagueName, string team, string adjustmentDesc, Nullable<double> adjustmentAmount, string player, string description)
+        {
+            var leagueNameParameter = leagueName != null ?
+                new ObjectParameter("LeagueName", leagueName) :
+                new ObjectParameter("LeagueName", typeof(string));
+    
+            var teamParameter = team != null ?
+                new ObjectParameter("Team", team) :
+                new ObjectParameter("Team", typeof(string));
+    
+            var adjustmentDescParameter = adjustmentDesc != null ?
+                new ObjectParameter("AdjustmentDesc", adjustmentDesc) :
+                new ObjectParameter("AdjustmentDesc", typeof(string));
+    
+            var adjustmentAmountParameter = adjustmentAmount.HasValue ?
+                new ObjectParameter("AdjustmentAmount", adjustmentAmount) :
+                new ObjectParameter("AdjustmentAmount", typeof(double));
+    
+            var playerParameter = player != null ?
+                new ObjectParameter("Player", player) :
+                new ObjectParameter("Player", typeof(string));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("Description", description) :
+                new ObjectParameter("Description", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("uspInsertAdjustments", leagueNameParameter, teamParameter, adjustmentDescParameter, adjustmentAmountParameter, playerParameter, descriptionParameter);
+        }
+    
+        public virtual int uspInsertLine(string leagueName, Nullable<System.DateTime> gameDate, Nullable<int> rotNum, string teamAway, string teamHome, Nullable<double> line, string playType, string playDuration, Nullable<System.DateTime> createDate, string lineSource)
+        {
+            var leagueNameParameter = leagueName != null ?
+                new ObjectParameter("LeagueName", leagueName) :
+                new ObjectParameter("LeagueName", typeof(string));
+    
+            var gameDateParameter = gameDate.HasValue ?
+                new ObjectParameter("GameDate", gameDate) :
+                new ObjectParameter("GameDate", typeof(System.DateTime));
+    
+            var rotNumParameter = rotNum.HasValue ?
+                new ObjectParameter("RotNum", rotNum) :
+                new ObjectParameter("RotNum", typeof(int));
+    
+            var teamAwayParameter = teamAway != null ?
+                new ObjectParameter("TeamAway", teamAway) :
+                new ObjectParameter("TeamAway", typeof(string));
+    
+            var teamHomeParameter = teamHome != null ?
+                new ObjectParameter("TeamHome", teamHome) :
+                new ObjectParameter("TeamHome", typeof(string));
+    
+            var lineParameter = line.HasValue ?
+                new ObjectParameter("Line", line) :
+                new ObjectParameter("Line", typeof(double));
+    
+            var playTypeParameter = playType != null ?
+                new ObjectParameter("PlayType", playType) :
+                new ObjectParameter("PlayType", typeof(string));
+    
+            var playDurationParameter = playDuration != null ?
+                new ObjectParameter("PlayDuration", playDuration) :
+                new ObjectParameter("PlayDuration", typeof(string));
+    
+            var createDateParameter = createDate.HasValue ?
+                new ObjectParameter("CreateDate", createDate) :
+                new ObjectParameter("CreateDate", typeof(System.DateTime));
+    
+            var lineSourceParameter = lineSource != null ?
+                new ObjectParameter("LineSource", lineSource) :
+                new ObjectParameter("LineSource", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("uspInsertLine", leagueNameParameter, gameDateParameter, rotNumParameter, teamAwayParameter, teamHomeParameter, lineParameter, playTypeParameter, playDurationParameter, createDateParameter, lineSourceParameter);
+        }
+    
+        public virtual int uspInsertLinesFromRotation(Nullable<System.DateTime> gameDate, string leagueName)
+        {
+            var gameDateParameter = gameDate.HasValue ?
+                new ObjectParameter("GameDate", gameDate) :
+                new ObjectParameter("GameDate", typeof(System.DateTime));
+    
+            var leagueNameParameter = leagueName != null ?
+                new ObjectParameter("LeagueName", leagueName) :
+                new ObjectParameter("LeagueName", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("uspInsertLinesFromRotation", gameDateParameter, leagueNameParameter);
+        }
+    
+        public virtual int uspInsertMatchupResults(string userName, string leagueName)
+        {
+            var userNameParameter = userName != null ?
+                new ObjectParameter("UserName", userName) :
+                new ObjectParameter("UserName", typeof(string));
+    
+            var leagueNameParameter = leagueName != null ?
+                new ObjectParameter("LeagueName", leagueName) :
+                new ObjectParameter("LeagueName", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("uspInsertMatchupResults", userNameParameter, leagueNameParameter);
+        }
+    
+ 
+        public virtual int uspUpdateAdjustments()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("uspUpdateAdjustments");
+        }
+    
+
     }
 }

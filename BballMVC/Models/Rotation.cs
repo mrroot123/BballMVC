@@ -11,30 +11,26 @@ namespace BballMVC.Models
 {
     using System;
     using System.Collections.Generic;
-   using System.ComponentModel.DataAnnotations;
-
-   public partial class Rotation
+    
+    public partial class Rotation
     {
-      public int RotationID { get; set; }
-      public string LeagueName { get; set; }
-
-      [DataType(DataType.Date)]
-      [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-      public System.DateTime GameDate { get; set; }
-      public int RotNum { get; set; }
-      public string Venue { get; set; }
-      public string Team { get; set; }
-      public string Opp { get; set; }
-      public string GameTime { get; set; }
-      public string TV { get; set; }
-      public Nullable<double> SideLine { get; set; }
-      public Nullable<double> TotalLine { get; set; }
-      public Nullable<double> TotalLineTeam { get; set; }
-      public Nullable<double> TotalLineOpp { get; set; }
-      public Nullable<double> OpenTotalLine { get; set; }
-      public string BoxScoreSource { get; set; }
-      public string BoxScoreUrl { get; set; }
-      public System.DateTime CreateDate { get; set; }
-      public Nullable<System.DateTime> UpdateDate { get; set; }
+        public int RotationID { get; set; }
+        public string LeagueName { get; set; }
+        public System.DateTime GameDate { get; set; }
+        public int RotNum { get; set; }
+        public string Venue { get; set; }
+        public string Team { get; set; }
+        public string Opp { get; set; }
+        public string GameTime { get; set; }
+        public string TV { get; set; }
+        public Nullable<double> SideLine { get; set; }
+        public Nullable<double> TotalLine { get; set; }
+        public Nullable<double> TotalLineTeam { get; set; }
+        public Nullable<double> TotalLineOpp { get; set; }
+        public Nullable<double> OpenTotalLine { get; set; }
+        public string BoxScoreSource { get; set; }
+        public string BoxScoreUrl { get; set; }
+        public System.DateTime CreateDate { get; set; }
+        public Nullable<System.DateTime> UpdateDate { get; set; }
     }
 }

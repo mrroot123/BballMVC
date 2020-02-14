@@ -294,23 +294,21 @@ namespace Bball.DAL.Tables
 
         }
 
-        public List<AdjustmentInitDataDTO> GetAdjustmentInfo(string LeagueName)
+        public AdjustmentInitDataDTO GetAdjustmentInfo(string LeagueName)
         {
             string ConnectionString = Bball.DataBaseFunctions.SqlFunctions.GetConnectionString();
 
 
             AdjustmentInitDataDTO oAdjustmentInitDataDTO = new AdjustmentInitDataDTO();
 
-            oAdjustmentInitDataDTO.ocAdjustment = new List<AdjustmentDTO>();
+            oAdjustmentInitDataDTO.ocAdjustments = new List<AdjustmentDTO>();
             oAdjustmentInitDataDTO.ocTeams = new List<string>();
             oAdjustmentInitDataDTO.ocAdjustmentNames = new List<string>();
 
             List<object> ocDTOs = new List<object>();
-            ocDTOs.Add(oAdjustmentInitDataDTO.ocAdjustment);
+            ocDTOs.Add(oAdjustmentInitDataDTO.ocAdjustments);
             ocDTOs.Add(oAdjustmentInitDataDTO.ocTeams);
             ocDTOs.Add(oAdjustmentInitDataDTO.ocAdjustmentNames);
-
-            List<string> ocAdjustmentNames;
 
             List<SysDAL.DALfunctions.PopulateDTO> ocDelegates = new List<SysDAL.DALfunctions.PopulateDTO>();
             ocDelegates.Add(populateDTOFromRdr);

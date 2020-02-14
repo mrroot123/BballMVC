@@ -213,6 +213,12 @@
     <Compile Include="Models\SeasonInfo.cs">
       <DependentUpon>BballEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Team.cs">
+      <DependentUpon>BballEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TeamLookupSourceToSource_Result.cs">
+      <DependentUpon>BballEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\User.cs">
       <DependentUpon>BballEntities.tt</DependentUpon>
     </Compile>
