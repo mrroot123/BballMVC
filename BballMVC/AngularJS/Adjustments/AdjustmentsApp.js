@@ -149,7 +149,7 @@ function GetAdjustmentInfo(Parms) {
    var ajx = Parms.ajx;
    let Data = { LeagueName: Parms.LeagueName };
    let URL = "/Adjustments/GetAdjustmentInfo";
-   let fProcessAdjustments = {
+   let fProcessAdjustmentInfo = {
       scope: Parms.scope
       , compile: Parms.compile
       , process: function (oAdjustmentInitDataDTO) {
@@ -157,11 +157,11 @@ function GetAdjustmentInfo(Parms) {
          // todo -- oAdjustmentInitDataDTO.Teams - append to dropdown - SAME FOR ocAdjustmentNames
 
       }
-   }; // fProcessAdjustments
+   }; // fProcessAdjustmentInfo
 
    ajx.AjaxGet(URL, Data)
       .then(data => {
-         fProcessAdjustments.process(data);
+         fProcessAdjustmentInfo.process(data);
       })
       .catch(error => {
          f.DisplayMessage(FormatResponse(error));
