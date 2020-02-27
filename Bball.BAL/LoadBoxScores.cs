@@ -43,20 +43,18 @@ namespace Bball.BAL
       {
          LoadBoxScoreRange();
 
-         for (int i = 0; i < 2; i++) // 
+         for (int i = 0; i < 2; i++) // Loop twice - Load Today's & Tomorrow's Rotation
          { 
             string _strLoadDateTime = _oSeasonInfo.GameDate.ToString();
 
             SortedList<string, CoversDTO> ocRotation = new SortedList<string, CoversDTO>();
-            //Trace.Trace.StartEvent($"LoadTodaysRotation.PopulateRotation loop {i}");
-            RotationDO.PopulateRotation(ocRotation, _oSeasonInfo.GameDate, _oLeagueDTO,  _ConnectionString, _strLoadDateTime);
+             RotationDO.PopulateRotation(ocRotation, _oSeasonInfo.GameDate, _oLeagueDTO,  _ConnectionString, _strLoadDateTime);
 
-            //Trace.Trace.StartEvent($"oAdjustments {i}");
             AdjustmentsDO oAdjustments = new AdjustmentsDO(_oSeasonInfo.GameDate, _oLeagueDTO.LeagueName, _ConnectionString);
             oAdjustments.ProcessDailyAdjustments(_oSeasonInfo.GameDate, _oLeagueDTO.LeagueName);
             _oSeasonInfo.GameDate = _oSeasonInfo.GameDate.AddDays(1);
          }
-         //Trace.Trace.TurnTraceOff();
+         SqlFunctions.ParmTableParmValueUpdate("BoxscoresLastUpdateDate", DateTime.Today.ToShortDateString());
       }
 
       public void LoadBoxScoreRange()

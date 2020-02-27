@@ -3,7 +3,7 @@
 (function () {
    'use strict';
    try {
-      var LeagueName = 'NBA';
+      const LeagueName = 'NBA';
 
       var app = angular.module('app', []);
 
@@ -98,7 +98,7 @@
             oAdjustment.AdjustmentAmount = this.AdjustmentAmount;
             oAdjustment.Player = this.Player;
             oAdjustment.Description = this.Description;
-            let URL = "/Adjustments/PostInsertAdjustment";
+            const URL = "/Adjustments/PostInsertAdjustment";
 
             ajx.AjaxPost(URL, oAdjustment)
                .then(data => {
@@ -147,8 +147,8 @@
 function GetAdjustmentInfo(Parms) {
    var f = Parms.f;
    var ajx = Parms.ajx;
-   let Data = { LeagueName: Parms.LeagueName };
-   let URL = "/Adjustments/GetAdjustmentInfo";
+   const Data = { LeagueName: Parms.LeagueName };
+   const URL = "/Adjustments/GetAdjustmentInfo";
    let fProcessAdjustmentInfo = {
       scope: Parms.scope
       , compile: Parms.compile
@@ -168,7 +168,7 @@ function GetAdjustmentInfo(Parms) {
       });
    return;
 
-   function buildAdjustmentsRows(ocAdjustments) {
+   function xbuildAdjustmentsRows(ocAdjustments) {
       let rows = "";
       let rowNum = 0;
       $.each(ocAdjustments, function (key, oAdjustment) {
@@ -211,20 +211,12 @@ function GetAdjustments(Parms) {
    var f = Parms.f;
    var ajx = Parms.ajx;
    let Data = { LeagueName: Parms.LeagueName };
-   let URL = "/Adjustments/GetAdjustments";
+   const URL = "/Adjustments/GetAdjustments";
    let fProcessAdjustments = {
       scope: Parms.scope
       , compile: Parms.compile
       , process: function (ocAdjustments) {
          DisplayAdjustments(Parms, ocAdjustments);
-
-         //let rows = buildAdjustmentsRows(ocAdjustments);   // Adjustments coming from MVC controller methed
-         //var elmn = angular.element(document.querySelector('#adjustmentRows'));
-         //elmn.empty();
-         //Parms.compile(elmn)(Parms.scope);
-         //let compRows = Parms.compile(rows)(Parms.scope);       // Compile rows for AngularJS
-         //$(compRows).appendTo($('#adjustmentRows'));
-
       }
    }; // fProcessAdjustments
 
@@ -236,6 +228,19 @@ function GetAdjustments(Parms) {
          f.DisplayMessage(FormatResponse(error));
       });
    return;
+
+}  // GetAdjustments
+
+
+function DisplayAdjustments(Parms, ocAdjustments) {
+   var f = Parms.f;
+   let rows = buildAdjustmentsRows(ocAdjustments);   // Adjustments coming from MVC controller methed
+   var elmn = angular.element(document.querySelector('#adjustmentRows'));
+   elmn.empty();
+   Parms.compile(elmn)(Parms.scope);
+
+   let compRows = Parms.compile(rows)(Parms.scope);       // Compile rows for AngularJS
+   $(compRows).appendTo($('#adjustmentRows'));
 
    function buildAdjustmentsRows(ocAdjustments) {
       let rows = "";
@@ -272,17 +277,6 @@ function GetAdjustments(Parms) {
          return tr.replace(/{AdjID}/g, oAdjustment.AdjustmentID).replace(/{rowNum}/g, rowNum);
       }  // formatAdjusment
    }  // buildAdjustmentsRows
-}  // GetAdjustments
-
-
-function DisplayAdjustments(Parms, ocAdjustments) {
-   let rows = buildAdjustmentsRows(ocAdjustments);   // Adjustments coming from MVC controller methed
-   var elmn = angular.element(document.querySelector('#adjustmentRows'));
-   elmn.empty();
-   Parms.compile(elmn)(Parms.scope);
-
-   let compRows = Parms.compile(rows)(Parms.scope);       // Compile rows for AngularJS
-   $(compRows).appendTo($('#adjustmentRows'));
 }
 
 function AjaxGet(URL, Data) {

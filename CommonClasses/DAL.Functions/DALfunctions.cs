@@ -163,16 +163,21 @@ namespace SysDAL
                for (int i = 0; i < SqlParmNames.Count; i++)
                   oSqlCommand.Parameters.Add(new SqlParameter(SqlParmNames[i], SqlParmValues[i]));
                int ix = 0;
-               foreach (var oRow in oRows)
+                  
+               // execute the command
+               using (SqlDataReader rdr = oSqlCommand.ExecuteReader())
                {
-                  var delegatePopulateDTO = delegatePopulateDTOs[ix];
-                  // execute the command
-                  using (SqlDataReader rdr = oSqlCommand.ExecuteReader())
+                  foreach (var oRow in oRows)
                   {
+                     var delegatePopulateDTO = delegatePopulateDTOs[ix++];
                      while (rdr.Read())
+                     {
                         delegatePopulateDTO(oRow, rdr);
-                  }  // rdr
-               }
+                     }
+                     rdr.NextResult();
+                  }
+
+               }  // rdr
             }  // using conn
          }
          catch (Exception ex)

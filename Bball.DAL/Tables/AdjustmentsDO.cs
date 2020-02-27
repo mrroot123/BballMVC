@@ -225,37 +225,37 @@ namespace Bball.DAL.Tables
 
       }
 
-        public void UpdateAdjustmentRow(List<AdjustmentDTO> ocAdjustmentDTO)
-        {
-            DataTable tblAdjustments = new DataTable();
-            tblAdjustments.Columns.Add("AdjustmentID", typeof(int));
-            tblAdjustments.Columns.Add("AdjustmentAmount", typeof(string));
+      public void UpdateAdjustmentRow(List<AdjustmentDTO> ocAdjustmentDTO)
+      {
+         DataTable tblAdjustments = new DataTable();
+         tblAdjustments.Columns.Add("AdjustmentID", typeof(int));
+         tblAdjustments.Columns.Add("AdjustmentAmount", typeof(string));
 
-            foreach (var oAdjustment in ocAdjustmentDTO)
-            {
-                tblAdjustments.Rows.Add(oAdjustment.AdjustmentID, oAdjustment.AdjustmentAmount.ToString());
-            }
+         foreach (var oAdjustment in ocAdjustmentDTO)
+         {
+               tblAdjustments.Rows.Add(oAdjustment.AdjustmentID, oAdjustment.AdjustmentAmount.ToString());
+         }
 
-            List<string> SqlParmNames = new List<string>() { "tblAdjustments" };
-            List<object> SqlParmValues = new List<object>() { tblAdjustments };
+         List<string> SqlParmNames = new List<string>() { "tblAdjustments" };
+         List<object> SqlParmValues = new List<object>() { tblAdjustments };
 
-            string ConnectionString = Bball.DataBaseFunctions.SqlFunctions.GetConnectionString();
-            SysDAL.DALfunctions.ExecuteStoredProcedureNonQuery(ConnectionString, "uspUpdateAdjustments", SqlParmNames, SqlParmValues);
-        }
+         string ConnectionString = Bball.DataBaseFunctions.SqlFunctions.GetConnectionString();
+         SysDAL.DALfunctions.ExecuteStoredProcedureNonQuery(ConnectionString, "uspUpdateAdjustments", SqlParmNames, SqlParmValues);
+      }
 
-        #region todaysAdjustments
-        public List<AdjustmentDTO> GetTodaysAdjustments(string LeagueName)
-    {
-        string ConnectionString = Bball.DataBaseFunctions.SqlFunctions.GetConnectionString();
-        List<AdjustmentDTO> ocAdjustmentDTO = new List<AdjustmentDTO>();
+      #region todaysAdjustments
+      public List<AdjustmentDTO> GetTodaysAdjustments(string LeagueName)
+   {
+      string ConnectionString = Bball.DataBaseFunctions.SqlFunctions.GetConnectionString();
+      List<AdjustmentDTO> ocAdjustmentDTO = new List<AdjustmentDTO>();
 
-        List<string> SqlParmNames = new List<string>() { "LeagueName" };
-        List<object> SqlParmValues = new List<object>() { LeagueName };
+      List<string> SqlParmNames = new List<string>() { "LeagueName" };
+      List<object> SqlParmValues = new List<object>() { LeagueName };
 
-        SysDAL.DALfunctions.ExecuteStoredProcedureQuery(ConnectionString, "uspQueryAdjustments"
-                            , SqlParmNames, SqlParmValues, ocAdjustmentDTO, populateDTOFromRdr);
-        return ocAdjustmentDTO;
-    }
+      SysDAL.DALfunctions.ExecuteStoredProcedureQuery(ConnectionString, "uspQueryAdjustments"
+                           , SqlParmNames, SqlParmValues, ocAdjustmentDTO, populateDTOFromRdr);
+      return ocAdjustmentDTO;
+   }
     static void populateDTOFromRdr(object oRow, SqlDataReader rdr)
     {
 
@@ -279,19 +279,16 @@ namespace Bball.DAL.Tables
 
     static void populateTeamDTOFromRdr(object oRow, SqlDataReader rdr)
     {
-            AdjustmentInitDataDTO oAdjustmentInitDataDTO = new AdjustmentInitDataDTO();
-            String s = (string)rdr["Team"];
+            String s = (string)rdr["TeamNameInDatabase"];
             List<string> ocTeams = (List<string>)oRow;
             ocTeams.Add(s);
-
         }
 
         static void populateAdjCodesDTOFromRdr(object oRow, SqlDataReader rdr)
         {
-            String s = (string)rdr["AdjustmentCodes"];
+            String s = (string)rdr["Description"];
             List<string> ocAdjustmentCodes = (List<string>)oRow;
             ocAdjustmentCodes.Add(s);
-
         }
 
         public AdjustmentInitDataDTO GetAdjustmentInfo(string LeagueName)

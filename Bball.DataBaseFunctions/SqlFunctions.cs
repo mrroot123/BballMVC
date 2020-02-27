@@ -135,6 +135,20 @@ namespace Bball.DataBaseFunctions
          int rc = SysDAL.DALfunctions.InsertRow(ConnectionString, SQL, ocColumns, ocValues);
          return rc;
       }
-   }
+      #region parmTable
+      public static object ParmTableParmValueQuery(string ParmName)
+      {
+         string strSql = "Select ParmValue From ParmTable Where ParmName = '{ParmName}'";
+         return SysDAL.DALfunctions.ExecuteSqlQueryReturnSingleParm(GetConnectionString(), strSql, "ParmValue");
+      }
+      public static int ParmTableParmValueUpdate(string ParmName, string ParmValue, string UserName = "default")
+      {
+         string strSql = $"Update ParmTable "
+                     + $"SET ParmValue = '{ParmValue}', UpdateUser = '{UserName}', UpdateDate = '{DateTime.Now}' "
+                     + $"Where ParmName = '{ParmName}' ";
+         return SysDAL.DALfunctions.ExecuteSqlNonQuery(GetConnectionString(), strSql);
+      }
+      #endregion parmTable
+   }  // class SqlFunctions
 
 }
