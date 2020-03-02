@@ -30,5 +30,6 @@ namespace Bball.BAL
          Bball.DAL.Tables.AdjustmentsDO updAdjustment = new Bball.DAL.Tables.AdjustmentsDO();
          updAdjustment.UpdateAdjustmentRow(ocAdjustmentDTO);
       }
-   }
+
+    }
 }

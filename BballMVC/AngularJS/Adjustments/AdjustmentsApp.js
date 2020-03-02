@@ -154,8 +154,23 @@ function GetAdjustmentInfo(Parms) {
       , compile: Parms.compile
       , process: function (oAdjustmentInitDataDTO) {
          DisplayAdjustments(Parms, oAdjustmentInitDataDTO.ocAdjustments);
-         // todo -- oAdjustmentInitDataDTO.Teams - append to dropdown - SAME FOR ocAdjustmentNames
-
+          // todo -- oAdjustmentInitDataDTO.Teams - append to dropdown - SAME FOR ocAdjustmentNames
+          var selList = document.getElementById("Team");
+          for (var item in oAdjustmentInitDataDTO.ocTeams) {
+              selList.innerHTML += "<option value=" + oAdjustmentInitDataDTO.ocTeams[item] + ">" + oAdjustmentInitDataDTO.ocTeams[item] + "</option>";
+          }
+          var adjCodeList = document.getElementById("AdjType");
+          for (var item in oAdjustmentInitDataDTO.ocAdjustmentNames) {
+              if (oAdjustmentInitDataDTO.ocAdjustmentNames[item].localeCompare("Trade") == 0) {
+                  adjCodeList.innerHTML += "<option value=R>" + oAdjustmentInitDataDTO.ocAdjustmentNames[item] + "</option>";
+              }
+              else if (oAdjustmentInitDataDTO.ocAdjustmentNames[item].localeCompare("TV") == 0) {
+                  adjCodeList.innerHTML += "<option value=V>" + oAdjustmentInitDataDTO.ocAdjustmentNames[item] + "</option>";
+              }
+              else {
+                  adjCodeList.innerHTML += "<option value=" + oAdjustmentInitDataDTO.ocAdjustmentNames[item].charAt(0) + ">" + oAdjustmentInitDataDTO.ocAdjustmentNames[item] + "</option>";
+              }
+          }
       }
    }; // fProcessAdjustmentInfo
 
