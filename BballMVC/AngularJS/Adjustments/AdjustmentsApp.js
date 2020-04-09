@@ -5,6 +5,11 @@
    try {
       const LeagueName = 'NBA';
 
+      const UrlPostInsertAdjustment = "/Adjustments/PostInsertAdjustment";
+      const UrlPostProcessUpdates = "api/Adjustments/PostProcessUpdates";
+      const UrlGetAdjustmentInfo = "/Adjustments/GetAdjustmentInfo";
+      const UrlGetAdjustments = "/Adjustments/GetAdjustments";
+
       var app = angular.module('app', []);
 
       app.service('ajx', function () {
@@ -98,9 +103,9 @@
             oAdjustment.AdjustmentAmount = this.AdjustmentAmount;
             oAdjustment.Player = this.Player;
             oAdjustment.Description = this.Description;
-            const URL = "/Adjustments/PostInsertAdjustment";
+           // const URL = "/Adjustments/PostInsertAdjustment";
 
-            ajx.AjaxPost(URL, oAdjustment)
+            ajx.AjaxPost(UrlPostInsertAdjustment, oAdjustment)
                .then(data => {
                   f.MessageSuccess("Insert Complete");
                })
@@ -126,8 +131,8 @@
                f.DisplayMessage("No Updates were made");
                return;
             }
-            let URL = "api/Adjustments/PostProcessUpdates";
-            ajx.AjaxPost(URL, ocAdjustmentDTO)
+           // let URL = "api/Adjustments/PostProcessUpdates";
+            ajx.AjaxPost(UrlPostProcessUpdates, ocAdjustmentDTO)
                .then(data => {
                   GetAdjustments(GetAdjustmentsParms);
                   f.DisplayMessage("Updates Complete");
@@ -154,7 +159,7 @@ function GetAdjustmentInfo(Parms) {
    var f = Parms.f;
    var ajx = Parms.ajx;
    const Data = { LeagueName: Parms.LeagueName };
-   const URL = "/Adjustments/GetAdjustmentInfo";
+   //const URL = "/Adjustments/GetAdjustmentInfo";
    let fProcessAdjustmentInfo = {
       scope: Parms.scope
       , compile: Parms.compile
@@ -180,7 +185,7 @@ function GetAdjustmentInfo(Parms) {
       }
    }; // fProcessAdjustmentInfo
 
-   ajx.AjaxGet(URL, Data)
+   ajx.AjaxGet(UrlGetAdjustmentInfo, Data)
       .then(data => {
          fProcessAdjustmentInfo.process(data);
       })
@@ -232,7 +237,7 @@ function GetAdjustments(Parms) {
    var f = Parms.f;
    var ajx = Parms.ajx;
    let Data = { LeagueName: Parms.LeagueName };
-   const URL = "/Adjustments/GetAdjustments";
+   //const URL = "/Adjustments/GetAdjustments";
    let fProcessAdjustments = {
       scope: Parms.scope
       , compile: Parms.compile
@@ -241,7 +246,7 @@ function GetAdjustments(Parms) {
       }
    }; // fProcessAdjustments
 
-   ajx.AjaxGet(URL, Data)
+   ajx.AjaxGet(UrlGetAdjustments, Data)
       .then(data => {
          fProcessAdjustments.process(data);
       })
