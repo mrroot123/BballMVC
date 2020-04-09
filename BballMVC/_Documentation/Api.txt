@@ -1,0 +1,52 @@
+﻿How to ADD API to current MVC Project
+
+1. Add Nuget package Microsoft.AspNet.WebApi.Core. This will add references to System.Web.Http.dll.
+2. Add registration file for Web API. It would better to do it like Visual Studio does – add file App_Start\WebApiConfig.cs
+
+
+using System.Web.Http;
+ 
+namespace WebApplication
+{
+    public static class WebApiConfig
+    {
+        public static void Register(HttpConfiguration config)
+        {
+            config.MapHttpAttributeRoutes();
+ 
+            config.Routes.MapHttpRoute(
+                name: "DefaultApi",
+                routeTemplate: "api/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional }
+            );
+        }
+    }
+}
+
+3. Add using System.Web.Http; to Global.asax.cs
+4. Add GlobalConfiguration.Configure(WebApiConfig.Register); in Application_Start() method before registering MVC routes.
+Application_Start() would be like this.
+
+
+
+using System.Web.Http;
+using System.Web.Mvc;
+using System.Web.Optimization;
+using System.Web.Routing;
+ 
+namespace WebApplication
+{
+    public class MvcApplication : System.Web.HttpApplication
+    {
+        protected void Application_Start()
+        {
+            AreaRegistration.RegisterAllAreas();
+            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            GlobalConfiguration.Configure(WebApiConfig.Register);
+            RouteConfig.RegisterRoutes(RouteTable.Routes);
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
+        }
+    }
+}
+
+5. Create a controller and derive it from System.Web.Http.ApiController

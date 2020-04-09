@@ -1,5 +1,7 @@
 ﻿using System;
 using Bball.BAL;
+using Bball.DAL;
+using Bball.DAL.Tables;
 //using HtmlParsing.Common4vb.HtmlParsing;
 
 
@@ -9,12 +11,13 @@ namespace BballConsole
    {
       static string[] menu = new string[] {
            "1) Load Today's Rotation"
-         , "2) Write Html to Disk"
+         , "2) Load Adjustments"
+         , "3) Write Html to Disk"
          , "X) Exit"
       };
       static void Main(string[] args)
       {
-
+         string LeagueName = "NBA";
          string s = "";
          DateTime StartGameDate = Convert.ToDateTime("10/16/2018");
          while (s != "x")
@@ -24,24 +27,31 @@ namespace BballConsole
                switch (s)
                {
                   case "x":
-                     LoadBoxScores l = new LoadBoxScores("NBA", DateTime.Now.ToString(), StartGameDate);
+                     LoadBoxScores l = new LoadBoxScores("NBA", StartGameDate);
 
                      l.LoadBoxScoreRange();  //       DateTime.Today.AddDays(-4));
                      break;
 
                   case "y":
-                     LoadBoxScores l2 = new LoadBoxScores("NBA", DateTime.Now.ToLongDateString(), StartGameDate);
+                     LoadBoxScores l2 = new LoadBoxScores("NBA",  StartGameDate);
                      l2.LoadBoxScore(DateTime.Today.AddDays(-1));
                      break;
 
                   case "1":
-                     LoadBoxScores l3 = new LoadBoxScores("NBA", DateTime.Now.ToLongDateString(), StartGameDate);
+                     LoadBoxScores l3 = new LoadBoxScores("NBA", StartGameDate);
                      l3.LoadTodaysRotation();
                      break;
 
                   case "2":
+                     DateTime GameDate = Convert.ToDateTime("03/11/2020");
+                     AdjustmentsDO oAdjustments = new AdjustmentsDO(GameDate, LeagueName, Bball.DataBaseFunctions.SqlFunctions.GetConnectionString());
+                     oAdjustments.ProcessDailyAdjustments(GameDate, LeagueName);
+                     break;
+
+                  case "3":
                      writeHtmlToDisk();
                      break;
+
 
                   default:
                      break;

@@ -12,8 +12,9 @@ namespace Bball.DAL.Tables
    public class SeasonInfoDO
    {
       public const string SeasonInfoTable = "SeasonInfo";
-      public SeasonInfoDTO oSeasonInfoDTO = new SeasonInfoDTO();
+      public static DateTime DefaultDate = Convert.ToDateTime("1/1/2000");
 
+      public SeasonInfoDTO oSeasonInfoDTO = new SeasonInfoDTO();
 
       public DateTime GameDate { get; set; }
       String _LeagueName;
@@ -31,23 +32,26 @@ namespace Bball.DAL.Tables
 
          while (true)
          {
-            if (GameDate <= oSeasonInfoDTO.EndDate && oSeasonInfoDTO.Bypass == false)
+            if ((GameDate <= oSeasonInfoDTO.EndDate && oSeasonInfoDTO.Bypass == false) || RotationLoadedToDate())
                break;
             // kdtodo finish
             //Get next SeasonInfo row
             // 
             GameDate = oSeasonInfoDTO.EndDate.AddDays(1);
-            populateSeasonInfoDTO();
+            if (!RotationLoadedToDate())
+               populateSeasonInfoDTO();
          }
 
          return GameDate;
       }
+      public bool RotationLoadedToDate() => GameDate > DateTime.Today.AddDays(1);  // Load Today's & Tomorrows Rotation
+
       private  void populateSeasonInfoDTO()
       {
          int rows = SysDAL.DALfunctions.ExecuteSqlQuery(SqlFunctions.GetConnectionString(), SeasonInfoRowSql()
                        ,  oSeasonInfoDTO, PopulateDTO);
          if (rows == 0)
-            throw new Exception($"SeasonInfo row not found - League: {_LeagueName}  GameDate: {GameDate}");
+            throw new Exception($"SeasonInfo row not found - League: {_LeagueName}  GameDate: {GameDate.ToShortDateString()}");
       }
       public int CalcSubSeasonPeriod()
       {

@@ -23,7 +23,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationRevision>3</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -82,6 +82,14 @@
     <ProjectReference Include="..\Bball.BAL\Bball.BAL.csproj">
       <Project>{3a1280ea-5c97-4ef5-9ec2-15bb5b272a6c}</Project>
       <Name>Bball.BAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bball.DAL\Bball.DAL.csproj">
+      <Project>{b9db69ff-5285-413f-bae1-9a9433f5bc5d}</Project>
+      <Name>Bball.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bball.DataBaseFunctions\Bball.DataBaseFunctions.csproj">
+      <Project>{337ecf5c-824b-4404-8636-8db6e405754b}</Project>
+      <Name>Bball.DataBaseFunctions</Name>
     </ProjectReference>
     <ProjectReference Include="..\CommonClasses\DAL.Functions\SysDAL.Functions.csproj">
       <Project>{f08657dc-56b9-4ea3-9bab-c3234c143145}</Project>

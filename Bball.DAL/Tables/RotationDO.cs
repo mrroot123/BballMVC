@@ -160,7 +160,7 @@ namespace Bball.DAL.Tables
                , _strLoadDateTime
             };
             // Insert Away Row
-            int rc = SysDAL.DALfunctions.InsertRow(_ConnectionString, SQL, ocColumns, ocValues);
+            string rc = SysDAL.DALfunctions.InsertRow(_ConnectionString, SQL, ocColumns, ocValues);
 
             // Populate Home Row
             ocValues = new List<string>()

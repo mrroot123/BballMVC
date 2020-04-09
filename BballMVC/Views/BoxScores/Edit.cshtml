@@ -1,0 +1,152 @@
+﻿@model BballMVC.Models.BoxScores
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>BoxScores</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.BoxScoresID)
+
+        @Html.HiddenFor(model => model.Exclude)
+
+        @Html.HiddenFor(model => model.LeagueName)
+
+        @Html.HiddenFor(model => model.GameDate)
+
+        @Html.HiddenFor(model => model.RotNum)
+
+        @Html.HiddenFor(model => model.Team)
+
+        @Html.HiddenFor(model => model.Opp)
+
+        @Html.HiddenFor(model => model.Venue)
+
+        @Html.HiddenFor(model => model.GameTime)
+
+        @Html.HiddenFor(model => model.Season)
+
+        @Html.HiddenFor(model => model.SubSeason)
+
+        @Html.HiddenFor(model => model.MinutesPlayed)
+
+        @Html.HiddenFor(model => model.OtPeriods)
+
+        @Html.HiddenFor(model => model.ScoreReg)
+
+        @Html.HiddenFor(model => model.ScoreOT)
+
+        @Html.HiddenFor(model => model.ScoreRegUs)
+
+        @Html.HiddenFor(model => model.ScoreRegOp)
+
+        @Html.HiddenFor(model => model.ScoreOTUs)
+
+        @Html.HiddenFor(model => model.ScoreOTOp)
+
+        @Html.HiddenFor(model => model.ScoreQ1Us)
+
+        @Html.HiddenFor(model => model.ScoreQ1Op)
+
+        @Html.HiddenFor(model => model.ScoreQ2Us)
+
+        @Html.HiddenFor(model => model.ScoreQ2Op)
+
+        @Html.HiddenFor(model => model.ScoreQ3Us)
+
+        @Html.HiddenFor(model => model.ScoreQ3Op)
+
+        @Html.HiddenFor(model => model.ScoreQ4Us)
+
+        @Html.HiddenFor(model => model.ScoreQ4Op)
+
+        @Html.HiddenFor(model => model.ShotsActualMadeUsPt1)
+
+        @Html.HiddenFor(model => model.ShotsActualMadeUsPt2)
+
+        @Html.HiddenFor(model => model.ShotsActualMadeUsPt3)
+
+        @Html.HiddenFor(model => model.ShotsActualMadeOpPt1)
+
+        @Html.HiddenFor(model => model.ShotsActualMadeOpPt2)
+
+        @Html.HiddenFor(model => model.ShotsActualMadeOpPt3)
+
+        @Html.HiddenFor(model => model.ShotsActualAttemptedUsPt1)
+
+        @Html.HiddenFor(model => model.ShotsActualAttemptedUsPt2)
+
+        @Html.HiddenFor(model => model.ShotsActualAttemptedUsPt3)
+
+        @Html.HiddenFor(model => model.ShotsActualAttemptedOpPt1)
+
+        @Html.HiddenFor(model => model.ShotsActualAttemptedOpPt2)
+
+        @Html.HiddenFor(model => model.ShotsActualAttemptedOpPt3)
+
+        @Html.HiddenFor(model => model.ShotsMadeUsRegPt1)
+
+        @Html.HiddenFor(model => model.ShotsMadeUsRegPt2)
+
+        @Html.HiddenFor(model => model.ShotsMadeUsRegPt3)
+
+        @Html.HiddenFor(model => model.ShotsMadeOpRegPt1)
+
+        @Html.HiddenFor(model => model.ShotsMadeOpRegPt2)
+
+        @Html.HiddenFor(model => model.ShotsMadeOpRegPt3)
+
+        @Html.HiddenFor(model => model.ShotsAttemptedUsRegPt1)
+
+        @Html.HiddenFor(model => model.ShotsAttemptedUsRegPt2)
+
+        @Html.HiddenFor(model => model.ShotsAttemptedUsRegPt3)
+
+        @Html.HiddenFor(model => model.ShotsAttemptedOpRegPt1)
+
+        @Html.HiddenFor(model => model.ShotsAttemptedOpRegPt2)
+
+        @Html.HiddenFor(model => model.ShotsAttemptedOpRegPt3)
+
+        @Html.HiddenFor(model => model.TurnOversUs)
+
+        @Html.HiddenFor(model => model.TurnOversOp)
+
+        @Html.HiddenFor(model => model.OffRBUs)
+
+        @Html.HiddenFor(model => model.OffRBOp)
+
+        @Html.HiddenFor(model => model.AssistsUs)
+
+        @Html.HiddenFor(model => model.AssistsOp)
+
+        @Html.HiddenFor(model => model.Source)
+
+        @Html.HiddenFor(model => model.LoadDate)
+
+        @Html.HiddenFor(model => model.LoadTimeSeconds)
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

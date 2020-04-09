@@ -92,9 +92,9 @@
 
          $scope.InsertAdjustment = function () {
             let oAdjustment = {};
-            oAdjustment.LeagueName = "NBA";
-            oAdjustment.AdjustmentType = this.AdjustmentType;
-            oAdjustment.Team = this.Team;
+            oAdjustment.LeagueName = LeagueName;
+            oAdjustment.AdjustmentType = document.getElementById("AdjType").value;
+            oAdjustment.Team = document.getElementById("Team").value;
             oAdjustment.AdjustmentAmount = this.AdjustmentAmount;
             oAdjustment.Player = this.Player;
             oAdjustment.Description = this.Description;
@@ -126,7 +126,7 @@
                f.DisplayMessage("No Updates were made");
                return;
             }
-            let URL = "/Adjustments/PostProcessUpdates";
+            let URL = "api/Adjustments/PostProcessUpdates";
             ajx.AjaxPost(URL, ocAdjustmentDTO)
                .then(data => {
                   GetAdjustments(GetAdjustmentsParms);
@@ -143,7 +143,13 @@
    }
 })(); // main
 
-
+function SetDropDown(arDropDownItems, f) {
+   let html = "";
+   for (var item in arDropDownItems) {
+      html += `<option value='${item[0]}'>${item[item.length-1]}</option>`;
+   }
+   f(html);
+}
 function GetAdjustmentInfo(Parms) {
    var f = Parms.f;
    var ajx = Parms.ajx;
@@ -160,11 +166,11 @@ function GetAdjustmentInfo(Parms) {
               selList.innerHTML += "<option value=" + oAdjustmentInitDataDTO.ocTeams[item] + ">" + oAdjustmentInitDataDTO.ocTeams[item] + "</option>";
           }
           var adjCodeList = document.getElementById("AdjType");
-          for (var item in oAdjustmentInitDataDTO.ocAdjustmentNames) {
-              if (oAdjustmentInitDataDTO.ocAdjustmentNames[item].localeCompare("Trade") == 0) {
+          for (let item in oAdjustmentInitDataDTO.ocAdjustmentNames) {
+              if (oAdjustmentInitDataDTO.ocAdjustmentNames[item].localeCompare("Trade") === 0) {
                   adjCodeList.innerHTML += "<option value=R>" + oAdjustmentInitDataDTO.ocAdjustmentNames[item] + "</option>";
               }
-              else if (oAdjustmentInitDataDTO.ocAdjustmentNames[item].localeCompare("TV") == 0) {
+              else if (oAdjustmentInitDataDTO.ocAdjustmentNames[item].localeCompare("TV") === 0) {
                   adjCodeList.innerHTML += "<option value=V>" + oAdjustmentInitDataDTO.ocAdjustmentNames[item] + "</option>";
               }
               else {

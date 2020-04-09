@@ -118,21 +118,21 @@ namespace Bball.DataBaseFunctions
       }
 
       public delegate  void PopulateDTOValues(List<string> ocValues, object DTO);
-      public static int DALInsertRow(string TableName, string ColumnNames, object DTO, PopulateDTOValues delegatePopulateDTOValues, string ConnectionString)
+      public static string DALInsertRow(string TableName, string ColumnNames, object DTO, PopulateDTOValues delegatePopulateDTOValues, string ConnectionString)
       {
          List<string> ocColumns = ColumnNames.Split(',').OfType<string>().ToList();
          List<string> ocValues = new List<string>();
          delegatePopulateDTOValues(ocValues, DTO);   // Execute Delegate to Populate ocValues from DTO
          string SQL = SysDAL.DALfunctions.GenSql(TableName, ocColumns);    // Gen INSERT SQL from 
-         int rc = SysDAL.DALfunctions.InsertRow(ConnectionString, SQL, ocColumns, ocValues);
+         string rc = SysDAL.DALfunctions.InsertRow(ConnectionString, SQL, ocColumns, ocValues);
          return rc;
       }
       // DALInsertRow - Ver 2 with ocValues already populated
-      public static int DALInsertRow(string TableName, string ColumnNames, List<string> ocValues, string ConnectionString)
+      public static string DALInsertRow(string TableName, string ColumnNames, List<string> ocValues, string ConnectionString)
       {
          List<string> ocColumns = ColumnNames.Split(',').OfType<string>().ToList();
          string SQL = SysDAL.DALfunctions.GenSql(TableName, ocColumns);    // Gen INSERT SQL from 
-         int rc = SysDAL.DALfunctions.InsertRow(ConnectionString, SQL, ocColumns, ocValues);
+         string rc = SysDAL.DALfunctions.InsertRow(ConnectionString, SQL, ocColumns, ocValues);
          return rc;
       }
       #region parmTable

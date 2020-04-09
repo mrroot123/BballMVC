@@ -214,6 +214,8 @@ namespace Bball.DAL.Tables
 
       public void InsertAdjustmentRow(AdjustmentDTO oAdjustmentDTO)
       {
+         try
+         {
             // call SP to writeLines
             List<string> SqlParmNames = new List<string>() { "LeagueName", "Team", "AdjustmentDesc", "AdjustmentAmount", "Player", "Description" };
             List<object> SqlParmValues = new List<object>()
@@ -222,7 +224,12 @@ namespace Bball.DAL.Tables
             string ConnectionString = Bball.DataBaseFunctions.SqlFunctions.GetConnectionString();
             // kdtodo                                                               make constant
             SysDAL.DALfunctions.ExecuteStoredProcedureNonQuery(ConnectionString, "uspInsertAdjustments", SqlParmNames, SqlParmValues);
-
+         }
+         catch (Exception ex)
+         {
+            var msg = ex.Message + $" - CallStack= {ex.StackTrace}";
+          //  throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name}\nSql: {strSql}\nConnectionString: {ConnectionString}\nError Message: {msg}");
+         }
       }
 
       public void UpdateAdjustmentRow(List<AdjustmentDTO> ocAdjustmentDTO)

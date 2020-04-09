@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HtmlParsing.HtmlParsing.Functions;
 using HtmlParserNameSpace;
 using HtmlParsing.Common4vb.HtmlParsing;
 using BballMVC.DTOs;
-using Bball.DAL.Parsing;
 using Bball.DataBaseFunctions;
+//using SysDAL.Functions.
 
 namespace Bball.DAL.Parsing
 {
@@ -32,6 +27,7 @@ namespace Bball.DAL.Parsing
    
           d:\my documents\wwwroot\testhtmlparser\htmlparser\htmlparser.cs 
           */
+          
       private string _html;
       trTDs otrTDs = new trTDs();
       trTDs oPrevtrTDs = new trTDs();
@@ -177,7 +173,8 @@ namespace Bball.DAL.Parsing
          }
          catch (Exception ex)
          {
-            throw new Exception($@"Bball.DAL\Parsing\BoxScoresLastSMin.parseTR Error: TR = {trHtml}");
+           
+            throw new Exception($@"Bball.DAL\Parsing\BoxScoresLastSMin.parseTR Error: TR = {trHtml}\n{ SysDAL.DALfunctions.StackTraceFormat(ex)}");
          }
          if (savTimeInSecounds > 0)
          {

@@ -20,14 +20,21 @@ namespace Bball.BAL
       //private DateTime _GameDate;
       private SeasonInfoDO _oSeasonInfo; 
 
-      public  DateTime DefaultDate = Convert.ToDateTime("1/1/2000");  // kdtodo move to constants
+     // public  DateTime DefaultDate = Convert.ToDateTime("1/1/2000");  // kdtodo move to constants
+
       // Constructor
-      public LoadBoxScores(string LeagueName, string strLoadDateTime, DateTime StartGameDate)
+      public LoadBoxScores(string LeagueName) => init(LeagueName,  Convert.ToDateTime("10/16/2018"));
+      
+
+      public LoadBoxScores(string LeagueName,  DateTime StartGameDate) =>  init(LeagueName, StartGameDate);
+      
+
+      private void  init(string LeagueName,  DateTime StartGameDate)
       {
          new LeagueInfoDO(LeagueName, _oLeagueDTO, _ConnectionString);  // Init _oLeagueDTO
-         _strLoadDateTime = strLoadDateTime;
-         DateTime GameDate = BoxScoreDO.GetMaxBoxScoresGameDate(_ConnectionString, LeagueName, DefaultDate);
-         if (GameDate == DefaultDate)
+         _strLoadDateTime = DateTime.Now.ToLongDateString();
+         DateTime GameDate = BoxScoreDO.GetMaxBoxScoresGameDate(_ConnectionString, LeagueName, SeasonInfoDO.DefaultDate);
+         if (GameDate == SeasonInfoDO.DefaultDate)
             GameDate = StartGameDate;
          else
             GameDate = GameDate.AddDays(1);
@@ -41,18 +48,24 @@ namespace Bball.BAL
 
       public void LoadTodaysRotation()
       {
-         LoadBoxScoreRange();
-
-         for (int i = 0; i < 2; i++) // Loop twice - Load Today's & Tomorrow's Rotation
+         if (!_oSeasonInfo.RotationLoadedToDate())
          { 
-            string _strLoadDateTime = _oSeasonInfo.GameDate.ToString();
+            LoadBoxScoreRange();
 
-            SortedList<string, CoversDTO> ocRotation = new SortedList<string, CoversDTO>();
-             RotationDO.PopulateRotation(ocRotation, _oSeasonInfo.GameDate, _oLeagueDTO,  _ConnectionString, _strLoadDateTime);
+            // Load Rotations
+            //
+            int rotationDays2Load = 2;
+            for (int i = 0; i < rotationDays2Load; i++) // Loop twice - Load Today's & Tomorrow's Rotation
+            {
+               string _strLoadDateTime = _oSeasonInfo.GameDate.ToString();
 
-            AdjustmentsDO oAdjustments = new AdjustmentsDO(_oSeasonInfo.GameDate, _oLeagueDTO.LeagueName, _ConnectionString);
-            oAdjustments.ProcessDailyAdjustments(_oSeasonInfo.GameDate, _oLeagueDTO.LeagueName);
-            _oSeasonInfo.GameDate = _oSeasonInfo.GameDate.AddDays(1);
+               SortedList<string, CoversDTO> ocRotation = new SortedList<string, CoversDTO>();
+               RotationDO.PopulateRotation(ocRotation, _oSeasonInfo.GameDate, _oLeagueDTO, _ConnectionString, _strLoadDateTime);
+
+               AdjustmentsDO oAdjustments = new AdjustmentsDO(_oSeasonInfo.GameDate, _oLeagueDTO.LeagueName, _ConnectionString);
+               oAdjustments.ProcessDailyAdjustments(_oSeasonInfo.GameDate, _oLeagueDTO.LeagueName);
+               _oSeasonInfo.GameDate = _oSeasonInfo.GameDate.AddDays(1);
+            }
          }
          SqlFunctions.ParmTableParmValueUpdate("BoxscoresLastUpdateDate", DateTime.Today.ToShortDateString());
       }

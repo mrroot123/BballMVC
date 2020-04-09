@@ -37,14 +37,14 @@ namespace Bball.DAL.Tables
 
       //   return 0;
       //}
-      static void InsertRowPrep(string TableName, string ColumnNames, object DTO, PopulateDTOValues delPopulateDTOValues)
+      static string InsertRowPrep(string TableName, string ColumnNames, object DTO, PopulateDTOValues delPopulateDTOValues)
       {
          List<string> ocColumns = ColumnNames.Split(',').OfType<string>().ToList();
          List<string> ocValues = new List<string>();
          delPopulateDTOValues(ocValues, DTO);   // Execute Delegate
          string ConnectionString = SqlFunctions.GetConnectionString();
          string SQL = SysDAL.DALfunctions.GenSql(TableName, ocColumns);
-         int rc = SysDAL.DALfunctions.InsertRow(ConnectionString, SQL, ocColumns, ocValues);
+         return SysDAL.DALfunctions.InsertRow(ConnectionString, SQL, ocColumns, ocValues);
       }
 
       #region BoxScoreInsert

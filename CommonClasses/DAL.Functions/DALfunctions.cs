@@ -85,9 +85,21 @@ namespace SysDAL
                
                using (SqlDataReader rdr = oSqlCommand.ExecuteReader())           // 4) Exec Sql / Read Rows
                {
+                  int ctrRows = 0;
                   while (rdr.Read())
                   {
                      parmValue = rdr[ParmName];
+                     ctrRows++;
+                  }
+                  if (ctrRows != 1)
+                  {
+                     string msg;
+                     if (ctrRows == 0)
+                        msg = $"Parm {ParmName} Not Found";
+                     else
+                        msg = "Multiple Rows Returned";
+
+                     throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name}\nError Message: {msg}\nSql: {strSql}\nConnectionString: {ConnectionString}");
                   }
                }
             }  // using conn
@@ -297,7 +309,7 @@ namespace SysDAL
          return sql;
       }
       #endregion genSql
-      public static int InsertRow(string ConnectionString, string sqlString, List<string> ocColumnNames, List<string> ocColumnValues)
+      public static string InsertRow(string ConnectionString, string sqlString, List<string> ocColumnNames, List<string> ocColumnValues)
       {
          //string sqlString = "INSERT INTO table (col1, col2, col3) VALUES (@val1, @val2, @val3)";
          //string sqlString = "INSERT INTO test  (Name, f2)         VALUES (@val1, @val2)";
@@ -325,13 +337,17 @@ namespace SysDAL
                }
                catch(SqlException ex)
                {
-                  var msg = ex.Message.IndexOf("CallStack=") > -1 ? ex.Message : ex.Message + $" - CallStack= {ex.StackTrace}";
+                  if (ex.State == 0)
+                  {
+                     return $"-1,{ex.Message}";
+                  }
+                  var msg = StackTraceFormat(ex);
                   throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name} - ConnectionString: {ConnectionString} - Insert SQL: {sqlString} - Error Message: {msg}");
                }
             }  // using SqlCommand
          }  // using SqlConnection
 
-         return 0;
+         return "1";
 
       }  // InsertRow
 
@@ -354,7 +370,7 @@ namespace SysDAL
          msg.Append(PostMsg);
          return msg.ToString();
       }
-      public static string StackTraceParse(string StackTrace)
+      private static string StackTraceParse(string StackTrace)
       {
         // StackTrace = "   at Bball.VbClasses.Bball.VbClasses.BoxscoreParseStatsSummary.InitCoversBoxscore(String PeriodsHtml, DateTime GameDate, String LeagueName, Int32 Periods) in D:\My Documents\wwwroot\BballMVC\Bball.VbClasses\BoxscoreParseStatsSummary.vb:line 148\n   at Bball.VbClasses.Bball.VbClasses.BoxscoreParseStatsSummary.NewBoxscoreParseStatsSummary(String BoxScoreSource, String PeriodsHtml, DateTime GameDate, String LeagueName, Int32 Periods) in D:\My Documents\wwwroot\BballMVC\Bball.VbClasses\BoxscoreParseStatsSummary.vb:line 71\n   at Bball.VbClasses.Bball.VbClasses.CoversBoxscore.processPeriods(String BoxScoreUrl) in D:\My Documents\wwwroot\BballMVC\Bball.VbClasses\CoversBoxscore.vb:line 118\n   at Bball.VbClasses.Bball.VbClasses.CoversBoxscore.GetBoxscore() in D:\My Documents\wwwroot\BballMVC\Bball.VbClasses\CoversBoxscore.vb:line 98\n   at Bball.BAL.LoadBoxScores.Load(DateTime GameDate) in D:\My Documents\wwwroot\BballMVC\Bball.BAL\LoadBoxScores.cs:line 54\n   at Bball.BAL.LoadBoxScores.LoadBoxScoreRange(DateTime GameDate) in D:\My Documents\wwwroot\BballMVC\Bball.BAL\LoadBoxScores.cs:line 30\n   at UnitTestProject1.UnitTest1.TestGetBoxScores() in D:\My Documents\wwwroot\BballMVC\UnitTestProject1\UnitTest1.vb:line 46";
 
