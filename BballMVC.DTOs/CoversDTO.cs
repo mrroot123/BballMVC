@@ -1,9 +1,10 @@
 ﻿using System;
+using BballMVC.IDTOs;
 
 namespace BballMVC.DTOs
 {
 
-   public class CoversDTO
+   public class CoversDTO : ICoversDTO
    {
 
       public DateTime GameDate { get; set; }

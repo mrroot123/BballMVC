@@ -1,8 +1,9 @@
 ﻿using System;
+using BballMVC.IDTOs;
 
 namespace BballMVC.DTOs
 {
-   public class AdjustmentsDailyDTO
+   public class AdjustmentsDailyDTO : IAdjustmentsDailyDTO
    {
       public int AdjustmentsDailyID { get; set; }
       public string LeagueName { get; set; }

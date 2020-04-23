@@ -4,6 +4,7 @@ Option Strict On     'Types must be the same or converted
 Imports HtmlParsing.Common4vb.HtmlParsing
 Imports HtmlParsing.HtmlParsing.Functions.VBFunctions
 Imports BballMVC.DTOs
+Imports BballMVC.IDTOs
 'Imports Bball.DAL
 'Imports Bball.VbClassesInterfaces.Bball.VbClassesInterfaces
 Imports Bball.DataBaseFunctions
@@ -29,7 +30,7 @@ Namespace Bball.VbClasses
       Private _ocRotation As New SortedList(Of String, CoversDTO)
 
       Private pGameDate As Date
-      Private poLeagueDTO As LeagueDTO    'v2.2
+      Private poLeagueDTO As ILeagueDTO    'v2.2
       Private oParseRotation As ParseHtml2
       Private pCoversRotationHtml As String
 
@@ -43,14 +44,14 @@ Namespace Bball.VbClasses
 
       Const CoversUrl As String = "https://www.covers.com"
 
-      Public Sub New(ocRotation As SortedList(Of String, CoversDTO), GameDate As Date, oLeagueDTO As LeagueDTO, CoversRotationHtml As String)
+      Public Sub New(ocRotation As SortedList(Of String, CoversDTO), GameDate As Date, oLeagueDTO As ILeagueDTO, CoversRotationHtml As String)
          _ocRotation = ocRotation
          pGameDate = GameDate
          poLeagueDTO = oLeagueDTO ' v2.2
          pCoversRotationHtml = CoversRotationHtml
       End Sub
 
-      Public Sub New(ocRotation As SortedList(Of String, CoversDTO), GameDate As Date, oLeagueDTO As LeagueDTO)
+      Public Sub New(ocRotation As SortedList(Of String, CoversDTO), GameDate As Date, oLeagueDTO As ILeagueDTO)
          _ocRotation = ocRotation
          pGameDate = GameDate
          poLeagueDTO = oLeagueDTO ' v2.2

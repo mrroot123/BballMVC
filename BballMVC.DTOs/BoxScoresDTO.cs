@@ -1,10 +1,12 @@
 ﻿using System;
+using BballMVC.IDTOs;
+
 
 
 namespace BballMVC.DTOs
 {
-    public class BoxScoresDTO
-	{
+    public class BoxScoresDTO : IBoxScoresDTO
+   {
       public bool Exclude { get; set; }
       public string LeagueName { get; set; }
       public System.DateTime GameDate { get; set; }

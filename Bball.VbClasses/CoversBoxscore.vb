@@ -4,6 +4,7 @@ Option Strict On     'Types must be the same or converted
 Imports Bball.VbClasses.Bball.VbClasses.BballConstants
 Imports HtmlParsing.Common4vb.HtmlParsing
 Imports BballMVC.DTOs
+Imports BballMVC.IDTOs
 
 Namespace Bball.VbClasses
    Public Class CoversBoxscore
@@ -33,12 +34,12 @@ Namespace Bball.VbClasses
 
       Private pGameDate As Date
       Private oParseBoxscore As ParseHtml2
-      Private poLeagueDTO As LeagueDTO
+      Private poLeagueDTO As ILeagueDTO
       Private poCoversDTO As CoversDTO
 
       Const TotalsLineFields As String = "PLAYER MIN FGM-A 3pm-a FTM-A +/- OFF DEF TOT A PF STL TO BLK PTS"
 
-      Public Sub New(GameDate As Date, oLeagueDTO As LeagueDTO, oCoversDTO As CoversDTO)
+      Public Sub New(GameDate As Date, oLeagueDTO As ILeagueDTO, oCoversDTO As CoversDTO)
          pGameDate = GameDate
          poLeagueDTO = oLeagueDTO
          poCoversDTO = oCoversDTO

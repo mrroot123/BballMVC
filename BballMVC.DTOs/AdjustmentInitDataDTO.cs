@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+
+using BballMVC.IDTOs;
 
 namespace BballMVC.DTOs
 {
-   public class AdjustmentInitDataDTO
+   public class AdjustmentInitDataDTO : IAdjustmentInitDataDTO
    {
-      public List<AdjustmentDTO> ocAdjustments;
-      public List<string> ocTeams;
-      public List<string> ocAdjustmentNames;
+      public List<IDTOs.IAdjustmentDTO> ocAdjustments { get; set; }
+      public List<string> ocTeams { get; set; }
+      public List<string> ocAdjustmentNames { get; set; }
    }
 }

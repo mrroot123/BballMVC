@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3A1280EA-5C97-4EF5-9EC2-15BB5B272A6C}</ProjectGuid>
+    <ProjectGuid>{ACD5303E-7878-4A29-A82B-F89FA1B15CDF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Bball.BAL</RootNamespace>
-    <AssemblyName>Bball.BAL</AssemblyName>
+    <RootNamespace>BballMVC.IDTOs</RootNamespace>
+    <AssemblyName>BballMVC.IDTOs</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -40,35 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdjustmentsBO.cs" />
-    <Compile Include="LoadBoxScores.cs" />
+    <Compile Include="IAdjustmentInitDataDTO.cs" />
+    <Compile Include="IAdjustments.cs" />
+    <Compile Include="IAdjustmentsDailyDTO.cs" />
+    <Compile Include="IBoxScoresDTO.cs" />
+    <Compile Include="ICoversDTO.cs" />
+    <Compile Include="ILeagueDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Bball.DAL\Bball.DAL.csproj">
-      <Project>{b9db69ff-5285-413f-bae1-9a9433f5bc5d}</Project>
-      <Name>Bball.DAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Bball.DataBaseFunctions\Bball.DataBaseFunctions.csproj">
-      <Project>{337ecf5c-824b-4404-8636-8db6e405754b}</Project>
-      <Name>Bball.DataBaseFunctions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Bball.IBAL\Bball.IBAL.csproj">
-      <Project>{e6444a70-6a41-4269-8bc9-9e681dde59aa}</Project>
-      <Name>Bball.IBAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Bball.VbClasses\Bball.VbClasses.vbproj">
-      <Project>{1adb0d1e-c267-482f-bcf3-618978f74730}</Project>
-      <Name>Bball.VbClasses</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BballMVC.DTOs\BballMVC.DTOs.csproj">
-      <Project>{853742b2-9d6c-4673-8a8d-8cfe9759939d}</Project>
-      <Name>BballMVC.DTOs</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BballMVC.IDTOs\BballMVC.IDTOs.csproj">
-      <Project>{acd5303e-7878-4a29-a82b-f89fa1b15cdf}</Project>
-      <Name>BballMVC.IDTOs</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

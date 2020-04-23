@@ -1,27 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using BballMVC.Models;
+
 using BballMVC.DTOs;
-using Bball.BAL;
+using BballMVC.IDTOs;
+//using Bball.BAL;
+using Bball.IBAL;
+using System.Reflection;
 
 namespace BballMVC.Controllers
 {
    public class AdjustmentsController : Controller
    {
+      IAdjustmentsBO oAdjustmentsBO;
+
+      public AdjustmentsController(IAdjustmentsBO oAdjustmentsBO)
+      {
+         this.oAdjustmentsBO = oAdjustmentsBO;
+         
+      }
       // GET: Adjustments
       public ActionResult Index() =>  View();
 
       [HttpGet]
       public JsonResult GetAdjustments(string LeagueName)
+
       {
-         AdjustmentsBO oAdjustmentsBO = new AdjustmentsBO();
-         List<AdjustmentDTO> ocAdjustmentDTO = oAdjustmentsBO.GetTodaysAdjustments(LeagueName);
+         var x = this.Request.RawUrl;
+         // AdjustmentsBO oAdjustmentsBO = new AdjustmentsBO();
+         List<IDTOs.IAdjustmentDTO> ocAdjustmentDTO = oAdjustmentsBO.GetTodaysAdjustments(LeagueName);
 
          return Json(ocAdjustmentDTO, JsonRequestBehavior.AllowGet);
       }
@@ -29,26 +36,42 @@ namespace BballMVC.Controllers
       [HttpGet]
       public JsonResult GetAdjustmentInfo(string LeagueName)
       {
-         AdjustmentsBO oAdjustmentsBO = new AdjustmentsBO();
-         AdjustmentInitDataDTO oAdjustmentInitDataDTO = oAdjustmentsBO.GetAdjustmentInfo(LeagueName);
+         //AdjustmentsBO oAdjustmentsBO = new AdjustmentsBO();
+         IAdjustmentInitDataDTO oAdjustmentInitDataDTO = oAdjustmentsBO.GetAdjustmentInfo(LeagueName);
 
          return Json(oAdjustmentInitDataDTO, JsonRequestBehavior.AllowGet);
       }
 
       [HttpPost] //  [ValidateAntiForgeryToken]
-      public JsonResult PostInsertAdjustment(AdjustmentDTO oAdjustmentDTO)
+      public JsonResult PostInsertAdjustment(DTOs.AdjustmentDTO oAdjustmentDTO)
       {
-         AdjustmentsBO oAdjustmentsBO = new AdjustmentsBO();
-         oAdjustmentsBO.InsertNewAdjustment(oAdjustmentDTO);
-
+         try
+         {
+            oAdjustmentsBO.InsertNewAdjustment(oAdjustmentDTO);
+         }
+         catch (Exception ex)
+         {
+            var msg = ex.Message;
+            throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name} - Error Message: {msg}");
+         }
          return Json(oAdjustmentsBO, JsonRequestBehavior.AllowGet);
       }
 
       [HttpPost]
       public JsonResult PostProcessUpdates(List<AdjustmentDTO> ocAdjustmentDTO)
       {
-         AdjustmentsBO oAdjustmentsBO = new AdjustmentsBO();
-         oAdjustmentsBO.UpdateAdjustments(ocAdjustmentDTO);
+         var x = (IList<IAdjustmentDTO>)ocAdjustmentDTO;
+         //AdjustmentsBO oAdjustmentsBO = new AdjustmentsBO();
+         try
+         {
+            oAdjustmentsBO.UpdateAdjustments(x);
+         }
+         catch (Exception ex)
+         {
+            var msg = ex.Message;
+            throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name} - Error Message: {msg}");
+         }
+
          return Json("Success");
 
          //  return Json(new { success = true, responseText = "Your message successfuly sent!" }, JsonRequestBehavior.AllowGet);

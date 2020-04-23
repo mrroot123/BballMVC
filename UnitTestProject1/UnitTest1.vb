@@ -40,7 +40,7 @@ Imports System.Reflection
    <TestMethod()> Public Sub TestGetBoxScores()
       Dim cs As String = "   at Bball.VbClasses.Bball.VbClasses.BoxscoreParseStatsSummary.InitCoversBoxscore(String PeriodsHtml, DateTime GameDate, String LeagueName, Int32 Periods) in D:\My Documents\wwwroot\BballMVC\Bball.VbClasses\BoxscoreParseStatsSummary.vb:line 148\n   at Bball.VbClasses.Bball.VbClasses.BoxscoreParseStatsSummary.NewBoxscoreParseStatsSummary(String BoxScoreSource, String PeriodsHtml, DateTime GameDate, String LeagueName, Int32 Periods) in D:\My Documents\wwwroot\BballMVC\Bball.VbClasses\BoxscoreParseStatsSummary.vb:line 71\n   at Bball.VbClasses.Bball.VbClasses.CoversBoxscore.processPeriods(String BoxScoreUrl) in D:\My Documents\wwwroot\BballMVC\Bball.VbClasses\CoversBoxscore.vb:line 118\n   at Bball.VbClasses.Bball.VbClasses.CoversBoxscore.GetBoxscore() in D:\My Documents\wwwroot\BballMVC\Bball.VbClasses\CoversBoxscore.vb:line 98\n   at Bball.BAL.LoadBoxScores.Load(DateTime GameDate) in D:\My Documents\wwwroot\BballMVC\Bball.BAL\LoadBoxScores.cs:line 54\n   at Bball.BAL.LoadBoxScores.LoadBoxScoreRange(DateTime GameDate) in D:\My Documents\wwwroot\BballMVC\Bball.BAL\LoadBoxScores.cs:line 30\n   at UnitTestProject1.UnitTest1.TestGetBoxScores() in D:\My Documents\wwwroot\BballMVC\UnitTestProject1\UnitTest1.vb:line 46"
 
-      Dim oLoadBoxScores As LoadBoxScores = New LoadBoxScores("NBA", DateTime.Now.ToString(), Convert.ToDateTime("10/22/2019"))
+      Dim oLoadBoxScores As LoadBoxScores = New LoadBoxScores("NBA", Convert.ToDateTime("10/22/2019"))
       Dim msg As String
       Try
          ' MSaccessDB.MStest("")

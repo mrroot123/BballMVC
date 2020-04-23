@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 
 using BballMVC.DTOs;
+using BballMVC.IDTOs;
 using Bball.VbClasses.Bball.VbClasses;
 
 using Bball.DAL;
 using Bball.DAL.Tables;
+using Bball.DAL.Functions;
 using Bball.DataBaseFunctions;
 using System.Text;
 
@@ -14,7 +16,7 @@ namespace Bball.BAL
    public class LoadBoxScores
    {
 
-      private LeagueDTO _oLeagueDTO = new LeagueDTO();
+      private ILeagueDTO _oLeagueDTO = new LeagueDTO();
       private string _strLoadDateTime;
       private string _ConnectionString = SqlFunctions.GetConnectionString();
       //private DateTime _GameDate;
@@ -82,7 +84,7 @@ namespace Bball.BAL
             }
             catch (Exception ex)
             {
-               throw new Exception(SysDAL.DALfunctions.StackTraceFormat(ex));
+               throw new Exception(DALFunctions.StackTraceFormat(ex));
             }
 
             Console.WriteLine($"Processed {_oSeasonInfo.GameDate} - {DateTime.Now} - Matchups: {NumOfMatchups}");
@@ -130,7 +132,7 @@ namespace Bball.BAL
                   string msg = $"BoxScore Load Error - "
                      + $"{_oLeagueDTO.LeagueName}: {GameDate}  {oCoversDTO.RotNum}:{arVenue[i]}  {oCoversDTO.TeamAway}-{oCoversDTO.TeamHome} "
                      + "\n" + oCoversDTO.Url;
-                  throw new Exception(SysDAL.DALfunctions.StackTraceFormat(msg, ex, ""));
+                  throw new Exception(DALFunctions.StackTraceFormat(msg, ex, ""));
                }
             }
 
@@ -155,7 +157,7 @@ namespace Bball.BAL
                string msg = $"BoxScoreL5Min Load Error - "
                   + $"{_oLeagueDTO.LeagueName}: {GameDate}  {oCoversDTO.RotNum}:  {oCoversDTO.TeamAway}-{oCoversDTO.TeamHome} "
                   + "\n" + Bball.DAL.Parsing.BoxScoresLast5Min.BuildBoxScoresLast5MinUrl(oLast5MinDTOHome);
-               throw new Exception(SysDAL.DALfunctions.StackTraceFormat(msg, ex, ""));
+               throw new Exception(DALFunctions.StackTraceFormat(msg, ex, ""));
             }
          } // foreach
 

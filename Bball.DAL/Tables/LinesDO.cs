@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using Bball.DataBaseFunctions;
 using BballMVC.DTOs;
+using BballMVC.IDTOs;
 using System.Data.SqlClient;
 
 namespace Bball.DAL.Tables
@@ -15,12 +16,12 @@ namespace Bball.DAL.Tables
       const string TableColumns = "LeagueName,GameDate,RotNum,TeamAway,TeamHome,Line,PlayType,PlayDuration,CreateDate,LineSource";
 
       DateTime _GameDate;
-      LeagueDTO _oLeagueDTO;
+      ILeagueDTO _oLeagueDTO;
       string _ConnectionString;
       string _strLoadDateTime;
 
       // Constructor
-      public LinesDO(DateTime GameDate, LeagueDTO oLeagueDTO, string ConnectionString, string strLoadDateTime)
+      public LinesDO(DateTime GameDate, ILeagueDTO oLeagueDTO, string ConnectionString, string strLoadDateTime)
       {
          _GameDate = GameDate;
          _oLeagueDTO = oLeagueDTO;

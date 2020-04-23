@@ -6,6 +6,7 @@ using Bball.VbClasses.Bball.VbClasses;
 using Bball.DataBaseFunctions;
 
 using BballMVC.DTOs;
+using BballMVC.IDTOs;
 using System.Data.SqlClient;
 
 namespace Bball.DAL.Tables
@@ -16,11 +17,11 @@ namespace Bball.DAL.Tables
       private const string ColumnNames = "GameDate,LeagueName,Season,SubSeason,SubSeasonPeriod,NumOfMatchups,LgAvgStartDate,LgAvgGamesBack,LgAvgScoreAway,LgAvgScoreHome,LgAvgScoreFinal,LgAvgShotsMadeAwayPt1,LgAvgShotsMadeAwayPt2,LgAvgShotsMadeAwayPt3,LgAvgShotsMadeHomePt1,LgAvgShotsMadeHomePt2,LgAvgShotsMadeHomePt3,LgAvgLastMinPts,LgAvgLastMinPt1,LgAvgLastMinPt2,LgAvgLastMinPt3";
  
       DateTime _GameDate;
-      LeagueDTO _oLeagueDTO;
+      ILeagueDTO _oLeagueDTO;
       string _ConnectionString;
       string _strLoadDateTime;
 
-      public DailySummaryDO(DateTime GameDate, LeagueDTO oLeagueDTO, string ConnectionString, string strLoadDateTime)
+      public DailySummaryDO(DateTime GameDate, ILeagueDTO oLeagueDTO, string ConnectionString, string strLoadDateTime)
       {
          _GameDate = GameDate;
          _oLeagueDTO = oLeagueDTO;

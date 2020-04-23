@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using HtmlParsing.HtmlParsing.Functions;
 using HtmlParsing.Common4vb.HtmlParsing;
 using System.IO;
 using System.Xml.Serialization;
-using BballMVC.DTOs;
-using Bball.DataBaseFunctions;
 using System.Data.SqlClient;
 using System.Data;
+
+using BballMVC.DTOs;
+using BballMVC.IDTOs;
+using Bball.DataBaseFunctions;
+
 
 namespace Bball.DAL.Tables
 {
@@ -20,7 +21,7 @@ namespace Bball.DAL.Tables
         const string TableColumns = "LeagueName,StartDate,EndDate,Team,AdjustmentType,AdjustmentAmount,Player,Description,TS";
 
         private string _ConnectionString;
-        private LeagueDTO _oLeagueDTO = new LeagueDTO();
+        private ILeagueDTO _oLeagueDTO = new LeagueDTO();
         private DateTime _GameDate;
         public AdjustmentsDO()
         { }
@@ -156,7 +157,7 @@ namespace Bball.DAL.Tables
       }
       private void writeAdjustment(Row oAdjRow)
       {
-         AdjustmentDTO oAdjustmentDTO = new AdjustmentDTO()
+         BballMVC.IDTOs.IAdjustmentDTO oAdjustmentDTO = new BballMVC.DTOs.AdjustmentDTO()
          {
             LeagueName = _oLeagueDTO.LeagueName
             , StartDate = _GameDate
@@ -174,7 +175,7 @@ namespace Bball.DAL.Tables
       }
       private void populate_ocValuesForInsert(List<string> ocValues, object DTO)
       {
-         AdjustmentDTO oAdjustmentDTO = (AdjustmentDTO)DTO;
+         BballMVC.DTOs.AdjustmentDTO oAdjustmentDTO = (BballMVC.DTOs.AdjustmentDTO)DTO;
          ocValues.Add(oAdjustmentDTO.LeagueName.ToString());
          ocValues.Add(oAdjustmentDTO.StartDate.ToString());
          ocValues.Add(oAdjustmentDTO.EndDate.ToString());
@@ -212,27 +213,19 @@ namespace Bball.DAL.Tables
       }
 
 
-      public void InsertAdjustmentRow(AdjustmentDTO oAdjustmentDTO)
+      public void InsertAdjustmentRow(BballMVC.IDTOs.IAdjustmentDTO oAdjustmentDTO)
       {
-         try
-         {
-            // call SP to writeLines
-            List<string> SqlParmNames = new List<string>() { "LeagueName", "Team", "AdjustmentDesc", "AdjustmentAmount", "Player", "Description" };
-            List<object> SqlParmValues = new List<object>()
-            { oAdjustmentDTO.LeagueName.ToString(), oAdjustmentDTO.Team.ToString(), oAdjustmentDTO.AdjustmentType.ToString(),
-                oAdjustmentDTO.AdjustmentAmount.ToString(), oAdjustmentDTO.Player.ToString(), oAdjustmentDTO.Description.ToString() };
-            string ConnectionString = Bball.DataBaseFunctions.SqlFunctions.GetConnectionString();
-            // kdtodo                                                               make constant
-            SysDAL.DALfunctions.ExecuteStoredProcedureNonQuery(ConnectionString, "uspInsertAdjustments", SqlParmNames, SqlParmValues);
-         }
-         catch (Exception ex)
-         {
-            var msg = ex.Message + $" - CallStack= {ex.StackTrace}";
-          //  throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name}\nSql: {strSql}\nConnectionString: {ConnectionString}\nError Message: {msg}");
-         }
+         // call SP to writeLines
+         List<string> SqlParmNames = new List<string>() { "LeagueName", "Team", "AdjustmentDesc", "AdjustmentAmount", "Player", "Description" };
+         List<object> SqlParmValues = new List<object>()
+         { oAdjustmentDTO.LeagueName.ToString(), oAdjustmentDTO.Team.ToString(), oAdjustmentDTO.AdjustmentType.ToString(),
+               oAdjustmentDTO.AdjustmentAmount.ToString(), oAdjustmentDTO.Player.ToString(), oAdjustmentDTO.Description.ToString() };
+         string ConnectionString = Bball.DataBaseFunctions.SqlFunctions.GetConnectionString();
+         // kdtodo                                                               make constant
+         SysDAL.DALfunctions.ExecuteStoredProcedureNonQuery(ConnectionString, "uspInsertAdjustments", SqlParmNames, SqlParmValues);
       }
 
-      public void UpdateAdjustmentRow(List<AdjustmentDTO> ocAdjustmentDTO)
+      public void UpdateAdjustmentRow(IList<BballMVC.IDTOs.IAdjustmentDTO> ocAdjustmentDTO)
       {
          DataTable tblAdjustments = new DataTable();
          tblAdjustments.Columns.Add("AdjustmentID", typeof(int));
@@ -251,37 +244,37 @@ namespace Bball.DAL.Tables
       }
 
       #region todaysAdjustments
-      public List<AdjustmentDTO> GetTodaysAdjustments(string LeagueName)
-   {
-      string ConnectionString = Bball.DataBaseFunctions.SqlFunctions.GetConnectionString();
-      List<AdjustmentDTO> ocAdjustmentDTO = new List<AdjustmentDTO>();
+      public List<BballMVC.IDTOs.IAdjustmentDTO> GetTodaysAdjustments(string LeagueName)
+      {
+         string ConnectionString = Bball.DataBaseFunctions.SqlFunctions.GetConnectionString();
+         List<BballMVC.IDTOs.IAdjustmentDTO> ocAdjustmentDTO = new List<BballMVC.IDTOs.IAdjustmentDTO>();
 
-      List<string> SqlParmNames = new List<string>() { "LeagueName" };
-      List<object> SqlParmValues = new List<object>() { LeagueName };
+         List<string> SqlParmNames = new List<string>() { "LeagueName" };
+         List<object> SqlParmValues = new List<object>() { LeagueName };
 
-      SysDAL.DALfunctions.ExecuteStoredProcedureQuery(ConnectionString, "uspQueryAdjustments"
-                           , SqlParmNames, SqlParmValues, ocAdjustmentDTO, populateDTOFromRdr);
-      return ocAdjustmentDTO;
-   }
-    static void populateDTOFromRdr(object oRow, SqlDataReader rdr)
-    {
+         SysDAL.DALfunctions.ExecuteStoredProcedureQuery(ConnectionString, "uspQueryAdjustments"
+                              , SqlParmNames, SqlParmValues, ocAdjustmentDTO, populateDTOFromRdr);
+         return ocAdjustmentDTO;
+      }
+      static void populateDTOFromRdr(object oRow, SqlDataReader rdr)
+      {
 
-        AdjustmentDTO oAdjustmentDTO = new AdjustmentDTO();
+         BballMVC.DTOs.AdjustmentDTO oAdjustmentDTO = new BballMVC.DTOs.AdjustmentDTO();
 
-        oAdjustmentDTO.AdjustmentID = (int)rdr["AdjustmentID"];
-        oAdjustmentDTO.LeagueName = (string)rdr["LeagueName"];
-        oAdjustmentDTO.StartDate = (DateTime)rdr["StartDate"];
-        oAdjustmentDTO.EndDate = rdr["EndDate"] == DBNull.Value ? null : (DateTime?)rdr["EndDate"];
-        oAdjustmentDTO.Team = (string)rdr["Team"];
-        oAdjustmentDTO.AdjustmentType = (string)rdr["AdjustmentType"];
-        oAdjustmentDTO.AdjustmentAmount = (float)rdr["AdjustmentAmount"];
-        oAdjustmentDTO.Player = (string)rdr["Player"];
-        oAdjustmentDTO.Description = (string)rdr["Description"];
-        oAdjustmentDTO.TS = (DateTime)rdr["TS"];
+         oAdjustmentDTO.AdjustmentID = (int)rdr["AdjustmentID"];
+         oAdjustmentDTO.LeagueName = (string)rdr["LeagueName"];
+         oAdjustmentDTO.StartDate = (DateTime)rdr["StartDate"];
+         oAdjustmentDTO.EndDate = rdr["EndDate"] == DBNull.Value ? null : (DateTime?)rdr["EndDate"];
+         oAdjustmentDTO.Team = (string)rdr["Team"];
+         oAdjustmentDTO.AdjustmentType = (string)rdr["AdjustmentType"];
+         oAdjustmentDTO.AdjustmentAmount = (float)rdr["AdjustmentAmount"];
+         oAdjustmentDTO.Player = (string)rdr["Player"];
+         oAdjustmentDTO.Description = (string)rdr["Description"];
+         oAdjustmentDTO.TS = (DateTime)rdr["TS"];
 
-        List<AdjustmentDTO> ocAdjustmentDTO = (List<AdjustmentDTO>)oRow;
-        ocAdjustmentDTO.Add(oAdjustmentDTO);
-    }
+         List<BballMVC.IDTOs.IAdjustmentDTO> ocAdjustmentDTO = (List<BballMVC.IDTOs.IAdjustmentDTO>)oRow;
+         ocAdjustmentDTO.Add(oAdjustmentDTO);
+      }
         #endregion todaysAdjustments
 
     static void populateTeamDTOFromRdr(object oRow, SqlDataReader rdr)
@@ -298,14 +291,14 @@ namespace Bball.DAL.Tables
             ocAdjustmentCodes.Add(s);
         }
 
-        public AdjustmentInitDataDTO GetAdjustmentInfo(string LeagueName)
+        public IAdjustmentInitDataDTO GetAdjustmentInfo(string LeagueName)
         {
             string ConnectionString = Bball.DataBaseFunctions.SqlFunctions.GetConnectionString();
 
 
-            AdjustmentInitDataDTO oAdjustmentInitDataDTO = new AdjustmentInitDataDTO();
+            IAdjustmentInitDataDTO oAdjustmentInitDataDTO = new AdjustmentInitDataDTO();
 
-            oAdjustmentInitDataDTO.ocAdjustments = new List<AdjustmentDTO>();
+            oAdjustmentInitDataDTO.ocAdjustments = new List<BballMVC.IDTOs.IAdjustmentDTO>();
             oAdjustmentInitDataDTO.ocTeams = new List<string>();
             oAdjustmentInitDataDTO.ocAdjustmentNames = new List<string>();
 
@@ -329,17 +322,15 @@ namespace Bball.DAL.Tables
             return oAdjustmentInitDataDTO;
         }
 
+        class Row
+      {
+         public string Team { get; set; }
+         public string Type { get; set; }
+         public float AdjAmt { get; set; }
+         public string Player { get; set; }
+         public string Desc { get; set; }
+         public string TS { get; set; }
+      }
+   }  // class Adjustments
 
-    }  // class Adjustments
-
-
-    public class Row
-   {
-      public string Team { get; set; }
-      public string Type { get; set; }
-      public float AdjAmt { get; set; }
-      public string Player { get; set; }
-      public string Desc { get; set; }
-      public string TS { get; set; }
-   }
 }

@@ -5,6 +5,7 @@ using Bball.VbClasses.Bball.VbClasses;
 using Bball.DataBaseFunctions;
 
 using BballMVC.DTOs;
+using BballMVC.IDTOs;
 using System.Data.SqlClient;
 
 namespace Bball.DAL.Tables
@@ -17,11 +18,11 @@ namespace Bball.DAL.Tables
 
       SortedList<string, CoversDTO> _ocRotation;
       DateTime _GameDate;
-      LeagueDTO _oLeagueDTO;
+      ILeagueDTO _oLeagueDTO;
       string _ConnectionString;
       string _strLoadDateTime;
 
-      public RotationDO(SortedList<string, CoversDTO> ocRotation, DateTime GameDate, LeagueDTO oLeagueDTO, string ConnectionString, string strLoadDateTime)
+      public RotationDO(SortedList<string, CoversDTO> ocRotation, DateTime GameDate, ILeagueDTO oLeagueDTO, string ConnectionString, string strLoadDateTime)
       {
          _ocRotation = ocRotation;
          _GameDate = GameDate;
@@ -29,7 +30,7 @@ namespace Bball.DAL.Tables
          _ConnectionString = ConnectionString;
          _strLoadDateTime = strLoadDateTime;
       }
-      public static void PopulateRotation(SortedList<string, CoversDTO> ocRotation, DateTime GameDate, LeagueDTO _oLeagueDTO, string ConnectionString, string strLoadDateTime)
+      public static void PopulateRotation(SortedList<string, CoversDTO> ocRotation, DateTime GameDate, ILeagueDTO _oLeagueDTO, string ConnectionString, string strLoadDateTime)
       {
          RotationDO oRotation = new RotationDO(ocRotation, GameDate, _oLeagueDTO, ConnectionString, strLoadDateTime);
          oRotation.GetRotation();
