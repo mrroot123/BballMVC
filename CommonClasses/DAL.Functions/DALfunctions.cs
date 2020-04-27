@@ -267,10 +267,17 @@ namespace SysDAL
 
             }  // using conn
          }
+         catch (SqlException ex)
+         {
+            if (ex.State == 0)
+            {
+               throw;
+            }
+            throw new Exception(StackTraceFormat(ex));
+         }
          catch (Exception ex)
          {
-            var msg = ex.Message.IndexOf("CallStack=") > -1 ? ex.Message : ex.Message + $" - CallStack= {ex.StackTrace}";
-            throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name}\nStored Procedure: {StoredProcedureName}\nConnectionString: {ConnectionString}\nError Message: {msg}");
+            throw new Exception(StackTraceFormat(ex));
          }
          return rowsAffected;
       }  // ExecuteStoredProcedureNonQuery

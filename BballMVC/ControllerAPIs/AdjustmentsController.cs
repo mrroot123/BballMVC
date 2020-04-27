@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -21,11 +23,26 @@ namespace BballMVC.ControllerAPIs
          oAdjustmentsBO = new AdjustmentsBO();
       }
 
+      [HttpGet]
+      public HttpResponseMessage GetAdjustments(string LeagueName)
+
+      {
+         List<IDTOs.IAdjustmentDTO> ocAdjustmentDTO = oAdjustmentsBO.GetTodaysAdjustments(LeagueName);
+
+         return Request.CreateResponse(HttpStatusCode.OK, ocAdjustmentDTO);
+      }
+      [HttpGet]
+      public HttpResponseMessage GetAdjustmentInfo(string LeagueName)
+      {
+         IAdjustmentInitDataDTO oAdjustmentInitDataDTO = oAdjustmentsBO.GetAdjustmentInfo(LeagueName);
+         return Request.CreateResponse(HttpStatusCode.OK, oAdjustmentInitDataDTO);
+      }
+
       [HttpPost]
       public HttpResponseMessage PostProcessUpdates(List<AdjustmentDTO> ocAdjustmentDTO)
       {
-         var a = new AdjustmentDTO { AdjustmentAmount = 2, AdjustmentID = 1 };
-         var b =  Request.RequestUri.GetLeftPart(System.UriPartial.Authority);
+      //   var a = new AdjustmentDTO { AdjustmentAmount = 2, AdjustmentID = 1 };
+      //   var b =  Request.RequestUri.GetLeftPart(System.UriPartial.Authority);
          IList <IAdjustmentDTO> aa = new List<IAdjustmentDTO>();
          foreach (AdjustmentDTO adj in ocAdjustmentDTO)
          {
@@ -36,14 +53,26 @@ namespace BballMVC.ControllerAPIs
 
          return Request.CreateResponse(HttpStatusCode.OK, "Success");
       }
-
-      [HttpGet]
-      public HttpResponseMessage GetAdjustmentInfo(string LeagueName)
+      [HttpPost] //  [ValidateAntiForgeryToken]
+      public HttpResponseMessage PostInsertAdjustment(AdjustmentDTO oAdjustmentDTO)
       {
-         
-         IAdjustmentInitDataDTO oAdjustmentInitDataDTO = oAdjustmentsBO.GetAdjustmentInfo(LeagueName);
-
-         return Request.CreateResponse(HttpStatusCode.OK, oAdjustmentInitDataDTO);
+         try
+         {
+            oAdjustmentsBO.InsertNewAdjustment(oAdjustmentDTO);
+         }
+         catch (SqlException ex)
+         {
+            if (ex.State == 0)
+            {
+               return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+            throw new Exception(ex.Message);
+         }
+         catch (Exception ex)
+         {
+            throw new Exception(ex.Message);
+         }
+         return Request.CreateResponse(HttpStatusCode.OK);
       }
 
    }
