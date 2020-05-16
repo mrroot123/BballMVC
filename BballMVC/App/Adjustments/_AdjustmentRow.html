@@ -8,7 +8,7 @@
       <th>Adjustment<br>Amount</th>
       <th>Player</th>
       <th>Description</th>
-      <th>Adjustment ID</th>
+      <th ng-hide="true">Adjustment ID</th>
    </tr>
    <tr ng-repeat="oAdjustment in ocAdjustments" ng-hide="!cbShowZeroAdjustments && {{oAdjustment.AdjustmentAmount}} === 0">
       <td> 
@@ -23,7 +23,7 @@
       <td>{{oAdjustment.AdjustmentAmount}}</td>
       <td>{{oAdjustment.Player}}</td>
       <td>{{oAdjustment.Description}}</td>
-      <td>{{oAdjustment.AdjustmentID}}</td>
+      <td ng-hide="true">{{oAdjustment.AdjustmentID}}</td>
 
    </tr>
 </table>

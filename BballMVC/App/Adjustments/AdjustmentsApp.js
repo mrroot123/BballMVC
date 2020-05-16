@@ -9,8 +9,6 @@ const UrlGetAdjustments = urlPrefix + "Adjustments/GetAdjustments";
    'use strict';
    try {
       const LeagueName = 'NBA';
-      var d = new Date();
-      alert("App elim2 started - " + d.getMinutes());
       angular.module('app', []);
 
       angular.module('app').service('ajx', function () {
@@ -49,14 +47,14 @@ const UrlGetAdjustments = urlPrefix + "Adjustments/GetAdjustments";
             });   // Promise
          };  // AjaxPost
 
-         this.fun = function () {
+         //this.fun = function () {
 
-         };
-         this.FormatResponse = function (response) {
-            return "status: " + response.status + "\n"
-               + "statusText: " + response.statusText + "\n"
-               + "responseText: " + response.responseText;
-         };
+         //};
+         //this.FormatResponse = function (response) {
+         //   return "status: " + response.status + "\n"
+         //      + "statusText: " + response.statusText + "\n"
+         //      + "responseText: " + response.responseText;
+         //};
       });
 
       angular.module('app').service('f', function () {
@@ -79,61 +77,21 @@ const UrlGetAdjustments = urlPrefix + "Adjustments/GetAdjustments";
             return new Date(parseInt(jsonDateString.replace('/Date(', '')));
          };
 
+         this.showHideModal = function (show) {
+            return show ? { "display": "block" } : { "display": "none" };
+         };
+
          this.wrapTag = function (tag, innerHtml) {
             let ar = tag.split(" ");
             return "<" + tag + ">" + innerHtml + "</" + ar[0] + ">";
          };
-
-         this.fun = function () {
-
-         };
       });
 
-
-      angular.module('app').controller('AdjustmentsController', function ($scope, $compile, f, ajx) {
+      angular.module('app').controller('AdjustmentsController', function ($scope,  f, ajx) {
          $scope.ocAdjustments;
          let rowWasInserted = false;
-         let GetAdjustmentsParms = { scope: $scope, compile: $compile, f: f, LeagueName: LeagueName, ajx: ajx };
-         //   $scope.setAdjustmentsModal = $scope.showAdjustmentsModal(false);
+         let GetAdjustmentsParms = { scope: $scope, f: f, LeagueName: LeagueName, ajx: ajx };
          GetAdjustmentInfo(GetAdjustmentsParms);
-
-         $scope.InsertAdjustment = function () {
-
-            let oAdjustment = {};
-            oAdjustment.LeagueName = LeagueName;
-
-            oAdjustment.AdjustmentType = $scope.AdjustmentType;
-            oAdjustment.Team = $scope.Team;
-            oAdjustment.AdjustmentAmount = $scope.AdjustmentAmount;
-            oAdjustment.Player = $scope.Player;
-            oAdjustment.Description = $scope.Description;
-
-            if (!ValidateAdjustmentEntry(oAdjustment, $scope)) {
-               return;  // errors in Adj Entry I/P
-            }
-
-            $scope.setAdjustmentsModal = $scope.showAdjustmentsModal(false);
-
-            //$('#AdjustmentsModal').css({ "display": "none" }); // Hide Adjustment Entry Modal
-
-            ajx.AjaxPost(UrlPostInsertAdjustment, oAdjustment)
-               .then(data => {
-                  rowWasInserted = true;
-                  f.MessageSuccess("Insert Complete");
-                  $('#AdjustmentsModal').css({ "display": "block" });   // Show Adjustment Entry Modal
-               })
-               .catch(error => {
-                  f.DisplayMessage("Adjustment Insert Error/n" + f.FormatResponse(error));
-                  $('#AdjustmentsModal').css({ "display": "block" });   // Show Adjustment Entry Modal
-               });
-
-
-            $scope.ClearAdjustmentEntryForm();
-         }; // InsertAdjustment
-
-         $scope.showAdjustmentsModal = function (show) {
-            return show ? { "display": "block" } : { "display": "none" };
-         };
 
          $scope.ProcessUpdates = function () {
             let ocAdjustmentDTO = [];
@@ -153,30 +111,123 @@ const UrlGetAdjustments = urlPrefix + "Adjustments/GetAdjustments";
                return;
             }
 
-            GreyOutAdjustmentList();
+            $scope.GreyOutAdjustmentList();
             // let URL = "api/Adjustments/PostProcessUpdates";
             ajx.AjaxPost(UrlPostProcessUpdates, ocAdjustmentDTO)
                .then(data => {
-                  GetAdjustments(GetAdjustmentsParms);
+                  $scope.GetAdjustments($scope, f, ajx);  //GetAdjustments(GetAdjustmentsParms);
                   f.DisplayMessage("Updates Complete");
-                  ShowAdjustmentList();
+                  $scope.ShowAdjustmentList();
                })
                .catch(error => {
                   f.DisplayMessage(FormatResponse(error));
                });
          };   // processUpdates 
          $scope.OpenAdjustmentEntryModal = function () {
+            $scope.$broadcast('OpenAdjustmentEntryModalEvent');
+         };
+         $scope.$on('CancelAdjustmentEntry', function (e, rowWasInserted) {
+            if (rowWasInserted)
+               $scope.GetAdjustments($scope, f, ajx);
+            $scope.ShowAdjustmentList();
+         });
+
+         $scope.GetAdjustments = function ($scope, f, ajx) {
+            let refreshAdjustments = function (ocAdjustments) {
+               $scope.ocAdjustments = ocAdjustments;
+               $scope.ocAdjustments.forEach(function (item) {
+                  item.cb_ID = "cb_" + item.AdjustmentID;
+               });
+               $scope.$apply();
+            };
+
+            ajx.AjaxGet(UrlGetAdjustments, { LeagueName: LeagueName })   // Get Adjustments from server
+               .then(data => {
+                  refreshAdjustments(data);
+               })
+               .catch(error => {
+                  f.DisplayMessage(f.FormatResponse(error));
+               });
+         }; // GetAdjustments
+
+         $scope.ShowAdjustmentList = function () {
+            $('#AdjustmentsList').css({ "display": "block", opacity: 1, "width": $(document).width(), "height": $(document).height() });
+         };
+         // grey out Adjustments
+         $scope.GreyOutAdjustmentList = function () {
+            $('#AdjustmentsList').css({ "display": "block", opacity: 0.2, "width": $(document).width(), "height": $(document).height() });
+         };
+
+         function GetAdjustmentInfo(Parms) { // called once at Controller init
+            var f = Parms.f;
+            var ajx = Parms.ajx;
+            let fProcessAdjustmentInfo = {
+               scope: Parms.scope
+               , process: function (oAdjustmentInitDataDTO) {
+                  $scope.GetAdjustments($scope, f, ajx);
+                  // Populate Teams DropDown form Adjustment Entry
+                  this.scope.TeamList = oAdjustmentInitDataDTO.ocTeams;
+                  this.scope.AdjustmentNameList = oAdjustmentInitDataDTO.ocAdjustmentNames;
+               }
+            }; // fProcessAdjustmentInfo
+
+            ajx.AjaxGet(UrlGetAdjustmentInfo, { LeagueName: Parms.LeagueName })
+               .then(data => {
+                  fProcessAdjustmentInfo.process(data);
+               })
+               .catch(error => {
+                  f.DisplayMessage(FormatResponse(error));
+               });
+            return;
+         }  // GetAdjustmentInfo
+
+      }); // Adjustments controller
+
+      angular.module('app').controller('AdjustmentsModalController', function ($scope,  f, ajx) {
+         let rowWasInserted = false;
+         let GetAdjustmentsParms = { scope: $scope, f: f, LeagueName: LeagueName, ajx: ajx };
+
+         $scope.$on('OpenAdjustmentEntryModalEvent', function (e) {
             rowWasInserted = false;
             $scope.ClearAdjustmentEntryForm();
-            GreyOutAdjustmentList();
+            $scope.GreyOutAdjustmentList();
             $('#AdjustmentsModal').css({ "display": "block" });   // Show Adjustment Entry Modal
-         };
+         });
+
+         $scope.clickInsertAdjustment = function () {
+
+            let oAdjustment = {};
+            oAdjustment.LeagueName = LeagueName;
+
+            oAdjustment.AdjustmentType = $scope.AdjustmentType;
+            oAdjustment.Team = $scope.Team;
+            oAdjustment.AdjustmentAmount = $scope.AdjustmentAmount;
+            oAdjustment.Player = $scope.Player;
+            oAdjustment.Description = $scope.Description;
+
+            //if (!ValidateAdjustmentEntry(oAdjustment, $scope)) {
+            //   return;  // errors in Adj Entry I/P
+            //}
+
+            $scope.setAdjustmentsModal = f.showHideModal(false);  // $scope.showAdjustmentsModal(false);
+
+            ajx.AjaxPost(UrlPostInsertAdjustment, oAdjustment)
+               .then(data => {
+                  rowWasInserted = true;
+                  f.MessageSuccess("Insert Complete");
+                  $('#AdjustmentsModal').css({ "display": "block" });   // Show Adjustment Entry Modal
+               })
+               .catch(error => {
+                  f.DisplayMessage("Adjustment Insert Error/n" + f.FormatResponse(error));
+                  $('#AdjustmentsModal').css({ "display": "block" });   // Show Adjustment Entry Modal
+               });
+
+            $scope.ClearAdjustmentEntryForm();
+         }; // InsertAdjustment
+
          $scope.CancelAdjustmentEntry = function () {    // invoked by Cancel click on Adjustment Entry Modal
-            if (rowWasInserted)
-               GetAdjustments(GetAdjustmentsParms);
             $('#AdjustmentsModal').css({ "display": "none" }); // Hide Adjustment Entry Modal
-            // Show Adjustments 
-            ShowAdjustmentList();
+            $scope.$emit("CancelAdjustmentEntry", rowWasInserted);   
          };
 
          // --- Validations ---
@@ -192,50 +243,17 @@ const UrlGetAdjustments = urlPrefix + "Adjustments/GetAdjustments";
          $scope.ValidatePlayer = function () { return !(!Player && (AdjustmentType === 'I' || AdjustmentType === 'R')); };
          $scope.ValidateDescription = function () { return $scope.Description; };
 
-
-         $scope.ValidateAdjustmentEntry = function () {
-            var rc = true;
-
-            validateField(oAdjustment.AdjustmentType, "errAdjustmentType");
-            if (oAdjustment.AdjustmentType !== "L") validateField(oAdjustment.Team, "errTeam");
-            validateField(oAdjustment.AdjustmentAmount, "errAdjustmentAmount");
-            if (oAdjustment.AdjustmentType === "I") validateField(oAdjustment.Player, "errPlayer");
-            validateField(oAdjustment.Description, "errDescription");
-
-            return rc;
-
-            function validateFieldNG(input, errName, b) {
-               if (IsEmpty(input)) {
-                  rc = false;
-                  b = true;
-               } else {
-                  b = false;
-               }
-            }
-
-            function validateField(input, errName) {
-               if (IsEmpty(input)) {
-                  rc = false;
-                  $('#' + errName).css({ "display": "block", "color": "red", "background": "yellow" });
-               } else {
-                  $('#' + errName).css({ "display": "none" });
-               }
-            }
-            function IsEmpty(input) {
-               return !input || !input.trim();
-            }
-         };
-
          $scope.ClearAdjustmentEntryForm = function () {
             $scope.AdjustmentType = "";
             $scope.Team = "";
             $scope.AdjustmentAmount = "";
-            $scope.AdjustmentAmount = "1";
+            $scope.AdjustmentAmount = "";
             $scope.Player = "";
             $scope.Description = "";
 
          };
-      }); // controller
+      }); // Adjustments Modal controller
+
    }
    catch (error) {
       console.error(error);
@@ -275,13 +293,12 @@ function ValidateAdjustmentEntry(oAdjustment, scope) {
    }
 }
 
-function GetAdjustmentInfo(Parms) { // called once at Controller init
+function xGetAdjustmentInfo(Parms) { // called once at Controller init
    var f = Parms.f;
    var ajx = Parms.ajx;
    const Data = { LeagueName: Parms.LeagueName };
    let fProcessAdjustmentInfo = {
       scope: Parms.scope
-      , compile: Parms.compile
       , process: function (oAdjustmentInitDataDTO) {
          GetAdjustments(Parms);
          // Populate Teams DropDown form Adjustment Entry
@@ -301,13 +318,11 @@ function GetAdjustmentInfo(Parms) { // called once at Controller init
    return;
 }  // GetAdjustmentInfo
 
-function GetAdjustments(Parms) {
+function xGetAdjustments(Parms) {
    var f = Parms.f;
    var ajx = Parms.ajx;
-   //   let Data = { LeagueName: Parms.LeagueName };
    let fProcessAdjustments = {
       scope: Parms.scope
-      , compile: Parms.compile
       , process: function (ocAdjustments) {
          Parms.scope.ocAdjustments = ocAdjustments;
          Parms.scope.ocAdjustments.forEach(function (item) {
@@ -315,7 +330,6 @@ function GetAdjustments(Parms) {
          });
 
          Parms.scope.$apply();
-         // DisplayAdjustments(Parms, ocAdjustments);
       }
    }; // fProcessAdjustments
 
@@ -342,13 +356,13 @@ function FormatResponse(response) {
    return response;
 }
 
-function ShowAdjustmentList() {
-   $('#AdjustmentsList').css({ "display": "block", opacity: 1, "width": $(document).width(), "height": $(document).height() });
-}
-// grey out Adjustments
-function GreyOutAdjustmentList() {
-   $('#AdjustmentsList').css({ "display": "block", opacity: 0.2, "width": $(document).width(), "height": $(document).height() });
-}
+//function ShowAdjustmentList() {
+//   $('#AdjustmentsList').css({ "display": "block", opacity: 1, "width": $(document).width(), "height": $(document).height() });
+//}
+//// grey out Adjustments
+//function GreyOutAdjustmentList() {
+//   $('#AdjustmentsList').css({ "display": "block", opacity: 0.2, "width": $(document).width(), "height": $(document).height() });
+//}
 
 
 
