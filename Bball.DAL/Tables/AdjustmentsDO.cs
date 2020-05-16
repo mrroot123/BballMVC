@@ -17,50 +17,27 @@ namespace Bball.DAL.Tables
 {
    public class AdjustmentsDO
    {
-        const string TableName = "Adjustments";
-        const string TableColumns = "LeagueName,StartDate,EndDate,Team,AdjustmentType,AdjustmentAmount,Player,Description,TS";
+      const string TableName = "Adjustments";
+      const string TableColumns = "LeagueName,StartDate,EndDate,Team,AdjustmentType,AdjustmentAmount,Player,Description,TS";
 
-        private string _ConnectionString;
-        private ILeagueDTO _oLeagueDTO = new LeagueDTO();
-        private DateTime _GameDate;
-        public AdjustmentsDO()
-        { }
-        public AdjustmentsDO(DateTime GameDate, string LeagueName, string ConnectionString)
-        {
-            _ConnectionString = ConnectionString;
-            new LeagueInfoDO(LeagueName, _oLeagueDTO, _ConnectionString);  // Init _oLeagueDTO
-            _GameDate = GameDate;
+      private string _ConnectionString;
+      private ILeagueDTO _oLeagueDTO = new LeagueDTO();
+      private DateTime _GameDate;
+      public AdjustmentsDO()
+      { }
+      public AdjustmentsDO(DateTime GameDate, string LeagueName, string ConnectionString)
+      {
+         _ConnectionString = ConnectionString;
+         new LeagueInfoDO(LeagueName, _oLeagueDTO, _ConnectionString);  // Init _oLeagueDTO
+         _GameDate = GameDate;
 
-        }
+      }
 
-        public string GetAdjustments (string leagueName)
-        {
-            //TO-DO fill out 
-            return "";
-        }
-
-     //test Version_2 kdtodo
-      //string QueryAdjustmentsSql = ""
-      //   + "SELECT * FROM Adjustments  "
-      //   + $"  WHERE LeagueName = '{LeagueName}' "
-      //   + $"    AND ((Type = 'L' AND StartDate <= #{GameDate}#   AND (EndDate IS NULL or EndDate >= #{GameDate}#) ) "
-      //   + $"     Or  (StartDate <= #{GameDate}#  AND (EndDate IS NULL or EndDate >= #{GameDate}#) )  AND AdjAmt <> 0 ) "
-      //   + "    ORDER BY Type DESC ;"
-      //   ;
-
-      //string QueryString = "SqlCommand=Select&SQL=" + VBFunctions.URLEncode(QueryAdjustmentsSql);
-      //String url = "http://bball.com.violet.arvixe.com/ExecSql2.aspx";
-      //WebPageGet oWebPageGet = new WebPageGet();
-      //oWebPageGet.NewWebPagePost(url, QueryString);
-      //string xmlString = oWebPageGet.Html;
-
-      //// Simple deserialization of XML to C# object - http://www.janholinka.net/Blog/Article/11
-
-      //StringReader stringReader = new StringReader(xmlString);
-      //XmlSerializer serializer = new XmlSerializer(typeof(List<Row>), new XmlRootAttribute("SQLrows"));
-
-      //List<Row> adjList = (List<Row>)serializer.Deserialize(stringReader);
-      //List<Row> SortedAdjList = adjList.OrderBy(o => o.Team).ToList();
+      public string GetAdjustments (string leagueName)
+      {
+         //TO-DO fill out 
+         return "";
+      }
 
       public void ProcessDailyAdjustments(DateTime GameDate, string LeagueName)
       {
@@ -151,7 +128,6 @@ namespace Bball.DAL.Tables
       }
       public void DeleteAdjustments(DateTime GameDate, string LeagueName)
       {
-
          string strSql = $"DELETE From {TableName} Where LeagueName = '{LeagueName}' AND StartDate = '{GameDate.ToShortDateString()}'";
          int rows = SysDAL.DALfunctions.ExecuteSqlNonQuery(SqlFunctions.GetConnectionString(), strSql);
       }
@@ -275,62 +251,69 @@ namespace Bball.DAL.Tables
          List<BballMVC.IDTOs.IAdjustmentDTO> ocAdjustmentDTO = (List<BballMVC.IDTOs.IAdjustmentDTO>)oRow;
          ocAdjustmentDTO.Add(oAdjustmentDTO);
       }
-        #endregion todaysAdjustments
-
-    static void populateTeamDTOFromRdr(object oRow, SqlDataReader rdr)
-    {
-            String s = (string)rdr["TeamNameInDatabase"];
-            List<string> ocTeams = (List<string>)oRow;
-            ocTeams.Add(s);
-        }
-
-        static void populateAdjCodesDTOFromRdr(object oRow, SqlDataReader rdr)
-        {
-            String s = (string)rdr["Description"];
-            List<string> ocAdjustmentCodes = (List<string>)oRow;
-            ocAdjustmentCodes.Add(s);
-        }
-
-        public IAdjustmentInitDataDTO GetAdjustmentInfo(string LeagueName)
-        {
-            string ConnectionString = Bball.DataBaseFunctions.SqlFunctions.GetConnectionString();
+      #endregion todaysAdjustments
 
 
-            IAdjustmentInitDataDTO oAdjustmentInitDataDTO = new AdjustmentInitDataDTO();
-
-            oAdjustmentInitDataDTO.ocAdjustments = new List<BballMVC.IDTOs.IAdjustmentDTO>();
-            oAdjustmentInitDataDTO.ocTeams = new List<string>();
-            oAdjustmentInitDataDTO.ocAdjustmentNames = new List<string>();
-
-            List<object> ocDTOs = new List<object>();
-            ocDTOs.Add(oAdjustmentInitDataDTO.ocAdjustments);
-            ocDTOs.Add(oAdjustmentInitDataDTO.ocTeams);
-            ocDTOs.Add(oAdjustmentInitDataDTO.ocAdjustmentNames);
-
-            List<SysDAL.DALfunctions.PopulateDTO> ocDelegates = new List<SysDAL.DALfunctions.PopulateDTO>();
-            ocDelegates.Add(populateDTOFromRdr);
-            ocDelegates.Add(populateTeamDTOFromRdr);
-            ocDelegates.Add(populateAdjCodesDTOFromRdr);
-
-            List<string> SqlParmNames = new List<string>() { "LeagueName" };
-            List<object> SqlParmValues = new List<object>() { LeagueName };
-
-            SysDAL.DALfunctions.ExecuteStoredProcedureQueries(ConnectionString, "uspQueryAdjustmentInfo"
-                              , SqlParmNames, SqlParmValues, ocDTOs, ocDelegates);
-
-            //still unsure what to return
-            return oAdjustmentInitDataDTO;
-        }
-
-        class Row
+      static void populateTeamDTOFromRdr(object oRow, SqlDataReader rdr)
       {
-         public string Team { get; set; }
-         public string Type { get; set; }
-         public float AdjAmt { get; set; }
-         public string Player { get; set; }
-         public string Desc { get; set; }
-         public string TS { get; set; }
+         List<IDropDown> ocDD = (List<IDropDown>)oRow;
+         ocDD.Add(new DropDown() { Value = (string)rdr["TeamNameInDatabase"], Text = (string)rdr["TeamNameInDatabase"] });
       }
+
+      static void populateAdjCodesDTOFromRdr(object oRow, SqlDataReader rdr)
+      {
+         List<IDropDown> ocDD = (List<IDropDown>)oRow;
+         ocDD.Add(new DropDown() { Value = (string)rdr.GetValue(0).ToString().Trim(), Text = (string)rdr.GetValue(1).ToString().Trim() });
+      }
+
+      static void populateDropDownDTOFromRdr(object oRow, SqlDataReader rdr)
+      {
+         List<IDropDown> ocDD = (List<IDropDown>)oRow;
+         ocDD.Add(new DropDown() { Value = (string)rdr.GetValue(0).ToString().Trim(), Text = (string)rdr.GetValue(1).ToString().Trim() });
+      }
+      public IAdjustmentInitDataDTO GetAdjustmentInfo(string LeagueName)
+      {
+         string ConnectionString = Bball.DataBaseFunctions.SqlFunctions.GetConnectionString();
+
+
+         IAdjustmentInitDataDTO oAdjustmentInitDataDTO = new AdjustmentInitDataDTO();
+
+         oAdjustmentInitDataDTO.ocAdjustments = new List<IAdjustmentDTO>();
+         oAdjustmentInitDataDTO.ocAdjustmentNames = new List<IDropDown>();
+         oAdjustmentInitDataDTO.ocTeams = new List<IDropDown>();
+         oAdjustmentInitDataDTO.ocLeagueNames = new List<IDropDown>();
+
+         List<object> ocDTOs = new List<object>();
+         ocDTOs.Add(oAdjustmentInitDataDTO.ocAdjustments);
+         ocDTOs.Add(oAdjustmentInitDataDTO.ocAdjustmentNames);
+         ocDTOs.Add(oAdjustmentInitDataDTO.ocTeams);
+         ocDTOs.Add(oAdjustmentInitDataDTO.ocLeagueNames);
+
+         List<SysDAL.DALfunctions.PopulateDTO> ocDelegates = new List<SysDAL.DALfunctions.PopulateDTO>();
+         ocDelegates.Add(populateDTOFromRdr);
+         ocDelegates.Add(populateAdjCodesDTOFromRdr);
+         ocDelegates.Add(populateTeamDTOFromRdr);
+         ocDelegates.Add(populateDropDownDTOFromRdr);
+
+         List<string> SqlParmNames = new List<string>() { "LeagueName" };
+         List<object> SqlParmValues = new List<object>() { LeagueName };
+
+         SysDAL.DALfunctions.ExecuteStoredProcedureQueries(ConnectionString, "uspQueryAdjustmentInfo"
+                           , SqlParmNames, SqlParmValues, ocDTOs, ocDelegates);
+
+         //still unsure what to return
+         return oAdjustmentInitDataDTO;
+      }
+
+      class Row
+   {
+      public string Team { get; set; }
+      public string Type { get; set; }
+      public float AdjAmt { get; set; }
+      public string Player { get; set; }
+      public string Desc { get; set; }
+      public string TS { get; set; }
+   }
    }  // class Adjustments
 
 }

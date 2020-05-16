@@ -25,7 +25,6 @@ namespace BballMVC.ControllerAPIs
 
       [HttpGet]
       public HttpResponseMessage GetAdjustments(string LeagueName)
-
       {
          List<IDTOs.IAdjustmentDTO> ocAdjustmentDTO = oAdjustmentsBO.GetTodaysAdjustments(LeagueName);
 

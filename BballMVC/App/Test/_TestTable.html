@@ -1,0 +1,126 @@
+﻿
+<table>
+   <tr ng-repeat="Topic in tutorial">
+      <td>
+         <table id="4 rows">
+            <tr>
+               <td ng-show="Multi">
+                  <table id="3 rows">
+                     <tr>
+                        <td>Away</td>
+                        <td ng-show="showIx">ix</td>
+                        <td>Last Col</td>
+                     </tr>
+                     <tr>
+                        <td>Home</td>
+                        <td ng-show="showIx">ix</td>
+                        <td>Last Col</td>
+                     </tr>
+                     <tr>
+                        <td>total</td>
+                        <td ng-show="showIx">ix</td>
+                        <td>Last Col</td>
+                     </tr>
+                  </table>
+               </td>
+               <td ng-hide="Multi">
+                  <table id="1 rows">
+                     <tr>
+                        <td>1 Line Display</td>
+                        <td ng-show="showIx">ix</td>
+                        <td>Last Col</td>
+                     </tr>
+                  </table>
+               </td>
+            </tr>
+         </table>
+      </td>
+
+   </tr>
+</table>
+<hr />
+
+<table>
+   <tr ng-show="{{$index}} >= 0" ng-repeat="item in tutorial">
+      <td>
+         <table>
+            <tr ng-show="Multi">
+               <td id="away_{{$index}}">Away</td>
+               <td>
+                  <div>
+                     <input id="adjAmt_{{$index}}" Data-AdjustmentID=""
+                            ng-disabled="cb_{{$index}}" class=" col-sm-6" type="text">
+                  </div>
+               </td>
+               <td>
+                  <div>
+                     <input id="cb_{{$index}}" type="checkbox" ng-checked="false" class="ng-pristine ng-untouched ng-valid ng-empty">
+                  </div>
+               </td>
+
+
+            </tr>
+
+            <tr ng-show="Multi">
+               <td>Home: {{item.TeamHome}}</td>
+               <td ng-show="showIx">{{$index}}</td>
+               <td>Last Col</td>
+            </tr>
+            <tr ng-show="Multi">
+               <td>total</td>
+               <td ng-show="showIx">{{$index}}</td>
+               <td>Last Col</td>
+            </tr>
+
+            <tr ng-show="!Multi">
+               <td>1 Line Display: {{item.TeamAway}} - {{item.TeamHome}}</td>
+               <td ng-show="showIx">{{$index}}</td>
+               <td>Last Col</td>
+            </tr>
+
+         </table>
+      </td>
+
+   </tr>
+</table>
+
+<hr />
+<table>
+   <tr ng-repeat="Topic in tutorial">
+      <td>
+         <table id="4 rows">
+            <tr>
+               <td ng-show="Multi">
+                  <table id="3 rows">
+                     <tr>
+                        <td>Away</td>
+                        <td ng-show="showIx">{{$index}}</td>
+                        <td>Last Col</td>
+                     </tr>
+                     <tr>
+                        <td>Home</td>
+                        <td ng-show="showIx">{{$index}}</td>
+                        <td>Last Col</td>
+                     </tr>
+                     <tr>
+                        <td>total</td>
+                        <td ng-show="showIx">{{$index}}</td>
+                        <td>Last Col</td>
+                     </tr>
+                  </table>
+               </td>
+               <td ng-hide="Multi">
+                  <table id="1 rows">
+                     <tr>
+                        <td>1 Line Display</td>
+                        <td ng-show="showIx">{{$index}}</td>
+                        <td>Last Col</td>
+                     </tr>
+                  </table>
+               </td>
+            </tr>
+         </table>
+      </td>
+
+   </tr>
+</table>

@@ -16,6 +16,11 @@
 
    #AdjustmentsList {
    }
+
+   .showError {
+      color: red;
+      background: yellow;
+   }
 </style>
 
 <div ng-app="app" ng-controller="AdjustmentsController">
@@ -51,40 +56,22 @@
                <div class="col-md-3">
                   <input type="checkbox" ng-model="cbShowZeroAdjustments" ng-checked="true" /> Show Zero Adjustments
                </div>
-               <div class="col-md-3">
-                  <input type="checkbox" ng-model="cbShowOverTimeAdjustments" ng-checked="true" /> Show Overtime Adjustments
-               </div>
-               <div class="col-md-6">
+
+               <div class="col-md-9">
                </div>
             </div>
+
             <div class="table-responsive">
-               <table id="mytable" class="table table-bordred table-striped">
-
-                  <tr>
-                     <th style="width:10%;">Update<br>Amount</th>
-                     <th>Delete</th>
-
-                     <th>Start Date</th>
-                     <th>Adj Type</th>
-                     <th>Team</th>
-                     <th>Adjustment<br>Amount</th>
-
-                     <th>Player</th>
-                     <th>Description</th>
-                     <th>Adjustment ID</th>
-                  </tr>
-                  <tbody id="adjustmentRows">
-                  </tbody>
-               </table>
+               <div ng-include="'App/AdjustmentRow.html'"></div>
             </div>
+
          </div>
       </div>
 
    </div>
 
-   <div class="row " id="AdjustmentsModal">
+   <div class="row " id="AdjustmentsModal" ng-style="setAdjustmentsModal">
       <div class="col-md-3">
-
       </div>
       <div class="col-md-12">
          <div class="panel panel-default">
@@ -93,58 +80,67 @@
 
             </div>
             <div class="panel-body text-center">
-               <!-- Adjustment Type / Team Dropdown -->
+            <!-- Adjustment Type / Team Dropdown -->
                <div class="row ">
+               
                   <div class="col-md-2"></div>
                   <div class="col-md-5 col-sm-4 col-xs-3">
                      <span class="help-block text-muted small-font">Adjustment Type</span>
-                     <select class="form-control" ng-model="AdjustmentType" id="AdjType"></select>
+                     <select ng-model="AdjustmentType" ng-options="item.Text as item.Value for item in AdjustmentNameList">
+                        <option value="" label="--Select Adjustment--"></option>
+                     </select>
                   </div>
                   <div class="col-md-5 col-sm-4 col-xs-3">
                      <span class="help-block text-muted small-font">  Team</span>
-                     <select class="form-control" ng-model="Team" id="Team"></select>
+                     <select ng-model="Team" ng-options="item.Text as item.Value for item in TeamList">
+                        <option value="" label="--Select Team--"></option>
+                     </select>
                   </div>
                </div>
+            <!-- Error Display row -->
                <div class="row ">
-                  <div class="col-md-2"></div>
-                  <div class="col-md-5 col-sm-3">
-                     <span id="errAdjustmentType" style="display:none">Adjustment Type required</span>
+                  <div class="col-md-3"></div>
+                  <div class="col-md-3 col-sm-3 showError">
+                     <span id="errAdjustmentType" ng-hide="ValidateAdjustmentType()">Adjustment Type required</span>
                   </div>
-                  <div class="col-md-5 col-sm-3">
-                     <span id="errTeam"   >Team required</span>
+                  <div class="col-md-2"></div>
+                  <div class="col-md-3 col-sm-3 showError">
+                     <span id="errTeam" ng-hide="ValidateTeam()">Team required</span>
+                     <div class="col-md-1"></div>
                   </div>
                </div>
-               <!-- Adjustment Amount -->
+            <!-- Adjustment Amount -->
                <div class="row ">
                   <div class="col-md-2"></div>
                   <div class="col-md-5 pad-adjust col-sm-4">
                      <span class="help-block text-muted small-font pull-left">Adjustment Amount</span><br />
-                     <input type="text" class="form-control" placeholder="Adjustment Amount" ng-model="AdjustmentAmount" id="AdjAmount" />
+                     <input type="text" class="form-control" placeholder="Adjustment Amount" ng-model="AdjustmentAmount" id="AdjustmentAmount" />
                   </div>
-                  <div class="col-md-5 col-sm-3">
-                     <span id="errAdjustmentAmount" style="display:none">Adjustment Amount required</span>
+                  <div class="col-md-5 col-sm-3 showError">
+                     <span id="errAdjustmentAmount" ng-hide="ValidateAdjustmentAmount()">Adjustment Amount required < 10 and > -10</span>
                   </div>
                </div>
-               <!-- Player -->
+            <!-- Player -->
                <div class="row ">
                   <div class="col-md-2"></div>
                   <div class="col-md-5 pad-adjust col-sm-3">
                      <span class="help-block text-muted small-font pull-left">  Player</span><br />
                      <input type="text" class="form-control" placeholder="Player" ng-model="Player" id="Player" />
                   </div>
-                  <div class="col-md-5 col-sm-3">
-                     <span id="errPlayer" style="display:none">Player required</span>
+                  <div class="col-md-5 col-sm-3 showError">
+                     <span id="errPlayer" ng-hide="ValidatePlayer()">Player required</span>
                   </div>
                </div>
-               <!-- Description -->
+            <!-- Description -->
                <div class="row ">
                   <div class="col-md-2"></div>
                   <div class="col-md-5 pad-adjust col-sm-4">
                      <span class="help-block text-muted small-font pull-left">  Description</span><br />
                      <input type="text" class="form-control" placeholder="Description" ng-model="Description" id="Description" />
                   </div>
-                  <div class="col-md-5 col-sm-3">
-                     <span id="errDescription" style="display:none">Descriptions required</span>
+                  <div class="col-md-5 col-sm-3 showError">
+                     <span></span>
+                     <span id="errDescription" ng-hide="ValidateDescription()">Descriptions required</span>
                   </div>
                </div>
 
@@ -157,7 +153,7 @@
                      <input type="button" class="btn btn-danger" value="CANCEL" ng-click="CancelAdjustmentEntry()" />
                   </div>
                   <div class="col-md-5 col-sm-5 col-xs-5 pad-adjust">
-                     <input type="button" class="btn btn-success btn-block" value="Update" ng-click="InsertAdjustment()" />
+                     <input type="button" class="btn btn-success btn-block" ng-show="ValidateAdjustmentForm()" value="Update" ng-click="InsertAdjustment()" />
                   </div>
                   <div class="col-md-2"></div>
                </div>

@@ -1,16 +1,16 @@
 ﻿//import GetAdjustmentInfo from './AdjustmentsFunctions.js';
-
-const UrlPostInsertAdjustment = "api/Adjustments/PostInsertAdjustment";
-const UrlPostProcessUpdates = "api/Adjustments/PostProcessUpdates";
-const UrlGetAdjustmentInfo = "api/Adjustments/GetAdjustmentInfo";
-const UrlGetAdjustments = "api/Adjustments/GetAdjustments";
+const urlPrefix = "../../api/";
+const UrlPostInsertAdjustment = urlPrefix + "Adjustments/PostInsertAdjustment";
+const UrlPostProcessUpdates = urlPrefix + "Adjustments/PostProcessUpdates";
+const UrlGetAdjustmentInfo = urlPrefix + "Adjustments/GetAdjustmentInfo";
+const UrlGetAdjustments = urlPrefix + "Adjustments/GetAdjustments";
 
 (function () {
    'use strict';
    try {
       const LeagueName = 'NBA';
 
-
+      alert("App started");
       var app = angular.module('app', []);
 
       app.service('ajx', function () {
@@ -89,12 +89,16 @@ const UrlGetAdjustments = "api/Adjustments/GetAdjustments";
          };
       });
 
+      app.controller('indexController', function ($scope) {
+         alert("indexController");
+         $scope.cbShowAdjustments = true;
+      });
       //var f;
       app.controller('AdjustmentsController', function ($scope, $compile, f, ajx) {
          $scope.ocAdjustments;
          let rowWasInserted = false;
          let GetAdjustmentsParms = { scope: $scope, compile: $compile, f: f, LeagueName: LeagueName, ajx: ajx };
-      //   $scope.setAdjustmentsModal = $scope.showAdjustmentsModal(false);
+         //   $scope.setAdjustmentsModal = $scope.showAdjustmentsModal(false);
          GetAdjustmentInfo(GetAdjustmentsParms);
 
          $scope.InsertAdjustment = function () {
@@ -107,7 +111,7 @@ const UrlGetAdjustments = "api/Adjustments/GetAdjustments";
             oAdjustment.AdjustmentAmount = $scope.AdjustmentAmount;
             oAdjustment.Player = $scope.Player;
             oAdjustment.Description = $scope.Description;
-  
+
             if (!ValidateAdjustmentEntry(oAdjustment, $scope)) {
                return;  // errors in Adj Entry I/P
             }
@@ -117,15 +121,15 @@ const UrlGetAdjustments = "api/Adjustments/GetAdjustments";
             //$('#AdjustmentsModal').css({ "display": "none" }); // Hide Adjustment Entry Modal
 
             ajx.AjaxPost(UrlPostInsertAdjustment, oAdjustment)
-            .then(data => {
-               rowWasInserted = true;
-               f.MessageSuccess("Insert Complete");
-               $('#AdjustmentsModal').css({ "display": "block" });   // Show Adjustment Entry Modal
-            })
-            .catch(error => {
-               f.DisplayMessage("Adjustment Insert Error/n" + f.FormatResponse(error));
-               $('#AdjustmentsModal').css({ "display": "block" });   // Show Adjustment Entry Modal
-            });
+               .then(data => {
+                  rowWasInserted = true;
+                  f.MessageSuccess("Insert Complete");
+                  $('#AdjustmentsModal').css({ "display": "block" });   // Show Adjustment Entry Modal
+               })
+               .catch(error => {
+                  f.DisplayMessage("Adjustment Insert Error/n" + f.FormatResponse(error));
+                  $('#AdjustmentsModal').css({ "display": "block" });   // Show Adjustment Entry Modal
+               });
 
 
             $scope.ClearAdjustmentEntryForm();
@@ -154,7 +158,7 @@ const UrlGetAdjustments = "api/Adjustments/GetAdjustments";
             }
 
             GreyOutAdjustmentList();
-           // let URL = "api/Adjustments/PostProcessUpdates";
+            // let URL = "api/Adjustments/PostProcessUpdates";
             ajx.AjaxPost(UrlPostProcessUpdates, ocAdjustmentDTO)
                .then(data => {
                   GetAdjustments(GetAdjustmentsParms);
@@ -185,12 +189,12 @@ const UrlGetAdjustments = "api/Adjustments/GetAdjustments";
                && $scope.ValidatePlayer && $scope.ValidateDescription;
          };
          $scope.ValidateAdjustmentType = () => { return $scope.AdjustmentType; };
-         $scope.ValidateTeam = function ()            { return $scope.Team || $scope.AdjustmentType === 'L';  };
+         $scope.ValidateTeam = function () { return $scope.Team || $scope.AdjustmentType === 'L'; };
          $scope.ValidateAdjustmentAmount = function () {
             return !isNaN($scope.AdjustmentAmount) && $scope.AdjustmentAmount < 10 && $scope.AdjustmentAmount > -10;
          };
-         $scope.ValidatePlayer = function ()          { return !(!Player && (AdjustmentType === 'I' || AdjustmentType === 'R')); };
-         $scope.ValidateDescription = function ()     { return $scope.Description; };
+         $scope.ValidatePlayer = function () { return !(!Player && (AdjustmentType === 'I' || AdjustmentType === 'R')); };
+         $scope.ValidateDescription = function () { return $scope.Description; };
 
 
          $scope.ValidateAdjustmentEntry = function () {
@@ -226,11 +230,11 @@ const UrlGetAdjustments = "api/Adjustments/GetAdjustments";
             }
          };
 
-
          $scope.ClearAdjustmentEntryForm = function () {
             $scope.AdjustmentType = "";
             $scope.Team = "";
             $scope.AdjustmentAmount = "";
+            $scope.AdjustmentAmount = "1";
             $scope.Player = "";
             $scope.Description = "";
 
@@ -283,30 +287,11 @@ function GetAdjustmentInfo(Parms) { // called once at Controller init
       scope: Parms.scope
       , compile: Parms.compile
       , process: function (oAdjustmentInitDataDTO) {
-          GetAdjustments(Parms);
-          // Populate Teams DropDown form Adjustment Entry
-         
+         GetAdjustments(Parms);
+         // Populate Teams DropDown form Adjustment Entry
+
          this.scope.TeamList = oAdjustmentInitDataDTO.ocTeams;
          this.scope.AdjustmentNameList = oAdjustmentInitDataDTO.ocAdjustmentNames;
-         //for (let i = 0; i < oAdjustmentInitDataDTO.ocTeams.length; i++) {
-         //   this.scope.TeamList.push({ teamName: oAdjustmentInitDataDTO.ocTeams[i] });
-         //}
-
-         // var selList = document.getElementById("Team");
-         // for (var item in oAdjustmentInitDataDTO.ocTeams) {
-         //     selList.innerHTML += "<option value=" + oAdjustmentInitDataDTO.ocTeams[item] + ">" + oAdjustmentInitDataDTO.ocTeams[item] + "</option>";
-         //}
-         // Populate Adj Type DropDown form Adjustment Entry
-          //var adjCodeList = document.getElementById("AdjType");
-          //for (let item in oAdjustmentInitDataDTO.ocAdjustmentNames) {
-          //    if (oAdjustmentInitDataDTO.ocAdjustmentNames[item].localeCompare("Trade") === 0) {
-          //        adjCodeList.innerHTML += "<option value=R>" + oAdjustmentInitDataDTO.ocAdjustmentNames[item] + "</option>";
-          //    } else if (oAdjustmentInitDataDTO.ocAdjustmentNames[item].localeCompare("TV") === 0) {
-          //        adjCodeList.innerHTML += "<option value=V>" + oAdjustmentInitDataDTO.ocAdjustmentNames[item] + "</option>";
-          //    } else {
-          //        adjCodeList.innerHTML += "<option value=" + oAdjustmentInitDataDTO.ocAdjustmentNames[item].charAt(0) + ">" + oAdjustmentInitDataDTO.ocAdjustmentNames[item] + "</option>";
-          //    }
-          //}
       }
    }; // fProcessAdjustmentInfo
 
@@ -334,7 +319,7 @@ function GetAdjustments(Parms) {
          });
 
          Parms.scope.$apply();
-        // DisplayAdjustments(Parms, ocAdjustments);
+         // DisplayAdjustments(Parms, ocAdjustments);
       }
    }; // fProcessAdjustments
 
@@ -347,62 +332,6 @@ function GetAdjustments(Parms) {
       });
 
 }  // GetAdjustments
-
-
-   //function DisplayAdjustments(Parms, ocAdjustments) {
-   //   Parms.scope.ocAdjustments = ocAdjustments;
-   //   Parms.scope.ocAdjustments.forEach(function (item) {
-   //      item.cb_ID = "cb_" + item.AdjustmentID;
-   //   });
-
-   //   Parms.scope.$apply();
-   //   return;
-
-   //   //var f = Parms.f;
-   //   //let rows = buildAdjustmentsRows(ocAdjustments);   // Adjustments coming from MVC controller methed
-   //   //var elmn = angular.element(document.querySelector('#adjustmentRows'));
-   //   //elmn.empty();
-   //   //Parms.compile(elmn)(Parms.scope);
-
-   //   //let compRows = Parms.compile(rows)(Parms.scope);       // Compile rows for AngularJS
-   //   //$(compRows).appendTo($('#adjustmentRows'));
-
-   //   function buildAdjustmentsRows(ocAdjustments) {
-   //      let rows = "";
-   //      let rowNum = 0;
-   //      $.each(ocAdjustments, function (key, oAdjustment) {
-   //         // Add a tr for each Adjustment
-   //         let tag = 'tr';
-   //         // <tr ng-show="cbShowOverTimeAdjustments">
-   //         // <tr ng-show="cbShowZeroAdjustments">
-   //         if (oAdjustment.AdjustmentAmount === 0)
-   //            tag += ' ng-show="cbShowZeroAdjustments"';
-   //         else if (oAdjustment.AdjustmentType === "S" | oAdjustment.AdjustmentType.trim() === "SideOvertime")
-   //            tag += ' ng-show="cbShowOverTimeAdjustments"';
-   //         let tr = f.wrapTag(tag, formatAdjusment(oAdjustment, ++rowNum));
-   //         rows += tr;
-   //      });
-   //      return rows;
-
-   //      function formatAdjusment(oAdjustment, rowNum) {
-   //         let tr = "";
-   //         tr += '<td> <div ><input id="adjAmt_{rowNum}" data-id="{AdjID}" ng-disabled="cb_{AdjID}" class=" col-sm-6" type="text"  /></div></td>';
-   //         tr += '<td><input id="cb_{rowNum}"  type="checkbox"  ng-model="cb_{AdjID}" ng-checked="false" /> </td>';
-   //         //tr += '<td><p data-placement="top" data-toggle="tooltip" title="Delete">'
-   //         //   + '<button ng-model="delButton_{AdjID}"  ng-click="delButtonClick({AdjID})" class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete">'
-   //         //   + '< span class="glyphicon glyphicon-trash" ></span ></button ></p ></td > ';
-   //         tr += f.wrapTag('td', f.parseJsonDate(oAdjustment.StartDate));
-   //         tr += f.wrapTag('td', oAdjustment.AdjustmentType);
-   //         tr += f.wrapTag('td', oAdjustment.Team);
-   //         tr += f.wrapTag('td', oAdjustment.AdjustmentAmount);
-   //         tr += f.wrapTag('td', oAdjustment.Player);
-   //         tr += f.wrapTag('td', oAdjustment.Description);
-   //         tr += f.wrapTag('td', oAdjustment.AdjustmentID);
-
-   //         return tr.replace(/{AdjID}/g, oAdjustment.AdjustmentID).replace(/{rowNum}/g, rowNum);
-   //      }  // formatAdjusment
-   //   }  // buildAdjustmentsRows
-   //}  // DisplayAdjustments
 
 
 function FormatResponse(response) {
@@ -426,18 +355,4 @@ function GreyOutAdjustmentList() {
 }
 
 
-//function xSetDropDown(arDropDownItems, f) {
-//   let html = "";
-//   for (var item in arDropDownItems) {
-//      html += `<option value='${item[0]}'>${item[item.length - 1]}</option>`;
-//   }
-//   f(html);
-//}
 
-//function ClearAdjustmentEntryForm() {
-//    $("#AdjType").val('');
-//    $("#Team").val('');
-//    document.getElementById("AdjustmentAmount").value = "";
-//    document.getElementById("Player").value = "";
-//    document.getElementById("Description").value = "";
-//}

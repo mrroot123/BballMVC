@@ -249,6 +249,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\Adjustments\AdjustmentsApp.js" />
+    <Content Include="App\Adjustments\xAdjustments.html" />
+    <Content Include="App\Adjustments\_AdjustmentRow.html" />
+    <Content Include="App\Adjustments\_AdjustmentsModel.html" />
+    <Content Include="App\Common\Head.html" />
+    <Content Include="App\Index.html" />
+    <Content Include="App\Test\Test.html" />
+    <Content Include="App\Test\_TestTable.html" />
     <Content Include="Models\BballEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>BballEntities.edmx</DependentUpon>
@@ -272,6 +280,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Views\Adjustments\xAdjustmentRow.html" />
     <Content Include="_Documentation\Api.txt" />
     <Content Include="_Documentation\Doc_Help_examples.txt" />
     <EntityDeploy Include="Models\BballEntities.edmx">
@@ -351,6 +360,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AngularJS\_Common\" />
+    <Folder Include="App\TodaysMatchups\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>

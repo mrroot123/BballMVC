@@ -1,0 +1,67 @@
+﻿
+<div ng-app="TestApp">
+   <div ng-controller="TestController">
+      <h3> Guru99 Global Event</h3>
+
+      <div>
+         <a href="Adjustments/Adjustments.html">Adjustments Link</a>
+      </div>
+      <div>
+         <input type="checkbox" ng-model="ShowRows"> Show Rows
+      </div>
+      <div>
+         <input type="checkbox" ng-model="Multi"> Show Multi Lines
+      </div>
+      <div>
+         <input type="checkbox" ng-model="showIx">  Show Index
+      </div>
+      <label ng-repeat="role in roles">
+         <input type="checkbox" ng-model="role"> {{role}}
+      </label>
+      <div>
+         <button style="margin-right: 10px" ng-click="checkAll()">Check all</button>
+         <button style="margin-right: 10px" ng-click="uncheckAll()">Uncheck all</button>
+         <button ng-click="checkFirst()">Check first</button>
+      </div>
+      <div ng-include="'Test/_TestTable.html'"></div>
+      <div ng-show="ShowRows">
+         <div></div>
+         <div>Row 1</div>
+         <div>Row 2</div>
+         <div>Row 3</div>
+      </div>
+   </div>
+   <script>
+      var sampleApp = angular.module('TestApp', []);
+      sampleApp.controller('TestController', function ($scope) {
+         $scope.ctr;
+         $scope.Multi = true;
+         $scope.tutorial = [
+            { TeamAway: "BOS", TeamHome: "ATL" },
+            { TeamAway: "NO", TeamHome: "LAL" },
+            { TeamAway: "NY", TeamHome: "MIA" }
+
+         ];
+         $scope.roles = [
+            'Col1',
+            'Col2',
+            'Col3'
+         ];
+         $scope.ctr = $scope.roles.length;
+         $scope.user = {
+            roles: ['Col1']
+         };
+         $scope.checkAll = function () {
+            $scope.user.roles = angular.copy($scope.roles);
+         };
+         $scope.uncheckAll = function () {
+            $scope.user.roles = [];
+         };
+         $scope.checkFirst = function () {
+            ++$scope.ctr;
+            $scope.roles.push('Col' + ++$scope.ctr);
+            $scope.$apply();
+         };
+      });   // controller
+   </script>
+</div>

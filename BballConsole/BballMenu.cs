@@ -17,6 +17,7 @@ namespace BballConsole
       };
       static void Main(string[] args)
       {
+         
          string LeagueName = "NBA";
          string s = "";
          DateTime StartGameDate = Convert.ToDateTime("10/16/2018");
@@ -93,7 +94,61 @@ namespace BballConsole
 
          //}  // while
       }
-      
+      static void test()
+      {
+         XXx prop = new XXx();
+         iterateProps(prop);
+      }
+      static void iterateProps(object obj)
+      {
+        
+         foreach (var prop in obj.GetType().GetProperties())
+         {
+
+            var typ = prop.GetType();
+            if (prop.PropertyType.UnderlyingSystemType.Name == "String")
+            {
+               var myField = typ.GetProperties(); 
+               prop.SetValue(obj, null);
+            }
+            else
+            {
+               iterateProps(prop);
+            }
+         }
+      }
+      public class XXx
+      {
+         public string XX1 { get; set; }
+         public int Xint { get; set; }
+         public bool XXBool { get; set; }
+         public YYy yClass { get; set; }
+
+         public XXx()
+         {
+            XX1 = "";
+            Xint = 1;
+            XXBool = true;
+         }
+
+      }
+      public class YYy
+      {
+         public string YY1 { get; set; }
+         public string YY2 { get; set; }
+         public string YY3 { get; set; }
+         public YYy()
+         {
+            YY1 = "";
+            YY2 = "";
+            YY3 = "";
+         }
+         public void YYy_m1()
+         {
+            YY2 = "";
+         }
+
+      }
    }  // class
 }
 /*

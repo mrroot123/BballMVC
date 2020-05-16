@@ -120,12 +120,16 @@ namespace Bball.DataBaseFunctions
       public delegate  void PopulateDTOValues(List<string> ocValues, object DTO);
       public static string DALInsertRow(string TableName, string ColumnNames, object DTO, PopulateDTOValues delegatePopulateDTOValues, string ConnectionString)
       {
-         List<string> ocColumns = ColumnNames.Split(',').OfType<string>().ToList();
+         //List<string> ocColumns = ColumnNames.Split(',').OfType<string>().ToList();
+         //List<string> ocValues = new List<string>();
+         //delegatePopulateDTOValues(ocValues, DTO);   // Execute Delegate to Populate ocValues from DTO
+         //string SQL = SysDAL.DALfunctions.GenSql(TableName, ocColumns);    // Gen INSERT SQL from 
+         //string rc = SysDAL.DALfunctions.InsertRow(ConnectionString, SQL, ocColumns, ocValues);
+         //return rc;
+
          List<string> ocValues = new List<string>();
          delegatePopulateDTOValues(ocValues, DTO);   // Execute Delegate to Populate ocValues from DTO
-         string SQL = SysDAL.DALfunctions.GenSql(TableName, ocColumns);    // Gen INSERT SQL from 
-         string rc = SysDAL.DALfunctions.InsertRow(ConnectionString, SQL, ocColumns, ocValues);
-         return rc;
+         return DALInsertRow(TableName, ColumnNames, ocValues, ConnectionString);
       }
       // DALInsertRow - Ver 2 with ocValues already populated
       public static string DALInsertRow(string TableName, string ColumnNames, List<string> ocValues, string ConnectionString)

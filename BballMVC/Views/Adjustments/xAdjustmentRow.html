@@ -1,0 +1,25 @@
+﻿<table id="mytable" class="table table-bordred table-striped">
+   <tr>
+      <th style="width:10%;">Update<br>Amount</th>
+      <th>Delete</th>
+      <th>Start Date</th>
+      <th>Adj Type</th>
+      <th>Team</th>
+      <th>Adjustment<br>Amount</th>
+      <th>Player</th>
+      <th>Description</th>
+      <th>Adjustment ID</th>
+   </tr>
+   <tr ng-repeat="oAdjustment in ocAdjustments">
+      <td> <input id="adjAmt_{{$index}}" data-id="{{oAdjustment.AdjustmentID}}" ng-disabled="cb_{{oAdjustment.AdjustmentID}}" class=" col-sm-6" type="text"> </td>
+      <td> <input id="cb_{{$index}}" type="checkbox" ng-model="cb_{{oAdjustment.AdjustmentID}}" ng-checked="false" class="ng-pristine ng-untouched ng-valid ng-empty">  </td>
+		<td>{{oAdjustment.StartDate}}</td>
+      <td>{{oAdjustment.AdjustmentType}}</td>
+      <td>{{oAdjustment.Team}}</td>
+      <td>{{oAdjustment.AdjustmentAmount}}</td>
+      <td>{{oAdjustment.Player}}</td>
+      <td>{{oAdjustment.Description}}</td>
+      <td>{{oAdjustment.AdjustmentID}}</td>
+
+   </tr>
+</table>
