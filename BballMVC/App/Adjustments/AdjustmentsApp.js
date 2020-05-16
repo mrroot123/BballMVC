@@ -5,12 +5,12 @@ const UrlPostProcessUpdates = urlPrefix + "Adjustments/PostProcessUpdates";
 const UrlGetAdjustmentInfo = urlPrefix + "Adjustments/GetAdjustmentInfo";
 const UrlGetAdjustments = urlPrefix + "Adjustments/GetAdjustments";
 
-(function () {
+//(function () {
    'use strict';
    try {
       const LeagueName = 'NBA';
-
-      alert("App elim2 started");
+      var d = new Date();
+      alert("App elim2 started - " + d.getMinutes());
       angular.module('app', []);
 
       angular.module('app').service('ajx', function () {
@@ -89,11 +89,7 @@ const UrlGetAdjustments = urlPrefix + "Adjustments/GetAdjustments";
          };
       });
 
-      angular.module('app').controller('indexController', function ($scope) {
-         alert("indexController");
-         $scope.cbShowAdjustments = true;
-      });
-      //var f;
+
       angular.module('app').controller('AdjustmentsController', function ($scope, $compile, f, ajx) {
          $scope.ocAdjustments;
          let rowWasInserted = false;
@@ -244,7 +240,7 @@ const UrlGetAdjustments = urlPrefix + "Adjustments/GetAdjustments";
    catch (error) {
       console.error(error);
    }
-})(); // main
+// })(); // main
 
 function ValidateAdjustmentEntry(oAdjustment, scope) {
    var rc = true;

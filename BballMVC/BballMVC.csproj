@@ -250,11 +250,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\Adjustments\AdjustmentsApp.js" />
-    <Content Include="App\Adjustments\xAdjustments.html" />
     <Content Include="App\Adjustments\_AdjustmentRow.html" />
     <Content Include="App\Adjustments\_AdjustmentsModel.html" />
     <Content Include="App\Common\Head.html" />
     <Content Include="App\Index.html" />
+    <Content Include="App\indexController.js" />
     <Content Include="App\Test\Test.html" />
     <Content Include="App\Test\_TestTable.html" />
     <Content Include="Models\BballEntities.Context.tt">
@@ -273,7 +273,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="AngularJS\Adjustments\AdjustmentsApp.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -340,7 +339,6 @@
     <Content Include="Views\Users\Details.cshtml" />
     <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
-    <Content Include="Views\Adjustments\Index.cshtml" />
     <Content Include="Views\Rotationx\Create.cshtml" />
     <Content Include="Views\Rotationx\Delete.cshtml" />
     <Content Include="Views\Rotationx\Details.cshtml" />
@@ -359,7 +357,6 @@
     <Content Include="Views\BoxScores\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="AngularJS\_Common\" />
     <Folder Include="App\TodaysMatchups\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
