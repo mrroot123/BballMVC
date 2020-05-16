@@ -10,10 +10,10 @@ const UrlGetAdjustments = urlPrefix + "Adjustments/GetAdjustments";
    try {
       const LeagueName = 'NBA';
 
-      alert("App started");
-      var app = angular.module('app', []);
+      alert("App elim2 started");
+      angular.module('app', []);
 
-      app.service('ajx', function () {
+      angular.module('app').service('ajx', function () {
 
          this.AjaxGet = function (URL, Data) {
             return new Promise((resolve, reject) => {
@@ -59,7 +59,7 @@ const UrlGetAdjustments = urlPrefix + "Adjustments/GetAdjustments";
          };
       });
 
-      app.service('f', function () {
+      angular.module('app').service('f', function () {
 
          this.DisplayMessage = function (msg) {
             alert(msg);
@@ -89,12 +89,12 @@ const UrlGetAdjustments = urlPrefix + "Adjustments/GetAdjustments";
          };
       });
 
-      app.controller('indexController', function ($scope) {
+      angular.module('app').controller('indexController', function ($scope) {
          alert("indexController");
          $scope.cbShowAdjustments = true;
       });
       //var f;
-      app.controller('AdjustmentsController', function ($scope, $compile, f, ajx) {
+      angular.module('app').controller('AdjustmentsController', function ($scope, $compile, f, ajx) {
          $scope.ocAdjustments;
          let rowWasInserted = false;
          let GetAdjustmentsParms = { scope: $scope, compile: $compile, f: f, LeagueName: LeagueName, ajx: ajx };
