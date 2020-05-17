@@ -257,6 +257,8 @@
     <Content Include="App\indexController.js" />
     <Content Include="App\Test\Test.html" />
     <Content Include="App\Test\_TestTable.html" />
+    <Content Include="App\_layout\layout.html" />
+    <Content Include="App\_layout\layout.js" />
     <Content Include="Models\BballEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>BballEntities.edmx</DependentUpon>

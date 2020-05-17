@@ -47,14 +47,6 @@ const UrlGetAdjustments = urlPrefix + "Adjustments/GetAdjustments";
             });   // Promise
          };  // AjaxPost
 
-         //this.fun = function () {
-
-         //};
-         //this.FormatResponse = function (response) {
-         //   return "status: " + response.status + "\n"
-         //      + "statusText: " + response.statusText + "\n"
-         //      + "responseText: " + response.responseText;
-         //};
       });
 
       angular.module('app').service('f', function () {
@@ -344,7 +336,7 @@ function xGetAdjustments(Parms) {
 }  // GetAdjustments
 
 
-function FormatResponse(response) {
+function xFormatResponse(response) {
    if (response.status !== undefined) {
       return "status: " + response.status + "\n"
          + "statusText: " + response.statusText + "\n"

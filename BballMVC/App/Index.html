@@ -41,20 +41,7 @@
 </head>
 <body>
    <div ng-app="app">
-      <div ng-controller="indexController">
-         <div class="row">
-            <div class="col-md-3">
-               <input type="checkbox" ng-model="cbShowAdjustments" ng-checked="true" /> Show Adjustments
-            </div>
-
-            <div class="col-md-9"> </div>
-         </div>
-
-         <div ng-show="cbShowAdjustments">
-            <div ng-include="'Adjustments/Adjustments.html'"></div>
-         </div>
-      </div>
+      <div ng-include="'_layout/layout.html'"></div>
    </div>
-
 </body>
 </html>
