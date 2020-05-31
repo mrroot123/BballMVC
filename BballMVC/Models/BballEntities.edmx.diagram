@@ -4,11 +4,11 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="7c95a88a075e46979989067cc7693c64" Name="Diagram1">
+      <Diagram DiagramId="7c95a88a075e46979989067cc7693c64" Name="Diagram1" ZoomLevel="114">
         <EntityTypeShape EntityType="TTI_LeagueScoresModel.AdjustmentsCodes" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TTI_LeagueScoresModel.DailySummary" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TTI_LeagueScoresModel.Adjustments" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TTI_LeagueScoresModel.AdjustmentsDaily" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTI_LeagueScoresModel.DailySummary" Width="1.5" PointX="4.625" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTI_LeagueScoresModel.Adjustments" Width="1.5" PointX="2.625" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTI_LeagueScoresModel.AdjustmentsDaily" Width="1.5" PointX="0.5" PointY="3" IsExpanded="true" />
         <EntityTypeShape EntityType="TTI_LeagueScoresModel.BoxScores" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TTI_LeagueScoresModel.Lines" Width="1.5" PointX="2.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TTI_LeagueScoresModel.SeasonInfo" Width="1.5" PointX="9.375" PointY="6.75" />
@@ -17,6 +17,8 @@
         <EntityTypeShape EntityType="TTI_LeagueScoresModel.User" Width="1.5" PointX="11.375" PointY="0.75" />
         <EntityTypeShape EntityType="TTI_LeagueScoresModel.Rotation" Width="1.5" PointX="11.375" PointY="3.75" />
         <EntityTypeShape EntityType="TTI_LeagueScoresModel.Team" Width="1.5" PointX="3.375" PointY="11.75" />
+        <EntityTypeShape EntityType="TTI_LeagueScoresModel.BoxScoresSeeds" Width="1.5" PointX="11.375" PointY="9.75" />
+        <EntityTypeShape EntityType="TTI_LeagueScoresModel.TodaysMatchups" Width="1.5" PointX="13.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

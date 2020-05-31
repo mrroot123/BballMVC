@@ -243,7 +243,7 @@ namespace Bball.DAL.Tables
          oAdjustmentDTO.EndDate = rdr["EndDate"] == DBNull.Value ? null : (DateTime?)rdr["EndDate"];
          oAdjustmentDTO.Team = (string)rdr["Team"];
          oAdjustmentDTO.AdjustmentType = (string)rdr["AdjustmentType"];
-         oAdjustmentDTO.AdjustmentAmount = (float)rdr["AdjustmentAmount"];
+         oAdjustmentDTO.AdjustmentAmount = (double)rdr["AdjustmentAmount"];
          oAdjustmentDTO.Player = (string)rdr["Player"];
          oAdjustmentDTO.Description = (string)rdr["Description"];
          oAdjustmentDTO.TS = (DateTime)rdr["TS"];
@@ -306,14 +306,14 @@ namespace Bball.DAL.Tables
       }
 
       class Row
-   {
-      public string Team { get; set; }
-      public string Type { get; set; }
-      public float AdjAmt { get; set; }
-      public string Player { get; set; }
-      public string Desc { get; set; }
-      public string TS { get; set; }
-   }
+      {
+         public string Team { get; set; }
+         public string Type { get; set; }
+         public float AdjAmt { get; set; }
+         public string Player { get; set; }
+         public string Desc { get; set; }
+         public string TS { get; set; }
+      }
    }  // class Adjustments
 
 }

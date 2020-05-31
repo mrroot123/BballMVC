@@ -10,14 +10,10 @@
 namespace BballMVC.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class AdjustmentsCodes
+    public partial class uspQueryCalcTeamStrength_Result
     {
-        public int AdjustmentsCodesID { get; set; }
-        public string Type { get; set; }
-        public string Description { get; set; }
-        public bool Range { get; set; }
-        public bool BypassDropDown { get; set; }
+        public Nullable<double> AvgTmStrPtsScored { get; set; }
+        public Nullable<double> AvgTmStrPtsAllowed { get; set; }
     }
 }

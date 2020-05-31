@@ -9,29 +9,17 @@ namespace Bball.BAL
 {
    public class AdjustmentsBO : IAdjustmentsBO
    {
-      public List<BballMVC.IDTOs.IAdjustmentDTO> GetTodaysAdjustments(string LeagueName)
-      {
-         Bball.DAL.Tables.AdjustmentsDO oAdjustments = new Bball.DAL.Tables.AdjustmentsDO();
-         return oAdjustments.GetTodaysAdjustments(LeagueName);
-      }
+      public List<IAdjustmentDTO> GetTodaysAdjustments(string LeagueName)
+         => new AdjustmentsDO().GetTodaysAdjustments(LeagueName);
       
       public IAdjustmentInitDataDTO GetAdjustmentInfo(string LeagueName)
-      { 
-         Bball.DAL.Tables.AdjustmentsDO oAdjustments = new Bball.DAL.Tables.AdjustmentsDO();
-         return oAdjustments.GetAdjustmentInfo(LeagueName);
-      }
+         => new AdjustmentsDO().GetAdjustmentInfo(LeagueName);
 
-      public void InsertNewAdjustment(BballMVC.IDTOs.IAdjustmentDTO oAdjustmentDTO)
-      {
-         Bball.DAL.Tables.AdjustmentsDO newAdjustment = new Bball.DAL.Tables.AdjustmentsDO();
-         newAdjustment.InsertAdjustmentRow(oAdjustmentDTO);
-      }
+      public void InsertNewAdjustment(IAdjustmentDTO oAdjustmentDTO) 
+         => new AdjustmentsDO().InsertAdjustmentRow(oAdjustmentDTO);
 
-      public void UpdateAdjustments(IList<BballMVC.IDTOs.IAdjustmentDTO> ocAdjustmentDTO)
-      {
-         AdjustmentsDO updAdjustment = new Bball.DAL.Tables.AdjustmentsDO();
-         updAdjustment.UpdateAdjustmentRow(ocAdjustmentDTO);
-      }
+      public void UpdateAdjustments(IList<IAdjustmentDTO> ocAdjustmentDTO)
+         => new AdjustmentsDO().UpdateAdjustmentRow(ocAdjustmentDTO);
 
-    }
+   } // class AdjustmentsBO
 }

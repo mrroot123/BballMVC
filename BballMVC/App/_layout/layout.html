@@ -1,15 +1,50 @@
 ﻿
 <script src="_layout/layout.js"></script>
-   <div ng-controller="indexController">
-      <div class="row">
-         <div class="col-md-3">
-            <input type="checkbox" ng-model="cbShowAdjustments" ng-checked="true" /> Show Adjustments
-         </div>
-
-         <div class="col-md-9"> </div>
+<div ng-controller="indexController">
+   <div class="row">
+      <div class="col-md-2"> </div>
+      <div class="col-md-3">
+         <h1>Bball</h1>
       </div>
-
-      <div ng-show="cbShowAdjustments">
-         <div ng-include="'Adjustments/Adjustments.html'"></div>
-      </div>
+      <div class="col-md-7"> </div>
    </div>
+
+   <div class="row">
+      <div class="col-md-12"><hr /> </div>
+   </div>
+   
+   <div class="row">
+      <div class="col-md-2"> </div>
+      <div class="col-md-5 col-sm-4 col-xs-3">
+         <span class="help-block text-muted small-font">League Name</span>
+         <select ng-model="LeagueName" ng-options="item.Text as item.Value for item in LeagueNameList">
+            <option value="" label="--Select League--"></option>
+         </select>
+      </div>
+      <div class="col-md-3">
+         <input type="date" ng-model="GameDate" /> Game Date
+      </div>
+
+      <div class="col-md-2"> </div>
+   </div>
+
+   <div class="row">
+      <div class="col-md-2"> </div>
+      <div class="col-md-3">
+         <input type="checkbox" ng-model="cbShowTodaysMatchups" ng-checked="true" /> Show Todays Matchups
+      </div>
+      <div class="col-md-3">
+         <input type="checkbox" ng-model="cbShowAdjustments" ng-checked="true" /> Show Adjustments
+      </div>
+
+      <div class="col-md-7"> </div>
+   </div>
+
+   <div ng-show="cbShowTodaysMatchups">
+      <div ng-include="'TodaysMatchups/TodaysMatchups.html'"></div>
+   </div>
+
+   <div ng-show="cbShowAdjustments">
+      <div ng-include="'Adjustments/Adjustments.html'"></div>
+   </div>
+</div>

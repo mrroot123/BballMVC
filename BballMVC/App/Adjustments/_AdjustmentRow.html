@@ -12,10 +12,11 @@
    </tr>
    <tr ng-repeat="oAdjustment in ocAdjustments" ng-hide="!cbShowZeroAdjustments && {{oAdjustment.AdjustmentAmount}} === 0">
       <td> 
-      <input id="adjAmt_{{$index}}"  Data-AdjustmentID="{{oAdjustment.AdjustmentID}}"  ng-disabled="{{oAdjustment.cb_ID}}" class=" col-sm-6" type="text"> 
+      <input id="adjAmt_{{$index}}" ng-keypress="cbChange({{$index}})" 
+             Data-AdjustmentID="{{oAdjustment.AdjustmentID}}"  ng-disabled="{{oAdjustment.cb_ID}}" class=" col-sm-6" type="text"> 
       </td>
       <td>
-      <input id="cb_{{$index}}"  type="checkbox"  ng-checked="false" class="ng-pristine ng-untouched ng-valid ng-empty">
+      <input id="cb_{{$index}}"   type="checkbox"  >
       </td>
 		<td>{{oAdjustment.StartDate}}</td>
       <td>{{oAdjustment.AdjustmentType}}</td>

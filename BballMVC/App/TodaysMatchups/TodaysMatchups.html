@@ -1,0 +1,28 @@
+﻿
+<hr />
+<div ng-controller="TodaysMatchupsController">
+
+   <div class="row">
+      <div class="col-md-2"> </div>
+      <div class="col-md-10">
+         <h3> Todays Matchups</h3>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-md-12"> </div>
+   </div>
+   <div class="row">
+      <div class="col-md-2"> </div>
+      <div class="col-md-5">
+         <input type="checkbox" ng-model="Multi"> Show Multi Lines
+      </div>
+      <div class="col-md-5">
+         <input type="checkbox" ng-model="showHistory"> Show History
+      </div>
+   </div>
+
+   <div class="table-responsive">
+      <div ng-include="'TodaysMatchups/_TodaysMatchupsTable.html'"></div>
+   </div>
+
+</div>

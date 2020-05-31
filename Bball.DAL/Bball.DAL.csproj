@@ -87,12 +87,13 @@
     <Compile Include="Tables\AdjustmentsDO.cs" />
     <Compile Include="Tables\AdjustmentsDailyDO.cs" />
     <Compile Include="Tables\BoxScoreDO.cs" />
+    <Compile Include="Tables\BoxScoresSeedsDO.cs" />
     <Compile Include="Tables\DailySummaryDO.cs" />
     <Compile Include="Tables\LeagueInfoDO.cs" />
     <Compile Include="Tables\LinesDO.cs" />
     <Compile Include="Tables\RotationDO.cs" />
     <Compile Include="Tables\SeasonInfoDO.cs" />
-    <Compile Include="Tables\_TableTemplateDO.cs" />
+    <Compile Include="Tables\TodaysMatchupsDO.cs" />
     <Compile Include="Team.cs">
       <DependentUpon>BballModel.tt</DependentUpon>
     </Compile>

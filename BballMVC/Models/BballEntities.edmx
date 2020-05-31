@@ -23,7 +23,7 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.Adjustments' does not have 
           <Property Name="EndDate" Type="date" />
           <Property Name="Team" Type="nvarchar" MaxLength="3" Nullable="false" />
           <Property Name="AdjustmentType" Type="nvarchar" MaxLength="1" Nullable="false" />
-          <Property Name="AdjustmentAmount" Type="real" Nullable="false" />
+          <Property Name="AdjustmentAmount" Type="float" Nullable="false" />
           <Property Name="Player" Type="nvarchar" MaxLength="50" />
           <Property Name="Description" Type="ntext" Nullable="false" />
           <Property Name="TS" Type="datetime" />
@@ -36,6 +36,7 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.Adjustments' does not have 
           <Property Name="Type" Type="nchar" MaxLength="1" Nullable="false" />
           <Property Name="Description" Type="nchar" MaxLength="15" Nullable="false" />
           <Property Name="Range" Type="bit" Nullable="false" />
+          <Property Name="BypassDropDown" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view '00TTI_LeagueScores.dbo.AdjustmentsDaily' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -229,6 +230,80 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.BoxScoresLast5Min' does not
           <Property Name="Source" Type="nvarchar" MaxLength="21" Nullable="false" />
           <Property Name="LoadDate" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view '00TTI_LeagueScores.dbo.BoxScoresSeeds' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="BoxScoresSeeds">
+          <Key>
+            <PropertyRef Name="BoxScoresSeedID" />
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="LeagueName" />
+            <PropertyRef Name="Season" />
+            <PropertyRef Name="GamesBack" />
+            <PropertyRef Name="Team" />
+            <PropertyRef Name="AdjustmentAmountScored" />
+            <PropertyRef Name="AdjustmentAmountAllowed" />
+            <PropertyRef Name="AwayShotsScoredPt1" />
+            <PropertyRef Name="AwayShotsScoredPt2" />
+            <PropertyRef Name="AwayShotsScoredPt3" />
+            <PropertyRef Name="AwayShotsAllowedPt1" />
+            <PropertyRef Name="AwayShotsAllowedPt2" />
+            <PropertyRef Name="AwayShotsAllowedPt3" />
+            <PropertyRef Name="AwayShotsAdjustedScoredPt1" />
+            <PropertyRef Name="AwayShotsAdjustedScoredPt2" />
+            <PropertyRef Name="AwayShotsAdjustedScoredPt3" />
+            <PropertyRef Name="AwayShotsAdjustedAllowedPt1" />
+            <PropertyRef Name="AwayShotsAdjustedAllowedPt2" />
+            <PropertyRef Name="AwayShotsAdjustedAllowedPt3" />
+            <PropertyRef Name="HomeShotsScoredPt1" />
+            <PropertyRef Name="HomeShotsScoredPt2" />
+            <PropertyRef Name="HomeShotsScoredPt3" />
+            <PropertyRef Name="HomeShotsAllowedPt1" />
+            <PropertyRef Name="HomeShotsAllowedPt2" />
+            <PropertyRef Name="HomeShotsAllowedPt3" />
+            <PropertyRef Name="HomeShotsAdjustedScoredPt1" />
+            <PropertyRef Name="HomeShotsAdjustedScoredPt2" />
+            <PropertyRef Name="HomeShotsAdjustedScoredPt3" />
+            <PropertyRef Name="HomeShotsAdjustedAllowedPt1" />
+            <PropertyRef Name="HomeShotsAdjustedAllowedPt2" />
+            <PropertyRef Name="HomeShotsAdjustedAllowedPt3" />
+            <PropertyRef Name="CreateDate" />
+            <PropertyRef Name="UpdateDate" />
+          </Key>
+          <Property Name="BoxScoresSeedID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="9" Nullable="false" />
+          <Property Name="LeagueName" Type="nvarchar" MaxLength="9" Nullable="false" />
+          <Property Name="Season" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="GamesBack" Type="int" Nullable="false" />
+          <Property Name="Team" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="AdjustmentAmountScored" Type="float" Nullable="false" />
+          <Property Name="AdjustmentAmountAllowed" Type="float" Nullable="false" />
+          <Property Name="AwayShotsScoredPt1" Type="float" Nullable="false" />
+          <Property Name="AwayShotsScoredPt2" Type="float" Nullable="false" />
+          <Property Name="AwayShotsScoredPt3" Type="float" Nullable="false" />
+          <Property Name="AwayShotsAllowedPt1" Type="float" Nullable="false" />
+          <Property Name="AwayShotsAllowedPt2" Type="float" Nullable="false" />
+          <Property Name="AwayShotsAllowedPt3" Type="float" Nullable="false" />
+          <Property Name="AwayShotsAdjustedScoredPt1" Type="float" Nullable="false" />
+          <Property Name="AwayShotsAdjustedScoredPt2" Type="float" Nullable="false" />
+          <Property Name="AwayShotsAdjustedScoredPt3" Type="float" Nullable="false" />
+          <Property Name="AwayShotsAdjustedAllowedPt1" Type="float" Nullable="false" />
+          <Property Name="AwayShotsAdjustedAllowedPt2" Type="float" Nullable="false" />
+          <Property Name="AwayShotsAdjustedAllowedPt3" Type="float" Nullable="false" />
+          <Property Name="HomeShotsScoredPt1" Type="float" Nullable="false" />
+          <Property Name="HomeShotsScoredPt2" Type="float" Nullable="false" />
+          <Property Name="HomeShotsScoredPt3" Type="float" Nullable="false" />
+          <Property Name="HomeShotsAllowedPt1" Type="float" Nullable="false" />
+          <Property Name="HomeShotsAllowedPt2" Type="float" Nullable="false" />
+          <Property Name="HomeShotsAllowedPt3" Type="float" Nullable="false" />
+          <Property Name="HomeShotsAdjustedScoredPt1" Type="float" Nullable="false" />
+          <Property Name="HomeShotsAdjustedScoredPt2" Type="float" Nullable="false" />
+          <Property Name="HomeShotsAdjustedScoredPt3" Type="float" Nullable="false" />
+          <Property Name="HomeShotsAdjustedAllowedPt1" Type="float" Nullable="false" />
+          <Property Name="HomeShotsAdjustedAllowedPt2" Type="float" Nullable="false" />
+          <Property Name="HomeShotsAdjustedAllowedPt3" Type="float" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime2" Precision="7" Nullable="false" />
+        </EntityType>
         <EntityType Name="DailySummary">
           <Key>
             <PropertyRef Name="DailySummaryID" />
@@ -336,7 +411,7 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.Rotation' does not have a p
           <Property Name="TotalLineTeam" Type="float" />
           <Property Name="TotalLineOpp" Type="float" />
           <Property Name="OpenTotalLine" Type="float" />
-          <Property Name="BoxScoreSource" Type="nchar" MaxLength="21" Nullable="false" />
+          <Property Name="BoxScoreSource" Type="nvarchar" MaxLength="21" Nullable="false" />
           <Property Name="BoxScoreUrl" Type="nvarchar(max)" />
           <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="UpdateDate" Type="datetime2" Precision="7" />
@@ -365,7 +440,7 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.SeasonInfo' does not have a
           <Property Name="Bypass" Type="bit" Nullable="false" />
           <Property Name="IncludePre" Type="bit" Nullable="false" />
           <Property Name="IncludePost" Type="bit" Nullable="false" />
-          <Property Name="BoxscoreSource" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="BoxscoreSource" Type="nvarchar" MaxLength="21" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view '00TTI_LeagueScores.dbo.Team' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -381,12 +456,108 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.Team' does not have a prima
           </Key>
           <Property Name="TeamID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="LeagueID" Type="int" Nullable="false" />
-          <Property Name="LeagueName" Type="nchar" MaxLength="8" Nullable="false" />
+          <Property Name="LeagueName" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="TeamSource" Type="nchar" MaxLength="30" Nullable="false" />
           <Property Name="TeamNameInDatabase" Type="nchar" MaxLength="30" Nullable="false" />
           <Property Name="TeamName" Type="nchar" MaxLength="30" Nullable="false" />
           <Property Name="StartDate" Type="date" Nullable="false" />
           <Property Name="EndDate" Type="date" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view '00TTI_LeagueScores.dbo.TodaysMatchups' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TodaysMatchups">
+          <Key>
+            <PropertyRef Name="TodaysMatchupsID" />
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="LeagueName" />
+            <PropertyRef Name="GameDate" />
+            <PropertyRef Name="Season" />
+            <PropertyRef Name="SubSeason" />
+            <PropertyRef Name="TeamAway" />
+            <PropertyRef Name="TeamHome" />
+            <PropertyRef Name="RotNum" />
+            <PropertyRef Name="UnAdjTotalAway" />
+            <PropertyRef Name="UnAdjTotalHome" />
+            <PropertyRef Name="UnAdjTotal" />
+            <PropertyRef Name="AdjAmtAway" />
+            <PropertyRef Name="AdjAmtHome" />
+            <PropertyRef Name="AdjAmt" />
+            <PropertyRef Name="OurTotalLineAway" />
+            <PropertyRef Name="OurTotalLineHome" />
+            <PropertyRef Name="OurTotalLine" />
+            <PropertyRef Name="BxScLinePct" />
+            <PropertyRef Name="TmStrAdjPct" />
+            <PropertyRef Name="GB1" />
+            <PropertyRef Name="GB2" />
+            <PropertyRef Name="GB3" />
+            <PropertyRef Name="WeightGB1" />
+            <PropertyRef Name="WeightGB2" />
+            <PropertyRef Name="WeightGB3" />
+          </Key>
+          <Property Name="TodaysMatchupsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="LeagueName" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="GameDate" Type="date" Nullable="false" />
+          <Property Name="Season" Type="char" MaxLength="8" Nullable="false" />
+          <Property Name="SubSeason" Type="char" MaxLength="8" Nullable="false" />
+          <Property Name="TeamAway" Type="char" MaxLength="8" Nullable="false" />
+          <Property Name="TeamHome" Type="char" MaxLength="8" Nullable="false" />
+          <Property Name="RotNum" Type="int" Nullable="false" />
+          <Property Name="Time" Type="datetime" />
+          <Property Name="TV" Type="char" MaxLength="8" />
+          <Property Name="TmStrAway" Type="float" />
+          <Property Name="TmStrHome" Type="float" />
+          <Property Name="UnAdjTotalAway" Type="float" Nullable="false" />
+          <Property Name="UnAdjTotalHome" Type="float" Nullable="false" />
+          <Property Name="UnAdjTotal" Type="float" Nullable="false" />
+          <Property Name="AdjAmtAway" Type="float" Nullable="false" />
+          <Property Name="AdjAmtHome" Type="float" Nullable="false" />
+          <Property Name="AdjAmt" Type="float" Nullable="false" />
+          <Property Name="AdjOTwithSide" Type="float" />
+          <Property Name="OurTotalLineAway" Type="float" Nullable="false" />
+          <Property Name="OurTotalLineHome" Type="float" Nullable="false" />
+          <Property Name="OurTotalLine" Type="float" Nullable="false" />
+          <Property Name="SideLine" Type="float" />
+          <Property Name="TotalLine" Type="float" />
+          <Property Name="OpenTotalLine" Type="float" />
+          <Property Name="Play" Type="char" MaxLength="8" />
+          <Property Name="LineDiff" Type="float" />
+          <Property Name="OpenLineDiff" Type="float" />
+          <Property Name="AdjustedDiff" Type="float" />
+          <Property Name="BxScLinePct" Type="float" Nullable="false" />
+          <Property Name="TmStrAdjPct" Type="float" Nullable="false" />
+          <Property Name="GB1" Type="int" Nullable="false" />
+          <Property Name="GB2" Type="int" Nullable="false" />
+          <Property Name="GB3" Type="int" Nullable="false" />
+          <Property Name="WeightGB1" Type="int" Nullable="false" />
+          <Property Name="WeightGB2" Type="int" Nullable="false" />
+          <Property Name="WeightGB3" Type="int" Nullable="false" />
+          <Property Name="AwayGB1" Type="float" />
+          <Property Name="AwayGB2" Type="float" />
+          <Property Name="AwayGB3" Type="float" />
+          <Property Name="HomeGB1" Type="float" />
+          <Property Name="HomeGB2" Type="float" />
+          <Property Name="HomeGB3" Type="float" />
+          <Property Name="AwayGB1Pt1" Type="float" />
+          <Property Name="AwayGB1Pt2" Type="float" />
+          <Property Name="AwayGB1Pt3" Type="float" />
+          <Property Name="AwayGB2Pt1" Type="float" />
+          <Property Name="AwayGB2Pt2" Type="float" />
+          <Property Name="AwayGB2Pt3" Type="float" />
+          <Property Name="AwayGB3Pt1" Type="float" />
+          <Property Name="AwayGB3Pt2" Type="float" />
+          <Property Name="AwayGB3Pt3" Type="float" />
+          <Property Name="HomeGB1Pt1" Type="float" />
+          <Property Name="HomeGB1Pt2" Type="float" />
+          <Property Name="HomeGB1Pt3" Type="float" />
+          <Property Name="HomeGB2Pt1" Type="float" />
+          <Property Name="HomeGB2Pt2" Type="float" />
+          <Property Name="HomeGB2Pt3" Type="float" />
+          <Property Name="HomeGB3Pt1" Type="float" />
+          <Property Name="HomeGB3Pt2" Type="float" />
+          <Property Name="HomeGB3Pt3" Type="float" />
+          <Property Name="TotalBubbleAway" Type="float" />
+          <Property Name="TotalBubbleHome" Type="float" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view '00TTI_LeagueScores.dbo.Users' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -656,6 +827,44 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.Users' does not have a prim
     [BoxScoresLast5Min].[LoadDate] AS [LoadDate]
     FROM [dbo].[BoxScoresLast5Min] AS [BoxScoresLast5Min]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="BoxScoresSeeds" EntityType="Self.BoxScoresSeeds" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [BoxScoresSeeds].[BoxScoresSeedID] AS [BoxScoresSeedID], 
+    [BoxScoresSeeds].[UserName] AS [UserName], 
+    [BoxScoresSeeds].[LeagueName] AS [LeagueName], 
+    [BoxScoresSeeds].[Season] AS [Season], 
+    [BoxScoresSeeds].[GamesBack] AS [GamesBack], 
+    [BoxScoresSeeds].[Team] AS [Team], 
+    [BoxScoresSeeds].[AdjustmentAmountScored] AS [AdjustmentAmountScored], 
+    [BoxScoresSeeds].[AdjustmentAmountAllowed] AS [AdjustmentAmountAllowed], 
+    [BoxScoresSeeds].[AwayShotsScoredPt1] AS [AwayShotsScoredPt1], 
+    [BoxScoresSeeds].[AwayShotsScoredPt2] AS [AwayShotsScoredPt2], 
+    [BoxScoresSeeds].[AwayShotsScoredPt3] AS [AwayShotsScoredPt3], 
+    [BoxScoresSeeds].[AwayShotsAllowedPt1] AS [AwayShotsAllowedPt1], 
+    [BoxScoresSeeds].[AwayShotsAllowedPt2] AS [AwayShotsAllowedPt2], 
+    [BoxScoresSeeds].[AwayShotsAllowedPt3] AS [AwayShotsAllowedPt3], 
+    [BoxScoresSeeds].[AwayShotsAdjustedScoredPt1] AS [AwayShotsAdjustedScoredPt1], 
+    [BoxScoresSeeds].[AwayShotsAdjustedScoredPt2] AS [AwayShotsAdjustedScoredPt2], 
+    [BoxScoresSeeds].[AwayShotsAdjustedScoredPt3] AS [AwayShotsAdjustedScoredPt3], 
+    [BoxScoresSeeds].[AwayShotsAdjustedAllowedPt1] AS [AwayShotsAdjustedAllowedPt1], 
+    [BoxScoresSeeds].[AwayShotsAdjustedAllowedPt2] AS [AwayShotsAdjustedAllowedPt2], 
+    [BoxScoresSeeds].[AwayShotsAdjustedAllowedPt3] AS [AwayShotsAdjustedAllowedPt3], 
+    [BoxScoresSeeds].[HomeShotsScoredPt1] AS [HomeShotsScoredPt1], 
+    [BoxScoresSeeds].[HomeShotsScoredPt2] AS [HomeShotsScoredPt2], 
+    [BoxScoresSeeds].[HomeShotsScoredPt3] AS [HomeShotsScoredPt3], 
+    [BoxScoresSeeds].[HomeShotsAllowedPt1] AS [HomeShotsAllowedPt1], 
+    [BoxScoresSeeds].[HomeShotsAllowedPt2] AS [HomeShotsAllowedPt2], 
+    [BoxScoresSeeds].[HomeShotsAllowedPt3] AS [HomeShotsAllowedPt3], 
+    [BoxScoresSeeds].[HomeShotsAdjustedScoredPt1] AS [HomeShotsAdjustedScoredPt1], 
+    [BoxScoresSeeds].[HomeShotsAdjustedScoredPt2] AS [HomeShotsAdjustedScoredPt2], 
+    [BoxScoresSeeds].[HomeShotsAdjustedScoredPt3] AS [HomeShotsAdjustedScoredPt3], 
+    [BoxScoresSeeds].[HomeShotsAdjustedAllowedPt1] AS [HomeShotsAdjustedAllowedPt1], 
+    [BoxScoresSeeds].[HomeShotsAdjustedAllowedPt2] AS [HomeShotsAdjustedAllowedPt2], 
+    [BoxScoresSeeds].[HomeShotsAdjustedAllowedPt3] AS [HomeShotsAdjustedAllowedPt3], 
+    [BoxScoresSeeds].[CreateDate] AS [CreateDate], 
+    [BoxScoresSeeds].[UpdateDate] AS [UpdateDate]
+    FROM [dbo].[BoxScoresSeeds] AS [BoxScoresSeeds]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="Lines" EntityType="Self.Lines" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Lines].[LineID] AS [LineID], 
@@ -733,6 +942,74 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.Users' does not have a prim
     [Team].[EndDate] AS [EndDate]
     FROM [dbo].[Team] AS [Team]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="TodaysMatchups" EntityType="Self.TodaysMatchups" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TodaysMatchups].[TodaysMatchupsID] AS [TodaysMatchupsID], 
+    [TodaysMatchups].[UserName] AS [UserName], 
+    [TodaysMatchups].[LeagueName] AS [LeagueName], 
+    [TodaysMatchups].[GameDate] AS [GameDate], 
+    [TodaysMatchups].[Season] AS [Season], 
+    [TodaysMatchups].[SubSeason] AS [SubSeason], 
+    [TodaysMatchups].[TeamAway] AS [TeamAway], 
+    [TodaysMatchups].[TeamHome] AS [TeamHome], 
+    [TodaysMatchups].[RotNum] AS [RotNum], 
+    [TodaysMatchups].[Time] AS [Time], 
+    [TodaysMatchups].[TV] AS [TV], 
+    [TodaysMatchups].[TmStrAway] AS [TmStrAway], 
+    [TodaysMatchups].[TmStrHome] AS [TmStrHome], 
+    [TodaysMatchups].[UnAdjTotalAway] AS [UnAdjTotalAway], 
+    [TodaysMatchups].[UnAdjTotalHome] AS [UnAdjTotalHome], 
+    [TodaysMatchups].[UnAdjTotal] AS [UnAdjTotal], 
+    [TodaysMatchups].[AdjAmtAway] AS [AdjAmtAway], 
+    [TodaysMatchups].[AdjAmtHome] AS [AdjAmtHome], 
+    [TodaysMatchups].[AdjAmt] AS [AdjAmt], 
+    [TodaysMatchups].[AdjOTwithSide] AS [AdjOTwithSide], 
+    [TodaysMatchups].[OurTotalLineAway] AS [OurTotalLineAway], 
+    [TodaysMatchups].[OurTotalLineHome] AS [OurTotalLineHome], 
+    [TodaysMatchups].[OurTotalLine] AS [OurTotalLine], 
+    [TodaysMatchups].[SideLine] AS [SideLine], 
+    [TodaysMatchups].[TotalLine] AS [TotalLine], 
+    [TodaysMatchups].[OpenTotalLine] AS [OpenTotalLine], 
+    [TodaysMatchups].[Play] AS [Play], 
+    [TodaysMatchups].[LineDiff] AS [LineDiff], 
+    [TodaysMatchups].[OpenLineDiff] AS [OpenLineDiff], 
+    [TodaysMatchups].[AdjustedDiff] AS [AdjustedDiff], 
+    [TodaysMatchups].[BxScLinePct] AS [BxScLinePct], 
+    [TodaysMatchups].[TmStrAdjPct] AS [TmStrAdjPct], 
+    [TodaysMatchups].[GB1] AS [GB1], 
+    [TodaysMatchups].[GB2] AS [GB2], 
+    [TodaysMatchups].[GB3] AS [GB3], 
+    [TodaysMatchups].[WeightGB1] AS [WeightGB1], 
+    [TodaysMatchups].[WeightGB2] AS [WeightGB2], 
+    [TodaysMatchups].[WeightGB3] AS [WeightGB3], 
+    [TodaysMatchups].[AwayGB1] AS [AwayGB1], 
+    [TodaysMatchups].[AwayGB2] AS [AwayGB2], 
+    [TodaysMatchups].[AwayGB3] AS [AwayGB3], 
+    [TodaysMatchups].[HomeGB1] AS [HomeGB1], 
+    [TodaysMatchups].[HomeGB2] AS [HomeGB2], 
+    [TodaysMatchups].[HomeGB3] AS [HomeGB3], 
+    [TodaysMatchups].[AwayGB1Pt1] AS [AwayGB1Pt1], 
+    [TodaysMatchups].[AwayGB1Pt2] AS [AwayGB1Pt2], 
+    [TodaysMatchups].[AwayGB1Pt3] AS [AwayGB1Pt3], 
+    [TodaysMatchups].[AwayGB2Pt1] AS [AwayGB2Pt1], 
+    [TodaysMatchups].[AwayGB2Pt2] AS [AwayGB2Pt2], 
+    [TodaysMatchups].[AwayGB2Pt3] AS [AwayGB2Pt3], 
+    [TodaysMatchups].[AwayGB3Pt1] AS [AwayGB3Pt1], 
+    [TodaysMatchups].[AwayGB3Pt2] AS [AwayGB3Pt2], 
+    [TodaysMatchups].[AwayGB3Pt3] AS [AwayGB3Pt3], 
+    [TodaysMatchups].[HomeGB1Pt1] AS [HomeGB1Pt1], 
+    [TodaysMatchups].[HomeGB1Pt2] AS [HomeGB1Pt2], 
+    [TodaysMatchups].[HomeGB1Pt3] AS [HomeGB1Pt3], 
+    [TodaysMatchups].[HomeGB2Pt1] AS [HomeGB2Pt1], 
+    [TodaysMatchups].[HomeGB2Pt2] AS [HomeGB2Pt2], 
+    [TodaysMatchups].[HomeGB2Pt3] AS [HomeGB2Pt3], 
+    [TodaysMatchups].[HomeGB3Pt1] AS [HomeGB3Pt1], 
+    [TodaysMatchups].[HomeGB3Pt2] AS [HomeGB3Pt2], 
+    [TodaysMatchups].[HomeGB3Pt3] AS [HomeGB3Pt3], 
+    [TodaysMatchups].[TotalBubbleAway] AS [TotalBubbleAway], 
+    [TodaysMatchups].[TotalBubbleHome] AS [TotalBubbleHome]
+    FROM [dbo].[TodaysMatchups] AS [TodaysMatchups]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="Users" EntityType="Self.Users" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Users].[UserID] AS [UserID], 
@@ -753,6 +1030,7 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.Users' does not have a prim
           <Property Name="Type" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="15" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="Range" Type="Boolean" Nullable="false" />
+          <Property Name="BypassDropDown" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="DailySummary">
           <Key>
@@ -1079,6 +1357,8 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.Users' does not have a prim
           <Parameter Name="LeagueName" Mode="In" Type="String" />
           </FunctionImport>
           <EntitySet Name="Team" EntityType="TTI_LeagueScoresModel.Team" />
+          <EntitySet Name="BoxScoresSeeds" EntityType="TTI_LeagueScoresModel.BoxScoresSeeds" />
+          <EntitySet Name="TodaysMatchups" EntityType="TTI_LeagueScoresModel.TodaysMatchups" />
         </EntityContainer>
         <EntityType Name="SeasonInfo">
           <Key>
@@ -1102,7 +1382,7 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.Users' does not have a prim
           <Property Name="Bypass" Type="Boolean" Nullable="false" />
           <Property Name="IncludePre" Type="Boolean" Nullable="false" />
           <Property Name="IncludePost" Type="Boolean" Nullable="false" />
-          <Property Name="BoxscoreSource" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="BoxscoreSource" Type="String" Nullable="false" MaxLength="21" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ParmTable">
           <Key>
@@ -1208,7 +1488,7 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.Users' does not have a prim
           <Property Name="TotalLineTeam" Type="Double" />
           <Property Name="TotalLineOpp" Type="Double" />
           <Property Name="OpenTotalLine" Type="Double" />
-          <Property Name="BoxScoreSource" Type="String" Nullable="false" MaxLength="21" FixedLength="true" Unicode="true" />
+          <Property Name="BoxScoreSource" Type="String" Nullable="false" MaxLength="21" FixedLength="false" Unicode="true" />
           <Property Name="BoxScoreUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="UpdateDate" Type="DateTime" Precision="7" />
@@ -1283,12 +1563,178 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.Users' does not have a prim
           </Key>
           <Property Name="TeamID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="LeagueID" Type="Int32" Nullable="false" />
-          <Property Name="LeagueName" Type="String" Nullable="false" MaxLength="8" FixedLength="true" Unicode="true" />
+          <Property Name="LeagueName" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="TeamSource" Type="String" Nullable="false" MaxLength="30" FixedLength="true" Unicode="true" />
           <Property Name="TeamNameInDatabase" Type="String" Nullable="false" MaxLength="30" FixedLength="true" Unicode="true" />
           <Property Name="TeamName" Type="String" Nullable="false" MaxLength="30" FixedLength="true" Unicode="true" />
           <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="EndDate" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="BoxScoresSeeds">
+          <Key>
+            <PropertyRef Name="BoxScoresSeedID" />
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="LeagueName" />
+            <PropertyRef Name="Season" />
+            <PropertyRef Name="GamesBack" />
+            <PropertyRef Name="Team" />
+            <PropertyRef Name="AdjustmentAmountScored" />
+            <PropertyRef Name="AdjustmentAmountAllowed" />
+            <PropertyRef Name="AwayShotsScoredPt1" />
+            <PropertyRef Name="AwayShotsScoredPt2" />
+            <PropertyRef Name="AwayShotsScoredPt3" />
+            <PropertyRef Name="AwayShotsAllowedPt1" />
+            <PropertyRef Name="AwayShotsAllowedPt2" />
+            <PropertyRef Name="AwayShotsAllowedPt3" />
+            <PropertyRef Name="AwayShotsAdjustedScoredPt1" />
+            <PropertyRef Name="AwayShotsAdjustedScoredPt2" />
+            <PropertyRef Name="AwayShotsAdjustedScoredPt3" />
+            <PropertyRef Name="AwayShotsAdjustedAllowedPt1" />
+            <PropertyRef Name="AwayShotsAdjustedAllowedPt2" />
+            <PropertyRef Name="AwayShotsAdjustedAllowedPt3" />
+            <PropertyRef Name="HomeShotsScoredPt1" />
+            <PropertyRef Name="HomeShotsScoredPt2" />
+            <PropertyRef Name="HomeShotsScoredPt3" />
+            <PropertyRef Name="HomeShotsAllowedPt1" />
+            <PropertyRef Name="HomeShotsAllowedPt2" />
+            <PropertyRef Name="HomeShotsAllowedPt3" />
+            <PropertyRef Name="HomeShotsAdjustedScoredPt1" />
+            <PropertyRef Name="HomeShotsAdjustedScoredPt2" />
+            <PropertyRef Name="HomeShotsAdjustedScoredPt3" />
+            <PropertyRef Name="HomeShotsAdjustedAllowedPt1" />
+            <PropertyRef Name="HomeShotsAdjustedAllowedPt2" />
+            <PropertyRef Name="HomeShotsAdjustedAllowedPt3" />
+            <PropertyRef Name="CreateDate" />
+            <PropertyRef Name="UpdateDate" />
+          </Key>
+          <Property Name="BoxScoresSeedID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="true" />
+          <Property Name="LeagueName" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="true" />
+          <Property Name="Season" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="GamesBack" Type="Int32" Nullable="false" />
+          <Property Name="Team" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="AdjustmentAmountScored" Type="Double" Nullable="false" />
+          <Property Name="AdjustmentAmountAllowed" Type="Double" Nullable="false" />
+          <Property Name="AwayShotsScoredPt1" Type="Double" Nullable="false" />
+          <Property Name="AwayShotsScoredPt2" Type="Double" Nullable="false" />
+          <Property Name="AwayShotsScoredPt3" Type="Double" Nullable="false" />
+          <Property Name="AwayShotsAllowedPt1" Type="Double" Nullable="false" />
+          <Property Name="AwayShotsAllowedPt2" Type="Double" Nullable="false" />
+          <Property Name="AwayShotsAllowedPt3" Type="Double" Nullable="false" />
+          <Property Name="AwayShotsAdjustedScoredPt1" Type="Double" Nullable="false" />
+          <Property Name="AwayShotsAdjustedScoredPt2" Type="Double" Nullable="false" />
+          <Property Name="AwayShotsAdjustedScoredPt3" Type="Double" Nullable="false" />
+          <Property Name="AwayShotsAdjustedAllowedPt1" Type="Double" Nullable="false" />
+          <Property Name="AwayShotsAdjustedAllowedPt2" Type="Double" Nullable="false" />
+          <Property Name="AwayShotsAdjustedAllowedPt3" Type="Double" Nullable="false" />
+          <Property Name="HomeShotsScoredPt1" Type="Double" Nullable="false" />
+          <Property Name="HomeShotsScoredPt2" Type="Double" Nullable="false" />
+          <Property Name="HomeShotsScoredPt3" Type="Double" Nullable="false" />
+          <Property Name="HomeShotsAllowedPt1" Type="Double" Nullable="false" />
+          <Property Name="HomeShotsAllowedPt2" Type="Double" Nullable="false" />
+          <Property Name="HomeShotsAllowedPt3" Type="Double" Nullable="false" />
+          <Property Name="HomeShotsAdjustedScoredPt1" Type="Double" Nullable="false" />
+          <Property Name="HomeShotsAdjustedScoredPt2" Type="Double" Nullable="false" />
+          <Property Name="HomeShotsAdjustedScoredPt3" Type="Double" Nullable="false" />
+          <Property Name="HomeShotsAdjustedAllowedPt1" Type="Double" Nullable="false" />
+          <Property Name="HomeShotsAdjustedAllowedPt2" Type="Double" Nullable="false" />
+          <Property Name="HomeShotsAdjustedAllowedPt3" Type="Double" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="7" />
+        </EntityType>
+        <EntityType Name="TodaysMatchups">
+          <Key>
+            <PropertyRef Name="TodaysMatchupsID" />
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="LeagueName" />
+            <PropertyRef Name="GameDate" />
+            <PropertyRef Name="Season" />
+            <PropertyRef Name="SubSeason" />
+            <PropertyRef Name="TeamAway" />
+            <PropertyRef Name="TeamHome" />
+            <PropertyRef Name="RotNum" />
+            <PropertyRef Name="UnAdjTotalAway" />
+            <PropertyRef Name="UnAdjTotalHome" />
+            <PropertyRef Name="UnAdjTotal" />
+            <PropertyRef Name="AdjAmtAway" />
+            <PropertyRef Name="AdjAmtHome" />
+            <PropertyRef Name="AdjAmt" />
+            <PropertyRef Name="OurTotalLineAway" />
+            <PropertyRef Name="OurTotalLineHome" />
+            <PropertyRef Name="OurTotalLine" />
+            <PropertyRef Name="BxScLinePct" />
+            <PropertyRef Name="TmStrAdjPct" />
+            <PropertyRef Name="GB1" />
+            <PropertyRef Name="GB2" />
+            <PropertyRef Name="GB3" />
+            <PropertyRef Name="WeightGB1" />
+            <PropertyRef Name="WeightGB2" />
+            <PropertyRef Name="WeightGB3" />
+          </Key>
+          <Property Name="TodaysMatchupsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="LeagueName" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="GameDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Season" Type="String" Nullable="false" MaxLength="8" FixedLength="true" Unicode="false" />
+          <Property Name="SubSeason" Type="String" Nullable="false" MaxLength="8" FixedLength="true" Unicode="false" />
+          <Property Name="TeamAway" Type="String" Nullable="false" MaxLength="8" FixedLength="true" Unicode="false" />
+          <Property Name="TeamHome" Type="String" Nullable="false" MaxLength="8" FixedLength="true" Unicode="false" />
+          <Property Name="RotNum" Type="Int32" Nullable="false" />
+          <Property Name="Time" Type="DateTime" Precision="3" />
+          <Property Name="TV" Type="String" MaxLength="8" FixedLength="true" Unicode="false" />
+          <Property Name="TmStrAway" Type="Double" />
+          <Property Name="TmStrHome" Type="Double" />
+          <Property Name="UnAdjTotalAway" Type="Double" Nullable="false" />
+          <Property Name="UnAdjTotalHome" Type="Double" Nullable="false" />
+          <Property Name="UnAdjTotal" Type="Double" Nullable="false" />
+          <Property Name="AdjAmtAway" Type="Double" Nullable="false" />
+          <Property Name="AdjAmtHome" Type="Double" Nullable="false" />
+          <Property Name="AdjAmt" Type="Double" Nullable="false" />
+          <Property Name="AdjOTwithSide" Type="Double" />
+          <Property Name="OurTotalLineAway" Type="Double" Nullable="false" />
+          <Property Name="OurTotalLineHome" Type="Double" Nullable="false" />
+          <Property Name="OurTotalLine" Type="Double" Nullable="false" />
+          <Property Name="SideLine" Type="Double" />
+          <Property Name="TotalLine" Type="Double" />
+          <Property Name="OpenTotalLine" Type="Double" />
+          <Property Name="Play" Type="String" MaxLength="8" FixedLength="true" Unicode="false" />
+          <Property Name="LineDiff" Type="Double" />
+          <Property Name="OpenLineDiff" Type="Double" />
+          <Property Name="AdjustedDiff" Type="Double" />
+          <Property Name="BxScLinePct" Type="Double" Nullable="false" />
+          <Property Name="TmStrAdjPct" Type="Double" Nullable="false" />
+          <Property Name="GB1" Type="Int32" Nullable="false" />
+          <Property Name="GB2" Type="Int32" Nullable="false" />
+          <Property Name="GB3" Type="Int32" Nullable="false" />
+          <Property Name="WeightGB1" Type="Int32" Nullable="false" />
+          <Property Name="WeightGB2" Type="Int32" Nullable="false" />
+          <Property Name="WeightGB3" Type="Int32" Nullable="false" />
+          <Property Name="AwayGB1" Type="Double" />
+          <Property Name="AwayGB2" Type="Double" />
+          <Property Name="AwayGB3" Type="Double" />
+          <Property Name="HomeGB1" Type="Double" />
+          <Property Name="HomeGB2" Type="Double" />
+          <Property Name="HomeGB3" Type="Double" />
+          <Property Name="AwayGB1Pt1" Type="Double" />
+          <Property Name="AwayGB1Pt2" Type="Double" />
+          <Property Name="AwayGB1Pt3" Type="Double" />
+          <Property Name="AwayGB2Pt1" Type="Double" />
+          <Property Name="AwayGB2Pt2" Type="Double" />
+          <Property Name="AwayGB2Pt3" Type="Double" />
+          <Property Name="AwayGB3Pt1" Type="Double" />
+          <Property Name="AwayGB3Pt2" Type="Double" />
+          <Property Name="AwayGB3Pt3" Type="Double" />
+          <Property Name="HomeGB1Pt1" Type="Double" />
+          <Property Name="HomeGB1Pt2" Type="Double" />
+          <Property Name="HomeGB1Pt3" Type="Double" />
+          <Property Name="HomeGB2Pt1" Type="Double" />
+          <Property Name="HomeGB2Pt2" Type="Double" />
+          <Property Name="HomeGB2Pt3" Type="Double" />
+          <Property Name="HomeGB3Pt1" Type="Double" />
+          <Property Name="HomeGB3Pt2" Type="Double" />
+          <Property Name="HomeGB3Pt3" Type="Double" />
+          <Property Name="TotalBubbleAway" Type="Double" />
+          <Property Name="TotalBubbleHome" Type="Double" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1299,6 +1745,7 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.Users' does not have a prim
           <EntitySetMapping Name="AdjustmentsCodes">
             <EntityTypeMapping TypeName="TTI_LeagueScoresModel.AdjustmentsCodes">
               <MappingFragment StoreEntitySet="AdjustmentsCodes">
+                <ScalarProperty Name="BypassDropDown" ColumnName="BypassDropDown" />
                 <ScalarProperty Name="AdjustmentsCodesID" ColumnName="AdjustmentsCodesID" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -1641,6 +2088,116 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.Users' does not have a prim
                 <ScalarProperty Name="LeagueName" ColumnName="LeagueName" />
                 <ScalarProperty Name="LeagueID" ColumnName="LeagueID" />
                 <ScalarProperty Name="TeamID" ColumnName="TeamID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BoxScoresSeeds">
+            <EntityTypeMapping TypeName="TTI_LeagueScoresModel.BoxScoresSeeds">
+              <MappingFragment StoreEntitySet="BoxScoresSeeds">
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="HomeShotsAdjustedAllowedPt3" ColumnName="HomeShotsAdjustedAllowedPt3" />
+                <ScalarProperty Name="HomeShotsAdjustedAllowedPt2" ColumnName="HomeShotsAdjustedAllowedPt2" />
+                <ScalarProperty Name="HomeShotsAdjustedAllowedPt1" ColumnName="HomeShotsAdjustedAllowedPt1" />
+                <ScalarProperty Name="HomeShotsAdjustedScoredPt3" ColumnName="HomeShotsAdjustedScoredPt3" />
+                <ScalarProperty Name="HomeShotsAdjustedScoredPt2" ColumnName="HomeShotsAdjustedScoredPt2" />
+                <ScalarProperty Name="HomeShotsAdjustedScoredPt1" ColumnName="HomeShotsAdjustedScoredPt1" />
+                <ScalarProperty Name="HomeShotsAllowedPt3" ColumnName="HomeShotsAllowedPt3" />
+                <ScalarProperty Name="HomeShotsAllowedPt2" ColumnName="HomeShotsAllowedPt2" />
+                <ScalarProperty Name="HomeShotsAllowedPt1" ColumnName="HomeShotsAllowedPt1" />
+                <ScalarProperty Name="HomeShotsScoredPt3" ColumnName="HomeShotsScoredPt3" />
+                <ScalarProperty Name="HomeShotsScoredPt2" ColumnName="HomeShotsScoredPt2" />
+                <ScalarProperty Name="HomeShotsScoredPt1" ColumnName="HomeShotsScoredPt1" />
+                <ScalarProperty Name="AwayShotsAdjustedAllowedPt3" ColumnName="AwayShotsAdjustedAllowedPt3" />
+                <ScalarProperty Name="AwayShotsAdjustedAllowedPt2" ColumnName="AwayShotsAdjustedAllowedPt2" />
+                <ScalarProperty Name="AwayShotsAdjustedAllowedPt1" ColumnName="AwayShotsAdjustedAllowedPt1" />
+                <ScalarProperty Name="AwayShotsAdjustedScoredPt3" ColumnName="AwayShotsAdjustedScoredPt3" />
+                <ScalarProperty Name="AwayShotsAdjustedScoredPt2" ColumnName="AwayShotsAdjustedScoredPt2" />
+                <ScalarProperty Name="AwayShotsAdjustedScoredPt1" ColumnName="AwayShotsAdjustedScoredPt1" />
+                <ScalarProperty Name="AwayShotsAllowedPt3" ColumnName="AwayShotsAllowedPt3" />
+                <ScalarProperty Name="AwayShotsAllowedPt2" ColumnName="AwayShotsAllowedPt2" />
+                <ScalarProperty Name="AwayShotsAllowedPt1" ColumnName="AwayShotsAllowedPt1" />
+                <ScalarProperty Name="AwayShotsScoredPt3" ColumnName="AwayShotsScoredPt3" />
+                <ScalarProperty Name="AwayShotsScoredPt2" ColumnName="AwayShotsScoredPt2" />
+                <ScalarProperty Name="AwayShotsScoredPt1" ColumnName="AwayShotsScoredPt1" />
+                <ScalarProperty Name="AdjustmentAmountAllowed" ColumnName="AdjustmentAmountAllowed" />
+                <ScalarProperty Name="AdjustmentAmountScored" ColumnName="AdjustmentAmountScored" />
+                <ScalarProperty Name="Team" ColumnName="Team" />
+                <ScalarProperty Name="GamesBack" ColumnName="GamesBack" />
+                <ScalarProperty Name="Season" ColumnName="Season" />
+                <ScalarProperty Name="LeagueName" ColumnName="LeagueName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="BoxScoresSeedID" ColumnName="BoxScoresSeedID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TodaysMatchups">
+            <EntityTypeMapping TypeName="TTI_LeagueScoresModel.TodaysMatchups">
+              <MappingFragment StoreEntitySet="TodaysMatchups">
+                <ScalarProperty Name="TotalBubbleHome" ColumnName="TotalBubbleHome" />
+                <ScalarProperty Name="TotalBubbleAway" ColumnName="TotalBubbleAway" />
+                <ScalarProperty Name="HomeGB3Pt3" ColumnName="HomeGB3Pt3" />
+                <ScalarProperty Name="HomeGB3Pt2" ColumnName="HomeGB3Pt2" />
+                <ScalarProperty Name="HomeGB3Pt1" ColumnName="HomeGB3Pt1" />
+                <ScalarProperty Name="HomeGB2Pt3" ColumnName="HomeGB2Pt3" />
+                <ScalarProperty Name="HomeGB2Pt2" ColumnName="HomeGB2Pt2" />
+                <ScalarProperty Name="HomeGB2Pt1" ColumnName="HomeGB2Pt1" />
+                <ScalarProperty Name="HomeGB1Pt3" ColumnName="HomeGB1Pt3" />
+                <ScalarProperty Name="HomeGB1Pt2" ColumnName="HomeGB1Pt2" />
+                <ScalarProperty Name="HomeGB1Pt1" ColumnName="HomeGB1Pt1" />
+                <ScalarProperty Name="AwayGB3Pt3" ColumnName="AwayGB3Pt3" />
+                <ScalarProperty Name="AwayGB3Pt2" ColumnName="AwayGB3Pt2" />
+                <ScalarProperty Name="AwayGB3Pt1" ColumnName="AwayGB3Pt1" />
+                <ScalarProperty Name="AwayGB2Pt3" ColumnName="AwayGB2Pt3" />
+                <ScalarProperty Name="AwayGB2Pt2" ColumnName="AwayGB2Pt2" />
+                <ScalarProperty Name="AwayGB2Pt1" ColumnName="AwayGB2Pt1" />
+                <ScalarProperty Name="AwayGB1Pt3" ColumnName="AwayGB1Pt3" />
+                <ScalarProperty Name="AwayGB1Pt2" ColumnName="AwayGB1Pt2" />
+                <ScalarProperty Name="AwayGB1Pt1" ColumnName="AwayGB1Pt1" />
+                <ScalarProperty Name="HomeGB3" ColumnName="HomeGB3" />
+                <ScalarProperty Name="HomeGB2" ColumnName="HomeGB2" />
+                <ScalarProperty Name="HomeGB1" ColumnName="HomeGB1" />
+                <ScalarProperty Name="AwayGB3" ColumnName="AwayGB3" />
+                <ScalarProperty Name="AwayGB2" ColumnName="AwayGB2" />
+                <ScalarProperty Name="AwayGB1" ColumnName="AwayGB1" />
+                <ScalarProperty Name="WeightGB3" ColumnName="WeightGB3" />
+                <ScalarProperty Name="WeightGB2" ColumnName="WeightGB2" />
+                <ScalarProperty Name="WeightGB1" ColumnName="WeightGB1" />
+                <ScalarProperty Name="GB3" ColumnName="GB3" />
+                <ScalarProperty Name="GB2" ColumnName="GB2" />
+                <ScalarProperty Name="GB1" ColumnName="GB1" />
+                <ScalarProperty Name="TmStrAdjPct" ColumnName="TmStrAdjPct" />
+                <ScalarProperty Name="BxScLinePct" ColumnName="BxScLinePct" />
+                <ScalarProperty Name="AdjustedDiff" ColumnName="AdjustedDiff" />
+                <ScalarProperty Name="OpenLineDiff" ColumnName="OpenLineDiff" />
+                <ScalarProperty Name="LineDiff" ColumnName="LineDiff" />
+                <ScalarProperty Name="Play" ColumnName="Play" />
+                <ScalarProperty Name="OpenTotalLine" ColumnName="OpenTotalLine" />
+                <ScalarProperty Name="TotalLine" ColumnName="TotalLine" />
+                <ScalarProperty Name="SideLine" ColumnName="SideLine" />
+                <ScalarProperty Name="OurTotalLine" ColumnName="OurTotalLine" />
+                <ScalarProperty Name="OurTotalLineHome" ColumnName="OurTotalLineHome" />
+                <ScalarProperty Name="OurTotalLineAway" ColumnName="OurTotalLineAway" />
+                <ScalarProperty Name="AdjOTwithSide" ColumnName="AdjOTwithSide" />
+                <ScalarProperty Name="AdjAmt" ColumnName="AdjAmt" />
+                <ScalarProperty Name="AdjAmtHome" ColumnName="AdjAmtHome" />
+                <ScalarProperty Name="AdjAmtAway" ColumnName="AdjAmtAway" />
+                <ScalarProperty Name="UnAdjTotal" ColumnName="UnAdjTotal" />
+                <ScalarProperty Name="UnAdjTotalHome" ColumnName="UnAdjTotalHome" />
+                <ScalarProperty Name="UnAdjTotalAway" ColumnName="UnAdjTotalAway" />
+                <ScalarProperty Name="TmStrHome" ColumnName="TmStrHome" />
+                <ScalarProperty Name="TmStrAway" ColumnName="TmStrAway" />
+                <ScalarProperty Name="TV" ColumnName="TV" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="RotNum" ColumnName="RotNum" />
+                <ScalarProperty Name="TeamHome" ColumnName="TeamHome" />
+                <ScalarProperty Name="TeamAway" ColumnName="TeamAway" />
+                <ScalarProperty Name="SubSeason" ColumnName="SubSeason" />
+                <ScalarProperty Name="Season" ColumnName="Season" />
+                <ScalarProperty Name="GameDate" ColumnName="GameDate" />
+                <ScalarProperty Name="LeagueName" ColumnName="LeagueName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="TodaysMatchupsID" ColumnName="TodaysMatchupsID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

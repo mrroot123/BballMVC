@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 
 namespace Bball.DAL.Tables
 {
+   // Change TableTemplate --> TableName
    //public 
    class TableTemplate
    {

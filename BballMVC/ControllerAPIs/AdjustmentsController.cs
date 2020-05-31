@@ -13,7 +13,7 @@ using BballMVC.IDTOs;
 
 namespace BballMVC.ControllerAPIs
 {
-   public class AdjustmentsController : ApiController
+   public class AdjustmentsController : BaseApiController
    {
       IAdjustmentsBO oAdjustmentsBO;
     //  IAdjustmentsBO oAdjustmentsBO = new AdjustmentsBO();

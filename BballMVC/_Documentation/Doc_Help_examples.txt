@@ -1,6 +1,8 @@
 ﻿
 TOC
-
+ 
+ Backup & Restore 00TTI_LeagueScores - usp_DatabaseBackupRestore.sql - 
+   Backs up DB to D:\BU\00TTI_LeagueScores.Bak
  VSIX Installer - Advanced Installer for Visual Studio 2017 - Installed 12/24/2019 learn how to use
 
 Application Functions
@@ -21,14 +23,23 @@ Modify Table Structure
    -- Select top 1000
    -- Cut & Paste cols WITHOUT ID Field into Textpad
    -- run macro Sql Col names
-   -- Paste cols into Table class "{TableName}Columns" constant
-   -- In Textpad Change all , --> \n in and paste rows of column names into Step 4
+   -- Paste cols into Table class in Bball.DAL.Tables "{TableName}Columns" constant
+   -- In Textpad Change all , --> \n in and paste rows of column names into Step 4 if Write / Insert Rows necessary
    -- BUILD
-   3) Rebuild Model in BballMVC Edmx
+   3) Rebuild Model in BballMVC.Models Edmx
    -- Open edmx, Delete Table, BUILD
-   -- right clk on space, update model, Add Table, BUILD -- new model generated
-   -- copy Model to DTOs
-   4) IN Bball.DAL.Tables Update populate{TableName}Values ex: populateBoxScoresValues
+   -- right clk on space, update model, Add Table, Clean & Build BUILD solution -- new model generated in BballEntities.tt 
+   -- copy Model to DTOs and create DTO interface
+      -- Add class in DTOs - modelDTO
+      -- Copy _TemplateDTO into it ... modify where necessary
+      -- Copy props from Model just created by EDMX into the DTO
+      -- Right clk on DTO model Name and create temp Interface in DTO folder
+      -- Create Interface in IDTOs folder
+      -- Replace IDTO interface with DTO folder interface and delete it
+      -- Set DTO to implement Interface
+
+   4) IF Write ROWS is Necessary
+   -- IN Bball.DAL.Tables Update populate{TableName}Values ex: populateBoxScoresValues
    -- Open D:\My Documents\Projects\Code Misc\Code Generators \ CodeGenerator.xlsm
    -- Goto Sheet: populateTABLEValues method 
    -- Update DTO Name (cell C1)
@@ -36,7 +47,12 @@ Modify Table Structure
    -- Paste Result col rows to populate_ocValuesForInsert
       This will move values from the DTO to ocValues for INSERT sql method -- Writing Rows
 
-   5) Update columns in method Populate{TableName}DTO manually
+   5) Update columns in method Populate{TableName}DTO Method - IF GET ROWS is Necessary
+   -- In Sql Server run #scrPopulateDTO.sql - Update TableName
+   -- Open D:\My Documents\Projects\Code Misc\Code Generators \ CodeGenerator.xlsm
+   -- Goto Sheet: populateDTO  
+   -- Paste rows from #scrPopulateDTO into Cols A - C
+   -- Paste Result col rows to populateDTO method in Bball.DAL.Tables new TableDO (Data Object)
    -- This method will pop the DTO from the Sql RDR on a QUERY             -- Reading Rows
 
 
@@ -79,3 +95,30 @@ SELECT * FROM table1
 
 INSERT INTO table2 (col1, Col2 ...)
 SELECT col1, Col2 ... FROM table1
+
+App
+
+Index.html
+  <script src="Adjustments/AdjustmentsApp.js"></script>
+   <script src="indexController.js"></script>
+   <script src="Adjustments/AdjustmentsController.js"></script>
+   <script src="TodaysMatchups/TodaysMatchupsController.js"></script>
+
+   <div ng-include="'_layout/layout.html'"></div>
+IndexController.js
+   angular.module('app').controller('indexController', function ($scope) {
+      $scope.cbShowAdjustments = true;
+      $scope.cbShowTodaysMatchups = true;
+   });
+
+layout.html
+   checkboxs
+   include TMs & Adjs
+layout.js - empty
+
+TodaysMatchups.html
+   Hdr
+   include="'_TodaysMatchupsTable.html'">
+
+_TodaysMatchupsTable.html
+   <tr ng-repeat="item in ocTodaysMatchupsDTO">

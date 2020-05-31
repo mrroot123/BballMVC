@@ -10,14 +10,18 @@
 namespace BballMVC.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class AdjustmentsCodes
+    public partial class uspQueryAdjustments_Result
     {
-        public int AdjustmentsCodesID { get; set; }
-        public string Type { get; set; }
+        public int AdjustmentID { get; set; }
+        public string LeagueName { get; set; }
+        public System.DateTime StartDate { get; set; }
+        public Nullable<System.DateTime> EndDate { get; set; }
+        public string Team { get; set; }
+        public string AdjustmentType { get; set; }
+        public float AdjustmentAmount { get; set; }
+        public string Player { get; set; }
         public string Description { get; set; }
-        public bool Range { get; set; }
-        public bool BypassDropDown { get; set; }
+        public Nullable<System.DateTime> TS { get; set; }
     }
 }

@@ -179,6 +179,8 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="ControllerAPIs\AdjustmentsController.cs" />
+    <Compile Include="ControllerAPIs\BaseApiController.cs" />
+    <Compile Include="ControllerAPIs\TodaysMatchupsController.cs" />
     <Compile Include="Controllers\AdjustmentsCodesController.cs" />
     <Compile Include="Controllers\AdjustmentsController.cs" />
     <Compile Include="Controllers\BoxScoresController.cs" />
@@ -219,6 +221,9 @@
     <Compile Include="Models\BoxScoresLast5Min.cs">
       <DependentUpon>BballEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\BoxScoresSeeds.cs">
+      <DependentUpon>BballEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DailySummary.cs">
       <DependentUpon>BballEntities.tt</DependentUpon>
     </Compile>
@@ -243,22 +248,47 @@
     <Compile Include="Models\TeamLookupSourceToSource_Result.cs">
       <DependentUpon>BballEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TodaysMatchups.cs">
+      <DependentUpon>BballEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\udfDailyParms_Result.cs">
+      <DependentUpon>BballEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\User.cs">
+      <DependentUpon>BballEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\uspQueryAdjustments_Result.cs">
+      <DependentUpon>BballEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\uspQueryCalcTeamStrength_Result.cs">
+      <DependentUpon>BballEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\uspQueryLeagueAverages_Result.cs">
+      <DependentUpon>BballEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\uspQueryTeams_Result.cs">
       <DependentUpon>BballEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\Adjustments\AdjustmentsApp.js" />
+    <Content Include="App\Adjustments\AdjustmentsController.js" />
     <Content Include="App\Adjustments\_AdjustmentRow.html" />
     <Content Include="App\Adjustments\_AdjustmentsModel.html" />
     <Content Include="App\Common\Head.html" />
     <Content Include="App\Index.html" />
     <Content Include="App\indexController.js" />
     <Content Include="App\Test\Test.html" />
+    <Content Include="App\Test\_TestColSpan.html" />
     <Content Include="App\Test\_TestTable.html" />
+    <Content Include="App\TodaysMatchups\TodaysMatchups.html" />
+    <Content Include="App\TodaysMatchups\TodaysMatchupsController.js" />
+    <Content Include="App\TodaysMatchups\_TodaysMatchupsTable.html" />
     <Content Include="App\_layout\layout.html" />
     <Content Include="App\_layout\layout.js" />
+    <Content Include="App\_Services\Services.js" />
+    <Content Include="App\__stage.txt" />
     <Content Include="Models\BballEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>BballEntities.edmx</DependentUpon>
@@ -358,10 +388,7 @@
     <Content Include="Views\BoxScores\Edit.cshtml" />
     <Content Include="Views\BoxScores\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App\TodaysMatchups\" />
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

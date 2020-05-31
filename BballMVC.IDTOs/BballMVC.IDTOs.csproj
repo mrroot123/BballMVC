@@ -42,11 +42,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IAdjustmentInitDataDTO.cs" />
-    <Compile Include="IAdjustments.cs" />
+    <Compile Include="IAdjustmentsDTO.cs" />
     <Compile Include="IAdjustmentsDailyDTO.cs" />
+    <Compile Include="IBballInfoDTO.cs" />
     <Compile Include="IBoxScoresDTO.cs" />
+    <Compile Include="IBoxScoresSeedsDTO.cs" />
     <Compile Include="ICoversDTO.cs" />
     <Compile Include="ILeagueDTO.cs" />
+    <Compile Include="ITodaysMatchupsDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
