@@ -59,7 +59,7 @@ angular.module('app').controller('AdjustmentsController', function ($scope, f, a
          $scope.$apply();
       };
 
-      ajx.AjaxGet(UrlGetAdjustments, { LeagueName: LeagueName })   // Get Adjustments from server
+      ajx.AjaxGet(UrlGetAdjustments, { GameDate: GameDate, LeagueName: LeagueName })   // Get Adjustments from server
          .then(data => {
             refreshAdjustments(data);
          })
@@ -82,14 +82,14 @@ angular.module('app').controller('AdjustmentsController', function ($scope, f, a
       let fProcessAdjustmentInfo = {
          scope: Parms.scope
          , process: function (oAdjustmentInitDataDTO) {
-            $scope.GetAdjustments($scope, f, ajx);
+         //   $scope.GetAdjustments($scope, f, ajx);
             // Populate Teams DropDown form Adjustment Entry
             this.scope.TeamList = oAdjustmentInitDataDTO.ocTeams;
             this.scope.AdjustmentNameList = oAdjustmentInitDataDTO.ocAdjustmentNames;
          }
       }; // fProcessAdjustmentInfo
 
-      ajx.AjaxGet(UrlGetAdjustmentInfo, { LeagueName: Parms.LeagueName })
+      ajx.AjaxGet(UrlGetAdjustmentInfo, { GameDate: GameDate,  LeagueName: Parms.LeagueName })
          .then(data => {
             fProcessAdjustmentInfo.process(data);
          })

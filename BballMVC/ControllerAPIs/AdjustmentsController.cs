@@ -24,16 +24,16 @@ namespace BballMVC.ControllerAPIs
       }
 
       [HttpGet]
-      public HttpResponseMessage GetAdjustments(string LeagueName)
+      public HttpResponseMessage GetAdjustments(DateTime GameDate, string LeagueName)
       {
-         List<IDTOs.IAdjustmentDTO> ocAdjustmentDTO = oAdjustmentsBO.GetTodaysAdjustments(LeagueName);
+         List<IDTOs.IAdjustmentDTO> ocAdjustmentDTO = oAdjustmentsBO.GetTodaysAdjustments(GameDate, LeagueName);
 
          return Request.CreateResponse(HttpStatusCode.OK, ocAdjustmentDTO);
       }
       [HttpGet]
-      public HttpResponseMessage GetAdjustmentInfo(string LeagueName)
+      public HttpResponseMessage GetAdjustmentInfo(DateTime GameDate, string LeagueName)
       {
-         IAdjustmentInitDataDTO oAdjustmentInitDataDTO = oAdjustmentsBO.GetAdjustmentInfo(LeagueName);
+         IAdjustmentInitDataDTO oAdjustmentInitDataDTO = oAdjustmentsBO.GetAdjustmentInfo(GameDate, LeagueName);
          return Request.CreateResponse(HttpStatusCode.OK, oAdjustmentInitDataDTO);
       }
 

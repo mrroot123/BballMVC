@@ -265,101 +265,101 @@ const GameDate = "12/01/2018";
 
 
 
-function xValidateAdjustmentEntry(oAdjustment, scope) {
-   var rc = true;
+//function xValidateAdjustmentEntry(oAdjustment, scope) {
+//   var rc = true;
 
-   validateField(oAdjustment.AdjustmentType, "errAdjustmentType");
-   if (oAdjustment.AdjustmentType !== "L") validateField(oAdjustment.Team, "errTeam");
-   validateField(oAdjustment.AdjustmentAmount, "errAdjustmentAmount");
-   if (oAdjustment.AdjustmentType === "I") validateField(oAdjustment.Player, "errPlayer");
-   validateField(oAdjustment.Description, "errDescription");
+//   validateField(oAdjustment.AdjustmentType, "errAdjustmentType");
+//   if (oAdjustment.AdjustmentType !== "L") validateField(oAdjustment.Team, "errTeam");
+//   validateField(oAdjustment.AdjustmentAmount, "errAdjustmentAmount");
+//   if (oAdjustment.AdjustmentType === "I") validateField(oAdjustment.Player, "errPlayer");
+//   validateField(oAdjustment.Description, "errDescription");
 
-   return rc;
+//   return rc;
 
-   function validateFieldNG(input, errName, b) {
-      if (IsEmpty(input)) {
-         rc = false;
-         b = true;
-      } else {
-         b = false;
-      }
-   }
+//   function validateFieldNG(input, errName, b) {
+//      if (IsEmpty(input)) {
+//         rc = false;
+//         b = true;
+//      } else {
+//         b = false;
+//      }
+//   }
 
-   function validateField(input, errName) {
-      if (IsEmpty(input)) {
-         rc = false;
-         $('#' + errName).css({ "display": "block", "color": "red", "background": "yellow" });
-      } else {
-         $('#' + errName).css({ "display": "none" });
-      }
-   }
-   function IsEmpty(input) {
-      return !input || !input.trim();
-   }
-}
+//   function validateField(input, errName) {
+//      if (IsEmpty(input)) {
+//         rc = false;
+//         $('#' + errName).css({ "display": "block", "color": "red", "background": "yellow" });
+//      } else {
+//         $('#' + errName).css({ "display": "none" });
+//      }
+//   }
+//   function IsEmpty(input) {
+//      return !input || !input.trim();
+//   }
+//}
 
-function xGetAdjustmentInfo(Parms) { // called once at Controller init
-   var f = Parms.f;
-   var ajx = Parms.ajx;
-   const Data = { LeagueName: Parms.LeagueName };
-   let fProcessAdjustmentInfo = {
-      scope: Parms.scope
-      , process: function (oAdjustmentInitDataDTO) {
-         GetAdjustments(Parms);
-         // Populate Teams DropDown form Adjustment Entry
+//function xGetAdjustmentInfo(Parms) { // called once at Controller init
+//   var f = Parms.f;
+//   var ajx = Parms.ajx;
+//   const Data = { LeagueName: Parms.LeagueName };
+//   let fProcessAdjustmentInfo = {
+//      scope: Parms.scope
+//      , process: function (oAdjustmentInitDataDTO) {
+//         GetAdjustments(Parms);
+//         // Populate Teams DropDown form Adjustment Entry
 
-         this.scope.TeamList = oAdjustmentInitDataDTO.ocTeams;
-         this.scope.AdjustmentNameList = oAdjustmentInitDataDTO.ocAdjustmentNames;
-      }
-   }; // fProcessAdjustmentInfo
+//         this.scope.TeamList = oAdjustmentInitDataDTO.ocTeams;
+//         this.scope.AdjustmentNameList = oAdjustmentInitDataDTO.ocAdjustmentNames;
+//      }
+//   }; // fProcessAdjustmentInfo
 
-   ajx.AjaxGet(UrlGetAdjustmentInfo, Data)
-      .then(data => {
-         fProcessAdjustmentInfo.process(data);
-      })
-      .catch(error => {
-         f.DisplayMessage(f.FormatResponse(error));
-      });
-   return;
-}  // GetAdjustmentInfo
+//   ajx.AjaxGet(UrlGetAdjustmentInfo, Data)
+//      .then(data => {
+//         fProcessAdjustmentInfo.process(data);
+//      })
+//      .catch(error => {
+//         f.DisplayMessage(f.FormatResponse(error));
+//      });
+//   return;
+//}  // GetAdjustmentInfo
 
-function xGetAdjustments(Parms) {
-   var f = Parms.f;
-   var ajx = Parms.ajx;
-   let fProcessAdjustments = {
-      scope: Parms.scope
-      , process: function (ocAdjustments) {
-         Parms.scope.ocAdjustments = ocAdjustments;
-         Parms.scope.ocAdjustments.forEach(function (item) {
-            item.cb_ID = "cb_" + item.AdjustmentID;
-         });
+//function xGetAdjustments(Parms) {
+//   var f = Parms.f;
+//   var ajx = Parms.ajx;
+//   let fProcessAdjustments = {
+//      scope: Parms.scope
+//      , process: function (ocAdjustments) {
+//         Parms.scope.ocAdjustments = ocAdjustments;
+//         Parms.scope.ocAdjustments.forEach(function (item) {
+//            item.cb_ID = "cb_" + item.AdjustmentID;
+//         });
 
-         Parms.scope.$apply();
-      }
-   }; // fProcessAdjustments
+//         Parms.scope.$apply();
+//      }
+//   }; // fProcessAdjustments
 
-   ajx.AjaxGet(UrlGetAdjustments, { LeagueName: Parms.LeagueName })   // Get Adjustments from server
-      .then(data => {
-         fProcessAdjustments.process(data);
-      })
-      .catch(error => {
-         f.DisplayMessage(f.FormatResponse(error));
-      });
+//   ajx.AjaxGet(UrlGetAdjustments, { LeagueName: Parms.LeagueName })   // Get Adjustments from server
+//      .then(data => {
+//         fProcessAdjustments.process(data);
+//      })
+//      .catch(error => {
+//         f.DisplayMessage(f.FormatResponse(error));
+//      });
 
-}  // GetAdjustments
+//}  // GetAdjustments
 
 
-function xFormatResponse(response) {
-   if (response.status !== undefined) {
-      return "status: " + response.status + "\n"
-         + "statusText: " + response.statusText + "\n"
-         + "responseText: " + response.responseText;
-   }
-   if (response.message !== undefined) {
-      return response.message;
-   }
-   return response;
-}
+//function xFormatResponse(response) {
+//   if (response.status !== undefined) {
+//      return "status: " + response.status + "\n"
+//         + "statusText: " + response.statusText + "\n"
+//         + "responseText: " + response.responseText;
+//   }
+//   if (response.message !== undefined) {
+//      return response.message;
+//   }
+//   return response;
+//}
 
 
 

@@ -44,10 +44,13 @@ namespace Bball.DAL.Tables
 
          return GameDate;
       }
-      public bool RotationLoadedToDate() => GameDate > DateTime.Today.AddDays(1);  // Load Today's & Tomorrows Rotation
+      // Load Today's & Tomorrows Rotation
+      public bool RotationLoadedToDate() 
+         => GameDate > DateTime.Today.AddDays(1);  
 
       private  void populateSeasonInfoDTO()
       {
+         // kdtodo - move SqlFunctions.GetConnectionString() to constructor 2b injected
          int rows = SysDAL.DALfunctions.ExecuteSqlQuery(SqlFunctions.GetConnectionString(), SeasonInfoRowSql()
                        ,  oSeasonInfoDTO, PopulateDTO);
          if (rows == 0)
@@ -69,7 +72,6 @@ namespace Bball.DAL.Tables
             + $"  Where s.LeagueName = '{_LeagueName}'  And '{GameDate}' >= s.StartDate  And '{GameDate}' <= s.EndDate"
             + "   Order By s.StartDate DESC"
             ;
-
          return Sql;
       }
       static void PopulateDTO(object oRow, SqlDataReader rdr)

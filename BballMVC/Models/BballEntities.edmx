@@ -476,15 +476,25 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.TodaysMatchups' does not ha
             <PropertyRef Name="TeamAway" />
             <PropertyRef Name="TeamHome" />
             <PropertyRef Name="RotNum" />
+            <PropertyRef Name="TmStrAway" />
+            <PropertyRef Name="TmStrHome" />
             <PropertyRef Name="UnAdjTotalAway" />
             <PropertyRef Name="UnAdjTotalHome" />
             <PropertyRef Name="UnAdjTotal" />
+            <PropertyRef Name="AdjAmt" />
             <PropertyRef Name="AdjAmtAway" />
             <PropertyRef Name="AdjAmtHome" />
-            <PropertyRef Name="AdjAmt" />
+            <PropertyRef Name="AdjDbAway" />
+            <PropertyRef Name="AdjDbHome" />
+            <PropertyRef Name="AdjOTwithSide" />
+            <PropertyRef Name="AdjTV" />
             <PropertyRef Name="OurTotalLineAway" />
             <PropertyRef Name="OurTotalLineHome" />
             <PropertyRef Name="OurTotalLine" />
+            <PropertyRef Name="SideLine" />
+            <PropertyRef Name="TotalLine" />
+            <PropertyRef Name="Play" />
+            <PropertyRef Name="PlayDiff" />
             <PropertyRef Name="BxScLinePct" />
             <PropertyRef Name="TmStrAdjPct" />
             <PropertyRef Name="GB1" />
@@ -493,6 +503,36 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.TodaysMatchups' does not ha
             <PropertyRef Name="WeightGB1" />
             <PropertyRef Name="WeightGB2" />
             <PropertyRef Name="WeightGB3" />
+            <PropertyRef Name="AwayAverageAtmpUsPt1" />
+            <PropertyRef Name="AwayAverageAtmpUsPt2" />
+            <PropertyRef Name="AwayAverageAtmpUsPt3" />
+            <PropertyRef Name="HomeAverageAtmpUsPt1" />
+            <PropertyRef Name="HomeAverageAtmpUsPt2" />
+            <PropertyRef Name="HomeAverageAtmpUsPt3" />
+            <PropertyRef Name="AwayGB1" />
+            <PropertyRef Name="AwayGB2" />
+            <PropertyRef Name="AwayGB3" />
+            <PropertyRef Name="HomeGB1" />
+            <PropertyRef Name="HomeGB2" />
+            <PropertyRef Name="HomeGB3" />
+            <PropertyRef Name="AwayGB1Pt1" />
+            <PropertyRef Name="AwayGB1Pt2" />
+            <PropertyRef Name="AwayGB1Pt3" />
+            <PropertyRef Name="AwayGB2Pt1" />
+            <PropertyRef Name="AwayGB2Pt2" />
+            <PropertyRef Name="AwayGB2Pt3" />
+            <PropertyRef Name="AwayGB3Pt1" />
+            <PropertyRef Name="AwayGB3Pt2" />
+            <PropertyRef Name="AwayGB3Pt3" />
+            <PropertyRef Name="HomeGB1Pt1" />
+            <PropertyRef Name="HomeGB1Pt2" />
+            <PropertyRef Name="HomeGB1Pt3" />
+            <PropertyRef Name="HomeGB2Pt1" />
+            <PropertyRef Name="HomeGB2Pt2" />
+            <PropertyRef Name="HomeGB2Pt3" />
+            <PropertyRef Name="HomeGB3Pt1" />
+            <PropertyRef Name="HomeGB3Pt2" />
+            <PropertyRef Name="HomeGB3Pt3" />
           </Key>
           <Property Name="TodaysMatchupsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserName" Type="char" MaxLength="10" Nullable="false" />
@@ -503,26 +543,29 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.TodaysMatchups' does not ha
           <Property Name="TeamAway" Type="char" MaxLength="8" Nullable="false" />
           <Property Name="TeamHome" Type="char" MaxLength="8" Nullable="false" />
           <Property Name="RotNum" Type="int" Nullable="false" />
-          <Property Name="Time" Type="datetime" />
+          <Property Name="GameTime" Type="varchar" MaxLength="5" />
           <Property Name="TV" Type="char" MaxLength="8" />
-          <Property Name="TmStrAway" Type="float" />
-          <Property Name="TmStrHome" Type="float" />
+          <Property Name="TmStrAway" Type="float" Nullable="false" />
+          <Property Name="TmStrHome" Type="float" Nullable="false" />
           <Property Name="UnAdjTotalAway" Type="float" Nullable="false" />
           <Property Name="UnAdjTotalHome" Type="float" Nullable="false" />
           <Property Name="UnAdjTotal" Type="float" Nullable="false" />
+          <Property Name="AdjAmt" Type="float" Nullable="false" />
           <Property Name="AdjAmtAway" Type="float" Nullable="false" />
           <Property Name="AdjAmtHome" Type="float" Nullable="false" />
-          <Property Name="AdjAmt" Type="float" Nullable="false" />
-          <Property Name="AdjOTwithSide" Type="float" />
+          <Property Name="AdjDbAway" Type="float" Nullable="false" />
+          <Property Name="AdjDbHome" Type="float" Nullable="false" />
+          <Property Name="AdjOTwithSide" Type="float" Nullable="false" />
+          <Property Name="AdjTV" Type="float" Nullable="false" />
           <Property Name="OurTotalLineAway" Type="float" Nullable="false" />
           <Property Name="OurTotalLineHome" Type="float" Nullable="false" />
           <Property Name="OurTotalLine" Type="float" Nullable="false" />
-          <Property Name="SideLine" Type="float" />
-          <Property Name="TotalLine" Type="float" />
+          <Property Name="SideLine" Type="float" Nullable="false" />
+          <Property Name="TotalLine" Type="float" Nullable="false" />
           <Property Name="OpenTotalLine" Type="float" />
-          <Property Name="Play" Type="char" MaxLength="8" />
-          <Property Name="LineDiff" Type="float" />
-          <Property Name="OpenLineDiff" Type="float" />
+          <Property Name="Play" Type="char" MaxLength="8" Nullable="false" />
+          <Property Name="PlayDiff" Type="float" Nullable="false" />
+          <Property Name="OpenPlayDiff" Type="float" />
           <Property Name="AdjustedDiff" Type="float" />
           <Property Name="BxScLinePct" Type="float" Nullable="false" />
           <Property Name="TmStrAdjPct" Type="float" Nullable="false" />
@@ -532,30 +575,42 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.TodaysMatchups' does not ha
           <Property Name="WeightGB1" Type="int" Nullable="false" />
           <Property Name="WeightGB2" Type="int" Nullable="false" />
           <Property Name="WeightGB3" Type="int" Nullable="false" />
-          <Property Name="AwayGB1" Type="float" />
-          <Property Name="AwayGB2" Type="float" />
-          <Property Name="AwayGB3" Type="float" />
-          <Property Name="HomeGB1" Type="float" />
-          <Property Name="HomeGB2" Type="float" />
-          <Property Name="HomeGB3" Type="float" />
-          <Property Name="AwayGB1Pt1" Type="float" />
-          <Property Name="AwayGB1Pt2" Type="float" />
-          <Property Name="AwayGB1Pt3" Type="float" />
-          <Property Name="AwayGB2Pt1" Type="float" />
-          <Property Name="AwayGB2Pt2" Type="float" />
-          <Property Name="AwayGB2Pt3" Type="float" />
-          <Property Name="AwayGB3Pt1" Type="float" />
-          <Property Name="AwayGB3Pt2" Type="float" />
-          <Property Name="AwayGB3Pt3" Type="float" />
-          <Property Name="HomeGB1Pt1" Type="float" />
-          <Property Name="HomeGB1Pt2" Type="float" />
-          <Property Name="HomeGB1Pt3" Type="float" />
-          <Property Name="HomeGB2Pt1" Type="float" />
-          <Property Name="HomeGB2Pt2" Type="float" />
-          <Property Name="HomeGB2Pt3" Type="float" />
-          <Property Name="HomeGB3Pt1" Type="float" />
-          <Property Name="HomeGB3Pt2" Type="float" />
-          <Property Name="HomeGB3Pt3" Type="float" />
+          <Property Name="AwayProjectedPt1" Type="float" />
+          <Property Name="AwayProjectedPt2" Type="float" />
+          <Property Name="AwayProjectedPt3" Type="float" />
+          <Property Name="HomeProjectedPt1" Type="float" />
+          <Property Name="HomeProjectedPt2" Type="float" />
+          <Property Name="HomeProjectedPt3" Type="float" />
+          <Property Name="AwayAverageAtmpUsPt1" Type="float" Nullable="false" />
+          <Property Name="AwayAverageAtmpUsPt2" Type="float" Nullable="false" />
+          <Property Name="AwayAverageAtmpUsPt3" Type="float" Nullable="false" />
+          <Property Name="HomeAverageAtmpUsPt1" Type="float" Nullable="false" />
+          <Property Name="HomeAverageAtmpUsPt2" Type="float" Nullable="false" />
+          <Property Name="HomeAverageAtmpUsPt3" Type="float" Nullable="false" />
+          <Property Name="AwayGB1" Type="float" Nullable="false" />
+          <Property Name="AwayGB2" Type="float" Nullable="false" />
+          <Property Name="AwayGB3" Type="float" Nullable="false" />
+          <Property Name="HomeGB1" Type="float" Nullable="false" />
+          <Property Name="HomeGB2" Type="float" Nullable="false" />
+          <Property Name="HomeGB3" Type="float" Nullable="false" />
+          <Property Name="AwayGB1Pt1" Type="float" Nullable="false" />
+          <Property Name="AwayGB1Pt2" Type="float" Nullable="false" />
+          <Property Name="AwayGB1Pt3" Type="float" Nullable="false" />
+          <Property Name="AwayGB2Pt1" Type="float" Nullable="false" />
+          <Property Name="AwayGB2Pt2" Type="float" Nullable="false" />
+          <Property Name="AwayGB2Pt3" Type="float" Nullable="false" />
+          <Property Name="AwayGB3Pt1" Type="float" Nullable="false" />
+          <Property Name="AwayGB3Pt2" Type="float" Nullable="false" />
+          <Property Name="AwayGB3Pt3" Type="float" Nullable="false" />
+          <Property Name="HomeGB1Pt1" Type="float" Nullable="false" />
+          <Property Name="HomeGB1Pt2" Type="float" Nullable="false" />
+          <Property Name="HomeGB1Pt3" Type="float" Nullable="false" />
+          <Property Name="HomeGB2Pt1" Type="float" Nullable="false" />
+          <Property Name="HomeGB2Pt2" Type="float" Nullable="false" />
+          <Property Name="HomeGB2Pt3" Type="float" Nullable="false" />
+          <Property Name="HomeGB3Pt1" Type="float" Nullable="false" />
+          <Property Name="HomeGB3Pt2" Type="float" Nullable="false" />
+          <Property Name="HomeGB3Pt3" Type="float" Nullable="false" />
           <Property Name="TotalBubbleAway" Type="float" />
           <Property Name="TotalBubbleHome" Type="float" />
         </EntityType>
@@ -623,7 +678,8 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.Users' does not have a prim
                 <Property Name="SubSeason" Type="varchar" MaxLength="10" />
                 <Property Name="varLgAvgGamesBack" Type="int" />
                 <Property Name="varTeamAvgGamesBack" Type="int" />
-                <Property Name="BxScAdjPct" Type="float" />
+                <Property Name="BxScLinePct" Type="float" />
+                <Property Name="BxScTmStrPct" Type="float" />
                 <Property Name="TmStrAdjPct" Type="float" />
                 <Property Name="LgAvgScoreAway" Type="float" />
                 <Property Name="LgAvgScoreHome" Type="float" />
@@ -953,17 +1009,20 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.Users' does not have a prim
     [TodaysMatchups].[TeamAway] AS [TeamAway], 
     [TodaysMatchups].[TeamHome] AS [TeamHome], 
     [TodaysMatchups].[RotNum] AS [RotNum], 
-    [TodaysMatchups].[Time] AS [Time], 
+    [TodaysMatchups].[GameTime] AS [GameTime], 
     [TodaysMatchups].[TV] AS [TV], 
     [TodaysMatchups].[TmStrAway] AS [TmStrAway], 
     [TodaysMatchups].[TmStrHome] AS [TmStrHome], 
     [TodaysMatchups].[UnAdjTotalAway] AS [UnAdjTotalAway], 
     [TodaysMatchups].[UnAdjTotalHome] AS [UnAdjTotalHome], 
     [TodaysMatchups].[UnAdjTotal] AS [UnAdjTotal], 
+    [TodaysMatchups].[AdjAmt] AS [AdjAmt], 
     [TodaysMatchups].[AdjAmtAway] AS [AdjAmtAway], 
     [TodaysMatchups].[AdjAmtHome] AS [AdjAmtHome], 
-    [TodaysMatchups].[AdjAmt] AS [AdjAmt], 
+    [TodaysMatchups].[AdjDbAway] AS [AdjDbAway], 
+    [TodaysMatchups].[AdjDbHome] AS [AdjDbHome], 
     [TodaysMatchups].[AdjOTwithSide] AS [AdjOTwithSide], 
+    [TodaysMatchups].[AdjTV] AS [AdjTV], 
     [TodaysMatchups].[OurTotalLineAway] AS [OurTotalLineAway], 
     [TodaysMatchups].[OurTotalLineHome] AS [OurTotalLineHome], 
     [TodaysMatchups].[OurTotalLine] AS [OurTotalLine], 
@@ -971,8 +1030,8 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.Users' does not have a prim
     [TodaysMatchups].[TotalLine] AS [TotalLine], 
     [TodaysMatchups].[OpenTotalLine] AS [OpenTotalLine], 
     [TodaysMatchups].[Play] AS [Play], 
-    [TodaysMatchups].[LineDiff] AS [LineDiff], 
-    [TodaysMatchups].[OpenLineDiff] AS [OpenLineDiff], 
+    [TodaysMatchups].[PlayDiff] AS [PlayDiff], 
+    [TodaysMatchups].[OpenPlayDiff] AS [OpenPlayDiff], 
     [TodaysMatchups].[AdjustedDiff] AS [AdjustedDiff], 
     [TodaysMatchups].[BxScLinePct] AS [BxScLinePct], 
     [TodaysMatchups].[TmStrAdjPct] AS [TmStrAdjPct], 
@@ -982,6 +1041,18 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.Users' does not have a prim
     [TodaysMatchups].[WeightGB1] AS [WeightGB1], 
     [TodaysMatchups].[WeightGB2] AS [WeightGB2], 
     [TodaysMatchups].[WeightGB3] AS [WeightGB3], 
+    [TodaysMatchups].[AwayProjectedPt1] AS [AwayProjectedPt1], 
+    [TodaysMatchups].[AwayProjectedPt2] AS [AwayProjectedPt2], 
+    [TodaysMatchups].[AwayProjectedPt3] AS [AwayProjectedPt3], 
+    [TodaysMatchups].[HomeProjectedPt1] AS [HomeProjectedPt1], 
+    [TodaysMatchups].[HomeProjectedPt2] AS [HomeProjectedPt2], 
+    [TodaysMatchups].[HomeProjectedPt3] AS [HomeProjectedPt3], 
+    [TodaysMatchups].[AwayAverageAtmpUsPt1] AS [AwayAverageAtmpUsPt1], 
+    [TodaysMatchups].[AwayAverageAtmpUsPt2] AS [AwayAverageAtmpUsPt2], 
+    [TodaysMatchups].[AwayAverageAtmpUsPt3] AS [AwayAverageAtmpUsPt3], 
+    [TodaysMatchups].[HomeAverageAtmpUsPt1] AS [HomeAverageAtmpUsPt1], 
+    [TodaysMatchups].[HomeAverageAtmpUsPt2] AS [HomeAverageAtmpUsPt2], 
+    [TodaysMatchups].[HomeAverageAtmpUsPt3] AS [HomeAverageAtmpUsPt3], 
     [TodaysMatchups].[AwayGB1] AS [AwayGB1], 
     [TodaysMatchups].[AwayGB2] AS [AwayGB2], 
     [TodaysMatchups].[AwayGB3] AS [AwayGB3], 
@@ -1653,15 +1724,25 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.Users' does not have a prim
             <PropertyRef Name="TeamAway" />
             <PropertyRef Name="TeamHome" />
             <PropertyRef Name="RotNum" />
+            <PropertyRef Name="TmStrAway" />
+            <PropertyRef Name="TmStrHome" />
             <PropertyRef Name="UnAdjTotalAway" />
             <PropertyRef Name="UnAdjTotalHome" />
             <PropertyRef Name="UnAdjTotal" />
+            <PropertyRef Name="AdjAmt" />
             <PropertyRef Name="AdjAmtAway" />
             <PropertyRef Name="AdjAmtHome" />
-            <PropertyRef Name="AdjAmt" />
+            <PropertyRef Name="AdjDbAway" />
+            <PropertyRef Name="AdjDbHome" />
+            <PropertyRef Name="AdjOTwithSide" />
+            <PropertyRef Name="AdjTV" />
             <PropertyRef Name="OurTotalLineAway" />
             <PropertyRef Name="OurTotalLineHome" />
             <PropertyRef Name="OurTotalLine" />
+            <PropertyRef Name="SideLine" />
+            <PropertyRef Name="TotalLine" />
+            <PropertyRef Name="Play" />
+            <PropertyRef Name="PlayDiff" />
             <PropertyRef Name="BxScLinePct" />
             <PropertyRef Name="TmStrAdjPct" />
             <PropertyRef Name="GB1" />
@@ -1670,6 +1751,36 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.Users' does not have a prim
             <PropertyRef Name="WeightGB1" />
             <PropertyRef Name="WeightGB2" />
             <PropertyRef Name="WeightGB3" />
+            <PropertyRef Name="AwayAverageAtmpUsPt1" />
+            <PropertyRef Name="AwayAverageAtmpUsPt2" />
+            <PropertyRef Name="AwayAverageAtmpUsPt3" />
+            <PropertyRef Name="HomeAverageAtmpUsPt1" />
+            <PropertyRef Name="HomeAverageAtmpUsPt2" />
+            <PropertyRef Name="HomeAverageAtmpUsPt3" />
+            <PropertyRef Name="AwayGB1" />
+            <PropertyRef Name="AwayGB2" />
+            <PropertyRef Name="AwayGB3" />
+            <PropertyRef Name="HomeGB1" />
+            <PropertyRef Name="HomeGB2" />
+            <PropertyRef Name="HomeGB3" />
+            <PropertyRef Name="AwayGB1Pt1" />
+            <PropertyRef Name="AwayGB1Pt2" />
+            <PropertyRef Name="AwayGB1Pt3" />
+            <PropertyRef Name="AwayGB2Pt1" />
+            <PropertyRef Name="AwayGB2Pt2" />
+            <PropertyRef Name="AwayGB2Pt3" />
+            <PropertyRef Name="AwayGB3Pt1" />
+            <PropertyRef Name="AwayGB3Pt2" />
+            <PropertyRef Name="AwayGB3Pt3" />
+            <PropertyRef Name="HomeGB1Pt1" />
+            <PropertyRef Name="HomeGB1Pt2" />
+            <PropertyRef Name="HomeGB1Pt3" />
+            <PropertyRef Name="HomeGB2Pt1" />
+            <PropertyRef Name="HomeGB2Pt2" />
+            <PropertyRef Name="HomeGB2Pt3" />
+            <PropertyRef Name="HomeGB3Pt1" />
+            <PropertyRef Name="HomeGB3Pt2" />
+            <PropertyRef Name="HomeGB3Pt3" />
           </Key>
           <Property Name="TodaysMatchupsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserName" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
@@ -1680,26 +1791,29 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.Users' does not have a prim
           <Property Name="TeamAway" Type="String" Nullable="false" MaxLength="8" FixedLength="true" Unicode="false" />
           <Property Name="TeamHome" Type="String" Nullable="false" MaxLength="8" FixedLength="true" Unicode="false" />
           <Property Name="RotNum" Type="Int32" Nullable="false" />
-          <Property Name="Time" Type="DateTime" Precision="3" />
+          <Property Name="GameTime" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
           <Property Name="TV" Type="String" MaxLength="8" FixedLength="true" Unicode="false" />
-          <Property Name="TmStrAway" Type="Double" />
-          <Property Name="TmStrHome" Type="Double" />
+          <Property Name="TmStrAway" Type="Double" Nullable="false" />
+          <Property Name="TmStrHome" Type="Double" Nullable="false" />
           <Property Name="UnAdjTotalAway" Type="Double" Nullable="false" />
           <Property Name="UnAdjTotalHome" Type="Double" Nullable="false" />
           <Property Name="UnAdjTotal" Type="Double" Nullable="false" />
+          <Property Name="AdjAmt" Type="Double" Nullable="false" />
           <Property Name="AdjAmtAway" Type="Double" Nullable="false" />
           <Property Name="AdjAmtHome" Type="Double" Nullable="false" />
-          <Property Name="AdjAmt" Type="Double" Nullable="false" />
-          <Property Name="AdjOTwithSide" Type="Double" />
+          <Property Name="AdjDbAway" Type="Double" Nullable="false" />
+          <Property Name="AdjDbHome" Type="Double" Nullable="false" />
+          <Property Name="AdjOTwithSide" Type="Double" Nullable="false" />
+          <Property Name="AdjTV" Type="Double" Nullable="false" />
           <Property Name="OurTotalLineAway" Type="Double" Nullable="false" />
           <Property Name="OurTotalLineHome" Type="Double" Nullable="false" />
           <Property Name="OurTotalLine" Type="Double" Nullable="false" />
-          <Property Name="SideLine" Type="Double" />
-          <Property Name="TotalLine" Type="Double" />
+          <Property Name="SideLine" Type="Double" Nullable="false" />
+          <Property Name="TotalLine" Type="Double" Nullable="false" />
           <Property Name="OpenTotalLine" Type="Double" />
-          <Property Name="Play" Type="String" MaxLength="8" FixedLength="true" Unicode="false" />
-          <Property Name="LineDiff" Type="Double" />
-          <Property Name="OpenLineDiff" Type="Double" />
+          <Property Name="Play" Type="String" Nullable="false" MaxLength="8" FixedLength="true" Unicode="false" />
+          <Property Name="PlayDiff" Type="Double" Nullable="false" />
+          <Property Name="OpenPlayDiff" Type="Double" />
           <Property Name="AdjustedDiff" Type="Double" />
           <Property Name="BxScLinePct" Type="Double" Nullable="false" />
           <Property Name="TmStrAdjPct" Type="Double" Nullable="false" />
@@ -1709,30 +1823,42 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.Users' does not have a prim
           <Property Name="WeightGB1" Type="Int32" Nullable="false" />
           <Property Name="WeightGB2" Type="Int32" Nullable="false" />
           <Property Name="WeightGB3" Type="Int32" Nullable="false" />
-          <Property Name="AwayGB1" Type="Double" />
-          <Property Name="AwayGB2" Type="Double" />
-          <Property Name="AwayGB3" Type="Double" />
-          <Property Name="HomeGB1" Type="Double" />
-          <Property Name="HomeGB2" Type="Double" />
-          <Property Name="HomeGB3" Type="Double" />
-          <Property Name="AwayGB1Pt1" Type="Double" />
-          <Property Name="AwayGB1Pt2" Type="Double" />
-          <Property Name="AwayGB1Pt3" Type="Double" />
-          <Property Name="AwayGB2Pt1" Type="Double" />
-          <Property Name="AwayGB2Pt2" Type="Double" />
-          <Property Name="AwayGB2Pt3" Type="Double" />
-          <Property Name="AwayGB3Pt1" Type="Double" />
-          <Property Name="AwayGB3Pt2" Type="Double" />
-          <Property Name="AwayGB3Pt3" Type="Double" />
-          <Property Name="HomeGB1Pt1" Type="Double" />
-          <Property Name="HomeGB1Pt2" Type="Double" />
-          <Property Name="HomeGB1Pt3" Type="Double" />
-          <Property Name="HomeGB2Pt1" Type="Double" />
-          <Property Name="HomeGB2Pt2" Type="Double" />
-          <Property Name="HomeGB2Pt3" Type="Double" />
-          <Property Name="HomeGB3Pt1" Type="Double" />
-          <Property Name="HomeGB3Pt2" Type="Double" />
-          <Property Name="HomeGB3Pt3" Type="Double" />
+          <Property Name="AwayProjectedPt1" Type="Double" />
+          <Property Name="AwayProjectedPt2" Type="Double" />
+          <Property Name="AwayProjectedPt3" Type="Double" />
+          <Property Name="HomeProjectedPt1" Type="Double" />
+          <Property Name="HomeProjectedPt2" Type="Double" />
+          <Property Name="HomeProjectedPt3" Type="Double" />
+          <Property Name="AwayAverageAtmpUsPt1" Type="Double" Nullable="false" />
+          <Property Name="AwayAverageAtmpUsPt2" Type="Double" Nullable="false" />
+          <Property Name="AwayAverageAtmpUsPt3" Type="Double" Nullable="false" />
+          <Property Name="HomeAverageAtmpUsPt1" Type="Double" Nullable="false" />
+          <Property Name="HomeAverageAtmpUsPt2" Type="Double" Nullable="false" />
+          <Property Name="HomeAverageAtmpUsPt3" Type="Double" Nullable="false" />
+          <Property Name="AwayGB1" Type="Double" Nullable="false" />
+          <Property Name="AwayGB2" Type="Double" Nullable="false" />
+          <Property Name="AwayGB3" Type="Double" Nullable="false" />
+          <Property Name="HomeGB1" Type="Double" Nullable="false" />
+          <Property Name="HomeGB2" Type="Double" Nullable="false" />
+          <Property Name="HomeGB3" Type="Double" Nullable="false" />
+          <Property Name="AwayGB1Pt1" Type="Double" Nullable="false" />
+          <Property Name="AwayGB1Pt2" Type="Double" Nullable="false" />
+          <Property Name="AwayGB1Pt3" Type="Double" Nullable="false" />
+          <Property Name="AwayGB2Pt1" Type="Double" Nullable="false" />
+          <Property Name="AwayGB2Pt2" Type="Double" Nullable="false" />
+          <Property Name="AwayGB2Pt3" Type="Double" Nullable="false" />
+          <Property Name="AwayGB3Pt1" Type="Double" Nullable="false" />
+          <Property Name="AwayGB3Pt2" Type="Double" Nullable="false" />
+          <Property Name="AwayGB3Pt3" Type="Double" Nullable="false" />
+          <Property Name="HomeGB1Pt1" Type="Double" Nullable="false" />
+          <Property Name="HomeGB1Pt2" Type="Double" Nullable="false" />
+          <Property Name="HomeGB1Pt3" Type="Double" Nullable="false" />
+          <Property Name="HomeGB2Pt1" Type="Double" Nullable="false" />
+          <Property Name="HomeGB2Pt2" Type="Double" Nullable="false" />
+          <Property Name="HomeGB2Pt3" Type="Double" Nullable="false" />
+          <Property Name="HomeGB3Pt1" Type="Double" Nullable="false" />
+          <Property Name="HomeGB3Pt2" Type="Double" Nullable="false" />
+          <Property Name="HomeGB3Pt3" Type="Double" Nullable="false" />
           <Property Name="TotalBubbleAway" Type="Double" />
           <Property Name="TotalBubbleHome" Type="Double" />
         </EntityType>
@@ -2160,6 +2286,18 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.Users' does not have a prim
                 <ScalarProperty Name="AwayGB3" ColumnName="AwayGB3" />
                 <ScalarProperty Name="AwayGB2" ColumnName="AwayGB2" />
                 <ScalarProperty Name="AwayGB1" ColumnName="AwayGB1" />
+                <ScalarProperty Name="HomeAverageAtmpUsPt3" ColumnName="HomeAverageAtmpUsPt3" />
+                <ScalarProperty Name="HomeAverageAtmpUsPt2" ColumnName="HomeAverageAtmpUsPt2" />
+                <ScalarProperty Name="HomeAverageAtmpUsPt1" ColumnName="HomeAverageAtmpUsPt1" />
+                <ScalarProperty Name="AwayAverageAtmpUsPt3" ColumnName="AwayAverageAtmpUsPt3" />
+                <ScalarProperty Name="AwayAverageAtmpUsPt2" ColumnName="AwayAverageAtmpUsPt2" />
+                <ScalarProperty Name="AwayAverageAtmpUsPt1" ColumnName="AwayAverageAtmpUsPt1" />
+                <ScalarProperty Name="HomeProjectedPt3" ColumnName="HomeProjectedPt3" />
+                <ScalarProperty Name="HomeProjectedPt2" ColumnName="HomeProjectedPt2" />
+                <ScalarProperty Name="HomeProjectedPt1" ColumnName="HomeProjectedPt1" />
+                <ScalarProperty Name="AwayProjectedPt3" ColumnName="AwayProjectedPt3" />
+                <ScalarProperty Name="AwayProjectedPt2" ColumnName="AwayProjectedPt2" />
+                <ScalarProperty Name="AwayProjectedPt1" ColumnName="AwayProjectedPt1" />
                 <ScalarProperty Name="WeightGB3" ColumnName="WeightGB3" />
                 <ScalarProperty Name="WeightGB2" ColumnName="WeightGB2" />
                 <ScalarProperty Name="WeightGB1" ColumnName="WeightGB1" />
@@ -2169,8 +2307,8 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.Users' does not have a prim
                 <ScalarProperty Name="TmStrAdjPct" ColumnName="TmStrAdjPct" />
                 <ScalarProperty Name="BxScLinePct" ColumnName="BxScLinePct" />
                 <ScalarProperty Name="AdjustedDiff" ColumnName="AdjustedDiff" />
-                <ScalarProperty Name="OpenLineDiff" ColumnName="OpenLineDiff" />
-                <ScalarProperty Name="LineDiff" ColumnName="LineDiff" />
+                <ScalarProperty Name="OpenPlayDiff" ColumnName="OpenPlayDiff" />
+                <ScalarProperty Name="PlayDiff" ColumnName="PlayDiff" />
                 <ScalarProperty Name="Play" ColumnName="Play" />
                 <ScalarProperty Name="OpenTotalLine" ColumnName="OpenTotalLine" />
                 <ScalarProperty Name="TotalLine" ColumnName="TotalLine" />
@@ -2178,17 +2316,20 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.Users' does not have a prim
                 <ScalarProperty Name="OurTotalLine" ColumnName="OurTotalLine" />
                 <ScalarProperty Name="OurTotalLineHome" ColumnName="OurTotalLineHome" />
                 <ScalarProperty Name="OurTotalLineAway" ColumnName="OurTotalLineAway" />
+                <ScalarProperty Name="AdjTV" ColumnName="AdjTV" />
                 <ScalarProperty Name="AdjOTwithSide" ColumnName="AdjOTwithSide" />
-                <ScalarProperty Name="AdjAmt" ColumnName="AdjAmt" />
+                <ScalarProperty Name="AdjDbHome" ColumnName="AdjDbHome" />
+                <ScalarProperty Name="AdjDbAway" ColumnName="AdjDbAway" />
                 <ScalarProperty Name="AdjAmtHome" ColumnName="AdjAmtHome" />
                 <ScalarProperty Name="AdjAmtAway" ColumnName="AdjAmtAway" />
+                <ScalarProperty Name="AdjAmt" ColumnName="AdjAmt" />
                 <ScalarProperty Name="UnAdjTotal" ColumnName="UnAdjTotal" />
                 <ScalarProperty Name="UnAdjTotalHome" ColumnName="UnAdjTotalHome" />
                 <ScalarProperty Name="UnAdjTotalAway" ColumnName="UnAdjTotalAway" />
                 <ScalarProperty Name="TmStrHome" ColumnName="TmStrHome" />
                 <ScalarProperty Name="TmStrAway" ColumnName="TmStrAway" />
                 <ScalarProperty Name="TV" ColumnName="TV" />
-                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="GameTime" ColumnName="GameTime" />
                 <ScalarProperty Name="RotNum" ColumnName="RotNum" />
                 <ScalarProperty Name="TeamHome" ColumnName="TeamHome" />
                 <ScalarProperty Name="TeamAway" ColumnName="TeamAway" />

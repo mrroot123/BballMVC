@@ -63,7 +63,7 @@ namespace Bball.Unity
 
          // TODO: Register your type's mappings here.
          // it is NOT necessary to register your controllers
-         container.RegisterType<IAdjustmentDTO, IAdjustmentDTO>(); // Interface, class
+         container.RegisterType<IAdjustmentDTO, AdjustmentDTO>(); // Interface, class
          container.RegisterType<IAdjustmentsBO, AdjustmentsBO>(); // Interface, class
 
       }

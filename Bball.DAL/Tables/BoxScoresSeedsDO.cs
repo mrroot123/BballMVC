@@ -37,12 +37,6 @@ namespace Bball.DAL.Tables
       }
       static void populateDTOFromRdr(object oRow, SqlDataReader rdr)
       {
-         // Column Updates Procedure
-         // 1) Update Table Columns
-         // 2) Select 1000, Cut Column names, Insert in Textpad, run Sql Columns macro, Replace {table}Columns with macro Op
-         // 3) Use CodeGeneration.xlsm to generate populateBoxScoreValues entries
-         // 4) Update CoversBoxScore.PopulateBoxScoresDTO
-
          IBoxScoresSeedsDTO oBoxScoresSeeds = (BoxScoresSeedsDTO)oRow;
 
          oBoxScoresSeeds.BoxScoresSeedID = (int)rdr["BoxScoresSeedID"];

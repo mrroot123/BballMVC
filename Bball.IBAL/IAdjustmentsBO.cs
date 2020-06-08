@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
-//using BballMVC.DTOs;
+﻿using System;
+using System.Collections.Generic;
 using BballMVC.IDTOs;
 
 namespace Bball.IBAL
 {
    public interface IAdjustmentsBO
    {
-      IAdjustmentInitDataDTO GetAdjustmentInfo(string LeagueName);
-      List<IAdjustmentDTO> GetTodaysAdjustments(string LeagueName);
+      IAdjustmentInitDataDTO GetAdjustmentInfo(DateTime GameDate, string LeagueName);
+      List<IAdjustmentDTO> GetTodaysAdjustments(DateTime GameDate, string LeagueName);
       void InsertNewAdjustment(IAdjustmentDTO oAdjustmentDTO);
       void UpdateAdjustments(IList<IAdjustmentDTO> ocAdjustmentDTO);
    }

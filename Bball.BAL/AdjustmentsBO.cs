@@ -9,11 +9,11 @@ namespace Bball.BAL
 {
    public class AdjustmentsBO : IAdjustmentsBO
    {
-      public List<IAdjustmentDTO> GetTodaysAdjustments(string LeagueName)
-         => new AdjustmentsDO().GetTodaysAdjustments(LeagueName);
+      public List<IAdjustmentDTO> GetTodaysAdjustments(DateTime GameDate, string LeagueName)
+         => new AdjustmentsDO().GetTodaysAdjustments(GameDate, LeagueName);
       
-      public IAdjustmentInitDataDTO GetAdjustmentInfo(string LeagueName)
-         => new AdjustmentsDO().GetAdjustmentInfo(LeagueName);
+      public IAdjustmentInitDataDTO GetAdjustmentInfo(DateTime GameDate, string LeagueName)
+         => new AdjustmentsDO().GetAdjustmentInfo(GameDate, LeagueName);
 
       public void InsertNewAdjustment(IAdjustmentDTO oAdjustmentDTO) 
          => new AdjustmentsDO().InsertAdjustmentRow(oAdjustmentDTO);

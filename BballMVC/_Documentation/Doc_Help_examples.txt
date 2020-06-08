@@ -19,17 +19,11 @@ Modify Table Structure
    1) Change in SS
    -- Populate Null columns
    -- Go into Table Design and remove Nulls where applicable
-   2) Get new columns
-   -- Select top 1000
-   -- Cut & Paste cols WITHOUT ID Field into Textpad
-   -- run macro Sql Col names
-   -- Paste cols into Table class in Bball.DAL.Tables "{TableName}Columns" constant
-   -- In Textpad Change all , --> \n in and paste rows of column names into Step 4 if Write / Insert Rows necessary
-   -- BUILD
-   3) Rebuild Model in BballMVC.Models Edmx
-   -- Open edmx, Delete Table, BUILD
+
+   2) Rebuild Model in BballMVC.Models Edmx - NOTE: Ctrl-MouseWheel to RESIZE Model Diagram
+   -- Open Models.edmx, Delete Table, BUILD
    -- right clk on space, update model, Add Table, Clean & Build BUILD solution -- new model generated in BballEntities.tt 
-   -- copy Model to DTOs and create DTO interface
+   -- copy Model in BballMVC.Models.BballEntities.tt to DTOs and create DTO interface
       -- Add class in DTOs - modelDTO
       -- Copy _TemplateDTO into it ... modify where necessary
       -- Copy props from Model just created by EDMX into the DTO
@@ -37,12 +31,18 @@ Modify Table Structure
       -- Create Interface in IDTOs folder
       -- Replace IDTO interface with DTO folder interface and delete it
       -- Set DTO to implement Interface
-
+   3) Get new columns - for a Write
+   -- Select top 1000
+   -- Cut & Paste cols WITHOUT ID Field into Textpad
+   -- run macro Sql Col names
+   -- Paste cols into Table class in Bball.DAL.Tables "{TableName}Columns" constant
+   -- In Textpad Change all , --> \n in and paste rows of column names into Step 4 if Write / Insert Rows necessary
+   -- BUILD
    4) IF Write ROWS is Necessary
    -- IN Bball.DAL.Tables Update populate{TableName}Values ex: populateBoxScoresValues
    -- Open D:\My Documents\Projects\Code Misc\Code Generators \ CodeGenerator.xlsm
    -- Goto Sheet: populateTABLEValues method 
-   -- Update DTO Name (cell C1)
+   -- Update DTO Name (cell C1) ex: oTodaysMatchups
    -- Paste rows from text pad in Values column
    -- Paste Result col rows to populate_ocValuesForInsert
       This will move values from the DTO to ocValues for INSERT sql method -- Writing Rows
@@ -51,7 +51,7 @@ Modify Table Structure
    -- In Sql Server run #scrPopulateDTO.sql - Update TableName
    -- Open D:\My Documents\Projects\Code Misc\Code Generators \ CodeGenerator.xlsm
    -- Goto Sheet: populateDTO  
-   -- Paste rows from #scrPopulateDTO into Cols A - C
+   -- Paste rows from #scrPopulateDTO into Cols A - D
    -- Paste Result col rows to populateDTO method in Bball.DAL.Tables new TableDO (Data Object)
    -- This method will pop the DTO from the Sql RDR on a QUERY             -- Reading Rows
 
