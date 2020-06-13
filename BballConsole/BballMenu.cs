@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Bball.BAL;
 using Bball.DAL;
 using Bball.DAL.Tables;
@@ -13,12 +14,15 @@ namespace BballConsole
            "1) Load Today's Rotation"
          , "2) Load Adjustments"
          , "3) Write Html to Disk"
+         , "4) Re-Load/Fix BoxScores by Day"
+
          , "X) Exit"
       };
       static void Main(string[] args)
       {
          
          string LeagueName = "NBA";
+         DateTime GameDate;
          string s = "";
          DateTime StartGameDate = Convert.ToDateTime("10/16/2018");
          while (s != "x")
@@ -38,32 +42,54 @@ namespace BballConsole
                      l2.LoadBoxScore(DateTime.Today.AddDays(-1));
                      break;
 
-                  case "1":
+                  case "1":   // Load Today's Rotation
                      LoadBoxScores l3 = new LoadBoxScores("NBA", StartGameDate);
                      l3.LoadTodaysRotation();
                      break;
 
-                  case "2":
-                     DateTime GameDate = Convert.ToDateTime("03/11/2020");
+                  case "2":   // Load Adjustments
+                     GameDate = Convert.ToDateTime("03/11/2020");
                      AdjustmentsDO oAdjustments = new AdjustmentsDO(GameDate, LeagueName, Bball.DataBaseFunctions.SqlFunctions.GetConnectionString());
                      oAdjustments.ProcessDailyAdjustments(GameDate, LeagueName);
                      break;
 
-                  case "3":
+                  case "3":   // Write Html to Disk
                      writeHtmlToDisk();
                      break;
 
+                  case "4":   // Re-Load/Fix BoxScores by Day
+
+
+                     List<DateTime> GameDates = new List<DateTime>()
+                     {
+
+                        Convert.ToDateTime("2019-04-05") //,
+                        //Convert.ToDateTime("2020-01-31"),
+                        //Convert.ToDateTime("2020-02-08"),
+                        //Convert.ToDateTime("2020-02-12"),
+                        //Convert.ToDateTime("2020-03-04")
+                     };
+                     foreach (DateTime fixDate in GameDates)
+                     {
+                        Console.WriteLine( DateTime.Now.ToString() + ": Fixing Date - " + fixDate.ToShortDateString());
+                        new LoadBoxScores().FixBoxscores(LeagueName, fixDate);
+                        
+                     }
+                     break;
 
                   default:
                      break;
                }
+
             }
             catch (Exception ex)
             {
                string msg = SysDAL.DALfunctions.StackTraceFormat(ex);
                Console.WriteLine(msg);
             }
-
+            Console.WriteLine("Complete - " + DateTime.Now.ToString());
+            Console.WriteLine("");
+            Console.WriteLine((char) 7);
             for (int i = 0; i < menu.Length; i++)  // Display Menu
                Console.WriteLine(menu[i]);
 

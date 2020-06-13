@@ -29,9 +29,12 @@ namespace Bball.BAL
       
 
       public LoadBoxScores(string LeagueName,  DateTime StartGameDate) =>  init(LeagueName, StartGameDate);
-      
 
-      private void  init(string LeagueName,  DateTime StartGameDate)
+      public LoadBoxScores()
+      { }
+
+
+      private void init(string LeagueName, DateTime StartGameDate)
       {
          new LeagueInfoDO(LeagueName, _oLeagueDTO, _ConnectionString);  // Init _oLeagueDTO
          _strLoadDateTime = DateTime.Now.ToLongDateString();
@@ -41,11 +44,30 @@ namespace Bball.BAL
          else
             GameDate = GameDate.AddDays(1);
 
-         _oSeasonInfo  = new SeasonInfoDO(GameDate, _oLeagueDTO.LeagueName);
+         _oSeasonInfo = new SeasonInfoDO(GameDate, _oLeagueDTO.LeagueName);
          if (_oSeasonInfo.oSeasonInfoDTO.Bypass)
             _oSeasonInfo.GetNextGameDate();
          //
          RotationDO.DeleteRestOfRotation(GameDate, LeagueName);
+      }
+
+      public void  FixBoxscores(string LeagueName, DateTime GameDate)
+      {
+         new LeagueInfoDO(LeagueName, _oLeagueDTO, _ConnectionString);  // Init _oLeagueDTO
+         _strLoadDateTime = DateTime.Now.ToLongDateString();
+         _oSeasonInfo = new SeasonInfoDO(GameDate, _oLeagueDTO.LeagueName);
+         if (_oSeasonInfo.oSeasonInfoDTO.Bypass)
+         {
+            Console.WriteLine($"No Games Scheduled for {GameDate}");
+            return;
+         }
+         //
+         string strSql = $"Delete From {{0}} Where LeagueName = '{LeagueName}' and  GameDate = '{GameDate.ToShortDateString()}'";
+         SqlFunctions.ExecSql(string.Format(strSql, "Rotation"), _ConnectionString);
+         SqlFunctions.ExecSql(string.Format(strSql, "BoxScores"), _ConnectionString);
+         SqlFunctions.ExecSql(string.Format(strSql, "BoxScoresLast5Min"), _ConnectionString);
+
+         LoadBoxScore(GameDate);
       }
 
       public void LoadTodaysRotation()
@@ -159,7 +181,7 @@ namespace Bball.BAL
                   + "\n" + Bball.DAL.Parsing.BoxScoresLast5Min.BuildBoxScoresLast5MinUrl(oLast5MinDTOHome);
                throw new Exception(DALFunctions.StackTraceFormat(msg, ex, ""));
             }
-         } // foreach
+         } // foreach MUP
 
          AdjustmentsDO oAdjustments = new AdjustmentsDO(GameDate, _oLeagueDTO.LeagueName, _ConnectionString);
          oAdjustments.ProcessDailyAdjustments(GameDate, _oLeagueDTO.LeagueName);

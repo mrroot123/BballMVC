@@ -305,7 +305,7 @@ namespace Bball.DAL.Tables
          return oAdjustmentInitDataDTO;
       }
 
-      class Row
+      public class Row
       {
          public string Team { get; set; }
          public string Type { get; set; }

@@ -90,13 +90,13 @@ Sql Server Import from MS Access
    -- Make sure Run Immediaely not save as SSIS is checked
    4) Alter SS Table VarChar cols back to char
 
-INSERT INTO table2
-SELECT * FROM table1
+   INSERT INTO table2
+   SELECT * FROM table1
 
-INSERT INTO table2 (col1, Col2 ...)
-SELECT col1, Col2 ... FROM table1
+   INSERT INTO table2 (col1, Col2 ...)
+   SELECT col1, Col2 ... FROM table1
 
-App
+App Folders
 
 Index.html
   <script src="Adjustments/AdjustmentsApp.js"></script>

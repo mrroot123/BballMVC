@@ -17,6 +17,13 @@ namespace Bball.DataBaseFunctions
          @"Data Source=Localhost\;   Initial Catalog=00TTI_LeagueScores;Integrated Security=false;User ID=theroot;Password=788788kd";
 
 
+      public static int ExecSql(string strSql, string ConnectionString = null)
+      {
+         if (ConnectionString == null)
+            ConnectionString = GetConnectionString();
+         return SysDAL.DALfunctions.ExecuteSqlNonQuery(ConnectionString, strSql);
+      }
+
       public static string GetConnectionString()
       {
          if (System.AppDomain.CurrentDomain.BaseDirectory.IndexOf(@"mrroot\") >= 0)

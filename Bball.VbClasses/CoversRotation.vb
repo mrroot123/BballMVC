@@ -236,8 +236,8 @@ Namespace Bball.VbClasses
 
          oCoversDTO.BoxscoreNumber = oParseRotation.GetAttribute("data-event-id")
 
-         oCoversDTO.Url = genCoversBoxScoreUrl(pGameDate, poLeagueDTO.LeagueName, poLeagueDTO.MultiYearLeague, oCoversDTO.BoxscoreNumber)
-
+         'oCoversDTO.Url = genCoversBoxScoreUrl(pGameDate, poLeagueDTO.LeagueName, poLeagueDTO.MultiYearLeague, oCoversDTO.BoxscoreNumber)
+         oCoversDTO.Url = "https://www.covers.com" + Replace(oParseRotation.GetAttribute("data-link"), "matchup", "boxscore")
 
          '01/06/2020  oCoversDTO.LineTotalOpen = CSng(checkForEmpty(oParseRotation.GetAttribute("data-game-total")))
          s = oParseRotation.GetAttribute("data-game-total")
@@ -350,9 +350,15 @@ Namespace Bball.VbClasses
          ' MultiYearLeague = Year hyphen Year+1 -  NBA 2019-2020 else 2020
          ' NBA  - https://www.covers.com/pageLoader/pageLoader.aspx?page=/data/nba/results/2019-2020/boxscore1006731.html
          ' WNBA - https://www.covers.com/pageLoader/pageLoader.aspx?page=/data/wnba/results/2019/boxscore1005541.html
-         Return LCase(
-            $"https://www.covers.com/pageLoader/pageLoader.aspx?page=/data/{LeagueName}/results/{CoversYear}/boxscore{BoxscoreNumber}.html"
-         )
+         ' New NBA
+         '  https://www.covers.com/sport/basketball/nba/boxscore/50727
+         Dim url As String
+         url = $"https://www.covers.com/sport/basketball/{LeagueName}/boxscore/{BoxscoreNumber}"
+
+         Return url
+         'Return LCase(
+         '   $"https://www.covers.com/pageLoader/pageLoader.aspx?page=/data/{LeagueName}/results/{CoversYear}/boxscore{BoxscoreNumber}.html"
+
       End Function
 
       'http://www.covers.com/pageLoader/pageLoader.aspx?page=/data/wnba/results/2015/boxscore895085.html

@@ -32,8 +32,8 @@ namespace Bball.DAL.Tables
       }
       public static void PopulateRotation(SortedList<string, CoversDTO> ocRotation, DateTime GameDate, ILeagueDTO _oLeagueDTO, string ConnectionString, string strLoadDateTime)
       {
-         RotationDO oRotation = new RotationDO(ocRotation, GameDate, _oLeagueDTO, ConnectionString, strLoadDateTime);
-         oRotation.GetRotation();
+         RotationDO oRotationDO = new RotationDO(ocRotation, GameDate, _oLeagueDTO, ConnectionString, strLoadDateTime);
+         oRotationDO.GetRotation();
       }
       #region GetRows
       public void GetRotation()

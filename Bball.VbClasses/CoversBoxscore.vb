@@ -54,6 +54,8 @@ Namespace Bball.VbClasses
          'https://www.covers.com/pageLoader/pageLoader.aspx?page=/data/nba/results/2019-2020/boxscore1006912.html
          'https://www.covers.com/pageLoader/pageLoader.aspx?page=/data/nba/results/2019-2020/recap1006912.html
 
+         ' new
+         ' https://www.covers.com/sport/basketball/nba/boxscore/50727
          '*** basketball-reference.com ***
          'https://www.basketball-reference.com/boxscores/201911270BOS.html
          'https://www.basketball-reference.com/boxscores/pbp/201911270BOS.html   - Play By Play
