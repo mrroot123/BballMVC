@@ -311,6 +311,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Sql\RunTMs.sql" />
     <Content Include="Sql\scrCalcTodaysMatchups.sql" />
     <Content Include="Views\Adjustments\xAdjustmentRow.html" />
     <Content Include="_Documentation\Api.txt" />
