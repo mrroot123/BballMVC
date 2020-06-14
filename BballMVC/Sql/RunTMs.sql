@@ -19,7 +19,7 @@ GO
 if @TruncateTables = 0
 BEGIN
 	
-	Truncate Table TodaysTodaysMatchupsResults;
+	Truncate Table TodaysMatchupsResults;
 	Truncate Table TodaysMatchups;
 --	Truncate Table TeamStrength;
 END
@@ -109,7 +109,7 @@ SELECT count(*) as MUPs
 		  END) as OverLosses
 
  --     ,[PlayResult]
-  FROM [00TTI_LeagueScores].[dbo].[TodaysTodaysMatchupsResults] mr
+  FROM [00TTI_LeagueScores].[dbo].[TodaysMatchupsResults] mr
  --  Where mr.Play = 'Over'
   ) x
 
