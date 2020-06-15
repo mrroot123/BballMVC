@@ -14,13 +14,14 @@ namespace Bball.DAL.Tables
    {
       public const string RotationTable = "Rotation";
 
-      private const string ColumnNames = "LeagueName,GameDate,RotNum,Venue,Team,Opp,GameTime,TV,SideLine,TotalLine,TotalLineTeam,TotalLineOpp,OpenTotalLine,BoxScoreSource,BoxScoreUrl,CreateDate,UpdateDate";
+      private const string ColumnNames = "LeagueName,Season,SubSeason,SubSeasonPeriod,GameDate,RotNum,Venue,Team,Opp,GameTime,TV,SideLine,TotalLine,TotalLineTeam,TotalLineOpp,OpenTotalLine,BoxScoreSource,BoxScoreUrl,CreateDate,UpdateDate";
 
       SortedList<string, CoversDTO> _ocRotation;
       DateTime _GameDate;
       ILeagueDTO _oLeagueDTO;
       string _ConnectionString;
       string _strLoadDateTime;
+      IBballInfoDTO _oBballInfoDTO;
 
       public RotationDO(SortedList<string, CoversDTO> ocRotation, DateTime GameDate, ILeagueDTO oLeagueDTO, string ConnectionString, string strLoadDateTime)
       {
@@ -30,15 +31,16 @@ namespace Bball.DAL.Tables
          _ConnectionString = ConnectionString;
          _strLoadDateTime = strLoadDateTime;
       }
-      public static void PopulateRotation(SortedList<string, CoversDTO> ocRotation, DateTime GameDate, ILeagueDTO _oLeagueDTO, string ConnectionString, string strLoadDateTime)
+      public static void PopulateRotation(SortedList<string, CoversDTO> ocRotation, IBballInfoDTO oBballInfoDTO, ILeagueDTO _oLeagueDTO)
+   //      SeasonInfoDO oSeasonInfoDO, ILeagueDTO _oLeagueDTO, string ConnectionString, string strLoadDateTime)
       {
-         RotationDO oRotationDO = new RotationDO(ocRotation, GameDate, _oLeagueDTO, ConnectionString, strLoadDateTime);
-         oRotationDO.GetRotation();
+         RotationDO oRotationDO = new RotationDO(ocRotation, oBballInfoDTO.GameDate, _oLeagueDTO, oBballInfoDTO.ConnectionString, oBballInfoDTO.GameDate.ToString());
+         oRotationDO.GetRotation(oBballInfoDTO);
       }
       #region GetRows
-      public void GetRotation()
+      public void GetRotation(IBballInfoDTO oBballInfoDTO)
       {
-
+         _oBballInfoDTO = oBballInfoDTO;
          if (_GameDate >= DateTime.Today)    // If Today or tomorrow
          {
             refreshRotation();
@@ -106,7 +108,7 @@ namespace Bball.DAL.Tables
       private void refreshRotation()
       {
          CoversRotation oCoversRotation = new CoversRotation(_ocRotation, _GameDate, _oLeagueDTO);
-         oCoversRotation.GetRotation();
+         oCoversRotation.GetRotationFromWeb();
 
          writeRotation();
          insertLines();
@@ -134,13 +136,20 @@ namespace Bball.DAL.Tables
             CoversDTO oCoversDTO = kvp.Value;
           //  string ConnectionString = SqlFunctions.GetConnectionString();
             string SQL = SysDAL.DALfunctions.GenSql(RotationTable, ocColumns);
-            // "LeagueName,GameDate,RotNum, Venue,Team,Opp,
+            // "LeagueName,
+            // Season, SubSeason, SubSeasonPeriod,    kd 06/14/2020 added 3 columns to Rotation Table
+            // GameDate,RotNum, Venue,Team,Opp,
             // GameTime,TV,SideLine,TotalLine,TotalLineTeam,
             // TotalLineOpp,OpenTotalLine,BoxScoreSource,BoxScoreUrl,CreateDate
             // ,UpdateDate";
             List<string> ocValues = new List<string>()
             {
                _oLeagueDTO.LeagueName
+
+               , _oBballInfoDTO.oSeasonInfoDTO.Season
+               , _oBballInfoDTO.oSeasonInfoDTO.SubSeason
+               , "0" // SubSeasonPeriod
+
                , _GameDate.ToShortDateString()
                , oCoversDTO.RotNum.ToString()
                , "Away"
@@ -167,6 +176,11 @@ namespace Bball.DAL.Tables
             ocValues = new List<string>()
             {
                _oLeagueDTO.LeagueName
+
+               , _oBballInfoDTO.oSeasonInfoDTO.Season
+               , _oBballInfoDTO.oSeasonInfoDTO.SubSeason
+               , "0" // SubSeasonPeriod
+
                , _GameDate.ToShortDateString()
                , (oCoversDTO.RotNum + 1).ToString()
                , "Home"

@@ -1,0 +1,13 @@
+﻿General Notes / Changes
+
+* OurTotalLine will now be calculated WITH OT Adjustment included
+
+* OT Adjustment (not Final yet) will start at 0.7 (per team, 1.4 per Game) 
+   and adjusted according to SideLine ... higher sideLine the lower the OT Adjustment
+
+* ALL Adjustments will be per team - i.e. TV adj of 1.5 will be .75 per TEAM, League Adj per TEAM
+
+* Since OT Adj is included in OurTotalLine the betting Threshold number will be the same for unders & overs
+   ex. - instead of -6 / +4 now it will be 5 for both
+
+* Thresholds will be adjusted according to Matchup Team volitility - TBD

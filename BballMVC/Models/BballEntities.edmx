@@ -16,6 +16,7 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.Adjustments' does not have 
             <PropertyRef Name="AdjustmentType" />
             <PropertyRef Name="AdjustmentAmount" />
             <PropertyRef Name="Description" />
+            
           </Key>
           <Property Name="AdjustmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="LeagueName" Type="nvarchar" MaxLength="8" Nullable="false" />
@@ -26,7 +27,7 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.Adjustments' does not have 
           <Property Name="AdjustmentAmount" Type="float" Nullable="false" />
           <Property Name="Player" Type="nvarchar" MaxLength="50" />
           <Property Name="Description" Type="ntext" Nullable="false" />
-          <Property Name="TS" Type="datetime" />
+          <Property Name="TS" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="AdjustmentsCodes">
           <Key>
@@ -399,6 +400,9 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.Rotation' does not have a p
           </Key>
           <Property Name="RotationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="LeagueName" Type="char" MaxLength="8" Nullable="false" />
+          <Property Name="Season" Type="nchar" MaxLength="10" />
+          <Property Name="SubSeason" Type="nchar" MaxLength="10" />
+          <Property Name="SubSeasonPeriod" Type="int" />
           <Property Name="GameDate" Type="date" Nullable="false" />
           <Property Name="RotNum" Type="int" Nullable="false" />
           <Property Name="Venue" Type="varchar" MaxLength="4" Nullable="false" />
@@ -713,6 +717,7 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.Users' does not have a prim
           <Parameter Name="LeagueName" Type="varchar" Mode="In" />
           <Parameter Name="GameDate" Type="date" Mode="In" />
           <Parameter Name="Display" Type="bit" Mode="In" />
+          <Parameter Name="BothHome_Away" Type="bit" Mode="In" />
         </Function>
         <Function Name="uspInsertAdjustments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="LeagueName" Type="varchar" Mode="In" />
@@ -738,11 +743,8 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.Users' does not have a prim
           <Parameter Name="GameDate" Type="date" Mode="In" />
           <Parameter Name="LeagueName" Type="varchar" Mode="In" />
         </Function>
-        <Function Name="uspInsertMatchupResults" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="UserName" Type="varchar" Mode="In" />
-          <Parameter Name="LeagueName" Type="varchar" Mode="In" />
-        </Function>
         <Function Name="uspQueryAdjustments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="GameDate" Type="date" Mode="In" />
           <Parameter Name="LeagueName" Type="varchar" Mode="In" />
         </Function>
         <Function Name="uspQueryCalcTeamStrength" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -954,6 +956,9 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.Users' does not have a prim
             <DefiningQuery>SELECT 
     [Rotation].[RotationID] AS [RotationID], 
     [Rotation].[LeagueName] AS [LeagueName], 
+    [Rotation].[Season] AS [Season], 
+    [Rotation].[SubSeason] AS [SubSeason], 
+    [Rotation].[SubSeasonPeriod] AS [SubSeasonPeriod], 
     [Rotation].[GameDate] AS [GameDate], 
     [Rotation].[RotNum] AS [RotNum], 
     [Rotation].[Venue] AS [Venue], 
@@ -1149,7 +1154,7 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.Users' does not have a prim
           <Property Name="AdjustmentAmount" Type="Single" Nullable="false" />
           <Property Name="Player" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="TS" Type="DateTime" Precision="3" />
+          <Property Name="TS" Type="DateTime" Precision="3" Nullable="false" />
         </EntityType>
         <EntityType Name="AdjustmentsDaily">
           <Key>
@@ -1328,7 +1333,6 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.Users' does not have a prim
           <EntitySet Name="ParmTables" EntityType="TTI_LeagueScoresModel.ParmTable" />
           <EntitySet Name="BoxScoresLast5Min" EntityType="TTI_LeagueScoresModel.BoxScoresLast5Min" />
           <EntitySet Name="Users" EntityType="TTI_LeagueScoresModel.User" />
-          <EntitySet Name="Rotation" EntityType="TTI_LeagueScoresModel.Rotation" />
           <FunctionImport Name="Bball_UpdateAdjs">
             <Parameter Name="ProcessDate" Mode="In" Type="DateTime" />
             <Parameter Name="testMode" Mode="In" Type="Int32" />
@@ -1373,6 +1377,7 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.Users' does not have a prim
             <Parameter Name="LeagueName" Mode="In" Type="String" />
             <Parameter Name="GameDate" Mode="In" Type="DateTime" />
             <Parameter Name="Display" Mode="In" Type="Boolean" />
+            <Parameter Name="BothHome_Away" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="uspInsertAdjustments">
             <Parameter Name="LeagueName" Mode="In" Type="String" />
@@ -1403,7 +1408,8 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.Users' does not have a prim
             <Parameter Name="LeagueName" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="uspQueryAdjustments" ReturnType="Collection(TTI_LeagueScoresModel.uspQueryAdjustments_Result)">
-          <Parameter Name="LeagueName" Mode="In" Type="String" />
+          <Parameter Name="GameDate" Mode="In" Type="DateTime" />
+            <Parameter Name="LeagueName" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="uspQueryCalcTeamStrength" ReturnType="Collection(TTI_LeagueScoresModel.uspQueryCalcTeamStrength_Result)">
             <Parameter Name="GameDate" Mode="In" Type="DateTime" />
@@ -1430,6 +1436,7 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.Users' does not have a prim
           <EntitySet Name="Team" EntityType="TTI_LeagueScoresModel.Team" />
           <EntitySet Name="BoxScoresSeeds" EntityType="TTI_LeagueScoresModel.BoxScoresSeeds" />
           <EntitySet Name="TodaysMatchups" EntityType="TTI_LeagueScoresModel.TodaysMatchups" />
+          <EntitySet Name="Rotation" EntityType="TTI_LeagueScoresModel.Rotation" />
         </EntityContainer>
         <EntityType Name="SeasonInfo">
           <Key>
@@ -1531,38 +1538,6 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.Users' does not have a prim
           <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserName" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="UserPassword" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Rotation">
-          <Key>
-            <PropertyRef Name="RotationID" />
-            <PropertyRef Name="LeagueName" />
-            <PropertyRef Name="GameDate" />
-            <PropertyRef Name="RotNum" />
-            <PropertyRef Name="Venue" />
-            <PropertyRef Name="Team" />
-            <PropertyRef Name="Opp" />
-            <PropertyRef Name="GameTime" />
-            <PropertyRef Name="BoxScoreSource" />
-            <PropertyRef Name="CreateDate" />
-          </Key>
-          <Property Name="RotationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="LeagueName" Type="String" Nullable="false" MaxLength="8" FixedLength="true" Unicode="false" />
-          <Property Name="GameDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="RotNum" Type="Int32" Nullable="false" />
-          <Property Name="Venue" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Name="Team" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Name="Opp" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Name="GameTime" Type="String" Nullable="false" MaxLength="5" FixedLength="true" Unicode="false" />
-          <Property Name="TV" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
-          <Property Name="SideLine" Type="Double" />
-          <Property Name="TotalLine" Type="Double" />
-          <Property Name="TotalLineTeam" Type="Double" />
-          <Property Name="TotalLineOpp" Type="Double" />
-          <Property Name="OpenTotalLine" Type="Double" />
-          <Property Name="BoxScoreSource" Type="String" Nullable="false" MaxLength="21" FixedLength="false" Unicode="true" />
-          <Property Name="BoxScoreUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="UpdateDate" Type="DateTime" Precision="7" />
         </EntityType>
         <ComplexType Name="TeamLookupSourceToSource_Result">
           <Property Type="Int32" Name="TeamID" Nullable="false" />
@@ -1862,6 +1837,41 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.Users' does not have a prim
           <Property Name="TotalBubbleAway" Type="Double" />
           <Property Name="TotalBubbleHome" Type="Double" />
         </EntityType>
+        <EntityType Name="Rotation">
+          <Key>
+            <PropertyRef Name="RotationID" />
+            <PropertyRef Name="LeagueName" />
+            <PropertyRef Name="GameDate" />
+            <PropertyRef Name="RotNum" />
+            <PropertyRef Name="Venue" />
+            <PropertyRef Name="Team" />
+            <PropertyRef Name="Opp" />
+            <PropertyRef Name="GameTime" />
+            <PropertyRef Name="BoxScoreSource" />
+            <PropertyRef Name="CreateDate" />
+          </Key>
+          <Property Name="RotationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LeagueName" Type="String" Nullable="false" MaxLength="8" FixedLength="true" Unicode="false" />
+          <Property Name="Season" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="SubSeason" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="SubSeasonPeriod" Type="Int32" />
+          <Property Name="GameDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="RotNum" Type="Int32" Nullable="false" />
+          <Property Name="Venue" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="Team" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="Opp" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="GameTime" Type="String" Nullable="false" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="TV" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="SideLine" Type="Double" />
+          <Property Name="TotalLine" Type="Double" />
+          <Property Name="TotalLineTeam" Type="Double" />
+          <Property Name="TotalLineOpp" Type="Double" />
+          <Property Name="OpenTotalLine" Type="Double" />
+          <Property Name="BoxScoreSource" Type="String" Nullable="false" MaxLength="21" FixedLength="false" Unicode="true" />
+          <Property Name="BoxScoreUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="7" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2086,30 +2096,6 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.Users' does not have a prim
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Rotation">
-            <EntityTypeMapping TypeName="TTI_LeagueScoresModel.Rotation">
-              <MappingFragment StoreEntitySet="Rotation">
-                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="BoxScoreUrl" ColumnName="BoxScoreUrl" />
-                <ScalarProperty Name="BoxScoreSource" ColumnName="BoxScoreSource" />
-                <ScalarProperty Name="OpenTotalLine" ColumnName="OpenTotalLine" />
-                <ScalarProperty Name="TotalLineOpp" ColumnName="TotalLineOpp" />
-                <ScalarProperty Name="TotalLineTeam" ColumnName="TotalLineTeam" />
-                <ScalarProperty Name="TotalLine" ColumnName="TotalLine" />
-                <ScalarProperty Name="SideLine" ColumnName="SideLine" />
-                <ScalarProperty Name="TV" ColumnName="TV" />
-                <ScalarProperty Name="GameTime" ColumnName="GameTime" />
-                <ScalarProperty Name="Opp" ColumnName="Opp" />
-                <ScalarProperty Name="Team" ColumnName="Team" />
-                <ScalarProperty Name="Venue" ColumnName="Venue" />
-                <ScalarProperty Name="RotNum" ColumnName="RotNum" />
-                <ScalarProperty Name="GameDate" ColumnName="GameDate" />
-                <ScalarProperty Name="LeagueName" ColumnName="LeagueName" />
-                <ScalarProperty Name="RotationID" ColumnName="RotationID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="Bball_UpdateAdjs" FunctionName="TTI_LeagueScoresModel.Store.Bball_UpdateAdjs" />
           <FunctionImportMapping FunctionImportName="spTeamLookup" FunctionName="TTI_LeagueScoresModel.Store.spTeamLookup" />
           <FunctionImportMapping FunctionImportName="TeamLookup" FunctionName="TTI_LeagueScoresModel.Store.TeamLookup" />
@@ -2147,7 +2133,6 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.Users' does not have a prim
           <FunctionImportMapping FunctionImportName="uspInsertAdjustments" FunctionName="TTI_LeagueScoresModel.Store.uspInsertAdjustments" />
           <FunctionImportMapping FunctionImportName="uspInsertLine" FunctionName="TTI_LeagueScoresModel.Store.uspInsertLine" />
           <FunctionImportMapping FunctionImportName="uspInsertLinesFromRotation" FunctionName="TTI_LeagueScoresModel.Store.uspInsertLinesFromRotation" />
-          <FunctionImportMapping FunctionImportName="uspInsertMatchupResults" FunctionName="TTI_LeagueScoresModel.Store.uspInsertMatchupResults" />
           <FunctionImportMapping FunctionImportName="uspQueryAdjustments" FunctionName="TTI_LeagueScoresModel.Store.uspQueryAdjustments">
             <ResultMapping>
               <ComplexTypeMapping TypeName="TTI_LeagueScoresModel.uspQueryAdjustments_Result">
@@ -2339,6 +2324,33 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.Users' does not have a prim
                 <ScalarProperty Name="LeagueName" ColumnName="LeagueName" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="TodaysMatchupsID" ColumnName="TodaysMatchupsID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rotation">
+            <EntityTypeMapping TypeName="TTI_LeagueScoresModel.Rotation">
+              <MappingFragment StoreEntitySet="Rotation">
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="BoxScoreUrl" ColumnName="BoxScoreUrl" />
+                <ScalarProperty Name="BoxScoreSource" ColumnName="BoxScoreSource" />
+                <ScalarProperty Name="OpenTotalLine" ColumnName="OpenTotalLine" />
+                <ScalarProperty Name="TotalLineOpp" ColumnName="TotalLineOpp" />
+                <ScalarProperty Name="TotalLineTeam" ColumnName="TotalLineTeam" />
+                <ScalarProperty Name="TotalLine" ColumnName="TotalLine" />
+                <ScalarProperty Name="SideLine" ColumnName="SideLine" />
+                <ScalarProperty Name="TV" ColumnName="TV" />
+                <ScalarProperty Name="GameTime" ColumnName="GameTime" />
+                <ScalarProperty Name="Opp" ColumnName="Opp" />
+                <ScalarProperty Name="Team" ColumnName="Team" />
+                <ScalarProperty Name="Venue" ColumnName="Venue" />
+                <ScalarProperty Name="RotNum" ColumnName="RotNum" />
+                <ScalarProperty Name="GameDate" ColumnName="GameDate" />
+                <ScalarProperty Name="SubSeasonPeriod" ColumnName="SubSeasonPeriod" />
+                <ScalarProperty Name="SubSeason" ColumnName="SubSeason" />
+                <ScalarProperty Name="Season" ColumnName="Season" />
+                <ScalarProperty Name="LeagueName" ColumnName="LeagueName" />
+                <ScalarProperty Name="RotationID" ColumnName="RotationID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

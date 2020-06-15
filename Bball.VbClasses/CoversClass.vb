@@ -36,7 +36,7 @@ Namespace Bball.VbClasses
       Public Sub GetRotation()
 
          oCoversRotation = New CoversRotation(ocRotation, pGameDate, poLeagueDTO)
-         Call oCoversRotation.GetRotation()
+         Call oCoversRotation.GetRotationFromWeb()
 
          If oCoversRotation.ReturnCode <> 0 Then
             ReturnCode = 1

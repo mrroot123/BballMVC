@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using BballMVC.IDTOs;
 
 namespace BballMVC.DTOs
 {
-   public class SeasonInfoDTO
+   public class SeasonInfoDTO : ISeasonInfoDTO
    {
       public string LeagueName { get; set; }
       public System.DateTime StartDate { get; set; }

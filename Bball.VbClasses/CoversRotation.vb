@@ -62,7 +62,7 @@ Namespace Bball.VbClasses
       'http://www.covers.com/Sports/WNBA/Matchups?selectedDate=2015-06-12
       'http://www.covers.com/pageLoader/pageLoader.aspx?page=/data/wnba/results/2015/boxscore895101.html
 
-      Public Sub GetRotation()
+      Public Sub GetRotationFromWeb()
          Dim oCoversDTO As CoversDTO
          Dim s As String
 

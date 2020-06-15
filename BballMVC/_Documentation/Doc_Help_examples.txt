@@ -43,8 +43,8 @@ Modify Table Structure
    -- Open D:\My Documents\Projects\Code Misc\Code Generators \ CodeGenerator.xlsm
    -- Goto Sheet: populateTABLEValues method 
    -- Update DTO Name (cell C1) ex: oTodaysMatchups
-   -- Paste rows from text pad in Values column
-   -- Paste Result col rows to populate_ocValuesForInsert
+   -- Paste rows from text pad in Values column (B)
+   -- Paste Result col(C) rows to populate_ocValuesForInsert
       This will move values from the DTO to ocValues for INSERT sql method -- Writing Rows
 
    5) Update columns in method Populate{TableName}DTO Method - IF GET ROWS is Necessary

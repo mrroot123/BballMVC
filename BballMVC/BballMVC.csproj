@@ -413,6 +413,7 @@
     <Content Include="Views\Adjustments\xAdjustmentRow.html" />
     <Content Include="_Documentation\Api.txt" />
     <Content Include="_Documentation\Doc_Help_examples.txt" />
+    <Content Include="_Documentation\GeneralNotesChanges.txt" />
     <EntityDeploy Include="Models\BballEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>BballEntities.Designer.cs</LastGenOutput>

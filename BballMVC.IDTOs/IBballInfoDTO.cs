@@ -9,5 +9,6 @@ namespace BballMVC.IDTOs
       DateTime GameDate { get; set; }
       string LeagueName { get; set; }
       string UserName { get; set; }
+      ISeasonInfoDTO oSeasonInfoDTO { get; set; }
    }
 }

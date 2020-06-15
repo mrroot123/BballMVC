@@ -15,10 +15,10 @@
         <EntityTypeShape EntityType="TTI_LeagueScoresModel.ParmTable" Width="1.5" PointX="9.375" PointY="10.75" />
         <EntityTypeShape EntityType="TTI_LeagueScoresModel.BoxScoresLast5Min" Width="1.5" PointX="0.75" PointY="11.75" />
         <EntityTypeShape EntityType="TTI_LeagueScoresModel.User" Width="1.5" PointX="11.375" PointY="0.75" />
-        <EntityTypeShape EntityType="TTI_LeagueScoresModel.Rotation" Width="1.5" PointX="11.375" PointY="3.75" />
         <EntityTypeShape EntityType="TTI_LeagueScoresModel.Team" Width="1.5" PointX="3.375" PointY="11.75" />
         <EntityTypeShape EntityType="TTI_LeagueScoresModel.BoxScoresSeeds" Width="1.5" PointX="11.375" PointY="9.75" />
         <EntityTypeShape EntityType="TTI_LeagueScoresModel.TodaysMatchups" Width="1.5" PointX="13.375" PointY="0.75" />
+        <EntityTypeShape EntityType="TTI_LeagueScoresModel.Rotation" Width="1.5" PointX="5.375" PointY="13.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

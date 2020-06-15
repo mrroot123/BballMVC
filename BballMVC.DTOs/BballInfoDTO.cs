@@ -9,6 +9,7 @@ namespace BballMVC.DTOs
       public DateTime GameDate { get; set; }
       public string LeagueName { get; set; }
       public string ConnectionString { get; set; }
+      public ISeasonInfoDTO oSeasonInfoDTO { get; set; }
 
    }
 }

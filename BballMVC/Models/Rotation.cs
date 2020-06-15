@@ -16,6 +16,9 @@ namespace BballMVC.Models
     {
         public int RotationID { get; set; }
         public string LeagueName { get; set; }
+        public string Season { get; set; }
+        public string SubSeason { get; set; }
+        public Nullable<int> SubSeasonPeriod { get; set; }
         public System.DateTime GameDate { get; set; }
         public int RotNum { get; set; }
         public string Venue { get; set; }

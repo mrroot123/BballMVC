@@ -23,6 +23,6 @@ namespace BballMVC.Models
         public float AdjustmentAmount { get; set; }
         public string Player { get; set; }
         public string Description { get; set; }
-        public Nullable<System.DateTime> TS { get; set; }
+        public System.DateTime TS { get; set; }
     }
 }

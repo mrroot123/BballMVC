@@ -20,9 +20,12 @@ namespace Bball.BAL
       private string _strLoadDateTime;
       private string _ConnectionString = SqlFunctions.GetConnectionString();
       //private DateTime _GameDate;
-      private SeasonInfoDO _oSeasonInfo; 
+      private SeasonInfoDO _oSeasonInfoDO;
+      private IBballInfoDTO _oBballInfoDTO;
+      private string _UserName = "Test";  // kdtodo populate
 
-     // public  DateTime DefaultDate = Convert.ToDateTime("1/1/2000");  // kdtodo move to constants
+
+      // public  DateTime DefaultDate = Convert.ToDateTime("1/1/2000");  // kdtodo move to constants
 
       // Constructor
       public LoadBoxScores(string LeagueName) => init(LeagueName,  Convert.ToDateTime("10/16/2018"));
@@ -44,19 +47,27 @@ namespace Bball.BAL
          else
             GameDate = GameDate.AddDays(1);
 
-         _oSeasonInfo = new SeasonInfoDO(GameDate, _oLeagueDTO.LeagueName);
-         if (_oSeasonInfo.oSeasonInfoDTO.Bypass)
-            _oSeasonInfo.GetNextGameDate();
+         _oSeasonInfoDO = new SeasonInfoDO(GameDate, _oLeagueDTO.LeagueName);
+         if (_oSeasonInfoDO.oSeasonInfoDTO.Bypass)
+            _oSeasonInfoDO.GetNextGameDate();
          //
          RotationDO.DeleteRestOfRotation(GameDate, LeagueName);
+         _oBballInfoDTO = new BballInfoDTO()
+         {
+            ConnectionString = _ConnectionString,
+            GameDate = _oSeasonInfoDO.GameDate,
+            LeagueName = LeagueName,
+            UserName = _UserName,
+            oSeasonInfoDTO = _oSeasonInfoDO.oSeasonInfoDTO
+         };
       }
 
       public void  FixBoxscores(string LeagueName, DateTime GameDate)
       {
          new LeagueInfoDO(LeagueName, _oLeagueDTO, _ConnectionString);  // Init _oLeagueDTO
          _strLoadDateTime = DateTime.Now.ToLongDateString();
-         _oSeasonInfo = new SeasonInfoDO(GameDate, _oLeagueDTO.LeagueName);
-         if (_oSeasonInfo.oSeasonInfoDTO.Bypass)
+         _oSeasonInfoDO = new SeasonInfoDO(GameDate, _oLeagueDTO.LeagueName);
+         if (_oSeasonInfoDO.oSeasonInfoDTO.Bypass)
          {
             Console.WriteLine($"No Games Scheduled for {GameDate}");
             return;
@@ -72,7 +83,7 @@ namespace Bball.BAL
 
       public void LoadTodaysRotation()
       {
-         if (!_oSeasonInfo.RotationLoadedToDate())
+         if (!_oSeasonInfoDO.RotationLoadedToDate())
          { 
             LoadBoxScoreRange();
 
@@ -81,14 +92,15 @@ namespace Bball.BAL
             int rotationDays2Load = 2;
             for (int i = 0; i < rotationDays2Load; i++) // Loop twice - Load Today's & Tomorrow's Rotation
             {
-               string _strLoadDateTime = _oSeasonInfo.GameDate.ToString();
+               string _strLoadDateTime = _oSeasonInfoDO.GameDate.ToString();
 
                SortedList<string, CoversDTO> ocRotation = new SortedList<string, CoversDTO>();
-               RotationDO.PopulateRotation(ocRotation, _oSeasonInfo.GameDate, _oLeagueDTO, _ConnectionString, _strLoadDateTime);
-
-               AdjustmentsDO oAdjustments = new AdjustmentsDO(_oSeasonInfo.GameDate, _oLeagueDTO.LeagueName, _ConnectionString);
-               oAdjustments.ProcessDailyAdjustments(_oSeasonInfo.GameDate, _oLeagueDTO.LeagueName);
-               _oSeasonInfo.GameDate = _oSeasonInfo.GameDate.AddDays(1);
+               RotationDO.PopulateRotation(ocRotation, _oBballInfoDTO, _oLeagueDTO);
+               
+               // kd 06/14/2020 Eliminate Adjustments from prev Adj table
+               //AdjustmentsDO oAdjustments = new AdjustmentsDO(_oSeasonInfoDO.GameDate, _oLeagueDTO.LeagueName, _ConnectionString);
+               //oAdjustments.ProcessDailyAdjustments(_oSeasonInfoDO.GameDate, _oLeagueDTO.LeagueName);
+               //_oSeasonInfoDO.GameDate = _oSeasonInfoDO.GameDate.AddDays(1);
             }
          }
          SqlFunctions.ParmTableParmValueUpdate("BoxscoresLastUpdateDate", DateTime.Today.ToShortDateString());
@@ -97,20 +109,20 @@ namespace Bball.BAL
       public void LoadBoxScoreRange()
       {
          // DateTime processDate = GameDate;
-         while (_oSeasonInfo.GameDate < DateTime.Today)
+         while (_oSeasonInfoDO.GameDate < DateTime.Today)
          {
             int NumOfMatchups = 0;
             try
             {
-               NumOfMatchups = LoadBoxScore(_oSeasonInfo.GameDate);
+               NumOfMatchups = LoadBoxScore(_oSeasonInfoDO.GameDate);
             }
             catch (Exception ex)
             {
                throw new Exception(DALFunctions.StackTraceFormat(ex));
             }
 
-            Console.WriteLine($"Processed {_oSeasonInfo.GameDate} - {DateTime.Now} - Matchups: {NumOfMatchups}");
-            _oSeasonInfo.GetNextGameDate();
+            Console.WriteLine($"Processed {_oSeasonInfoDO.GameDate} - {DateTime.Now} - Matchups: {NumOfMatchups}");
+            _oSeasonInfoDO.GetNextGameDate();
          }
       }
 
@@ -124,8 +136,9 @@ namespace Bball.BAL
 
          SortedList<string, CoversDTO> ocRotation = new SortedList<string, CoversDTO>();
 
-         RotationDO.PopulateRotation(ocRotation, _oSeasonInfo.GameDate, _oLeagueDTO, _ConnectionString, _strLoadDateTime);
-         if (ocRotation.Count == 0) return 0;   // No Games for GameDate
+         RotationDO.PopulateRotation(ocRotation, _oBballInfoDTO, _oLeagueDTO);
+         if (ocRotation.Count == 0)
+            return 0;   // No Games for GameDate
 
          foreach (var matchup in ocRotation)
          {
@@ -145,7 +158,7 @@ namespace Bball.BAL
                {
                   // Write Away & Home rows to BoxScores
                   BoxScoresDTO BoxScoresDTO = new BoxScoresDTO();
-                  oCoversBoxscore.PopulateBoxScoresDTO(BoxScoresDTO, arVenue[i], _oSeasonInfo.oSeasonInfoDTO.Season, _oSeasonInfo.oSeasonInfoDTO.SubSeason, LoadDateTime
+                  oCoversBoxscore.PopulateBoxScoresDTO(BoxScoresDTO, arVenue[i], _oSeasonInfoDO.oSeasonInfoDTO.Season, _oSeasonInfoDO.oSeasonInfoDTO.SubSeason, LoadDateTime
                                                    , oCoversBoxscore.LoadTimeSecound, "Covers");
                   Bball.DAL.Tables.BoxScoreDO.InsertBoxScores(BoxScoresDTO);
                }
@@ -183,8 +196,9 @@ namespace Bball.BAL
             }
          } // foreach MUP
 
-         AdjustmentsDO oAdjustments = new AdjustmentsDO(GameDate, _oLeagueDTO.LeagueName, _ConnectionString);
-         oAdjustments.ProcessDailyAdjustments(GameDate, _oLeagueDTO.LeagueName);
+         // kd 06/20/2020 Eliminate Adjs from prev Adj Table
+         //AdjustmentsDO oAdjustments = new AdjustmentsDO(GameDate, _oLeagueDTO.LeagueName, _ConnectionString);
+         //oAdjustments.ProcessDailyAdjustments(GameDate, _oLeagueDTO.LeagueName);
 
          return ocRotation.Count;  // return NumOfMatchups
 

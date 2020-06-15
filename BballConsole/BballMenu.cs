@@ -12,7 +12,7 @@ namespace BballConsole
    {
       static string[] menu = new string[] {
            "1) Load Today's Rotation"
-         , "2) Load Adjustments"
+         , "2) Deprecated - Load Adjustments"
          , "3) Write Html to Disk"
          , "4) Re-Load/Fix BoxScores by Day"
 
@@ -48,9 +48,10 @@ namespace BballConsole
                      break;
 
                   case "2":   // Load Adjustments
-                     GameDate = Convert.ToDateTime("03/11/2020");
-                     AdjustmentsDO oAdjustments = new AdjustmentsDO(GameDate, LeagueName, Bball.DataBaseFunctions.SqlFunctions.GetConnectionString());
-                     oAdjustments.ProcessDailyAdjustments(GameDate, LeagueName);
+                      // kd 06/20/2020 Eliminate Adjs from prev Adj Table
+                     //GameDate = Convert.ToDateTime("03/11/2020");
+                     //AdjustmentsDO oAdjustments = new AdjustmentsDO(GameDate, LeagueName, Bball.DataBaseFunctions.SqlFunctions.GetConnectionString());
+                     //oAdjustments.ProcessDailyAdjustments(GameDate, LeagueName);
                      break;
 
                   case "3":   // Write Html to Disk

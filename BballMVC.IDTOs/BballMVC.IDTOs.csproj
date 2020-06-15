@@ -49,6 +49,8 @@
     <Compile Include="IBoxScoresSeedsDTO.cs" />
     <Compile Include="ICoversDTO.cs" />
     <Compile Include="ILeagueDTO.cs" />
+    <Compile Include="IRotationDTO.cs" />
+    <Compile Include="ISeasonInfoDTO.cs" />
     <Compile Include="ITodaysMatchupsDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

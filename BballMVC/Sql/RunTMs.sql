@@ -14,6 +14,7 @@ GO
 			, @EndDate Date
 			, @Display bit = 0	-- Set to 1 to display TodaysMatchups
 			, @TruncateTables bit = 0	-- Set to 1 to Truncate Tables
+			, @BothHome_Away bit = 0	-- Set to 1 to NOT Differenctiate Between Home & Away
   ;
 
 if @TruncateTables = 0
@@ -23,6 +24,8 @@ BEGIN
 	Truncate Table TodaysMatchups;
 --	Truncate Table TeamStrength;
 END
+
+Set @BothHome_Away = Convert(bit, dbo.udfQueryParmValue('varBothHome_Away'))
 
 SELECT @StartDate =   Min([StartDate])
   FROM [00TTI_LeagueScores].[dbo].[SeasonInfo]
@@ -48,11 +51,12 @@ SELECT @StartDate as StartDate, @EndDate as EndDate,  convert(Time(0), getdate()
 ---------------
 -- Main Loop --
 ---------------
+set @BothHome_Away = 01
 set @Display = 1
 While @GameDate <= @EndDate
 BEGIN
 	print @GameDate
-	exec uspCalcTodaysMatchups  @UserName, @LeagueName, @GameDate, @Display
+	exec uspCalcTodaysMatchups  @UserName, @LeagueName, @GameDate, @Display, @BothHome_Away
 	Set @GameDate = DateAdd(d,1, @GameDate)
 	set @Display = 0
 END
@@ -110,7 +114,7 @@ SELECT count(*) as MUPs
 
  --     ,[PlayResult]
   FROM [00TTI_LeagueScores].[dbo].[TodaysMatchupsResults] mr
- --  Where mr.Play = 'Over'
+   Where mr.Play > ' '
   ) x
 
   select convert(Time(0), getdate()) as EndTime,  DateDiff(MINUTE, @StartTime, getdate()) as DurationMins
