@@ -123,8 +123,9 @@ namespace Bball.DAL.Tables
       #region WriteRows
       private void writeRotation()
       {
-         DailySummaryDO oDailySummary = new DailySummaryDO(_GameDate, _oLeagueDTO, _ConnectionString, _strLoadDateTime);
-         oDailySummary.RefreshRow(_ocRotation.Count);
+         // kd 06/16/2020 - Eliminated write DailySummary row - will now be written in Calc TMs stroed proc
+         //DailySummaryDO oDailySummary = new DailySummaryDO(_GameDate, _oLeagueDTO, _ConnectionString, _strLoadDateTime);
+         //oDailySummary.RefreshRow(_ocRotation.Count);
 
          deleteRotation();
 
