@@ -3,7 +3,7 @@ using BballMVC.IDTOs;
 
 namespace BballMVC.DTOs
 {
-   public class AdjustmentDTO : IDTOs.IAdjustmentDTO
+   public class AdjustmentDTO : IAdjustmentDTO
    {
       public int AdjustmentID { get; set; }
       public string LeagueName { get; set; }
@@ -15,5 +15,10 @@ namespace BballMVC.DTOs
       public string Player { get; set; }
       public string Description { get; set; }
       public DateTime? TS { get; set; }
+
+      public AdjustmentDTO ShallowCopy()
+      {
+         return (AdjustmentDTO)this.MemberwiseClone();
+      }
    }
 }

@@ -33,7 +33,7 @@ namespace BballMVC.ControllerAPIs
       [HttpGet]
       public HttpResponseMessage GetAdjustmentInfo(DateTime GameDate, string LeagueName)
       {
-         IAdjustmentInitDataDTO oAdjustmentInitDataDTO = oAdjustmentsBO.GetAdjustmentInfo(GameDate, LeagueName);
+         IBballDataDTO oAdjustmentInitDataDTO = oAdjustmentsBO.GetAdjustmentInfo(GameDate, LeagueName);
          return Request.CreateResponse(HttpStatusCode.OK, oAdjustmentInitDataDTO);
       }
 

@@ -10,6 +10,7 @@ namespace BballMVC.DTOs
       public string LeagueName { get; set; }
       public string ConnectionString { get; set; }
       public ISeasonInfoDTO oSeasonInfoDTO { get; set; }
+      public IBballDataDTO oBballDataDTO { get; set; }
 
    }
 }

@@ -1,11 +1,10 @@
 ﻿
-angular.module('app').controller('AdjustmentsController', function ($scope, f, ajx) {
-     // alert("AdjustmentsController");
+angular.module('app').controller("AdjustmentsController", function ($scope, f, ajx, url) {
    $scope.ocAdjustments;
    $scope.cbShowZeroAdjustments = true;
    let rowWasInserted = false;
-   let GetAdjustmentsParms = { scope: $scope, f: f, LeagueName: LeagueName, ajx: ajx };
-   GetAdjustmentInfo(GetAdjustmentsParms);
+   let GetAdjustmentsParms = { scope: $scope, f: f, LeagueName: oBballInfoDTO.LeagueName, ajx: ajx };
+ //  GetAdjustmentInfo(GetAdjustmentsParms);
 
    $scope.cbChange = function (adjAmtID) {
       alert("cb");
@@ -30,9 +29,9 @@ angular.module('app').controller('AdjustmentsController', function ($scope, f, a
 
       $scope.GreyOutAdjustmentList();
       // let URL = "api/Adjustments/PostProcessUpdates";
-      ajx.AjaxPost(UrlPostProcessUpdates, ocAdjustmentDTO)
+      ajx.AjaxPost(url.UrlPostProcessUpdates, ocAdjustmentDTO)
          .then(data => {
-            $scope.GetAdjustments($scope, f, ajx);  //GetAdjustments(GetAdjustmentsParms);
+            $scope.GetAdjustments($scope, f, ajx);  
             f.DisplayMessage("Updates Complete");
             $scope.ShowAdjustmentList();
          })
@@ -41,13 +40,17 @@ angular.module('app').controller('AdjustmentsController', function ($scope, f, a
          });
    };   // processUpdates 
    $scope.OpenAdjustmentEntryModal = function () {
-      $scope.GreyOutAdjustmentList
+      $scope.GreyOutAdjustmentList();
       $scope.$broadcast('OpenAdjustmentEntryModalEvent');
    };
    $scope.$on('CloseAdjustmentEntry', function (e, rowWasInserted) {
       if (rowWasInserted)
          $scope.GetAdjustments($scope, f, ajx);
       $scope.ShowAdjustmentList();
+   });
+
+   $scope.$on('populateAdjustments', function () {
+      populateAdjustments();
    });
 
    $scope.GetAdjustments = function ($scope, f, ajx) {
@@ -59,14 +62,23 @@ angular.module('app').controller('AdjustmentsController', function ($scope, f, a
          $scope.$apply();
       };
 
-      ajx.AjaxGet(UrlGetAdjustments, { GameDate: GameDate, LeagueName: LeagueName })   // Get Adjustments from server
+      ajx.AjaxGet(UrlGetAdjustments, { GameDate: oBballInfoDTO.GameDate, LeagueName: oBballInfoDTO.LeagueName })   // Get Adjustments from server
          .then(data => {
-            refreshAdjustments(data);
+            oBballInfoDTO.oBballDataDTO.ocAdjustments = data;
+            populateAdjustments();
          })
          .catch(error => {
             f.DisplayMessage(f.FormatResponse(error));
          });
    }; // GetAdjustments
+
+   function populateAdjustments() {
+      $scope.ocAdjustments = oBballInfoDTO.oBballDataDTO.ocAdjustments;
+      $scope.ocAdjustments.forEach(function (item) {
+         item.cb_ID = "cb_" + item.AdjustmentID;
+      });
+      $scope.$apply();
+   }
 
    $scope.ShowAdjustmentList = function () {
       $('#AdjustmentsList').css({ "display": "block", opacity: 1, "width": $(document).width(), "height": $(document).height() });
@@ -76,27 +88,30 @@ angular.module('app').controller('AdjustmentsController', function ($scope, f, a
       $('#AdjustmentsList').css({ "display": "block", opacity: 0.2, "width": $(document).width(), "height": $(document).height() });
    };
 
-   function GetAdjustmentInfo(Parms) { // called once at Controller init
-      var f = Parms.f;
-      var ajx = Parms.ajx;
-      let fProcessAdjustmentInfo = {
-         scope: Parms.scope
-         , process: function (oAdjustmentInitDataDTO) {
-         //   $scope.GetAdjustments($scope, f, ajx);
-            // Populate Teams DropDown form Adjustment Entry
-            this.scope.TeamList = oAdjustmentInitDataDTO.ocTeams;
-            this.scope.AdjustmentNameList = oAdjustmentInitDataDTO.ocAdjustmentNames;
-         }
-      }; // fProcessAdjustmentInfo
+   //function xGetAdjustmentInfo(Parms) { // called once at Controller init
+   //   var f = Parms.f;
+   //   var ajx = Parms.ajx;
+   //   let fProcessAdjustmentInfo = {
+   //      scope: Parms.scope
+   //      , process: function (oBballDataDTO) {
+   //         $scope.GetAdjustments(Parms.scope, f, ajx);
+   //         // Populate Teams DropDown form Adjustment Entry
+   //         this.scope.TeamList = oBballDataDTO.ocTeams;
+   //         this.scope.AdjustmentNameList = oBballDataDTO.ocAdjustmentNames;
+   //      }
+   //   }; // fProcessAdjustmentInfo
 
-      ajx.AjaxGet(UrlGetAdjustmentInfo, { GameDate: GameDate,  LeagueName: Parms.LeagueName })
-         .then(data => {
-            fProcessAdjustmentInfo.process(data);
-         })
-         .catch(error => {
-            f.DisplayMessage(f.FormatResponse(error));
-         });
-      return;
-   }  // GetAdjustmentInfo
+   //   ajx.AjaxGet(url.UrlGetAdjustmentInfo, { GameDate: oBballInfoDTO.GameDate,  LeagueName: Parms.LeagueName })
+   //      .then(data => {
+   //         oBballInfoDTO.oBballDataDTO.ocTeams = oBballDataDTO.ocTeams;
+   //         oBballInfoDTO.oBballDataDTO.AdjustmentNameList = oBballDataDTO.ocAdjustmentNames;
+   //         oBballInfoDTO.oBballDataDTO.ocAdjustments = oBballDataDTO.ocAdjustments;
+   //         populateAdjustments();
+   //      })
+   //      .catch(error => {
+   //         f.DisplayMessage(f.FormatResponse(error));
+   //      });
+   //   return;
+   //}  // GetAdjustmentInfo
 
 }); // Adjustments controller

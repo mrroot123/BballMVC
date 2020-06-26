@@ -180,6 +180,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="ControllerAPIs\AdjustmentsController.cs" />
     <Compile Include="ControllerAPIs\BaseApiController.cs" />
+    <Compile Include="ControllerAPIs\DataController.cs" />
     <Compile Include="ControllerAPIs\TodaysMatchupsController.cs" />
     <Compile Include="Controllers\AdjustmentsCodesController.cs" />
     <Compile Include="Controllers\AdjustmentsController.cs" />
@@ -272,21 +273,25 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App\Adjustments\AdjustmentsApp.js" />
+    <Content Include="App\Adjustments\adjustments.css" />
+    <Content Include="App\Adjustments\Adjustments.html" />
+    <Content Include="App\Adjustments\xxxAdjustmentsApp.js" />
     <Content Include="App\Adjustments\AdjustmentsController.js" />
+    <Content Include="App\Adjustments\AdjustmentsModalController.js" />
     <Content Include="App\Adjustments\_AdjustmentRow.html" />
     <Content Include="App\Adjustments\_AdjustmentsModel.html" />
-    <Content Include="App\Common\Head.html" />
+    <Content Include="App\Common\accordian.css" />
     <Content Include="App\Index.html" />
-    <Content Include="App\indexController.js" />
     <Content Include="App\Test\Test.html" />
     <Content Include="App\Test\_TestColSpan.html" />
     <Content Include="App\Test\_TestTable.html" />
     <Content Include="App\TodaysMatchups\TodaysMatchups.html" />
     <Content Include="App\TodaysMatchups\TodaysMatchupsController.js" />
     <Content Include="App\TodaysMatchups\_TodaysMatchupsTable.html" />
+    <Content Include="App\_Header\Header.html" />
+    <Content Include="App\_Header\HeaderController.js" />
     <Content Include="App\_layout\layout.html" />
-    <Content Include="App\_layout\layout.js" />
+    <Content Include="App\_layout\layoutController.js" />
     <Content Include="App\_Services\Services.js" />
     <Content Include="App\__stage.txt" />
     <Content Include="Models\BballEntities.Context.tt">
@@ -422,6 +427,7 @@
       <DependentUpon>BballEntities.edmx</DependentUpon>
     </Content>
     <Content Include="libman.json" />
+    <Content Include="App\app.module.js" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

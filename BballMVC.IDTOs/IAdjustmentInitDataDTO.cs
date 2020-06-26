@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace BballMVC.IDTOs
 {
-   public interface IAdjustmentInitDataDTO
+   public interface xIAdjustmentInitDataDTO
    {
       List<IDropDown> ocAdjustmentNames { get; set; }
       List<IAdjustmentDTO> ocAdjustments { get; set; }

@@ -12,7 +12,7 @@ namespace Bball.BAL
       public List<IAdjustmentDTO> GetTodaysAdjustments(DateTime GameDate, string LeagueName)
          => new AdjustmentsDO().GetTodaysAdjustments(GameDate, LeagueName);
       
-      public IAdjustmentInitDataDTO GetAdjustmentInfo(DateTime GameDate, string LeagueName)
+      public IBballDataDTO GetAdjustmentInfo(DateTime GameDate, string LeagueName)
          => new AdjustmentsDO().GetAdjustmentInfo(GameDate, LeagueName);
 
       public void InsertNewAdjustment(IAdjustmentDTO oAdjustmentDTO) 

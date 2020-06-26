@@ -6,6 +6,10 @@ namespace BballMVC.DTOs
 {
    public  class TodaysMatchupsDTO : ITodaysMatchupsDTO 
    {
+      public TodaysMatchupsDTO ShallowCopy()
+      {
+         return (TodaysMatchupsDTO)this.MemberwiseClone();
+      }
       public int TodaysMatchupsID { get; set; }
       public string UserName { get; set; }
       public string LeagueName { get; set; }

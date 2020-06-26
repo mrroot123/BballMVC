@@ -6,7 +6,7 @@ namespace Bball.IBAL
 {
    public interface IAdjustmentsBO
    {
-      IAdjustmentInitDataDTO GetAdjustmentInfo(DateTime GameDate, string LeagueName);
+      IBballDataDTO GetAdjustmentInfo(DateTime GameDate, string LeagueName);
       List<IAdjustmentDTO> GetTodaysAdjustments(DateTime GameDate, string LeagueName);
       void InsertNewAdjustment(IAdjustmentDTO oAdjustmentDTO);
       void UpdateAdjustments(IList<IAdjustmentDTO> ocAdjustmentDTO);

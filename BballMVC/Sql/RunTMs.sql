@@ -14,18 +14,8 @@ GO
 			, @EndDate Date
 			, @Display bit = 0	-- Set to 1 to display TodaysMatchups
 			, @TruncateTables bit = 0	-- Set to 1 to Truncate Tables
-			, @BothHome_Away bit = 0	-- Set to 1 to NOT Differenctiate Between Home & Away
   ;
 
-if @TruncateTables = 0
-BEGIN
-	
-	Truncate Table TodaysMatchupsResults;
-	Truncate Table TodaysMatchups;
---	Truncate Table TeamStrength;
-END
-
-Set @BothHome_Away = Convert(bit, dbo.udfQueryParmValue('varBothHome_Away'))
 
 SELECT @StartDate =   Min([StartDate])
   FROM [00TTI_LeagueScores].[dbo].[SeasonInfo]
@@ -35,8 +25,9 @@ SELECT @StartDate =   Min([StartDate])
 Set @GameDate = @StartDate
 Set @GameDate = DateAdd(d,1, @GameDate)
 
-Set @GameDate = '12/1/2018'
-Set @EndDate =  '5/1/2019' --  DateAdd(d,15, @GameDate)
+Set @StartDate = '12/1/2017'
+Set @EndDate =   '12/2/2017' --'4/15/2018' --  DateAdd(d,15, @GameDate) '12/2/2017' --
+Set @GameDate =  @StartDate 
 
 Declare @RunTodays bit = 0			-- 1 = @RunTodays games only  -----------------  TODAYS GAMES ------------
 If @RunTodays = 1
@@ -45,76 +36,114 @@ BEGIN
 	Set @GameDate = CONVERT(date, getdate()); Set @EndDate = @GameDate;
 END
 
-Declare @StartTime dateTime = GetDate();
-SELECT @StartDate as StartDate, @EndDate as EndDate,  convert(Time(0), getdate()) as StartTime
+Declare @GameDefaultOTamt float = 2 * ( Select TOP 1 DefaultOTamt From LeagueInfo 
+											WHERE LeagueName = @LeagueName AND StartDate < GetDate() 
+											Order by StartDate Desc) ;
+Declare @StartTime dateTime = GetDate(), @EndTime DateTime
 
----------------
--- Main Loop --
----------------
-set @BothHome_Away = 01
-set @Display = 1
-While @GameDate <= @EndDate
-BEGIN
-	print @GameDate
-	exec uspCalcTodaysMatchups  @UserName, @LeagueName, @GameDate, @Display, @BothHome_Away
-	Set @GameDate = DateAdd(d,1, @GameDate)
-	set @Display = 0
-END
+Declare @LoopHA int, @LoopDate int, @LoopGB int
 
+Set @StartDate = '12/1/2016'
+Set @EndDate =   '4/15/2017' 
+						--	Set @EndDate = @StartDate
 
-print getdate()
+While Year(@StartDate) <  2020
+BEGIN -- LoopDate 
+	Set @LoopGB = 2
+	While @LoopGB < 7
+	BEGIN -- LoopGB
+		Update UserLeagueParms 
+			Set GB1 = @LoopGB
+			  , GB2 = @LoopGB * 2
+			  , GB3 = @LoopGB * 3
+			Where UserName = @UserName		
+		
 
-Select *, (wins*100) / (convert( float,wins)+Losses) * 1.0 as WinPct
-From (
-SELECT count(*) as MUPs
+		Set @LoopHA = 0
+		While @LoopHA < 2
+		BEGIN -- LoopHA
+			Update UserLeagueParms 
+				Set BothHome_Away =  @LoopHA	
+				Where UserName = @UserName
+			---------------
+			-- Main Loop --
+			---------------
+			Set @StartTime = GETDATE();
+			Set @GameDate = @StartDate
+			
+			Select @StartDate as StartDate, @EndDate as EndDate, convert(Time(0), @StartTime) as StartTime,  @LoopHA as BothHA
 
-     ,round(avg(ScoreReg), 2) as ScoreReg
-     ,round(avg(TotalLine), 2) as TotalLine
-     ,round(avg(OurTotalLine), 2) as OurTotalLine
-      ,round(avg([LineDiffResultReg]), 2) as LineDiffResultReg
+			While @GameDate <= @EndDate
+			BEGIN
+				exec uspCalcTodaysMatchups  @UserName, @LeagueName, @GameDate, @Display
+				Set @GameDate = DateAdd(d,1, @GameDate)
+				set @Display = 0
+				--return
+			END
+			Set @EndTime = GETDATE();
+			INSERT INTO [dbo].[AnalysisResults]
+					(
+					  [TS]   ,[RunDurationMinutes]
+ 						, Games, Plays
+					 ,[LeagueName]           ,[StartDate]           ,[EndDate]
+					 ,DefaultOTamt
+					  ,[GB1]							,[GB2]						,[GB3]
+					  ,[WeightGB1]           ,[WeightGB2]           ,[WeightGB3]
+					  ,[Threshold]           ,[BxScLinePct]           ,[BxScTmStrPct]           ,[TmStrAdjPct]
+					  ,[BothHome_Away]
+					  ,[Wins]           ,[Losses]
+					  ,   WLPct
+					  ,[Unders]           ,[Overs]
+					  ,[UnderWins]           ,[UnderLosses],   UnderPct
+					  ,[OverWins]            ,[OverLosses],	OverPct
+					  ,[Description]
+					  , AvgScoreReg, AvgScoreRegwOT, AvgTotalLine, AvgOurTotalLine, AvgLineDiffResultReg
+					 )
+			Select 
+				GETDATE(),  DateDiff(MINUTE, @StartTime, @EndTime)
+				, Games, Plays
+				,@LeagueName, @StartDate, @EndDate
+				,@GameDefaultOTamt / 2
+				,u.[GB1]      ,u.[GB2]      ,u.[GB3]
+				,u.[WeightGB1]      ,u.[WeightGB2]      ,u.[WeightGB3]
+				,u.[Threshold]      ,u.[BxScLinePct]      ,u.[BxScTmStrPct]      ,u.[TmStrAdjPct]
+				,u.[BothHome_Away]
+				, (overWins+UnderWins) as Wins, (overLosses+UnderLosses) as Losses
+				, dbo.udfDivide( OverWins+UnderWins, OverWins+UnderWins + overLosses+UnderLosses) * 100.0 as WLPct
+				, Unders, Overs
+				, UnderWins,	UnderLosses, dbo.udfDivide( UnderWins, UnderLosses+UnderWins) * 100.0 as UnderPct
+				, OverWins, OverLosses, dbo.udfDivide( OverWins, OverLosses+OverWins) * 100.0 as OverPct
+				, ''
+				, AvgScoreReg, AvgScoreRegwOT, AvgTotalLine, AvgOurTotalLine, AvgLineDiffResultReg
+			From [UserLeagueParms] u
+			 Join (
+				Select 
+					(Select count(*) From [TodaysMatchupsResults]) as Games
+	 				,count(*) as Plays
 
-		, Sum( Case
-			When PlayResult = 'Win' THEN 1
-			ELSE 0
-		  END) as Wins
-		  
-		, Sum( Case
-			When PlayResult = 'Loss' THEN 1
-			ELSE 0
-		  END) as Losses
+			  ,round(avg(ScoreReg), 2) as AvgScoreReg
+			  ,round(avg(ScoreReg), 2) + @GameDefaultOTamt as 'AvgScoreRegwOT'
+			  ,round(avg(TotalLine), 2) as AvgTotalLine
+			  ,round(avg(OurTotalLine), 2) as AvgOurTotalLine
+				,round(avg([LineDiffResultReg]), 2) as AvgLineDiffResultReg
 
-		, Sum( Case
-			When mr.Play = 'Under' THEN 1
-			ELSE 0
-		  END) as Unders
+				, Sum(tmr.UnderWin) + Sum(tmr.UnderLoss) as Unders		, Sum(tmr.OverWin) + Sum(tmr.OverLoss) as Overs
+				, Sum(tmr.UnderWin) as UnderWins		, Sum(tmr.UnderLoss) as UnderLosses
+				, Sum(tmr.OverWin) as OverWins		, Sum(tmr.OverLoss) as OverLosses
 
-		, Sum( Case
-			When mr.Play = 'Over' THEN 1
-			ELSE 0
-		  END) as Overs
+				 From [TodaysMatchupsResults] tmr 
+				  Where tmr.LeagueName = @LeagueName  AND  tmr.GameDate Between @StartDate and @EndDate
+					AND tmr.Play > ' '
+				 ) mr on 1 = 1
+				Where u.UserName = 'Test'
 
-		, Sum( Case
-			When mr.Play = 'Under'  AND mr.PlayResult = 'Win' THEN 1
-			ELSE 0
-		  END) as UnderWins
+			Set @LoopHA = @LoopHA + 1;
+		END	-- LoopHA
+		Set @LoopGB = @LoopGB + 2
+	End -- LoopGB
+	Set @StartDate = DateAdd(YYYY, 1,@StartDate)
+	Set @EndDate	= DateAdd(YYYY, 1,@EndDate)
+END -- LoopDate 
 
-		, Sum( Case
-			When mr.Play = 'Under'  AND mr.PlayResult = 'Loss' THEN 1
-			ELSE 0
-		  END) as UnderLosses
+Select * From AnalysisResults
 
-		, Sum( Case
-			When mr.Play = 'Over'  AND mr.PlayResult = 'Win' THEN 1
-			ELSE 0
-		  END) as OverWins
-		, Sum( Case
-			When mr.Play = 'Over'  AND mr.PlayResult = 'Loss' THEN 1
-			ELSE 0
-		  END) as OverLosses
-
- --     ,[PlayResult]
-  FROM [00TTI_LeagueScores].[dbo].[TodaysMatchupsResults] mr
-   Where mr.Play > ' '
-  ) x
-
-  select convert(Time(0), getdate()) as EndTime,  DateDiff(MINUTE, @StartTime, getdate()) as DurationMins

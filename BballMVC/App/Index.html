@@ -7,40 +7,21 @@
 
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+   <link href="Common/accordian.css" rel="stylesheet" />
+   <link href="Adjustments/adjustments.css" rel="stylesheet" />
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-   <script src="Adjustments/AdjustmentsApp.js"></script>
+   <script src="app.module.js"></script>
    <script src="_Services/Services.js"></script>
-   <script src="indexController.js"></script>
+   <script src="_layout/layoutController.js"></script>
+
+   <script src="_Header/HeaderController.js"></script>
    <script src="Adjustments/AdjustmentsController.js"></script>
+   <script src="Adjustments/AdjustmentsModalController.js"></script>
    <script src="TodaysMatchups/TodaysMatchupsController.js"></script>
-
-   <style>
-      #AdjustmentsModal {
-         width: 750px;
-         height: 418px;
-         background: #000000;
-         text-align: center;
-         position: fixed;
-         left: 37.5%;
-         top: 5%;
-         z-index: 20;
-         display: none;
-         padding-top: 6px
-      }
-
-      #AdjustmentsList {
-      }
-
-      .showError {
-         color: red;
-         background: yellow;
-      }
-   </style>
-
 </head>
 <body>
    <div ng-app="app">

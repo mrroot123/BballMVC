@@ -2,17 +2,11 @@
 <div ng-controller="AdjustmentsController">
    <div class="container" id="AdjustmentsList">
 
-      <div class="row" style="margin-top: 10px;margin-bottom:10px;">
-         <div class="col-md-12">
-            <h1>Adjustments</h1>
-         </div>
-      </div>
-
       <div class="row">
          <div class="col-md-8">
             <div class="btn-group">
-               <button type="button" class="btn btn-info active" data-toggle="tooltip" title="Update">Update</button>
-               <button type="button" class="btn btn-info" data-toggle="tooltip" title="Add Adjustment">New</button>
+               <button type="button" class="btn btn-info active" data-toggle="tooltip" title="Update" ng-click="ProcessUpdates()">Update</button>
+               <button type="button" class="btn btn-info" data-toggle="tooltip" title="Add Adjustment" ng-click="OpenAdjustmentEntryModal()">Add</button>
             </div>
 
             <div class="btn-group">

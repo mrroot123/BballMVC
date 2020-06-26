@@ -2,32 +2,31 @@
 'use strict';
 angular.module('app').controller('TodaysMatchupsController', function ($scope,  f, ajx) {
    //alert("TodaysMatchupsController");
-   let TodaysMatchupsParms = {scope: $scope, f: f, LeagueName: LeagueName, ajx: ajx };
+   let TodaysMatchupsParms = {scope: $scope, f: f, LeagueName: oBballInfoDTO.LeagueName, ajx: ajx };
 
-   $scope.Multi = true;
+   $scope.Multi = false;
    $scope.showHistory = true;
-   $scope.tutorial = [
-            {TeamAway: "BOS", TeamHome: "ATL" },
-            {TeamAway: "NO", TeamHome: "LAL" },
-            {TeamAway: "NY", TeamHome: "MIA" }
-   ];
+
+   $scope.$on("populateTodaysMatchups", function (ev) {
+      populateTodaysMatchups();
+   });
+
    $scope.GetTodaysMatchups = function ($scope, f, ajx, url) {
-
-      let refreshTodaysMatchups = function (ocTodaysMatchups) {
-         $scope.ocTodaysMatchups = ocTodaysMatchups;
-         $scope.TMparms = ocTodaysMatchups[0];
-         $scope.$apply();
-      };
-
-      ajx.AjaxGet(UrlGetTodaysMatchups, { GameDate: GameDate, LeagueName: LeagueName })   // Get TodaysMatchups from server
+      ajx.AjaxGet(UrlGetTodaysMatchups, { GameDate: oBballInfoDTO.GameDate, LeagueName: oBballInfoDTO.LeagueName })   // Get TodaysMatchups from server
          .then(data => {
-            refreshTodaysMatchups(data);
+            oBballInfoDTO.oBballDataDTO.ocTodaysMatchups = data;
+            populateTodaysMatchups();
          })
          .catch(error => {
             f.DisplayMessage(f.FormatResponse(error));
          });
    }; // GetTodaysMatchups
-   $scope.GetTodaysMatchups($scope, f, ajx);
+
+   function populateTodaysMatchups() {
+      $scope.ocTodaysMatchups = oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO;
+      $scope.TMparms = oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO[0];
+      $scope.$apply();
+   };
 
 
 });   // controller

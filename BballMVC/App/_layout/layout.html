@@ -1,50 +1,43 @@
 ﻿
-<script src="_layout/layout.js"></script>
-<div ng-controller="indexController">
-   <div class="row">
-      <div class="col-md-2"> </div>
-      <div class="col-md-3">
-         <h1>Bball</h1>
-      </div>
-      <div class="col-md-7"> </div>
-   </div>
 
-   <div class="row">
-      <div class="col-md-12"><hr /> </div>
-   </div>
-   
-   <div class="row">
-      <div class="col-md-2"> </div>
-      <div class="col-md-5 col-sm-4 col-xs-3">
-         <span class="help-block text-muted small-font">League Name</span>
-         <select ng-model="LeagueName" ng-options="item.Text as item.Value for item in LeagueNameList">
-            <option value="" label="--Select League--"></option>
-         </select>
-      </div>
-      <div class="col-md-3">
-         <input type="date" ng-model="GameDate" /> Game Date
+<div ng-controller="layoutController" id="screen">
+
+   <div ng-include="'_Header/Header.html'"></div>
+
+   <div class="panel-group" id="accordion" ng-show="showAccordian">
+
+      <div class="panel panel-default">
+         <div class="panel-heading">
+            <h4 class="panel-title">
+               <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#accTodaysMatchups">
+                  <span class="glyphicon glyphicon-menu-right"></span>
+                  Todays Matchups
+               </a>
+            </h4>
+         </div>
+         <div id="accTodaysMatchups" class="panel-collapse collapse">
+            <div class="panel-body">
+               <div ng-include="'TodaysMatchups/TodaysMatchups.html'"></div>
+            </div>
+         </div>
       </div>
 
-      <div class="col-md-2"> </div>
-   </div>
-
-   <div class="row">
-      <div class="col-md-2"> </div>
-      <div class="col-md-3">
-         <input type="checkbox" ng-model="cbShowTodaysMatchups" ng-checked="true" /> Show Todays Matchups
+      <div class="panel panel-default">
+         <div class="panel-heading">
+            <h4 class="panel-title">
+               <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#accAdjustments">
+                  <span class="glyphicon glyphicon-menu-right"></span>
+                  Adjustments
+               </a>
+            </h4>
+         </div>
+         <div id="accAdjustments" class="panel-collapse collapse">
+            <div class="panel-body">
+               <div ng-include="'Adjustments/Adjustments.html'"></div>
+            </div>
+         </div>
       </div>
-      <div class="col-md-3">
-         <input type="checkbox" ng-model="cbShowAdjustments" ng-checked="true" /> Show Adjustments
-      </div>
 
-      <div class="col-md-7"> </div>
    </div>
 
-   <div ng-show="cbShowTodaysMatchups">
-      <div ng-include="'TodaysMatchups/TodaysMatchups.html'"></div>
-   </div>
-
-   <div ng-show="cbShowAdjustments">
-      <div ng-include="'Adjustments/Adjustments.html'"></div>
-   </div>
 </div>

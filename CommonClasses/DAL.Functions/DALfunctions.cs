@@ -316,6 +316,8 @@ namespace SysDAL
          return sql;
       }
       #endregion genSql
+
+
       public static string InsertRow(string ConnectionString, string sqlString, List<string> ocColumnNames, List<string> ocColumnValues)
       {
          //string sqlString = "INSERT INTO table (col1, col2, col3) VALUES (@val1, @val2, @val3)";

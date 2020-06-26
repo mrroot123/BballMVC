@@ -10,7 +10,7 @@ namespace Bball.DataBaseFunctions
    {
       const string BballConnectionStringName = "BballEntities";
         const string SqlServerConnectionStringKeith =
-           @"Data Source=Localhost\SQLEXPRESS2012;Initial Catalog=00TTI_LeagueScores;Integrated Security=SSPI";
+           @"Data Source=Localhost\Bball;Initial Catalog=00TTI_LeagueScores;Integrated Security=SSPI";
         const string SqlServerConnectionStringTest =
          @"Data Source=Localhost\SQLEXPRESS;Initial Catalog=00TTI_LeagueScores;Integrated Security=SSPI";
       const string SqlServerConnectionStringArvixe =

@@ -24,9 +24,11 @@ namespace Bball.DAL.Tables
       #region GetRows
       public void GetTodaysMatchups(IList<ITodaysMatchupsDTO> ocTodaysMatchupsDTO)
       {
-       //  IList<ITodaysMatchupsDTO> ocTodaysMatchupsDTO = new List<ITodaysMatchupsDTO>();
+         if (ocTodaysMatchupsDTO == null)
+            ocTodaysMatchupsDTO = new List<ITodaysMatchupsDTO>();
+
          int rows = SysDAL.DALfunctions.ExecuteSqlQuery(_oBballInfoDTO.ConnectionString, getRowSql(), ocTodaysMatchupsDTO, populateDTOFromRdr);
-         //return rows;
+
       }
       static void populateDTOFromRdr(object oRow, SqlDataReader rdr)
       {

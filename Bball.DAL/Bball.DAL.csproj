@@ -89,6 +89,7 @@
     <Compile Include="Tables\BoxScoreDO.cs" />
     <Compile Include="Tables\BoxScoresSeedsDO.cs" />
     <Compile Include="Tables\DailySummaryDO.cs" />
+    <Compile Include="Tables\DataDO.cs" />
     <Compile Include="Tables\LeagueInfoDO.cs" />
     <Compile Include="Tables\LinesDO.cs" />
     <Compile Include="Tables\RotationDO.cs" />

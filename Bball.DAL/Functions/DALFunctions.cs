@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data.SqlClient;
+using BballMVC.DTOs;
+using BballMVC.IDTOs;
 
 namespace Bball.DAL.Functions
 {
@@ -14,6 +14,14 @@ namespace Bball.DAL.Functions
       {
          return SysDAL.DALfunctions.StackTraceFormat(PreMsg, ex, PostMsg);
       }
-
+      public static void PopulateDropDownDTOFromRdr(object oRow, SqlDataReader rdr)
+      {
+         List<IDropDown> ocDD = (List<IDropDown>)oRow;
+         ocDD.Add(new DropDown()
+         {
+            Value = (string)rdr.GetValue(0).ToString().Trim(),
+            Text = (string)rdr.GetValue(1).ToString().Trim()
+         });
+      }
    }
 }

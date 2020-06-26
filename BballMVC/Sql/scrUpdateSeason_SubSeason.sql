@@ -37,27 +37,27 @@ While 1 < 2
 BEGIN
 	Select TOP 1
 		@RotationID = r.RotationID,  @GameDate = r.GameDate , @LeagueName = r.LeagueName
-		from Rotation_2018 r
-		Where r.Season is null and gamedate between '12/1/2018' and '6/1/2019'
+		from Rotation r
+		Where r.Season is null -- and gamedate between '12/1/2018' and '6/1/2019'
 
 					If @@ROWCOUNT = 0
 					BREAK;
 
-	-- Select * from Rotation_2018 where RotationID = @RotationID
+	-- Select * from Rotation where RotationID = @RotationID
 
 	 Insert @SeasonInfoTable Exec [dbo].[uspQuerySeasonInfo]  @GameDate , @LeagueName 
 	 Select @Season = Season, @SubSeason = SubSeason from @SeasonInfoTable
 
-	 Update Rotation_2018
+	 Update Rotation
 		Set Season = @Season
 			, SubSeason = @SubSeason
 			, SubSeasonPeriod = 0
 			Where RotationID = @RotationID
 
-	 Select * from Rotation_2018 where RotationID = @RotationID
+	-- Select * from Rotation where RotationID = @RotationID
 END	
 
-	Select LeagueName, Season, SubSeason, Venue, count(*) from Rotation_2018
-	  
+	Select LeagueName, Season, SubSeason, Venue, count(*) from Rotation
+	  where LeagueName = 'NBA' and SubSeason = '1-reg' and venue = 'Away'
 		Group by LeagueName, Season, SubSeason,  Venue
 		order by LeagueName, Season, SubSeason,  Venue

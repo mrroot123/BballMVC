@@ -1,11 +1,13 @@
 ﻿angular.module('app').service('url', function () {
    const urlPrefix = "../../api/";
+   this.UrlGetLeagueNames = urlPrefix + "Data/GetLeagueNames";
    this.UrlPostInsertAdjustment = urlPrefix + "Adjustments/PostInsertAdjustment";
-   this.UrlPostProcessUpdates = urlPrefix + "Adjustments/PostProcessUpdates";
+ //  this.UrlPostProcessUpdates = urlPrefix + "Adjustments/PostProcessUpdates";
    this.UrlGetAdjustmentInfo = urlPrefix + "Adjustments/GetAdjustmentInfo";
    this.UrlGetAdjustments = urlPrefix + "Adjustments/GetAdjustments";
-
+   this.UrlGetLeagueData = urlPrefix + "Data/GetLeagueData";
    this.UrlGetTodaysMatchups = urlPrefix + "TodaysMatchups/GetTodaysMatchups";
+   
 
 });
 angular.module('app').service('ajx', function () {
@@ -53,9 +55,19 @@ angular.module('app').service('f', function () {
    };
 
    this.FormatResponse = function (response) {
-      return "status: " + response.status + "\n"
-         + "statusText: " + response.statusText + "\n"
-         + "responseText: " + response.responseText;
+      var msg;
+      if (response.status !== undefined)
+         msg += "status: " + response.status + "\n";
+      if (response.statusText !== undefined)
+         msg += "statusText: " + response.statusText + "\n";
+      if (response.responseText !== undefined)
+         msg += "responseText: " + response.responseText + "\n";
+      if (response.message !== undefined)
+         msg += "message: " + response.message + "\n";
+      if (response.stack !== undefined)
+         msg += "stack: " + response.stack + "\n";
+
+      return msg;
    };
 
    this.MessageSuccess = function (msg) {

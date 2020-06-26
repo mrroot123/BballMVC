@@ -99,7 +99,7 @@ Sql Server Import from MS Access
 App Folders
 
 Index.html
-  <script src="Adjustments/AdjustmentsApp.js"></script>
+   <script src="Adjustments/AdjustmentsApp.js"></script>
    <script src="indexController.js"></script>
    <script src="Adjustments/AdjustmentsController.js"></script>
    <script src="TodaysMatchups/TodaysMatchupsController.js"></script>
@@ -107,8 +107,7 @@ Index.html
    <div ng-include="'_layout/layout.html'"></div>
 IndexController.js
    angular.module('app').controller('indexController', function ($scope) {
-      $scope.cbShowAdjustments = true;
-      $scope.cbShowTodaysMatchups = true;
+
    });
 
 layout.html

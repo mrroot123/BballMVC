@@ -41,7 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdjustmentsBO.cs" />
-    <Compile Include="ITodaysMatchupsBO.cs" />
+    <Compile Include="DataBO.cs" />
     <Compile Include="LoadBoxScores.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TodaysMatchupsBO.cs" />

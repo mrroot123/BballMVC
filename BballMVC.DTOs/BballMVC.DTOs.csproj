@@ -44,6 +44,7 @@
     <Compile Include="AdjustmentDTO.cs" />
     <Compile Include="AdjustmentInitDataDTO.cs" />
     <Compile Include="AdjustmentsDailyDTO.cs" />
+    <Compile Include="BballDataDTO.cs" />
     <Compile Include="BballInfoDTO.cs" />
     <Compile Include="BoxScoresDTO.cs" />
     <Compile Include="BoxScoresLast5MinDTO.cs" />
