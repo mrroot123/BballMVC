@@ -2,7 +2,7 @@
    const urlPrefix = "../../api/";
    this.UrlGetLeagueNames = urlPrefix + "Data/GetLeagueNames";
    this.UrlPostInsertAdjustment = urlPrefix + "Adjustments/PostInsertAdjustment";
- //  this.UrlPostProcessUpdates = urlPrefix + "Adjustments/PostProcessUpdates";
+   this.UrlPostProcessUpdates = urlPrefix + "Adjustments/PostProcessUpdates";
    this.UrlGetAdjustmentInfo = urlPrefix + "Adjustments/GetAdjustmentInfo";
    this.UrlGetAdjustments = urlPrefix + "Adjustments/GetAdjustments";
    this.UrlGetLeagueData = urlPrefix + "Data/GetLeagueData";

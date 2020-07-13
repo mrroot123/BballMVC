@@ -3,8 +3,6 @@ angular.module('app').controller("AdjustmentsController", function ($scope, f, a
    $scope.ocAdjustments;
    $scope.cbShowZeroAdjustments = true;
    let rowWasInserted = false;
-   let GetAdjustmentsParms = { scope: $scope, f: f, LeagueName: oBballInfoDTO.LeagueName, ajx: ajx };
- //  GetAdjustmentInfo(GetAdjustmentsParms);
 
    $scope.cbChange = function (adjAmtID) {
       alert("cb");
@@ -62,7 +60,7 @@ angular.module('app').controller("AdjustmentsController", function ($scope, f, a
          $scope.$apply();
       };
 
-      ajx.AjaxGet(UrlGetAdjustments, { GameDate: oBballInfoDTO.GameDate, LeagueName: oBballInfoDTO.LeagueName })   // Get Adjustments from server
+      ajx.AjaxGet(url.UrlGetAdjustments, { GameDate: oBballInfoDTO.GameDate, LeagueName: oBballInfoDTO.LeagueName })   // Get Adjustments from server
          .then(data => {
             oBballInfoDTO.oBballDataDTO.ocAdjustments = data;
             populateAdjustments();

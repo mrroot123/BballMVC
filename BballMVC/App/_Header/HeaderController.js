@@ -37,7 +37,8 @@
             $rootScope.$broadcast('populateTeams_AdjTypes');
            
             $scope.$emit('showAccordian');
-            f.DisplayMessage("League Selected");
+            $scope.$apply;
+           // f.DisplayMessage("League Selected");
          })
          .catch(error => {
             f.DisplayMessage(f.FormatResponse(error));

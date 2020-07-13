@@ -281,6 +281,8 @@
     <Content Include="App\Adjustments\_AdjustmentRow.html" />
     <Content Include="App\Adjustments\_AdjustmentsModel.html" />
     <Content Include="App\Common\accordian.css" />
+    <Content Include="App\Components\accordianSection.html" />
+    <Content Include="App\Components\helloWorld.html" />
     <Content Include="App\Index.html" />
     <Content Include="App\Test\Test.html" />
     <Content Include="App\Test\_TestColSpan.html" />
@@ -293,7 +295,6 @@
     <Content Include="App\_layout\layout.html" />
     <Content Include="App\_layout\layoutController.js" />
     <Content Include="App\_Services\Services.js" />
-    <Content Include="App\__stage.txt" />
     <Content Include="Models\BballEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>BballEntities.edmx</DependentUpon>
@@ -428,6 +429,7 @@
     </Content>
     <Content Include="libman.json" />
     <Content Include="App\app.module.js" />
+    <Content Include="App\data.json" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

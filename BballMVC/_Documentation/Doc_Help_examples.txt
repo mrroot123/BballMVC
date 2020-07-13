@@ -3,6 +3,14 @@ TOC
  
  Backup & Restore 00TTI_LeagueScores - usp_DatabaseBackupRestore.sql - 
    Backs up DB to D:\BU\00TTI_LeagueScores.Bak
+    Restore
+	   In SSMS right-click "Databases" and select "Restore Files and Filegroups"
+	   Enter the name of the new database in the "To database" field. -- 00TTI_LeagueScores
+	   Select "From device" and then select the file that you backuped in the first step
+	   click "OK"
+	   this will "clone" the Database with the correct table settings such as the "default value" and "auto increase" etc.
+
+
  VSIX Installer - Advanced Installer for Visual Studio 2017 - Installed 12/24/2019 learn how to use
 
 Application Functions

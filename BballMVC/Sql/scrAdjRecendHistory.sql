@@ -2,12 +2,21 @@ use [00TTI_LeagueScores]
 
 		Declare @GamesBack int = 45
 				,  @GameDate Date = '1/1/2019', @LeagueName varchar(10) = 'NBA'
-				, @AdjOtWithSide float = 1.4
+				, @GameDefaultOTamt float = 1.4
 				, @Diff float = 0.0
 				, @ctrDiff float = 0.0
 				, @Adj float = 0.0
 				, @AdjPct float = .2
 				, @OurTotalLine float , @TotalLine float , @ScoreRegWotAdj float 
+
+	Select Top 1 
+			@GamesBack = NumberOfTeams / 2 * 3
+			, @GameDefaultOTamt = DefaultOTamt * 2
+			From LeagueInfo
+				Where LeagueName = @LeagueName and StartDate <= @GameDate
+				order by StartDate desc
+
+	--Select @GamesBack as GamesBack, @GameDefaultOTamt as GameDefaultOTamt
 
 	WHILE @GameDate < '05/01/2019'
 	BEGIN
@@ -20,7 +29,7 @@ use [00TTI_LeagueScores]
 				,Round(AVG( q1.TotalLine), 2) as TotalLine
 				,Round(AVG( q1.ScoreRegWotAdj), 2) as ScoreRegWotAdj
 			 From (
-				SELECT Top (@GamesBack) OurTotalLine, TotalLine, ScoreReg + @AdjOtWithSide as ScoreRegWotAdj
+				SELECT Top (@GamesBack) OurTotalLine, TotalLine, ScoreReg + @GameDefaultOTamt as ScoreRegWotAdj
 					From TodaysMatchupsResults mr
 					Where mr.LeagueName = @LeagueName
 					  AND mr.GameDate < @GameDate
@@ -38,7 +47,7 @@ use [00TTI_LeagueScores]
 				,Round(AVG( q1.TotalLine), 2) as TotalLine
 				,Round(AVG( q1.ScoreRegWotAdj), 2) as ScoreRegWotAdj
 			 From (
-				SELECT Top (@GamesBack) OurTotalLine, TotalLine, ScoreReg + @AdjOtWithSide as ScoreRegWotAdj
+				SELECT Top (@GamesBack) OurTotalLine, TotalLine, ScoreReg + @GameDefaultOTamt as ScoreRegWotAdj
 					From TodaysMatchupsResults mr
 					Where mr.LeagueName = @LeagueName
 					  AND mr.GameDate < @GameDate
