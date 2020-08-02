@@ -67,7 +67,7 @@ Namespace Bball.VbClasses
          ' Dim sHtml As String
          Dim oParseTable As ParseHtml2
 
-         oBoxscoreParseStatsSummary = New BoxscoreParseStatsSummary
+         oBoxscoreParseStatsSummary = New BoxscoreParseStatsSummary  ' Qtr stats
 
          '*** Get Html ***
          oParseBoxscore = New ParseHtml2(poCoversDTO.Url, "", "") ' Get Covers BoxScore html

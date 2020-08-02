@@ -1,0 +1,316 @@
+﻿
+<table ng-hide="Multi" class="table table-bordred table-striped">
+   <!-- Colspan Doc site https://www.w3.org/WAI/tutorials/tables/irregular/ -->
+
+
+   <tr class="w-medium">
+      <th class="w-narrow">Rot #<br>Time</th>
+      <th class="w-narrow">Teams</th>
+      <th class="w-medium">Play</th>
+      <th class="w-medium">Type</th>
+      <th class="w-narrow">Total Line<br>Score</th>
+      <th class="w-narrow">Team TL<br />Score</th>
+      <th class="w-narrow">1 PTers</th>
+      <th class="w-narrow">1 PTer Attempts</th>
+      <th class="w-narrow">2 PTers</th>
+      <th class="w-narrow">2 PTer Attempts</th>
+      <th class="w-narrow">3 PTers</th>
+      <th class="w-narrow">3 PTer Attempts</th>
+   </tr>
+   <tr ng-repeat="item in ocPostGameAnalysisDTO">
+      <!--Rot#-->
+      <td>
+         <table class="table table-bordred ">
+            <tr>
+               <td>
+                  <table class="awayTable">
+                     <tr class="awayR1"> <td>&nbsp;</td> </tr>
+                     <tr class="awayR2"> <td>{{item.RotNum}}</td> </tr>
+                     <tr class="awayR3"> <td>&nbsp;</td> </tr>
+                  </table>
+               </td>
+            </tr>
+            <tr>
+               <td>
+                  <table class="homeTable">
+                     <tr class="homeR1"><td>&nbsp;</td></tr>
+                     <tr class="homeR2"><td>{{item.RotNum + 1}}</td></tr>
+                     <tr class="homeR3"><td>&nbsp;</td></tr>
+                  </table>
+               </td>
+            </tr>
+         </table>
+      </td>
+
+      <!--Teams-->
+      <td>
+         <table class="table table-bordred ">
+            <tr>
+               <td>
+                  <table class="awayTable">
+                     <tr class="awayR1"> <td>&nbsp;</td> </tr>
+                     <tr class="awayR2"> <td>{{item.TeamAway}}</td> </tr>
+                     <tr class="awayR3"> <td>&nbsp;</td> </tr>
+                  </table>
+               </td>
+            </tr>
+            <tr>
+               <td>
+                  <table class="homeTable">
+                     <tr class="homeR1"><td>&nbsp;</td></tr>
+                     <tr class="homeR2"><td>{{item.TeamHome}}</td></tr>
+                     <tr class="homeR3"><td>&nbsp;</td></tr>
+                  </table>
+               </td>
+            </tr>
+         </table>
+      </td>
+
+      <!--Play-->
+      <td>
+         <table class="table table-bordred ">
+            <tr>
+               <td>
+                  <table class="awayTable">
+                     <tr class="awayR1"> <td class="awayR1">&nbsp;{{item.Play}}</td> </tr>
+                     <tr class="awayR2"> <td>&nbsp;</td> </tr>
+                     <tr class="awayR3"> <td>&nbsp;</td> </tr>
+                  </table>
+               </td>
+            </tr>
+            <tr>
+               <td>
+                  <table class="homeTable">
+                     <tr class="homeR1"><td>&nbsp;</td></tr>
+                     <tr class="homeR2"><td>&nbsp;</td></tr>
+                     <tr class="homeR3"><td>&nbsp;</td></tr>
+                  </table>
+               </td>
+            </tr>
+         </table>
+      </td>
+
+      <!--Literals-->
+      <td>
+         <table class="table table-bordred ">
+            <tr>
+               <td>
+                  <table class="awayTable">
+                     <tr class="awayR1"> <td>Projected</td> </tr>
+                     <tr class="awayR2"> <td>Actual</td> </tr>
+                     <tr class="awayR3"> <td>Difference</td> </tr>
+                  </table>
+               </td>
+            </tr>
+            <tr>
+               <td>
+                  <table class="homeTable">
+                     <tr class="homeR1"><td>Projected</td></tr>
+                     <tr class="homeR2"><td>Actual</td></tr>
+                     <tr class="homeR3"><td>Difference</td></tr>
+                  </table>
+               </td>
+            </tr>
+         </table>
+      </td>
+
+
+      <!--Total Line-->
+      <td>
+         <table class="table table-bordred ">
+            <tr>
+               <td>
+                  <table class="awayTable">
+                     <tr class="awayR1"> <td class="awayR1">{{item.TotalLine | number:1 }}</td> </tr>
+                     <tr class="awayR2"> <td>{{item.ScoreReg | number:1 }}</td> </tr>
+                     <tr class="awayR3"> <td>{{item.ScoreReg-item.TotalLine | number:1 }}</td> </tr>
+                  </table>
+               </td>
+            </tr>
+            <tr>
+               <td>
+                  <table class="homeTable">
+                     <tr class="homeR1"><td>&nbsp;</td></tr>
+                     <tr class="homeR2"><td>&nbsp;</td></tr>
+                     <tr class="homeR3"><td>&nbsp;</td></tr>
+                  </table>
+               </td>
+            </tr>
+         </table>
+      </td>
+
+      <!--Team TL-->
+      <td>
+         <table class="table table-bordred ">
+            <tr>
+               <td>
+                  <table class="awayTable">
+                     <tr class="awayR1"> <td class="awayR1">{{item.OurTotalLineAway | number:1 }}</td> </tr>
+                     <tr class="awayR2"> <td>{{item.ScoreRegOp | number:1 }}</td> </tr>
+                     <tr class="awayR3"> <td>{{item.ScoreRegOp-item.OurTotalLineAway | number:1 }}</td> </tr>
+                  </table>
+               </td>
+            </tr>
+            <tr>
+               <td>
+                  <table class="homeTable">
+                     <tr class="homeR1"><td>{{item.OurTotalLineHome | number:1 }}</td></tr>
+                     <tr class="homeR2"><td>{{item.ScoreRegUs | number:1 }}</td></tr>
+                     <tr class="homeR3"><td>{{item.ScoreRegUs-item.OurTotalLineHome | number:1 }}</td></tr>
+                  </table>
+               </td>
+            </tr>
+         </table>
+      </td>
+
+      <td>
+         <table class="table table-bordred ">
+            <tr>
+               <td>
+                  <table class="awayTable">
+                     <tr class="awayR1"> <td>{{item.AwayProjectedPt1 | number:1 }}</td> </tr>
+                     <tr class="awayR2"> <td>{{item.ShotsMadeOpRegPt1 | number:1 }}</td> </tr>
+                     <tr class="awayR3"> <td>{{item.ShotsMadeOpRegPt1-item.AwayProjectedPt1 | number:1 }}</td> </tr>
+                  </table>
+               </td>
+            </tr>
+            <tr>
+               <td>
+                  <table class="homeTable">
+                     <tr class="homeR1"><td>{{item.HomeProjectedPt1 | number:1 }}</td></tr>
+                     <tr class="homeR2"><td>{{item.ShotsMadeUsRegPt1 | number:1 }}</td></tr>
+                     <tr class="homeR3"><td>{{item.ShotsMadeUsRegPt1-item.AwayProjectedPt1 | number:1 }}</td></tr>
+                  </table>
+               </td>
+            </tr>
+         </table>
+      </td>
+
+      <!--Atmp Pt1-->
+      <td>
+         <table class="table table-bordred ">
+            <tr>
+               <td>
+                  <table class="awayTable">
+                     <tr class="awayR1"> <td>{{item.AwayProjectedAtmpPt1 | number:1 }}</td> </tr>
+                     <tr class="awayR2"> <td>{{item.AwayAverageAtmpUsPt1 | number:1 }}</td> </tr>
+                     <tr class="awayR3"> <td>{{item.AwayAverageAtmpUsPt1-item.AwayProjectedAtmpPt1 | number:1 }}</td> </tr>
+                  </table>
+               </td>
+            </tr>
+            <tr>
+               <td>
+                  <table class="homeTable">
+                     <tr class="HomeR1"> <td>{{item.HomeProjectedAtmpPt1 | number:1 }}</td> </tr>
+                     <tr class="HomeR2"> <td>{{item.HomeAverageAtmpUsPt1 | number:1 }}</td> </tr>
+                     <tr class="HomeR3"> <td>{{item.HomeAverageAtmpUsPt1-item.HomeProjectedAtmpPt1 | number:1 }}</td> </tr>
+                  </table>
+               </td>
+            </tr>
+         </table>
+      </td>
+
+      <td>
+         <table class="table table-bordred ">
+            <tr>
+               <td>
+                  <table class="awayTable">
+                     <tr class="awayR1"> <td>{{item.AwayProjectedPt2 | number:1 }}</td> </tr>
+                     <tr class="awayR2"> <td>{{item.ShotsMadeOpRegPt2 | number:1 }}</td> </tr>
+                     <tr class="awayR3"> <td>{{item.ShotsMadeOpRegPt2-item.AwayProjectedPt2 | number:1 }}</td> </tr>
+                  </table>
+               </td>
+            </tr>
+            <tr>
+               <td>
+                  <table class="homeTable">
+                     <tr class="homeR1"><td>{{item.HomeProjectedPt2 | number:1 }}</td></tr>
+                     <tr class="homeR2"><td>{{item.ShotsMadeUsRegPt2 | number:1 }}</td></tr>
+                     <tr class="homeR3"><td>{{item.ShotsMadeUsRegPt2-item.AwayProjectedPt2 | number:1 }}</td></tr>
+                  </table>
+               </td>
+            </tr>
+         </table>
+      </td>
+
+
+      <!--Atmp Pt2-->
+      <td>
+         <table class="table table-bordred ">
+            <tr>
+               <td>
+                  <table class="awayTable">
+                     <tr class="awayR1"> <td>{{item.AwayProjectedAtmpPt2 | number:1 }}</td> </tr>
+                     <tr class="awayR2"> <td>{{item.AwayAverageAtmpUsPt2 | number:1 }}</td> </tr>
+                     <tr class="awayR3"> <td>{{item.AwayAverageAtmpUsPt2-item.AwayProjectedAtmpPt2 | number:1 }}</td> </tr>
+                  </table>
+               </td>
+            </tr>
+            <tr>
+               <td>
+                  <table class="homeTable">
+                     <tr class="HomeR1"> <td>{{item.HomeProjectedAtmpPt2 | number:1 }}</td> </tr>
+                     <tr class="HomeR2"> <td>{{item.HomeAverageAtmpUsPt2 | number:1 }}</td> </tr>
+                     <tr class="HomeR3"> <td>{{item.HomeAverageAtmpUsPt2-item.HomeProjectedAtmpPt2 | number:1 }}</td> </tr>
+                  </table>
+               </td>
+            </tr>
+         </table>
+      </td>
+
+      <td>
+         <table class="table table-bordred ">
+            <tr>
+               <td>
+                  <table class="awayTable">
+                     <tr class="awayR1"> <td>{{item.AwayProjectedPt3 | number:1 }}</td> </tr>
+                     <tr class="awayR2"> <td>{{item.ShotsMadeOpRegPt3 | number:1 }}</td> </tr>
+                     <tr class="awayR3"> <td>{{item.ShotsMadeOpRegPt3-item.AwayProjectedPt3 | number:1 }}</td> </tr>
+                  </table>
+               </td>
+            </tr>
+            <tr>
+               <td>
+                  <table class="homeTable">
+                     <tr class="homeR1"><td>{{item.HomeProjectedPt3 | number:1 }}</td></tr>
+                     <tr class="homeR2"><td>{{item.ShotsMadeUsRegPt3 | number:1 }}</td></tr>
+                     <tr class="homeR3"><td>{{item.ShotsMadeUsRegPt3-item.AwayProjectedPt3 | number:1 }}</td></tr>
+                  </table>
+               </td>
+            </tr>
+         </table>
+      </td>
+
+
+      <!--Atmp Pt3-->
+      <td>
+         <table class="table table-bordred ">
+            <tr>
+               <td>
+                  <table class="awayTable">
+                     <tr class="awayR1"> <td>{{item.AwayProjectedAtmpPt3 | number:1 }}</td> </tr>
+                     <tr class="awayR2"> <td>{{item.AwayAverageAtmpUsPt3 | number:1 }}</td> </tr>
+                     <tr class="awayR3"> <td>{{item.AwayAverageAtmpUsPt3-item.AwayProjectedAtmpPt3 | number:1 }}</td> </tr>
+                  </table>
+               </td>
+            </tr>
+            <tr>
+               <td>
+                  <table class="homeTable">
+                     <tr class="HomeR1"> <td>{{item.HomeProjectedAtmpPt3 | number:1 }}</td> </tr>
+                     <tr class="HomeR2"> <td>{{item.HomeAverageAtmpUsPt3 | number:1 }}</td> </tr>
+                     <tr class="HomeR3"> <td>{{item.HomeAverageAtmpUsPt3-item.HomeProjectedAtmpPt3 | number:1 }}</td> </tr>
+                  </table>
+               </td>
+            </tr>
+         </table>
+      </td>
+
+
+
+   </tr>
+</table>
+
+
+         <hr />
+

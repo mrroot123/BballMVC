@@ -7,5 +7,8 @@ namespace Bball.IBAL
    {
       void GetLeagueNames(IBballInfoDTO oBballInfoDTO);
       void GetLeagueData(IBballInfoDTO oBballInfoDTO);
+      void GetBoxScoresSeeds(IBballInfoDTO oBballInfoDTO);
+      void PostBoxScoresSeeds(IBballInfoDTO oBballInfoDTO);
+      void RefreshTodaysMatchups(IBballInfoDTO oBballInfoDTO);
    }
 }

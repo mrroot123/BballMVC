@@ -19,7 +19,7 @@ Declare @LeagueName varchar(4) = 'NBA', @Season varchar(4) = '1920', @UserName v
 			--, @TeamAway varchar(8) 
 			--, @TeamHome varchar(8)
 			--, @RotNum int
---			, @ixVenue as int
+			, @ixVenue as int
 	;
 
 		-- *************************************************
@@ -65,7 +65,7 @@ Declare @LeagueName varchar(4) = 'NBA', @Season varchar(4) = '1920', @UserName v
 		  FROM [00TTI_LeagueScores].[dbo].[Team]
 		  where enddate is null and LeagueName = @LeagueName
 		  Order By [TeamNameInDatabase]
--- Select * from @TeamTable
+-- Select * from @TeamTable; return
 
 	Declare @Today DateTime = GetDate();
 
@@ -88,41 +88,44 @@ Declare @LeagueName varchar(4) = 'NBA', @Season varchar(4) = '1920', @UserName v
 		
 		If @@ROWCOUNT = 0
 			BREAK;
+		
+		Set @ixVenue = 0
+		Set @Venue = @Away
+		While @ixVenue < 2		-- LOOP
+		BEGIN
 
-			Set @Venue = @Away
+			INSERT INTO BoxScoresSeeds		-- Each Venue - from BoxScores
+			(
+				[UserName],[LeagueName]  ,[Season] ,[GamesBack]  ,[Team] , Venue	-- 1-6 
+			,[AdjustmentAmountMade],[AdjustmentAmountAllowed]							-- 7-8
 
-				INSERT INTO BoxScoresSeeds		-- Each Venue - from BoxScores
-				(
-				  [UserName],[LeagueName]  ,[Season] ,[GamesBack]  ,[Team] 	-- 1-6
-				,[AdjustmentAmountMade],[AdjustmentAmountAllowed]							-- 7-8
+			,[AwayShotsMadePt1]				,[AwayShotsMadePt2]				,[AwayShotsMadePt3]				-- 11-13
+			,[AwayShotsAllowedPt1]			,[AwayShotsAllowedPt2]			,[AwayShotsAllowedPt3]			-- 14-16
+			,[AwayShotsAdjustedMadePt1]		,[AwayShotsAdjustedMadePt2]		,[AwayShotsAdjustedMadePt3]		-- 19-21
+			,[AwayShotsAdjustedAllowedPt1]	,[AwayShotsAdjustedAllowedPt2]	,[AwayShotsAdjustedAllowedPt3]	-- 22-24
 
-				,[AwayShotsMadePt1]				,[AwayShotsMadePt2]				,[AwayShotsMadePt3]				-- 11-13
-				,[AwayShotsAllowedPt1]			,[AwayShotsAllowedPt2]			,[AwayShotsAllowedPt3]			-- 14-16
-				,[AwayShotsAdjustedMadePt1]		,[AwayShotsAdjustedMadePt2]		,[AwayShotsAdjustedMadePt3]		-- 19-21
-				,[AwayShotsAdjustedAllowedPt1]	,[AwayShotsAdjustedAllowedPt2]	,[AwayShotsAdjustedAllowedPt3]	-- 22-24
-
-				,[HomeShotsMadePt1]				,[HomeShotsMadePt2]				,[HomeShotsMadePt3]				-- 11-13
-				,[HomeShotsAllowedPt1]			,[HomeShotsAllowedPt2]			,[HomeShotsAllowedPt3]			-- 14-16
-				,[HomeShotsAdjustedMadePt1]		,[HomeShotsAdjustedMadePt2]		,[HomeShotsAdjustedMadePt3]		-- 19-21
-				,[HomeShotsAdjustedAllowedPt1]	,[HomeShotsAdjustedAllowedPt2]	,[HomeShotsAdjustedAllowedPt3]	-- 22-24
+			,[HomeShotsMadePt1]				,[HomeShotsMadePt2]				,[HomeShotsMadePt3]				-- 11-13
+			,[HomeShotsAllowedPt1]			,[HomeShotsAllowedPt2]			,[HomeShotsAllowedPt3]			-- 14-16
+			,[HomeShotsAdjustedMadePt1]		,[HomeShotsAdjustedMadePt2]		,[HomeShotsAdjustedMadePt3]		-- 19-21
+			,[HomeShotsAdjustedAllowedPt1]	,[HomeShotsAdjustedAllowedPt2]	,[HomeShotsAdjustedAllowedPt3]	-- 22-24
 	
-				,[CreateDate]				,[UpdateDate]															-- 25-26
-				)
-				Select @UserName			,@LeagueName, @Season,	@varTeamAvgGB, @Team 
-						, 0 , 0																									-- 7-8
-						,Avg(AverageMadeUsPt1) 	,Avg(AverageMadeUsPt2)	,Avg(AverageMadeUsPt3)				-- 11-13
-						,Avg(AverageMadeOpPt1) 	,Avg(AverageMadeOpPt2)	,Avg(AverageMadeOpPt3)				-- 14-16
-						,Avg(AverageMadeUsPt1) 	,Avg(AverageMadeUsPt2)	,Avg(AverageMadeUsPt3)				-- 19-21
-						,Avg(AverageMadeOpPt1) 	,Avg(AverageMadeOpPt2)	,Avg(AverageMadeOpPt3)				-- 22-24
+			,[CreateDate]				,[UpdateDate]															-- 25-26
+			)
+			Select @UserName			,@LeagueName, @Season,	@varTeamAvgGB, @Team , @Venue
+					, 0 , 0																									-- 7-8
+					,Avg(AverageMadeUsPt1) 	,Avg(AverageMadeUsPt2)	,Avg(AverageMadeUsPt3)				-- 11-13
+					,Avg(AverageMadeOpPt1) 	,Avg(AverageMadeOpPt2)	,Avg(AverageMadeOpPt3)				-- 14-16
+					,Avg(AverageMadeUsPt1) 	,Avg(AverageMadeUsPt2)	,Avg(AverageMadeUsPt3)				-- 19-21
+					,Avg(AverageMadeOpPt1) 	,Avg(AverageMadeOpPt2)	,Avg(AverageMadeOpPt3)				-- 22-24
 
-						,0 ,0 ,0
-						,0 ,0 ,0
-						,0 ,0 ,0
-						,0 ,0 ,0
-						,@Today	, @Today																						-- 25-26
-					From ( 
+					,0 ,0 ,0
+					,0 ,0 ,0
+					,0 ,0 ,0
+					,0 ,0 ,0
+					,@Today	, @Today																						-- 25-26
+				From ( 
 
-						Select TOP (@varTeamAvgGB)	b.GameDate, b.Team, b.Venue
+					Select TOP (@varTeamAvgGB)	b.GameDate, b.Team, b.Venue
 -- Adjustments
 -- 1) OT already Out
 -- 2) Last Min
@@ -143,24 +146,25 @@ Declare @LeagueName varchar(4) = 'NBA', @Season varchar(4) = '1920', @UserName v
 , (b.ShotsMadeOpRegPt2 - IsNull(bL5.Q4Last1MinOpPt2, @LgAvgLastMinPt2) + @LgAvgLastMinPt2) * ( 1.0 + (( (r.TotalLineOpp   / b.ScoreRegOp ) - 1.0) * @BxScLinePct) ) * ( 1.0 + (IsNull(ts.TeamStrengthBxScAdjPctScored, 1.0)  - 1.0) * @BxScTmStrPct)	AS AverageMadeOpPt2
 , (b.ShotsMadeOpRegPt3 - IsNull(bL5.Q4Last1MinOpPt3, @LgAvgLastMinPt3) + @LgAvgLastMinPt3) * ( 1.0 + (( (r.TotalLineOpp   / b.ScoreRegOp ) - 1.0) * @BxScLinePct) ) * ( 1.0 + (IsNull(ts.TeamStrengthBxScAdjPctScored, 1.0)  - 1.0) * @BxScTmStrPct)	AS AverageMadeOpPt3
 
-						From BoxScores b
-							JOIN Rotation r ON r.GameDate = b.GameDate AND r.RotNum = b.RotNum
-							Left Join TeamStrength ts ON ts.GameDate = b.GameDate  AND  ts.LeagueName = b.LeagueName  AND  ts.Team = b.Opp
-							Left JOIN BoxScoresLast5MinEmpty bL5 ON bL5.GameDate = b.GameDate AND  bL5.RotNum = b.RotNum
+					From BoxScores b
+						JOIN Rotation r ON r.GameDate = b.GameDate AND r.RotNum = b.RotNum
+						Left Join TeamStrength ts ON ts.GameDate = b.GameDate  AND  ts.LeagueName = b.LeagueName  AND  ts.Team = b.Opp
+						Left JOIN BoxScoresLast5MinEmpty bL5 ON bL5.GameDate = b.GameDate AND  bL5.RotNum = b.RotNum
 		
-						Where b.LeagueName = @LeagueName
-							AND	b.GameDate <	 @GameDate
-							AND	b.Team =	@Team
-							AND  b.Venue = @Away
-							AND  b.Season = @PrevSeason
-							AND  (b.SubSeason = @SubSeason OR b.SubSeason = @REG_1)	--  '1-Reg'
-							AND  b.Exclude = 0
-							Order BY b.GameDate DESC
-					) x
+					Where b.LeagueName = @LeagueName
+						AND	b.GameDate <	 @GameDate
+						AND	b.Team =	@Team
+						AND  b.Venue = @Away
+						AND  b.Season = @PrevSeason
+						AND  (b.SubSeason = @SubSeason OR b.SubSeason = @REG_1)	--  '1-Reg'
+						AND  b.Exclude = 0
+						Order BY b.GameDate DESC
+				) x
 
-
-				Set @Venue = @Home
-
+		
+			Set @Venue = @Home
+			Set @ixVenue = @ixVenue + 1
+		END
 
 	END	-- Team Loop	
 

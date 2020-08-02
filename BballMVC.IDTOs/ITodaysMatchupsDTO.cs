@@ -10,6 +10,8 @@ namespace BballMVC.IDTOs
       double AdjDbAway { get; set; }
       double AdjDbHome { get; set; }
       double AdjOTwithSide { get; set; }
+      double? AdjPace { get; set; }
+      double? AdjRecentLeagueHistory { get; set; }
       double AdjTV { get; set; }
       double? AdjustedDiff { get; set; }
       double AwayAverageAtmpUsPt1 { get; set; }
@@ -61,25 +63,30 @@ namespace BballMVC.IDTOs
       double OurTotalLineAway { get; set; }
       double OurTotalLineHome { get; set; }
       string Play { get; set; }
-      double PlayDiff { get; set; }
+      double? PlayDiff { get; set; }
       int RotNum { get; set; }
       string Season { get; set; }
       double SideLine { get; set; }
       string SubSeason { get; set; }
       string TeamAway { get; set; }
       string TeamHome { get; set; }
+      int Threshold { get; set; }
       double TmStrAdjPct { get; set; }
       double TmStrAway { get; set; }
-      double TmStrHome { get; set; }
+      double? TmStrHome { get; set; }
       int TodaysMatchupsID { get; set; }
       double? TotalBubbleAway { get; set; }
       double? TotalBubbleHome { get; set; }
-      double TotalLine { get; set; }
+      double? TotalLine { get; set; }
+      DateTime? TS { get; set; }
       string TV { get; set; }
       double UnAdjTotal { get; set; }
       double UnAdjTotalAway { get; set; }
       double UnAdjTotalHome { get; set; }
       string UserName { get; set; }
+      double? Volatility { get; set; }
+      double? VolatilityAway { get; set; }
+      double? VolatilityHome { get; set; }
       int WeightGB1 { get; set; }
       int WeightGB2 { get; set; }
       int WeightGB3 { get; set; }

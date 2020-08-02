@@ -47,19 +47,6 @@ namespace BballMVC.ControllerAPIs
          return oBballInfoDTO;
       }
 
-      void copyAdjustmentsElements(List<AdjustmentDTO> _in, IList<IAdjustmentDTO> _out)
-      {
-         if (_in == null) return;
-         foreach (var ele in _in)
-            _out.Add((AdjustmentDTO)ele.ShallowCopy());
-      }
-      //void copyTodaysMatchupsDTOElements(List<TodaysMatchupsDTO> _in, IList<ITodaysMatchupsDTOdorake3 
-      //   > _out)
-      //{
-      //   if (_in == null)     return;
-      //   foreach (var ele in _in)
-      //      _out.Add((TodaysMatchupsDTO)ele.ShallowCopy());
-      //}
       void copyDropDownElements(List<DropDown> _in, IList<IDropDown> _out)
       {
          if (_in == null)

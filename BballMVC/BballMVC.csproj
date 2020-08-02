@@ -193,9 +193,6 @@
     <Compile Include="Models\AdjustmentsCodes.cs">
       <DependentUpon>BballEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\AdjustmentsDaily.cs">
-      <DependentUpon>BballEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -270,6 +267,9 @@
     <Compile Include="Models\uspQueryTeams_Result.cs">
       <DependentUpon>BballEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\vPostGameAnalysis.cs">
+      <DependentUpon>BballEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -280,10 +280,17 @@
     <Content Include="App\Adjustments\AdjustmentsModalController.js" />
     <Content Include="App\Adjustments\_AdjustmentRow.html" />
     <Content Include="App\Adjustments\_AdjustmentsModel.html" />
+    <Content Include="App\BoxScoresSeeds\BoxScoresSeeds.html" />
+    <Content Include="App\BoxScoresSeeds\BoxScoresSeedsController.js" />
+    <Content Include="App\BoxScoresSeeds\_BoxScoresSeedsTable.html" />
     <Content Include="App\Common\accordian.css" />
+    <Content Include="App\Common\bball.css" />
     <Content Include="App\Components\accordianSection.html" />
     <Content Include="App\Components\helloWorld.html" />
     <Content Include="App\Index.html" />
+    <Content Include="App\PostGameAnalysis\PostGameAnalysis.html" />
+    <Content Include="App\PostGameAnalysis\PostGameAnalysisController.js" />
+    <Content Include="App\PostGameAnalysis\_PostGameAnalysisTable.html" />
     <Content Include="App\Test\Test.html" />
     <Content Include="App\Test\_TestColSpan.html" />
     <Content Include="App\Test\_TestTable.html" />

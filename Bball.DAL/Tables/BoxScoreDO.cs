@@ -32,11 +32,7 @@ namespace Bball.DAL.Tables
 
       delegate  void  PopulateDTOValues(List<string> ocValues, object DTO);
 
-      //public static int LoadBoxscore(CoversBoxscore oCoversBoxscore, SeasonInfoDTO oSeasonInfoDTO)
-      //{
 
-      //   return 0;
-      //}
       static string InsertRowPrep(string TableName, string ColumnNames, object DTO, PopulateDTOValues delPopulateDTOValues)
       {
          List<string> ocColumns = ColumnNames.Split(',').OfType<string>().ToList();

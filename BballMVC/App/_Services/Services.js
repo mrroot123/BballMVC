@@ -6,7 +6,11 @@
    this.UrlGetAdjustmentInfo = urlPrefix + "Adjustments/GetAdjustmentInfo";
    this.UrlGetAdjustments = urlPrefix + "Adjustments/GetAdjustments";
    this.UrlGetLeagueData = urlPrefix + "Data/GetLeagueData";
+   this.UrlGetBoxScoresSeeds = urlPrefix + "Data/GetBoxScoresSeeds";
+   this.UrlPostBoxScoresSeeds = urlPrefix + "Data/PostBoxScoresSeeds";
    this.UrlGetTodaysMatchups = urlPrefix + "TodaysMatchups/GetTodaysMatchups";
+   this.UrlLoadBoxScores = urlPrefix + "TodaysMatchups/LoadBoxScores";
+   this.UrlRefreshTodaysMatchups = urlPrefix + "Data/RefreshTodaysMatchups";
    
 
 });
@@ -68,6 +72,10 @@ angular.module('app').service('f', function () {
          msg += "stack: " + response.stack + "\n";
 
       return msg;
+   };
+
+   this.Getmdy = function (d) {
+      return (d.getMonth() + 1) + "/" + d.getDate() + "/" + (d.getYear() + 1900);
    };
 
    this.MessageSuccess = function (msg) {

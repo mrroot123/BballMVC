@@ -2,9 +2,15 @@
    $scope.showAccordian = false; // hide accordian on app init
 
    $scope.$on('showAccordian', function (e) {
-      $scope.showAccordian = true;
+      displayAccordian();
+   //   $scope.showAccordian = true;
    });
 
-   $scope.displayAccordian = function () { $scope.showAccordian = true;  };
+   function displayAccordian () {
+      $scope.showAccordian = true;
+      $scope.$apply;
+      $('#screen').css({ "display": "block", opacity: 1, "width": $(document).width(), "height": $(document).height() });
+
+   };
 
 });

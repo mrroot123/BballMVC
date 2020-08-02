@@ -53,6 +53,7 @@
     <Compile Include="IRotationDTO.cs" />
     <Compile Include="ISeasonInfoDTO.cs" />
     <Compile Include="ITodaysMatchupsDTO.cs" />
+    <Compile Include="IvPostGameAnalysisDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

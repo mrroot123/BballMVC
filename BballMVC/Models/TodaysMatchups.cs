@@ -26,7 +26,7 @@ namespace BballMVC.Models
         public string GameTime { get; set; }
         public string TV { get; set; }
         public double TmStrAway { get; set; }
-        public double TmStrHome { get; set; }
+        public Nullable<double> TmStrHome { get; set; }
         public double UnAdjTotalAway { get; set; }
         public double UnAdjTotalHome { get; set; }
         public double UnAdjTotal { get; set; }
@@ -37,30 +37,36 @@ namespace BballMVC.Models
         public double AdjDbHome { get; set; }
         public double AdjOTwithSide { get; set; }
         public double AdjTV { get; set; }
+        public Nullable<double> AdjRecentLeagueHistory { get; set; }
+        public Nullable<double> AdjPace { get; set; }
         public double OurTotalLineAway { get; set; }
         public double OurTotalLineHome { get; set; }
         public double OurTotalLine { get; set; }
         public double SideLine { get; set; }
-        public double TotalLine { get; set; }
+        public Nullable<double> TotalLine { get; set; }
         public Nullable<double> OpenTotalLine { get; set; }
         public string Play { get; set; }
-        public double PlayDiff { get; set; }
+        public Nullable<double> PlayDiff { get; set; }
         public Nullable<double> OpenPlayDiff { get; set; }
         public Nullable<double> AdjustedDiff { get; set; }
         public double BxScLinePct { get; set; }
         public double TmStrAdjPct { get; set; }
+        public Nullable<double> VolatilityAway { get; set; }
+        public Nullable<double> VolatilityHome { get; set; }
+        public Nullable<double> Volatility { get; set; }
+        public int Threshold { get; set; }
         public int GB1 { get; set; }
         public int GB2 { get; set; }
         public int GB3 { get; set; }
         public int WeightGB1 { get; set; }
         public int WeightGB2 { get; set; }
         public int WeightGB3 { get; set; }
-        public Nullable<double> AwayProjectedPt1 { get; set; }
-        public Nullable<double> AwayProjectedPt2 { get; set; }
-        public Nullable<double> AwayProjectedPt3 { get; set; }
-        public Nullable<double> HomeProjectedPt1 { get; set; }
-        public Nullable<double> HomeProjectedPt2 { get; set; }
-        public Nullable<double> HomeProjectedPt3 { get; set; }
+        public double AwayProjectedPt1 { get; set; }
+        public double AwayProjectedPt2 { get; set; }
+        public double AwayProjectedPt3 { get; set; }
+        public double HomeProjectedPt1 { get; set; }
+        public double HomeProjectedPt2 { get; set; }
+        public double HomeProjectedPt3 { get; set; }
         public double AwayAverageAtmpUsPt1 { get; set; }
         public double AwayAverageAtmpUsPt2 { get; set; }
         public double AwayAverageAtmpUsPt3 { get; set; }
@@ -93,5 +99,12 @@ namespace BballMVC.Models
         public double HomeGB3Pt3 { get; set; }
         public Nullable<double> TotalBubbleAway { get; set; }
         public Nullable<double> TotalBubbleHome { get; set; }
+        public Nullable<System.DateTime> TS { get; set; }
+        public Nullable<double> AwayProjectedAtmpPt1 { get; set; }
+        public Nullable<double> AwayProjectedAtmpPt2 { get; set; }
+        public Nullable<double> AwayProjectedAtmpPt3 { get; set; }
+        public Nullable<double> HomeProjectedAtmpPt1 { get; set; }
+        public Nullable<double> HomeProjectedAtmpPt2 { get; set; }
+        public Nullable<double> HomeProjectedAtmpPt3 { get; set; }
     }
 }

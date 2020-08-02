@@ -21,12 +21,7 @@ namespace BballMVC.ControllerAPIs
       public HttpResponseMessage GetTodaysMatchups(DateTime GameDate, string LeagueName)
       {
          BballInfoDTO oBballInfoDTO = new BballInfoDTO()
-         {
-            UserName = GetUser(),
-            GameDate = GameDate,
-            LeagueName = LeagueName,
-            ConnectionString = GetConnectionString()
-         };
+            { UserName = GetUser(),  GameDate = GameDate, LeagueName = LeagueName, ConnectionString = GetConnectionString() };
 
          TodaysMatchupsBO oTodaysMatchupsBO = new TodaysMatchupsBO(oBballInfoDTO);
 
@@ -34,6 +29,13 @@ namespace BballMVC.ControllerAPIs
          oTodaysMatchupsBO.GetTodaysMatchups(ocTodaysMatchupsDTO);
 
          return Request.CreateResponse(HttpStatusCode.OK, ocTodaysMatchupsDTO);
+      }
+      [HttpGet]
+      public HttpResponseMessage LoadBoxScores(DateTime GameDate, string LeagueName)
+      {
+         new LoadBoxScores(LeagueName, GameDate).LoadTodaysRotation();
+
+         return Request.CreateResponse(HttpStatusCode.OK, "Success");
       }
    }
 }

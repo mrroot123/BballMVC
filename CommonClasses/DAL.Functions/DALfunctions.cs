@@ -323,7 +323,7 @@ namespace SysDAL
          //string sqlString = "INSERT INTO table (col1, col2, col3) VALUES (@val1, @val2, @val3)";
          //string sqlString = "INSERT INTO test  (Name, f2)         VALUES (@val1, @val2)";
          // comm.Parameters.AddWithValue("@val1", txtbox1.Text);
-
+         int rc;
          if (ocColumnNames.Count != ocColumnValues.Count)
          {
             var msg = $"ocColumnNames({ocColumnNames.Count}) & ocColumnValues({ocColumnValues.Count}) have different lengths - InsertRow aborted";
@@ -342,7 +342,7 @@ namespace SysDAL
                try
                {
                   oSqlConnection.Open();
-                  oSqlCommand.ExecuteNonQuery();
+                  rc = oSqlCommand.ExecuteNonQuery();
                }
                catch(SqlException ex)
                {
@@ -356,7 +356,7 @@ namespace SysDAL
             }  // using SqlCommand
          }  // using SqlConnection
 
-         return "1";
+         return rc.ToString();
 
       }  // InsertRow
 

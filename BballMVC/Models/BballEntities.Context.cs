@@ -30,7 +30,6 @@ namespace BballMVC.Models
         public virtual DbSet<AdjustmentsCodes> AdjustmentsCodes { get; set; }
         public virtual DbSet<DailySummary> DailySummary { get; set; }
         public virtual DbSet<Adjustments> Adjustments { get; set; }
-        public virtual DbSet<AdjustmentsDaily> AdjustmentsDaily { get; set; }
         public virtual DbSet<BoxScores> BoxScores { get; set; }
         public virtual DbSet<Lines> Lines { get; set; }
         public virtual DbSet<SeasonInfo> SeasonInfo { get; set; }
@@ -38,9 +37,10 @@ namespace BballMVC.Models
         public virtual DbSet<BoxScoresLast5Min> BoxScoresLast5Min { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Team> Team { get; set; }
-        public virtual DbSet<BoxScoresSeeds> BoxScoresSeeds { get; set; }
-        public virtual DbSet<TodaysMatchups> TodaysMatchups { get; set; }
         public virtual DbSet<Rotation> Rotation { get; set; }
+        public virtual DbSet<TodaysMatchups> TodaysMatchups { get; set; }
+        public virtual DbSet<vPostGameAnalysis> vPostGameAnalysis { get; set; }
+        public virtual DbSet<BoxScoresSeeds> BoxScoresSeeds { get; set; }
     
         public virtual int Bball_UpdateAdjs(Nullable<System.DateTime> processDate, Nullable<int> testMode)
         {
@@ -160,25 +160,7 @@ namespace BballMVC.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("TeamLookupTeamNameByTeamNameInDatabase", startDateParameter, leagueNameParameter, teamSourceParameter, teamNameInDatabaseParameter);
         }
     
-        [DbFunction("BballEntities1", "udfDailyParms")]
-        public virtual IQueryable<udfDailyParms_Result> udfDailyParms(Nullable<System.DateTime> gameDate, string leagueName, string userName)
-        {
-            var gameDateParameter = gameDate.HasValue ?
-                new ObjectParameter("GameDate", gameDate) :
-                new ObjectParameter("GameDate", typeof(System.DateTime));
-    
-            var leagueNameParameter = leagueName != null ?
-                new ObjectParameter("LeagueName", leagueName) :
-                new ObjectParameter("LeagueName", typeof(string));
-    
-            var userNameParameter = userName != null ?
-                new ObjectParameter("UserName", userName) :
-                new ObjectParameter("UserName", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<udfDailyParms_Result>("[BballEntities1].[udfDailyParms](@GameDate, @LeagueName, @UserName)", gameDateParameter, leagueNameParameter, userNameParameter);
-        }
-    
-        public virtual int uspCalcTodaysMatchups(string userName, string leagueName, Nullable<System.DateTime> gameDate, Nullable<bool> display, Nullable<bool> bothHome_Away)
+        public virtual int uspCalcTodaysMatchups(string userName, string leagueName, Nullable<System.DateTime> gameDate, Nullable<bool> display)
         {
             var userNameParameter = userName != null ?
                 new ObjectParameter("UserName", userName) :
@@ -196,11 +178,7 @@ namespace BballMVC.Models
                 new ObjectParameter("Display", display) :
                 new ObjectParameter("Display", typeof(bool));
     
-            var bothHome_AwayParameter = bothHome_Away.HasValue ?
-                new ObjectParameter("BothHome_Away", bothHome_Away) :
-                new ObjectParameter("BothHome_Away", typeof(bool));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("uspCalcTodaysMatchups", userNameParameter, leagueNameParameter, gameDateParameter, displayParameter, bothHome_AwayParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("uspCalcTodaysMatchups", userNameParameter, leagueNameParameter, gameDateParameter, displayParameter);
         }
     
         public virtual int uspInsertAdjustments(string leagueName, string team, string adjustmentDesc, Nullable<double> adjustmentAmount, string player, string description)
@@ -316,8 +294,12 @@ namespace BballMVC.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<uspQueryAdjustments_Result>("uspQueryAdjustments", gameDateParameter, leagueNameParameter);
         }
     
-        public virtual ObjectResult<uspQueryCalcTeamStrength_Result> uspQueryCalcTeamStrength(Nullable<System.DateTime> gameDate, string leagueName, string team, string venue, string season, Nullable<double> tmStrAdjPct, Nullable<double> bxScLinePct, Nullable<double> avgLgScoreAway, Nullable<double> avgLgScoreHome, Nullable<int> varLgAvgGamesBack)
+        public virtual ObjectResult<uspQueryCalcTeamStrength_Result> uspQueryCalcTeamStrength(string userName, Nullable<System.DateTime> gameDate, string leagueName, string team, string venue, string season, Nullable<double> tmStrAdjPct, Nullable<double> bxScLinePct, Nullable<double> avgLgScoreAway, Nullable<double> avgLgScoreHome, Nullable<int> varLgAvgGamesBack)
         {
+            var userNameParameter = userName != null ?
+                new ObjectParameter("UserName", userName) :
+                new ObjectParameter("UserName", typeof(string));
+    
             var gameDateParameter = gameDate.HasValue ?
                 new ObjectParameter("GameDate", gameDate) :
                 new ObjectParameter("GameDate", typeof(System.DateTime));
@@ -358,7 +340,7 @@ namespace BballMVC.Models
                 new ObjectParameter("varLgAvgGamesBack", varLgAvgGamesBack) :
                 new ObjectParameter("varLgAvgGamesBack", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<uspQueryCalcTeamStrength_Result>("uspQueryCalcTeamStrength", gameDateParameter, leagueNameParameter, teamParameter, venueParameter, seasonParameter, tmStrAdjPctParameter, bxScLinePctParameter, avgLgScoreAwayParameter, avgLgScoreHomeParameter, varLgAvgGamesBackParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<uspQueryCalcTeamStrength_Result>("uspQueryCalcTeamStrength", userNameParameter, gameDateParameter, leagueNameParameter, teamParameter, venueParameter, seasonParameter, tmStrAdjPctParameter, bxScLinePctParameter, avgLgScoreAwayParameter, avgLgScoreHomeParameter, varLgAvgGamesBackParameter);
         }
     
         public virtual ObjectResult<uspQueryLeagueAverages_Result> uspQueryLeagueAverages(Nullable<System.DateTime> gameDate, string leagueName, string season, string subSeason)

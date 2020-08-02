@@ -1,0 +1,17 @@
+﻿
+<hr />
+<div ng-controller="PostGameAnalysisController">
+
+
+   <div class="row">
+      <div class="col-md-5">League: {{LeagueName}}  </div>
+      <div class="col-md-2"> {{GameDate}} </div>
+      <div class="col-md-5"> {{oBballInfo.GameDate}} </div>
+   </div>
+
+
+   <div class="table-responsive">
+      <div ng-include="'PostGameAnalysis/_PostGameAnalysisTable.html'"></div>
+   </div>
+
+</div>

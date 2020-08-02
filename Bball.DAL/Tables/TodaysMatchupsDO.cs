@@ -32,7 +32,7 @@ namespace Bball.DAL.Tables
       }
       static void populateDTOFromRdr(object oRow, SqlDataReader rdr)
       {
-          ITodaysMatchupsDTO oTodaysMatchups = new TodaysMatchupsDTO(); //  (TodaysMatchupsDTO)oRow;
+         ITodaysMatchupsDTO oTodaysMatchups = new TodaysMatchupsDTO(); //  (TodaysMatchupsDTO)oRow;
 
          oTodaysMatchups.TV = rdr["TV"] == DBNull.Value ? null : (string)rdr["TV"];
          oTodaysMatchups.Play = rdr["Play"].ToString().Trim();
@@ -43,13 +43,18 @@ namespace Bball.DAL.Tables
          oTodaysMatchups.UserName = rdr["UserName"].ToString().Trim();
          oTodaysMatchups.LeagueName = rdr["LeagueName"].ToString().Trim();
          oTodaysMatchups.GameDate = (DateTime)rdr["GameDate"];
-         oTodaysMatchups.PlayDiff = (double)rdr["PlayDiff"];
+         oTodaysMatchups.GameTime = rdr["GameTime"].ToString().Trim();
+         oTodaysMatchups.TS = rdr["TS"] == DBNull.Value ? null : (DateTime?)rdr["TS"];
+         oTodaysMatchups.PlayDiff = rdr["PlayDiff"] == DBNull.Value ? null : (double?)rdr["PlayDiff"];
          oTodaysMatchups.OpenPlayDiff = rdr["OpenPlayDiff"] == DBNull.Value ? null : (double?)rdr["OpenPlayDiff"];
          oTodaysMatchups.AdjustedDiff = rdr["AdjustedDiff"] == DBNull.Value ? null : (double?)rdr["AdjustedDiff"];
          oTodaysMatchups.BxScLinePct = (double)rdr["BxScLinePct"];
          oTodaysMatchups.TmStrAdjPct = (double)rdr["TmStrAdjPct"];
+         oTodaysMatchups.VolatilityAway = rdr["VolatilityAway"] == DBNull.Value ? null : (double?)rdr["VolatilityAway"];
+         oTodaysMatchups.VolatilityHome = rdr["VolatilityHome"] == DBNull.Value ? null : (double?)rdr["VolatilityHome"];
+         oTodaysMatchups.Volatility = rdr["Volatility"] == DBNull.Value ? null : (double?)rdr["Volatility"];
          oTodaysMatchups.TmStrAway = (double)rdr["TmStrAway"];
-         oTodaysMatchups.TmStrHome = (double)rdr["TmStrHome"];
+         oTodaysMatchups.TmStrHome = rdr["TmStrHome"] == DBNull.Value ? null : (double?)rdr["TmStrHome"];
          oTodaysMatchups.UnAdjTotalAway = (double)rdr["UnAdjTotalAway"];
          oTodaysMatchups.UnAdjTotalHome = (double)rdr["UnAdjTotalHome"];
          oTodaysMatchups.UnAdjTotal = (double)rdr["UnAdjTotal"];
@@ -60,11 +65,13 @@ namespace Bball.DAL.Tables
          oTodaysMatchups.AdjDbHome = (double)rdr["AdjDbHome"];
          oTodaysMatchups.AdjOTwithSide = (double)rdr["AdjOTwithSide"];
          oTodaysMatchups.AdjTV = (double)rdr["AdjTV"];
+         oTodaysMatchups.AdjRecentLeagueHistory = rdr["AdjRecentLeagueHistory"] == DBNull.Value ? null : (double?)rdr["AdjRecentLeagueHistory"];
+         oTodaysMatchups.AdjPace = rdr["AdjPace"] == DBNull.Value ? null : (double?)rdr["AdjPace"];
          oTodaysMatchups.OurTotalLineAway = (double)rdr["OurTotalLineAway"];
          oTodaysMatchups.OurTotalLineHome = (double)rdr["OurTotalLineHome"];
          oTodaysMatchups.OurTotalLine = (double)rdr["OurTotalLine"];
          oTodaysMatchups.SideLine = (double)rdr["SideLine"];
-         oTodaysMatchups.TotalLine = (double)rdr["TotalLine"];
+         oTodaysMatchups.TotalLine = rdr["TotalLine"] == DBNull.Value ? null : (double?)rdr["TotalLine"];
          oTodaysMatchups.OpenTotalLine = rdr["OpenTotalLine"] == DBNull.Value ? null : (double?)rdr["OpenTotalLine"];
          oTodaysMatchups.AwayProjectedPt1 = rdr["AwayProjectedPt1"] == DBNull.Value ? null : (double?)rdr["AwayProjectedPt1"];
          oTodaysMatchups.AwayProjectedPt2 = rdr["AwayProjectedPt2"] == DBNull.Value ? null : (double?)rdr["AwayProjectedPt2"];
@@ -104,6 +111,7 @@ namespace Bball.DAL.Tables
          oTodaysMatchups.HomeGB3Pt3 = (double)rdr["HomeGB3Pt3"];
          oTodaysMatchups.TotalBubbleAway = rdr["TotalBubbleAway"] == DBNull.Value ? null : (double?)rdr["TotalBubbleAway"];
          oTodaysMatchups.TotalBubbleHome = rdr["TotalBubbleHome"] == DBNull.Value ? null : (double?)rdr["TotalBubbleHome"];
+         oTodaysMatchups.Threshold = (int)rdr["Threshold"];
          oTodaysMatchups.GB1 = (int)rdr["GB1"];
          oTodaysMatchups.GB2 = (int)rdr["GB2"];
          oTodaysMatchups.GB3 = (int)rdr["GB3"];

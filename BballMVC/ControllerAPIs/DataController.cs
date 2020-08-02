@@ -33,7 +33,7 @@ namespace BballMVC.ControllerAPIs
          };
          oBballInfoDTO.ConnectionString = GetConnectionString();
          oDataBO.GetLeagueNames(oBballInfoDTO);
-         return Request.CreateResponse(HttpStatusCode.OK, oBballInfoDTO);
+         return Request.CreateResponse(HttpStatusCode.OK, oBballInfoDTO.oBballDataDTO);
       }
       [HttpGet]
       public HttpResponseMessage GetLeagueData(string UserName, DateTime GameDate, string LeagueName)
@@ -46,7 +46,75 @@ namespace BballMVC.ControllerAPIs
          };
          oBballInfoDTO.ConnectionString = GetConnectionString();
          oDataBO.GetLeagueData(oBballInfoDTO);
-         return Request.CreateResponse(HttpStatusCode.OK, oBballInfoDTO);
+         return Request.CreateResponse(HttpStatusCode.OK, oBballInfoDTO.oBballDataDTO);
+      }
+      [HttpGet]
+      public HttpResponseMessage RefreshTodaysMatchups(string UserName, DateTime GameDate, string LeagueName)
+      {
+         IBballInfoDTO oBballInfoDTO = new BballInfoDTO()
+         {
+            UserName = UserName,
+            GameDate = GameDate,
+            LeagueName = LeagueName
+         };
+         oBballInfoDTO.ConnectionString = GetConnectionString();
+         oDataBO.RefreshTodaysMatchups(oBballInfoDTO);
+         return Request.CreateResponse(HttpStatusCode.OK, oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO);
+      }
+      [HttpGet]
+      public HttpResponseMessage GetBoxScoresSeeds(string UserName, DateTime GameDate, string LeagueName)
+      {
+         IBballInfoDTO oBballInfoDTO = new BballInfoDTO()
+         {
+            UserName = UserName,
+            GameDate = GameDate,
+            LeagueName = LeagueName,
+            ConnectionString = GetConnectionString()
+         };
+         oDataBO.GetBoxScoresSeeds(oBballInfoDTO);
+         return Request.CreateResponse(HttpStatusCode.OK, oBballInfoDTO.oBballDataDTO.ocBoxScoresSeedsDTO);
+      }
+
+      [HttpPost]
+      public HttpResponseMessage PostBoxScoresSeeds(BBSdata oBBSdata)
+      {
+         IBballInfoDTO oBballInfoDTO = new BballInfoDTO()
+         {
+            UserName = oBBSdata.UserName,
+            GameDate = oBBSdata.GameDate,
+            LeagueName = oBBSdata.LeagueName,
+            ConnectionString = GetConnectionString()
+         };
+
+         IList<IBoxScoresSeedsDTO> oc = new List<IBoxScoresSeedsDTO>();
+         foreach (BBSupdates o in oBBSdata.ocBBSupdates)
+         {
+            oc.Add(new BoxScoresSeedsDTO()
+            {
+               Team = o.Team
+               ,
+               AdjustmentAmountMade = o.AdjustmentAmountAllowed
+               ,
+               AdjustmentAmountAllowed = o.AdjustmentAmountAllowed
+            });
+         }
+         oBballInfoDTO.oBballDataDTO.ocBoxScoresSeedsDTO = oc;
+         //oDataBO.UpdateData(aa);
+
+         return Request.CreateResponse(HttpStatusCode.OK, "Success");
+      }
+      public class BBSdata
+      {
+         public string UserName { get; set; }
+         public DateTime GameDate { get; set; }
+         public string LeagueName { get; set; }
+         public List<BBSupdates> ocBBSupdates { get; set; }
+      }
+      public class BBSupdates
+      {
+         public string Team { get; set; }
+         public float AdjustmentAmountMade { get; set; }
+         public float AdjustmentAmountAllowed { get; set; }
       }
       /*
       [HttpGet]

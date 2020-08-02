@@ -5,7 +5,7 @@ namespace BballMVC.IDTOs
 {
    public interface IAdjustmentDTO
    {
-      double AdjustmentAmount { get; set; }
+      double? AdjustmentAmount { get; set; }
       int AdjustmentID { get; set; }
       string AdjustmentType { get; set; }
       string Description { get; set; }

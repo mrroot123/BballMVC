@@ -1,0 +1,33 @@
+﻿<hr />
+<div ng-controller="BoxScoresSeedsController">
+
+   <div class="row">
+      <div class="col-md-2">
+         <button type="button" class="btn btn-info active" data-toggle="tooltip" title="Populate Data"
+                 ng-click="PopulateBoxScoresSeeds()">
+            Populate Data
+         </button>
+      </div>
+      <div class="col-md-5">League: {{LeagueName}}  </div>
+      <div class="col-md-2">
+         <button type="button" class="btn btn-info active" data-toggle="tooltip" title="Update BoxScores Seeds"
+                 ng-click="UpdateBoxScoresSeeds()">
+            Update
+         </button>
+      </div>
+      <div class="col-md-2"> {{GameDate}} </div>
+
+      <div class="col-md-2"> </div>
+   </div>
+
+   <div class="row">
+      <div class="col-md-5">League: {{LeagueName}}  </div>
+      <div class="col-md-2"> {{GameDate}} </div>
+   </div>
+
+
+   <div class="table-responsive">
+      <div ng-include="'BoxScoresSeeds/_BoxScoresSeedsTable.html'"></div>
+   </div>
+
+</div>

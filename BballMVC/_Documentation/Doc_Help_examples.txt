@@ -93,7 +93,7 @@ BoxScores Changes
 Sql Server Import from MS Access
    1) Save Access DB as T:\Bball Database\LeagueScores.mdb - Delete old .mdb first
    2) Make all ShortText cols LongText - Rename Access Tables if necessary
-   3) SS Import - R Clk on DB, Task, Import
+   3) SS Import - R Clk on DB, Tasks, Import Data
    -- Source: MS Access Jet   Dest: SS Native Client 11.0
    -- Make sure Run Immediaely not save as SSIS is checked
    4) Alter SS Table VarChar cols back to char
@@ -114,9 +114,7 @@ Index.html
 
    <div ng-include="'_layout/layout.html'"></div>
 IndexController.js
-   angular.module('app').controller('indexController', function ($scope) {
-
-   });
+   angular.module('app').controller('indexController', function ($scope) {   });
 
 layout.html
    checkboxs

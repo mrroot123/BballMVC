@@ -10,5 +10,8 @@ namespace BballMVC.IDTOs
       IList<IDropDown> ocLeagueNames { get; set; }
       IList<IDropDown> ocTeams { get; set; }
       IList<ITodaysMatchupsDTO> ocTodaysMatchupsDTO { get; set; }
+      IList<IBoxScoresSeedsDTO> ocBoxScoresSeedsDTO { get; set; }
+      IList<IvPostGameAnalysisDTO> ocPostGameAnalysisDTO { get; set; }
+      ISeasonInfoDTO oSeasonInfoDTO { get; set; }
    }
 }

@@ -2,7 +2,7 @@
 'use strict';
 var oBballInfoDTO = {
    UserName: "",
-   GameDate: "3/11/2020",
+   GameDate: "",
    LeagueName: "",
    ConnectionString: "",
    oSeasonInfoDTO: {},

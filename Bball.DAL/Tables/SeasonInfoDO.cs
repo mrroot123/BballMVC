@@ -46,7 +46,7 @@ namespace Bball.DAL.Tables
       }
       // Load Today's & Tomorrows Rotation
       public bool RotationLoadedToDate() 
-         => GameDate > DateTime.Today.AddDays(1);  
+         => GameDate > DateTime.Today.AddDays(1);  // Is GameDate > Tomorrow
 
       private  void populateSeasonInfoDTO()
       {

@@ -74,5 +74,7 @@ namespace BballMVC.Models
         public string Source { get; set; }
         public System.DateTime LoadDate { get; set; }
         public int LoadTimeSeconds { get; set; }
+        public Nullable<int> SubSeasonPeriod { get; set; }
+        public Nullable<double> Pace { get; set; }
     }
 }

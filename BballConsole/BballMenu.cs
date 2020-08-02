@@ -21,29 +21,30 @@ namespace BballConsole
       static void Main(string[] args)
       {
          
-         string LeagueName = "NBA";
+         string LeagueName = "WNBA";
          DateTime GameDate;
          string s = "";
-         DateTime StartGameDate = Convert.ToDateTime("10/16/2018");
+         DateTime StartGameDate = Convert.ToDateTime("7/25/2020");
+         StartGameDate = DateTime.Today.Date;
          while (s != "x")
          {
             try
             {
                switch (s)
                {
-                  case "x":
-                     LoadBoxScores l = new LoadBoxScores("NBA", StartGameDate);
+                  //case "x":
+                  //   LoadBoxScores l = new LoadBoxScores(LeagueName, StartGameDate);
 
-                     l.LoadBoxScoreRange();  //       DateTime.Today.AddDays(-4));
-                     break;
+                  //   l.LoadBoxScoreRange();  //       DateTime.Today.AddDays(-4));
+                  //   break;
 
-                  case "y":
-                     LoadBoxScores l2 = new LoadBoxScores("NBA",  StartGameDate);
-                     l2.LoadBoxScore(DateTime.Today.AddDays(-1));
-                     break;
+                  //case "y":
+                  //   LoadBoxScores l2 = new LoadBoxScores(LeagueName,  StartGameDate);
+                  //   l2.LoadBoxScore(DateTime.Today.AddDays(-1));
+                  //   break;
 
                   case "1":   // Load Today's Rotation
-                     LoadBoxScores l3 = new LoadBoxScores("NBA", StartGameDate);
+                     LoadBoxScores l3 = new LoadBoxScores(LeagueName, StartGameDate);
                      l3.LoadTodaysRotation();
                      break;
 
@@ -88,6 +89,7 @@ namespace BballConsole
                string msg = SysDAL.DALfunctions.StackTraceFormat(ex);
                Console.WriteLine(msg);
             }
+            Console.WriteLine("League Name: " + LeagueName);
             Console.WriteLine("Complete - " + DateTime.Now.ToString());
             Console.WriteLine("");
             Console.WriteLine((char) 7);

@@ -1,15 +1,75 @@
-﻿      <div class="panel panel-default">
-         <div class="panel-heading">
-            <h4 class="panel-title">
-               <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#accTodaysMatchups">
-                  <span class="glyphicon glyphicon-menu-right"></span>
-                  Todays Matchups
-               </a>
-            </h4>
-         </div>
-         <div id="accTodaysMatchups" class="panel-collapse collapse">
-            <div class="panel-body">
-               <div ng-include="'TodaysMatchups/TodaysMatchups.html'"></div>
-            </div>
-         </div>
-      </div>
+﻿
+<table ng-show="Multi" class="table table-bordred table-striped">
+   <tr>
+
+               <th>&nbsp;</th>
+               <th>&nbsp;</th>
+               <th>&nbsp;</th>
+               <th class="text-center" ng-show="showHistory" colspan="3">History (Games Back)</th>
+               <th colspan="3"></th>
+
+   </tr>
+   <tr>
+ 
+               <th>Rot #</th>
+               <th>Teams</th>
+               <th>Team<br />Strength</th>
+
+               <th ng-show="showHistory">Last {{TMparms.GB1}}</th>
+               <th ng-show="showHistory">Last {{TMparms.GB2}}</th>
+               <th ng-show="showHistory">Last {{TMparms.GB3}}</th>
+
+               <th>UnAdj<br />Total</th>
+               <th>Adjust<br />ments</th>
+               <th>Calced<br />Line</th>
+
+   </tr>
+
+
+   <tr ng-repeat="item in ocTodaysMatchups">
+      <td colspan="9">
+         <table>
+            <tr>
+               <td>{{item.RotNum}}</td>
+               <td>{{item.TeamAway}}</td>
+               <td>{{item.TmStrAway | number:1}}</td>
+
+               <td ng-show="showHistory">{{item.AwayGB1 | number:1 }}</td>
+               <td ng-show="showHistory">{{item.AwayGB2 | number:1 }}</td>
+               <td ng-show="showHistory">{{item.AwayGB3 | number:1 }}</td>
+
+               <td>{{item.UnAdjTotalAway | number:1}}</td>
+               <td>{{item.AdjAmtAway | number:1}}</td>
+               <td>{{item.OurTotalLineAway | number:1}}</td>
+            </tr>
+            <tr>
+               <td>{{item.RotNum+1}}</td>
+               <td>{{item.TeamHome}}</td>
+               <td>{{item.TmStrHome | number:1}}</td>
+
+               <td ng-show="showHistory">{{item.HomeGB1 | number:1 }}</td>
+               <td ng-show="showHistory">{{item.HomeGB2 | number:1 }}</td>
+               <td ng-show="showHistory">{{item.HomeGB3 | number:1 }}</td>
+
+               <td>{{item.UnAdjTotalHome | number:1}}</td>
+               <td>{{item.AdjAmtHome | number:1}}</td>
+               <td>{{item.OurTotalLineHome | number:1}}</td>
+            </tr>
+            <tr>
+               <td>{{item.GameTime}}</td>
+               <td></td>
+               <td>{{item.TmStrAway+item.TmStrHome-220 | number:1}}</td>
+
+               <td ng-show="showHistory">{{item.AwayGB1+item.HomeGB1 | number:1 }}</td>
+               <td ng-show="showHistory">{{item.AwayGB2+item.HomeGB2 | number:1 }}</td>
+               <td ng-show="showHistory">{{item.AwayGB3+item.HomeGB3 | number:1 }}</td>
+
+               <td>{{item.UnAdjTotal | number:1}}</td>
+               <td>{{item.AdjAmt | number:1}}</td>
+               <td>{{item.OurTotalLine | number:1}}</td>
+            </tr>
+         </table>
+      </td>
+
+   </tr>
+</table>

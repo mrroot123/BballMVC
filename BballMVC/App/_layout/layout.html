@@ -1,9 +1,10 @@
 ﻿
 
-<div ng-controller="layoutController" id="screen">
+<div ng-controller="layoutController" id="screen" class="screen">
    <div ng-include="'_Header/Header.html'"></div>
 
    <div class="panel-group" id="accordion" ng-show="showAccordian">
+
       <div class="panel panel-default">
          <div class="panel-heading">
             <h4 class="panel-title">
@@ -20,6 +21,24 @@
          </div>
       </div>
 
+      <!--Post Game Analysis-->
+      <div class="panel panel-default">
+         <div class="panel-heading">
+            <h4 class="panel-title">
+               <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#accPostGameAnalysis">
+                  <span class="glyphicon glyphicon-menu-right"></span>
+                  Post Game Analysis
+               </a>
+            </h4>
+         </div>
+         <div id="accPostGameAnalysis" class="panel-collapse collapse">
+            <div class="panel-body">
+               <div ng-include="'PostGameAnalysis/PostGameAnalysis.html'"></div>
+            </div>
+         </div>
+      </div>
+
+      <!--Adjustments-->
       <div class="panel panel-default">
          <div class="panel-heading">
             <h4 class="panel-title">
@@ -32,6 +51,23 @@
          <div id="accAdjustments" class="panel-collapse collapse">
             <div class="panel-body">
                <div ng-include="'Adjustments/Adjustments.html'"></div>
+            </div>
+         </div>
+      </div>
+
+      <!--BoxScoresSeeds-->
+      <div class="panel panel-default">
+         <div class="panel-heading">
+            <h4 class="panel-title">
+               <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#accBoxScoresSeeds">
+                  <span class="glyphicon glyphicon-menu-right"></span>
+                  Pre-season BoxScores Seeds
+               </a>
+            </h4>
+         </div>
+         <div id="accBoxScoresSeeds" class="panel-collapse collapse">
+            <div class="panel-body">
+               <div ng-include="'BoxScoresSeeds/BoxScoresSeeds.html'"></div>
             </div>
          </div>
       </div>

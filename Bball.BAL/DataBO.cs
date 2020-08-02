@@ -17,14 +17,25 @@ namespace Bball.BAL
 
       public void GetLeagueNames(IBballInfoDTO oBballInfoDTO)
       {
-         //DataDO oData = 
          new DataDO().GetLeagueNames(oBballInfoDTO);
       }
 
       public void GetLeagueData(IBballInfoDTO oBballInfoDTO)
       {
-         //DataDO oData = 
          new DataDO().GetLeagueData(oBballInfoDTO);
+      }
+
+      public void RefreshTodaysMatchups(IBballInfoDTO oBballInfoDTO)
+      {
+         new DataDO().RefreshTodaysMatchups(oBballInfoDTO);
+      }
+      public void GetBoxScoresSeeds(IBballInfoDTO oBballInfoDTO)
+      {
+         new DataDO().GetBoxScoresSeeds(oBballInfoDTO);
+      }
+      public void PostBoxScoresSeeds(IBballInfoDTO oBballInfoDTO)
+      {
+         new DataDO().PostBoxScoresSeeds(oBballInfoDTO);
       }
 
 

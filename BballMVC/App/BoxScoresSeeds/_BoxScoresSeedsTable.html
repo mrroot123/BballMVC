@@ -1,0 +1,155 @@
+﻿<table ng-hide="Multi" class="table table-bordred table-striped">
+   <!-- Colspan Doc site https://www.w3.org/WAI/tutorials/tables/irregular/ -->
+
+
+   <tr class="w-medium">
+      <th class="w-narrow">Team</th>
+      <th class="w-medium">Points</th>
+      <th class="w-medium">Adjustment</th>
+
+
+<!--
+      <th class="w-narrow">Tm Str<br>Score</th>
+      <th class="w-narrow">Total</th>
+      <th class="w-narrow">1</th>
+      <th class="w-narrow">2</th>
+      <th class="w-narrow">3</th>
+
+
+      <th class="w-narrow">Tm Str<br>Score</th>
+      <th class="w-narrow">Total</th>
+      <th class="w-narrow">1</th>
+      <th class="w-narrow">2</th>
+      <th class="w-narrow">3</th> -->
+   </tr>
+   <tr ng-repeat="item in ocBoxScoresSeedsDTO">
+      <td id="Team_{{$index}}"  class="large">{{item.Team}}</td>
+
+      <td>
+         <table>
+            <tr>
+               <td>Scored</td>
+            </tr>
+            <tr>
+               <td>Allowed</td>
+            </tr>
+         </table>
+      </td>
+
+      <td>
+         <table>
+            <tr>
+               <td>
+                  <input id="AdjustmentAmountMade_{{$index}}" type="text" class="col-sm-6" value="{{item.AdjustmentAmountMade}}">
+               </td>
+            </tr>
+            <tr>
+               <td>
+                  <input id="AdjustmentAmountAllowed_{{$index}}" type="text" class="col-sm-6" value="{{item.AdjustmentAmountAllowed}}">
+               </td>
+            </tr>
+         </table>
+      </td>
+   </tr>
+</table>
+
+<!--
+<td class="large">{{CalcProp("TmStrAway")}}</td>
+<td>
+   <table>
+      <tr>
+         <td>  {{CalcProp("TmStrAwayMade")}} </td>
+      </tr>
+      <tr>
+         <td>  {{CalcProp("TmStrAwayAllowed")}}} </td>
+      </tr>
+   </table>
+</td>
+
+<td>
+   <table>
+      <tr>
+         <td>  {{item.AwayShotsAdjustedMadePt1)}} </td>
+      </tr>
+      <tr>
+         <td>  {{item.AwayShotsAdjustedAllowedPt1)}} </td>
+      </tr>
+   </table>
+</td>
+
+<td>
+   <table>
+      <tr>
+         <td>  {{item.AwayShotsAdjustedMadePt2)}} </td>
+      </tr>
+      <tr>
+         <td>  {{item.AwayShotsAdjustedAllowedPt2)}} </td>
+      </tr>
+   </table>
+</td>
+<td>
+   <table>
+      <tr>
+         <td>  {{item.AwayShotsAdjustedMadePt3)}} </td>
+      </tr>
+      <tr>
+         <td>  {{item.AwayShotsAdjustedAllowedPt3)}} </td>
+      </tr>
+   </table>
+</td>
+
+
+<td class="large">{{CalcProp("TmStrHome")}}</td>
+<td>
+   <table>
+      <tr>
+         <td>  {{CalcProp("TmStrHomeMade")}} </td>
+      </tr>
+      <tr>
+         <td>  {{CalcProp("TmStrHomeAllowed")}}} </td>
+      </tr>
+   </table>
+</td>
+
+<td>
+   <table>
+      <tr>
+         <td>  {{item.HomeShotsAdjustedMadePt1)}} </td>
+      </tr>
+      <tr>
+         <td>  {{item.HomeShotsAdjustedAllowedPt1)}} </td>
+      </tr>
+   </table>
+</td>
+
+<td>
+   <table>
+      <tr>
+         <td>  {{item.HomeShotsAdjustedMadePt2)}} </td>
+      </tr>
+      <tr>
+         <td>  {{item.HomeShotsAdjustedAllowedPt2)}} </td>
+      </tr>
+   </table>
+</td>
+<td>
+   <table>
+      <tr>
+         <td>  {{item.HomeShotsAdjustedMadePt3)}} </td>
+      </tr>
+      <tr>
+         <td>  {{item.HomeShotsAdjustedAllowedPt3)}} </td>
+      </tr>
+   </table>
+</td>
+
+
+   </tr>
+</table>
+<!--
+   ,AwayShotsAdjustedMadePt1
+      ,AwayShotsAdjustedMadePt2
+      ,AwayShotsAdjustedMadePt3
+      ,AwayShotsAdjustedAllowedPt1
+
+-->

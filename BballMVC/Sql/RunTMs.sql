@@ -9,19 +9,18 @@ GO
 SET NOCOUNT ON
 
   Declare @UserName	varchar(10) = 'Test'
-			, @LeagueName varchar(8) = 'NBA'
+			, @LeagueName varchar(8) = 'WNBA'
 			, @GameDate Date
 			, @StartDate Date 
 			, @EndDate Date
 			, @Display bit = 0	-- Set to 1 to display TodaysMatchups
-			, @TruncateTables bit = 0	-- Set to 1 to Truncate Tables
 			, @RunID nchar(10) = convert(varchar, Getdate(),1) --  1=mm/dd/yy  5=dd-mm-yy
   ;
 
 
 SELECT @StartDate =   Min([StartDate])
   FROM [00TTI_LeagueScores].[dbo].[SeasonInfo]
-  where season = '1819' And Bypass = 0
+  where season = '18' And Bypass = 0
 
 
 Set @GameDate = @StartDate
@@ -49,7 +48,7 @@ Set @StartDate = '12/1/2016'
 Set @EndDate =   '4/15/2017' 
 Set @EndYear = 2020
 Set @LoopGBStart = 5
-Set @LoopGBLimit = 7
+Set @LoopGBLimit = 10
 Set @LoopHALimit = 1	-- 2 for both 
 
 --Set @StartDate = '12/1/2019'
@@ -86,7 +85,7 @@ BEGIN -- LoopDate
 				exec uspCalcTodaysMatchups  @UserName, @LeagueName, @GameDate, @Display
 				Set @GameDate = DateAdd(d,1, @GameDate)
 				set @Display = 0
-				break
+				--break
 				--return	-- kd
 			END
 			Set @EndTime = GETDATE();

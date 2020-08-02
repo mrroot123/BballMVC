@@ -12,6 +12,11 @@ namespace BballMVC.DTOs
       public IList<IDropDown> ocTeams { get; set; }
       public IList<IDropDown> ocLeagueNames { get; set; }
       public IList<ITodaysMatchupsDTO> ocTodaysMatchupsDTO { get; set; }
+      public IList<IBoxScoresSeedsDTO> ocBoxScoresSeedsDTO { get; set; }
+      public IList<IvPostGameAnalysisDTO> ocPostGameAnalysisDTO { get; set; }
+
+      public ISeasonInfoDTO oSeasonInfoDTO { get; set; }
+
 
       public BballDataDTO()
       {
@@ -20,6 +25,9 @@ namespace BballMVC.DTOs
          ocTeams = new List<IDropDown>();
          ocLeagueNames = new List<IDropDown>();
          ocTodaysMatchupsDTO = new List<ITodaysMatchupsDTO>();
+         ocBoxScoresSeedsDTO = new List<IBoxScoresSeedsDTO>();
+         ocPostGameAnalysisDTO = new List<IvPostGameAnalysisDTO>();
+         oSeasonInfoDTO = new SeasonInfoDTO();
       }
    }
    public class DropDown : IDropDown

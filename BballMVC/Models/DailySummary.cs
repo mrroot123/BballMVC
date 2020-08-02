@@ -36,5 +36,10 @@ namespace BballMVC.Models
         public double LgAvgLastMinPt1 { get; set; }
         public double LgAvgLastMinPt2 { get; set; }
         public double LgAvgLastMinPt3 { get; set; }
+        public Nullable<double> LgAvgPace { get; set; }
+        public Nullable<double> LgAvgVolatilityTeam { get; set; }
+        public Nullable<double> LgAvgVolatilityGame { get; set; }
+        public Nullable<double> AdjRecentLeagueHistory { get; set; }
+        public Nullable<System.DateTime> TS { get; set; }
     }
 }

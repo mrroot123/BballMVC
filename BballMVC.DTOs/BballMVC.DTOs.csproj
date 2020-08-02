@@ -60,6 +60,7 @@
     <Compile Include="TeamStatDTO.cs" />
     <Compile Include="TodaysMatchupsDTO.cs" />
     <Compile Include="UrlDTO.cs" />
+    <Compile Include="vPostGameAnalysisDTO.cs" />
     <Compile Include="_TemplateDTO.cs" />
   </ItemGroup>
   <ItemGroup>

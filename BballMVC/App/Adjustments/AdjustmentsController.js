@@ -7,12 +7,15 @@ angular.module('app').controller("AdjustmentsController", function ($scope, f, a
    $scope.cbChange = function (adjAmtID) {
       alert("cb");
    };
+   $scope.Getmdy = function(d) {
+      return f.Getmdy(d);
+   };
    $scope.ProcessUpdates = function () {
       let ocAdjustmentDTO = [];
       let rowNum = 0;
       while ($("#adjAmt_" + rowNum).val() !== undefined) {
          if ($("#cb_" + rowNum).prop('checked')) { // push Delete AdjustmentID
-            ocAdjustmentDTO.push({ AdjustmentID: parseInt($("#adjAmt_" + rowNum).attr("data-AdjustmentID")) });
+            ocAdjustmentDTO.push({ AdjustmentID: parseInt($("#adjAmt_" + rowNum).attr("data-AdjustmentID")), AdjustmentAmount: null });
          }
          else if ($("#adjAmt_" + rowNum).val()) {  // push Delete AdjustmentID & Adj Amt
             ocAdjustmentDTO.push({ AdjustmentID: parseInt($("#adjAmt_" + rowNum).attr("data-AdjustmentID")), AdjustmentAmount: parseFloat($("#adjAmt_" + rowNum).val()) });
@@ -85,31 +88,5 @@ angular.module('app').controller("AdjustmentsController", function ($scope, f, a
    $scope.GreyOutAdjustmentList = function () {
       $('#AdjustmentsList').css({ "display": "block", opacity: 0.2, "width": $(document).width(), "height": $(document).height() });
    };
-
-   //function xGetAdjustmentInfo(Parms) { // called once at Controller init
-   //   var f = Parms.f;
-   //   var ajx = Parms.ajx;
-   //   let fProcessAdjustmentInfo = {
-   //      scope: Parms.scope
-   //      , process: function (oBballDataDTO) {
-   //         $scope.GetAdjustments(Parms.scope, f, ajx);
-   //         // Populate Teams DropDown form Adjustment Entry
-   //         this.scope.TeamList = oBballDataDTO.ocTeams;
-   //         this.scope.AdjustmentNameList = oBballDataDTO.ocAdjustmentNames;
-   //      }
-   //   }; // fProcessAdjustmentInfo
-
-   //   ajx.AjaxGet(url.UrlGetAdjustmentInfo, { GameDate: oBballInfoDTO.GameDate,  LeagueName: Parms.LeagueName })
-   //      .then(data => {
-   //         oBballInfoDTO.oBballDataDTO.ocTeams = oBballDataDTO.ocTeams;
-   //         oBballInfoDTO.oBballDataDTO.AdjustmentNameList = oBballDataDTO.ocAdjustmentNames;
-   //         oBballInfoDTO.oBballDataDTO.ocAdjustments = oBballDataDTO.ocAdjustments;
-   //         populateAdjustments();
-   //      })
-   //      .catch(error => {
-   //         f.DisplayMessage(f.FormatResponse(error));
-   //      });
-   //   return;
-   //}  // GetAdjustmentInfo
 
 }); // Adjustments controller
