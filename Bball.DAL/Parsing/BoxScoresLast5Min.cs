@@ -174,7 +174,7 @@ namespace Bball.DAL.Parsing
          catch (Exception ex)
          {
            
-            throw new Exception($@"Bball.DAL\Parsing\BoxScoresLastSMin.parseTR Error: TR = {trHtml}\n{ SysDAL.DALfunctions.StackTraceFormat(ex)}");
+            throw new Exception($@"Bball.DAL\Parsing\BoxScoresLastSMin.parseTR Error: TR = {trHtml}\n{ SysDAL.Functions.DALfunctions.StackTraceFormat(ex)}");
          }
          if (savTimeInSecounds > 0)
          {

@@ -4,11 +4,19 @@ var oBballInfoDTO = {
    UserName: "",
    GameDate: "",
    LeagueName: "",
-   ConnectionString: "",
+   TTILogMessage: {
+      AppName: "Bball",
+      UserName: "Test",
+      TS: "",
+      MessageNum: 0,
+      MessageText: "",
+      CallStack: ""
+   },
+   TTILogUrl: "",
    oSeasonInfoDTO: {},
    oBballDataDTO: {}
-
 };
+
 angular.module('app', []);
 
 //angular.module("app", [])

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Reflection;
 using System.Text;
 
-namespace SysDAL
+namespace SysDAL.Functions
 {
 
    public static class DALfunctions
@@ -111,6 +112,84 @@ namespace SysDAL
          }
          return parmValue;
       }
+
+      //public static object ExecuteUDF(string ConnectionString, string strSql, List<string> ocParmNames, List<SqlDbType> ocSqlDbTypes)
+      //{
+      //   object retValue = null;
+      //   try
+      //   {
+      //      //  1)  Get Conn     SqlConnection oSqlConnection 
+      //      //  2)  Open DB      oSqlConnection.Open();
+      //      //  3)  Set Command  SqlCommand oSqlCommand = new SqlCommand(sql, oSqlConnection);
+      //      //  4)  Exec Sql / Read Rows    SqlDataReader rdr = oSqlCommand.ExecuteReader();
+
+      //      using (SqlConnection oSqlConnection = new SqlConnection(ConnectionString)) // 1) Get Conn
+      //      {
+      //         oSqlConnection.Open();                                            // 2) Get Conn
+      //         using (var cmd = oSqlConnection.CreateCommand())
+      //         {
+      //            cmd.CommandType = CommandType.StoredProcedure;
+
+      //            foreach (var cmdParam in sqlParams)
+      //            {
+      //               cmd.Parameters.Add(cmdParam);
+      //            }
+      //            SqlConnection conn = new SqlConnection(@"SQLCONNECTION STRING");
+      //            SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.function_xyz(@username)", conn);
+      //            // cmd.CommandType=CommandType.StoredProcedure;  
+      //            cmd.Parameters.AddWithValue("@username", "username");
+      //            SqlDataAdapter da = new SqlDataAdapter(cmd);
+//      DataTable dt = new DataTable();
+//      da.Fill(dt);  
+//string str = dt.Rows[0][0].ToString();
+
+      //            var retValParam = new SqlParameter("RetVal", SqlDbType.Int)
+      //            {
+      //               //Set this property as return value
+      //               Direction = ParameterDirection.ReturnValue
+      //            };
+
+      //            cmd.Parameters.Add(retValParam);
+      //            cmd.ExecuteScalar();
+
+      //            retValue = retValParam.Value;
+      //         }
+
+
+
+      //            SqlCommand oSqlCommand = new SqlCommand(strSql, oSqlConnection);  // 3) Set Command
+
+      //         using (SqlDataReader rdr = oSqlCommand.ExecuteReader())           // 4) Exec Sql / Read Rows
+      //         {
+      //            int ctrRows = 0;
+      //            while (rdr.Read())
+      //            {
+      //               parmValue = rdr[ParmName];
+      //               ctrRows++;
+      //            }
+      //            if (ctrRows != 1)
+      //            {
+      //               string msg;
+      //               if (ctrRows == 0)
+      //                  msg = $"Parm {ParmName} Not Found";
+      //               else
+      //                  msg = "Multiple Rows Returned";
+
+      //               throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name}\nError Message: {msg}\nSql: {strSql}\nConnectionString: {ConnectionString}");
+      //            }
+      //         }
+      //      }  // using conn
+      //   }
+      //   catch (Exception ex)
+      //   {
+      //      var msg = ex.Message + "\n" + StackTraceParse(ex.StackTrace);
+      //      throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name}\nError Message: {msg}\nSql: {strSql}\nConnectionString: {ConnectionString}");
+      //   }
+      //   return parmValue;
+      //}
+
+
+
       #endregion ExecuteSql
 
       #region StoredProcs
@@ -318,6 +397,12 @@ namespace SysDAL
       #endregion genSql
 
 
+      public static string InsertTableRow(string ConnectionString, string TableName, List<string> ocColumnNames, List<string> ocColumnValues)
+      {
+         string SQL = SysDAL.Functions.DALfunctions.GenSql(TableName, ocColumnNames);
+         return InsertRow(ConnectionString, SQL, ocColumnNames, ocColumnValues);
+      }
+
       public static string InsertRow(string ConnectionString, string sqlString, List<string> ocColumnNames, List<string> ocColumnValues)
       {
          //string sqlString = "INSERT INTO table (col1, col2, col3) VALUES (@val1, @val2, @val3)";
@@ -374,7 +459,7 @@ namespace SysDAL
          msg.Append(PreMsg);
          msg.Append("========================= Stack Trace ==================================" + "\n");
          msg.Append(ex.Message + "\n");
-         msg.Append(SysDAL.DALfunctions.StackTraceParse(ex.StackTrace) + "\n");
+         msg.Append(SysDAL.Functions.DALfunctions.StackTraceParse(ex.StackTrace) + "\n");
          msg.Append("========================================================================" + "\n");
          msg.Append(PostMsg);
          return msg.ToString();

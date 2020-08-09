@@ -12,13 +12,13 @@ namespace BballMVC.Controllers
    {
       private BballEntities1 db = new BballEntities1();
 
-      public void LoadBoxscores()
-      {
-         string LeagueName = "NBA";
-         LoadBoxScores l3 = new LoadBoxScores(LeagueName, DateTime.Now);
-         l3.LoadTodaysRotation();
+      //public void LoadBoxscores()  #kd delete controller
+      //{
+      //   string LeagueName = "NBA";
+      //   LoadBoxScores l3 = new LoadBoxScores(LeagueName, DateTime.Now);
+      //   l3.LoadTodaysRotation();
 
-      }
+      //}
 
       // GET: BoxScores
       public ActionResult Index()

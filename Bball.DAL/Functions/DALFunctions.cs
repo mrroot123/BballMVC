@@ -12,7 +12,7 @@ namespace Bball.DAL.Functions
 
       public static string StackTraceFormat(String PreMsg, Exception ex, string PostMsg)
       {
-         return SysDAL.DALfunctions.StackTraceFormat(PreMsg, ex, PostMsg);
+         return SysDAL.Functions.DALfunctions.StackTraceFormat(PreMsg, ex, PostMsg);
       }
       public static void PopulateDropDownDTOFromRdr(object oRow, SqlDataReader rdr)
       {

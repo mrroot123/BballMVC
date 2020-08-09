@@ -23,7 +23,7 @@ namespace Bball.DAL.Tables
          oBballInfoDTO.oBballDataDTO = new BballDataDTO();
          oBballInfoDTO.oBballDataDTO.ocLeagueNames = new List<IDropDown>();
          var strSql = "SELECT Distinct LeagueName, LeagueName  FROM LeagueInfo";
-         SysDAL.DALfunctions.ExecuteSqlQuery(oBballInfoDTO.ConnectionString, strSql
+         SysDAL.Functions.DALfunctions.ExecuteSqlQuery(oBballInfoDTO.ConnectionString, strSql
             , oBballInfoDTO.oBballDataDTO.ocLeagueNames, Bball.DAL.Functions.DALFunctions.PopulateDropDownDTOFromRdr);
 
       }
@@ -38,7 +38,7 @@ namespace Bball.DAL.Tables
                     + $" Where LeagueName = '{oBballInfoDTO.LeagueName}' AND Season = '{oBballInfoDTO.oBballDataDTO.oSeasonInfoDTO.Season}'"
                     + " Order By Team";
 
-         SysDAL.DALfunctions.ExecuteSqlQuery(oBballInfoDTO.ConnectionString, strSql
+         SysDAL.Functions.DALfunctions.ExecuteSqlQuery(oBballInfoDTO.ConnectionString, strSql
             , oBballInfoDTO.oBballDataDTO.ocBoxScoresSeedsDTO, populateBoxScoresSeedsDTOFromRdr);
 
       }
@@ -53,7 +53,7 @@ namespace Bball.DAL.Tables
                     + $" Where LeagueName = '{oBballInfoDTO.LeagueName}' AND Season = '{oBballInfoDTO.oBballDataDTO.oSeasonInfoDTO.Season}'"
                     +  " Order By Team";
         
-         SysDAL.DALfunctions.ExecuteSqlQuery(oBballInfoDTO.ConnectionString, strSql
+         SysDAL.Functions.DALfunctions.ExecuteSqlQuery(oBballInfoDTO.ConnectionString, strSql
             , oBballInfoDTO.oBballDataDTO.ocBoxScoresSeedsDTO, populateBoxScoresSeedsDTOFromRdr);
       }
       public void RefreshTodaysMatchups(IBballInfoDTO oBballInfoDTO)
@@ -64,7 +64,7 @@ namespace Bball.DAL.Tables
          // exec uspCalcTodaysMatchups  'Test', 'WNBA', @Today, 1
          List<string> SqlParmNames = new List<string>() { "UserName", "LeagueName", "GameDate", "Display" };
          List<object> SqlParmValues = new List<object>() { oBballInfoDTO.UserName, oBballInfoDTO.LeagueName, oBballInfoDTO.GameDate, 0 };
-         SysDAL.DALfunctions.ExecuteStoredProcedureNonQuery(oBballInfoDTO.ConnectionString, "uspCalcTodaysMatchups", SqlParmNames, SqlParmValues);
+         SysDAL.Functions.DALfunctions.ExecuteStoredProcedureNonQuery(oBballInfoDTO.ConnectionString, "uspCalcTodaysMatchups", SqlParmNames, SqlParmValues);
 
          new TodaysMatchupsDO(oBballInfoDTO).GetTodaysMatchups(oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO);
       }
@@ -84,7 +84,7 @@ namespace Bball.DAL.Tables
          {
             string getRowSql = 
                $"SELECT *  FROM vPostGameAnalysis  Where LeagueName = '{oBballInfoDTO.LeagueName}' AND GameDate = '{oBballInfoDTO.GameDate.ToShortDateString()}' ";
-            int rows = SysDAL.DALfunctions.ExecuteSqlQuery(oBballInfoDTO.ConnectionString, getRowSql
+            int rows = SysDAL.Functions.DALfunctions.ExecuteSqlQuery(oBballInfoDTO.ConnectionString, getRowSql
                , oBballInfoDTO.oBballDataDTO.ocPostGameAnalysisDTO, populatePostGameAnalysisDTOFromRdr);
 
          }
@@ -95,12 +95,12 @@ namespace Bball.DAL.Tables
          ////   ocDTOs.Add(oBballInfoDTO.oBballDataDTO.ocLeagueNames);
 
 
-         //   List<SysDAL.DALfunctions.PopulateDTO> ocDelegates = new List<SysDAL.DALfunctions.PopulateDTO>();
+         //   List<SysDAL.Functions.DALfunctions.PopulateDTO> ocDelegates = new List<SysDAL.Functions.DALfunctions.PopulateDTO>();
          //   ocDelegates.Add(Bball.DAL.Functions.DALFunctions.PopulateDropDownDTOFromRdr);
 
          //   List<string> SqlParmNames = new List<string>() { "GameDate", "LeagueName" };
          //   List<object> SqlParmValues = new List<object>() { oBballInfoDTO.GameDate, oBballInfoDTO.LeagueName };
-         //   SysDAL.DALfunctions.ExecuteStoredProcedureQueries(oBballInfoDTO.ConnectionString, "uspQueryAdjustmentInfo"
+         //   SysDAL.Functions.DALfunctions.ExecuteStoredProcedureQueries(oBballInfoDTO.ConnectionString, "uspQueryAdjustmentInfo"
          //                     , SqlParmNames, SqlParmValues, ocDTOs, ocDelegates);
 
       }

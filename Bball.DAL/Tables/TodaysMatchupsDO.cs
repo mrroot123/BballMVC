@@ -27,7 +27,7 @@ namespace Bball.DAL.Tables
          if (ocTodaysMatchupsDTO == null)
             ocTodaysMatchupsDTO = new List<ITodaysMatchupsDTO>();
 
-         int rows = SysDAL.DALfunctions.ExecuteSqlQuery(_oBballInfoDTO.ConnectionString, getRowSql(), ocTodaysMatchupsDTO, populateDTOFromRdr);
+         int rows = SysDAL.Functions.DALfunctions.ExecuteSqlQuery(_oBballInfoDTO.ConnectionString, getRowSql(), ocTodaysMatchupsDTO, populateDTOFromRdr);
 
       }
       static void populateDTOFromRdr(object oRow, SqlDataReader rdr)

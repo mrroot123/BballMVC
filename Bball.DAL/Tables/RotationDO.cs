@@ -32,8 +32,7 @@ namespace Bball.DAL.Tables
          _strLoadDateTime = strLoadDateTime;
       }
       public static void PopulateRotation(SortedList<string, CoversDTO> ocRotation, IBballInfoDTO oBballInfoDTO, ILeagueDTO _oLeagueDTO)
-   //      SeasonInfoDO oSeasonInfoDO, ILeagueDTO _oLeagueDTO, string ConnectionString, string strLoadDateTime)
-      {
+       {
          RotationDO oRotationDO = new RotationDO(ocRotation, oBballInfoDTO.GameDate, _oLeagueDTO, oBballInfoDTO.ConnectionString, oBballInfoDTO.GameDate.ToString());
          oRotationDO.GetRotation(oBballInfoDTO);
       }
@@ -54,7 +53,7 @@ namespace Bball.DAL.Tables
       {
          List<CoversDTO> oCoversList = new List<CoversDTO>();
 
-         int rows = SysDAL.DALfunctions.ExecuteSqlQuery(_ConnectionString, RotationRowSql(), oCoversList,  LoadRotationRows);
+         int rows = SysDAL.Functions.DALfunctions.ExecuteSqlQuery(_ConnectionString, RotationRowSql(), oCoversList,  LoadRotationRows);
 
          if (oCoversList.Count == 0)
             refreshRotation();
@@ -136,7 +135,7 @@ namespace Bball.DAL.Tables
          {
             CoversDTO oCoversDTO = kvp.Value;
           //  string ConnectionString = SqlFunctions.GetConnectionString();
-            string SQL = SysDAL.DALfunctions.GenSql(RotationTable, ocColumns);
+            //string SQL = SysDAL.Functions.DALfunctions.GenSql(RotationTable, ocColumns);
             // "LeagueName,
             // Season, SubSeason, SubSeasonPeriod,    kd 06/14/2020 added 3 columns to Rotation Table
             // GameDate,RotNum, Venue,Team,Opp,
@@ -149,7 +148,7 @@ namespace Bball.DAL.Tables
 
                , _oBballInfoDTO.oSeasonInfoDTO.Season
                , _oBballInfoDTO.oSeasonInfoDTO.SubSeason
-               , "0" // SubSeasonPeriod
+               , _oBballInfoDTO.oSeasonInfoDTO.SubSeasonPeriod.ToString()
 
                , _GameDate.ToShortDateString()
                , oCoversDTO.RotNum.ToString()
@@ -171,7 +170,7 @@ namespace Bball.DAL.Tables
                , _strLoadDateTime
             };
             // Insert Away Row
-            string rc = SysDAL.DALfunctions.InsertRow(_ConnectionString, SQL, ocColumns, ocValues);
+            string rc = SysDAL.Functions.DALfunctions.InsertTableRow(_ConnectionString, RotationTable, ocColumns, ocValues);
 
             // Populate Home Row
             ocValues = new List<string>()
@@ -180,7 +179,7 @@ namespace Bball.DAL.Tables
 
                , _oBballInfoDTO.oSeasonInfoDTO.Season
                , _oBballInfoDTO.oSeasonInfoDTO.SubSeason
-               , "0" // SubSeasonPeriod
+               , _oBballInfoDTO.oSeasonInfoDTO.SubSeasonPeriod.ToString()
 
                , _GameDate.ToShortDateString()
                , (oCoversDTO.RotNum + 1).ToString()
@@ -202,7 +201,7 @@ namespace Bball.DAL.Tables
                , DateTime.Now.ToString()
             };
             // Insert Away Row
-            rc = SysDAL.DALfunctions.InsertRow(_ConnectionString, SQL, ocColumns, ocValues);
+            rc = SysDAL.Functions.DALfunctions.InsertTableRow(_ConnectionString, RotationTable, ocColumns, ocValues);
 
          }  // foreach
 
@@ -211,13 +210,13 @@ namespace Bball.DAL.Tables
       public static void DeleteRestOfRotation(DateTime GameDate, string LeagueName)
       {
          string strSql = $"DELETE From {RotationTable} Where LeagueName = '{LeagueName}' AND GameDate >= '{GameDate.ToShortDateString()}'";
-         int rows = SysDAL.DALfunctions.ExecuteSqlNonQuery(SqlFunctions.GetConnectionString(), strSql);
+         int rows = SysDAL.Functions.DALfunctions.ExecuteSqlNonQuery(SqlFunctions.GetConnectionString(), strSql);
       }
 
       private void deleteRotation()
       {
          string strSql = $"DELETE From {RotationTable} Where LeagueName = '{_oLeagueDTO.LeagueName}' AND GameDate = '{_GameDate.ToShortDateString()}'";
-         int rows = SysDAL.DALfunctions.ExecuteSqlNonQuery(SqlFunctions.GetConnectionString(), strSql);
+         int rows = SysDAL.Functions.DALfunctions.ExecuteSqlNonQuery(SqlFunctions.GetConnectionString(), strSql);
       }
       #endregion WritwRows
 

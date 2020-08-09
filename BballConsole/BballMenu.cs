@@ -86,7 +86,7 @@ namespace BballConsole
             }
             catch (Exception ex)
             {
-               string msg = SysDAL.DALfunctions.StackTraceFormat(ex);
+               string msg = SysDAL.Functions.DALfunctions.StackTraceFormat(ex);
                Console.WriteLine(msg);
             }
             Console.WriteLine("League Name: " + LeagueName);

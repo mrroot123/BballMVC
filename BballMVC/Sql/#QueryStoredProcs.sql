@@ -1,6 +1,6 @@
 use [00TTI_LeagueScores]
 
-Declare @serachArg varchar(50) = '%uspCalcPtPct%'	--
+Declare @serachArg varchar(50) = '%uspQuerySeasonInfo%'	--
 
 SELECT OBJECT_NAME(object_id) as 'SP Name', *,  definition
 FROM sys.sql_modules

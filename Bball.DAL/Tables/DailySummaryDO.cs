@@ -32,7 +32,7 @@ namespace Bball.DAL.Tables
       #region GetRows
       public int GetRow(DailySummaryDTO oDailySummaryDTO)
       {
-         int rows = SysDAL.DALfunctions.ExecuteSqlQuery(_ConnectionString, getRowSql(), oDailySummaryDTO, LoadReadRowToDTO);
+         int rows = SysDAL.Functions.DALfunctions.ExecuteSqlQuery(_ConnectionString, getRowSql(), oDailySummaryDTO, LoadReadRowToDTO);
          return rows;
       }
       private string getRowSql()
@@ -95,7 +95,7 @@ namespace Bball.DAL.Tables
       private void deleteDailySummary()
       {
          string strSql = $"DELETE From {DailySummaryTable} Where LeagueName = '{_oLeagueDTO.LeagueName}' AND GameDate = '{_GameDate.ToShortDateString()}'";
-         int rows = SysDAL.DALfunctions.ExecuteSqlNonQuery(SqlFunctions.GetConnectionString(), strSql);
+         int rows = SysDAL.Functions.DALfunctions.ExecuteSqlNonQuery(SqlFunctions.GetConnectionString(), strSql);
       }
       private DailySummaryDTO populateDTO(int NumOfMatchups)
       {
@@ -117,7 +117,7 @@ namespace Bball.DAL.Tables
          List<object> SqlParmValues = new List<object>()
             { _GameDate.ToShortDateString(), _oLeagueDTO.LeagueName, oSeasonInfo.oSeasonInfoDTO.Season, oSeasonInfo.oSeasonInfoDTO.SubSeason };
 
-         SysDAL.DALfunctions.ExecuteStoredProcedureQuery(_ConnectionString, "uspQueryLeagueAverages"
+         SysDAL.Functions.DALfunctions.ExecuteStoredProcedureQuery(_ConnectionString, "uspQueryLeagueAverages"
                              , SqlParmNames, SqlParmValues, oDailySummaryDTO, LoadLgAvgStatsToDTO);
          return oDailySummaryDTO;
       }

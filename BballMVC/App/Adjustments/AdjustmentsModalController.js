@@ -21,6 +21,7 @@ angular.module('app').controller('AdjustmentsModalController', function ($scope,
 
       let oAdjustment = {};
       oAdjustment.LeagueName = oBballInfoDTO.LeagueName;
+      oAdjustment.StartDate = oBballInfoDTO.GameDate;
 
       oAdjustment.AdjustmentType = $scope.AdjustmentType;
       oAdjustment.Team = $scope.Team;
@@ -41,7 +42,7 @@ angular.module('app').controller('AdjustmentsModalController', function ($scope,
             $('#AdjustmentsModal').css({ "display": "block" });   // Show Adjustment Entry Modal
          })
          .catch(error => {
-            f.DisplayMessage("Adjustment Insert Error/n" + f.FormatResponse(error));
+            f.DisplayErrorMessage("Adjustment Insert Error/n" + f.FormatResponse(error));
             $('#AdjustmentsModal').css({ "display": "block" });   // Show Adjustment Entry Modal
          });
 

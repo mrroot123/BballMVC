@@ -8,8 +8,8 @@
    this.UrlGetLeagueData = urlPrefix + "Data/GetLeagueData";
    this.UrlGetBoxScoresSeeds = urlPrefix + "Data/GetBoxScoresSeeds";
    this.UrlPostBoxScoresSeeds = urlPrefix + "Data/PostBoxScoresSeeds";
-   this.UrlGetTodaysMatchups = urlPrefix + "TodaysMatchups/GetTodaysMatchups";
-   this.UrlLoadBoxScores = urlPrefix + "TodaysMatchups/LoadBoxScores";
+ //  this.UrlGetTodaysMatchups = urlPrefix + "TodaysMatchups/GetTodaysMatchups";
+  // this.UrlLoadBoxScores = urlPrefix + "TodaysMatchups/LoadBoxScores";
    this.UrlRefreshTodaysMatchups = urlPrefix + "Data/RefreshTodaysMatchups";
    
 
@@ -52,7 +52,40 @@ angular.module('app').service('ajx', function () {
 
 });
 
-angular.module('app').service('f', function () {
+angular.module('app').service('f', function (ajx) {
+   this.DisplayErrorMessage = function (msg) {
+      var TTILogMessage = {
+         UserName: oBballInfoDTO.UserName,
+         ApplicationName: "Bball",
+         TS: new Date(),
+         MessageNum: 0,
+         MessageText: msg,
+         MessageType: "Error"
+      };
+      var uu = "http://localhost:3000/api/Log/LogMessage?s=aabbcc";   // oBballInfoDTO.TTILogUrl
+      ajx.AjaxGet(uu)
+         .then(data => {
+            alert(data);
+            // this.DisplayMessage(data);
+         })
+         .catch(error => {
+            alert(error);
+            // this.DisplayMessage(f.FormatResponse(error));
+         });
+      var u = "http://localhost:3000/api/Log/LogMessage";   // oBballInfoDTO.TTILogUrl
+      ajx.AjaxPost(u, TTILogMessage)
+         .then(data => {
+            alert(data);
+           // this.DisplayMessage(data);
+         })
+         .catch(error => {
+            alert(error);
+           // this.DisplayMessage(f.FormatResponse(error));
+         });
+
+
+      alert(msg);
+   };
 
    this.DisplayMessage = function (msg) {
       alert(msg);
@@ -84,6 +117,14 @@ angular.module('app').service('f', function () {
 
    this.parseJsonDate = function (jsonDateString) {
       return new Date(parseInt(jsonDateString.replace('/Date(', '')));
+   };
+
+   this.ShowScreen = function (ScreenID) {
+      $('#' + ScreenID).css({ "display": "block", opacity: 1, "width": $(document).width(), "height": $(document).height() });
+   };
+
+   this.GreyScreen = function (ScreenID) {
+      $('#' + ScreenID).css({ "display": "block", opacity: 0.2, "width": $(document).width(), "height": $(document).height() });
    };
 
    this.showHideModal = function (show) {

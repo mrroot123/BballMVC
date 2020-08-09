@@ -51,10 +51,11 @@ namespace Bball.DAL.Tables
       private  void populateSeasonInfoDTO()
       {
          // kdtodo - move SqlFunctions.GetConnectionString() to constructor 2b injected
-         int rows = SysDAL.DALfunctions.ExecuteSqlQuery(SqlFunctions.GetConnectionString(), SeasonInfoRowSql()
+         int rows = SysDAL.Functions.DALfunctions.ExecuteSqlQuery(SqlFunctions.GetConnectionString(), SeasonInfoRowSql()
                        ,  oSeasonInfoDTO, PopulateDTO);
          if (rows == 0)
             throw new Exception($"SeasonInfo row not found - League: {_LeagueName}  GameDate: {GameDate.ToShortDateString()}");
+         oSeasonInfoDTO.SubSeasonPeriod = 0; // kdtodo call udf
       }
       public int CalcSubSeasonPeriod()
       {

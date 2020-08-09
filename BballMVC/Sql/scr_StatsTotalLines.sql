@@ -1,6 +1,6 @@
 use [00TTI_LeagueScores]
-EXEC [uspInsertTodaysMatchupsResults] 'Test', '8/2/2020', 'WNBA'
-EXEC [uspInsertTodaysMatchupsResults] 'Test', '8/2/2020', 'NBA'
+
+
 	Declare
 			  @LeagueName varchar(10) = 'NBA'
 			,  @Team varchar(10) = 'bos'
@@ -12,10 +12,14 @@ EXEC [uspInsertTodaysMatchupsResults] 'Test', '8/2/2020', 'NBA'
 			, @RotNum int	
 			, @ixVenue as int
 			, @GameTime varchar(5)
-			, @GameDate date = '3/6/2020'
+			, @GameDate date = '8/8/2020'
 	;
 
-	Select tmr.Season
+
+EXEC [uspInsertTodaysMatchupsResults] 'Test', @GameDate, 'WNBA'
+EXEC [uspInsertTodaysMatchupsResults] 'Test', @GameDate, 'NBA'
+
+	Select tmr.LeagueName, tmr.Season, tmr.GameDate
 		, min(tmr.GameDate) as StartDate, max(tmr.GameDate) as EndDate, count(*) as Games
 		, Round(avg( tmr.OurTotalLine),1) as 'Our TL'
 		, Round(avg( tmr.TotalLine),1) as TL
@@ -24,4 +28,5 @@ EXEC [uspInsertTodaysMatchupsResults] 'Test', '8/2/2020', 'NBA'
 	  Join BoxScores b on b.GameDate = tmr.GameDate AND b.RotNum = tmr.RotNum
 	   Where tmr.GameDate > '7/24/2020'
 		-- tmr.Season = @Season
-		Group by tmr.Season
+		Group by tmr.LeagueName, tmr.Season, tmr.GameDate
+		Order by tmr.LeagueName, tmr.Season, tmr.GameDate

@@ -17,7 +17,7 @@
             $scope.$apply();
          })
          .catch(error => {
-            f.DisplayMessage(f.FormatResponse(error));
+            f.DisplayErrorMessage(f.FormatResponse(error));
          });
       $('#screen').css({ "display": "block", opacity: 1, "width": $(document).width(), "height": $(document).height() });
 
@@ -48,10 +48,10 @@
             $scope.$apply;
 
             $scope.$emit('showAccordian');
-            // f.DisplayMessage("League Selected");
+
          })
          .catch(error => {
-            f.DisplayMessage(f.FormatResponse(error));
+            f.DisplayErrorMessage(f.FormatResponse(error));
          });
       $('#screen').css({ "display": "block", opacity: 1, "width": $(document).width(), "height": $(document).height() });
 

@@ -1,7 +1,7 @@
 ﻿
-<table class="table table-bordred table-striped w-auto" style="width:90%">
+<table class="table table-bordred table-striped w-auto" style="width:80%">
    <!-- Colspan Doc site https://www.w3.org/WAI/tutorials/tables/irregular/ -->
-   <tr style="color:blue;">
+   <tr style="color:{{LeagueColor}};">
       <th colspan="3"></th>
 
       <th class="text-center" ng-show="showHistory" colspan="3">History (Games Back)</th>
@@ -15,7 +15,7 @@
       <th></th>
    </tr>
 
-   <tr style="color:blue;">
+   <tr style="color:{{LeagueColor}};">
       <th>Rot #<br>Time</th>
       <th><br />Teams</th>
       <th>Team<br />Strength</th>
@@ -37,6 +37,7 @@
       <th>Line<br />Diff</th>
       <th>Play</th>
    </tr>
+   <tr ng-show="ocTodaysMatchups.length==0"><td>No Games Scheduled</td></tr> 
    <tr ng-repeat="item in ocTodaysMatchups">
 
       <td>
@@ -68,7 +69,7 @@
       <td>
          <table>
             <tr>
-               <td ng-hide="Multi">{{item.TmStrAway | number:1}}/{{item.TmStrHome | number:1}}</td>
+               <td ng-hide="Multi">{{item.TmStrAway | number:1}} / {{item.TmStrHome | number:1}}</td>
             </tr>
             <tr>
                <td ng-show="Multi">{{item.TmStrAway | number:1}}</td>

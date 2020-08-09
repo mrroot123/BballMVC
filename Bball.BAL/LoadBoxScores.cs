@@ -80,7 +80,7 @@ namespace Bball.BAL
                SortedList<string, CoversDTO> ocRotation = new SortedList<string, CoversDTO>();
                RotationDO.PopulateRotation(ocRotation, _oBballInfoDTO, _oLeagueDTO);
 
-               _oBballInfoDTO.GameDate = _oBballInfoDTO.GameDate.AddDays(1);
+               _oBballInfoDTO.GameDate = _oBballInfoDTO.GameDate.AddDays(1); // kd make nextGameDate function
                _oSeasonInfoDO.GameDate = _oSeasonInfoDO.GameDate.AddDays(1);
             }
          }

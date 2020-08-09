@@ -39,8 +39,8 @@ namespace Bball.DAL.Tables
          List<string> ocValues = new List<string>();
          delPopulateDTOValues(ocValues, DTO);   // Execute Delegate
          string ConnectionString = SqlFunctions.GetConnectionString();
-         string SQL = SysDAL.DALfunctions.GenSql(TableName, ocColumns);
-         return SysDAL.DALfunctions.InsertRow(ConnectionString, SQL, ocColumns, ocValues);
+         string SQL = SysDAL.Functions.DALfunctions.GenSql(TableName, ocColumns);
+         return SysDAL.Functions.DALfunctions.InsertRow(ConnectionString, SQL, ocColumns, ocValues);
       }
 
       #region BoxScoreInsert

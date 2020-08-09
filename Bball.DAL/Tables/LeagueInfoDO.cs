@@ -16,7 +16,7 @@ namespace Bball.DAL.Tables
 
       public LeagueInfoDO(string LeagueName, ILeagueDTO oLeagueDTO, string ConnectionString)
       {
-         int rows = SysDAL.DALfunctions.ExecuteSqlQuery(ConnectionString, getRowSql(LeagueName), oLeagueDTO, PopulateDTO);
+         int rows = SysDAL.Functions.DALfunctions.ExecuteSqlQuery(ConnectionString, getRowSql(LeagueName), oLeagueDTO, PopulateDTO);
          if (rows == 0)  throw new Exception($"LeagueInfo row not found for League: {LeagueName}");
 
       }

@@ -10,6 +10,7 @@ namespace BballMVC.DTOs
       public System.DateTime EndDate { get; set; }
       public string Season { get; set; }
       public string SubSeason { get; set; }
+      public int SubSeasonPeriod { get; set; }
       public bool Bypass { get; set; }
       public bool IncludePre { get; set; }
       public bool IncludePost { get; set; }

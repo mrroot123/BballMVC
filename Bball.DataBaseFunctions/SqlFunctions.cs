@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using SysDAL;
+using SysDAL.Functions;
 
 
 namespace Bball.DataBaseFunctions
@@ -21,7 +21,7 @@ namespace Bball.DataBaseFunctions
       {
          if (ConnectionString == null)
             ConnectionString = GetConnectionString();
-         return SysDAL.DALfunctions.ExecuteSqlNonQuery(ConnectionString, strSql);
+         return SysDAL.Functions.DALfunctions.ExecuteSqlNonQuery(ConnectionString, strSql);
       }
 
       public static string GetConnectionString()
@@ -130,8 +130,8 @@ namespace Bball.DataBaseFunctions
          //List<string> ocColumns = ColumnNames.Split(',').OfType<string>().ToList();
          //List<string> ocValues = new List<string>();
          //delegatePopulateDTOValues(ocValues, DTO);   // Execute Delegate to Populate ocValues from DTO
-         //string SQL = SysDAL.DALfunctions.GenSql(TableName, ocColumns);    // Gen INSERT SQL from 
-         //string rc = SysDAL.DALfunctions.InsertRow(ConnectionString, SQL, ocColumns, ocValues);
+         //string SQL = SysDAL.Functions.DALfunctions.GenSql(TableName, ocColumns);    // Gen INSERT SQL from 
+         //string rc = SysDAL.Functions.DALfunctions.InsertRow(ConnectionString, SQL, ocColumns, ocValues);
          //return rc;
 
          List<string> ocValues = new List<string>();
@@ -142,22 +142,22 @@ namespace Bball.DataBaseFunctions
       public static string DALInsertRow(string TableName, string ColumnNames, List<string> ocValues, string ConnectionString)
       {
          List<string> ocColumns = ColumnNames.Split(',').OfType<string>().ToList();
-         string SQL = SysDAL.DALfunctions.GenSql(TableName, ocColumns);    // Gen INSERT SQL from 
-         string rc = SysDAL.DALfunctions.InsertRow(ConnectionString, SQL, ocColumns, ocValues);
+         string SQL = SysDAL.Functions.DALfunctions.GenSql(TableName, ocColumns);    // Gen INSERT SQL from 
+         string rc = SysDAL.Functions.DALfunctions.InsertRow(ConnectionString, SQL, ocColumns, ocValues);
          return rc;
       }
       #region parmTable
       public static object ParmTableParmValueQuery(string ParmName)
       {
          string strSql = "Select ParmValue From ParmTable Where ParmName = '{ParmName}'";
-         return SysDAL.DALfunctions.ExecuteSqlQueryReturnSingleParm(GetConnectionString(), strSql, "ParmValue");
+         return SysDAL.Functions.DALfunctions.ExecuteSqlQueryReturnSingleParm(GetConnectionString(), strSql, "ParmValue");
       }
       public static int ParmTableParmValueUpdate(string ParmName, string ParmValue, string UserName = "default")
       {
          string strSql = $"Update ParmTable "
                      + $"SET ParmValue = '{ParmValue}', UpdateUser = '{UserName}', UpdateDate = '{DateTime.Now}' "
                      + $"Where ParmName = '{ParmName}' ";
-         return SysDAL.DALfunctions.ExecuteSqlNonQuery(GetConnectionString(), strSql);
+         return SysDAL.Functions.DALfunctions.ExecuteSqlNonQuery(GetConnectionString(), strSql);
       }
       #endregion parmTable
    }  // class SqlFunctions

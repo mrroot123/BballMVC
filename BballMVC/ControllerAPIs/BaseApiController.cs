@@ -11,6 +11,11 @@ namespace BballMVC.ControllerAPIs
 {
    public class BaseApiController : ApiController
    {
+         //      if (System.AppDomain.CurrentDomain.BaseDirectory.IndexOf(@"mrroot\") >= 0)
+         //   return SqlServerConnectionStringArvixe;
+
+         //if (System.AppDomain.CurrentDomain.BaseDirectory.IndexOf("wwwroot") >= 0)
+         //   return SqlServerConnectionStringKeith;
       protected string GetUser()
       {
          return "Test";

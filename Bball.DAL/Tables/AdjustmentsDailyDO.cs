@@ -58,7 +58,7 @@ namespace Bball.DAL.Tables
       public void DeleteDailyAdjustments(DateTime GameDate, string LeagueName)
       {
          string strSql = $"DELETE From {TableName} Where LeagueName = '{LeagueName}' AND GameDate = '{GameDate.ToShortDateString()}'";
-         int rows = SysDAL.DALfunctions.ExecuteSqlNonQuery(SqlFunctions.GetConnectionString(), strSql);
+         int rows = SysDAL.Functions.DALfunctions.ExecuteSqlNonQuery(SqlFunctions.GetConnectionString(), strSql);
       }
 
 

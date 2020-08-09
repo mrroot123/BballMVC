@@ -36,14 +36,14 @@ namespace Bball.DAL.Tables
          List<object> SqlParmValues = new List<object>()
             { _GameDate.ToShortDateString(), _oLeagueDTO.LeagueName };
          // kdtodo                                                               make constant
-         SysDAL.DALfunctions.ExecuteStoredProcedureNonQuery(_ConnectionString, "uspInsertLinesFromRotation", SqlParmNames, SqlParmValues);
+         SysDAL.Functions.DALfunctions.ExecuteStoredProcedureNonQuery(_ConnectionString, "uspInsertLinesFromRotation", SqlParmNames, SqlParmValues);
 
       }
 
       #region GetRows
       public int GetRow(LinesDTO oLinesDTO)
       {
-         int rows = SysDAL.DALfunctions.ExecuteSqlQuery(_ConnectionString, getRowSql(), oLinesDTO, populateDTOFromRdr);
+         int rows = SysDAL.Functions.DALfunctions.ExecuteSqlQuery(_ConnectionString, getRowSql(), oLinesDTO, populateDTOFromRdr);
          return rows;
       }
       static void populateDTOFromRdr(object oRow, SqlDataReader rdr)

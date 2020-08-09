@@ -37,7 +37,7 @@ angular.module('app').controller("AdjustmentsController", function ($scope, f, a
             $scope.ShowAdjustmentList();
          })
          .catch(error => {
-            f.DisplayMessage(f.FormatResponse(error));
+            f.DisplayErrorMessage(f.FormatResponse(error));
          });
    };   // processUpdates 
    $scope.OpenAdjustmentEntryModal = function () {
@@ -69,7 +69,7 @@ angular.module('app').controller("AdjustmentsController", function ($scope, f, a
             populateAdjustments();
          })
          .catch(error => {
-            f.DisplayMessage(f.FormatResponse(error));
+            f.DisplayErrorMessage(f.FormatResponse(error));
          });
    }; // GetAdjustments
 

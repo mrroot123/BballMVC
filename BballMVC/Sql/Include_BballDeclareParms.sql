@@ -1,5 +1,6 @@
 	Declare
-			  @LeagueName varchar(10) = 'NBA'
+			  @UserName varchar(25) = 'Test', @LeagueName varchar(10) = 'NBA', @GameDate date = '3/6/2020'
+
 			,  @Team varchar(10) = 'bos'
 			, @Venue varchar(4) = 'away'
 			, @Season varchar(4) = '1920'
@@ -9,5 +10,4 @@
 			, @RotNum int	
 			, @ixVenue as int
 			, @GameTime varchar(5)
-			, @GameDate date = '3/6/2020'
 	;

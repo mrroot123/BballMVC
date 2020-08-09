@@ -8,7 +8,7 @@ Imports BballMVC.IDTOs
 'Imports Bball.DAL
 'Imports Bball.VbClassesInterfaces.Bball.VbClassesInterfaces
 Imports Bball.DataBaseFunctions
-Imports SysDAL.DALfunctions
+Imports SysDAL.Functions.DALfunctions
 
 Namespace Bball.VbClasses
    Public Class CoversRotation

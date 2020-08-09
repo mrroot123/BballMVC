@@ -13,5 +13,6 @@ namespace BballMVC.IDTOs
       string Season { get; set; }
       DateTime StartDate { get; set; }
       string SubSeason { get; set; }
+      int SubSeasonPeriod { get; set; }
    }
 }
