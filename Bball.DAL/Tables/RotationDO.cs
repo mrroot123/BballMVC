@@ -27,12 +27,12 @@ namespace Bball.DAL.Tables
       {
          _ocRotation = ocRotation;
          _GameDate = GameDate;
-         _oLeagueDTO = oLeagueDTO;
+        // _oLeagueDTO = oLeagueDTO;
          _ConnectionString = ConnectionString;
          _strLoadDateTime = strLoadDateTime;
       }
       public static void PopulateRotation(SortedList<string, CoversDTO> ocRotation, IBballInfoDTO oBballInfoDTO, ILeagueDTO _oLeagueDTO)
-       {
+      {
          RotationDO oRotationDO = new RotationDO(ocRotation, oBballInfoDTO.GameDate, _oLeagueDTO, oBballInfoDTO.ConnectionString, oBballInfoDTO.GameDate.ToString());
          oRotationDO.GetRotation(oBballInfoDTO);
       }
@@ -98,7 +98,7 @@ namespace Bball.DAL.Tables
       {
          string Sql = ""
             + $"SELECT * FROM {RotationTable} r "
-            + $"  Where r.LeagueName = '{_oLeagueDTO.LeagueName}'  And '{_GameDate}' = r.GameDate"
+            + $"  Where r.LeagueName = '{_oBballInfoDTO.LeagueName}'  And '{_GameDate}' = r.GameDate"
             + "   Order By r.RotNum"
             ;
 
@@ -207,16 +207,17 @@ namespace Bball.DAL.Tables
 
       }
 
-      public static void DeleteRestOfRotation(DateTime GameDate, string LeagueName)
-      {
-         string strSql = $"DELETE From {RotationTable} Where LeagueName = '{LeagueName}' AND GameDate >= '{GameDate.ToShortDateString()}'";
-         int rows = SysDAL.Functions.DALfunctions.ExecuteSqlNonQuery(SqlFunctions.GetConnectionString(), strSql);
-      }
+      //public static void DeleteRestOfRotation(DateTime GameDate, string LeagueName)
+      //{
+      //   string strSql = $"DELETE From {RotationTable} Where LeagueName = '{LeagueName}' AND GameDate >= '{GameDate.ToShortDateString()}'";
+      //   int rows = SysDAL.Functions.DALfunctions.ExecuteSqlNonQuery(SqlFunctions.GetConnectionString(), strSql);
+      //}
 
       private void deleteRotation()
       {
+         //kdtest
          string strSql = $"DELETE From {RotationTable} Where LeagueName = '{_oLeagueDTO.LeagueName}' AND GameDate = '{_GameDate.ToShortDateString()}'";
-         int rows = SysDAL.Functions.DALfunctions.ExecuteSqlNonQuery(SqlFunctions.GetConnectionString(), strSql);
+         int rows = SysDAL.Functions.DALfunctions.ExecuteSqlNonQuery(_ConnectionString, strSql);
       }
       #endregion WritwRows
 

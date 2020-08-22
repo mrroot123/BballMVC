@@ -9,17 +9,29 @@ namespace Bball.BAL
 {
    public class AdjustmentsBO : IAdjustmentsBO
    {
-      public List<IAdjustmentDTO> GetTodaysAdjustments(DateTime GameDate, string LeagueName)
-         => new AdjustmentsDO().GetTodaysAdjustments(GameDate, LeagueName);
-      
-      public IBballDataDTO GetAdjustmentInfo(DateTime GameDate, string LeagueName)
-         => new AdjustmentsDO().GetAdjustmentInfo(GameDate, LeagueName);
+      IBballInfoDTO _oBballInfoDTO;
 
-      public void InsertNewAdjustment(IAdjustmentDTO oAdjustmentDTO) 
-         => new AdjustmentsDO().InsertAdjustmentRow(oAdjustmentDTO);
+      public AdjustmentsBO(IBballInfoDTO oBballInfoDTO)
+      {
+         _oBballInfoDTO = oBballInfoDTO;
+      }
+      // Gets
+      // G1
+      public List<IAdjustmentDTO> GetTodaysAdjustments(DateTime GameDate, string LeagueName)
+         => new AdjustmentsDO(_oBballInfoDTO).GetTodaysAdjustments(GameDate, LeagueName);
+      // G2
+      public IBballDataDTO GetAdjustmentInfo(DateTime GameDate, string LeagueName)
+         => new AdjustmentsDO(_oBballInfoDTO).GetAdjustmentInfo(GameDate, LeagueName);
+      // G3
+      public void UpdateYesterdaysAdjustments() 
+         => new AdjustmentsDO(_oBballInfoDTO).UpdateYesterdaysAdjustments();
+
+      public void InsertNewAdjustment(IAdjustmentDTO oAdjustmentDTO)
+         => new AdjustmentsDO(_oBballInfoDTO).InsertAdjustmentRow(oAdjustmentDTO);
+
 
       public void UpdateAdjustments(IList<IAdjustmentDTO> ocAdjustmentDTO)
-         => new AdjustmentsDO().UpdateAdjustmentRow(ocAdjustmentDTO);
+         => new AdjustmentsDO(_oBballInfoDTO).UpdateAdjustmentRow(ocAdjustmentDTO);
 
    } // class AdjustmentsBO
 }

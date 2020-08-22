@@ -48,5 +48,26 @@ namespace BballMVC.Models
         public double HomeShotsAdjustedAllowedPt3 { get; set; }
         public System.DateTime CreateDate { get; set; }
         public System.DateTime UpdateDate { get; set; }
+        public string Venue { get; set; }
+        public double LastYearMadeTmStr { get; set; }
+        public double LastYearShotsMadePt1 { get; set; }
+        public double LastYearShotsMadePt2 { get; set; }
+        public double LastYearShotsMadePt3 { get; set; }
+        public double LastYearAllowedTmStr { get; set; }
+        public double LastYearShotsAllowedPt1 { get; set; }
+        public double LastYearShotsAllowedPt2 { get; set; }
+        public double LastYearShotsAllowedPt3 { get; set; }
+        public double ThisYearShotsMadePt1 { get; set; }
+        public double ThisYearShotsMadePt2 { get; set; }
+        public double ThisYearShotsMadePt3 { get; set; }
+        public double ThisYearShotsAllowedPt1 { get; set; }
+        public double ThisYearShotsAllowedPt2 { get; set; }
+        public double ThisYearShotsAllowedPt3 { get; set; }
+        public double PctMadePt1 { get; set; }
+        public double PctMadePt2 { get; set; }
+        public double PctMadePt3 { get; set; }
+        public double PctAllowedPt1 { get; set; }
+        public double PctAllowedPt2 { get; set; }
+        public double PctAllowedPt3 { get; set; }
     }
 }

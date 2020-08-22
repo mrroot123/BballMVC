@@ -94,6 +94,7 @@
     <Compile Include="Tables\RotationDO.cs" />
     <Compile Include="Tables\SeasonInfoDO.cs" />
     <Compile Include="Tables\TodaysMatchupsDO.cs" />
+    <Compile Include="Tables\TodaysPlaysDO.cs" />
     <Compile Include="Team.cs">
       <DependentUpon>BballModel.tt</DependentUpon>
     </Compile>

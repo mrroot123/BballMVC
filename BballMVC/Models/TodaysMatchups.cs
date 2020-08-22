@@ -106,5 +106,6 @@ namespace BballMVC.Models
         public Nullable<double> HomeProjectedAtmpPt1 { get; set; }
         public Nullable<double> HomeProjectedAtmpPt2 { get; set; }
         public Nullable<double> HomeProjectedAtmpPt3 { get; set; }
+        public string AllAdjustmentLines { get; set; }
     }
 }

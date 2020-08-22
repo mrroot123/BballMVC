@@ -14,9 +14,9 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.Adjustments' does not have 
             <PropertyRef Name="StartDate" />
             <PropertyRef Name="Team" />
             <PropertyRef Name="AdjustmentType" />
-            <PropertyRef Name="AdjustmentAmount" />
             <PropertyRef Name="Description" />
             
+            <PropertyRef Name="AdjustmentAmount" />
           </Key>
           <Property Name="AdjustmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="LeagueName" Type="nvarchar" MaxLength="8" Nullable="false" />
@@ -225,32 +225,29 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.BoxScoresSeeds' does not ha
             <PropertyRef Name="Season" />
             <PropertyRef Name="GamesBack" />
             <PropertyRef Name="Team" />
+            <PropertyRef Name="Venue" />
             <PropertyRef Name="AdjustmentAmountMade" />
             <PropertyRef Name="AdjustmentAmountAllowed" />
-            <PropertyRef Name="AwayShotsMadePt1" />
-            <PropertyRef Name="AwayShotsMadePt2" />
-            <PropertyRef Name="AwayShotsMadePt3" />
-            <PropertyRef Name="AwayShotsAllowedPt1" />
-            <PropertyRef Name="AwayShotsAllowedPt2" />
-            <PropertyRef Name="AwayShotsAllowedPt3" />
-            <PropertyRef Name="AwayShotsAdjustedMadePt1" />
-            <PropertyRef Name="AwayShotsAdjustedMadePt2" />
-            <PropertyRef Name="AwayShotsAdjustedMadePt3" />
-            <PropertyRef Name="AwayShotsAdjustedAllowedPt1" />
-            <PropertyRef Name="AwayShotsAdjustedAllowedPt2" />
-            <PropertyRef Name="AwayShotsAdjustedAllowedPt3" />
-            <PropertyRef Name="HomeShotsMadePt1" />
-            <PropertyRef Name="HomeShotsMadePt2" />
-            <PropertyRef Name="HomeShotsMadePt3" />
-            <PropertyRef Name="HomeShotsAllowedPt1" />
-            <PropertyRef Name="HomeShotsAllowedPt2" />
-            <PropertyRef Name="HomeShotsAllowedPt3" />
-            <PropertyRef Name="HomeShotsAdjustedMadePt1" />
-            <PropertyRef Name="HomeShotsAdjustedMadePt2" />
-            <PropertyRef Name="HomeShotsAdjustedMadePt3" />
-            <PropertyRef Name="HomeShotsAdjustedAllowedPt1" />
-            <PropertyRef Name="HomeShotsAdjustedAllowedPt2" />
-            <PropertyRef Name="HomeShotsAdjustedAllowedPt3" />
+            <PropertyRef Name="LastYearMadeTmStr" />
+            <PropertyRef Name="LastYearShotsMadePt1" />
+            <PropertyRef Name="LastYearShotsMadePt2" />
+            <PropertyRef Name="LastYearShotsMadePt3" />
+            <PropertyRef Name="LastYearAllowedTmStr" />
+            <PropertyRef Name="LastYearShotsAllowedPt1" />
+            <PropertyRef Name="LastYearShotsAllowedPt2" />
+            <PropertyRef Name="LastYearShotsAllowedPt3" />
+            <PropertyRef Name="ThisYearShotsMadePt1" />
+            <PropertyRef Name="ThisYearShotsMadePt2" />
+            <PropertyRef Name="ThisYearShotsMadePt3" />
+            <PropertyRef Name="ThisYearShotsAllowedPt1" />
+            <PropertyRef Name="ThisYearShotsAllowedPt2" />
+            <PropertyRef Name="ThisYearShotsAllowedPt3" />
+            <PropertyRef Name="PctMadePt1" />
+            <PropertyRef Name="PctMadePt2" />
+            <PropertyRef Name="PctMadePt3" />
+            <PropertyRef Name="PctAllowedPt1" />
+            <PropertyRef Name="PctAllowedPt2" />
+            <PropertyRef Name="PctAllowedPt3" />
             <PropertyRef Name="CreateDate" />
             <PropertyRef Name="UpdateDate" />
           </Key>
@@ -260,32 +257,29 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.BoxScoresSeeds' does not ha
           <Property Name="Season" Type="nvarchar" MaxLength="5" Nullable="false" />
           <Property Name="GamesBack" Type="int" Nullable="false" />
           <Property Name="Team" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="Venue" Type="nchar" MaxLength="4" Nullable="false" />
           <Property Name="AdjustmentAmountMade" Type="float" Nullable="false" />
           <Property Name="AdjustmentAmountAllowed" Type="float" Nullable="false" />
-          <Property Name="AwayShotsMadePt1" Type="float" Nullable="false" />
-          <Property Name="AwayShotsMadePt2" Type="float" Nullable="false" />
-          <Property Name="AwayShotsMadePt3" Type="float" Nullable="false" />
-          <Property Name="AwayShotsAllowedPt1" Type="float" Nullable="false" />
-          <Property Name="AwayShotsAllowedPt2" Type="float" Nullable="false" />
-          <Property Name="AwayShotsAllowedPt3" Type="float" Nullable="false" />
-          <Property Name="AwayShotsAdjustedMadePt1" Type="float" Nullable="false" />
-          <Property Name="AwayShotsAdjustedMadePt2" Type="float" Nullable="false" />
-          <Property Name="AwayShotsAdjustedMadePt3" Type="float" Nullable="false" />
-          <Property Name="AwayShotsAdjustedAllowedPt1" Type="float" Nullable="false" />
-          <Property Name="AwayShotsAdjustedAllowedPt2" Type="float" Nullable="false" />
-          <Property Name="AwayShotsAdjustedAllowedPt3" Type="float" Nullable="false" />
-          <Property Name="HomeShotsMadePt1" Type="float" Nullable="false" />
-          <Property Name="HomeShotsMadePt2" Type="float" Nullable="false" />
-          <Property Name="HomeShotsMadePt3" Type="float" Nullable="false" />
-          <Property Name="HomeShotsAllowedPt1" Type="float" Nullable="false" />
-          <Property Name="HomeShotsAllowedPt2" Type="float" Nullable="false" />
-          <Property Name="HomeShotsAllowedPt3" Type="float" Nullable="false" />
-          <Property Name="HomeShotsAdjustedMadePt1" Type="float" Nullable="false" />
-          <Property Name="HomeShotsAdjustedMadePt2" Type="float" Nullable="false" />
-          <Property Name="HomeShotsAdjustedMadePt3" Type="float" Nullable="false" />
-          <Property Name="HomeShotsAdjustedAllowedPt1" Type="float" Nullable="false" />
-          <Property Name="HomeShotsAdjustedAllowedPt2" Type="float" Nullable="false" />
-          <Property Name="HomeShotsAdjustedAllowedPt3" Type="float" Nullable="false" />
+          <Property Name="LastYearMadeTmStr" Type="float" Nullable="false" />
+          <Property Name="LastYearShotsMadePt1" Type="float" Nullable="false" />
+          <Property Name="LastYearShotsMadePt2" Type="float" Nullable="false" />
+          <Property Name="LastYearShotsMadePt3" Type="float" Nullable="false" />
+          <Property Name="LastYearAllowedTmStr" Type="float" Nullable="false" />
+          <Property Name="LastYearShotsAllowedPt1" Type="float" Nullable="false" />
+          <Property Name="LastYearShotsAllowedPt2" Type="float" Nullable="false" />
+          <Property Name="LastYearShotsAllowedPt3" Type="float" Nullable="false" />
+          <Property Name="ThisYearShotsMadePt1" Type="float" Nullable="false" />
+          <Property Name="ThisYearShotsMadePt2" Type="float" Nullable="false" />
+          <Property Name="ThisYearShotsMadePt3" Type="float" Nullable="false" />
+          <Property Name="ThisYearShotsAllowedPt1" Type="float" Nullable="false" />
+          <Property Name="ThisYearShotsAllowedPt2" Type="float" Nullable="false" />
+          <Property Name="ThisYearShotsAllowedPt3" Type="float" Nullable="false" />
+          <Property Name="PctMadePt1" Type="float" Nullable="false" />
+          <Property Name="PctMadePt2" Type="float" Nullable="false" />
+          <Property Name="PctMadePt3" Type="float" Nullable="false" />
+          <Property Name="PctAllowedPt1" Type="float" Nullable="false" />
+          <Property Name="PctAllowedPt2" Type="float" Nullable="false" />
+          <Property Name="PctAllowedPt3" Type="float" Nullable="false" />
           <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="UpdateDate" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
@@ -315,6 +309,12 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.BoxScoresSeeds' does not ha
           <Property Name="LgAvgLastMinPt1" Type="float" Nullable="false" />
           <Property Name="LgAvgLastMinPt2" Type="float" Nullable="false" />
           <Property Name="LgAvgLastMinPt3" Type="float" Nullable="false" />
+          <Property Name="LgAvgTurnOversAway" Type="float" />
+          <Property Name="LgAvgTurnOversHome" Type="float" />
+          <Property Name="LgAvgOffRBAway" Type="float" />
+          <Property Name="LgAvgOffRBHome" Type="float" />
+          <Property Name="LgAvgAssistsAway" Type="float" />
+          <Property Name="LgAvgAssistsHome" Type="float" />
           <Property Name="LgAvgPace" Type="float" />
           <Property Name="LgAvgVolatilityTeam" Type="float" />
           <Property Name="LgAvgVolatilityGame" Type="float" />
@@ -484,7 +484,6 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.TodaysMatchups' does not ha
             <PropertyRef Name="OurTotalLineHome" />
             <PropertyRef Name="OurTotalLine" />
             <PropertyRef Name="SideLine" />
-            <PropertyRef Name="Play" />
             <PropertyRef Name="BxScLinePct" />
             <PropertyRef Name="TmStrAdjPct" />
             <PropertyRef Name="Threshold" />
@@ -530,6 +529,7 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.TodaysMatchups' does not ha
             <PropertyRef Name="HomeGB3Pt1" />
             <PropertyRef Name="HomeGB3Pt2" />
             <PropertyRef Name="HomeGB3Pt3" />
+            <PropertyRef Name="Play" />
           </Key>
           <Property Name="TodaysMatchupsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserName" Type="char" MaxLength="10" Nullable="false" />
@@ -623,6 +623,35 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.TodaysMatchups' does not ha
           <Property Name="TotalBubbleAway" Type="float" />
           <Property Name="TotalBubbleHome" Type="float" />
           <Property Name="TS" Type="datetime" />
+          <Property Name="AllAdjustmentLines" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="TodaysPlays">
+          <Key>
+            <PropertyRef Name="TodaysPlaysID" />
+          </Key>
+          <Property Name="TodaysPlaysID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GameDate" Type="date" Nullable="false" />
+          <Property Name="LeagueName" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="RotNum" Type="int" Nullable="false" />
+          <Property Name="GameTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="TeamAway" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="TeamHome" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="WeekEndDate" Type="date" Nullable="false" />
+          <Property Name="PlayLength" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="PlayType" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Line" Type="decimal" Precision="6" Scale="1" Nullable="false" />
+          <Property Name="Info" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="PlayAmount" Type="float" Nullable="false" />
+          <Property Name="PlayWeight" Type="float" Nullable="false" />
+          <Property Name="Juice" Type="float" Nullable="false" />
+          <Property Name="Out" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Author" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Result" Type="nchar" MaxLength="1" />
+          <Property Name="OT" Type="bit" />
+          <Property Name="Score" Type="int" />
+          <Property Name="ResultAmount" Type="float" />
+          <Property Name="CreateUser" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view '00TTI_LeagueScores.dbo.Users' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -895,10 +924,6 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
           <Property Name="AssistsOp" Type="float" Nullable="false" />
           <Property Name="Pace" Type="float" />
         </EntityType>
-        <Function Name="Bball_UpdateAdjs" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="ProcessDate" Type="datetime" Mode="In" />
-          <Parameter Name="testMode" Type="int" Mode="In" />
-        </Function>
         <Function Name="BballGetSeason" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar">
           <Parameter Name="LeagueName" Type="varchar" Mode="In" />
           <Parameter Name="GameDate" Type="datetime" Mode="In" />
@@ -985,6 +1010,7 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
         </Function>
         <Function Name="uspInsertAdjustments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="LeagueName" Type="varchar" Mode="In" />
+          <Parameter Name="StartDate" Type="date" Mode="In" />
           <Parameter Name="Team" Type="varchar" Mode="In" />
           <Parameter Name="AdjustmentDesc" Type="varchar" Mode="In" />
           <Parameter Name="AdjustmentAmount" Type="float" Mode="In" />
@@ -1033,10 +1059,13 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
         <Function Name="uspQueryTeams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="LeagueName" Type="varchar" Mode="In" />
         </Function>
-        <Function Name="uspUpdateAdjustments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="uspUpdateAdjustments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="GameDate" Type="date" Mode="In" />
+        </Function>
         <EntityContainer Name="TTI_LeagueScoresModelStoreContainer">
           <EntitySet Name="AdjustmentsCodes" EntityType="Self.AdjustmentsCodes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DailySummary" EntityType="Self.DailySummary" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TodaysPlays" EntityType="Self.TodaysPlays" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Adjustments" EntityType="Self.Adjustments" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Adjustments].[AdjustmentID] AS [AdjustmentID], 
@@ -1150,32 +1179,29 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
     [BoxScoresSeeds].[Season] AS [Season], 
     [BoxScoresSeeds].[GamesBack] AS [GamesBack], 
     [BoxScoresSeeds].[Team] AS [Team], 
+    [BoxScoresSeeds].[Venue] AS [Venue], 
     [BoxScoresSeeds].[AdjustmentAmountMade] AS [AdjustmentAmountMade], 
     [BoxScoresSeeds].[AdjustmentAmountAllowed] AS [AdjustmentAmountAllowed], 
-    [BoxScoresSeeds].[AwayShotsMadePt1] AS [AwayShotsMadePt1], 
-    [BoxScoresSeeds].[AwayShotsMadePt2] AS [AwayShotsMadePt2], 
-    [BoxScoresSeeds].[AwayShotsMadePt3] AS [AwayShotsMadePt3], 
-    [BoxScoresSeeds].[AwayShotsAllowedPt1] AS [AwayShotsAllowedPt1], 
-    [BoxScoresSeeds].[AwayShotsAllowedPt2] AS [AwayShotsAllowedPt2], 
-    [BoxScoresSeeds].[AwayShotsAllowedPt3] AS [AwayShotsAllowedPt3], 
-    [BoxScoresSeeds].[AwayShotsAdjustedMadePt1] AS [AwayShotsAdjustedMadePt1], 
-    [BoxScoresSeeds].[AwayShotsAdjustedMadePt2] AS [AwayShotsAdjustedMadePt2], 
-    [BoxScoresSeeds].[AwayShotsAdjustedMadePt3] AS [AwayShotsAdjustedMadePt3], 
-    [BoxScoresSeeds].[AwayShotsAdjustedAllowedPt1] AS [AwayShotsAdjustedAllowedPt1], 
-    [BoxScoresSeeds].[AwayShotsAdjustedAllowedPt2] AS [AwayShotsAdjustedAllowedPt2], 
-    [BoxScoresSeeds].[AwayShotsAdjustedAllowedPt3] AS [AwayShotsAdjustedAllowedPt3], 
-    [BoxScoresSeeds].[HomeShotsMadePt1] AS [HomeShotsMadePt1], 
-    [BoxScoresSeeds].[HomeShotsMadePt2] AS [HomeShotsMadePt2], 
-    [BoxScoresSeeds].[HomeShotsMadePt3] AS [HomeShotsMadePt3], 
-    [BoxScoresSeeds].[HomeShotsAllowedPt1] AS [HomeShotsAllowedPt1], 
-    [BoxScoresSeeds].[HomeShotsAllowedPt2] AS [HomeShotsAllowedPt2], 
-    [BoxScoresSeeds].[HomeShotsAllowedPt3] AS [HomeShotsAllowedPt3], 
-    [BoxScoresSeeds].[HomeShotsAdjustedMadePt1] AS [HomeShotsAdjustedMadePt1], 
-    [BoxScoresSeeds].[HomeShotsAdjustedMadePt2] AS [HomeShotsAdjustedMadePt2], 
-    [BoxScoresSeeds].[HomeShotsAdjustedMadePt3] AS [HomeShotsAdjustedMadePt3], 
-    [BoxScoresSeeds].[HomeShotsAdjustedAllowedPt1] AS [HomeShotsAdjustedAllowedPt1], 
-    [BoxScoresSeeds].[HomeShotsAdjustedAllowedPt2] AS [HomeShotsAdjustedAllowedPt2], 
-    [BoxScoresSeeds].[HomeShotsAdjustedAllowedPt3] AS [HomeShotsAdjustedAllowedPt3], 
+    [BoxScoresSeeds].[LastYearMadeTmStr] AS [LastYearMadeTmStr], 
+    [BoxScoresSeeds].[LastYearShotsMadePt1] AS [LastYearShotsMadePt1], 
+    [BoxScoresSeeds].[LastYearShotsMadePt2] AS [LastYearShotsMadePt2], 
+    [BoxScoresSeeds].[LastYearShotsMadePt3] AS [LastYearShotsMadePt3], 
+    [BoxScoresSeeds].[LastYearAllowedTmStr] AS [LastYearAllowedTmStr], 
+    [BoxScoresSeeds].[LastYearShotsAllowedPt1] AS [LastYearShotsAllowedPt1], 
+    [BoxScoresSeeds].[LastYearShotsAllowedPt2] AS [LastYearShotsAllowedPt2], 
+    [BoxScoresSeeds].[LastYearShotsAllowedPt3] AS [LastYearShotsAllowedPt3], 
+    [BoxScoresSeeds].[ThisYearShotsMadePt1] AS [ThisYearShotsMadePt1], 
+    [BoxScoresSeeds].[ThisYearShotsMadePt2] AS [ThisYearShotsMadePt2], 
+    [BoxScoresSeeds].[ThisYearShotsMadePt3] AS [ThisYearShotsMadePt3], 
+    [BoxScoresSeeds].[ThisYearShotsAllowedPt1] AS [ThisYearShotsAllowedPt1], 
+    [BoxScoresSeeds].[ThisYearShotsAllowedPt2] AS [ThisYearShotsAllowedPt2], 
+    [BoxScoresSeeds].[ThisYearShotsAllowedPt3] AS [ThisYearShotsAllowedPt3], 
+    [BoxScoresSeeds].[PctMadePt1] AS [PctMadePt1], 
+    [BoxScoresSeeds].[PctMadePt2] AS [PctMadePt2], 
+    [BoxScoresSeeds].[PctMadePt3] AS [PctMadePt3], 
+    [BoxScoresSeeds].[PctAllowedPt1] AS [PctAllowedPt1], 
+    [BoxScoresSeeds].[PctAllowedPt2] AS [PctAllowedPt2], 
+    [BoxScoresSeeds].[PctAllowedPt3] AS [PctAllowedPt3], 
     [BoxScoresSeeds].[CreateDate] AS [CreateDate], 
     [BoxScoresSeeds].[UpdateDate] AS [UpdateDate]
     FROM [dbo].[BoxScoresSeeds] AS [BoxScoresSeeds]</DefiningQuery>
@@ -1353,7 +1379,8 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
     [TodaysMatchups].[HomeGB3Pt3] AS [HomeGB3Pt3], 
     [TodaysMatchups].[TotalBubbleAway] AS [TotalBubbleAway], 
     [TodaysMatchups].[TotalBubbleHome] AS [TotalBubbleHome], 
-    [TodaysMatchups].[TS] AS [TS]
+    [TodaysMatchups].[TS] AS [TS], 
+    [TodaysMatchups].[AllAdjustmentLines] AS [AllAdjustmentLines]
     FROM [dbo].[TodaysMatchups] AS [TodaysMatchups]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="Users" EntityType="Self.Users" store:Type="Tables" store:Schema="dbo">
@@ -1551,6 +1578,12 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
           <Property Name="LgAvgVolatilityGame" Type="Double" />
           <Property Name="AdjRecentLeagueHistory" Type="Double" />
           <Property Name="TS" Type="DateTime" Precision="3" />
+          <Property Name="LgAvgTurnOversAway" Type="Double" />
+          <Property Name="LgAvgTurnOversHome" Type="Double" />
+          <Property Name="LgAvgOffRBAway" Type="Double" />
+          <Property Name="LgAvgOffRBHome" Type="Double" />
+          <Property Name="LgAvgAssistsAway" Type="Double" />
+          <Property Name="LgAvgAssistsHome" Type="Double" />
         </EntityType>
         <EntityType Name="Adjustments">
           <Key>
@@ -1777,6 +1810,7 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
           </FunctionImport>
           <FunctionImport Name="uspInsertAdjustments">
             <Parameter Name="LeagueName" Mode="In" Type="String" />
+            <Parameter Name="StartDate" Mode="In" Type="DateTime" />
             <Parameter Name="Team" Mode="In" Type="String" />
             <Parameter Name="AdjustmentDesc" Mode="In" Type="String" />
             <Parameter Name="AdjustmentAmount" Mode="In" Type="Double" />
@@ -1826,7 +1860,9 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
             <Parameter Name="Season" Mode="In" Type="String" />
             <Parameter Name="SubSeason" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="uspUpdateAdjustments" />
+          <FunctionImport Name="uspUpdateAdjustments" >
+            <Parameter Name="GameDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
           <FunctionImport Name="uspQueryTeams" ReturnType="Collection(TTI_LeagueScoresModel.uspQueryTeams_Result)">
           <Parameter Name="LeagueName" Mode="In" Type="String" />
           </FunctionImport>
@@ -1835,6 +1871,7 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
           <EntitySet Name="TodaysMatchups" EntityType="TTI_LeagueScoresModel.TodaysMatchups" />
           <EntitySet Name="vPostGameAnalysis" EntityType="TTI_LeagueScoresModel.vPostGameAnalysis" />
           <EntitySet Name="BoxScoresSeeds" EntityType="TTI_LeagueScoresModel.BoxScoresSeeds" />
+          <EntitySet Name="TodaysPlays" EntityType="TTI_LeagueScoresModel.TodaysPlays" />
         </EntityContainer>
         <EntityType Name="SeasonInfo">
           <Key>
@@ -2208,6 +2245,7 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
           <Property Name="HomeProjectedAtmpPt1" Type="Double" />
           <Property Name="HomeProjectedAtmpPt2" Type="Double" />
           <Property Name="HomeProjectedAtmpPt3" Type="Double" />
+          <Property Name="AllAdjustmentLines" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="vPostGameAnalysis">
           <Key>
@@ -2502,6 +2540,27 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
             <PropertyRef Name="HomeShotsAdjustedAllowedPt3" />
             <PropertyRef Name="CreateDate" />
             <PropertyRef Name="UpdateDate" />
+            <PropertyRef Name="Venue" />
+            <PropertyRef Name="LastYearMadeTmStr" />
+            <PropertyRef Name="LastYearShotsMadePt1" />
+            <PropertyRef Name="LastYearShotsMadePt2" />
+            <PropertyRef Name="LastYearShotsMadePt3" />
+            <PropertyRef Name="LastYearAllowedTmStr" />
+            <PropertyRef Name="LastYearShotsAllowedPt1" />
+            <PropertyRef Name="LastYearShotsAllowedPt2" />
+            <PropertyRef Name="LastYearShotsAllowedPt3" />
+            <PropertyRef Name="ThisYearShotsMadePt1" />
+            <PropertyRef Name="ThisYearShotsMadePt2" />
+            <PropertyRef Name="ThisYearShotsMadePt3" />
+            <PropertyRef Name="ThisYearShotsAllowedPt1" />
+            <PropertyRef Name="ThisYearShotsAllowedPt2" />
+            <PropertyRef Name="ThisYearShotsAllowedPt3" />
+            <PropertyRef Name="PctMadePt1" />
+            <PropertyRef Name="PctMadePt2" />
+            <PropertyRef Name="PctMadePt3" />
+            <PropertyRef Name="PctAllowedPt1" />
+            <PropertyRef Name="PctAllowedPt2" />
+            <PropertyRef Name="PctAllowedPt3" />
           </Key>
           <Property Name="BoxScoresSeedID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserName" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="true" />
@@ -2537,6 +2596,55 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
           <Property Name="HomeShotsAdjustedAllowedPt3" Type="Double" Nullable="false" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="Venue" Type="String" Nullable="false" MaxLength="4" FixedLength="true" Unicode="true" />
+          <Property Name="LastYearMadeTmStr" Type="Double" Nullable="false" />
+          <Property Name="LastYearShotsMadePt1" Type="Double" Nullable="false" />
+          <Property Name="LastYearShotsMadePt2" Type="Double" Nullable="false" />
+          <Property Name="LastYearShotsMadePt3" Type="Double" Nullable="false" />
+          <Property Name="LastYearAllowedTmStr" Type="Double" Nullable="false" />
+          <Property Name="LastYearShotsAllowedPt1" Type="Double" Nullable="false" />
+          <Property Name="LastYearShotsAllowedPt2" Type="Double" Nullable="false" />
+          <Property Name="LastYearShotsAllowedPt3" Type="Double" Nullable="false" />
+          <Property Name="ThisYearShotsMadePt1" Type="Double" Nullable="false" />
+          <Property Name="ThisYearShotsMadePt2" Type="Double" Nullable="false" />
+          <Property Name="ThisYearShotsMadePt3" Type="Double" Nullable="false" />
+          <Property Name="ThisYearShotsAllowedPt1" Type="Double" Nullable="false" />
+          <Property Name="ThisYearShotsAllowedPt2" Type="Double" Nullable="false" />
+          <Property Name="ThisYearShotsAllowedPt3" Type="Double" Nullable="false" />
+          <Property Name="PctMadePt1" Type="Double" Nullable="false" />
+          <Property Name="PctMadePt2" Type="Double" Nullable="false" />
+          <Property Name="PctMadePt3" Type="Double" Nullable="false" />
+          <Property Name="PctAllowedPt1" Type="Double" Nullable="false" />
+          <Property Name="PctAllowedPt2" Type="Double" Nullable="false" />
+          <Property Name="PctAllowedPt3" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TodaysPlays">
+          <Key>
+            <PropertyRef Name="TodaysPlaysID" />
+          </Key>
+          <Property Name="TodaysPlaysID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GameDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="LeagueName" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="RotNum" Type="Int32" Nullable="false" />
+          <Property Name="GameTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="TeamAway" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="TeamHome" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="WeekEndDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="PlayLength" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="PlayType" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Line" Type="Decimal" Nullable="false" Precision="6" Scale="1" />
+          <Property Name="Info" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="PlayAmount" Type="Double" Nullable="false" />
+          <Property Name="PlayWeight" Type="Double" Nullable="false" />
+          <Property Name="Juice" Type="Double" Nullable="false" />
+          <Property Name="Out" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Author" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Result" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="OT" Type="Boolean" />
+          <Property Name="Score" Type="Int32" />
+          <Property Name="ResultAmount" Type="Double" />
+          <Property Name="CreateUser" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -2558,6 +2666,12 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
           <EntitySetMapping Name="DailySummary">
             <EntityTypeMapping TypeName="TTI_LeagueScoresModel.DailySummary">
               <MappingFragment StoreEntitySet="DailySummary">
+                <ScalarProperty Name="LgAvgAssistsHome" ColumnName="LgAvgAssistsHome" />
+                <ScalarProperty Name="LgAvgAssistsAway" ColumnName="LgAvgAssistsAway" />
+                <ScalarProperty Name="LgAvgOffRBHome" ColumnName="LgAvgOffRBHome" />
+                <ScalarProperty Name="LgAvgOffRBAway" ColumnName="LgAvgOffRBAway" />
+                <ScalarProperty Name="LgAvgTurnOversHome" ColumnName="LgAvgTurnOversHome" />
+                <ScalarProperty Name="LgAvgTurnOversAway" ColumnName="LgAvgTurnOversAway" />
                 <ScalarProperty Name="TS" ColumnName="TS" />
                 <ScalarProperty Name="AdjRecentLeagueHistory" ColumnName="AdjRecentLeagueHistory" />
                 <ScalarProperty Name="LgAvgVolatilityGame" ColumnName="LgAvgVolatilityGame" />
@@ -2757,7 +2871,6 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="Bball_UpdateAdjs" FunctionName="TTI_LeagueScoresModel.Store.Bball_UpdateAdjs" />
           <FunctionImportMapping FunctionImportName="spTeamLookup" FunctionName="TTI_LeagueScoresModel.Store.spTeamLookup" />
           <FunctionImportMapping FunctionImportName="TeamLookup" FunctionName="TTI_LeagueScoresModel.Store.TeamLookup" />
           <FunctionImportMapping FunctionImportName="TeamLookupByCovers" FunctionName="TTI_LeagueScoresModel.Store.TeamLookupByCovers" />
@@ -2879,6 +2992,7 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
           <EntitySetMapping Name="TodaysMatchups">
             <EntityTypeMapping TypeName="TTI_LeagueScoresModel.TodaysMatchups">
               <MappingFragment StoreEntitySet="TodaysMatchups">
+                <ScalarProperty Name="AllAdjustmentLines" ColumnName="AllAdjustmentLines" />
                 <ScalarProperty Name="HomeProjectedAtmpPt3" ColumnName="HomeProjectedAtmpPt3" />
                 <ScalarProperty Name="HomeProjectedAtmpPt2" ColumnName="HomeProjectedAtmpPt2" />
                 <ScalarProperty Name="HomeProjectedAtmpPt1" ColumnName="HomeProjectedAtmpPt1" />
@@ -3121,32 +3235,29 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
           <EntitySetMapping Name="BoxScoresSeeds">
             <EntityTypeMapping TypeName="TTI_LeagueScoresModel.BoxScoresSeeds">
               <MappingFragment StoreEntitySet="BoxScoresSeeds">
+                <ScalarProperty Name="PctAllowedPt3" ColumnName="PctAllowedPt3" />
+                <ScalarProperty Name="PctAllowedPt2" ColumnName="PctAllowedPt2" />
+                <ScalarProperty Name="PctAllowedPt1" ColumnName="PctAllowedPt1" />
+                <ScalarProperty Name="PctMadePt3" ColumnName="PctMadePt3" />
+                <ScalarProperty Name="PctMadePt2" ColumnName="PctMadePt2" />
+                <ScalarProperty Name="PctMadePt1" ColumnName="PctMadePt1" />
+                <ScalarProperty Name="ThisYearShotsAllowedPt3" ColumnName="ThisYearShotsAllowedPt3" />
+                <ScalarProperty Name="ThisYearShotsAllowedPt2" ColumnName="ThisYearShotsAllowedPt2" />
+                <ScalarProperty Name="ThisYearShotsAllowedPt1" ColumnName="ThisYearShotsAllowedPt1" />
+                <ScalarProperty Name="ThisYearShotsMadePt3" ColumnName="ThisYearShotsMadePt3" />
+                <ScalarProperty Name="ThisYearShotsMadePt2" ColumnName="ThisYearShotsMadePt2" />
+                <ScalarProperty Name="ThisYearShotsMadePt1" ColumnName="ThisYearShotsMadePt1" />
+                <ScalarProperty Name="LastYearShotsAllowedPt3" ColumnName="LastYearShotsAllowedPt3" />
+                <ScalarProperty Name="LastYearShotsAllowedPt2" ColumnName="LastYearShotsAllowedPt2" />
+                <ScalarProperty Name="LastYearShotsAllowedPt1" ColumnName="LastYearShotsAllowedPt1" />
+                <ScalarProperty Name="LastYearAllowedTmStr" ColumnName="LastYearAllowedTmStr" />
+                <ScalarProperty Name="LastYearShotsMadePt3" ColumnName="LastYearShotsMadePt3" />
+                <ScalarProperty Name="LastYearShotsMadePt2" ColumnName="LastYearShotsMadePt2" />
+                <ScalarProperty Name="LastYearShotsMadePt1" ColumnName="LastYearShotsMadePt1" />
+                <ScalarProperty Name="LastYearMadeTmStr" ColumnName="LastYearMadeTmStr" />
+                <ScalarProperty Name="Venue" ColumnName="Venue" />
                 <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="HomeShotsAdjustedAllowedPt3" ColumnName="HomeShotsAdjustedAllowedPt3" />
-                <ScalarProperty Name="HomeShotsAdjustedAllowedPt2" ColumnName="HomeShotsAdjustedAllowedPt2" />
-                <ScalarProperty Name="HomeShotsAdjustedAllowedPt1" ColumnName="HomeShotsAdjustedAllowedPt1" />
-                <ScalarProperty Name="HomeShotsAdjustedMadePt3" ColumnName="HomeShotsAdjustedMadePt3" />
-                <ScalarProperty Name="HomeShotsAdjustedMadePt2" ColumnName="HomeShotsAdjustedMadePt2" />
-                <ScalarProperty Name="HomeShotsAdjustedMadePt1" ColumnName="HomeShotsAdjustedMadePt1" />
-                <ScalarProperty Name="HomeShotsAllowedPt3" ColumnName="HomeShotsAllowedPt3" />
-                <ScalarProperty Name="HomeShotsAllowedPt2" ColumnName="HomeShotsAllowedPt2" />
-                <ScalarProperty Name="HomeShotsAllowedPt1" ColumnName="HomeShotsAllowedPt1" />
-                <ScalarProperty Name="HomeShotsMadePt3" ColumnName="HomeShotsMadePt3" />
-                <ScalarProperty Name="HomeShotsMadePt2" ColumnName="HomeShotsMadePt2" />
-                <ScalarProperty Name="HomeShotsMadePt1" ColumnName="HomeShotsMadePt1" />
-                <ScalarProperty Name="AwayShotsAdjustedAllowedPt3" ColumnName="AwayShotsAdjustedAllowedPt3" />
-                <ScalarProperty Name="AwayShotsAdjustedAllowedPt2" ColumnName="AwayShotsAdjustedAllowedPt2" />
-                <ScalarProperty Name="AwayShotsAdjustedAllowedPt1" ColumnName="AwayShotsAdjustedAllowedPt1" />
-                <ScalarProperty Name="AwayShotsAdjustedMadePt3" ColumnName="AwayShotsAdjustedMadePt3" />
-                <ScalarProperty Name="AwayShotsAdjustedMadePt2" ColumnName="AwayShotsAdjustedMadePt2" />
-                <ScalarProperty Name="AwayShotsAdjustedMadePt1" ColumnName="AwayShotsAdjustedMadePt1" />
-                <ScalarProperty Name="AwayShotsAllowedPt3" ColumnName="AwayShotsAllowedPt3" />
-                <ScalarProperty Name="AwayShotsAllowedPt2" ColumnName="AwayShotsAllowedPt2" />
-                <ScalarProperty Name="AwayShotsAllowedPt1" ColumnName="AwayShotsAllowedPt1" />
-                <ScalarProperty Name="AwayShotsMadePt3" ColumnName="AwayShotsMadePt3" />
-                <ScalarProperty Name="AwayShotsMadePt2" ColumnName="AwayShotsMadePt2" />
-                <ScalarProperty Name="AwayShotsMadePt1" ColumnName="AwayShotsMadePt1" />
                 <ScalarProperty Name="AdjustmentAmountAllowed" ColumnName="AdjustmentAmountAllowed" />
                 <ScalarProperty Name="AdjustmentAmountMade" ColumnName="AdjustmentAmountMade" />
                 <ScalarProperty Name="Team" ColumnName="Team" />
@@ -3155,6 +3266,35 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
                 <ScalarProperty Name="LeagueName" ColumnName="LeagueName" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="BoxScoresSeedID" ColumnName="BoxScoresSeedID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TodaysPlays">
+            <EntityTypeMapping TypeName="TTI_LeagueScoresModel.TodaysPlays">
+              <MappingFragment StoreEntitySet="TodaysPlays">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="ResultAmount" ColumnName="ResultAmount" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="OT" ColumnName="OT" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+                <ScalarProperty Name="Author" ColumnName="Author" />
+                <ScalarProperty Name="Out" ColumnName="Out" />
+                <ScalarProperty Name="Juice" ColumnName="Juice" />
+                <ScalarProperty Name="PlayWeight" ColumnName="PlayWeight" />
+                <ScalarProperty Name="PlayAmount" ColumnName="PlayAmount" />
+                <ScalarProperty Name="Info" ColumnName="Info" />
+                <ScalarProperty Name="Line" ColumnName="Line" />
+                <ScalarProperty Name="PlayType" ColumnName="PlayType" />
+                <ScalarProperty Name="PlayLength" ColumnName="PlayLength" />
+                <ScalarProperty Name="WeekEndDate" ColumnName="WeekEndDate" />
+                <ScalarProperty Name="TeamHome" ColumnName="TeamHome" />
+                <ScalarProperty Name="TeamAway" ColumnName="TeamAway" />
+                <ScalarProperty Name="GameTime" ColumnName="GameTime" />
+                <ScalarProperty Name="RotNum" ColumnName="RotNum" />
+                <ScalarProperty Name="LeagueName" ColumnName="LeagueName" />
+                <ScalarProperty Name="GameDate" ColumnName="GameDate" />
+                <ScalarProperty Name="TodaysPlaysID" ColumnName="TodaysPlaysID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

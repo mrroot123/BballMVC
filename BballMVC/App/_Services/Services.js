@@ -2,16 +2,18 @@
    const urlPrefix = "../../api/";
    this.UrlGetLeagueNames = urlPrefix + "Data/GetLeagueNames";
    this.UrlPostInsertAdjustment = urlPrefix + "Adjustments/PostInsertAdjustment";
-   this.UrlPostProcessUpdates = urlPrefix + "Adjustments/PostProcessUpdates";
+   this.UrlPostAdjustmentUpdates = urlPrefix + "Adjustments/PostAdjustmentUpdates";
    this.UrlGetAdjustmentInfo = urlPrefix + "Adjustments/GetAdjustmentInfo";
    this.UrlGetAdjustments = urlPrefix + "Adjustments/GetAdjustments";
+   this.UrlUpdateYesterdaysAdjustments = urlPrefix + "Adjustments/UpdateYesterdaysAdjustments";
    this.UrlGetLeagueData = urlPrefix + "Data/GetLeagueData";
    this.UrlGetBoxScoresSeeds = urlPrefix + "Data/GetBoxScoresSeeds";
    this.UrlPostBoxScoresSeeds = urlPrefix + "Data/PostBoxScoresSeeds";
- //  this.UrlGetTodaysMatchups = urlPrefix + "TodaysMatchups/GetTodaysMatchups";
-  // this.UrlLoadBoxScores = urlPrefix + "TodaysMatchups/LoadBoxScores";
+   this.UrlPostBoxScoresSeeds = urlPrefix + "Data/PostBoxScoresSeeds";
+   //  this.UrlGetTodaysMatchups = urlPrefix + "TodaysMatchups/GetTodaysMatchups";
+   // this.UrlLoadBoxScores = urlPrefix + "TodaysMatchups/LoadBoxScores";
    this.UrlRefreshTodaysMatchups = urlPrefix + "Data/RefreshTodaysMatchups";
-   
+
 
 });
 angular.module('app').service('ajx', function () {
@@ -62,26 +64,27 @@ angular.module('app').service('f', function (ajx) {
          MessageText: msg,
          MessageType: "Error"
       };
-      var uu = "http://localhost:3000/api/Log/LogMessage?s=aabbcc";   // oBballInfoDTO.TTILogUrl
-      ajx.AjaxGet(uu)
-         .then(data => {
-            alert(data);
-            // this.DisplayMessage(data);
-         })
-         .catch(error => {
-            alert(error);
-            // this.DisplayMessage(f.FormatResponse(error));
-         });
-      var u = "http://localhost:3000/api/Log/LogMessage";   // oBballInfoDTO.TTILogUrl
-      ajx.AjaxPost(u, TTILogMessage)
-         .then(data => {
-            alert(data);
-           // this.DisplayMessage(data);
-         })
-         .catch(error => {
-            alert(error);
-           // this.DisplayMessage(f.FormatResponse(error));
-         });
+      //var uu = "http://www.ttilog.com.violet.arvixe.com/api/Log/GetMessage?s=aabbcc";   // oBballInfoDTO.TTILogUrl
+      //// uu = "http://localhost:3000/api/Log/GetMessage?s=aabbcc";   // oBballInfoDTO.TTILogUrl
+      //ajx.AjaxGet(uu)
+      //   .then(data => {
+      //      alert(data);
+      //      // this.DisplayMessage(data);
+      //   })
+      //   .catch(error => {
+      //      alert(error);
+      //      // this.DisplayMessage(f.FormatResponse(error));
+      //   });
+      //var u = "http://www.ttilog.com.violet.arvixe.com/api/Log/LogMessage";   // oBballInfoDTO.TTILogUrl
+      //ajx.AjaxPost(u, TTILogMessage)
+      //   .then(data => {
+      //      alert(data);
+      //     // this.DisplayMessage(data);
+      //   })
+      //   .catch(error => {
+      //      alert(error);
+      //     // this.DisplayMessage(f.FormatResponse(error));
+      //   });
 
 
       alert(msg);

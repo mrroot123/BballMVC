@@ -19,6 +19,7 @@
         <EntityTypeShape EntityType="TTI_LeagueScoresModel.TodaysMatchups" Width="1.5" PointX="13.375" PointY="0.75" />
         <EntityTypeShape EntityType="TTI_LeagueScoresModel.vPostGameAnalysis" Width="1.5" PointX="7.375" PointY="14.75" />
         <EntityTypeShape EntityType="TTI_LeagueScoresModel.BoxScoresSeeds" Width="1.5" PointX="9.375" PointY="14.75" />
+        <EntityTypeShape EntityType="TTI_LeagueScoresModel.TodaysPlays" Width="1.5" PointX="15.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -18,7 +18,7 @@ namespace Bball.BAL
 
       private ILeagueDTO _oLeagueDTO = new LeagueDTO();
       private string _strLoadDateTime;
-      private string _ConnectionString = SqlFunctions.GetConnectionString();
+      private string _ConnectionString;   //  = SqlFunctions.GetConnectionString();
       //private DateTime _GameDate;
       private SeasonInfoDO _oSeasonInfoDO;
       private IBballInfoDTO _oBballInfoDTO;
@@ -29,17 +29,18 @@ namespace Bball.BAL
 
       #region Constructors & Init
       // Constructor
-      public LoadBoxScores(string LeagueName) => init(LeagueName,  Convert.ToDateTime("10/16/2018"));
+     // public LoadBoxScores(string LeagueName) => init(LeagueName,  Convert.ToDateTime("10/16/2018"));
       
 
-      public LoadBoxScores(string LeagueName,  DateTime StartGameDate) =>  init(LeagueName, StartGameDate);
+      public LoadBoxScores(string LeagueName,  DateTime StartGameDate, string ConnectionString) =>  init(LeagueName, StartGameDate, ConnectionString);
 
-      public LoadBoxScores()
-      { }
+      //public LoadBoxScores()      { }
 
 
-      private void init(string LeagueName, DateTime StartGameDate)
+      private void init(string LeagueName, DateTime StartGameDate, string ConnectionString)
       {
+         //kdtest
+         _ConnectionString = ConnectionString;
          new LeagueInfoDO(LeagueName, _oLeagueDTO, _ConnectionString);  // Init _oLeagueDTO
          _strLoadDateTime = DateTime.Now.ToLongDateString();
          DateTime GameDate = BoxScoreDO.GetMaxBoxScoresGameDate(_ConnectionString, LeagueName, SeasonInfoDO.DefaultDate);
@@ -52,7 +53,7 @@ namespace Bball.BAL
          if (_oSeasonInfoDO.oSeasonInfoDTO.Bypass)
             _oSeasonInfoDO.GetNextGameDate();
          //
-         RotationDO.DeleteRestOfRotation(GameDate, LeagueName);
+         //RotationDO.DeleteRestOfRotation(GameDate, LeagueName);
          _oBballInfoDTO = new BballInfoDTO()
          {
             ConnectionString = _ConnectionString,

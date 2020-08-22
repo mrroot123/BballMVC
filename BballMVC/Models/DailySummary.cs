@@ -41,5 +41,11 @@ namespace BballMVC.Models
         public Nullable<double> LgAvgVolatilityGame { get; set; }
         public Nullable<double> AdjRecentLeagueHistory { get; set; }
         public Nullable<System.DateTime> TS { get; set; }
+        public Nullable<double> LgAvgTurnOversAway { get; set; }
+        public Nullable<double> LgAvgTurnOversHome { get; set; }
+        public Nullable<double> LgAvgOffRBAway { get; set; }
+        public Nullable<double> LgAvgOffRBHome { get; set; }
+        public Nullable<double> LgAvgAssistsAway { get; set; }
+        public Nullable<double> LgAvgAssistsHome { get; set; }
     }
 }

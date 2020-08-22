@@ -73,7 +73,7 @@ namespace Bball.DAL.Tables
          if (oBballInfoDTO.oBballDataDTO == null)
             oBballInfoDTO.oBballDataDTO = new BballDataDTO();
 
-         IBballDataDTO oBballDataDTO = new AdjustmentsDO().GetAdjustmentInfo(oBballInfoDTO.GameDate, oBballInfoDTO.LeagueName);
+         IBballDataDTO oBballDataDTO = new AdjustmentsDO(oBballInfoDTO.GameDate, oBballInfoDTO.LeagueName, oBballInfoDTO.ConnectionString).GetAdjustmentInfo(oBballInfoDTO.GameDate, oBballInfoDTO.LeagueName);
          oBballInfoDTO.oBballDataDTO.ocAdjustments = oBballDataDTO.ocAdjustments;
          oBballInfoDTO.oBballDataDTO.ocAdjustmentNames = oBballDataDTO.ocAdjustmentNames;
          oBballInfoDTO.oBballDataDTO.ocTeams = oBballDataDTO.ocTeams;

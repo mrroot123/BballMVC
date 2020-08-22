@@ -48,7 +48,7 @@ namespace BballMVC.ControllerAPIs
       {
          IBballInfoDTO oBballInfoDTO = new BballInfoDTO()
             { UserName = UserName, GameDate = GameDate, LeagueName = LeagueName, ConnectionString = GetConnectionString() };
-         new LoadBoxScores(LeagueName, GameDate).LoadTodaysRotation();
+         new LoadBoxScores(LeagueName, GameDate, oBballInfoDTO.ConnectionString).LoadTodaysRotation();
          oDataBO.RefreshTodaysMatchups(oBballInfoDTO);
          return Request.CreateResponse(HttpStatusCode.OK, oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO);
       }

@@ -249,6 +249,9 @@
     <Compile Include="Models\TodaysMatchups.cs">
       <DependentUpon>BballEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TodaysPlays.cs">
+      <DependentUpon>BballEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\udfDailyParms_Result.cs">
       <DependentUpon>BballEntities.tt</DependentUpon>
     </Compile>
@@ -300,6 +303,7 @@
     <Content Include="App\_Header\HeaderController.js" />
     <Content Include="App\_layout\layout.html" />
     <Content Include="App\_layout\layoutController.js" />
+    <Content Include="App\_Services\Run.js" />
     <Content Include="App\_Services\Services.js" />
     <Content Include="Models\BballEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

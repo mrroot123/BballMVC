@@ -20,13 +20,17 @@ namespace Bball.DAL.Tables
       const string TableName = "Adjustments";
       const string TableColumns = "LeagueName,StartDate,EndDate,Team,AdjustmentType,AdjustmentAmount,Player,Description,TS";
 
+      IBballInfoDTO _oBballInfoDTO;
       private string _ConnectionString;
       private ILeagueDTO _oLeagueDTO = new LeagueDTO();
       private DateTime _GameDate;
 
       // Constructors
-      public AdjustmentsDO()
-      { }
+      public AdjustmentsDO(IBballInfoDTO oBballInfoDTO)
+      {
+         _oBballInfoDTO = oBballInfoDTO;
+         _ConnectionString = _oBballInfoDTO.ConnectionString;
+      }
       public AdjustmentsDO(DateTime GameDate, string LeagueName, string ConnectionString)
       {
          _ConnectionString = ConnectionString;
@@ -191,16 +195,14 @@ namespace Bball.DAL.Tables
       //}
 
 
-      public void InsertAdjustmentRow(BballMVC.IDTOs.IAdjustmentDTO oAdjustmentDTO)
+      public void InsertAdjustmentRow(IAdjustmentDTO oAdjustmentDTO)
       {
          // call SP to writeLines
          List<string> SqlParmNames = new List<string>() { "LeagueName", "StartDate", "Team", "AdjustmentDesc", "AdjustmentAmount", "Player", "Description" };
          List<object> SqlParmValues = new List<object>()
          { oAdjustmentDTO.LeagueName.ToString(), oAdjustmentDTO.StartDate.ToShortDateString(), oAdjustmentDTO.Team.ToString(), oAdjustmentDTO.AdjustmentType.ToString(),
                oAdjustmentDTO.AdjustmentAmount.ToString(), oAdjustmentDTO.Player.ToString(), oAdjustmentDTO.Description.ToString() };
-         string ConnectionString = Bball.DataBaseFunctions.SqlFunctions.GetConnectionString();
-         // kdtodo                                                               make constant
-         SysDAL.Functions.DALfunctions.ExecuteStoredProcedureNonQuery(ConnectionString, "uspInsertAdjustments", SqlParmNames, SqlParmValues);
+         SysDAL.Functions.DALfunctions.ExecuteStoredProcedureNonQuery(_ConnectionString, "uspInsertAdjustments", SqlParmNames, SqlParmValues);
       }
 
       public void UpdateAdjustmentRow(IList<BballMVC.IDTOs.IAdjustmentDTO> ocAdjustmentDTO)
@@ -214,23 +216,28 @@ namespace Bball.DAL.Tables
                tblAdjustments.Rows.Add(oAdjustment.AdjustmentID, oAdjustment.AdjustmentAmount.ToString());
          }
 
-         List<string> SqlParmNames = new List<string>() { "tblAdjustments" };
-         List<object> SqlParmValues = new List<object>() { tblAdjustments };
+         List<string> SqlParmNames = new List<string>() { "tblAdjustments", "GameDate" };
+         List<object> SqlParmValues = new List<object>() { tblAdjustments, _oBballInfoDTO.GameDate };
+         SysDAL.Functions.DALfunctions.ExecuteStoredProcedureNonQuery(_ConnectionString, "uspUpdateAdjustments", SqlParmNames, SqlParmValues);
+      }
 
-         string ConnectionString = Bball.DataBaseFunctions.SqlFunctions.GetConnectionString();
-         SysDAL.Functions.DALfunctions.ExecuteStoredProcedureNonQuery(ConnectionString, "uspUpdateAdjustments", SqlParmNames, SqlParmValues);
+      public void UpdateYesterdaysAdjustments()
+      {
+         List<string> SqlParmNames = new List<string>() { };
+         List<object> SqlParmValues = new List<object>() { };
+
+         SysDAL.Functions.DALfunctions.ExecuteStoredProcedureNonQuery(_oBballInfoDTO.ConnectionString, "uspUpdateYesterdaysAdjustments", SqlParmNames, SqlParmValues);
       }
 
       #region todaysAdjustments
-      public List<BballMVC.IDTOs.IAdjustmentDTO> GetTodaysAdjustments(DateTime GameDate, string LeagueName)
+      public List<IAdjustmentDTO> GetTodaysAdjustments(DateTime GameDate, string LeagueName)
       {
-         string ConnectionString = Bball.DataBaseFunctions.SqlFunctions.GetConnectionString();
          List<BballMVC.IDTOs.IAdjustmentDTO> ocAdjustmentDTO = new List<BballMVC.IDTOs.IAdjustmentDTO>();
 
          List<string> SqlParmNames = new List<string>() { "GameDate", "LeagueName" };
          List<object> SqlParmValues = new List<object>() { GameDate, LeagueName };
 
-         SysDAL.Functions.DALfunctions.ExecuteStoredProcedureQuery(ConnectionString, "uspQueryAdjustments"
+         SysDAL.Functions.DALfunctions.ExecuteStoredProcedureQuery(_ConnectionString, "uspQueryAdjustments"
                               , SqlParmNames, SqlParmValues, ocAdjustmentDTO, populateDTOFromRdr);
          return ocAdjustmentDTO;
       }
@@ -275,7 +282,7 @@ namespace Bball.DAL.Tables
       }
       public IBballDataDTO GetAdjustmentInfo(DateTime GameDate, string LeagueName)
       {
-         string ConnectionString = Bball.DataBaseFunctions.SqlFunctions.GetConnectionString();
+         //string ConnectionString = Bball.DataBaseFunctions.SqlFunctions.GetConnectionString();
 
 
          IBballDataDTO oBballDataDTO = new BballDataDTO();
@@ -299,23 +306,15 @@ namespace Bball.DAL.Tables
 
          List<string> SqlParmNames = new List<string>() { "GameDate", "LeagueName" };
          List<object> SqlParmValues = new List<object>() { GameDate, LeagueName };
-
-         SysDAL.Functions.DALfunctions.ExecuteStoredProcedureQueries(ConnectionString, "uspQueryAdjustmentInfo"
+        
+         SysDAL.Functions.DALfunctions.ExecuteStoredProcedureQueries(_ConnectionString, "uspQueryAdjustmentInfo"
                            , SqlParmNames, SqlParmValues, ocDTOs, ocDelegates);
 
          //still unsure what to return
          return oBballDataDTO;
       }
 
-      //public class Row
-      //{
-      //   public string Team { get; set; }
-      //   public string Type { get; set; }
-      //   public float AdjAmt { get; set; }
-      //   public string Player { get; set; }
-      //   public string Desc { get; set; }
-      //   public string TS { get; set; }
-      //}
+
    }  // class Adjustments
 
 }
