@@ -42,13 +42,13 @@ namespace BballMVC.ControllerAPIs
       public HttpResponseMessage UpdateYesterdaysAdjustments()
       {
          oAdjustmentsBO.UpdateYesterdaysAdjustments();
-         return Request.CreateResponse(HttpStatusCode.OK, "Success");
+         return Request.CreateResponse(HttpStatusCode.OK, BaseDir );
       }
 
 
 
       [HttpPost]
-      public HttpResponseMessage PostProcessUpdates(List<AdjustmentDTO> ocAdjustmentDTO)
+      public HttpResponseMessage PostAdjustmentUpdates(List<AdjustmentDTO> ocAdjustmentDTO)
       {
          //   var a = new AdjustmentDTO { AdjustmentAmount = 2, AdjustmentID = 1 };
          //   var b =  Request.RequestUri.GetLeftPart(System.UriPartial.Authority);

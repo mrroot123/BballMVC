@@ -27,7 +27,7 @@ namespace Bball.DAL.Tables
       {
          _ocRotation = ocRotation;
          _GameDate = GameDate;
-        // _oLeagueDTO = oLeagueDTO;
+         _oLeagueDTO = oLeagueDTO;
          _ConnectionString = ConnectionString;
          _strLoadDateTime = strLoadDateTime;
       }

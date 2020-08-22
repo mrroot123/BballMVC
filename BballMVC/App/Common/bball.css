@@ -13,9 +13,11 @@
 .w-narrow {
    column-width: 50px;
 }
+
 .w-medium {
    column-width: 100px;
 }
+
 .w-wide {
    column-width: 150px;
 }
@@ -24,8 +26,21 @@
    font-size: 150%;
    font: bold;
    vertical-align: center;
-   
 }
+
 .statTotal {
    font-weight: bold;
 }
+
+input[type='checkbox'] {
+   -webkit-appearance: none;
+   width: 30px;
+   height: 30px;
+   background: white;
+   border-radius: 5px;
+   border: 2px solid #555;
+}
+
+   input[type='checkbox']:checked {
+      background: #abd;
+   }

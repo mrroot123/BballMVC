@@ -29,31 +29,24 @@ namespace Bball.BAL
 
       #region Constructors & Init
       // Constructor
-     // public LoadBoxScores(string LeagueName) => init(LeagueName,  Convert.ToDateTime("10/16/2018"));
-      
-
-      public LoadBoxScores(string LeagueName,  DateTime StartGameDate, string ConnectionString) =>  init(LeagueName, StartGameDate, ConnectionString);
-
-      //public LoadBoxScores()      { }
+      // public LoadBoxScores(string LeagueName) => init(LeagueName,  Convert.ToDateTime("10/16/2018"));
 
 
-      private void init(string LeagueName, DateTime StartGameDate, string ConnectionString)
+      public LoadBoxScores(string LeagueName, DateTime GameDate, string ConnectionString)
       {
+
          //kdtest
          _ConnectionString = ConnectionString;
          new LeagueInfoDO(LeagueName, _oLeagueDTO, _ConnectionString);  // Init _oLeagueDTO
          _strLoadDateTime = DateTime.Now.ToLongDateString();
-         DateTime GameDate = BoxScoreDO.GetMaxBoxScoresGameDate(_ConnectionString, LeagueName, SeasonInfoDO.DefaultDate);
-         if (GameDate == SeasonInfoDO.DefaultDate)
-            GameDate = StartGameDate;
-         else
-            GameDate = GameDate.AddDays(1);
 
          _oSeasonInfoDO = new SeasonInfoDO(GameDate, _oLeagueDTO.LeagueName);
-         if (_oSeasonInfoDO.oSeasonInfoDTO.Bypass)
-            _oSeasonInfoDO.GetNextGameDate();
-         //
-         //RotationDO.DeleteRestOfRotation(GameDate, LeagueName);
+
+
+         //if (_oSeasonInfoDO.oSeasonInfoDTO.Bypass)
+         //   _oSeasonInfoDO.GetNextGameDate();
+         ////
+         ////RotationDO.DeleteRestOfRotation(GameDate, LeagueName);
          _oBballInfoDTO = new BballInfoDTO()
          {
             ConnectionString = _ConnectionString,
@@ -62,14 +55,15 @@ namespace Bball.BAL
             UserName = _UserName,
             oSeasonInfoDTO = _oSeasonInfoDO.oSeasonInfoDTO
          };
+
+         LoadBoxScoreRange(LeagueName, ConnectionString, SeasonInfoDO.DefaultDate);
       }
       #endregion constructors
 
       public void LoadTodaysRotation()
       {
-         if (!_oSeasonInfoDO.RotationLoadedToDate())
+         if (!_oSeasonInfoDO.RotationLoadedToDate())  // Is GameDate > Tomorrow
          { 
-            LoadBoxScoreRange(); // Load Prev Boxscores
 
             // Load Rotations
             //
@@ -88,23 +82,24 @@ namespace Bball.BAL
          SqlFunctions.ParmTableParmValueUpdate("BoxscoresLastUpdateDate", DateTime.Today.ToShortDateString());
       }
 
-      private void LoadBoxScoreRange()
+      private void LoadBoxScoreRange(string LeagueName, string ConnectionString, DateTime DefaultDate)
       {
-         // DateTime processDate = GameDate;
-         while (_oSeasonInfoDO.GameDate < DateTime.Today)   // Load ALL previous Boxscores - usually Yesterday's
+         DateTime GameDate = getNextGameDate(BoxScoreDO.GetMaxBoxScoresGameDate(ConnectionString, LeagueName, DefaultDate));
+
+         while (GameDate < DateTime.Today)   // Load ALL previous Boxscores - usually Yesterday's
          {
             int NumOfMatchups = 0;
             try
             {
-               NumOfMatchups = LoadYesterdaysBoxScores(_oSeasonInfoDO.GameDate);
+               NumOfMatchups = LoadYesterdaysBoxScores(GameDate);
             }
             catch (Exception ex)
             {
                throw new Exception(DALFunctions.StackTraceFormat(ex));
             }
 
-            Console.WriteLine($"Processed {_oSeasonInfoDO.GameDate} - {DateTime.Now} - Matchups: {NumOfMatchups}");
-            _oSeasonInfoDO.GetNextGameDate();
+            Console.WriteLine($"Processed {GameDate} - {DateTime.Now} - Matchups: {NumOfMatchups}");
+            GameDate = getNextGameDate(GameDate);
          }
       }
 
@@ -189,6 +184,10 @@ namespace Bball.BAL
 
       }  // LoadYesterdaysBoxScores
 
+      private DateTime getNextGameDate(DateTime GameDate)
+      {
+         return  new SeasonInfoDO(GameDate, _oLeagueDTO.LeagueName).GetNextGameDate();
+      }
       public void FixBoxscores(string LeagueName, DateTime GameDate)
       {
          new LeagueInfoDO(LeagueName, _oLeagueDTO, _ConnectionString);  // Init _oLeagueDTO

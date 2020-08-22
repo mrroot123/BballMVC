@@ -7,10 +7,10 @@ angular.module('app').controller("AdjustmentsController", function ($scope, f, a
    $scope.cbChange = function (adjAmtID) {
       alert("cb");
    };
-   $scope.Getmdy = function(d) {
+   $scope.Getmdy = function (d) {
       return f.Getmdy(d);
    };
-   $scope.ProcessUpdates = function () {
+   $scope.ProcessAdjustmentUpdates = function () {
       let ocAdjustmentDTO = [];
       let rowNum = 0;
       while ($("#adjAmt_" + rowNum).val() !== undefined) {
@@ -29,17 +29,18 @@ angular.module('app').controller("AdjustmentsController", function ($scope, f, a
       }
 
       $scope.GreyOutAdjustmentList();
-      // let URL = "api/Adjustments/PostProcessUpdates";
-      ajx.AjaxPost(url.UrlPostProcessUpdates, ocAdjustmentDTO)
+      //  let URL = "api/Adjustments/PostAdjustmentUpdates?GameDate=" + oBballInfoDTO.GameDate;
+      ajx.AjaxPost(url.UrlPostAdjustmentUpdates, ocAdjustmentDTO)
          .then(data => {
-            $scope.GetAdjustments($scope, f, ajx);  
+            $scope.GetAdjustments($scope, f, ajx);
             f.DisplayMessage("Updates Complete");
             $scope.ShowAdjustmentList();
          })
          .catch(error => {
             f.DisplayErrorMessage(f.FormatResponse(error));
+            $scope.ShowAdjustmentList();
          });
-   };   // processUpdates 
+   };   // ProcessAdjustmentUpdates 
    $scope.OpenAdjustmentEntryModal = function () {
       $scope.GreyOutAdjustmentList();
       $scope.$broadcast('OpenAdjustmentEntryModalEvent');

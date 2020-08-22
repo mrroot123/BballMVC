@@ -4,6 +4,7 @@ var oBballInfoDTO = {
    UserName: "",
    GameDate: "",
    LeagueName: "",
+   BaseDir: "",
    TTILogMessage: {
       AppName: "Bball",
       UserName: "Test",
