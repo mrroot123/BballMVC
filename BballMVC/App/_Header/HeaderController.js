@@ -34,7 +34,7 @@
       }
       oBballInfoDTO.LeagueName = $scope.LeagueName;
 
-      oBballInfoDTO.GameDate = f.Getmdy( $scope.GameDate);
+      oBballInfoDTO.GameDate = f.Getmdy($scope.GameDate);
 
       $('#screen').css({ "display": "block", opacity: 0.2, "width": $(document).width(), "height": $(document).height() });
 

@@ -35,112 +35,161 @@
       <th ng-hide="Multi">Side<br />Line</th>
 
       <th>Line<br />Diff</th>
-      <th>Play</th>
+      <th><br />Play</th>
+      <th ng-show="PlayEntry">Play<br />Length</th>
+      <th ng-show="PlayEntry">Play<br />Type</th>
+      <th ng-show="PlayEntry"><br />Line</th>
+      <th ng-show="PlayEntry"><br />Out</th>
+      <th ng-show="PlayEntry"><br />Juice</th>
+      <th ng-show="PlayEntry"><br />Amount</th>
+      <th ng-show="PlayEntry"><br />Weight</th>
+      <th ng-show="PlayEntry">
+         <button type="button" class="btn btn-info active" data-toggle="tooltip" title="Process Plays"
+                 ng-show="true" ng-click="ProcessPlays()">
+            Process<br />Plays
+         </button>
+      </th>
    </tr>
-   <tr ng-show="ocTodaysMatchups.length==0"><td>No Games Scheduled</td></tr> 
-   <tr ng-repeat="item in ocTodaysMatchups">
+   <tr ng-show="ocTodaysMatchups.length==0"><td>No Games Scheduled</td></tr>
 
-      <td>
-         <table>
-            <tr>
-               <td ng-hide="Multi">{{item.RotNum}} - {{item.GameTime}}</td>
-            </tr>
-            <tr>
-               <td ng-show="Multi">{{item.RotNum}}</td>
-            </tr>
-            <tr>
-               <td ng-show="Multi">{{item.GameTime}}</td>
-            </tr>
-         </table>
-      </td>
-      <td>
-         <table>
-            <tr>
-               <td ng-hide="Multi">{{item.TeamAway}}-{{item.TeamHome}}</td>
-            </tr>
-            <tr>
-               <td ng-show="Multi">{{item.TeamAway}}</td>
-            </tr>
-            <tr>
-               <td ng-show="Multi">{{item.TeamHome}}</td>
-            </tr>
-         </table>
-      </td>
-      <td>
-         <table>
-            <tr>
-               <td ng-hide="Multi">{{item.TmStrAway | number:1}} / {{item.TmStrHome | number:1}}</td>
-            </tr>
-            <tr>
-               <td ng-show="Multi">{{item.TmStrAway | number:1}}</td>
-            </tr>
-            <tr>
-               <td ng-show="Multi">{{item.TmStrHome | number:1}}</td>
-            </tr>
-         </table>
-      </td>
+   <td>
+      <table>
+         <tr>
+            <td ng-hide="Multi" id="RotNum_{{$index}}">{{item.RotNum}} - {{DisplayTimeAmPm(item.GameTime)}}</td>
+         </tr>
+         <tr>
+            <td ng-show="Multi">{{item.RotNum}}</td>
+         </tr>
+         <tr>
+            <td ng-show="Multi" id="GameTime_{{$index}}">{{DisplayTimeAmPm(item.GameTime)}}</td>
+         </tr>
+      </table>
+   </td>
+   <td>
+      <table>
+         <tr>
+            <td ng-hide="Multi">{{item.TeamAway}}-{{item.TeamHome}}</td>
+         </tr>
+         <tr>
+            <td ng-show="Multi" id="RotNum_TeamAway{{$index}}">{{item.TeamAway}}</td>
+         </tr>
+         <tr>
+            <td ng-show="Multi" id="RotNum_TeamHome{{$index}}">{{item.TeamHome}}</td>
+         </tr>
+      </table>
+   </td>
+   <td>
+      <table>
+         <tr>
+            <td ng-hide="Multi">{{item.TmStrAway | number:1}} / {{item.TmStrHome | number:1}}</td>
+         </tr>
+         <tr>
+            <td ng-show="Multi">{{item.TmStrAway | number:1}}</td>
+         </tr>
+         <tr>
+            <td ng-show="Multi">{{item.TmStrHome | number:1}}</td>
+         </tr>
+      </table>
+   </td>
 
-      <td ng-show="showHistory">{{item.AwayGB1+item.HomeGB1 | number:1 }}</td>
-      <td ng-show="showHistory">{{item.AwayGB2+item.HomeGB2 | number:1 }}</td>
-      <td ng-show="showHistory">{{item.AwayGB3+item.HomeGB3 | number:1 }}</td>
 
-      <td>
-         <table>
-            <tr>
-               <td ng-show="Multi">{{item.UnAdjTotalAway | number:1}}</td>
-            </tr>
-            <tr>
-               <td ng-show="Multi">{{item.UnAdjTotalHome | number:1}}</td>
-            </tr>
-            <tr>
-               <td class="statTotal">{{item.UnAdjTotal | number:1}}</td>
-            </tr>
-         </table>
-      </td>
-      <td>
-         <table>
-            <tr>
-               <td ng-show="Multi">{{item.AdjAmtAway | number:1}}</td>
-            </tr>
-            <tr>
-               <td ng-show="Multi">{{item.AdjAmtHome | number:1}}</td>
-            </tr>
-            <tr>
-               <td class="statTotal">{{item.AdjAmt | number:1}}</td>
-            </tr>
-         </table>
-      </td>
+   <td ng-show="showHistory">
+      <table>
+         <tr>
+            <td ng-show="Multi">{{item.AwayGB1 | number:1}}</td>
+         </tr>
+         <tr>
+            <td ng-show="Multi">{{item.HomeGB1 | number:1}}</td>
+         </tr>
+         <tr>
+            <td class="statTotal">{{item.AwayGB1+item.HomeGB1 | number:1 }}</td>
+         </tr>
+      </table>
+   </td>
+   <td ng-show="showHistory">
+      <table>
+         <tr>
+            <td ng-show="Multi">{{item.AwayGB2 | number:1}}</td>
+         </tr>
+         <tr>
+            <td ng-show="Multi">{{item.HomeGB2 | number:1}}</td>
+         </tr>
+         <tr>
+            <td class="statTotal">{{item.AwayGB2+item.HomeGB2 | number:1 }}</td>
+         </tr>
+      </table>
+   </td>
+   <td ng-show="showHistory">
+      <table>
+         <tr>
+            <td ng-show="Multi">{{item.AwayGB3 | number:1}}</td>
+         </tr>
+         <tr>
+            <td ng-show="Multi">{{item.HomeGB3 | number:1}}</td>
+         </tr>
+         <tr>
+            <td class="statTotal">{{item.AwayGB3+item.HomeGB3 | number:1 }}</td>
+         </tr>
+      </table>
+   </td>
 
-      <td>{{item.AdjOTwithSide*2 | number:1}}</td>
+   <td>
+      <table>
+         <tr>
+            <td ng-show="Multi">{{item.UnAdjTotalAway | number:1}}</td>
+         </tr>
+         <tr>
+            <td ng-show="Multi">{{item.UnAdjTotalHome | number:1}}</td>
+         </tr>
+         <tr>
+            <td class="statTotal">{{item.UnAdjTotal | number:1}}</td>
+         </tr>
+      </table>
+   </td>
+   <td>
+      <table>
+         <tr>
+            <td ng-show="Multi">{{item.AdjAmtAway | number:1}}</td>
+         </tr>
+         <tr>
+            <td ng-show="Multi">{{item.AdjAmtHome | number:1}}</td>
+         </tr>
+         <tr>
+            <td class="statTotal">{{item.AdjAmt | number:1}}</td>
+         </tr>
+      </table>
+   </td>
 
-      <td>
-         <table>
-            <tr>
-               <td ng-show="Multi">{{item.OurTotalLineAway | number:1}}</td>
-            </tr>
-            <tr>
-               <td ng-show="Multi">{{item.OurTotalLineHome | number:1}}</td>
-            </tr>
-            <tr>
-               <td class="statTotal">{{item.OurTotalLine | number:1}}</td>
-            </tr>
-         </table>
-      </td>
+   <td>{{item.AdjOTwithSide*2 | number:1}}</td>
 
-      <td>
-         <table>
-            <tr>
-               <td>{{item.TotalLine | number:1}}</td>
-            </tr>
-            <tr>
-               <td ng-show="Multi">{{item.SideLine | number:1}}</td>
-            </tr>
-         </table>
-      </td>
-      <td ng-hide="Multi">{{item.SideLine | number:1}}</td>
+   <td>
+      <table>
+         <tr>
+            <td ng-show="Multi">{{item.OurTotalLineAway | number:1}}</td>
+         </tr>
+         <tr>
+            <td ng-show="Multi">{{item.OurTotalLineHome | number:1}}</td>
+         </tr>
+         <tr>
+            <td class="statTotal">{{item.OurTotalLine | number:1}}</td>
+         </tr>
+      </table>
+   </td>
 
-      <td>{{item.PlayDiff | number:1}}</td>
-      <td>{{item.Play}}</td>
+   <td>
+      <table>
+         <tr>
+            <td id="TotalLine_{{$index}}">{{item.TotalLine | number:1}}</td>
+         </tr>
+         <tr>
+            <td ng-show="Multi">{{item.SideLine | number:1}}</td>
+         </tr>
+      </table>
+   </td>
+   <td ng-hide="Multi">{{item.SideLine | number:1}}</td>
+
+   <td>{{item.PlayDiff | number:1}}</td>
+   <td>{{item.Play}}</td>
 
    </tr>
 </table>
