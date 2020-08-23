@@ -113,7 +113,9 @@ angular.module('app').service('f', function (ajx) {
    this.Getmdy = function (d) {
       return (d.getMonth() + 1) + "/" + d.getDate() + "/" + (d.getYear() + 1900);
    };
-
+   this.GetDateOnly = function () {
+      return new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+   };
    this.MessageSuccess = function (msg) {
       alert("Success: " + msg);
    };

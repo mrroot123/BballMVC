@@ -1,4 +1,5 @@
 ﻿angular.module('app').controller('HeaderController', function ($rootScope, $scope, f, ajx, url) {
+   $scope.ShowLeagueDropDown = false;
    GetLeagueNames();   // on app init
    $scope.GameDate = new Date();
    oBballInfoDTO.GameDate = f.Getmdy($scope.GameDate);
@@ -14,6 +15,7 @@
          .then(data => {
             oBballInfoDTO.oBballDataDTO = data;   // refresh oBballInfoDTO
             $scope.LeagueNameList = oBballInfoDTO.oBballDataDTO.ocLeagueNames;
+            $scope.ShowLeagueDropDown = true;
             $scope.$apply();
          })
          .catch(error => {

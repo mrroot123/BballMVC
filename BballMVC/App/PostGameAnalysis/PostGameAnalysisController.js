@@ -1,6 +1,10 @@
 ﻿
 'use strict';
 angular.module('app').controller('PostGameAnalysisController', function ($scope, f, ajx) {
+   //if ($scope.GameDate >= f.GetDateOnly()) {
+   //   $scope.$emit('HidePostGameAnalysis');
+   //   return;
+   //}
    let PostGameAnalysisParms = { scope: $scope, f: f, LeagueName: oBballInfoDTO.LeagueName, ajx: ajx };
    $scope.LeagueName = oBballInfoDTO.LeagueName;
    $scope.GameDate = oBballInfoDTO.GameDate;
