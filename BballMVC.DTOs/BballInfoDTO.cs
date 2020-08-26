@@ -11,6 +11,7 @@ namespace BballMVC.DTOs
       public string ConnectionString { get; set; }
       public ISeasonInfoDTO oSeasonInfoDTO { get; set; }
       public IBballDataDTO oBballDataDTO { get; set; }
-
+      public string LoadDateTime()=> GameDate.ToString();
+     
    }
 }

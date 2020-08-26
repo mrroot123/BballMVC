@@ -287,6 +287,7 @@
     <Content Include="App\BoxScoresSeeds\_BoxScoresSeedsTable.html" />
     <Content Include="App\Common\accordian.css" />
     <Content Include="App\Common\bball.css" />
+    <Content Include="App\Common\_GameDate.html" />
     <Content Include="App\Components\accordianSection.html" />
     <Content Include="App\Components\helloWorld.html" />
     <Content Include="App\Index.html" />

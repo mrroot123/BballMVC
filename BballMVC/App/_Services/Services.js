@@ -1,12 +1,15 @@
 ﻿angular.module('app').service('url', function () {
    const urlPrefix = "../../api/";
-   this.UrlGetLeagueNames = urlPrefix + "Data/GetLeagueNames";
+   // Adjustments
    this.UrlPostInsertAdjustment = urlPrefix + "Adjustments/PostInsertAdjustment";
    this.UrlPostAdjustmentUpdates = urlPrefix + "Adjustments/PostAdjustmentUpdates";
    this.UrlGetAdjustmentInfo = urlPrefix + "Adjustments/GetAdjustmentInfo";
    this.UrlGetAdjustments = urlPrefix + "Adjustments/GetAdjustments";
    this.UrlUpdateYesterdaysAdjustments = urlPrefix + "Adjustments/UpdateYesterdaysAdjustments";
+
+   this.UrlGetLeagueNames = urlPrefix + "Data/GetLeagueNames";
    this.UrlGetLeagueData = urlPrefix + "Data/GetLeagueData";
+
    this.UrlGetBoxScoresSeeds = urlPrefix + "Data/GetBoxScoresSeeds";
    this.UrlPostBoxScoresSeeds = urlPrefix + "Data/PostBoxScoresSeeds";
    this.UrlPostBoxScoresSeeds = urlPrefix + "Data/PostBoxScoresSeeds";
@@ -111,6 +114,8 @@ angular.module('app').service('f', function (ajx) {
    };
 
    this.Getmdy = function (d) {
+      if (typeof (d) === "string")
+         d = new Date(d);
       return (d.getMonth() + 1) + "/" + d.getDate() + "/" + (d.getYear() + 1900);
    };
    this.GetDateOnly = function () {

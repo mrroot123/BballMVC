@@ -1,16 +1,17 @@
 ﻿angular.module("app").controller("layoutController", function ($scope) {
-   $scope.showAccordian = false; // hide accordian on app init
-
+   $scope.Accordian = true; // hide accordian on app init
+   $scope.PostGameAnalysis = true;
    $scope.$on('showAccordian', function (e) {
       displayAccordian();
-   //   $scope.showAccordian = true;
+   //   $scope.Accordian = true;
+      $scope.$apply;
    });
 
    function displayAccordian () {
-      $scope.showAccordian = true;
+      $scope.Accordian = true;
       $scope.$apply;
       $('#screen').css({ "display": "block", opacity: 1, "width": $(document).width(), "height": $(document).height() });
 
-   };
+   }
 
 });

@@ -47,9 +47,9 @@
             $rootScope.$broadcast('populatePostGameAnalysis');
             $rootScope.$broadcast('populateAdjustments');
             $rootScope.$broadcast('populateTeams_AdjTypes');
-            $scope.$apply;
 
             $scope.$emit('showAccordian');
+            $scope.$apply;
 
          })
          .catch(error => {

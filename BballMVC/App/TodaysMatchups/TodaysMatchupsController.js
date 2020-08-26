@@ -51,7 +51,7 @@ angular.module('app').controller('TodaysMatchupsController', function ($scope, f
          .then(data => {
             oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO = data;
             populateTodaysMatchups();
-            f.MessageSuccess("Matchups Refreshed");
+            f.MessageSuccess("Matchups Refreshed for " + f.Getmdy(oBballInfoDTO.GameDate));
             f.ShowScreen("screen");
          })
          .catch(error => {

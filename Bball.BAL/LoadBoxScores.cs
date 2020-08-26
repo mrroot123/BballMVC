@@ -70,7 +70,7 @@ namespace Bball.BAL
             int rotationDays2Load = 2;
             for (int i = 0; i < rotationDays2Load; i++) // Loop twice - Load Today's & Tomorrow's Rotation
             {
-               string _strLoadDateTime = _oSeasonInfoDO.GameDate.ToString();
+              // string _strLoadDateTime = _oBballInfoDTO.LoadDateTime();    // _oSeasonInfoDO.GameDate.ToString();
 
                SortedList<string, CoversDTO> ocRotation = new SortedList<string, CoversDTO>();
                RotationDO.PopulateRotation(ocRotation, _oBballInfoDTO, _oLeagueDTO);
