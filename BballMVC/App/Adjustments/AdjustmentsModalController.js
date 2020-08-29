@@ -1,7 +1,7 @@
 ﻿
-angular.module('app').controller('AdjustmentsModalController', function ($scope, f, ajx, url) {
+angular.module('app').controller('AdjustmentsModalController', function ($rootScope, $scope, f, ajx, url) {
    let rowWasInserted = false;
-  // let GetAdjustmentsParms = { scope: $scope, f: f, LeagueName: oBballInfoDTO.LeagueName, ajx: ajx };
+  // let GetAdjustmentsParms = { scope: $scope, f: f, LeagueName: $rootScope.oBballInfoDTO.LeagueName, ajx: ajx };
 
    $scope.$on('OpenAdjustmentEntryModalEvent', function (e) {
       rowWasInserted = false;
@@ -11,8 +11,8 @@ angular.module('app').controller('AdjustmentsModalController', function ($scope,
    });
 
    $scope.$on('populateTeams_AdjTypes', function () {
-      $scope.TeamList = oBballInfoDTO.oBballDataDTO.ocTeams;
-      $scope.AdjustmentNameList = oBballInfoDTO.oBballDataDTO.ocAdjustmentNames;
+      $scope.TeamList = $rootScope.oBballInfoDTO.oBballDataDTO.ocTeams;
+      $scope.AdjustmentNameList = $rootScope.oBballInfoDTO.oBballDataDTO.ocAdjustmentNames;
       $scope.$apply();
    });
 
@@ -20,8 +20,8 @@ angular.module('app').controller('AdjustmentsModalController', function ($scope,
    $scope.clickInsertAdjustment = function () {
 
       let oAdjustment = {};
-      oAdjustment.LeagueName = oBballInfoDTO.LeagueName;
-      oAdjustment.StartDate = oBballInfoDTO.GameDate;
+      oAdjustment.LeagueName = $rootScope.oBballInfoDTO.LeagueName;
+      oAdjustment.StartDate = $rootScope.oBballInfoDTO.GameDate;
 
       oAdjustment.AdjustmentType = $scope.AdjustmentType;
       oAdjustment.Team = $scope.Team;

@@ -1,8 +1,8 @@
 ﻿
 'use strict';
-angular.module('app').controller('TodaysMatchupsController', function ($scope, f, ajx, url) {
+angular.module('app').controller('TodaysMatchupsController', function ($rootScope, $scope, f, ajx, url) {
    //alert("TodaysMatchupsController");
-   let TodaysMatchupsParms = { scope: $scope, f: f, LeagueName: oBballInfoDTO.LeagueName, ajx: ajx };
+   let TodaysMatchupsParms = { scope: $scope, f: f, LeagueName: $rootScope.oBballInfoDTO.LeagueName, ajx: ajx };
 
    $scope.PlayEntry = false;
    $scope.ShowPlaysOnly = false;
@@ -33,10 +33,10 @@ angular.module('app').controller('TodaysMatchupsController', function ($scope, f
    });
 
    //$scope.GetTodaysMatchups = function () { #kd delete
-   //   $scope.LeagueColor = oBballInfoDTO.LeagueName === "NBA" ? "blue" : "red";
-   //   ajx.AjaxGet(UrlGetTodaysMatchups, { GameDate: oBballInfoDTO.GameDate, LeagueName: oBballInfoDTO.LeagueName })   // Get TodaysMatchups from server
+   //   $scope.LeagueColor = $rootScope.oBballInfoDTO.LeagueName === "NBA" ? "blue" : "red";
+   //   ajx.AjaxGet(UrlGetTodaysMatchups, { GameDate: $rootScope.oBballInfoDTO.GameDate.toDateString(), LeagueName: $rootScope.oBballInfoDTO.LeagueName })   // Get TodaysMatchups from server
    //      .then(data => {
-   //         oBballInfoDTO.oBballDataDTO.ocTodaysMatchups = data;
+   //         $rootScope.oBballInfoDTO.oBballDataDTO.ocTodaysMatchups = data;
    //         populateTodaysMatchups();
    //         $rootScope.$broadcast('populatePostGameAnalysis');
    //      })
@@ -47,11 +47,11 @@ angular.module('app').controller('TodaysMatchupsController', function ($scope, f
    $scope.RefreshTodaysMatchups = function () {
       f.GreyScreen("screen");
 
-      ajx.AjaxGet(url.UrlRefreshTodaysMatchups, { UserName: oBballInfoDTO.UserName, GameDate: oBballInfoDTO.GameDate, LeagueName: oBballInfoDTO.LeagueName })   // Get TodaysMatchups from server
+      ajx.AjaxGet(url.UrlRefreshTodaysMatchups, { UserName: $rootScope.oBballInfoDTO.UserName, GameDate: $rootScope.oBballInfoDTO.GameDate.toDateString(), LeagueName: $rootScope.oBballInfoDTO.LeagueName })   // Get TodaysMatchups from server
          .then(data => {
-            oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO = data;
+            $rootScope.oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO = data;
             populateTodaysMatchups();
-            f.MessageSuccess("Matchups Refreshed for " + f.Getmdy(oBballInfoDTO.GameDate));
+            f.MessageSuccess("Matchups Refreshed for " + f.Getmdy($rootScope.oBballInfoDTO.GameDate));
             f.ShowScreen("screen");
          })
          .catch(error => {
@@ -61,12 +61,24 @@ angular.module('app').controller('TodaysMatchupsController', function ($scope, f
    }; // GetTodaysMatchups
 
    function populateTodaysMatchups() {
-      $scope.ocTodaysMatchups = oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO;
-      $scope.LeagueColor = oBballInfoDTO.LeagueName === "NBA" ? "blue" : "red";
-      $scope.TMparms = oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO[0];
+      $scope.GameDate = $rootScope.oBballInfoDTO.GameDate;
+      $scope.ocTodaysMatchups = $rootScope.oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO;
+      $scope.LeagueColor = $rootScope.oBballInfoDTO.LeagueName === "NBA" ? "blue" : "red";
+      $scope.TMparms = $rootScope.oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO[0];
       $scope.$apply();
+   }
+   //function onGameDateChange() {
+   //   $scope.RefreshTodaysMatchups();
+   //}
+   $scope.Getmdy = function (GameDate) {
+     // $scope.GameDateChange(GameDate);
+     // alert(GameDate);
+      return f.Getmdy(GameDate);
    };
-
+   $scope.GameDateChange = function (GameDate) {
+      alert("GameDateChange");
+      // $rootScope.oBballInfoDTO.GameDate = GameDate;
+   };
    $scope.DisplayTimeAmPm = function (GameTime) {
       if (!GameTime)
          return;
@@ -89,7 +101,7 @@ angular.module('app').controller('TodaysMatchupsController', function ($scope, f
       let defaultJuice = -105;
       let defaultWeight = 1;
       let rowNum = 0;
-      while (oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO.length > rowNum) {
+      while ($rootScope.oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO.length > rowNum) {
          let play = $("#Play_" + rowNum).text().trim();
          if (play) {
             // set playtype
@@ -108,7 +120,7 @@ angular.module('app').controller('TodaysMatchupsController', function ($scope, f
    }; // InitPlayEntry
    $scope.ProcessPlays = function () {
       let rowNum = 0;
-      while (oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO.length > rowNum) {
+      while ($rootScope.oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO.length > rowNum) {
          let play = $("#Play_" + rowNum).text().trim();
          if ($("#cbProcessPlay_" + rowNum).checked) {
             // Validate Data
@@ -125,8 +137,8 @@ angular.module('app').controller('TodaysMatchupsController', function ($scope, f
             $("#Weight_" + rowNum).val(defaultWeight);
 
             //ocTodaysPlaysDTO.push({
-            //   GameDate: oBballInfoDTO.GameDate ,
-            //   LeagueName: oBballInfoDTO.LeagueName,
+            //   GameDate: $rootScope.oBballInfoDTO.GameDate.toString() ,
+            //   LeagueName: $rootScope.oBballInfoDTO.LeagueName,
             //   RotNum: $("#RotNum_" + rowNum).text().trim(),
             //   GameTime: $("#GameTime_" + rowNum).text().trim(),
             //   TeamAway: $("#TeamAway_" + rowNum).text().trim(),

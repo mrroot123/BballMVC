@@ -1,16 +1,17 @@
 ﻿
 'use strict';
-angular.module('app').controller('BoxScoresSeedsController', function ($scope, f, url, ajx) {
+angular.module('app').controller('BoxScoresSeedsController', function ($rootScope, $scope, f, url, ajx) {
+   kdAlert("BxSeedController");
 
    $scope.PopulateBoxScoresSeeds = function () {
 
-      $scope.LeagueName = oBballInfoDTO.LeagueName;
+      $scope.LeagueName = $rootScope.oBballInfoDTO.LeagueName;
       $('#screen').css({ "display": "block", opacity: 0.2, "width": $(document).width(), "height": $(document).height() });
 
-      ajx.AjaxGet(url.UrlGetBoxScoresSeeds, { UserName: oBballInfoDTO.UserName, GameDate: oBballInfoDTO.GameDate, LeagueName: oBballInfoDTO.LeagueName })
+      ajx.AjaxGet(url.UrlGetBoxScoresSeeds, { UserName: $rootScope.oBballInfoDTO.UserName, GameDate: $rootScope.oBballInfoDTO.GameDate.toDateString(), LeagueName: $rootScope.oBballInfoDTO.LeagueName })
          .then(data => {
-            oBballInfoDTO.oBballDataDTO.ocBoxScoresSeedsDTO = data;
-            $scope.ocBoxScoresSeedsDTO = oBballInfoDTO.oBballDataDTO.ocBoxScoresSeedsDTO;
+            $rootScope.oBballInfoDTO.oBballDataDTO.ocBoxScoresSeedsDTO = data;
+            $scope.ocBoxScoresSeedsDTO = $rootScope.oBballInfoDTO.oBballDataDTO.ocBoxScoresSeedsDTO;
             $scope.$apply;
          })
          .catch(error => {
@@ -33,23 +34,23 @@ angular.module('app').controller('BoxScoresSeedsController', function ($scope, f
          rowNum++;
       }  // while
 
+      /* kd 8/28/2020 not a clue what this css does
       let oBBSdata = {
-         UserName: oBballInfoDTO.UserName
-         , GameDate: oBballInfoDTO.GameDate
-         , LeagueName: oBballInfoDTO.LeagueName
+         UserName: $rootScope.oBballInfoDTO.UserName
+         , GameDate: $rootScope.oBballInfoDTO.GameDate
+         , LeagueName: $rootScope.oBballInfoDTO.LeagueName
          , ocBBSupdates: ocBBSupdates
       };
-
-      $('#screen').css({ oBBSdata });
+      $('#screen').css({ oBBSdata });  */
 
       ajx.AjaxPost(url.UrlPostBoxScoresSeeds
          , {
-            UserName: oBballInfoDTO.UserName, GameDate: oBballInfoDTO.GameDate, LeagueName: oBballInfoDTO.LeagueName
+            UserName: $rootScope.oBballInfoDTO.UserName, GameDate: $rootScope.oBballInfoDTO.GameDate.toDateString(), LeagueName: $rootScope.oBballInfoDTO.LeagueName
                , ocBBSupdates: ocBBSupdates
          })
          .then(data => {
-            oBballInfoDTO.oBballDataDTO.ocBoxScoresSeedsDTO = data;   
-            $scope.ocBoxScoresSeedsDTO = oBballInfoDTO.oBballDataDTO.ocBoxScoresSeedsDTO;
+            $rootScope.oBballInfoDTO.oBballDataDTO.ocBoxScoresSeedsDTO = data;   
+            $scope.ocBoxScoresSeedsDTO = $rootScope.oBballInfoDTO.oBballDataDTO.ocBoxScoresSeedsDTO;
             $scope.$apply;
          })
          .catch(error => {

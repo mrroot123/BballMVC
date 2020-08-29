@@ -35,7 +35,7 @@ Namespace Bball.VbClasses
       Private pCoversRotationHtml As String
 
       ' v2.2
-      Enum GameStatus
+      Public Enum GameStatus
          Canceled = -1
          NotStarted = 0
          InProgress
@@ -136,8 +136,9 @@ Namespace Bball.VbClasses
                '     < Past
                If pGameDate > DateTime.Today Then                                                ' Future game
                   oCoversDTO.GameStatus = GameStatus.NotStarted
-               ElseIf pGameDate < DateTime.Today Then                                            ' Yesterday's Finals
-                  oCoversDTO.GameStatus = GameStatus.Final
+               ElseIf oParseColumn2.FindStringInHtml("Postponed") > 0 Then ' Today Final
+                  oCoversDTO.GameStatus = GameStatus.Canceled
+                  oCoversDTO.Canceled = True
                ElseIf oParseColumn2.FindStringInHtml("Final") > 0 Then ' Today Final
                   oCoversDTO.GameStatus = GameStatus.Final
                ElseIf oParseColumn2.FindStringInHtml("cmg_team_opening_odds") > 0 Then ' Today Not Started

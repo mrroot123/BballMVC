@@ -181,12 +181,15 @@
     <Compile Include="ControllerAPIs\AdjustmentsController.cs" />
     <Compile Include="ControllerAPIs\BaseApiController.cs" />
     <Compile Include="ControllerAPIs\DataController.cs" />
+    <Compile Include="ControllerAPIs\LogController.cs" />
     <Compile Include="ControllerAPIs\TodaysMatchupsController.cs" />
     <Compile Include="Controllers\AdjustmentsCodesController.cs" />
     <Compile Include="Controllers\AdjustmentsController.cs" />
     <Compile Include="Controllers\BoxScoresController.cs" />
     <Compile Include="Controllers\RotationController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Log\Helper.cs" />
+    <Compile Include="Log\TTILogMessage.cs" />
     <Compile Include="Models\Adjustments.cs">
       <DependentUpon>BballEntities.tt</DependentUpon>
     </Compile>
@@ -507,7 +510,9 @@
     <Content Include="Views\BoxScores\Edit.cshtml" />
     <Content Include="Views\BoxScores\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Log\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -541,6 +546,10 @@
     <ProjectReference Include="..\BballMVC.IDTOs\BballMVC.IDTOs.csproj">
       <Project>{acd5303e-7878-4a29-a82b-f89fa1b15cdf}</Project>
       <Name>BballMVC.IDTOs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CommonClasses\DAL.Functions\SysDAL.Functions.csproj">
+      <Project>{f08657dc-56b9-4ea3-9bab-c3234c143145}</Project>
+      <Name>SysDAL.Functions</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

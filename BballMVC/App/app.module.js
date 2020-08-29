@@ -1,6 +1,6 @@
 ﻿
 'use strict';
-var oBballInfoDTO = {
+var xoBballInfoDTO = {
    UserName: "",
    GameDate: "",
    LeagueName: "",
@@ -18,7 +18,22 @@ var oBballInfoDTO = {
    oBballDataDTO: {}
 };
 
+
+
+
+var alertDisplay = false;
+//alertDisplay = true;
+
+function kdAlert(msg) {
+   if (alertDisplay)
+      alert(msg);
+}
 angular.module('app', []);
+
+   //.config(["", function () {
+   //   $rootScope.oBballInfoDTO = oBballInfoDTO;
+
+   //}]) ;
 
 //angular.module("app", [])
 //   .component("helloWorld", {

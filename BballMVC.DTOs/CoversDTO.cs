@@ -24,5 +24,6 @@ namespace BballMVC.DTOs
       public int ScoreHome { get; set; }
       public int Period { get; set; }
       public int SecondsLeftInPeriod { get; set; }
+      public bool Canceled { get; set; }
    }
 }

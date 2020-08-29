@@ -1,5 +1,5 @@
 ﻿
-angular.module('app').controller("AdjustmentsController", function ($scope, f, ajx, url) {
+angular.module('app').controller("AdjustmentsController", function ($rootScope, $scope, f, ajx, url) {
    $scope.ocAdjustments;
    $scope.cbShowZeroAdjustments = true;
    let rowWasInserted = false;
@@ -29,7 +29,6 @@ angular.module('app').controller("AdjustmentsController", function ($scope, f, a
       }
 
       $scope.GreyOutAdjustmentList();
-      //  let URL = "api/Adjustments/PostAdjustmentUpdates?GameDate=" + oBballInfoDTO.GameDate;
       ajx.AjaxPost(url.UrlPostAdjustmentUpdates, ocAdjustmentDTO)
          .then(data => {
             $scope.GetAdjustments($scope, f, ajx);
@@ -64,9 +63,9 @@ angular.module('app').controller("AdjustmentsController", function ($scope, f, a
          $scope.$apply();
       };
 
-      ajx.AjaxGet(url.UrlGetAdjustments, { GameDate: oBballInfoDTO.GameDate, LeagueName: oBballInfoDTO.LeagueName })   // Get Adjustments from server
+      ajx.AjaxGet(url.UrlGetAdjustments, { GameDate: $rootScope.oBballInfoDTO.GameDate.toDateString(), LeagueName: $rootScope.oBballInfoDTO.LeagueName })   // Get Adjustments from server
          .then(data => {
-            oBballInfoDTO.oBballDataDTO.ocAdjustments = data;
+            $rootScope.oBballInfoDTO.oBballDataDTO.ocAdjustments = data;
             populateAdjustments();
          })
          .catch(error => {
@@ -75,7 +74,7 @@ angular.module('app').controller("AdjustmentsController", function ($scope, f, a
    }; // GetAdjustments
 
    function populateAdjustments() {
-      $scope.ocAdjustments = oBballInfoDTO.oBballDataDTO.ocAdjustments;
+      $scope.ocAdjustments = $rootScope.oBballInfoDTO.oBballDataDTO.ocAdjustments;
       $scope.ocAdjustments.forEach(function (item) {
          item.cb_ID = "cb_" + item.AdjustmentID;
       });

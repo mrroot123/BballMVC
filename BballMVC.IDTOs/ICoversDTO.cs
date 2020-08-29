@@ -21,5 +21,6 @@ namespace BballMVC.IDTOs
       string TeamAway { get; set; }
       string TeamHome { get; set; }
       string Url { get; set; }
+      bool Canceled { get; set; }
    }
 }

@@ -14,7 +14,7 @@ namespace Bball.DAL.Tables
    {
       public const string RotationTable = "Rotation";
 
-      private const string ColumnNames = "LeagueName,Season,SubSeason,SubSeasonPeriod,GameDate,RotNum,Venue,Team,Opp,GameTime,TV,SideLine,TotalLine,TotalLineTeam,TotalLineOpp,OpenTotalLine,BoxScoreSource,BoxScoreUrl,CreateDate,UpdateDate";
+      private const string ColumnNames = "LeagueName,Season,SubSeason,SubSeasonPeriod,GameDate,RotNum,Venue,Team,Opp,GameTime,TV,SideLine,TotalLine,TotalLineTeam,TotalLineOpp,OpenTotalLine,BoxScoreSource,BoxScoreUrl,CreateDate,UpdateDate,Canceled";
 
       SortedList<string, CoversDTO> _ocRotation;
       DateTime _GameDate;
@@ -72,18 +72,19 @@ namespace Bball.DAL.Tables
             CoversDTO oCoversDTO = new CoversDTO();    // Populate from Away row
 
             oCoversDTO.GameDate = (DateTime)rdr["GameDate"];
-            oCoversDTO.LeagueName = rdr["LeagueName"].ToString().Trim();;
+            oCoversDTO.LeagueName = rdr["LeagueName"].ToString().Trim();
             oCoversDTO.RotNum = (int)rdr["RotNum"];
-            oCoversDTO.GameTime = rdr["GameTime"].ToString().Trim();;
-            oCoversDTO.TeamAway = rdr["Team"].ToString().Trim();;
-            oCoversDTO.TeamHome = rdr["Opp"].ToString().Trim();;
-            oCoversDTO.Url = rdr["BoxScoreUrl"].ToString().Trim();;
+            oCoversDTO.GameTime = rdr["GameTime"].ToString().Trim();
+            oCoversDTO.TeamAway = rdr["Team"].ToString().Trim();
+            oCoversDTO.TeamHome = rdr["Opp"].ToString().Trim();
+            oCoversDTO.Url = rdr["BoxScoreUrl"].ToString().Trim();
             oCoversDTO.BoxscoreNumber = "";
             oCoversDTO.LineTotalOpen = Convert.ToSingle(rdr["OpenTotalLine"]);
             oCoversDTO.LineTotal = Convert.ToSingle(rdr["TotalLine"]);
             oCoversDTO.LineSideOpen = Convert.ToSingle(  (Convert.ToSingle(rdr["SideLine"]) * (-1.0)));
             oCoversDTO.LineSideClose = oCoversDTO.LineSideOpen;
-            oCoversDTO.GameStatus = 2;    // Final /// kdtodo if today status = ???
+            oCoversDTO.GameStatus = Convert.ToBoolean(rdr["Canceled"]) == true ? -1 : 2;
+            oCoversDTO.Canceled = Convert.ToBoolean(rdr["Canceled"]);
             oCoversDTO.ScoreAway = 0;
             oCoversDTO.ScoreHome = 0;
             oCoversDTO.Period = 0;
@@ -134,7 +135,7 @@ namespace Bball.DAL.Tables
          foreach (var kvp in _ocRotation)
          {
             CoversDTO oCoversDTO = kvp.Value;
-          //  string ConnectionString = SqlFunctions.GetConnectionString();
+            //  string ConnectionString = SqlFunctions.GetConnectionString();
             //string SQL = SysDAL.Functions.DALfunctions.GenSql(RotationTable, ocColumns);
             // "LeagueName,
             // Season, SubSeason, SubSeasonPeriod,    kd 06/14/2020 added 3 columns to Rotation Table
@@ -168,6 +169,7 @@ namespace Bball.DAL.Tables
                , oCoversDTO.Url
                , _strLoadDateTime
                , _strLoadDateTime
+               , oCoversDTO.Canceled.ToString()
             };
             // Insert Away Row
             string rc = SysDAL.Functions.DALfunctions.InsertTableRow(_ConnectionString, RotationTable, ocColumns, ocValues);
@@ -197,8 +199,9 @@ namespace Bball.DAL.Tables
                , oCoversDTO.LineTotalOpen.ToString()
                , "Covers"
                , oCoversDTO.Url
-               , DateTime.Now.ToString()
-               , DateTime.Now.ToString()
+               , _strLoadDateTime
+               , _strLoadDateTime
+               , oCoversDTO.Canceled.ToString()
             };
             // Insert Away Row
             rc = SysDAL.Functions.DALfunctions.InsertTableRow(_ConnectionString, RotationTable, ocColumns, ocValues);

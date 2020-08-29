@@ -4,7 +4,8 @@
 
 
    <div class="row">
-      <div class="col-md-12"> </div>
+      <div class="col-md-12">
+      </div>
    </div>
    <div class="row">
 
@@ -14,14 +15,27 @@
             Refresh TMs
          </button>
       </div>
-      <div class="col-md-5">
-         <div><input type="checkbox" ng-model="PlayEntry"> Play Entry</div>
-         <div><input type="checkbox" ng-model="ShowPlaysOnly"> Show Plays Only</div>
-         <div><input type="checkbox" ng-model="Multi"> Show Multi Lines</div>
-         <div><input type="checkbox" ng-model="showHistory"> Show History</div>
+      <div class="col-md-3">
+         <div class="row">
+            <div class="col-md-6">
+               <div><input type="checkbox" ng-model="PlayEntry" class=".bigCheckBox"> Play Entry</div>
+               <div><input type="checkbox" ng-model="ShowPlaysOnly"> Show Plays Only</div>
+            </div>
+            <div class="col-md-6">
+               <div><input type="checkbox" ng-model="Multi"> Show Multi Lines</div>
+               <div><input type="checkbox" ng-model="showHistory"> Show History</div>
+            </div>
+         </div>
       </div>
-      <div class="col-md-5">
-         
+      <div class="col-md-2">
+         League Name: {{oBballInfoDTO.LeagueName}}
+         <br /> {{Getmdy(oBballInfoDTO.GameDate)}}
+
+      </div>
+      <div class="col-md-2">
+         <div ng-include="'Common/_GameDate.html'"></div>
+      </div>
+      <div class="col-md-2">
       </div>
    </div>
 

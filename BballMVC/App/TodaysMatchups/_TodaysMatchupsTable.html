@@ -46,12 +46,15 @@
       <th ng-show="PlayEntry">
          <button type="button" class="btn btn-info active" data-toggle="tooltip" title="Process Plays"
                  ng-show="true" ng-click="ProcessPlays()">
-            Process<br />Plays
+            Refresh TMs
          </button>
       </th>
    </tr>
-   <tr ng-show="ocTodaysMatchups.length==0"><td>No Games Scheduled</td></tr>
-   <tr ng-repeat="item in ocTodaysMatchups">
+   <tr ng-show="ocTodaysMatchups.length==0"><td>No Games Scheduled</td></tr> 
+
+   <!-- Matchups -->
+   <tr ng-repeat="item in ocTodaysMatchups" ng-hide="ShowPlaysOnly && item.Play==''">
+
       <td>
          <table>
             <tr>
@@ -71,10 +74,10 @@
                <td ng-hide="Multi">{{item.TeamAway}}-{{item.TeamHome}}</td>
             </tr>
             <tr>
-               <td ng-show="Multi" id="RotNum_TeamAway{{$index}}">{{item.TeamAway}}</td>
+               <td ng-show="Multi" id="RotNum_TeamAway_{{$index}}">{{item.TeamAway}}</td>
             </tr>
             <tr>
-               <td ng-show="Multi" id="RotNum_TeamHome{{$index}}">{{item.TeamHome}}</td>
+               <td ng-show="Multi" id="RotNum_TeamHome_{{$index}}">{{item.TeamHome}}</td>
             </tr>
          </table>
       </td>
@@ -189,7 +192,54 @@
       <td ng-hide="Multi">{{item.SideLine | number:1}}</td>
 
       <td>{{item.PlayDiff | number:1}}</td>
-      <td>{{item.Play}}</td>
+      <td id="Play_{{$index}}">
+         {{item.Play}}
+      </td>
+
+      <!-- PlayEntry -->
+      <td ng-show="PlayEntry">
+         <select id="PlayLength_{{$index}}">
+            <option value="Game" label="Game"></option>
+            <option value="H1" label="H1"></option>
+            <option value="H2" label="H2"></option>
+            <option value="Q1" label="Q1"></option>
+            <option value="Q2" label="Q2"></option>
+            <option value="Q3" label="Q3"></option>
+            <option value="Q4" label="Q4"></option>
+         </select>
+      </td>
+      <td ng-show="PlayEntry">
+         <select id="PlayDir_{{$index}}">
+            <option value="Over" label="Over"></option>
+            <option value="Under" label="Under"></option>
+            <option value="Away" label="Away"></option>
+            <option value="Home" label="Home"></option>
+         </select>
+      </td>
+      <td ng-show="PlayEntry">
+         <input id="Line_{{$index}}" type="text" maxlength="5" size="2" />
+      </td>
+
+      <td ng-show="PlayEntry">
+         <select id="Out_{{$index}}">
+            <option value="-105">Pin</option>
+            <option value="-110">Chris</option>
+            <option value="-110">OTHER</option>
+         </select>
+      </td>
+
+      <td ng-show="PlayEntry">
+         <input type="text" maxlength="4" size="2" id="Juice_{{$index}}" />
+      </td>
+      <td ng-show="PlayEntry">
+         <input type="text" maxlength="7" size="3" id="Amount_{{$index}}" />
+      </td>
+      <td ng-show="PlayEntry">
+         <input type="text" maxlength="4" size="2" id="Weight_{{$index}}" />
+      </td>
+      <td ng-show="PlayEntry">
+         <input type="checkbox"  id="cbProcessPlay_{{$index}}" />
+      </td>
 
    </tr>
 </table>

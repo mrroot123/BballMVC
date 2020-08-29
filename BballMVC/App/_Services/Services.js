@@ -17,6 +17,8 @@
    // this.UrlLoadBoxScores = urlPrefix + "TodaysMatchups/LoadBoxScores";
    this.UrlRefreshTodaysMatchups = urlPrefix + "Data/RefreshTodaysMatchups";
 
+   this.UrlLogMessage = urlPrefix + "Log/LogMessage";
+
 
 });
 angular.module('app').service('ajx', function () {
@@ -57,10 +59,10 @@ angular.module('app').service('ajx', function () {
 
 });
 
-angular.module('app').service('f', function (ajx) {
+angular.module('app').service('f', function ($rootScope, ajx, url) {
    this.DisplayErrorMessage = function (msg) {
       var TTILogMessage = {
-         UserName: oBballInfoDTO.UserName,
+         UserName: $rootScope.oBballInfoDTO.UserName,
          ApplicationName: "Bball",
          TS: new Date(),
          MessageNum: 0,
@@ -79,15 +81,15 @@ angular.module('app').service('f', function (ajx) {
       //      // this.DisplayMessage(f.FormatResponse(error));
       //   });
       //var u = "http://www.ttilog.com.violet.arvixe.com/api/Log/LogMessage";   // oBballInfoDTO.TTILogUrl
-      //ajx.AjaxPost(u, TTILogMessage)
-      //   .then(data => {
-      //      alert(data);
-      //     // this.DisplayMessage(data);
-      //   })
-      //   .catch(error => {
-      //      alert(error);
-      //     // this.DisplayMessage(f.FormatResponse(error));
-      //   });
+      ajx.AjaxPost(url.UrlLogMessage, TTILogMessage)
+         .then(data => {
+           // alert(data);
+           // this.DisplayMessage(data);
+         })
+         .catch(error => {
+            alert(error);
+           // this.DisplayMessage(f.FormatResponse(error));
+         });
 
 
       alert(msg);
@@ -118,7 +120,7 @@ angular.module('app').service('f', function (ajx) {
          d = new Date(d);
       return (d.getMonth() + 1) + "/" + d.getDate() + "/" + (d.getYear() + 1900);
    };
-   this.GetDateOnly = function () {
+   this.Today = function () {
       return new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
    };
    this.MessageSuccess = function (msg) {

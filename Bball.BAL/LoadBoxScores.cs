@@ -23,6 +23,7 @@ namespace Bball.BAL
       private SeasonInfoDO _oSeasonInfoDO;
       private IBballInfoDTO _oBballInfoDTO;
       private string _UserName = "Test";  // kdtodo populate
+      private DateTime _DefaultDate;
 
 
       // public  DateTime DefaultDate = Convert.ToDateTime("1/1/2000");  // kdtodo move to constants
@@ -55,7 +56,7 @@ namespace Bball.BAL
             UserName = _UserName,
             oSeasonInfoDTO = _oSeasonInfoDO.oSeasonInfoDTO
          };
-
+         _DefaultDate = SeasonInfoDO.DefaultDate;
          LoadBoxScoreRange(LeagueName, ConnectionString, SeasonInfoDO.DefaultDate);
       }
       #endregion constructors
@@ -63,12 +64,20 @@ namespace Bball.BAL
       public void LoadTodaysRotation()
       {
          if (!_oSeasonInfoDO.RotationLoadedToDate())  // Is GameDate > Tomorrow
-         { 
+         {
 
             // Load Rotations
             //
-            int rotationDays2Load = 2;
-            for (int i = 0; i < rotationDays2Load; i++) // Loop twice - Load Today's & Tomorrow's Rotation
+            //int rotationDays2Load = 2;
+            //for (int i = 0; i < rotationDays2Load; i++) // Loop twice - Load Today's & Tomorrow's Rotation
+
+            DateTime GameDate = SqlFunctions.GetMaxGameDate(
+               _oBballInfoDTO.ConnectionString, _oBballInfoDTO.LeagueName, "Rotation", _DefaultDate);
+            GameDate = getNextGameDate(GameDate);
+            SeasonInfoDO _oSeasonInfoDO = new SeasonInfoDO(GameDate, _oBballInfoDTO.LeagueName);
+
+
+            while (_oBballInfoDTO.GameDate <= DateTime.Today.AddDays(1))  // Is GameDate > Tomorrow)
             {
               // string _strLoadDateTime = _oBballInfoDTO.LoadDateTime();    // _oSeasonInfoDO.GameDate.ToString();
 
@@ -120,7 +129,11 @@ namespace Bball.BAL
 
          foreach (var matchup in ocRotation)
          {
+
             CoversDTO oCoversDTO = matchup.Value;
+            if (oCoversDTO.GameStatus == (int)CoversRotation.GameStatus.Canceled)   // Bypass cancelled games
+               continue;
+
             // 1) Get BoxScore from Covers
             CoversBoxscore oCoversBoxscore = new CoversBoxscore(GameDate, _oLeagueDTO, oCoversDTO);
             oCoversBoxscore.GetBoxscore();   // Get BoxScore from Covers

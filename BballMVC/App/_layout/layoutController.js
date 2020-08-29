@@ -1,5 +1,6 @@
 ﻿angular.module("app").controller("layoutController", function ($scope) {
-   $scope.Accordian = true; // hide accordian on app init
+   kdAlert("layoutController");
+   $scope.Accordian = false; // hide accordian on app init
    $scope.PostGameAnalysis = true;
    $scope.$on('showAccordian', function (e) {
       displayAccordian();

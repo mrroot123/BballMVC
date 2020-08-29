@@ -89,19 +89,6 @@ namespace Bball.DAL.Tables
 
          }
 
-         //   //  oBballInfoDTO.oBballDataDTO.ocLeagueNames = new List<IDropDown>();
-
-         //   List<object> ocDTOs = new List<object>();
-         ////   ocDTOs.Add(oBballInfoDTO.oBballDataDTO.ocLeagueNames);
-
-
-         //   List<SysDAL.Functions.DALfunctions.PopulateDTO> ocDelegates = new List<SysDAL.Functions.DALfunctions.PopulateDTO>();
-         //   ocDelegates.Add(Bball.DAL.Functions.DALFunctions.PopulateDropDownDTOFromRdr);
-
-         //   List<string> SqlParmNames = new List<string>() { "GameDate", "LeagueName" };
-         //   List<object> SqlParmValues = new List<object>() { oBballInfoDTO.GameDate, oBballInfoDTO.LeagueName };
-         //   SysDAL.Functions.DALfunctions.ExecuteStoredProcedureQueries(oBballInfoDTO.ConnectionString, "uspQueryAdjustmentInfo"
-         //                     , SqlParmNames, SqlParmValues, ocDTOs, ocDelegates);
 
       }
 
