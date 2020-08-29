@@ -38,6 +38,8 @@
 
       $('#screen').css({ "display": "block", opacity: 0.2, "width": $(document).width(), "height": $(document).height() });
 
+//      ajx.AjaxGet(url.UrlGetLeagueData, { UserName: $rootScope.oBballInfoDTO.UserName, GameDate: $rootScope.oBballInfoDTO.GameDate.toDateString(), LeagueName: $rootScope.oBballInfoDTO.LeagueName })
+
       ajx.AjaxGet(url.UrlGetLeagueData, { UserName: $rootScope.oBballInfoDTO.UserName, GameDate: $rootScope.oBballInfoDTO.GameDate.toDateString(), LeagueName: $rootScope.oBballInfoDTO.LeagueName })
          .then(data => {
             $rootScope.oBballInfoDTO.oBballDataDTO = data;   // refresh $rootScope.oBballInfoDTO
