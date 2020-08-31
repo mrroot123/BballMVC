@@ -6,6 +6,7 @@ TOC
     Restore
 	   In SSMS right-click "Databases" and select "Restore Files and Filegroups"
 	   Enter the name of the new database in the "To database" field. -- 00TTI_LeagueScores
+      C:\Program Files\Microsoft SQL Server\MSSQL14.SQLEXPRESS\MSSQL --> DATA & Backup
 	   Select "From device" and then select the file that you backuped in the first step
 	   click "OK"
 	   this will "clone" the Database with the correct table settings such as the "default value" and "auto increase" etc.

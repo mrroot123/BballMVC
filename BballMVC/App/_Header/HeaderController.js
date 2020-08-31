@@ -50,12 +50,15 @@
 
             $scope.$emit('showAccordian');
             $scope.$apply;
+            $('#screen').css({ "display": "block", opacity: 1, "width": $(document).width(), "height": $(document).height() });
+
 
          })
          .catch(error => {
             f.DisplayErrorMessage(f.FormatResponse(error));
+            $('#screen').css({ "display": "block", opacity: 1, "width": $(document).width(), "height": $(document).height() });
+
          });
-      $('#screen').css({ "display": "block", opacity: 1, "width": $(document).width(), "height": $(document).height() });
 
    }; // SelectLeague
 

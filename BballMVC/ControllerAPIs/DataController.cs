@@ -39,9 +39,12 @@ namespace BballMVC.ControllerAPIs
       [HttpGet]
       public HttpResponseMessage GetLeagueData(string UserName, DateTime GameDate, string LeagueName)
       {
-         IBballInfoDTO oBballInfoDTO = new BballInfoDTO()
-            { UserName = UserName, GameDate = GameDate, LeagueName = LeagueName, ConnectionString = GetConnectionString()  };
+         oBballInfoDTO.UserName = UserName;
+         oBballInfoDTO.GameDate = GameDate;
+         oBballInfoDTO.LeagueName = LeagueName;
+
          oDataBO.GetLeagueData(oBballInfoDTO);
+
          return Request.CreateResponse(HttpStatusCode.OK, oBballInfoDTO.oBballDataDTO);
       }
       [HttpGet]

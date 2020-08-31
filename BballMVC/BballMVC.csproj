@@ -519,10 +519,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\TTI\Logger\TTI.Logger.csproj">
-      <Project>{676098da-e407-4f5e-aa93-7a5bb8ee870a}</Project>
-      <Name>TTI.Logger</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Bball.BAL\Bball.BAL.csproj">
       <Project>{3a1280ea-5c97-4ef5-9ec2-15bb5b272a6c}</Project>
       <Name>Bball.BAL</Name>
@@ -542,6 +538,10 @@
     <ProjectReference Include="..\CommonClasses\DAL.Functions\SysDAL.Functions.csproj">
       <Project>{f08657dc-56b9-4ea3-9bab-c3234c143145}</Project>
       <Name>SysDAL.Functions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TTI.Logger\TTI.Logger.csproj">
+      <Project>{ff93d3d6-5a10-4af0-8c3c-12482b6de4d1}</Project>
+      <Name>TTI.Logger</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
