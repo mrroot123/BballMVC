@@ -10,7 +10,7 @@ using Bball.IBAL;
 
 using BballMVC.DTOs;
 using BballMVC.IDTOs;
-using BballMVC.Log;
+using TTI.Logger;
 
 
 namespace BballMVC.ControllerAPIs

@@ -3,7 +3,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Http;
 using WebApplication;
-using Bball.Unity;
+//using Bball.Unity;
 
 
 namespace BballMVC
@@ -12,8 +12,9 @@ namespace BballMVC
 	{
 		protected void Application_Start()
 		{
-         Bball.Unity.UnityConfig.RegisterTypes();
-         var x = UnityConfig.Container;
+         // 08/30/2020 removed Unity Container
+         //Bball.Unity.UnityConfig.RegisterTypes();
+         //var x = UnityConfig.Container;
 			AreaRegistration.RegisterAllAreas();
 			FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
          GlobalConfiguration.Configure(WebApiConfig.Register);

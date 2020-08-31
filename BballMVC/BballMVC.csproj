@@ -15,7 +15,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BballMVC</RootNamespace>
     <AssemblyName>BballMVC</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -106,9 +106,9 @@
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
     </Reference>
@@ -156,12 +156,6 @@
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="Unity.Abstractions, Version=5.11.5.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unity.Abstractions.5.11.5\lib\net47\Unity.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Container, Version=5.11.6.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unity.Container.5.11.6\lib\net47\Unity.Container.dll</HintPath>
-    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
@@ -188,8 +182,6 @@
     <Compile Include="Controllers\BoxScoresController.cs" />
     <Compile Include="Controllers\RotationController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
-    <Compile Include="Log\Helper.cs" />
-    <Compile Include="Log\TTILogMessage.cs" />
     <Compile Include="Models\Adjustments.cs">
       <DependentUpon>BballEntities.tt</DependentUpon>
     </Compile>
@@ -527,6 +519,10 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\TTI\Logger\TTI.Logger.csproj">
+      <Project>{676098da-e407-4f5e-aa93-7a5bb8ee870a}</Project>
+      <Name>TTI.Logger</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bball.BAL\Bball.BAL.csproj">
       <Project>{3a1280ea-5c97-4ef5-9ec2-15bb5b272a6c}</Project>
       <Name>Bball.BAL</Name>
@@ -534,10 +530,6 @@
     <ProjectReference Include="..\Bball.IBAL\Bball.IBAL.csproj">
       <Project>{e6444a70-6a41-4269-8bc9-9e681dde59aa}</Project>
       <Name>Bball.IBAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Bball.Unity\Bball.Unity.csproj">
-      <Project>{dcc69696-c034-4fba-9e6a-429f921776ad}</Project>
-      <Name>Bball.Unity</Name>
     </ProjectReference>
     <ProjectReference Include="..\BballMVC.DTOs\BballMVC.DTOs.csproj">
       <Project>{853742B2-9D6C-4673-8A8D-8CFE9759939D}</Project>

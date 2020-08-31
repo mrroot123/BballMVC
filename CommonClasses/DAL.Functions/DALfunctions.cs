@@ -434,7 +434,7 @@ namespace SysDAL.Functions
                   {
                      return $"-1,{ex.Message}";
                   }
-                  var msg = StackTraceFormat(ex);
+                  var msg = ex.Message + " - " + StackTraceFormat(ex);
                   throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name} - ConnectionString: {ConnectionString} - Insert SQL: {sqlString} - Error Message: {msg}");
                }
             }  // using SqlCommand

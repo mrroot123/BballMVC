@@ -41,6 +41,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BballMVC.IDTOs", "BballMVC.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bball.IDAL", "Bball.IDAL\Bball.IDAL.csproj", "{D2EF3929-A185-4C8C-8B3D-32305F7BDEB5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TTI.Logger", "..\TTI\Logger\TTI.Logger.csproj", "{676098DA-E407-4F5E-AA93-7A5BB8EE870A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -123,6 +125,10 @@ Global
 		{D2EF3929-A185-4C8C-8B3D-32305F7BDEB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2EF3929-A185-4C8C-8B3D-32305F7BDEB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2EF3929-A185-4C8C-8B3D-32305F7BDEB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{676098DA-E407-4F5E-AA93-7A5BB8EE870A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{676098DA-E407-4F5E-AA93-7A5BB8EE870A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{676098DA-E407-4F5E-AA93-7A5BB8EE870A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{676098DA-E407-4F5E-AA93-7A5BB8EE870A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

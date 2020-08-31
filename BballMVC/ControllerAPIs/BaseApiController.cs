@@ -14,11 +14,13 @@ namespace BballMVC.ControllerAPIs
       public IBballInfoDTO oBballInfoDTO { get; set; }
 
       public string BaseDir { get; set; }
+      const string LogName = "TTILog";
       public BaseApiController()
       {
          BaseDir = System.AppDomain.CurrentDomain.BaseDirectory;
          oBballInfoDTO = new BballInfoDTO();
          oBballInfoDTO.ConnectionString = GetConnectionString();
+         oBballInfoDTO.LogName = LogName;
       }
       protected string GetUser()
       {

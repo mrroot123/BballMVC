@@ -55,7 +55,8 @@ Namespace Common4vb.HtmlParsing
          _UsePostMethod = True
          Call getPage()
       End Sub
-      Public Sub NewWebPageGet(Url As String, Optional GetAttempts As Integer = Default_GetAttempts, Optional UseXmlHttp As Boolean = False)
+      ' 08/30/2020 - Updated UseXmlHttp to default to TRUE
+      Public Sub NewWebPageGet(Url As String, Optional GetAttempts As Integer = Default_GetAttempts, Optional UseXmlHttp As Boolean = True)
          Me.Url = Url
          Me.GetAttempts = GetAttempts
          _UseXmlHttp = UseXmlHttp
@@ -162,7 +163,7 @@ Namespace Common4vb.HtmlParsing
             '          StatusCode = CInt(xml.status)
             '         ReturnCode = StatusCode
             ErrorMsg = ex.Message
-            Throw New Exception("MSXML2.ServerXMLHTTP error: " + ErrorMsg)
+            Throw New Exception("MSXML2.ServerXMLHTTP error: " + ToString())
 
          End Try
 
@@ -186,7 +187,7 @@ Namespace Common4vb.HtmlParsing
             '          StatusCode = CInt(xml.status)
             '         ReturnCode = StatusCode
             ErrorMsg = ex.Message
-            Throw New Exception("MSXML2.ServerXMLHTTP error: " + ErrorMsg)
+            Throw New Exception("MSXML2.ServerXMLHTTP error: " + ToString())
 
          End Try
 

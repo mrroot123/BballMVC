@@ -41,7 +41,15 @@ namespace BballMVC.ControllerAPIs
       [HttpGet]   // G3
       public HttpResponseMessage UpdateYesterdaysAdjustments()
       {
-         oAdjustmentsBO.UpdateYesterdaysAdjustments();
+         try
+         { 
+            oAdjustmentsBO.UpdateYesterdaysAdjustments();
+         }
+         catch (Exception ex)
+         {
+            throw new Exception($"UpdateYesterdaysAdjustments error - Message: {ex.Message} - Stacktrace: {ex.StackTrace}");
+         }
+
          return Request.CreateResponse(HttpStatusCode.OK, BaseDir );
       }
 

@@ -10,6 +10,7 @@ using Bball.IBAL;
 
 using BballMVC.DTOs;
 using BballMVC.IDTOs;
+using TTI.Logger;
 
 namespace BballMVC.ControllerAPIs
 {
@@ -52,11 +53,17 @@ namespace BballMVC.ControllerAPIs
             oBballInfoDTO.GameDate = GameDate;
             oBballInfoDTO.LeagueName = LeagueName;
 
-            new LoadBoxScores(LeagueName, GameDate, oBballInfoDTO.ConnectionString).LoadTodaysRotation();
+            new LoadBoxScores(UserName, LeagueName, GameDate, oBballInfoDTO.ConnectionString).LoadTodaysRotation();
             oDataBO.RefreshTodaysMatchups(oBballInfoDTO);
          }
          catch (Exception ex)
          {
+            TTILogMessage oTTILogMessage = new TTILogMessage();
+            oTTILogMessage.UserName = UserName;
+            oTTILogMessage.ApplicationName = "Bball";
+            oTTILogMessage.MessageText = ex.Message;
+            oTTILogMessage.CallStack = ex.StackTrace;
+            new LogBO().LogMessage(oTTILogMessage, oBballInfoDTO.ConnectionString, oBballInfoDTO.LogName);
             throw new Exception($"Message: {ex.Message} - Stacktrace: {ex.StackTrace}");
          }
 

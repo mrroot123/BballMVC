@@ -9,6 +9,7 @@ namespace BballMVC.IDTOs
       DateTime GameDate { get; set; }
       string LeagueName { get; set; }
       string UserName { get; set; }
+      string LogName { get; set; }
       ISeasonInfoDTO oSeasonInfoDTO { get; set; }
       IBballDataDTO oBballDataDTO { get; set; }
       string LoadDateTime();

@@ -15,14 +15,17 @@ namespace Bball.BAL
 {
    public class LoadBoxScores
    {
+      private string _message;
+      public string Message {
+         get { return _message; }
+         set { _message += value + "\n"; }
+         
+      }
 
       private ILeagueDTO _oLeagueDTO = new LeagueDTO();
-      private string _strLoadDateTime;
-      private string _ConnectionString;   //  = SqlFunctions.GetConnectionString();
-      //private DateTime _GameDate;
+
       private SeasonInfoDO _oSeasonInfoDO;
       private IBballInfoDTO _oBballInfoDTO;
-      private string _UserName = "Test";  // kdtodo populate
       private DateTime _DefaultDate;
 
 
@@ -33,27 +36,21 @@ namespace Bball.BAL
       // public LoadBoxScores(string LeagueName) => init(LeagueName,  Convert.ToDateTime("10/16/2018"));
 
 
-      public LoadBoxScores(string LeagueName, DateTime GameDate, string ConnectionString)
+      public LoadBoxScores(string UserName, string LeagueName, DateTime GameDate, string ConnectionString)
       {
 
-         //kdtest
-         _ConnectionString = ConnectionString;
-         new LeagueInfoDO(LeagueName, _oLeagueDTO, _ConnectionString);  // Init _oLeagueDTO
-         _strLoadDateTime = DateTime.Now.ToLongDateString();
+      //   _ConnectionString = ConnectionString;
+         new LeagueInfoDO(LeagueName, _oLeagueDTO, ConnectionString);  // Init _oLeagueDTO
+       //  _strLoadDateTime = DateTime.Now.ToLongDateString();
 
          _oSeasonInfoDO = new SeasonInfoDO(GameDate, _oLeagueDTO.LeagueName);
 
-
-         //if (_oSeasonInfoDO.oSeasonInfoDTO.Bypass)
-         //   _oSeasonInfoDO.GetNextGameDate();
-         ////
-         ////RotationDO.DeleteRestOfRotation(GameDate, LeagueName);
          _oBballInfoDTO = new BballInfoDTO()
          {
-            ConnectionString = _ConnectionString,
+            ConnectionString = ConnectionString,
             GameDate = _oSeasonInfoDO.GameDate,
             LeagueName = LeagueName,
-            UserName = _UserName,
+            UserName = UserName,
             oSeasonInfoDTO = _oSeasonInfoDO.oSeasonInfoDTO
          };
          _DefaultDate = SeasonInfoDO.DefaultDate;
@@ -82,7 +79,17 @@ namespace Bball.BAL
               // string _strLoadDateTime = _oBballInfoDTO.LoadDateTime();    // _oSeasonInfoDO.GameDate.ToString();
 
                SortedList<string, CoversDTO> ocRotation = new SortedList<string, CoversDTO>();
-               RotationDO.PopulateRotation(ocRotation, _oBballInfoDTO, _oLeagueDTO);
+               try
+               {
+                  RotationDO.PopulateRotation(ocRotation, _oBballInfoDTO, _oLeagueDTO);
+               }
+               catch 
+               {
+                  if (_oBballInfoDTO.GameDate > DateTime.Today)
+                     Message = "Error in tomorrow's Rotation";
+                  else
+                     throw;
+               }
 
                _oBballInfoDTO.GameDate = _oBballInfoDTO.GameDate.AddDays(1); // kd make nextGameDate function
                _oSeasonInfoDO.GameDate = _oSeasonInfoDO.GameDate.AddDays(1);
@@ -201,10 +208,10 @@ namespace Bball.BAL
       {
          return  new SeasonInfoDO(GameDate, _oLeagueDTO.LeagueName).GetNextGameDate();
       }
-      public void FixBoxscores(string LeagueName, DateTime GameDate)
+      public void FixBoxscores(string LeagueName, DateTime GameDate, string _ConnectionString)
       {
          new LeagueInfoDO(LeagueName, _oLeagueDTO, _ConnectionString);  // Init _oLeagueDTO
-         _strLoadDateTime = DateTime.Now.ToLongDateString();
+         //_strLoadDateTime = DateTime.Now.ToLongDateString();
          _oSeasonInfoDO = new SeasonInfoDO(GameDate, _oLeagueDTO.LeagueName);
          if (_oSeasonInfoDO.oSeasonInfoDTO.Bypass)
          {
