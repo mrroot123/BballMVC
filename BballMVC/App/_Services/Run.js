@@ -3,7 +3,7 @@
    
    $rootScope.oBballInfoDTO = 
    {
-      UserName: "",
+      UserName: "Test",
       GameDate: "",
       newGameDate: "",
       LeagueName: "",
@@ -21,9 +21,14 @@
       oBballDataDTO: {}
    };
 
-   ajx.AjaxGet(url.UrlUpdateYesterdaysAdjustments)   // Update Yesterdays Adjustments
-      .then(data => {
-         $rootScope.oBballInfoDTO.BaseDir = data;
+   ajx.AjaxGet(url.UrlGetData, {
+      UserName: $rootScope.oBballInfoDTO.UserName, GameDate: new Date().toDateString()
+      , LeagueName: "", CollectionType: "AppInit"
+   })
+      .then(oBballDataDTO => {
+         $rootScope.oBballInfoDTO.ElapsedTimeAppInit = oBballDataDTO.et; //alert("AppInit ET: " + oBballDataDTO.et);
+         $rootScope.oBballInfoDTO.BaseDir = oBballDataDTO.BaseDir;
+         $rootScope.DataConstants = oBballDataDTO.DataConstants;
       })
       .catch(error => {
          f.DisplayErrorMessage(f.FormatResponse(error));

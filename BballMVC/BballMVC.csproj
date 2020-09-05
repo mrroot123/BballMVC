@@ -176,7 +176,6 @@
     <Compile Include="ControllerAPIs\BaseApiController.cs" />
     <Compile Include="ControllerAPIs\DataController.cs" />
     <Compile Include="ControllerAPIs\LogController.cs" />
-    <Compile Include="ControllerAPIs\TodaysMatchupsController.cs" />
     <Compile Include="Controllers\AdjustmentsCodesController.cs" />
     <Compile Include="Controllers\AdjustmentsController.cs" />
     <Compile Include="Controllers\BoxScoresController.cs" />
@@ -283,6 +282,7 @@
     <Content Include="App\Common\accordian.css" />
     <Content Include="App\Common\bball.css" />
     <Content Include="App\Common\_GameDate.html" />
+    <Content Include="App\Common\_GameDateLocal.html" />
     <Content Include="App\Components\accordianSection.html" />
     <Content Include="App\Components\helloWorld.html" />
     <Content Include="App\Index.html" />
@@ -294,6 +294,7 @@
     <Content Include="App\Test\_TestTable.html" />
     <Content Include="App\TodaysMatchups\TodaysMatchups.html" />
     <Content Include="App\TodaysMatchups\TodaysMatchupsController.js" />
+    <Content Include="App\TodaysMatchups\_DailySummary.html" />
     <Content Include="App\TodaysMatchups\_TodaysMatchupsTable.html" />
     <Content Include="App\_Header\Header.html" />
     <Content Include="App\_Header\HeaderController.js" />

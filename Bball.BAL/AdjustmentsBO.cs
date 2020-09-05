@@ -22,6 +22,9 @@ namespace Bball.BAL
       // G2
       public IBballDataDTO GetAdjustmentInfo(DateTime GameDate, string LeagueName)
          => new AdjustmentsDO(_oBballInfoDTO).GetAdjustmentInfo(GameDate, LeagueName);
+
+      public void GetAdjustmentInfo(IBballInfoDTO oBballInfoDTO)
+         => new AdjustmentsDO().GetAdjustmentInfo(oBballInfoDTO);
       // G3
       public void UpdateYesterdaysAdjustments() 
          => new AdjustmentsDO(_oBballInfoDTO).UpdateYesterdaysAdjustments();

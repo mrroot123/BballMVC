@@ -12,7 +12,7 @@ namespace Bball.DAL.Tables
    public class LeagueInfoDO
    {
       public string LeagueInfoTable = "LeagueInfo";
-      static LeagueDTO NbaDTO = new LeagueDTO { LeagueName = "NBA", Periods = 4, MinutesPerPeriod = 12, OverTimeMinutes = 5, MultiYearLeague = true };
+     // static LeagueDTO NbaDTO = new LeagueDTO { LeagueName = "NBA", Periods = 4, MinutesPerPeriod = 12, OverTimeMinutes = 5, MultiYearLeague = true };
 
       public LeagueInfoDO(string LeagueName, ILeagueDTO oLeagueDTO, string ConnectionString)
       {

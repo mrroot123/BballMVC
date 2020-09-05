@@ -1,48 +1,60 @@
 ﻿angular.module('app').controller('HeaderController', function ($rootScope, $scope, f, ajx, url) {
+   kdAlert("HeaderController");
    $scope.ShowLeagueDropDown = false;
    GetLeagueNames();   // on app init
    $scope.GameDate = new Date();
-   $rootScope.oBballInfoDTO.GameDate = f.Getmdy($scope.GameDate);
+   $rootScope.oBballInfoDTO.GameDate = new Date(); // Today as Object
 
    // funtions
    function GetLeagueNames() {
       $rootScope.oBballInfoDTO.UserName = "Test";
 
-      $('#screen').css({ "display": "block", opacity: 0.2, "width": $(document).width(), "height": $(document).height() });
-      ajx.AjaxGet(url.UrlGetLeagueNames, { UserName: $rootScope.oBballInfoDTO.UserName })
-         .then(data => {
-            $rootScope.oBballInfoDTO.oBballDataDTO = data;   // refresh $rootScope.oBballInfoDTO
-            $scope.LeagueNameList = $rootScope.oBballInfoDTO.oBballDataDTO.ocLeagueNames;
-            $scope.ShowLeagueDropDown = true;
-            $scope.$apply();
+      if ($rootScope.oBballInfoDTO.oBballDataDTO.ocLeagueNames)
+         RefreshLeagueNamesDropDown();
+      else {
+         $('#screen').css({ "display": "block", opacity: 0.2, "width": $(document).width(), "height": $(document).height() });
+         ajx.AjaxGet(url.UrlGetData, {
+            UserName: $rootScope.oBballInfoDTO.UserName, GameDate: new Date().toDateString()
+            , LeagueName: $rootScope.oBballInfoDTO.LeagueName, CollectionType: "GetLeagueNames"
          })
-         .catch(error => {
-            f.DisplayErrorMessage(f.FormatResponse(error));
-         });
-      $('#screen').css({ "display": "block", opacity: 1, "width": $(document).width(), "height": $(document).height() });
-
+            .then(data => {
+               $rootScope.oBballInfoDTO.oBballDataDTO.ocLeagueNames = data.ocLeagueNames;
+               RefreshLeagueNamesDropDown();
+            })
+            .catch(error => {
+               f.DisplayErrorMessage(f.FormatResponse(error));
+            });
+         $('#screen').css({ "display": "block", opacity: 1, "width": $(document).width(), "height": $(document).height() });
+      }
    }   // GetLeagueNames
-
+   function RefreshLeagueNamesDropDown() {
+      $scope.LeagueNameList = $rootScope.oBballInfoDTO.oBballDataDTO.ocLeagueNames;
+      $scope.ShowLeagueDropDown = true;
+      $scope.$apply();
+   }
    $scope.SelectLeague = function () {
-      if ($scope.LeagueName === "--Select League--") {
+      if ($scope.LeagueName === undefined || $scope.LeagueName === null || $scope.LeagueName === "--Select League--") {
          alert("Select League");
          return;
       }
-      if ($scope.LeagueName === undefined) {
-         alert("Select League Name");
-         return;
-      }
-      $rootScope.oBballInfoDTO.LeagueName = $scope.LeagueName;
 
-      $rootScope.oBballInfoDTO.GameDate = new Date();
+      $rootScope.oBballInfoDTO.LeagueName = $scope.LeagueName;
+      $rootScope.oBballInfoDTO.GameDate = new Date(); // Today as Object
 
       $('#screen').css({ "display": "block", opacity: 0.2, "width": $(document).width(), "height": $(document).height() });
 
-//      ajx.AjaxGet(url.UrlGetLeagueData, { UserName: $rootScope.oBballInfoDTO.UserName, GameDate: $rootScope.oBballInfoDTO.GameDate.toDateString(), LeagueName: $rootScope.oBballInfoDTO.LeagueName })
-
-      ajx.AjaxGet(url.UrlGetLeagueData, { UserName: $rootScope.oBballInfoDTO.UserName, GameDate: $rootScope.oBballInfoDTO.GameDate.toDateString(), LeagueName: $rootScope.oBballInfoDTO.LeagueName })
+      ajx.AjaxGet(url.UrlGetData, {
+         UserName: $rootScope.oBballInfoDTO.UserName, GameDate: $rootScope.oBballInfoDTO.GameDate.toDateString()
+         , LeagueName: $rootScope.oBballInfoDTO.LeagueName
+         , CollectionType: "GetLeagueData~GetDailySummaryDTO"
+      })
          .then(data => {
-            $rootScope.oBballInfoDTO.oBballDataDTO = data;   // refresh $rootScope.oBballInfoDTO
+            $rootScope.oBballInfoDTO.oBballDataDTO.oDailySummaryDTO = data.oDailySummaryDTO;   
+            $rootScope.oBballInfoDTO.oBballDataDTO.ocAdjustmentNames = data.ocAdjustmentNames;   
+            $rootScope.oBballInfoDTO.oBballDataDTO.ocAdjustments = data.ocAdjustments;   
+            $rootScope.oBballInfoDTO.oBballDataDTO.ocPostGameAnalysisDTO = data.ocPostGameAnalysisDTO;   
+            $rootScope.oBballInfoDTO.oBballDataDTO.ocTeams = data.ocTeams;   
+            $rootScope.oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO = data.ocTodaysMatchupsDTO;   
             $rootScope.$broadcast('populateTodaysMatchups');
             $rootScope.$broadcast('populatePostGameAnalysis');
             $rootScope.$broadcast('populateAdjustments');

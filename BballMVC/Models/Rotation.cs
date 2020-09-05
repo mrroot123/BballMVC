@@ -35,5 +35,6 @@ namespace BballMVC.Models
         public string BoxScoreUrl { get; set; }
         public System.DateTime CreateDate { get; set; }
         public Nullable<System.DateTime> UpdateDate { get; set; }
+        public Nullable<bool> Canceled { get; set; }
     }
 }

@@ -1,27 +1,7 @@
 ﻿
 'use strict';
-var xoBballInfoDTO = {
-   UserName: "",
-   GameDate: "",
-   LeagueName: "",
-   BaseDir: "",
-   TTILogMessage: {
-      AppName: "Bball",
-      UserName: "Test",
-      TS: "",
-      MessageNum: 0,
-      MessageText: "",
-      CallStack: ""
-   },
-   TTILogUrl: "",
-   oSeasonInfoDTO: {},
-   oBballDataDTO: {}
-};
 
-
-
-
-var alertDisplay = false;
+var alertDisplay = false;  // Display kdAlert for debugging
 //alertDisplay = true;
 
 function kdAlert(msg) {
@@ -29,20 +9,3 @@ function kdAlert(msg) {
       alert(msg);
 }
 angular.module('app', []);
-
-   //.config(["", function () {
-   //   $rootScope.oBballInfoDTO = oBballInfoDTO;
-
-   //}]) ;
-
-//angular.module("app", [])
-//   .component("helloWorld", {
-//      templateUrl: 'Components/helloWorld.html'
-//      , bindings: { name: '@' }
-//   });
-
-//angular.module("app", [])
-//   .component("accordianSection", {
-//      templateUrl: 'Components/accordianSection.html'
-//      , bindings: { heading: '@', id: '@', html1: '@' }
-//   });

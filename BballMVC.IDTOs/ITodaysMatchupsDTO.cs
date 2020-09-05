@@ -14,9 +14,11 @@ namespace BballMVC.IDTOs
       double? AdjRecentLeagueHistory { get; set; }
       double AdjTV { get; set; }
       double? AdjustedDiff { get; set; }
+      string AllAdjustmentLines { get; set; }
       double AwayAverageAtmpUsPt1 { get; set; }
       double AwayAverageAtmpUsPt2 { get; set; }
       double AwayAverageAtmpUsPt3 { get; set; }
+      double? AwayAveragePtsAllowed { get; set; }
       double AwayGB1 { get; set; }
       double AwayGB1Pt1 { get; set; }
       double AwayGB1Pt2 { get; set; }
@@ -29,10 +31,14 @@ namespace BballMVC.IDTOs
       double AwayGB3Pt1 { get; set; }
       double AwayGB3Pt2 { get; set; }
       double AwayGB3Pt3 { get; set; }
-      double? AwayProjectedPt1 { get; set; }
-      double? AwayProjectedPt2 { get; set; }
-      double? AwayProjectedPt3 { get; set; }
+      double? AwayProjectedAtmpPt1 { get; set; }
+      double? AwayProjectedAtmpPt2 { get; set; }
+      double? AwayProjectedAtmpPt3 { get; set; }
+      double AwayProjectedPt1 { get; set; }
+      double AwayProjectedPt2 { get; set; }
+      double AwayProjectedPt3 { get; set; }
       double BxScLinePct { get; set; }
+      bool? Canceled { get; set; }
       DateTime GameDate { get; set; }
       string GameTime { get; set; }
       int GB1 { get; set; }
@@ -41,6 +47,7 @@ namespace BballMVC.IDTOs
       double HomeAverageAtmpUsPt1 { get; set; }
       double HomeAverageAtmpUsPt2 { get; set; }
       double HomeAverageAtmpUsPt3 { get; set; }
+      double? HomeAveragePtsAllowed { get; set; }
       double HomeGB1 { get; set; }
       double HomeGB1Pt1 { get; set; }
       double HomeGB1Pt2 { get; set; }
@@ -53,9 +60,12 @@ namespace BballMVC.IDTOs
       double HomeGB3Pt1 { get; set; }
       double HomeGB3Pt2 { get; set; }
       double HomeGB3Pt3 { get; set; }
-      double? HomeProjectedPt1 { get; set; }
-      double? HomeProjectedPt2 { get; set; }
-      double? HomeProjectedPt3 { get; set; }
+      double? HomeProjectedAtmpPt1 { get; set; }
+      double? HomeProjectedAtmpPt2 { get; set; }
+      double? HomeProjectedAtmpPt3 { get; set; }
+      double HomeProjectedPt1 { get; set; }
+      double HomeProjectedPt2 { get; set; }
+      double HomeProjectedPt3 { get; set; }
       string LeagueName { get; set; }
       double? OpenPlayDiff { get; set; }
       double? OpenTotalLine { get; set; }

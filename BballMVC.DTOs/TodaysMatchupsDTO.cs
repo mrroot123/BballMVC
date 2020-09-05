@@ -4,7 +4,7 @@ using BballMVC.IDTOs;
 
 namespace BballMVC.DTOs
 {
-   public  class TodaysMatchupsDTO : ITodaysMatchupsDTO
+   public  class TodaysMatchupsDTO : ITodaysMatchupsDTO 
    {
       public int TodaysMatchupsID { get; set; }
       public string UserName { get; set; }
@@ -16,12 +16,15 @@ namespace BballMVC.DTOs
       public string TeamHome { get; set; }
       public int RotNum { get; set; }
       public string GameTime { get; set; }
+      public Nullable<bool> Canceled { get; set; }
       public string TV { get; set; }
       public double TmStrAway { get; set; }
       public Nullable<double> TmStrHome { get; set; }
       public double UnAdjTotalAway { get; set; }
       public double UnAdjTotalHome { get; set; }
       public double UnAdjTotal { get; set; }
+      public Nullable<double> AwayAveragePtsAllowed { get; set; }
+      public Nullable<double> HomeAveragePtsAllowed { get; set; }
       public double AdjAmt { get; set; }
       public double AdjAmtAway { get; set; }
       public double AdjAmtHome { get; set; }
@@ -53,12 +56,18 @@ namespace BballMVC.DTOs
       public int WeightGB1 { get; set; }
       public int WeightGB2 { get; set; }
       public int WeightGB3 { get; set; }
-      public Nullable<double> AwayProjectedPt1 { get; set; }
-      public Nullable<double> AwayProjectedPt2 { get; set; }
-      public Nullable<double> AwayProjectedPt3 { get; set; }
-      public Nullable<double> HomeProjectedPt1 { get; set; }
-      public Nullable<double> HomeProjectedPt2 { get; set; }
-      public Nullable<double> HomeProjectedPt3 { get; set; }
+      public double AwayProjectedPt1 { get; set; }
+      public double AwayProjectedPt2 { get; set; }
+      public double AwayProjectedPt3 { get; set; }
+      public double HomeProjectedPt1 { get; set; }
+      public double HomeProjectedPt2 { get; set; }
+      public double HomeProjectedPt3 { get; set; }
+      public Nullable<double> AwayProjectedAtmpPt1 { get; set; }
+      public Nullable<double> AwayProjectedAtmpPt2 { get; set; }
+      public Nullable<double> AwayProjectedAtmpPt3 { get; set; }
+      public Nullable<double> HomeProjectedAtmpPt1 { get; set; }
+      public Nullable<double> HomeProjectedAtmpPt2 { get; set; }
+      public Nullable<double> HomeProjectedAtmpPt3 { get; set; }
       public double AwayAverageAtmpUsPt1 { get; set; }
       public double AwayAverageAtmpUsPt2 { get; set; }
       public double AwayAverageAtmpUsPt3 { get; set; }
@@ -92,5 +101,6 @@ namespace BballMVC.DTOs
       public Nullable<double> TotalBubbleAway { get; set; }
       public Nullable<double> TotalBubbleHome { get; set; }
       public Nullable<System.DateTime> TS { get; set; }
+      public string AllAdjustmentLines { get; set; }
    }
 }

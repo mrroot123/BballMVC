@@ -56,7 +56,8 @@ Modify Table Structure
    -- Paste Result col(C) rows to populate_ocValuesForInsert
       This will move values from the DTO to ocValues for INSERT sql method -- Writing Rows
 
-   5) Update columns in method Populate{TableName}DTO Method - IF GET ROWS is Necessary
+   5) IF GET ROWS is Necessary
+   -- Update columns in method Populate{TableName}DTO Method - 
    -- In Sql Server run #scrPopulateDTO.sql - Update TableName
    -- Open D:\My Documents\Projects\Code Misc\Code Generators \ CodeGenerator.xlsm
    -- Goto Sheet: populateDTO  

@@ -19,32 +19,31 @@ namespace Bball.BAL
       public string Message {
          get { return _message; }
          set { _message += value + "\n"; }
-         
       }
 
       private ILeagueDTO _oLeagueDTO = new LeagueDTO();
-
       private SeasonInfoDO _oSeasonInfoDO;
       private IBballInfoDTO _oBballInfoDTO;
       private DateTime _DefaultDate;
 
-
-      // public  DateTime DefaultDate = Convert.ToDateTime("1/1/2000");  // kdtodo move to constants
-
       #region Constructors & Init
       // Constructor
-      // public LoadBoxScores(string LeagueName) => init(LeagueName,  Convert.ToDateTime("10/16/2018"));
+      public LoadBoxScores(IBballInfoDTO oBballInfoDTO)
+      {
+         new LeagueInfoDO(oBballInfoDTO.LeagueName, _oLeagueDTO, oBballInfoDTO.ConnectionString);  // Init _oLeagueDTO
+         _oSeasonInfoDO = new SeasonInfoDO(oBballInfoDTO.GameDate, _oLeagueDTO.LeagueName);
 
+         _oBballInfoDTO = new BballInfoDTO();
+         oBballInfoDTO.CloneBballDataDTO(_oBballInfoDTO);
+         _oBballInfoDTO.oSeasonInfoDTO = _oSeasonInfoDO.oSeasonInfoDTO;
 
+         _DefaultDate = SeasonInfoDO.DefaultDate;
+         LoadBoxScoreRange(_oBballInfoDTO.LeagueName, _oBballInfoDTO.ConnectionString, SeasonInfoDO.DefaultDate);
+      }
       public LoadBoxScores(string UserName, string LeagueName, DateTime GameDate, string ConnectionString)
       {
-
-      //   _ConnectionString = ConnectionString;
          new LeagueInfoDO(LeagueName, _oLeagueDTO, ConnectionString);  // Init _oLeagueDTO
-       //  _strLoadDateTime = DateTime.Now.ToLongDateString();
-
          _oSeasonInfoDO = new SeasonInfoDO(GameDate, _oLeagueDTO.LeagueName);
-
          _oBballInfoDTO = new BballInfoDTO()
          {
             ConnectionString = ConnectionString,

@@ -20,6 +20,7 @@
             <div class="col-md-6">
                <div><input type="checkbox" ng-model="PlayEntry" class=".bigCheckBox"> Play Entry</div>
                <div><input type="checkbox" ng-model="ShowPlaysOnly"> Show Plays Only</div>
+               <div><input type="checkbox" ng-model="ShowDailySummary"> Show Daily Summary</div>
             </div>
             <div class="col-md-6">
                <div><input type="checkbox" ng-model="Multi"> Show Multi Lines</div>
@@ -38,7 +39,9 @@
       <div class="col-md-2">
       </div>
    </div>
-
+   <div class="row" show="ShowDailySummary">
+      <div ng-include="'TodaysMatchups/_DailySummary.html'"></div>
+   </div>
    <div class="table-responsive">
       <div ng-include="'TodaysMatchups/_TodaysMatchupsTable.html'"></div>
    </div>

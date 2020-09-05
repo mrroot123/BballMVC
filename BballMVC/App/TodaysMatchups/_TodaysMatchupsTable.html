@@ -7,6 +7,7 @@
       <th class="text-center" ng-show="showHistory" colspan="3">History (Games Back)</th>
 
       <th></th>
+      <th></th>
       <th colspan="2">Adjustments</th>
 
       <th ng-show="Multi" colspan="2">Lines</th>
@@ -25,6 +26,7 @@
       <th ng-show="showHistory">Last {{TMparms.GB3}}</th>
 
       <th>UnAdj<br />Total</th>
+      <th>Points<br />Allowed</th>
       <th>Adjust<br />ments</th>
       <th>OT/Side<br />Adj</th>
 
@@ -152,6 +154,19 @@
       <td>
          <table>
             <tr>
+               <td ng-show="Multi">{{item.AwayAveragePtsAllowed | number:1}}</td>
+            </tr>
+            <tr>
+               <td ng-show="Multi">{{item.HomeAveragePtsAllowed | number:1}}</td>
+            </tr>
+            <tr>
+               <td class="statTotal">{{item.AwayAveragePtsAllowed+item.HomeAveragePtsAllowed | number:1}}</td>
+            </tr>
+         </table>
+      </td>
+      <td>
+         <table>
+            <tr>
                <td ng-show="Multi">{{item.AdjAmtAway | number:1}}</td>
             </tr>
             <tr>
@@ -238,7 +253,7 @@
          <input type="text" maxlength="4" size="2" id="Weight_{{$index}}" />
       </td>
       <td ng-show="PlayEntry">
-         <input type="checkbox"  id="cbProcessPlay_{{$index}}" />
+         <input type="checkbox" id="cbProcessPlay_{{$index}}" />
       </td>
 
    </tr>

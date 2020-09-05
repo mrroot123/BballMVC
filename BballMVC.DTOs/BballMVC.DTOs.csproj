@@ -51,6 +51,7 @@
     <Compile Include="BoxScoresSeedsDTO.cs" />
     <Compile Include="CoversDTO.cs" />
     <Compile Include="DailySummaryDTO.cs" />
+    <Compile Include="xGetDataConstants.cs" />
     <Compile Include="LeagueAverageDTO.cs" />
     <Compile Include="LeagueDTO.cs" />
     <Compile Include="LinesDTO.cs" />

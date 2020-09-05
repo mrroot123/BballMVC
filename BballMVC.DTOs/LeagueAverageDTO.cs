@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BballMVC.DTOs
 {
-	class LeagueAverageDTO
+   class LeagueAverageDTO
 	{
 		public string UserName { get; set; }
 		public string LeagueName { get; set; }

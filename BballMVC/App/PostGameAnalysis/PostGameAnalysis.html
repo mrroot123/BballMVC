@@ -4,9 +4,10 @@
 
 
    <div class="row">
-      <div class="col-md-5">League: {{LeagueName}}  </div>
+      <div class="col-md-2">League: {{LeagueName}}  </div>
       <div class="col-md-2"> {{GameDate}} </div>
-      <div class="col-md-5"> {{oBballInfoDTO.GameDate}} </div>
+      <div class="col-md-2"> {{oBballInfoDTO.GameDate}} </div>
+      <div ng-include="'Common/_GameDateLocal.html'"></div>
    </div>
 
 

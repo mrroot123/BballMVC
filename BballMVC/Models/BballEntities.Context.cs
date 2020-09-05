@@ -28,7 +28,6 @@ namespace BballMVC.Models
         }
     
         public virtual DbSet<AdjustmentsCodes> AdjustmentsCodes { get; set; }
-        public virtual DbSet<DailySummary> DailySummary { get; set; }
         public virtual DbSet<Adjustments> Adjustments { get; set; }
         public virtual DbSet<BoxScores> BoxScores { get; set; }
         public virtual DbSet<Lines> Lines { get; set; }
@@ -38,10 +37,11 @@ namespace BballMVC.Models
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Team> Team { get; set; }
         public virtual DbSet<Rotation> Rotation { get; set; }
-        public virtual DbSet<TodaysMatchups> TodaysMatchups { get; set; }
         public virtual DbSet<vPostGameAnalysis> vPostGameAnalysis { get; set; }
         public virtual DbSet<BoxScoresSeeds> BoxScoresSeeds { get; set; }
         public virtual DbSet<TodaysPlays> TodaysPlays { get; set; }
+        public virtual DbSet<DailySummary> DailySummary { get; set; }
+        public virtual DbSet<TodaysMatchups> TodaysMatchups { get; set; }
     
         public virtual int Bball_UpdateAdjs(Nullable<System.DateTime> processDate, Nullable<int> testMode)
         {

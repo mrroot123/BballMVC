@@ -8,7 +8,10 @@ angular.module('app').controller('BoxScoresSeedsController', function ($rootScop
       $scope.LeagueName = $rootScope.oBballInfoDTO.LeagueName;
       $('#screen').css({ "display": "block", opacity: 0.2, "width": $(document).width(), "height": $(document).height() });
 
-      ajx.AjaxGet(url.UrlGetBoxScoresSeeds, { UserName: $rootScope.oBballInfoDTO.UserName, GameDate: $rootScope.oBballInfoDTO.GameDate.toDateString(), LeagueName: $rootScope.oBballInfoDTO.LeagueName })
+      ajx.AjaxGet(url.UrlGetData, {
+         UserName: $rootScope.oBballInfoDTO.UserName, GameDate: $rootScope.oBballInfoDTO.GameDate.toDateString()
+         , LeagueName: $rootScope.oBballInfoDTO.LeagueName, CollectionType: "GetBoxScoresSeeds"
+      })
          .then(data => {
             $rootScope.oBballInfoDTO.oBballDataDTO.ocBoxScoresSeedsDTO = data;
             $scope.ocBoxScoresSeedsDTO = $rootScope.oBballInfoDTO.oBballDataDTO.ocBoxScoresSeedsDTO;

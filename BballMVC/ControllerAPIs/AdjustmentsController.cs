@@ -10,6 +10,7 @@ using Bball.IBAL;
 
 using BballMVC.DTOs;
 using BballMVC.IDTOs;
+using Newtonsoft.Json.Linq;
 
 namespace BballMVC.ControllerAPIs
 {
@@ -34,23 +35,43 @@ namespace BballMVC.ControllerAPIs
       [HttpGet]   // G2
       public HttpResponseMessage GetAdjustmentInfo(DateTime GameDate, string LeagueName)
       {
-         IBballDataDTO oAdjustmentInitDataDTO = oAdjustmentsBO.GetAdjustmentInfo(GameDate, LeagueName);
-         return Request.CreateResponse(HttpStatusCode.OK, oAdjustmentInitDataDTO);
+         IBballDataDTO oBballDataDTO = oAdjustmentsBO.GetAdjustmentInfo(GameDate, LeagueName);
+         return Request.CreateResponse(HttpStatusCode.OK, oBballDataDTO);
       }
+      [HttpGet]   // G2B
+      public HttpResponseMessage GetAdjustmentInfo2(DateTime GameDate, string LeagueName)
+      {
+         oBballInfoDTO.GameDate = GameDate;
+         oBballInfoDTO.LeagueName = LeagueName;
 
+         oAdjustmentsBO.GetAdjustmentInfo(oBballInfoDTO);
+         return Request.CreateResponse(HttpStatusCode.OK, oBballInfoDTO.oBballDataDTO);
+      }
+    //  GetAdjustmentInfo(IBballInfoDTO oBballInfoDTO)
       [HttpGet]   // G3
       public HttpResponseMessage UpdateYesterdaysAdjustments()
       {
          try
          { 
             oAdjustmentsBO.UpdateYesterdaysAdjustments();
+
          }
          catch (Exception ex)
          {
             throw new Exception($"UpdateYesterdaysAdjustments error - Message: {ex.Message} - Stacktrace: {ex.StackTrace}");
          }
+         oBballInfoDTO.CollectionType = "DataConstants";
+         new DataBO().GetData(oBballInfoDTO);
+         oBballInfoDTO.oBballDataDTO.BaseDir = BaseDir;
+         return Request.CreateResponse(HttpStatusCode.OK, oBballInfoDTO.oBballDataDTO);
+      }
 
-         return Request.CreateResponse(HttpStatusCode.OK, BaseDir );
+
+
+      [HttpPost]
+      public HttpResponseMessage PostAdjustmentUpdates2(JObject jObject, [FromUri]string CollectionType)
+      {
+         return Request.CreateResponse(HttpStatusCode.OK, "Success");
       }
 
 

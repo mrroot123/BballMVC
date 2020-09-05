@@ -50,6 +50,8 @@
     <Compile Include="IBoxScoresDTO.cs" />
     <Compile Include="IBoxScoresSeedsDTO.cs" />
     <Compile Include="ICoversDTO.cs" />
+    <Compile Include="IDailySummaryDTO.cs" />
+    <Compile Include="xIGetDataConstants.cs" />
     <Compile Include="ILeagueDTO.cs" />
     <Compile Include="IRotationDTO.cs" />
     <Compile Include="ISeasonInfoDTO.cs" />

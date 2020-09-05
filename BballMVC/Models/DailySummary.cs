@@ -36,16 +36,16 @@ namespace BballMVC.Models
         public double LgAvgLastMinPt1 { get; set; }
         public double LgAvgLastMinPt2 { get; set; }
         public double LgAvgLastMinPt3 { get; set; }
-        public Nullable<double> LgAvgPace { get; set; }
-        public Nullable<double> LgAvgVolatilityTeam { get; set; }
-        public Nullable<double> LgAvgVolatilityGame { get; set; }
-        public Nullable<double> AdjRecentLeagueHistory { get; set; }
-        public Nullable<System.DateTime> TS { get; set; }
         public Nullable<double> LgAvgTurnOversAway { get; set; }
         public Nullable<double> LgAvgTurnOversHome { get; set; }
         public Nullable<double> LgAvgOffRBAway { get; set; }
         public Nullable<double> LgAvgOffRBHome { get; set; }
         public Nullable<double> LgAvgAssistsAway { get; set; }
         public Nullable<double> LgAvgAssistsHome { get; set; }
+        public Nullable<double> LgAvgPace { get; set; }
+        public Nullable<double> LgAvgVolatilityTeam { get; set; }
+        public Nullable<double> LgAvgVolatilityGame { get; set; }
+        public Nullable<double> AdjRecentLeagueHistory { get; set; }
+        public Nullable<System.DateTime> TS { get; set; }
     }
 }

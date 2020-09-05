@@ -152,5 +152,9 @@ namespace BballMVC.Models
         public double AssistsUs { get; set; }
         public double AssistsOp { get; set; }
         public Nullable<double> Pace { get; set; }
+        public Nullable<bool> Canceled { get; set; }
+        public Nullable<double> AwayAveragePtsAllowed { get; set; }
+        public Nullable<double> HomeAveragePtsAllowed { get; set; }
+        public string AllAdjustmentLines { get; set; }
     }
 }

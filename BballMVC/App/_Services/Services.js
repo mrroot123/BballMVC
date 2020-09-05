@@ -8,11 +8,11 @@
    this.UrlUpdateYesterdaysAdjustments = urlPrefix + "Adjustments/UpdateYesterdaysAdjustments";
 
    this.UrlGetLeagueNames = urlPrefix + "Data/GetLeagueNames";
-   this.UrlGetLeagueData = urlPrefix + "Data/GetLeagueData";
+   this.UrlGetData = urlPrefix + "Data/GetData";
 
    this.UrlGetBoxScoresSeeds = urlPrefix + "Data/GetBoxScoresSeeds";
    this.UrlPostBoxScoresSeeds = urlPrefix + "Data/PostBoxScoresSeeds";
-   this.UrlPostBoxScoresSeeds = urlPrefix + "Data/PostBoxScoresSeeds";
+   //this.UrlRefreshCollection = urlPrefix + "Data/RefreshCollection";
    //  this.UrlGetTodaysMatchups = urlPrefix + "TodaysMatchups/GetTodaysMatchups";
    // this.UrlLoadBoxScores = urlPrefix + "TodaysMatchups/LoadBoxScores";
    this.UrlRefreshTodaysMatchups = urlPrefix + "Data/RefreshTodaysMatchups";
@@ -24,6 +24,7 @@
 angular.module('app').service('ajx', function () {
 
    this.AjaxGet = function (URL, Data) {
+      var startTime = new Date();
       return new Promise((resolve, reject) => {
          $.ajax({
             url: URL,
@@ -31,6 +32,7 @@ angular.module('app').service('ajx', function () {
             data: Data,
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
+               data.et = new Date() - startTime;
                resolve(data);
             },
             error: function (error) {
@@ -123,8 +125,25 @@ angular.module('app').service('f', function ($rootScope, ajx, url) {
    this.Today = function () {
       return new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
    };
+   this.Yesterday = function () {
+      return new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1);
+   };
+
+   //
+   // Messages
+   //
+   this.MessageError = function (msg) {
+      alert(msg);
+   };
+   this.MessageInformational = function (msg) {
+      alert(msg);
+   };
+
    this.MessageSuccess = function (msg) {
       alert("Success: " + msg);
+   };
+   this.MessageWarning = function (msg) {
+      alert(msg);
    };
 
    this.parseJsonDate = function (jsonDateString) {

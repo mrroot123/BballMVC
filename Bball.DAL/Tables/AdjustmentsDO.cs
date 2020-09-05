@@ -26,6 +26,8 @@ namespace Bball.DAL.Tables
       private DateTime _GameDate;
 
       // Constructors
+      public AdjustmentsDO()
+      { }
       public AdjustmentsDO(IBballInfoDTO oBballInfoDTO)
       {
          _oBballInfoDTO = oBballInfoDTO;
@@ -241,6 +243,7 @@ namespace Bball.DAL.Tables
                               , SqlParmNames, SqlParmValues, ocAdjustmentDTO, populateDTOFromRdr);
          return ocAdjustmentDTO;
       }
+      // egion rdrDelegates
       static void populateDTOFromRdr(object oRow, SqlDataReader rdr)
       {
 
@@ -256,7 +259,7 @@ namespace Bball.DAL.Tables
          oAdjustmentDTO.Player = (string)rdr["Player"];
          oAdjustmentDTO.Description = (string)rdr["Description"];
          oAdjustmentDTO.TS = (DateTime)rdr["TS"];
-
+         // 09/02/2020 KD - next 2 line not necessary
          List<BballMVC.IDTOs.IAdjustmentDTO> ocAdjustmentDTO = (List<BballMVC.IDTOs.IAdjustmentDTO>)oRow;
          ocAdjustmentDTO.Add(oAdjustmentDTO);
       }
@@ -282,27 +285,18 @@ namespace Bball.DAL.Tables
       }
       public IBballDataDTO GetAdjustmentInfo(DateTime GameDate, string LeagueName)
       {
-         //string ConnectionString = Bball.DataBaseFunctions.SqlFunctions.GetConnectionString();
-
 
          IBballDataDTO oBballDataDTO = new BballDataDTO();
-
-         oBballDataDTO.ocAdjustments = new List<IAdjustmentDTO>();
-         oBballDataDTO.ocAdjustmentNames = new List<IDropDown>();
-         oBballDataDTO.ocTeams = new List<IDropDown>();
-        // oBballDataDTO.ocLeagueNames = new List<IDropDown>();
 
          List<object> ocDTOs = new List<object>();
          ocDTOs.Add(oBballDataDTO.ocAdjustments);
          ocDTOs.Add(oBballDataDTO.ocAdjustmentNames);
          ocDTOs.Add(oBballDataDTO.ocTeams);
-       //  ocDTOs.Add(oBballDataDTO.ocLeagueNames);
 
          List<SysDAL.Functions.DALfunctions.PopulateDTO> ocDelegates = new List<SysDAL.Functions.DALfunctions.PopulateDTO>();
          ocDelegates.Add(populateDTOFromRdr);
          ocDelegates.Add(populateAdjCodesDTOFromRdr);
          ocDelegates.Add(populateTeamDTOFromRdr);
-       //  ocDelegates.Add(populateDropDownDTOFromRdr);
 
          List<string> SqlParmNames = new List<string>() { "GameDate", "LeagueName" };
          List<object> SqlParmValues = new List<object>() { GameDate, LeagueName };
@@ -313,6 +307,31 @@ namespace Bball.DAL.Tables
          //still unsure what to return
          return oBballDataDTO;
       }
+
+      public void GetAdjustmentInfo(IBballInfoDTO oBballInfoDTO)
+      {
+         //string ConnectionString = Bball.DataBaseFunctions.SqlFunctions.GetConnectionString();
+
+
+         IBballDataDTO oBballDataDTO = oBballInfoDTO.oBballDataDTO;
+
+         List<object> ocDTOs = new List<object>();
+         ocDTOs.Add(oBballDataDTO.ocAdjustments);
+         ocDTOs.Add(oBballDataDTO.ocAdjustmentNames);
+         ocDTOs.Add(oBballDataDTO.ocTeams);
+
+         List<SysDAL.Functions.DALfunctions.PopulateDTO> ocDelegates = new List<SysDAL.Functions.DALfunctions.PopulateDTO>();
+         ocDelegates.Add(populateDTOFromRdr);
+         ocDelegates.Add(populateAdjCodesDTOFromRdr);
+         ocDelegates.Add(populateTeamDTOFromRdr);
+
+         List<string> SqlParmNames = new List<string>() { "GameDate", "LeagueName" };
+         List<object> SqlParmValues = new List<object>() { oBballInfoDTO.GameDate, oBballInfoDTO.LeagueName };
+
+         SysDAL.Functions.DALfunctions.ExecuteStoredProcedureQueries(oBballInfoDTO.ConnectionString, "uspQueryAdjustmentInfo"
+                           , SqlParmNames, SqlParmValues, ocDTOs, ocDelegates);
+      }
+
 
 
    }  // class Adjustments
