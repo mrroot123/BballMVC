@@ -63,7 +63,7 @@
             $scope.$emit('showAccordian');
             $scope.$apply;
             $('#screen').css({ "display": "block", opacity: 1, "width": $(document).width(), "height": $(document).height() });
-
+            alert($rootScope.oBballInfoDTO.LeagueName + " selected");
 
          })
          .catch(error => {
