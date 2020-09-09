@@ -8,19 +8,19 @@ namespace BballMVC.DTOs
    public class BballDataDTO : IBballDataDTO 
    {
      // public IGetDataConstants DataConstants { get; set; }
-      public string Message { get; set; }
-      public int MessageNumber { get; set; }
-      public string BaseDir { get; set; }
-      public IList<IAdjustmentDTO> ocAdjustments { get; set; }
-      public IList<IDropDown> ocAdjustmentNames { get; set; }
-      public IList<IDropDown> ocTeams { get; set; }
-      public IList<IDropDown> ocLeagueNames { get; set; }
-      public IList<ITodaysMatchupsDTO> ocTodaysMatchupsDTO { get; set; }
-      public IList<IBoxScoresSeedsDTO> ocBoxScoresSeedsDTO { get; set; }
+      public string  Message { get; set; }
+      public int     MessageNumber { get; set; }
+      public string  BaseDir { get; set; }
+      public IList<IAdjustmentDTO>        ocAdjustments        { get; set; }
+      public IList<IDropDown>             ocAdjustmentNames    { get; set; }
+      public IList<IDropDown>             ocTeams              { get; set; }
+      public IList<IDropDown>             ocLeagueNames        { get; set; }
+      public IList<ITodaysMatchupsDTO>    ocTodaysMatchupsDTO  { get; set; }
+      public IList<IBoxScoresSeedsDTO>    ocBoxScoresSeedsDTO  { get; set; }
       public IList<IvPostGameAnalysisDTO> ocPostGameAnalysisDTO { get; set; }
 
-      public IDailySummaryDTO oDailySummaryDTO { get; set; }
-      public ISeasonInfoDTO oSeasonInfoDTO { get; set; }
+      public IDailySummaryDTO oDailySummaryDTO  { get; set; }
+      public ISeasonInfoDTO   oSeasonInfoDTO    { get; set; }
 
       public dynamic DataConstants { get; set; }
 
@@ -37,6 +37,7 @@ namespace BballMVC.DTOs
          ocPostGameAnalysisDTO = new List<IvPostGameAnalysisDTO>();
          oDailySummaryDTO = new DailySummaryDTO();
          oSeasonInfoDTO = new SeasonInfoDTO();
+         DataConstants = new System.Dynamic.ExpandoObject();
       }
    }
    public class DropDown : IDropDown

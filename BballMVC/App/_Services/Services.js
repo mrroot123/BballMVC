@@ -10,7 +10,8 @@
    this.UrlGetLeagueNames = urlPrefix + "Data/GetLeagueNames";
    this.UrlGetData = urlPrefix + "Data/GetData";
 
-   this.UrlGetBoxScoresSeeds = urlPrefix + "Data/GetBoxScoresSeeds";
+   this.UrlPostData = urlPrefix + "Data/PostData";
+
    this.UrlPostBoxScoresSeeds = urlPrefix + "Data/PostBoxScoresSeeds";
    //this.UrlRefreshCollection = urlPrefix + "Data/RefreshCollection";
    //  this.UrlGetTodaysMatchups = urlPrefix + "TodaysMatchups/GetTodaysMatchups";
@@ -22,7 +23,14 @@
 
 });
 angular.module('app').service('ajx', function () {
-
+   /*
+   processData (default: true)
+Type: Boolean
+   By default, data passed in to the data option as an object 
+   (technically, anything other than a string) will be processed and transformed into a query string, 
+   fitting to the default content-type "application/x-www-form-urlencoded". 
+   If you want to send a DOMDocument, or other non-processed data, set this option to false.
+   */
    this.AjaxGet = function (URL, Data) {
       var startTime = new Date();
       return new Promise((resolve, reject) => {
@@ -42,14 +50,18 @@ angular.module('app').service('ajx', function () {
       });   // Promise
    };  // AjaxGet
 
-   this.AjaxPost = function (URL, Data) {
+   this.AjaxPost = function (URL, Data, ContentType) {
+      if (!ContentType)
+         ContentType = 'application/json; charset=utf-8';
+      var startTime = new Date();
       return new Promise((resolve, reject) => {
          $.ajax({
             url: URL,
             type: 'POST',
             data: JSON.stringify(Data),
-            contentType: 'application/json; charset=utf-8',
+            contentType: ContentType,  
             success: function (returnData) {
+               returnData.et = new Date() - startTime;
                resolve(returnData);
             },
             error: function (error) {

@@ -19,6 +19,36 @@ namespace Bball.DAL.Tables
 {
    public class DataDO
    {
+      #region adjustments
+      public void InsertAdjustmentRow(IBballInfoDTO oBballInfoDTO)
+      {
+         // call uspInsertAdjustments to write Adj row
+         AdjustmentDTO oAdjustmentDTO = oBballInfoDTO.oJObject.ToObject<AdjustmentDTO>();
+         List<string> SqlParmNames = new List<string>() { "LeagueName", "StartDate", "Team", "AdjustmentDesc", "AdjustmentAmount", "Player", "Description" };
+         List<object> SqlParmValues = new List<object>()
+         { oAdjustmentDTO.LeagueName.ToString(), oAdjustmentDTO.StartDate.ToShortDateString(), oAdjustmentDTO.Team.ToString(), oAdjustmentDTO.AdjustmentType.ToString(),
+               oAdjustmentDTO.AdjustmentAmount.ToString(), oAdjustmentDTO.Player.ToString(), oAdjustmentDTO.Description.ToString() };
+         SysDAL.Functions.DALfunctions.ExecuteStoredProcedureNonQuery(oBballInfoDTO.ConnectionString, "uspInsertAdjustments", SqlParmNames, SqlParmValues);
+      }
+
+      public void UpdateAdjustments(IBballInfoDTO oBballInfoDTO)
+      {
+         IList<IAdjustmentDTO> ocAdjustmentDTO = oBballInfoDTO.oJObject.ToObject< IList < IAdjustmentDTO >  > ();
+         DataTable tblAdjustments = new DataTable();
+         tblAdjustments.Columns.Add("AdjustmentID", typeof(int));
+         tblAdjustments.Columns.Add("AdjustmentAmount", typeof(string));
+
+         foreach (var oAdjustment in ocAdjustmentDTO)
+         {
+            tblAdjustments.Rows.Add(oAdjustment.AdjustmentID, oAdjustment.AdjustmentAmount.ToString());
+         }
+
+         List<string> SqlParmNames = new List<string>() { "tblAdjustments", "GameDate" };
+         List<object> SqlParmValues = new List<object>() { tblAdjustments, oBballInfoDTO.GameDate };
+         SysDAL.Functions.DALfunctions.ExecuteStoredProcedureNonQuery(oBballInfoDTO.ConnectionString, "uspUpdateAdjustments", SqlParmNames, SqlParmValues);
+      }
+      #endregion adjustments
+
       public void GetLeagueNames(IBballInfoDTO oBballInfoDTO)
       {
          var strSql = "SELECT Distinct LeagueName, LeagueName  FROM LeagueInfo";

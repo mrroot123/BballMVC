@@ -1,4 +1,5 @@
 ﻿using System;
+using Newtonsoft.Json.Linq;
 
 
 namespace BballMVC.IDTOs
@@ -12,6 +13,7 @@ namespace BballMVC.IDTOs
       string UserName { get; set; }
       string LogName { get; set; }
       ISeasonInfoDTO oSeasonInfoDTO { get; set; }
+      JObject oJObject { get; set; }
       IBballDataDTO oBballDataDTO { get; set; }
       string LoadDateTime();
       void CloneBballDataDTO(IBballInfoDTO c);

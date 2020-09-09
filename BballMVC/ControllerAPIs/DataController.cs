@@ -12,9 +12,11 @@ using BballMVC.DTOs;
 using BballMVC.IDTOs;
 using Newtonsoft.Json.Linq;
 using TTI.Logger;
+using BballMVC.Classes;
 
 namespace BballMVC.ControllerAPIs
 {
+   // [ApiExceptionFilter]
    public class DataController : BaseApiController
    {
       
@@ -26,28 +28,7 @@ namespace BballMVC.ControllerAPIs
          oDataBO = new DataBO();
       }
 
-      //[HttpGet]
-      //public HttpResponseMessage GetLeagueNames(string UserName)
-      //{
-      //   IBballInfoDTO oBballInfoDTO = new BballInfoDTO()
-      //   {
-      //      UserName = UserName
-      //   };
-      //   oBballInfoDTO.ConnectionString = GetConnectionString();
-      //   oDataBO.GetLeagueNames(oBballInfoDTO);
-      //   return Request.CreateResponse(HttpStatusCode.OK, oBballInfoDTO.oBballDataDTO);
-      //}
-      //[HttpGet]
-      //public HttpResponseMessage GetLeagueData(string UserName, DateTime GameDate, string LeagueName)
-      //{
-      //   oBballInfoDTO.UserName = UserName;
-      //   oBballInfoDTO.GameDate = GameDate;
-      //   oBballInfoDTO.LeagueName = LeagueName;
 
-      //   oDataBO.GetLeagueData(oBballInfoDTO);
-
-      //   return Request.CreateResponse(HttpStatusCode.OK, oBballInfoDTO.oBballDataDTO);
-      //}
       [HttpGet]
       public HttpResponseMessage GetData(string UserName, DateTime GameDate, string LeagueName, string CollectionType)
       {
@@ -86,25 +67,39 @@ namespace BballMVC.ControllerAPIs
 
          return Request.CreateResponse(HttpStatusCode.OK, oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO);
       }
-      //[HttpGet]
-      //public HttpResponseMessage GetBoxScoresSeeds(string UserName, DateTime GameDate, string LeagueName)
+
+      //[HttpPost]
+      //public HttpResponseMessage PostData([FromBody]JObject strJObject)
       //{
-      //   IBballInfoDTO oBballInfoDTO = new BballInfoDTO()
-      //   {
-      //      UserName = UserName,
-      //      GameDate = GameDate,
-      //      LeagueName = LeagueName,
-      //      ConnectionString = GetConnectionString()
-      //   };
-      //   oDataBO.GetBoxScoresSeeds(oBballInfoDTO);
-      //   return Request.CreateResponse(HttpStatusCode.OK, oBballInfoDTO.oBballDataDTO.ocBoxScoresSeedsDTO);
+      //   var CollectionType = "";
+      //   // JObject x = (JObject)sjObject;
+      //   oDataBO.PostData(strJObject, CollectionType);
+      //   return Request.CreateResponse(HttpStatusCode.OK, "Success");
+      //}
+      //[HttpPost]
+      //public HttpResponseMessage PostData([FromBody]string strJObject)
+      //{
+      //   var CollectionType = "";
+      //   // JObject x = (JObject)sjObject;
+      //   oDataBO.PostData(strJObject, CollectionType);
+      //   return Request.CreateResponse(HttpStatusCode.OK, "Success");
+      //}
+
+      //[HttpPost]
+      //public HttpResponseMessage PostData([FromBody]string oJObject, [FromUri]string CollectionType)
+      //{
+      //  // oBballInfoDTO.oJObject = oJObject;
+      //   oBballInfoDTO.CollectionType = CollectionType;
+      //   oDataBO.PostData(oBballInfoDTO);
+      //   return Request.CreateResponse(HttpStatusCode.OK, "Success");
       //}
 
       [HttpPost]
-      public HttpResponseMessage PostData(string strJObject, [FromUri]string CollectionType)
+      public HttpResponseMessage PostData([FromBody]JObject oJObject, [FromUri]string CollectionType)
       {
-        // JObject x = (JObject)sjObject;
-
+         oBballInfoDTO.oJObject = oJObject;
+         oBballInfoDTO.CollectionType = CollectionType;
+         oDataBO.PostData(oBballInfoDTO);
          return Request.CreateResponse(HttpStatusCode.OK, "Success");
       }
 
@@ -195,15 +190,15 @@ namespace BballMVC.ControllerAPIs
       }
 */
    }
-   public class GetDataConstants
-   {
-      public const string DataConstants = "DataConstants";
-      public const string GetBoxScoresSeeds = "GetBoxScoresSeeds";
-      public const string GetDailySummaryDTO = "GetDailySummaryDTO";
-      public const string GetLeagueData = "GetLeagueData";
-      public const string GetLeagueNames = "GetLeagueNames";
-      public const string LoadBoxScores = "LoadBoxScores";
-      public const string RefreshPostGameAnalysis = "RefreshPostGameAnalysis";
-      public const string RefreshTodaysMatchups = "RefreshTodaysMatchups";
-   }
+   //public class GetDataConstants
+   //{
+   //   public const string DataConstants = "DataConstants";
+   //   public const string GetBoxScoresSeeds = "GetBoxScoresSeeds";
+   //   public const string GetDailySummaryDTO = "GetDailySummaryDTO";
+   //   public const string GetLeagueData = "GetLeagueData";
+   //   public const string GetLeagueNames = "GetLeagueNames";
+   //   public const string LoadBoxScores = "LoadBoxScores";
+   //   public const string RefreshPostGameAnalysis = "RefreshPostGameAnalysis";
+   //   public const string RefreshTodaysMatchups = "RefreshTodaysMatchups";
+   //}
 }

@@ -18,6 +18,10 @@ namespace BballMVC
 			AreaRegistration.RegisterAllAreas();
 			FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
          GlobalConfiguration.Configure(WebApiConfig.Register);
+
+         // Register Exception Filter
+         GlobalConfiguration.Configuration.Filters.Add(new BballMVC.Classes.ApiExceptionFilter()); 
+
          RouteConfig.RegisterRoutes(RouteTable.Routes);
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
 		}

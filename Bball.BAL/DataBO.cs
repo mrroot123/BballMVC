@@ -12,14 +12,10 @@ namespace Bball.BAL
    
    public class DataBO : IDataBO 
    {
-     // IBballInfoDTO _oBballInfoDTO;
-
+      // IBballInfoDTO _oBballInfoDTO;
+      DataDO _DataDO = new DataDO();
       // Constructor
-   //   public DataBO(IBballInfoDTO BballInfoDTO) => _oBballInfoDTO = BballInfoDTO;
-
-      //public void GetLeagueNames(IBballInfoDTO oBballInfoDTO)
-      //   => new DataDO().GetLeagueNames(oBballInfoDTO);
-
+  //    public DataBO(IBballInfoDTO BballInfoDTO) => _oBballInfoDTO = BballInfoDTO;
 
       public void GetData(IBballInfoDTO oBballInfoDTO)
       {
@@ -29,7 +25,7 @@ namespace Bball.BAL
             switch (CollectionType)
             {
                case GetDataConstants.AppInit:
-                  oBballInfoDTO.oBballDataDTO.DataConstants = new GetDataConstants();
+                  GetDataConstants.PopulateDataConstants(oBballInfoDTO.oBballDataDTO.DataConstants);
                   oBballInfoDTO.oBballDataDTO.BaseDir = System.AppDomain.CurrentDomain.BaseDirectory;
                   new AdjustmentsDO(oBballInfoDTO).UpdateYesterdaysAdjustments();
                   new DataDO().GetLeagueNames(oBballInfoDTO);
@@ -45,7 +41,7 @@ namespace Bball.BAL
 
                   break;
                case GetDataConstants.DataConstants:
-                  oBballInfoDTO.oBballDataDTO.DataConstants = new GetDataConstants();
+                  GetDataConstants.PopulateDataConstants(oBballInfoDTO.oBballDataDTO.DataConstants);
                   break;
                case GetDataConstants.GetBoxScoresSeeds:           // ocBoxScoresSeedsDTO
                   new DataDO().GetBoxScoresSeeds(oBballInfoDTO);
@@ -69,7 +65,10 @@ namespace Bball.BAL
                case GetDataConstants.RefreshTodaysMatchups:       // Run uspCalcTMs, Get ocTodaysMatchupsDTO
                   new DataDO().RefreshTodaysMatchups(oBballInfoDTO);
                   break;
-
+               case "error":
+                  var x = 0;
+                  var y = 2 / x;
+                  break;
                default:
                   throw new Exception("Invalid CollectionType: " + CollectionType);
             }
@@ -78,23 +77,27 @@ namespace Bball.BAL
       }
 
       // Posts
-      public void PostData(string strJObject, string CollectionType)
+      public void PostData(IBballInfoDTO oBballInfoDTO)
       {
-         JObject jObject = (JObject)strJObject;
-         switch (CollectionType)
+       //  JObject jObject = (JObject)strJObject;
+         switch (oBballInfoDTO.CollectionType)
          {
-            case "UpdateAdjustments":
-               IList<BballMVC.IDTOs.IAdjustmentDTO> ocAdjustmentDTO = jObject.ToObject<IList<BballMVC.IDTOs.IAdjustmentDTO>>();
-               new AdjustmentsDO().UpdateAdjustmentRow(ocAdjustmentDTO);
+            case PostDataConstants.InsertAdjustment:
+              // IAdjustmentDTO oAdjustmentDTO = oBballInfoDTO.oJObject.ToObject<AdjustmentDTO>();
+               //new AdjustmentsDO().InsertAdjustmentRow(oAdjustmentDTO);
+               _DataDO.InsertAdjustmentRow(oBballInfoDTO);
+               break;
+
+            case PostDataConstants.UpdateAdjustments:
+               _DataDO.UpdateAdjustments(oBballInfoDTO);
+               IList<BballMVC.IDTOs.IAdjustmentDTO> ocAdjustmentDTO = oBballInfoDTO.oJObject.ToObject<IList<BballMVC.IDTOs.IAdjustmentDTO>>();
+              // new AdjustmentsDO().UpdateAdjustmentRow(ocAdjustmentDTO);
                break;
 
             default:
-               throw new Exception("DataDO.PostData - Invalid CollectionType :" + CollectionType);
-
+               throw new Exception("DataDO.PostData - Invalid CollectionType :" + oBballInfoDTO.CollectionType);
          }
-
       }
-
    }
 
    public  class GetDataConstants
@@ -108,5 +111,31 @@ namespace Bball.BAL
       public const string LoadBoxScores = "LoadBoxScores";
       public const string RefreshPostGameAnalysis = "RefreshPostGameAnalysis";
       public const string RefreshTodaysMatchups = "RefreshTodaysMatchups";
+
+      public static void PopulateDataConstants(dynamic d)
+      {
+         d.AppInit = AppInit;
+         d.DataConstants = DataConstants;
+         d.GetBoxScoresSeeds = GetBoxScoresSeeds;
+         d.GetDailySummaryDTO = GetDailySummaryDTO;
+         d.GetLeagueData = GetLeagueData;
+         d.GetLeagueNames = GetLeagueNames;
+         d.LoadBoxScores = LoadBoxScores;
+         d.RefreshPostGameAnalysis = RefreshPostGameAnalysis;
+         d.RefreshTodaysMatchups = RefreshTodaysMatchups;
+      }
    }
-}
+   public class PostDataConstants
+   {
+      public const string InsertAdjustment = "InsertAdjustment";
+      public const string UpdateAdjustments = "UpdateAdjustments";
+
+      public static void PopulateDataConstants(dynamic d)
+      {
+         d.InsertAdjustment = InsertAdjustment;
+         d.UpdateAdjustments = UpdateAdjustments;
+      }
+
+   }  // PostDataConstants
+
+}  // Namespace

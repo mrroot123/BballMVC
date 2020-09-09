@@ -87,6 +87,9 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -166,12 +169,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Classes\ApiExceptionFilter.cs" />
+    <Compile Include="Classes\ApiGlobalExceptionHandler.cs" />
     <Compile Include="ControllerAPIs\AdjustmentsController.cs" />
     <Compile Include="ControllerAPIs\BaseApiController.cs" />
     <Compile Include="ControllerAPIs\DataController.cs" />
@@ -181,6 +181,8 @@
     <Compile Include="Controllers\BoxScoresController.cs" />
     <Compile Include="Controllers\RotationController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Log\Helper.cs" />
+    <Compile Include="Log\TTILogMessage.cs" />
     <Compile Include="Models\Adjustments.cs">
       <DependentUpon>BballEntities.tt</DependentUpon>
     </Compile>

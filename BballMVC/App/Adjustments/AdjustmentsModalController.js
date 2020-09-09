@@ -1,7 +1,6 @@
 ﻿
 angular.module('app').controller('AdjustmentsModalController', function ($rootScope, $scope, f, ajx, url) {
    let rowWasInserted = false;
-  // let GetAdjustmentsParms = { scope: $scope, f: f, LeagueName: $rootScope.oBballInfoDTO.LeagueName, ajx: ajx };
 
    $scope.$on('OpenAdjustmentEntryModalEvent', function (e) {
       rowWasInserted = false;
@@ -34,8 +33,9 @@ angular.module('app').controller('AdjustmentsModalController', function ($rootSc
       //}
 
       $scope.setAdjustmentsModal = f.showHideModal(false);  // $scope.showAdjustmentsModal(false);
-
-      ajx.AjaxPost(url.UrlPostInsertAdjustment, oAdjustment)
+   // "InsertAdjustment"
+   //      ajx.AjaxPost(url.UrlPostData, oAdjustment)
+      ajx.AjaxPost(url.UrlPostData + "?CollectionType=InsertAdjustment", oAdjustment)     // , "text/plain")
          .then(data => {
             rowWasInserted = true;
             f.MessageSuccess("Insert Complete");

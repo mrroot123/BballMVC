@@ -1,5 +1,6 @@
 ﻿using System;
 using BballMVC.IDTOs;
+using Newtonsoft.Json.Linq;
 
 namespace BballMVC.DTOs
 {
@@ -18,6 +19,7 @@ namespace BballMVC.DTOs
       public string ConnectionString { get; set; }
       public string LogName { get; set; }
       public ISeasonInfoDTO oSeasonInfoDTO { get; set; }
+      public JObject oJObject { get; set; }
 
       public IBballDataDTO oBballDataDTO { get; set; }
 

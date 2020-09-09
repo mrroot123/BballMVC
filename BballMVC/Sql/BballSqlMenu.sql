@@ -7,7 +7,8 @@ Declare @mChoice as int =1;
 	Print 'Table_Counts              - Displays Table Row counts and Max GameDate'
 	Print 'TableVerifications        - Verify No Boxscores are missing'
 	Print 'TeamStaAverages           - WIP - to gen Todays Matchups'
-	Print 'Verify_Boxscores          - Verify Boxscore Stats added up'
 	Print 'InsertDailyTeamStrengths  - FINISH CODING  '
-	Print '                          -   '
+
+	Print 'Verify_Boxscores          - Verify Boxscore Stats added up'
+	Print 'VerifyRotationTotalLine ZERO - Display Rotation Rows w TL = ZERO'
 	
