@@ -174,7 +174,8 @@ Namespace Bball.VbClasses
                oParseRotation.Ptr = savPtr
                oParseRotation.StringSearch("class=""cmg_team_name")
                oParseRotation.GetHtmlEle("span")
-               oCoversDTO.RotNum = CInt(oParseRotation.InnerHtml)
+               Integer.TryParse(oParseRotation.InnerHtml, oCoversDTO.RotNum)
+               ' oCoversDTO.RotNum = CInt(oParseRotation.InnerHtml)
 
                _ocRotation.Add(oCoversDTO.RotNum.ToString(), oCoversDTO)
             Catch ex As Exception

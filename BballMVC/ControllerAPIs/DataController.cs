@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -12,7 +11,6 @@ using BballMVC.DTOs;
 using BballMVC.IDTOs;
 using Newtonsoft.Json.Linq;
 using TTI.Logger;
-using BballMVC.Classes;
 
 namespace BballMVC.ControllerAPIs
 {
@@ -93,7 +91,32 @@ namespace BballMVC.ControllerAPIs
       //   oDataBO.PostData(oBballInfoDTO);
       //   return Request.CreateResponse(HttpStatusCode.OK, "Success");
       //}
-
+      public class MyClass
+      {
+         public string MyString { get; set; }
+      }
+      [HttpPost]
+      public HttpResponseMessage PostJsonString([FromBody] JsonString oJsonString, [FromUri]string CollectionType)
+      {
+         oBballInfoDTO.sJsonString = oJsonString.sJsonString;
+         oBballInfoDTO.CollectionType = CollectionType;
+         oDataBO.PostData(oBballInfoDTO);
+         return Request.CreateResponse(HttpStatusCode.OK, "Success");
+      }
+      [HttpPost]
+      public HttpResponseMessage xPostTest([FromBody]string MyString)
+      {
+         return Request.CreateResponse(HttpStatusCode.OK, "Success");
+      }
+      [HttpPost]
+      public HttpResponseMessage PostObject([FromBody]List<TodaysPlaysDTO> oObject, [FromUri]string CollectionType)
+      {
+         oBballInfoDTO.oObject = oObject;
+         
+         oBballInfoDTO.CollectionType = CollectionType;
+         oDataBO.PostData(oBballInfoDTO);
+         return Request.CreateResponse(HttpStatusCode.OK, "Success");
+      }
       [HttpPost]
       public HttpResponseMessage PostData([FromBody]JObject oJObject, [FromUri]string CollectionType)
       {

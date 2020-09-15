@@ -15,6 +15,7 @@ namespace BballMVC.DTOs
       public string TeamHome { get; set; }
       public System.DateTime WeekEndDate { get; set; }
       public string PlayLength { get; set; }
+      public string PlayDirection { get; set; }
       public string PlayType { get; set; }
       public double Line { get; set; }
       public string Info { get; set; }

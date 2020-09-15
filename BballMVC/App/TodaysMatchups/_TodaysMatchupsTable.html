@@ -32,9 +32,10 @@
 
       <th>Calced<br />Line</th>
 
-      <th ng-hide="Multi">Total<br />Line</th>
-      <th ng-show="Multi">Total<br />/Side</th>
+      <th>Total<br />Line</th>
+
       <th ng-hide="Multi">Side<br />Line</th>
+      <th ng-show="Multi">Side<br />Open TL</th>
 
       <th>Line<br />Diff</th>
       <th><br />Play</th>
@@ -48,14 +49,14 @@
       <th ng-show="PlayEntry">
          <button type="button" class="btn btn-info active" data-toggle="tooltip" title="Process Plays"
                  ng-show="true" ng-click="ProcessPlays()">
-            Refresh TMs
+            Process Plays
          </button>
       </th>
    </tr>
    <tr ng-show="ocTodaysMatchups.length==0"><td>No Games Scheduled</td></tr> 
 
    <!-- Matchups -->
-   <tr ng-repeat="item in ocTodaysMatchups" ng-hide="ShowPlaysOnly && item.Play==''">
+   <tr ng-repeat="item in ocTodaysMatchups" ng-hide="ShowPlaysOnly && item.Play===''">
 
       <td>
          <table>
@@ -76,10 +77,10 @@
                <td ng-hide="Multi">{{item.TeamAway}}-{{item.TeamHome}}</td>
             </tr>
             <tr>
-               <td ng-show="Multi" id="RotNum_TeamAway_{{$index}}">{{item.TeamAway}}</td>
+               <td ng-show="Multi" id="TeamAway_{{$index}}">{{item.TeamAway}}</td>
             </tr>
             <tr>
-               <td ng-show="Multi" id="RotNum_TeamHome_{{$index}}">{{item.TeamHome}}</td>
+               <td ng-show="Multi" id="TeamHome_{{$index}}">{{item.TeamHome}}</td>
             </tr>
          </table>
       </td>
@@ -193,20 +194,49 @@
             </tr>
          </table>
       </td>
+      <td>
+         <table>
+            <tr>
+               <td ng-show="Multi">{{(item.TotalLine-item.SideLine)/2 | number:1}}</td>
+            </tr>
+            <tr>
+               <td ng-show="Multi">{{(item.TotalLine+item.SideLine)/2 | number:1}}</td>
+            </tr>
+            <tr>
+               <td id="TotalLine_{{$index}}">{{item.TotalLine | number:1}}</td>
+            </tr>
+
+         </table>
+      </td>
+
+
 
       <td>
          <table>
             <tr>
-               <td id="TotalLine_{{$index}}">{{item.TotalLine | number:1}}</td>
+               <td>{{item.SideLine | number:1}}</td>
             </tr>
+            <tr><td ng-show="Multi">&nbsp;</td> </tr>
             <tr>
-               <td ng-show="Multi">{{item.SideLine | number:1}}</td>
+               <td ng-show="Multi">{{item.OpenTotalLine |  number:1}}</td>
             </tr>
          </table>
       </td>
-      <td ng-hide="Multi">{{item.SideLine | number:1}}</td>
 
-      <td>{{item.PlayDiff | number:1}}</td>
+
+      <td ng-hide="Multi">{{item.PlayDiff | number:1}}</td>
+      <td ng-show="Multi">
+         <table>
+            <tr>
+               <td>{{item.SideLine | number:1}}</td>
+            </tr>
+            <tr><>&nbsp;</td> </tr>
+            <tr>
+               <td>{{item.PlayDiff |  number:1}}</td>
+            </tr>
+         </table>
+      </td>
+
       <td id="Play_{{$index}}">
          {{item.Play}}
       </td>
@@ -224,7 +254,7 @@
          </select>
       </td>
       <td ng-show="PlayEntry">
-         <select id="PlayDir_{{$index}}">
+         <select id="PlayDirection_{{$index}}">
             <option value="Over" label="Over"></option>
             <option value="Under" label="Under"></option>
             <option value="Away" label="Away"></option>
@@ -247,10 +277,10 @@
          <input type="text" maxlength="4" size="2" id="Juice_{{$index}}" />
       </td>
       <td ng-show="PlayEntry">
-         <input type="text" maxlength="7" size="3" id="Amount_{{$index}}" />
+         <input type="text" maxlength="7" size="3" id="PlayAmount_{{$index}}" />
       </td>
       <td ng-show="PlayEntry">
-         <input type="text" maxlength="4" size="2" id="Weight_{{$index}}" />
+         <input type="text" maxlength="4" size="2" id="PlayWeight_{{$index}}" />
       </td>
       <td ng-show="PlayEntry">
          <input type="checkbox" id="cbProcessPlay_{{$index}}" />

@@ -1,3 +1,5 @@
+use [00TTI_LeagueScores]
+
 	Declare
 			  @UserName varchar(25) = 'Test', @LeagueName varchar(10) = 'NBA', @GameDate date = '8/22/2020'
 

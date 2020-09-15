@@ -38,6 +38,7 @@ namespace BballMVC.DTOs
       public Nullable<double> TotalLine { get; set; }
       public Nullable<double> OpenTotalLine { get; set; }
       public string Play { get; set; }
+      public string PlayResult { get; set; }
       public Nullable<double> PlayDiff { get; set; }
       public Nullable<double> OpenPlayDiff { get; set; }
       public Nullable<double> AdjustedDiff { get; set; }

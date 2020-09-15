@@ -91,7 +91,11 @@ namespace Bball.BAL
             case PostDataConstants.UpdateAdjustments:
                _DataDO.UpdateAdjustments(oBballInfoDTO);
                IList<BballMVC.IDTOs.IAdjustmentDTO> ocAdjustmentDTO = oBballInfoDTO.oJObject.ToObject<IList<BballMVC.IDTOs.IAdjustmentDTO>>();
-              // new AdjustmentsDO().UpdateAdjustmentRow(ocAdjustmentDTO);
+               // new AdjustmentsDO().UpdateAdjustmentRow(ocAdjustmentDTO);
+               break;
+
+            case PostDataConstants.ProcessPlays:
+               _DataDO.ProcessPlays(oBballInfoDTO);
                break;
 
             default:
@@ -128,11 +132,13 @@ namespace Bball.BAL
    public class PostDataConstants
    {
       public const string InsertAdjustment = "InsertAdjustment";
+      public const string ProcessPlays = "ProcessPlays";
       public const string UpdateAdjustments = "UpdateAdjustments";
-
+      
       public static void PopulateDataConstants(dynamic d)
       {
          d.InsertAdjustment = InsertAdjustment;
+         d.ProcessPlays = ProcessPlays;
          d.UpdateAdjustments = UpdateAdjustments;
       }
 

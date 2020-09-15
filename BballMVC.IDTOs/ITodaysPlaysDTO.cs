@@ -17,6 +17,7 @@ namespace BballMVC.IDTOs
       bool? OT { get; set; }
       string Out { get; set; }
       double PlayAmount { get; set; }
+      string PlayDirection { get; set; }
       string PlayLength { get; set; }
       string PlayType { get; set; }
       double PlayWeight { get; set; }

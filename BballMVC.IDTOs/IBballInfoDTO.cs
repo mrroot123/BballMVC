@@ -13,9 +13,15 @@ namespace BballMVC.IDTOs
       string UserName { get; set; }
       string LogName { get; set; }
       ISeasonInfoDTO oSeasonInfoDTO { get; set; }
+      System.Object oObject { get; set; }
       JObject oJObject { get; set; }
+      string sJsonString { get; set; }
       IBballDataDTO oBballDataDTO { get; set; }
-      string LoadDateTime();
+      string LoadDateTime { get; set; }
       void CloneBballDataDTO(IBballInfoDTO c);
    }
+   //public interface JsonString
+   //{
+   //    string sJsonString { get; set; }
+   //}
 }

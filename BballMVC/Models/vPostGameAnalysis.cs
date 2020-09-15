@@ -156,5 +156,6 @@ namespace BballMVC.Models
         public Nullable<double> AwayAveragePtsAllowed { get; set; }
         public Nullable<double> HomeAveragePtsAllowed { get; set; }
         public string AllAdjustmentLines { get; set; }
+        public string PlayResult { get; set; }
     }
 }

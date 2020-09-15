@@ -21,7 +21,7 @@ namespace BballMVC.Models
         public System.TimeSpan GameTime { get; set; }
         public string TeamAway { get; set; }
         public string TeamHome { get; set; }
-        public System.DateTime WeekEndDate { get; set; }
+        public Nullable<System.DateTime> WeekEndDate { get; set; }
         public string PlayLength { get; set; }
         public string PlayType { get; set; }
         public decimal Line { get; set; }
@@ -37,5 +37,8 @@ namespace BballMVC.Models
         public Nullable<double> ResultAmount { get; set; }
         public string CreateUser { get; set; }
         public System.DateTime CreateDate { get; set; }
+        public Nullable<int> TranType { get; set; }
+        public string PlayDirection { get; set; }
+        public Nullable<int> FinalScore { get; set; }
     }
 }

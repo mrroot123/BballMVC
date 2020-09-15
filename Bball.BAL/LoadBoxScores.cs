@@ -53,51 +53,47 @@ namespace Bball.BAL
             oSeasonInfoDTO = _oSeasonInfoDO.oSeasonInfoDTO
          };
          _DefaultDate = SeasonInfoDO.DefaultDate;
-         LoadBoxScoreRange(LeagueName, ConnectionString, SeasonInfoDO.DefaultDate);
+         LoadBoxScoreRange(LeagueName, ConnectionString, SeasonInfoDO.DefaultDate, _oLeagueDTO.BoxScoresL5MinURL);
       }
       #endregion constructors
 
       public void LoadTodaysRotation()
       {
-         if (!_oSeasonInfoDO.RotationLoadedToDate())  // Is GameDate > Tomorrow
+
+
+         // Load Rotations
+         //
+         //int rotationDays2Load = 2;
+         //for (int i = 0; i < rotationDays2Load; i++) // Loop twice - Load Today's & Tomorrow's Rotation
+
+         DateTime GameDate = SqlFunctions.GetMaxGameDate(
+            _oBballInfoDTO.ConnectionString, _oBballInfoDTO.LeagueName, "Rotation", _DefaultDate);
+         GameDate = getNextGameDate(GameDate);
+         SeasonInfoDO _oSeasonInfoDO = new SeasonInfoDO(GameDate, _oBballInfoDTO.LeagueName);
+         int LoadRotationDaysAhead = Int32.Parse(
+               SqlFunctions.ParmTableParmValueQuery(_oBballInfoDTO.ConnectionString, "LoadRotationDaysAhead"));
+         while (_oBballInfoDTO.GameDate <= DateTime.Today.AddDays(LoadRotationDaysAhead))  // Is GameDate > Tomorrow)
          {
+            // string _strLoadDateTime = _oBballInfoDTO.LoadDateTime();    // _oSeasonInfoDO.GameDate.ToString();
 
-            // Load Rotations
-            //
-            //int rotationDays2Load = 2;
-            //for (int i = 0; i < rotationDays2Load; i++) // Loop twice - Load Today's & Tomorrow's Rotation
-
-            DateTime GameDate = SqlFunctions.GetMaxGameDate(
-               _oBballInfoDTO.ConnectionString, _oBballInfoDTO.LeagueName, "Rotation", _DefaultDate);
-            GameDate = getNextGameDate(GameDate);
-            SeasonInfoDO _oSeasonInfoDO = new SeasonInfoDO(GameDate, _oBballInfoDTO.LeagueName);
-
-
-            while (_oBballInfoDTO.GameDate <= DateTime.Today.AddDays(1))  // Is GameDate > Tomorrow)
+            SortedList<string, CoversDTO> ocRotation = new SortedList<string, CoversDTO>();
+            try
             {
-              // string _strLoadDateTime = _oBballInfoDTO.LoadDateTime();    // _oSeasonInfoDO.GameDate.ToString();
-
-               SortedList<string, CoversDTO> ocRotation = new SortedList<string, CoversDTO>();
-               try
-               {
-                  RotationDO.PopulateRotation(ocRotation, _oBballInfoDTO, _oLeagueDTO);
-               }
-               catch 
-               {
-                  if (_oBballInfoDTO.GameDate > DateTime.Today)
-                     Message = "Error in tomorrow's Rotation";
-                  else
-                     throw;
-               }
-
-               _oBballInfoDTO.GameDate = _oBballInfoDTO.GameDate.AddDays(1); // kd make nextGameDate function
-               _oSeasonInfoDO.GameDate = _oSeasonInfoDO.GameDate.AddDays(1);
+               RotationDO.PopulateRotation(ocRotation, _oBballInfoDTO, _oLeagueDTO);
             }
+            catch (Exception ex)
+            {
+               throw new Exception($"Covers Rotation Error {_oBballInfoDTO.GameDate} - {ex.Message}");
+            }
+
+            _oBballInfoDTO.GameDate = _oBballInfoDTO.GameDate.AddDays(1); // kd make nextGameDate function
+            _oSeasonInfoDO.GameDate = _oSeasonInfoDO.GameDate.AddDays(1);
          }
-         SqlFunctions.ParmTableParmValueUpdate("BoxscoresLastUpdateDate", DateTime.Today.ToShortDateString());
+  
+         SqlFunctions.ParmTableParmValueUpdate(_oBballInfoDTO.ConnectionString, "BoxscoresLastUpdateDate", DateTime.Today.ToShortDateString());
       }
 
-      private void LoadBoxScoreRange(string LeagueName, string ConnectionString, DateTime DefaultDate)
+      private void LoadBoxScoreRange(string LeagueName, string ConnectionString, DateTime DefaultDate, string BoxScoresL5MinURL = "")
       {
          DateTime GameDate = getNextGameDate(BoxScoreDO.GetMaxBoxScoresGameDate(ConnectionString, LeagueName, DefaultDate));
 
@@ -168,9 +164,8 @@ namespace Bball.BAL
                   throw new Exception(DALFunctions.StackTraceFormat(msg, ex, ""));
                }
             }
-            if (_oBballInfoDTO.LeagueName == "xNBA")
+            if (! String.IsNullOrEmpty(_oLeagueDTO.BoxScoresL5MinURL))
             {
-
                // Write Last 5 Minutes stats
                BoxScoresLast5MinDTO oLast5MinDTOHome = new BoxScoresLast5MinDTO()
                {

@@ -16,11 +16,36 @@ namespace Bball.DataBaseFunctions
       const string SqlServerConnectionStringArvixe =
          @"Data Source=Localhost\;   Initial Catalog=00TTI_LeagueScores;Integrated Security=false;User ID=theroot;Password=788788kd";
 
+      public static int CalcSubSeasonPeriod(string ConnectionString, DateTime GameDate, string LeagueName)
+      {
+         // All ints
+         // Get TotalDays rounded down to mul of 4
+         // DaysPerPeriod DPP - TD / 4
+         // Day in Season DIS - GameDate - StartDate
+         // Period = Floor{ [ (DIS + DPP-1) / DPP ], 1}
+
+         List<string> SqlParmNames = new List<string>() { "GameDate", "LeagueName" };
+         List<object> SqlParmValues = new List<object>() { GameDate, LeagueName };
+         var SubSeasonPeriod =
+            SysDAL.Functions.DALfunctions.ExecuteUDF(
+               ConnectionString, "dbo.udfCalcSubSeasonPeriod", SqlParmNames, SqlParmValues);
+
+         return Int32.Parse(SubSeasonPeriod);
+      }
+
+      public static DateTime GetNextGameDate(string ConnectionString, DateTime GameDate, string LeagueName)
+      {
+         List<string> SqlParmNames = new List<string>() { "GameDate", "LeagueName" };
+         List<object> SqlParmValues = new List<object>() { GameDate, LeagueName };
+         var NextGameDate =
+            SysDAL.Functions.DALfunctions.ExecuteUDF(
+               ConnectionString, "dbo.udfQueryGetNextGameDate", SqlParmNames, SqlParmValues);
+         var d = NextGameDate.Split();
+         return  DateTime.Parse(d[0]);
+      }
 
       public static int ExecSql(string strSql, string ConnectionString)
       {
-        //if (ConnectionString == null)
-         //   ConnectionString = GetConnectionString(); 
          return SysDAL.Functions.DALfunctions.ExecuteSqlNonQuery(ConnectionString, strSql);
       }
 
@@ -147,18 +172,30 @@ namespace Bball.DataBaseFunctions
          return rc;
       }
       #region parmTable
-      public static object ParmTableParmValueQuery(string ParmName)
+      public static string ParmTableParmValueQuery(string ConnectionString, string ParmName)
       {
-         string strSql = "Select ParmValue From ParmTable Where ParmName = '{ParmName}'";
-         return SysDAL.Functions.DALfunctions.ExecuteSqlQueryReturnSingleParm(GetConnectionString(), strSql, "ParmValue");
+         string strSql = $"Select ParmValue From ParmTable Where ParmName = '{ParmName}'";
+         return SysDAL.Functions.DALfunctions.ExecuteSqlQueryReturnSingleParm(ConnectionString, strSql, "ParmValue").ToString();
       }
-      public static int ParmTableParmValueUpdate(string ParmName, string ParmValue, string UserName = "default")
+      //public static object ParmTableParmValueQuery(string ParmName)
+      //{
+      //   string strSql = "Select ParmValue From ParmTable Where ParmName = '{ParmName}'";
+      //   return SysDAL.Functions.DALfunctions.ExecuteSqlQueryReturnSingleParm(GetConnectionString(), strSql, "ParmValue");
+      //}
+      public static int ParmTableParmValueUpdate(string ConnectionString, string ParmName, string ParmValue, string UserName = "default")
       {
          string strSql = $"Update ParmTable "
                      + $"SET ParmValue = '{ParmValue}', UpdateUser = '{UserName}', UpdateDate = '{DateTime.Now}' "
                      + $"Where ParmName = '{ParmName}' ";
-         return SysDAL.Functions.DALfunctions.ExecuteSqlNonQuery(GetConnectionString(), strSql);
+         return SysDAL.Functions.DALfunctions.ExecuteSqlNonQuery(ConnectionString, strSql);
       }
+      //public static int ParmTableParmValueUpdate(string ParmName, string ParmValue, string UserName = "default")
+      //{
+      //   string strSql = $"Update ParmTable "
+      //               + $"SET ParmValue = '{ParmValue}', UpdateUser = '{UserName}', UpdateDate = '{DateTime.Now}' "
+      //               + $"Where ParmName = '{ParmName}' ";
+      //   return SysDAL.Functions.DALfunctions.ExecuteSqlNonQuery(GetConnectionString(), strSql);
+      //}
       #endregion parmTable
    }  // class SqlFunctions
 

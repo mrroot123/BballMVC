@@ -69,7 +69,6 @@
     <Compile Include="BoxscoreTeamTotalsDTO.vb" />
     <Compile Include="BoxscoreTeamTotalsParse.vb" />
     <Compile Include="CoversBoxscore.vb" />
-    <Compile Include="CoversClass.vb" />
     <Compile Include="CoversRotation.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">

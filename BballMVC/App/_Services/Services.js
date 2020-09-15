@@ -9,8 +9,11 @@
 
    this.UrlGetLeagueNames = urlPrefix + "Data/GetLeagueNames";
    this.UrlGetData = urlPrefix + "Data/GetData";
-
+   
+   this.UrlPostJsonString = urlPrefix + "Data/PostJsonString";
    this.UrlPostData = urlPrefix + "Data/PostData";
+   this.UrlPostObject = urlPrefix + "Data/PostObject";
+   this.UrlPostTest = urlPrefix + "Data/PostTest";
 
    this.UrlPostBoxScoresSeeds = urlPrefix + "Data/PostBoxScoresSeeds";
    //this.UrlRefreshCollection = urlPrefix + "Data/RefreshCollection";
@@ -49,7 +52,7 @@ Type: Boolean
          });   // ajax
       });   // Promise
    };  // AjaxGet
-
+   //JSON.stringify(Data),
    this.AjaxPost = function (URL, Data, ContentType) {
       if (!ContentType)
          ContentType = 'application/json; charset=utf-8';
@@ -60,6 +63,28 @@ Type: Boolean
             type: 'POST',
             data: JSON.stringify(Data),
             contentType: ContentType,  
+            success: function (returnData) {
+               returnData.et = new Date() - startTime;
+               resolve(returnData);
+            },
+            error: function (error) {
+               reject(error);
+            }
+         });   // ajax
+      });   // Promise
+   };  // AjaxPost
+
+   this.AjaxPostString = function (URL, sData, ContentType) {
+      var Data = { sJsonString: JSON.stringify(sData) };
+      if (!ContentType)
+         ContentType = 'application/json; charset=utf-8';
+      var startTime = new Date();
+      return new Promise((resolve, reject) => {
+         $.ajax({
+            url: URL,
+            type: 'POST',
+            data: JSON.stringify(Data),
+            contentType: ContentType,
             success: function (returnData) {
                returnData.et = new Date() - startTime;
                resolve(returnData);

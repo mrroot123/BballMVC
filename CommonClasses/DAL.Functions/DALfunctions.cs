@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Reflection;
 using System.Text;
+using Newtonsoft.Json.Linq;
 
 namespace SysDAL.Functions
 {
@@ -53,6 +55,15 @@ namespace SysDAL.Functions
                SqlCommand oSqlCommand = new SqlCommand(strSql, oSqlConnection);  // 3) Set Command
                using (SqlDataReader rdr = oSqlCommand.ExecuteReader())           // 4) Exec Sql / Read Rows
                {
+                  List<string> ocColNames = new List<string>();
+                  List<string> ocFieldTypes = new List<string>();
+                  List<string> ocDataTypeNames = new List<string>();
+                  for (int i = 0; i < rdr.FieldCount; i++)
+                  {
+                     ocColNames.Add(rdr.GetName(i));
+                     ocFieldTypes.Add(rdr.GetFieldType(i).ToString());
+                     ocDataTypeNames.Add(rdr.GetDataTypeName(i));
+                  }
                   while (rdr.Read())
                   {
                      ctrRows++;
@@ -68,6 +79,90 @@ namespace SysDAL.Functions
          }
          return ctrRows;
       }
+
+
+      public static int ExecuteDynamicSqlQuery(string ConnectionString, string strSql, List<JObject> ocJObject)
+      {
+         int ctrRows = 0;
+
+         try
+         {
+            //  1)  Get Conn     SqlConnection oSqlConnection 
+            //  2)  Open DB      oSqlConnection.Open();
+            //  3)  Set Command  SqlCommand oSqlCommand = new SqlCommand(sql, oSqlConnection);
+            //  4)  Exec Sql / Read Rows    SqlDataReader rdr = oSqlCommand.ExecuteReader();
+
+            using (SqlConnection oSqlConnection = new SqlConnection(ConnectionString)) // 1) Get Conn
+            {
+               oSqlConnection.Open();                                            // 2) Get Conn
+               SqlCommand oSqlCommand = new SqlCommand(strSql, oSqlConnection);  // 3) Set Command
+               using (SqlDataReader rdr = oSqlCommand.ExecuteReader())           // 4) Exec Sql / Read Rows
+               {
+                  List<string> ocColNames = new List<string>();
+                  List<string> ocFieldTypes = new List<string>();
+                  List<string> ocDataTypeNames = new List<string>();
+                  for (int i = 0; i < rdr.FieldCount; i++)
+                  {
+                     ocColNames.Add(rdr.GetName(i));
+                     ocFieldTypes.Add(rdr.GetFieldType(i).ToString());
+                     ocDataTypeNames.Add(rdr.GetDataTypeName(i));
+                  }
+
+                  while (rdr.Read())
+                  {
+                     JObject jObj = JObject.Parse("{}");
+                     for (int i = 0; i < ocColNames.Count; i++)
+                     {
+                        if (rdr[ocColNames[i]] == DBNull.Value)
+                        {
+                           jObj.Add(new JProperty(ocColNames[i], null));
+                        }
+                        else
+                        {
+                           switch (ocDataTypeNames[i])
+                           {
+                              case "int":
+                                 jObj.Add(new JProperty(ocColNames[i], (int)rdr[ocColNames[i]]));
+                                 break;
+                              case "float":
+                                 jObj.Add(new JProperty(ocColNames[i], (double)rdr[ocColNames[i]]));
+                                 break;
+                              case "string":
+                              case "char":
+                              case "nchar":
+                              case "varchar":
+                              case "nvarchar":
+                                 jObj.Add(new JProperty(ocColNames[i], rdr[ocColNames[i]].ToString().Trim()));
+                                 break;
+                              case "date":
+                              case "datetime":
+                                 jObj.Add(new JProperty(ocColNames[i], (DateTime)rdr[ocColNames[i]]));
+                                 break;
+                              case "bit":
+                                 jObj.Add(new JProperty(ocColNames[i], (bool?)rdr[ocColNames[i]]));
+                                 break;
+                              
+                              default:
+                                 throw new Exception("ExecuteDynamicSqlQuery - Undefined DataTypeName: " + ocDataTypeNames[i]);
+                           }  // switch
+
+                        }  // if
+                        
+                     }  // for
+                     ocJObject.Add(jObj);
+                  }  // while rdr
+               }  // using rdr
+            }  // using conn
+         }
+         catch (Exception ex)
+         {
+            var msg = ex.Message + "\n" + StackTraceParse(ex.StackTrace);
+            throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name}\nError Message: {msg}\nSql: {strSql}\nConnectionString: {ConnectionString}");
+         }
+         return ctrRows;
+      }
+
+
       public static object ExecuteSqlQueryReturnSingleParm(string ConnectionString, string strSql, string ParmName)
       {
          object parmValue = null;
@@ -320,7 +415,7 @@ namespace SysDAL.Functions
       }  // ExecuteStoredProcedureQuery
 
       public static int ExecuteStoredProcedureNonQuery(string ConnectionString, string StoredProcedureName
-                             , List<string> SqlParmNames, List<object> SqlParmValues)
+                       , List<string> SqlParmNames, List<object> SqlParmValues)
       {
          int rowsAffected = 0;
          try
@@ -359,6 +454,60 @@ namespace SysDAL.Functions
          }
          return rowsAffected;
       }  // ExecuteStoredProcedureNonQuery
+
+      public static string ExecuteUDF(string ConnectionString, string StoredProcedureName
+                       , List<string> SqlParmNames, List<object> SqlParmValues)
+      {
+         try
+         {
+            using (SqlConnection oSqlConnection = new SqlConnection(ConnectionString))
+            {
+               oSqlConnection.Open();
+
+               // 1.  create a command object identifying the stored procedure
+               SqlCommand oSqlCommand = new SqlCommand(StoredProcedureName, oSqlConnection);
+
+               // 2. set the command object so it knows to execute a stored procedure
+               oSqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+
+               // 3. add parameter to command, which will be passed to the stored procedure
+               // SqlParmNames, SqlParmValues
+               for (int i = 0; i < SqlParmNames.Count; i++)
+                  oSqlCommand.Parameters.Add(new SqlParameter(SqlParmNames[i], SqlParmValues[i]));
+
+               var retValParam = new SqlParameter("RetVal", SqlDbType.Int)
+               {
+                  //Set this property as return value
+                  Direction = ParameterDirection.ReturnValue
+               };
+
+               oSqlCommand.Parameters.Add(retValParam);
+               oSqlCommand.ExecuteScalar();
+               var retVal = retValParam.Value;
+
+               return retVal.ToString();
+
+               // execute the command
+               //oSqlCommand.ExecuteNonQuery();
+               //return oSqlCommand.Parameters["@RETURN_VALUE"].Value.ToString();
+
+            }  // using conn
+         }
+         catch (SqlException ex)
+         {
+            if (ex.State == 0)
+            {
+               throw;
+            }
+            throw new Exception(StackTraceFormat(ex));
+         }
+         catch (Exception ex)
+         {
+            throw new Exception(StackTraceFormat(ex));
+         }
+        
+      }  // ExecuteStoredProcedureNonQuery
+
       #endregion StoredProcs
       #region genSql
       public static string GenSql(string sqlString, List<string> ocColumnNames, List<string> ocColumnValues)

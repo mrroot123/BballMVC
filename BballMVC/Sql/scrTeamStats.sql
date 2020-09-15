@@ -26,7 +26,8 @@ Team Varchar(4), Venue varchar(4),Vol float, TmStr float
 
 Declare @Teams TABLE (Team Varchar(4))
 Insert INTO @Teams
-Exec uspQueryTeams 'NBA'
+Exec uspQueryTeams  @LeagueName
+--Select * From @Teams; return;
 
 --Select t.Team 
 --	From @Teams t

@@ -57,14 +57,24 @@ namespace Bball.DAL.Tables
             throw new Exception($"SeasonInfo row not found - League: {_LeagueName}  GameDate: {GameDate.ToShortDateString()}");
          oSeasonInfoDTO.SubSeasonPeriod = 0; // kdtodo call udf
       }
-      public int CalcSubSeasonPeriod()
+      public int CalcSubSeasonPeriod(BballInfoDTO oBballInfoDTO)
+         => CalcSubSeasonPeriod(oBballInfoDTO.ConnectionString, oBballInfoDTO.GameDate, oBballInfoDTO.LeagueName);
+
+      public static int CalcSubSeasonPeriod(string ConnectionString, DateTime GameDate, string LeagueName)
       {
          // All ints
          // Get TotalDays rounded down to mul of 4
          // DaysPerPeriod DPP - TD / 4
          // Day in Season DIS - GameDate - StartDate
          // Period = Floor{ [ (DIS + DPP-1) / DPP ], 1}
-         return 0;   // kdtodo
+         
+         List<string> SqlParmNames = new List<string>() { "GameDate", "LeagueName" };
+         List<object> SqlParmValues = new List<object>() { GameDate, LeagueName };
+         var SubSeasonPeriod =             
+            SysDAL.Functions.DALfunctions.ExecuteStoredProcedureQueryReturnSingleParm(
+               ConnectionString, "udfCalcSubSeasonPeriod", SqlParmNames, SqlParmValues);
+
+         return Int32.Parse(SubSeasonPeriod);
       }
       string SeasonInfoRowSql()
       {

@@ -1,19 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using HtmlParsing.HtmlParsing.Functions;
-using HtmlParsing.Common4vb.HtmlParsing;
-using System.IO;
-using System.Xml.Serialization;
 using System.Data.SqlClient;
 using System.Data;
 
 using BballMVC.DTOs;
 using BballMVC.IDTOs;
-using Bball.DataBaseFunctions;
-using Bball.DAL.Functions;
 using Newtonsoft.Json.Linq;
-using Bball.DAL.Constants;
+using System.Linq;
+using Newtonsoft.Json;
 
 namespace Bball.DAL.Tables
 {
@@ -48,6 +42,57 @@ namespace Bball.DAL.Tables
          SysDAL.Functions.DALfunctions.ExecuteStoredProcedureNonQuery(oBballInfoDTO.ConnectionString, "uspUpdateAdjustments", SqlParmNames, SqlParmValues);
       }
       #endregion adjustments
+
+      #region todaysPlays
+
+      public void ProcessPlays(IBballInfoDTO oBballInfoDTO)
+      {
+         const string TableName = "TodaysPlays";
+         const string TodaysPlaysColumnNames = "GameDate,LeagueName,RotNum,GameTime,TeamAway,TeamHome,WeekEndDate,PlayLength,PlayDirection,Line,Info,PlayAmount,PlayWeight,Juice,Out,Author,CreateUser,CreateDate";
+         List<string> ocColumnNames = TodaysPlaysColumnNames.Split(',').OfType<string>().ToList();
+
+         //var obj = JsonConvert.DeserializeObject<JArray>(oBballInfoDTO.sJsonString).ToObject<List<JObject>>().FirstOrDefault();
+         //JArray oJArray = (JArray)oBballInfoDTO.sJsonString;
+         string jsonStr = "[{ \"id\":\"2932675\", \"t\" : \"GNK\" , \"e\" : \"LON\" , \"l\" : \"915.00\" , \"l_fix\" : \"915.00\" , \"l_cur\" : \"GBX915.00\" , \"s\": \"0\" , \"ltt\":\"5:08PM GMT\" , \"lt\" : \"Dec 11 5:08PM GMT\"}]";
+         var obj = JsonConvert.DeserializeObject<JArray>(jsonStr).ToObject<List<JObject>>().FirstOrDefault();
+
+         IList<ITodaysPlaysDTO> ocAdjustmentDTO = (IList<ITodaysPlaysDTO>)oBballInfoDTO.oObject;
+
+         //JValue oJValue = (JValue)oBballInfoDTO.sJsonString;
+         //dynamic xx = oJValue.ToObject<dynamic>();
+         //JObject oJObject = (JObject)oBballInfoDTO.sJsonString;
+
+         
+         foreach (var oAdjustmentDTO in ocAdjustmentDTO)
+         {
+            List<string> ocValues = new List<string>();
+
+            ocValues.Add(oAdjustmentDTO.GameDate.ToString());
+            ocValues.Add(oAdjustmentDTO.LeagueName.ToString());
+            ocValues.Add(oAdjustmentDTO.RotNum.ToString());
+            ocValues.Add(oAdjustmentDTO.GameTime.ToString());
+            ocValues.Add(oAdjustmentDTO.TeamAway.ToString());
+            ocValues.Add(oAdjustmentDTO.TeamHome.ToString());
+            ocValues.Add(oAdjustmentDTO.WeekEndDate.ToString());
+            ocValues.Add(oAdjustmentDTO.PlayLength.ToString());
+            ocValues.Add(oAdjustmentDTO.PlayDirection.ToString());
+            ocValues.Add(oAdjustmentDTO.Line.ToString());
+            ocValues.Add(oAdjustmentDTO.Info.ToString());
+            ocValues.Add(oAdjustmentDTO.PlayAmount.ToString());
+            ocValues.Add(oAdjustmentDTO.PlayWeight.ToString());
+            ocValues.Add(oAdjustmentDTO.Juice.ToString());
+            ocValues.Add(oAdjustmentDTO.Out.ToString());
+            ocValues.Add(oAdjustmentDTO.Author.ToString());
+            ocValues.Add(oAdjustmentDTO.CreateUser.ToString());
+            ocValues.Add(oAdjustmentDTO.CreateDate.ToString());
+
+            SysDAL.Functions.DALfunctions.InsertTableRow(oBballInfoDTO.ConnectionString, TableName, ocColumnNames, ocValues);
+         }
+
+
+      }
+      #endregion todaysPlays
+
 
       public void GetLeagueNames(IBballInfoDTO oBballInfoDTO)
       {
@@ -127,6 +172,28 @@ namespace Bball.DAL.Tables
          o.TS = rdr["TS"] == DBNull.Value ? null : (DateTime?)rdr["TS"];
 
       }
+
+      public void InsertDailySummary(IBballInfoDTO oBballInfoDTO, int NumOfMatchups)
+      {
+         SeasonInfoDO oSeasonInfo = new SeasonInfoDO(oBballInfoDTO.GameDate, oBballInfoDTO.LeagueName);
+
+         // Populate Basic columns
+
+
+         List<string> ocColumnNames = new List<string>() { "GameDate", "LeagueName", "Season", "SubSeason", "SubSeasonPeriod", "NumOfMatchups" };
+         List<string> ocColumnValues = new List<string>()
+         {
+            oBballInfoDTO.GameDate.ToShortDateString(),
+            oBballInfoDTO.LeagueName,
+            oSeasonInfo.oSeasonInfoDTO.Season,
+            oSeasonInfo.oSeasonInfoDTO.SubSeason,
+            SeasonInfoDO.CalcSubSeasonPeriod(oBballInfoDTO.ConnectionString, oBballInfoDTO.GameDate, oBballInfoDTO.LeagueName).ToString(),
+            NumOfMatchups.ToString()
+         };
+
+         SysDAL.Functions.DALfunctions.InsertTableRow(oBballInfoDTO.ConnectionString, "DailySummary", ocColumnNames, ocColumnValues);
+
+      }
       #endregion GetDailySummary
 
       public void RefreshTodaysMatchups(IBballInfoDTO oBballInfoDTO)
@@ -169,6 +236,7 @@ namespace Bball.DAL.Tables
             + $"  And GameDate = '{oBballInfoDTO.GameDate}'"
             + "   Order By RotNum"
          ;
+
          int rows = SysDAL.Functions.DALfunctions.ExecuteSqlQuery(
             oBballInfoDTO.ConnectionString, Sql, oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO, populateTodaysMatchupsDTOFromRdr);
 
@@ -377,6 +445,7 @@ namespace Bball.DAL.Tables
          vPostGameAnalysis.TotalLine = rdr["TotalLine"] == DBNull.Value ? null : (double?)rdr["TotalLine"];
          vPostGameAnalysis.OpenTotalLine = rdr["OpenTotalLine"] == DBNull.Value ? null : (double?)rdr["OpenTotalLine"];
          vPostGameAnalysis.Play = rdr["Play"].ToString().Trim();
+         vPostGameAnalysis.PlayResult = rdr["PlayResult"].ToString().Trim();
          vPostGameAnalysis.PlayDiff = rdr["PlayDiff"] == DBNull.Value ? null : (double?)rdr["PlayDiff"];
          vPostGameAnalysis.OpenPlayDiff = rdr["OpenPlayDiff"] == DBNull.Value ? null : (double?)rdr["OpenPlayDiff"];
          vPostGameAnalysis.AdjustedDiff = rdr["AdjustedDiff"] == DBNull.Value ? null : (double?)rdr["AdjustedDiff"];

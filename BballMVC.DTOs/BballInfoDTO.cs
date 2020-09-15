@@ -19,11 +19,13 @@ namespace BballMVC.DTOs
       public string ConnectionString { get; set; }
       public string LogName { get; set; }
       public ISeasonInfoDTO oSeasonInfoDTO { get; set; }
+      public System.Object oObject { get; set; }
       public JObject oJObject { get; set; }
+      public string sJsonString { get; set; }
 
       public IBballDataDTO oBballDataDTO { get; set; }
 
-      public string LoadDateTime()=> GameDate.ToString();
+      public string LoadDateTime { get; set; } = DateTime.Now.ToLongDateString();
 
       public void CloneBballDataDTO(IBballInfoDTO c)
       {
@@ -33,7 +35,13 @@ namespace BballMVC.DTOs
          c.ConnectionString = this.ConnectionString;
          c.CollectionType = this.CollectionType;
          c.LogName = this.LogName;
+         c.LoadDateTime = this.LoadDateTime;
       }
+
+   }
+   public class JsonString
+   {
+      public string sJsonString { get; set; }
    }
 
 }

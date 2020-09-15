@@ -76,6 +76,7 @@ namespace BballMVC.IDTOs
       double OurTotalLineHome { get; set; }
       double? Pace { get; set; }
       string Play { get; set; }
+      string PlayResult { get; set; }
       double? PlayDiff { get; set; }
       int RotNum { get; set; }
       double ScoreOT { get; set; }

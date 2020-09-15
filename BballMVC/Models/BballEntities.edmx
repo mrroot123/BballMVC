@@ -322,6 +322,30 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.BoxScoresSeeds' does not ha
           <Property Name="TS" Type="datetime" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view '00TTI_LeagueScores.dbo.LeagueInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="LeagueInfo">
+          <Key>
+            <PropertyRef Name="LeagueName" />
+            <PropertyRef Name="StartDate" />
+            <PropertyRef Name="NumberOfTeams" />
+            <PropertyRef Name="Periods" />
+            <PropertyRef Name="MinutesPerPeriod" />
+            <PropertyRef Name="OverTimeMinutes" />
+            <PropertyRef Name="DefaultOTamt" />
+            <PropertyRef Name="MultiYearLeague" />
+          </Key>
+          <Property Name="LeagueName" Type="nchar" MaxLength="8" Nullable="false" />
+          <Property Name="StartDate" Type="date" Nullable="false" />
+          <Property Name="NumberOfTeams" Type="int" Nullable="false" />
+          <Property Name="Periods" Type="int" Nullable="false" />
+          <Property Name="MinutesPerPeriod" Type="int" Nullable="false" />
+          <Property Name="OverTimeMinutes" Type="int" Nullable="false" />
+          <Property Name="DefaultOTamt" Type="float" Nullable="false" />
+          <Property Name="MultiYearLeague" Type="bit" Nullable="false" />
+          <Property Name="LeagueColor" Type="nchar" MaxLength="10" />
+          <Property Name="BoxScoresL5MinURL" Type="nchar" MaxLength="250" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view '00TTI_LeagueScores.dbo.Lines' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Lines">
           <Key>
@@ -633,27 +657,28 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.TodaysMatchups' does not ha
             <PropertyRef Name="TodaysPlaysID" />
           </Key>
           <Property Name="TodaysPlaysID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TranType" Type="int" />
           <Property Name="GameDate" Type="date" Nullable="false" />
-          <Property Name="LeagueName" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="LeagueName" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="RotNum" Type="int" Nullable="false" />
-          <Property Name="GameTime" Type="varchar" MaxLength="5" Nullable="false" />
-          <Property Name="TeamAway" Type="varchar" MaxLength="5" Nullable="false" />
-          <Property Name="TeamHome" Type="varchar" MaxLength="4" Nullable="false" />
-          <Property Name="WeekEndDate" Type="date" Nullable="false" />
-          <Property Name="PlayLength" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="PlayType" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="Line" Type="float" Nullable="false" />
-          <Property Name="Info" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="PlayAmount" Type="float" Nullable="false" />
-          <Property Name="PlayWeight" Type="float" Nullable="false" />
-          <Property Name="Juice" Type="float" Nullable="false" />
-          <Property Name="Out" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Author" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Result" Type="varchar" MaxLength="10" />
+          <Property Name="GameTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="TeamAway" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="TeamHome" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="WeekEndDate" Type="date" />
+          <Property Name="PlayLength" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="PlayDirection" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Line" Type="decimal" Precision="6" Scale="1" Nullable="false" />
+          <Property Name="Info" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="PlayAmount" Type="smallmoney" Nullable="false" />
+          <Property Name="PlayWeight" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="Juice" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="Out" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Author" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Result" Type="nchar" MaxLength="1" />
           <Property Name="OT" Type="bit" />
-          <Property Name="Score" Type="int" />
-          <Property Name="ResultAmount" Type="float" />
-          <Property Name="CreateUser" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FinalScore" Type="int" />
+          <Property Name="ResultAmount" Type="smallmoney" />
+          <Property Name="CreateUser" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
@@ -884,6 +909,7 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
           <Property Name="TotalBubbleHome" Type="float" />
           <Property Name="TS" Type="datetime" />
           <Property Name="AllAdjustmentLines" Type="nvarchar(max)" />
+          <Property Name="PlayResult" Type="char" MaxLength="8" />
           <Property Name="OtPeriods" Type="int" Nullable="false" />
           <Property Name="ScoreReg" Type="float" Nullable="false" />
           <Property Name="ScoreOT" Type="float" Nullable="false" />
@@ -1213,6 +1239,20 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
     [BoxScoresSeeds].[UpdateDate] AS [UpdateDate]
     FROM [dbo].[BoxScoresSeeds] AS [BoxScoresSeeds]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="LeagueInfo" EntityType="Self.LeagueInfo" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [LeagueInfo].[LeagueName] AS [LeagueName], 
+    [LeagueInfo].[StartDate] AS [StartDate], 
+    [LeagueInfo].[NumberOfTeams] AS [NumberOfTeams], 
+    [LeagueInfo].[Periods] AS [Periods], 
+    [LeagueInfo].[MinutesPerPeriod] AS [MinutesPerPeriod], 
+    [LeagueInfo].[OverTimeMinutes] AS [OverTimeMinutes], 
+    [LeagueInfo].[DefaultOTamt] AS [DefaultOTamt], 
+    [LeagueInfo].[MultiYearLeague] AS [MultiYearLeague], 
+    [LeagueInfo].[LeagueColor] AS [LeagueColor], 
+    [LeagueInfo].[BoxScoresL5MinURL] AS [BoxScoresL5MinURL]
+    FROM [dbo].[LeagueInfo] AS [LeagueInfo]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="Lines" EntityType="Self.Lines" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Lines].[LineID] AS [LineID], 
@@ -1499,6 +1539,7 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
     [vPostGameAnalysis].[TotalBubbleHome] AS [TotalBubbleHome], 
     [vPostGameAnalysis].[TS] AS [TS], 
     [vPostGameAnalysis].[AllAdjustmentLines] AS [AllAdjustmentLines], 
+    [vPostGameAnalysis].[PlayResult] AS [PlayResult], 
     [vPostGameAnalysis].[OtPeriods] AS [OtPeriods], 
     [vPostGameAnalysis].[ScoreReg] AS [ScoreReg], 
     [vPostGameAnalysis].[ScoreOT] AS [ScoreOT], 
@@ -1849,6 +1890,7 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
           <EntitySet Name="TodaysPlays" EntityType="TTI_LeagueScoresModel.TodaysPlays" />
           <EntitySet Name="DailySummary" EntityType="TTI_LeagueScoresModel.DailySummary" />
           <EntitySet Name="TodaysMatchups" EntityType="TTI_LeagueScoresModel.TodaysMatchups" />
+          <EntitySet Name="LeagueInfo" EntityType="TTI_LeagueScoresModel.LeagueInfo" />
         </EntityContainer>
         <EntityType Name="SeasonInfo">
           <Key>
@@ -2324,6 +2366,7 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
           <Property Name="AwayAveragePtsAllowed" Type="Double" />
           <Property Name="HomeAveragePtsAllowed" Type="Double" />
           <Property Name="AllAdjustmentLines" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PlayResult" Type="String" MaxLength="8" FixedLength="true" Unicode="false" />
         </EntityType>
         <EntityType Name="BoxScoresSeeds">
           <Key>
@@ -2445,27 +2488,30 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
           </Key>
           <Property Name="TodaysPlaysID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="GameDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="LeagueName" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="LeagueName" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="RotNum" Type="Int32" Nullable="false" />
-          <Property Name="GameTime" Type="Time" Nullable="false" />
-          <Property Name="TeamAway" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
-          <Property Name="TeamHome" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Name="WeekEndDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="PlayLength" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="GameTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="TeamAway" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="TeamHome" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="WeekEndDate" Type="DateTime" Precision="0" />
+          <Property Name="PlayLength" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="PlayType" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Line" Type="Decimal" Nullable="false" />
-          <Property Name="Info" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Line" Type="Decimal" Nullable="false" Precision="6" Scale="1" />
+          <Property Name="Info" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="PlayAmount" Type="Double" Nullable="false" />
           <Property Name="PlayWeight" Type="Double" Nullable="false" />
           <Property Name="Juice" Type="Double" Nullable="false" />
-          <Property Name="Out" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Author" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Result" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Out" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Author" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Result" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
           <Property Name="OT" Type="Boolean" />
           <Property Name="Score" Type="Int32" />
           <Property Name="ResultAmount" Type="Double" />
-          <Property Name="CreateUser" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateUser" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TranType" Type="Int32" />
+          <Property Name="PlayDirection" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="FinalScore" Type="Int32" />
         </EntityType>
         <EntityType Name="DailySummary">
           <Key>
@@ -2673,6 +2719,28 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
           <Property Name="TotalBubbleHome" Type="Double" />
           <Property Name="TS" Type="DateTime" Precision="3" />
           <Property Name="AllAdjustmentLines" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="LeagueInfo">
+          <Key>
+            <PropertyRef Name="LeagueName" />
+            <PropertyRef Name="StartDate" />
+            <PropertyRef Name="NumberOfTeams" />
+            <PropertyRef Name="Periods" />
+            <PropertyRef Name="MinutesPerPeriod" />
+            <PropertyRef Name="OverTimeMinutes" />
+            <PropertyRef Name="DefaultOTamt" />
+            <PropertyRef Name="MultiYearLeague" />
+          </Key>
+          <Property Name="LeagueName" Type="String" Nullable="false" MaxLength="8" FixedLength="true" Unicode="true" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="NumberOfTeams" Type="Int32" Nullable="false" />
+          <Property Name="Periods" Type="Int32" Nullable="false" />
+          <Property Name="MinutesPerPeriod" Type="Int32" Nullable="false" />
+          <Property Name="OverTimeMinutes" Type="Int32" Nullable="false" />
+          <Property Name="DefaultOTamt" Type="Double" Nullable="false" />
+          <Property Name="MultiYearLeague" Type="Boolean" Nullable="false" />
+          <Property Name="LeagueColor" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="BoxScoresL5MinURL" Type="String" MaxLength="250" FixedLength="true" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -2982,6 +3050,7 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
           <EntitySetMapping Name="vPostGameAnalysis">
             <EntityTypeMapping TypeName="TTI_LeagueScoresModel.vPostGameAnalysis">
               <MappingFragment StoreEntitySet="vPostGameAnalysis">
+                <ScalarProperty Name="PlayResult" ColumnName="PlayResult" />
                 <ScalarProperty Name="AllAdjustmentLines" ColumnName="AllAdjustmentLines" />
                 <ScalarProperty Name="HomeAveragePtsAllowed" ColumnName="HomeAveragePtsAllowed" />
                 <ScalarProperty Name="AwayAveragePtsAllowed" ColumnName="AwayAveragePtsAllowed" />
@@ -3167,10 +3236,12 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
           <EntitySetMapping Name="TodaysPlays">
             <EntityTypeMapping TypeName="TTI_LeagueScoresModel.TodaysPlays">
               <MappingFragment StoreEntitySet="TodaysPlays">
+                <ScalarProperty Name="FinalScore" ColumnName="FinalScore" />
+                <ScalarProperty Name="PlayDirection" ColumnName="PlayDirection" />
+                <ScalarProperty Name="TranType" ColumnName="TranType" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
                 <ScalarProperty Name="ResultAmount" ColumnName="ResultAmount" />
-                <ScalarProperty Name="Score" ColumnName="Score" />
                 <ScalarProperty Name="OT" ColumnName="OT" />
                 <ScalarProperty Name="Result" ColumnName="Result" />
                 <ScalarProperty Name="Author" ColumnName="Author" />
@@ -3180,7 +3251,6 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
                 <ScalarProperty Name="PlayAmount" ColumnName="PlayAmount" />
                 <ScalarProperty Name="Info" ColumnName="Info" />
                 <ScalarProperty Name="Line" ColumnName="Line" />
-                <ScalarProperty Name="PlayType" ColumnName="PlayType" />
                 <ScalarProperty Name="PlayLength" ColumnName="PlayLength" />
                 <ScalarProperty Name="WeekEndDate" ColumnName="WeekEndDate" />
                 <ScalarProperty Name="TeamHome" ColumnName="TeamHome" />
@@ -3331,6 +3401,22 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
                 <ScalarProperty Name="LeagueName" ColumnName="LeagueName" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="TodaysMatchupsID" ColumnName="TodaysMatchupsID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LeagueInfo">
+            <EntityTypeMapping TypeName="TTI_LeagueScoresModel.LeagueInfo">
+              <MappingFragment StoreEntitySet="LeagueInfo">
+                <ScalarProperty Name="BoxScoresL5MinURL" ColumnName="BoxScoresL5MinURL" />
+                <ScalarProperty Name="LeagueColor" ColumnName="LeagueColor" />
+                <ScalarProperty Name="MultiYearLeague" ColumnName="MultiYearLeague" />
+                <ScalarProperty Name="DefaultOTamt" ColumnName="DefaultOTamt" />
+                <ScalarProperty Name="OverTimeMinutes" ColumnName="OverTimeMinutes" />
+                <ScalarProperty Name="MinutesPerPeriod" ColumnName="MinutesPerPeriod" />
+                <ScalarProperty Name="Periods" ColumnName="Periods" />
+                <ScalarProperty Name="NumberOfTeams" ColumnName="NumberOfTeams" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="LeagueName" ColumnName="LeagueName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -95,7 +95,6 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
       return hrs + ":" + arTime[1] + am;
    };
 
-
    $scope.InitPlayEntry = function () {
       // 1)PlayLength	2)PlayType	3)Line	4)Out	5)Juice	6)Amount	7)Weight	8)Process
       let defaultJuice = -105;
@@ -110,8 +109,8 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
             // set juice
             $("#Juice_" + rowNum).val($("#Out_" + rowNum).val());
 
-            $("#Amount_" + rowNum).val(defaultAmount);
-            $("#Weight_" + rowNum).val(defaultWeight);
+            $("#PlayAmount_" + rowNum).val(defaultAmount);
+            $("#PlayWeight_" + rowNum).val(defaultWeight);
 
          }
          rowNum++;
@@ -119,44 +118,50 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
 
    }; // InitPlayEntry
    $scope.ProcessPlays = function () {
+      let o = {
+         ocTodaysPlaysDTO : []
+      };
       let rowNum = 0;
       while ($rootScope.oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO.length > rowNum) {
          let play = $("#Play_" + rowNum).text().trim();
-         if ($("#cbProcessPlay_" + rowNum).checked) {
+         if (document.getElementById("cbProcessPlay_" + rowNum).checked) {
+            let oTodaysPlaysDTO = {};
             // Validate Data
 
             // build & insert row
 
-            // set playtype
-            $("#PlayType_" + rowNum).val(play);
-            $("#Line_" + rowNum).val($("#TotalLine_" + rowNum).text());
-            // set juice
-            $("#Juice_" + rowNum).val($("#Out_" + rowNum).val());
+            oTodaysPlaysDTO.GameDate = $rootScope.oBballInfoDTO.GameDate;
+            oTodaysPlaysDTO.LeagueName = $rootScope.oBballInfoDTO.LeagueName;
+            oTodaysPlaysDTO.RotNum = $("#RotNum_" + rowNum).text();
+            oTodaysPlaysDTO.GameTime = $("#GameTime_" + rowNum).text();
+            oTodaysPlaysDTO.TeamAway = $("#TeamAway_" + rowNum).text();
+            oTodaysPlaysDTO.TeamHome = $("#TeamHome_" + rowNum).text();
+            oTodaysPlaysDTO.PlayLength = $("#PlayLength_" + rowNum).val();
+            oTodaysPlaysDTO.PlayDirection = $("#PlayDirection_" + rowNum).val();
+            oTodaysPlaysDTO.Line = $("#Line_" + rowNum).val();
+            oTodaysPlaysDTO.PlayAmount = $("#PlayAmount_" + rowNum).val();
+            oTodaysPlaysDTO.PlayWeight = $("#PlayWeight_" + rowNum).val();
+            oTodaysPlaysDTO.Juice = $("#Juice_" + rowNum).val();
+            oTodaysPlaysDTO.Out = $("#Out_" + rowNum).val();
+            oTodaysPlaysDTO.Author = $rootScope.oBballInfoDTO.UserName;
 
-            $("#Amount_" + rowNum).val(defaultAmount);
-            $("#Weight_" + rowNum).val(defaultWeight);
-
-            //ocTodaysPlaysDTO.push({
-            //   GameDate: $rootScope.oBballInfoDTO.GameDate.toString() ,
-            //   LeagueName: $rootScope.oBballInfoDTO.LeagueName,
-            //   RotNum: $("#RotNum_" + rowNum).text().trim(),
-            //   GameTime: $("#GameTime_" + rowNum).text().trim(),
-            //   TeamAway: $("#TeamAway_" + rowNum).text().trim(),
-            //   TeamHome: $("#TeamHome_" + rowNum).text().trim(),
-
-            //   PlayLength: ,
-            //   PlayType: ,
-            //   Line: ,
-            //   Info: ,
-            //   PlayAmount: ,
-            //   PlayWeight: ,
-            //   Juice: ,
-            //   Out: ,
-
-            //});
+            o.ocTodaysPlaysDTO.push(oTodaysPlaysDTO);
          }
          rowNum++;
       }  // while
+      if (o.ocTodaysPlaysDTO.length === 0) {
+         f.MessageInformational("No Plays Selected");
+         return;
+      }
+
+      ajx.AjaxPost(url.UrlPostObject + "?CollectionType=ProcessPlays", o)     // , "text/plain")
+         .then(data => {
+            f.MessageSuccess(o.ocTodaysPlaysDTO.length + " Plays Processed");
+         })
+         .catch(error => {
+            f.DisplayErrorMessage("Process Plays Error/n" + f.FormatResponse(error));
+         });
+
 
    }; // ProcessPlays
    function setJuice(play, rowNum) {

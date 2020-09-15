@@ -33,8 +33,6 @@ angular.module('app').controller('AdjustmentsModalController', function ($rootSc
       //}
 
       $scope.setAdjustmentsModal = f.showHideModal(false);  // $scope.showAdjustmentsModal(false);
-   // "InsertAdjustment"
-   //      ajx.AjaxPost(url.UrlPostData, oAdjustment)
       ajx.AjaxPost(url.UrlPostData + "?CollectionType=InsertAdjustment", oAdjustment)     // , "text/plain")
          .then(data => {
             rowWasInserted = true;
