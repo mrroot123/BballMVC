@@ -203,7 +203,7 @@
                <td ng-show="Multi">{{(item.TotalLine+item.SideLine)/2 | number:1}}</td>
             </tr>
             <tr>
-               <td id="TotalLine_{{$index}}">{{item.TotalLine | number:1}}</td>
+               <td id="TotalLine_{{$index}}"  class="statTotal">{{item.TotalLine | number:1}}</td>
             </tr>
 
          </table>
@@ -228,11 +228,13 @@
       <td ng-show="Multi">
          <table>
             <tr>
-               <td>{{item.SideLine | number:1}}</td>
+               <td>{{item.OurTotalLineAway - ((item.TotalLine-item.SideLine)/2) | number:1}}</td>
             </tr>
-            <tr><>&nbsp;</td> </tr>
             <tr>
-               <td>{{item.PlayDiff |  number:1}}</td>
+               <td>{{item.OurTotalLineHome - ((item.TotalLine+item.SideLine)/2) | number:1}}</td>
+            </tr>
+            <tr>
+               <td  class="statTotal">{{item.PlayDiff |  number:1}}</td>
             </tr>
          </table>
       </td>
