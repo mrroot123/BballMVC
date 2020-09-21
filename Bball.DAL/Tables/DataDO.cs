@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 
 namespace Bball.DAL.Tables
 {
-   public class DataDO
+   public class DataDO : BaseTableDO
    {
       #region adjustments
       public void InsertAdjustmentRow(IBballInfoDTO oBballInfoDTO)
@@ -128,6 +128,7 @@ namespace Bball.DAL.Tables
       #region GetDailySummary
       public void GetDailySummaryDTO(IBballInfoDTO oBballInfoDTO)
       {
+         Log("DataDO.GetDailySummaryDTO");
          string getRowSql =
             $"SELECT *  FROM DailySummary Where LeagueName = '{oBballInfoDTO.LeagueName}' AND GameDate = '{oBballInfoDTO.GameDate.ToShortDateString()}' ";
          int rows = SysDAL.Functions.DALfunctions.ExecuteSqlQuery(oBballInfoDTO.ConnectionString, getRowSql
@@ -203,6 +204,7 @@ namespace Bball.DAL.Tables
       }
       public void Exec_uspCalcTodaysMatchups(IBballInfoDTO oBballInfoDTO)
       {
+         Log("DataDO.Exec_uspCalcTodaysMatchups." + oBballInfoDTO.LeagueName);
          List<string> SqlParmNames = new List<string>() { "UserName", "LeagueName", "GameDate", "Display" };
          List<object> SqlParmValues = new List<object>() { oBballInfoDTO.UserName, oBballInfoDTO.LeagueName, oBballInfoDTO.GameDate, 0 };
          SysDAL.Functions.DALfunctions.ExecuteStoredProcedureNonQuery(oBballInfoDTO.ConnectionString, "uspCalcTodaysMatchups", SqlParmNames, SqlParmValues);

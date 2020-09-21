@@ -6,7 +6,7 @@ using System.Web;
 using System.Web.Http.ExceptionHandling;
 using System.Web.Http.Filters;
 using System.Web.Http.Results;
-using BballMVC.Log;
+using TTI.Logger;
 
 namespace BballMVC.Classes
 {

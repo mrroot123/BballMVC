@@ -181,8 +181,6 @@
     <Compile Include="Controllers\BoxScoresController.cs" />
     <Compile Include="Controllers\RotationController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
-    <Compile Include="Log\Helper.cs" />
-    <Compile Include="Log\TTILogMessage.cs" />
     <Compile Include="Models\Adjustments.cs">
       <DependentUpon>BballEntities.tt</DependentUpon>
     </Compile>

@@ -50,6 +50,9 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Http">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -90,6 +93,7 @@
     <Compile Include="Parsing\BoxScoresLast5Min.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tables\AdjustmentsDO.cs" />
+    <Compile Include="Tables\BaseTableDO.cs" />
     <Compile Include="Tables\BoxScoreDO.cs" />
     <Compile Include="Tables\DataDO.cs" />
     <Compile Include="Tables\LeagueInfoDO.cs" />
@@ -143,6 +147,10 @@
     <ProjectReference Include="..\CommonClasses\HtmlParsing\HtmlParsing.vbproj">
       <Project>{50702d84-0b14-4d58-a1a8-a2f3a9135fd4}</Project>
       <Name>HtmlParsing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TTI.Logger\TTI.Logger.csproj">
+      <Project>{ff93d3d6-5a10-4af0-8c3c-12482b6de4d1}</Project>
+      <Name>TTI.Logger</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

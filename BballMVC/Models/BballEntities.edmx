@@ -206,6 +206,8 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.BoxScoresLast5Min' does not
           <Property Name="Q4Last1MinScoreUs" Type="float" Nullable="false" />
           <Property Name="Q4Last1MinScoreOp" Type="float" Nullable="false" />
           <Property Name="Q4Last1MinWinningTeam" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="Q4Last1MinUsPts" Type="float" />
+          <Property Name="Q4Last1MinOpPts" Type="float" />
           <Property Name="Q4Last1MinUsPt1" Type="float" Nullable="false" />
           <Property Name="Q4Last1MinUsPt2" Type="float" Nullable="false" />
           <Property Name="Q4Last1MinUsPt3" Type="float" Nullable="false" />
@@ -296,19 +298,19 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.BoxScoresSeeds' does not ha
           <Property Name="NumOfMatchups" Type="int" Nullable="false" />
           <Property Name="LgAvgStartDate" Type="date" />
           <Property Name="LgAvgGamesBack" Type="int" />
-          <Property Name="LgAvgScoreAway" Type="float" Nullable="false" />
-          <Property Name="LgAvgScoreHome" Type="float" Nullable="false" />
-          <Property Name="LgAvgScoreFinal" Type="float" Nullable="false" />
-          <Property Name="LgAvgShotsMadeAwayPt1" Type="float" Nullable="false" />
-          <Property Name="LgAvgShotsMadeAwayPt2" Type="float" Nullable="false" />
-          <Property Name="LgAvgShotsMadeAwayPt3" Type="float" Nullable="false" />
-          <Property Name="LgAvgShotsMadeHomePt1" Type="float" Nullable="false" />
-          <Property Name="LgAvgShotsMadeHomePt2" Type="float" Nullable="false" />
-          <Property Name="LgAvgShotsMadeHomePt3" Type="float" Nullable="false" />
-          <Property Name="LgAvgLastMinPts" Type="float" Nullable="false" />
-          <Property Name="LgAvgLastMinPt1" Type="float" Nullable="false" />
-          <Property Name="LgAvgLastMinPt2" Type="float" Nullable="false" />
-          <Property Name="LgAvgLastMinPt3" Type="float" Nullable="false" />
+          <Property Name="LgAvgScoreAway" Type="float" />
+          <Property Name="LgAvgScoreHome" Type="float" />
+          <Property Name="LgAvgScoreFinal" Type="float" />
+          <Property Name="LgAvgShotsMadeAwayPt1" Type="float" />
+          <Property Name="LgAvgShotsMadeAwayPt2" Type="float" />
+          <Property Name="LgAvgShotsMadeAwayPt3" Type="float" />
+          <Property Name="LgAvgShotsMadeHomePt1" Type="float" />
+          <Property Name="LgAvgShotsMadeHomePt2" Type="float" />
+          <Property Name="LgAvgShotsMadeHomePt3" Type="float" />
+          <Property Name="LgAvgLastMinPts" Type="float" />
+          <Property Name="LgAvgLastMinPt1" Type="float" />
+          <Property Name="LgAvgLastMinPt2" Type="float" />
+          <Property Name="LgAvgLastMinPt3" Type="float" />
           <Property Name="LgAvgTurnOversAway" Type="float" />
           <Property Name="LgAvgTurnOversHome" Type="float" />
           <Property Name="LgAvgOffRBAway" Type="float" />
@@ -1194,6 +1196,8 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
     [BoxScoresLast5Min].[Q4Last1MinScoreUs] AS [Q4Last1MinScoreUs], 
     [BoxScoresLast5Min].[Q4Last1MinScoreOp] AS [Q4Last1MinScoreOp], 
     [BoxScoresLast5Min].[Q4Last1MinWinningTeam] AS [Q4Last1MinWinningTeam], 
+    [BoxScoresLast5Min].[Q4Last1MinUsPts] AS [Q4Last1MinUsPts], 
+    [BoxScoresLast5Min].[Q4Last1MinOpPts] AS [Q4Last1MinOpPts], 
     [BoxScoresLast5Min].[Q4Last1MinUsPt1] AS [Q4Last1MinUsPt1], 
     [BoxScoresLast5Min].[Q4Last1MinUsPt2] AS [Q4Last1MinUsPt2], 
     [BoxScoresLast5Min].[Q4Last1MinUsPt3] AS [Q4Last1MinUsPt3], 
@@ -1783,7 +1787,6 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
           <EntitySet Name="Lines" EntityType="Self.Lines" />
           <EntitySet Name="SeasonInfo" EntityType="TTI_LeagueScoresModel.SeasonInfo" />
           <EntitySet Name="ParmTables" EntityType="TTI_LeagueScoresModel.ParmTable" />
-          <EntitySet Name="BoxScoresLast5Min" EntityType="TTI_LeagueScoresModel.BoxScoresLast5Min" />
           <EntitySet Name="Users" EntityType="TTI_LeagueScoresModel.User" />
           <FunctionImport Name="Bball_UpdateAdjs">
             <Parameter Name="ProcessDate" Mode="In" Type="DateTime" />
@@ -1891,6 +1894,7 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
           <EntitySet Name="DailySummary" EntityType="TTI_LeagueScoresModel.DailySummary" />
           <EntitySet Name="TodaysMatchups" EntityType="TTI_LeagueScoresModel.TodaysMatchups" />
           <EntitySet Name="LeagueInfo" EntityType="TTI_LeagueScoresModel.LeagueInfo" />
+          <EntitySet Name="BoxScoresLast5Min" EntityType="TTI_LeagueScoresModel.BoxScoresLast5Min" />
         </EntityContainer>
         <EntityType Name="SeasonInfo">
           <Key>
@@ -1936,52 +1940,6 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdateUser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="UpdateDate" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="BoxScoresLast5Min">
-          <Key>
-            <PropertyRef Name="BoxScoresLast5MinID" />
-            <PropertyRef Name="LeagueName" />
-            <PropertyRef Name="GameDate" />
-            <PropertyRef Name="RotNum" />
-            <PropertyRef Name="Team" />
-            <PropertyRef Name="Opp" />
-            <PropertyRef Name="Venue" />
-            <PropertyRef Name="Q4Last5MinScore" />
-            <PropertyRef Name="Q4Last1MinScore" />
-            <PropertyRef Name="Q4Score" />
-            <PropertyRef Name="Q4Last1MinScoreUs" />
-            <PropertyRef Name="Q4Last1MinScoreOp" />
-            <PropertyRef Name="Q4Last1MinWinningTeam" />
-            <PropertyRef Name="Q4Last1MinUsPt1" />
-            <PropertyRef Name="Q4Last1MinUsPt2" />
-            <PropertyRef Name="Q4Last1MinUsPt3" />
-            <PropertyRef Name="Q4Last1MinOpPt1" />
-            <PropertyRef Name="Q4Last1MinOpPt2" />
-            <PropertyRef Name="Q4Last1MinOpPt3" />
-            <PropertyRef Name="Source" />
-            <PropertyRef Name="LoadDate" />
-          </Key>
-          <Property Name="BoxScoresLast5MinID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="LeagueName" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="true" />
-          <Property Name="GameDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="RotNum" Type="Int32" Nullable="false" />
-          <Property Name="Team" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
-          <Property Name="Opp" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
-          <Property Name="Venue" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Name="Q4Last5MinScore" Type="Double" Nullable="false" />
-          <Property Name="Q4Last1MinScore" Type="Double" Nullable="false" />
-          <Property Name="Q4Score" Type="Double" Nullable="false" />
-          <Property Name="Q4Last1MinScoreUs" Type="Double" Nullable="false" />
-          <Property Name="Q4Last1MinScoreOp" Type="Double" Nullable="false" />
-          <Property Name="Q4Last1MinWinningTeam" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
-          <Property Name="Q4Last1MinUsPt1" Type="Double" Nullable="false" />
-          <Property Name="Q4Last1MinUsPt2" Type="Double" Nullable="false" />
-          <Property Name="Q4Last1MinUsPt3" Type="Double" Nullable="false" />
-          <Property Name="Q4Last1MinOpPt1" Type="Double" Nullable="false" />
-          <Property Name="Q4Last1MinOpPt2" Type="Double" Nullable="false" />
-          <Property Name="Q4Last1MinOpPt3" Type="Double" Nullable="false" />
-          <Property Name="Source" Type="String" Nullable="false" MaxLength="21" FixedLength="false" Unicode="true" />
-          <Property Name="LoadDate" Type="DateTime" Nullable="false" Precision="7" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -2526,19 +2484,19 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
           <Property Name="NumOfMatchups" Type="Int32" Nullable="false" />
           <Property Name="LgAvgStartDate" Type="DateTime" Precision="0" />
           <Property Name="LgAvgGamesBack" Type="Int32" />
-          <Property Name="LgAvgScoreAway" Type="Double" Nullable="false" />
-          <Property Name="LgAvgScoreHome" Type="Double" Nullable="false" />
-          <Property Name="LgAvgScoreFinal" Type="Double" Nullable="false" />
-          <Property Name="LgAvgShotsMadeAwayPt1" Type="Double" Nullable="false" />
-          <Property Name="LgAvgShotsMadeAwayPt2" Type="Double" Nullable="false" />
-          <Property Name="LgAvgShotsMadeAwayPt3" Type="Double" Nullable="false" />
-          <Property Name="LgAvgShotsMadeHomePt1" Type="Double" Nullable="false" />
-          <Property Name="LgAvgShotsMadeHomePt2" Type="Double" Nullable="false" />
-          <Property Name="LgAvgShotsMadeHomePt3" Type="Double" Nullable="false" />
-          <Property Name="LgAvgLastMinPts" Type="Double" Nullable="false" />
-          <Property Name="LgAvgLastMinPt1" Type="Double" Nullable="false" />
-          <Property Name="LgAvgLastMinPt2" Type="Double" Nullable="false" />
-          <Property Name="LgAvgLastMinPt3" Type="Double" Nullable="false" />
+          <Property Name="LgAvgScoreAway" Type="Double" />
+          <Property Name="LgAvgScoreHome" Type="Double" />
+          <Property Name="LgAvgScoreFinal" Type="Double" />
+          <Property Name="LgAvgShotsMadeAwayPt1" Type="Double" />
+          <Property Name="LgAvgShotsMadeAwayPt2" Type="Double" />
+          <Property Name="LgAvgShotsMadeAwayPt3" Type="Double" />
+          <Property Name="LgAvgShotsMadeHomePt1" Type="Double" />
+          <Property Name="LgAvgShotsMadeHomePt2" Type="Double" />
+          <Property Name="LgAvgShotsMadeHomePt3" Type="Double" />
+          <Property Name="LgAvgLastMinPts" Type="Double" />
+          <Property Name="LgAvgLastMinPt1" Type="Double" />
+          <Property Name="LgAvgLastMinPt2" Type="Double" />
+          <Property Name="LgAvgLastMinPt3" Type="Double" />
           <Property Name="LgAvgTurnOversAway" Type="Double" />
           <Property Name="LgAvgTurnOversHome" Type="Double" />
           <Property Name="LgAvgOffRBAway" Type="Double" />
@@ -2742,6 +2700,54 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
           <Property Name="LeagueColor" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="BoxScoresL5MinURL" Type="String" MaxLength="250" FixedLength="true" Unicode="true" />
         </EntityType>
+        <EntityType Name="BoxScoresLast5Min">
+          <Key>
+            <PropertyRef Name="BoxScoresLast5MinID" />
+            <PropertyRef Name="LeagueName" />
+            <PropertyRef Name="GameDate" />
+            <PropertyRef Name="RotNum" />
+            <PropertyRef Name="Team" />
+            <PropertyRef Name="Opp" />
+            <PropertyRef Name="Venue" />
+            <PropertyRef Name="Q4Last5MinScore" />
+            <PropertyRef Name="Q4Last1MinScore" />
+            <PropertyRef Name="Q4Score" />
+            <PropertyRef Name="Q4Last1MinScoreUs" />
+            <PropertyRef Name="Q4Last1MinScoreOp" />
+            <PropertyRef Name="Q4Last1MinWinningTeam" />
+            <PropertyRef Name="Q4Last1MinUsPt1" />
+            <PropertyRef Name="Q4Last1MinUsPt2" />
+            <PropertyRef Name="Q4Last1MinUsPt3" />
+            <PropertyRef Name="Q4Last1MinOpPt1" />
+            <PropertyRef Name="Q4Last1MinOpPt2" />
+            <PropertyRef Name="Q4Last1MinOpPt3" />
+            <PropertyRef Name="Source" />
+            <PropertyRef Name="LoadDate" />
+          </Key>
+          <Property Name="BoxScoresLast5MinID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LeagueName" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="true" />
+          <Property Name="GameDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="RotNum" Type="Int32" Nullable="false" />
+          <Property Name="Team" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="Opp" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="Venue" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Q4Last5MinScore" Type="Double" Nullable="false" />
+          <Property Name="Q4Last1MinScore" Type="Double" Nullable="false" />
+          <Property Name="Q4Score" Type="Double" Nullable="false" />
+          <Property Name="Q4Last1MinScoreUs" Type="Double" Nullable="false" />
+          <Property Name="Q4Last1MinScoreOp" Type="Double" Nullable="false" />
+          <Property Name="Q4Last1MinWinningTeam" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="Q4Last1MinUsPts" Type="Double" />
+          <Property Name="Q4Last1MinOpPts" Type="Double" />
+          <Property Name="Q4Last1MinUsPt1" Type="Double" Nullable="false" />
+          <Property Name="Q4Last1MinUsPt2" Type="Double" Nullable="false" />
+          <Property Name="Q4Last1MinUsPt3" Type="Double" Nullable="false" />
+          <Property Name="Q4Last1MinOpPt1" Type="Double" Nullable="false" />
+          <Property Name="Q4Last1MinOpPt2" Type="Double" Nullable="false" />
+          <Property Name="Q4Last1MinOpPt3" Type="Double" Nullable="false" />
+          <Property Name="Source" Type="String" Nullable="false" MaxLength="21" FixedLength="false" Unicode="true" />
+          <Property Name="LoadDate" Type="DateTime" Nullable="false" Precision="7" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2889,33 +2895,6 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
                 <ScalarProperty Name="ParmValue" ColumnName="ParmValue" />
                 <ScalarProperty Name="ParmName" ColumnName="ParmName" />
                 <ScalarProperty Name="ParmTableID" ColumnName="ParmTableID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="BoxScoresLast5Min">
-            <EntityTypeMapping TypeName="TTI_LeagueScoresModel.BoxScoresLast5Min">
-              <MappingFragment StoreEntitySet="BoxScoresLast5Min">
-                <ScalarProperty Name="LoadDate" ColumnName="LoadDate" />
-                <ScalarProperty Name="Source" ColumnName="Source" />
-                <ScalarProperty Name="Q4Last1MinOpPt3" ColumnName="Q4Last1MinOpPt3" />
-                <ScalarProperty Name="Q4Last1MinOpPt2" ColumnName="Q4Last1MinOpPt2" />
-                <ScalarProperty Name="Q4Last1MinOpPt1" ColumnName="Q4Last1MinOpPt1" />
-                <ScalarProperty Name="Q4Last1MinUsPt3" ColumnName="Q4Last1MinUsPt3" />
-                <ScalarProperty Name="Q4Last1MinUsPt2" ColumnName="Q4Last1MinUsPt2" />
-                <ScalarProperty Name="Q4Last1MinUsPt1" ColumnName="Q4Last1MinUsPt1" />
-                <ScalarProperty Name="Q4Last1MinWinningTeam" ColumnName="Q4Last1MinWinningTeam" />
-                <ScalarProperty Name="Q4Last1MinScoreOp" ColumnName="Q4Last1MinScoreOp" />
-                <ScalarProperty Name="Q4Last1MinScoreUs" ColumnName="Q4Last1MinScoreUs" />
-                <ScalarProperty Name="Q4Score" ColumnName="Q4Score" />
-                <ScalarProperty Name="Q4Last1MinScore" ColumnName="Q4Last1MinScore" />
-                <ScalarProperty Name="Q4Last5MinScore" ColumnName="Q4Last5MinScore" />
-                <ScalarProperty Name="Venue" ColumnName="Venue" />
-                <ScalarProperty Name="Opp" ColumnName="Opp" />
-                <ScalarProperty Name="Team" ColumnName="Team" />
-                <ScalarProperty Name="RotNum" ColumnName="RotNum" />
-                <ScalarProperty Name="GameDate" ColumnName="GameDate" />
-                <ScalarProperty Name="LeagueName" ColumnName="LeagueName" />
-                <ScalarProperty Name="BoxScoresLast5MinID" ColumnName="BoxScoresLast5MinID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3417,6 +3396,35 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
                 <ScalarProperty Name="NumberOfTeams" ColumnName="NumberOfTeams" />
                 <ScalarProperty Name="StartDate" ColumnName="StartDate" />
                 <ScalarProperty Name="LeagueName" ColumnName="LeagueName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BoxScoresLast5Min">
+            <EntityTypeMapping TypeName="TTI_LeagueScoresModel.BoxScoresLast5Min">
+              <MappingFragment StoreEntitySet="BoxScoresLast5Min">
+                <ScalarProperty Name="LoadDate" ColumnName="LoadDate" />
+                <ScalarProperty Name="Source" ColumnName="Source" />
+                <ScalarProperty Name="Q4Last1MinOpPt3" ColumnName="Q4Last1MinOpPt3" />
+                <ScalarProperty Name="Q4Last1MinOpPt2" ColumnName="Q4Last1MinOpPt2" />
+                <ScalarProperty Name="Q4Last1MinOpPt1" ColumnName="Q4Last1MinOpPt1" />
+                <ScalarProperty Name="Q4Last1MinUsPt3" ColumnName="Q4Last1MinUsPt3" />
+                <ScalarProperty Name="Q4Last1MinUsPt2" ColumnName="Q4Last1MinUsPt2" />
+                <ScalarProperty Name="Q4Last1MinUsPt1" ColumnName="Q4Last1MinUsPt1" />
+                <ScalarProperty Name="Q4Last1MinOpPts" ColumnName="Q4Last1MinOpPts" />
+                <ScalarProperty Name="Q4Last1MinUsPts" ColumnName="Q4Last1MinUsPts" />
+                <ScalarProperty Name="Q4Last1MinWinningTeam" ColumnName="Q4Last1MinWinningTeam" />
+                <ScalarProperty Name="Q4Last1MinScoreOp" ColumnName="Q4Last1MinScoreOp" />
+                <ScalarProperty Name="Q4Last1MinScoreUs" ColumnName="Q4Last1MinScoreUs" />
+                <ScalarProperty Name="Q4Score" ColumnName="Q4Score" />
+                <ScalarProperty Name="Q4Last1MinScore" ColumnName="Q4Last1MinScore" />
+                <ScalarProperty Name="Q4Last5MinScore" ColumnName="Q4Last5MinScore" />
+                <ScalarProperty Name="Venue" ColumnName="Venue" />
+                <ScalarProperty Name="Opp" ColumnName="Opp" />
+                <ScalarProperty Name="Team" ColumnName="Team" />
+                <ScalarProperty Name="RotNum" ColumnName="RotNum" />
+                <ScalarProperty Name="GameDate" ColumnName="GameDate" />
+                <ScalarProperty Name="LeagueName" ColumnName="LeagueName" />
+                <ScalarProperty Name="BoxScoresLast5MinID" ColumnName="BoxScoresLast5MinID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

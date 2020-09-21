@@ -9,7 +9,7 @@ GO
 SET NOCOUNT ON
 
   Declare @UserName	varchar(10) = 'Test'
-			, @LeagueName varchar(8) = 'WNBA'
+			, @LeagueName varchar(8) = 'NBA'
 			, @GameDate Date
 			, @StartDate Date 
 			, @EndDate Date
@@ -44,9 +44,9 @@ Declare @StartTime dateTime = GetDate(), @EndTime DateTime
 
 Declare @LoopHA int, @LoopDate int, @LoopGB int, @EndYear int, @LoopGBStart int, @LoopGBLimit int, @LoopHALimit int
 
-Set @StartDate = '12/1/2016'
-Set @EndDate =   '4/15/2017' 
-Set @EndYear = 2020
+Set @StartDate = '12/1/2017'
+Set @EndDate =   '4/15/2018' 
+Set @EndYear = 2018
 Set @LoopGBStart = 5
 Set @LoopGBLimit = 10
 Set @LoopHALimit = 1	-- 2 for both 
@@ -77,11 +77,13 @@ BEGIN -- LoopDate
 			---------------
 			Set @StartTime = GETDATE();
 			Set @GameDate = @StartDate
-			
-			Select @StartDate as StartDate, @EndDate as EndDate, convert(Time(0), @StartTime) as StartTime,  @LoopGB as GamesBack, @LoopHA as BothHA
+			Select '============ NEW ITERATION ============================================='
+		--	Select @StartDate as StartDate, @EndDate as EndDate, convert(Time(0), @StartTime) as StartTime,  @LoopGB as GamesBack, @LoopHA as BothHA
 			set @Display = 1; 			--kd
 			While @GameDate <= @EndDate
 			BEGIN
+			   Select  CAST( GETDATE() AS time(0)) AS 'time', @GameDate as GameDate,  @StartDate as StartDate, @EndDate as EndDate, convert(Time(0), @StartTime) as StartTime,  @LoopGB as GamesBack, @LoopHA as BothHA
+
 				exec uspCalcTodaysMatchups  @UserName, @LeagueName, @GameDate, @Display
 				Set @GameDate = DateAdd(d,1, @GameDate)
 				set @Display = 0
@@ -107,4 +109,5 @@ END -- LoopDate
 Select @RunID as RunID
 EXEC uspQueryAnalysisResults @RunID
 
+EXEC uspQueryAnalysisResults '09/15/20'
 -- Truncate Table AnalysisResults

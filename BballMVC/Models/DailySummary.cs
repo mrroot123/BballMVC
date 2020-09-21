@@ -23,19 +23,19 @@ namespace BballMVC.Models
         public int NumOfMatchups { get; set; }
         public Nullable<System.DateTime> LgAvgStartDate { get; set; }
         public Nullable<int> LgAvgGamesBack { get; set; }
-        public double LgAvgScoreAway { get; set; }
-        public double LgAvgScoreHome { get; set; }
-        public double LgAvgScoreFinal { get; set; }
-        public double LgAvgShotsMadeAwayPt1 { get; set; }
-        public double LgAvgShotsMadeAwayPt2 { get; set; }
-        public double LgAvgShotsMadeAwayPt3 { get; set; }
-        public double LgAvgShotsMadeHomePt1 { get; set; }
-        public double LgAvgShotsMadeHomePt2 { get; set; }
-        public double LgAvgShotsMadeHomePt3 { get; set; }
-        public double LgAvgLastMinPts { get; set; }
-        public double LgAvgLastMinPt1 { get; set; }
-        public double LgAvgLastMinPt2 { get; set; }
-        public double LgAvgLastMinPt3 { get; set; }
+        public Nullable<double> LgAvgScoreAway { get; set; }
+        public Nullable<double> LgAvgScoreHome { get; set; }
+        public Nullable<double> LgAvgScoreFinal { get; set; }
+        public Nullable<double> LgAvgShotsMadeAwayPt1 { get; set; }
+        public Nullable<double> LgAvgShotsMadeAwayPt2 { get; set; }
+        public Nullable<double> LgAvgShotsMadeAwayPt3 { get; set; }
+        public Nullable<double> LgAvgShotsMadeHomePt1 { get; set; }
+        public Nullable<double> LgAvgShotsMadeHomePt2 { get; set; }
+        public Nullable<double> LgAvgShotsMadeHomePt3 { get; set; }
+        public Nullable<double> LgAvgLastMinPts { get; set; }
+        public Nullable<double> LgAvgLastMinPt1 { get; set; }
+        public Nullable<double> LgAvgLastMinPt2 { get; set; }
+        public Nullable<double> LgAvgLastMinPt3 { get; set; }
         public Nullable<double> LgAvgTurnOversAway { get; set; }
         public Nullable<double> LgAvgTurnOversHome { get; set; }
         public Nullable<double> LgAvgOffRBAway { get; set; }

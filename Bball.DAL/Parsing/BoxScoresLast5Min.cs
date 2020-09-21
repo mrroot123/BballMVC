@@ -125,7 +125,9 @@ namespace Bball.DAL.Parsing
                throw new Exception("ParseBoxScoresLast5Min - Get next TR savTime until Time< 5:00 Not Found");
             parseTR(oPage.HtmlInner);
          }  // while Time > 0
- 
+         oLast5Min.Q4Last1MinOpPts = oLast5Min.Q4Last1MinOpPt1 + oLast5Min.Q4Last1MinOpPt2 * 2 + oLast5Min.Q4Last1MinOpPt3 * 3;
+         oLast5Min.Q4Last1MinUsPts = oLast5Min.Q4Last1MinUsPt1 + oLast5Min.Q4Last1MinUsPt2 * 2 + oLast5Min.Q4Last1MinUsPt3 * 3;
+
       }  // ParseBoxScoresLast5Min
 
       private void parseTR(string trHtml)

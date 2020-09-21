@@ -28,25 +28,25 @@ namespace Bball.DAL.Tables
       const string BoxScoresColumns = "Exclude,LeagueName,GameDate,RotNum,Team,Opp,Venue,GameTime,Season,SubSeason,MinutesPlayed,OtPeriods,ScoreReg,ScoreOT,ScoreRegUs,ScoreRegOp,ScoreOTUs,ScoreOTOp,ScoreQ1Us,ScoreQ1Op,ScoreQ2Us,ScoreQ2Op,ScoreQ3Us,ScoreQ3Op,ScoreQ4Us,ScoreQ4Op,ShotsActualMadeUsPt1,ShotsActualMadeUsPt2,ShotsActualMadeUsPt3,ShotsActualMadeOpPt1,ShotsActualMadeOpPt2,ShotsActualMadeOpPt3,ShotsActualAttemptedUsPt1,ShotsActualAttemptedUsPt2,ShotsActualAttemptedUsPt3,ShotsActualAttemptedOpPt1,ShotsActualAttemptedOpPt2,ShotsActualAttemptedOpPt3,ShotsMadeUsRegPt1,ShotsMadeUsRegPt2,ShotsMadeUsRegPt3,ShotsMadeOpRegPt1,ShotsMadeOpRegPt2,ShotsMadeOpRegPt3,ShotsAttemptedUsRegPt1,ShotsAttemptedUsRegPt2,ShotsAttemptedUsRegPt3,ShotsAttemptedOpRegPt1,ShotsAttemptedOpRegPt2,ShotsAttemptedOpRegPt3,TurnOversUs,TurnOversOp,OffRBUs,OffRBOp,AssistsUs,AssistsOp,Source,LoadDate,LoadTimeSeconds";
 
       const string BoxScoresLast5MinTable = "BoxScoresLast5Min";
-      const string BoxScoresLast5MinColumns = "LeagueName,GameDate,RotNum,Team,Opp,Venue,Q4Last5MinScore,Q4Last1MinScore,Q4Score,Q4Last1MinScoreUs,Q4Last1MinScoreOp,Q4Last1MinWinningTeam,Q4Last1MinUsPt1,Q4Last1MinUsPt2,Q4Last1MinUsPt3,Q4Last1MinOpPt1,Q4Last1MinOpPt2,Q4Last1MinOpPt3,Source,LoadDate";
+      const string BoxScoresLast5MinColumns = "LeagueName,GameDate,RotNum,Team,Opp,Venue,Q4Last5MinScore,Q4Last1MinScore,Q4Score,Q4Last1MinScoreUs,Q4Last1MinScoreOp,Q4Last1MinWinningTeam,Q4Last1MinUsPts,Q4Last1MinOpPts,Q4Last1MinUsPt1,Q4Last1MinUsPt2,Q4Last1MinUsPt3,Q4Last1MinOpPt1,Q4Last1MinOpPt2,Q4Last1MinOpPt3,Source,LoadDate";
 
       delegate  void  PopulateDTOValues(List<string> ocValues, object DTO);
 
 
-      static string InsertRowPrep(string TableName, string ColumnNames, object DTO, PopulateDTOValues delPopulateDTOValues)
+
+      #region BoxScoreInsert
+      public static void InsertBoxScores(BoxScoresDTO oBoxScoresDTO, string ConnectionString)
+         => InsertRowPrep(ConnectionString, BoxScoresTable, BoxScoresColumns, oBoxScoresDTO, populate_ocValues);
+
+      static string InsertRowPrep(string ConnectionString, string TableName, string ColumnNames, object DTO, PopulateDTOValues delPopulateDTOValues)
       {
          List<string> ocColumns = ColumnNames.Split(',').OfType<string>().ToList();
          List<string> ocValues = new List<string>();
          delPopulateDTOValues(ocValues, DTO);   // Execute Delegate
-         string ConnectionString = SqlFunctions.GetConnectionString();
+       //  string ConnectionString = SqlFunctions.GetConnectionString();
          string SQL = SysDAL.Functions.DALfunctions.GenSql(TableName, ocColumns);
          return SysDAL.Functions.DALfunctions.InsertRow(ConnectionString, SQL, ocColumns, ocValues);
       }
-
-      #region BoxScoreInsert
-      public static void InsertBoxScores(BoxScoresDTO oBoxScoresDTO)
-         => InsertRowPrep(BoxScoresTable, BoxScoresColumns, oBoxScoresDTO, populate_ocValues);
-
       static void populate_ocValues(List<string> ocValues, object DTO)
       {
          // Column Updates Procedure
@@ -124,20 +124,20 @@ namespace Bball.DAL.Tables
 
       #endregion BoxScoreInsert
       #region BoxScoresLast5Min
-      public static void InsertAwayHomeRowsBoxScoresLast5Min(BoxScoresLast5MinDTO oLast5MinDTOHome)
+      public static void InsertAwayHomeRowsBoxScoresLast5Min(BoxScoresLast5MinDTO oLast5MinDTOHome, string ConnectionString)
       {
          string url = Bball.DAL.Parsing.BoxScoresLast5Min.BuildBoxScoresLast5MinUrl(oLast5MinDTOHome);  // Get Bb-ref Play by Play url
          Bball.DAL.Parsing.BoxScoresLast5Min oLast5Min = new Bball.DAL.Parsing.BoxScoresLast5Min(url);
          oLast5Min.ParseBoxScoresLast5Min(oLast5MinDTOHome);
-         InsertBoxScoresLast5Min(oLast5MinDTOHome);   // Insert Home 
+         InsertBoxScoresLast5Min(oLast5MinDTOHome, ConnectionString);   // Insert Home 
 
          BoxScoresLast5MinDTO oLast5MinDTOAway = new BoxScoresLast5MinDTO();
          populateAwayBoxScoreLast5MinDTOValues(oLast5MinDTOHome, oLast5MinDTOAway);
-         InsertBoxScoresLast5Min(oLast5MinDTOAway);   // Insert Away 
+         InsertBoxScoresLast5Min(oLast5MinDTOAway, ConnectionString);   // Insert Away 
       }
 
-      static void InsertBoxScoresLast5Min(BoxScoresLast5MinDTO oBoxScoresLast5MinDTO) 
-         => InsertRowPrep(BoxScoresLast5MinTable, BoxScoresLast5MinColumns, oBoxScoresLast5MinDTO, populateBoxScoreLast5MinDTOValues);
+      static void InsertBoxScoresLast5Min(BoxScoresLast5MinDTO oBoxScoresLast5MinDTO, string ConnectionString) 
+         => InsertRowPrep(ConnectionString, BoxScoresLast5MinTable, BoxScoresLast5MinColumns, oBoxScoresLast5MinDTO, populateBoxScoreLast5MinDTOValues);
 
       static void populateAwayBoxScoreLast5MinDTOValues(BoxScoresLast5MinDTO oHomeDTO, BoxScoresLast5MinDTO oAwayDTO)
       {
@@ -155,12 +155,16 @@ namespace Bball.DAL.Tables
          oAwayDTO.Q4Last1MinScoreOp = oHomeDTO.Q4Last1MinScoreUs;
          oAwayDTO.Q4Last1MinWinningTeam = oHomeDTO.Q4Last1MinWinningTeam;
          // Move OP info to US & Vise versa
+         oAwayDTO.Q4Last1MinUsPts = oHomeDTO.Q4Last1MinOpPts;
+         oAwayDTO.Q4Last1MinOpPts = oHomeDTO.Q4Last1MinUsPts;
+
          oAwayDTO.Q4Last1MinUsPt1 = oHomeDTO.Q4Last1MinOpPt1;
          oAwayDTO.Q4Last1MinUsPt2 = oHomeDTO.Q4Last1MinOpPt2;
          oAwayDTO.Q4Last1MinUsPt3 = oHomeDTO.Q4Last1MinOpPt3;
          oAwayDTO.Q4Last1MinOpPt1 = oHomeDTO.Q4Last1MinUsPt1;
          oAwayDTO.Q4Last1MinOpPt2 = oHomeDTO.Q4Last1MinUsPt2;
          oAwayDTO.Q4Last1MinOpPt3 = oHomeDTO.Q4Last1MinUsPt3;
+
          oAwayDTO.Source = oHomeDTO.Source;
          oAwayDTO.LoadDate = oHomeDTO.LoadDate;
       }
@@ -180,12 +184,17 @@ namespace Bball.DAL.Tables
          ocValues.Add(oLast5MinDTO.Q4Last1MinScoreUs.ToString());
          ocValues.Add(oLast5MinDTO.Q4Last1MinScoreOp.ToString());
          ocValues.Add(oLast5MinDTO.Q4Last1MinWinningTeam.ToString());
+
+         ocValues.Add(oLast5MinDTO.Q4Last1MinUsPts.ToString());
+         ocValues.Add(oLast5MinDTO.Q4Last1MinOpPts.ToString());
+
          ocValues.Add(oLast5MinDTO.Q4Last1MinUsPt1.ToString());
          ocValues.Add(oLast5MinDTO.Q4Last1MinUsPt2.ToString());
          ocValues.Add(oLast5MinDTO.Q4Last1MinUsPt3.ToString());
          ocValues.Add(oLast5MinDTO.Q4Last1MinOpPt1.ToString());
          ocValues.Add(oLast5MinDTO.Q4Last1MinOpPt2.ToString());
          ocValues.Add(oLast5MinDTO.Q4Last1MinOpPt3.ToString());
+
          ocValues.Add(oLast5MinDTO.Source.ToString());
          ocValues.Add(oLast5MinDTO.LoadDate.ToString());
 

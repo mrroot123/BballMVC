@@ -27,6 +27,8 @@ namespace BballMVC.Models
         public double Q4Last1MinScoreUs { get; set; }
         public double Q4Last1MinScoreOp { get; set; }
         public string Q4Last1MinWinningTeam { get; set; }
+        public Nullable<double> Q4Last1MinUsPts { get; set; }
+        public Nullable<double> Q4Last1MinOpPts { get; set; }
         public double Q4Last1MinUsPt1 { get; set; }
         public double Q4Last1MinUsPt2 { get; set; }
         public double Q4Last1MinUsPt3 { get; set; }

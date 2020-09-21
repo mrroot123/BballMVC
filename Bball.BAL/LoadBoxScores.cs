@@ -154,7 +154,7 @@ namespace Bball.BAL
                   oCoversBoxscore.PopulateBoxScoresDTO(BoxScoresDTO, arVenue[i]
                                  , _oSeasonInfoDO.oSeasonInfoDTO.Season, _oSeasonInfoDO.oSeasonInfoDTO.SubSeason, LoadDateTime
                                  , oCoversBoxscore.LoadTimeSecound, "Covers");
-                  Bball.DAL.Tables.BoxScoreDO.InsertBoxScores(BoxScoresDTO);
+                  Bball.DAL.Tables.BoxScoreDO.InsertBoxScores(BoxScoresDTO, _oBballInfoDTO.ConnectionString);
                }
                catch (Exception ex)
                {
@@ -180,7 +180,7 @@ namespace Bball.BAL
                try
                {
                   //Bball.DAL.Tables.
-                  BoxScoreDO.InsertAwayHomeRowsBoxScoresLast5Min(oLast5MinDTOHome);
+                  BoxScoreDO.InsertAwayHomeRowsBoxScoresLast5Min(oLast5MinDTOHome, _oBballInfoDTO.ConnectionString);
                }
                catch (Exception ex)
                {
