@@ -8,8 +8,8 @@
    // funtions
    function GetLeagueNames() {
       $rootScope.oBballInfoDTO.UserName = "Test";
-
-      if ($rootScope.oBballInfoDTO.oBballDataDTO.ocLeagueNames)
+      var xx = 1;
+      if (xx===2)     // $rootScope.oBballInfoDTO.oBballDataDTO.ocLeagueNames)
          RefreshLeagueNamesDropDown();
       else {
          $('#screen').css({ "display": "block", opacity: 0.2, "width": $(document).width(), "height": $(document).height() });
