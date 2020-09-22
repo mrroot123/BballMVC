@@ -684,6 +684,53 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.TodaysMatchups' does not ha
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view '00TTI_LeagueScores.dbo.TodaysPlaysData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TodaysPlaysData">
+          <Key>
+            <PropertyRef Name="TodaysPlaysID" />
+            <PropertyRef Name="PlayDate" />
+            <PropertyRef Name="LeagueName" />
+            <PropertyRef Name="RotNum" />
+            <PropertyRef Name="GameTime" />
+            <PropertyRef Name="TeamAway" />
+            <PropertyRef Name="TeamHome" />
+            <PropertyRef Name="PlayType" />
+            <PropertyRef Name="UO" />
+            <PropertyRef Name="Line" />
+            <PropertyRef Name="Info" />
+            <PropertyRef Name="PlayAmount" />
+            <PropertyRef Name="PlayWeight" />
+            <PropertyRef Name="Juice" />
+            <PropertyRef Name="Out" />
+            <PropertyRef Name="Author" />
+            <PropertyRef Name="CreateUser" />
+            <PropertyRef Name="CreateDate" />
+          </Key>
+          <Property Name="TodaysPlaysID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TranType" Type="int" />
+          <Property Name="PlayDate" Type="date" Nullable="false" />
+          <Property Name="LeagueName" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="RotNum" Type="int" Nullable="false" />
+          <Property Name="GameTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="TeamAway" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="TeamHome" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="PlayType" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="UO" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Line" Type="decimal" Precision="6" Scale="1" Nullable="false" />
+          <Property Name="Info" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="PlayAmount" Type="smallmoney" Nullable="false" />
+          <Property Name="PlayWeight" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="Juice" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="Out" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Author" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Result" Type="nchar" MaxLength="1" />
+          <Property Name="OT" Type="bit" />
+          <Property Name="FinalScore" Type="int" />
+          <Property Name="ResultAmount" Type="smallmoney" />
+          <Property Name="CreateUser" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view '00TTI_LeagueScores.dbo.Users' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Users">
           <Key>
@@ -1438,6 +1485,33 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
     [TodaysMatchups].[AllAdjustmentLines] AS [AllAdjustmentLines]
     FROM [dbo].[TodaysMatchups] AS [TodaysMatchups]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="TodaysPlaysData" EntityType="Self.TodaysPlaysData" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TodaysPlaysData].[TodaysPlaysID] AS [TodaysPlaysID], 
+    [TodaysPlaysData].[TranType] AS [TranType], 
+    [TodaysPlaysData].[PlayDate] AS [PlayDate], 
+    [TodaysPlaysData].[LeagueName] AS [LeagueName], 
+    [TodaysPlaysData].[RotNum] AS [RotNum], 
+    [TodaysPlaysData].[GameTime] AS [GameTime], 
+    [TodaysPlaysData].[TeamAway] AS [TeamAway], 
+    [TodaysPlaysData].[TeamHome] AS [TeamHome], 
+    [TodaysPlaysData].[PlayType] AS [PlayType], 
+    [TodaysPlaysData].[UO] AS [UO], 
+    [TodaysPlaysData].[Line] AS [Line], 
+    [TodaysPlaysData].[Info] AS [Info], 
+    [TodaysPlaysData].[PlayAmount] AS [PlayAmount], 
+    [TodaysPlaysData].[PlayWeight] AS [PlayWeight], 
+    [TodaysPlaysData].[Juice] AS [Juice], 
+    [TodaysPlaysData].[Out] AS [Out], 
+    [TodaysPlaysData].[Author] AS [Author], 
+    [TodaysPlaysData].[Result] AS [Result], 
+    [TodaysPlaysData].[OT] AS [OT], 
+    [TodaysPlaysData].[FinalScore] AS [FinalScore], 
+    [TodaysPlaysData].[ResultAmount] AS [ResultAmount], 
+    [TodaysPlaysData].[CreateUser] AS [CreateUser], 
+    [TodaysPlaysData].[CreateDate] AS [CreateDate]
+    FROM [dbo].[TodaysPlaysData] AS [TodaysPlaysData]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="Users" EntityType="Self.Users" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Users].[UserID] AS [UserID], 
@@ -1895,6 +1969,7 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
           <EntitySet Name="TodaysMatchups" EntityType="TTI_LeagueScoresModel.TodaysMatchups" />
           <EntitySet Name="LeagueInfo" EntityType="TTI_LeagueScoresModel.LeagueInfo" />
           <EntitySet Name="BoxScoresLast5Min" EntityType="TTI_LeagueScoresModel.BoxScoresLast5Min" />
+          <EntitySet Name="TodaysPlaysData" EntityType="TTI_LeagueScoresModel.TodaysPlaysData" />
         </EntityContainer>
         <EntityType Name="SeasonInfo">
           <Key>
@@ -2748,6 +2823,51 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
           <Property Name="Source" Type="String" Nullable="false" MaxLength="21" FixedLength="false" Unicode="true" />
           <Property Name="LoadDate" Type="DateTime" Nullable="false" Precision="7" />
         </EntityType>
+        <EntityType Name="TodaysPlaysData">
+          <Key>
+            <PropertyRef Name="TodaysPlaysID" />
+            <PropertyRef Name="PlayDate" />
+            <PropertyRef Name="LeagueName" />
+            <PropertyRef Name="RotNum" />
+            <PropertyRef Name="GameTime" />
+            <PropertyRef Name="TeamAway" />
+            <PropertyRef Name="TeamHome" />
+            <PropertyRef Name="PlayType" />
+            <PropertyRef Name="UO" />
+            <PropertyRef Name="Line" />
+            <PropertyRef Name="Info" />
+            <PropertyRef Name="PlayAmount" />
+            <PropertyRef Name="PlayWeight" />
+            <PropertyRef Name="Juice" />
+            <PropertyRef Name="Out" />
+            <PropertyRef Name="Author" />
+            <PropertyRef Name="CreateUser" />
+            <PropertyRef Name="CreateDate" />
+          </Key>
+          <Property Name="TodaysPlaysID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TranType" Type="Int32" />
+          <Property Name="PlayDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="LeagueName" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="RotNum" Type="Int32" Nullable="false" />
+          <Property Name="GameTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="TeamAway" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="TeamHome" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="PlayType" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="UO" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Line" Type="Decimal" Nullable="false" Precision="6" Scale="1" />
+          <Property Name="Info" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="PlayAmount" Type="Decimal" Nullable="false" Precision="10" Scale="4" />
+          <Property Name="PlayWeight" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
+          <Property Name="Juice" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
+          <Property Name="Out" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Author" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Result" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="OT" Type="Boolean" />
+          <Property Name="FinalScore" Type="Int32" />
+          <Property Name="ResultAmount" Type="Decimal" Precision="10" Scale="4" />
+          <Property Name="CreateUser" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3425,6 +3545,35 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
                 <ScalarProperty Name="GameDate" ColumnName="GameDate" />
                 <ScalarProperty Name="LeagueName" ColumnName="LeagueName" />
                 <ScalarProperty Name="BoxScoresLast5MinID" ColumnName="BoxScoresLast5MinID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TodaysPlaysData">
+            <EntityTypeMapping TypeName="TTI_LeagueScoresModel.TodaysPlaysData">
+              <MappingFragment StoreEntitySet="TodaysPlaysData">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="ResultAmount" ColumnName="ResultAmount" />
+                <ScalarProperty Name="FinalScore" ColumnName="FinalScore" />
+                <ScalarProperty Name="OT" ColumnName="OT" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+                <ScalarProperty Name="Author" ColumnName="Author" />
+                <ScalarProperty Name="Out" ColumnName="Out" />
+                <ScalarProperty Name="Juice" ColumnName="Juice" />
+                <ScalarProperty Name="PlayWeight" ColumnName="PlayWeight" />
+                <ScalarProperty Name="PlayAmount" ColumnName="PlayAmount" />
+                <ScalarProperty Name="Info" ColumnName="Info" />
+                <ScalarProperty Name="Line" ColumnName="Line" />
+                <ScalarProperty Name="UO" ColumnName="UO" />
+                <ScalarProperty Name="PlayType" ColumnName="PlayType" />
+                <ScalarProperty Name="TeamHome" ColumnName="TeamHome" />
+                <ScalarProperty Name="TeamAway" ColumnName="TeamAway" />
+                <ScalarProperty Name="GameTime" ColumnName="GameTime" />
+                <ScalarProperty Name="RotNum" ColumnName="RotNum" />
+                <ScalarProperty Name="LeagueName" ColumnName="LeagueName" />
+                <ScalarProperty Name="PlayDate" ColumnName="PlayDate" />
+                <ScalarProperty Name="TranType" ColumnName="TranType" />
+                <ScalarProperty Name="TodaysPlaysID" ColumnName="TodaysPlaysID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

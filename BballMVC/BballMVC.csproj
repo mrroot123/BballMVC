@@ -249,6 +249,9 @@
     <Compile Include="Models\TodaysPlays.cs">
       <DependentUpon>BballEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TodaysPlaysData.cs">
+      <DependentUpon>BballEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\udfDailyParms_Result.cs">
       <DependentUpon>BballEntities.tt</DependentUpon>
     </Compile>

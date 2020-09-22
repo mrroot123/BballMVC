@@ -6,6 +6,7 @@ using Bball.DAL.Tables;
 using Bball.IBAL;
 using Bball.DAL.Constants;
 using Newtonsoft.Json.Linq;
+using System.Threading.Tasks;
 
 namespace Bball.BAL
 {
@@ -25,6 +26,9 @@ namespace Bball.BAL
             switch (CollectionType)
             {
                case GetDataConstants.AppInit:
+                  appInit(oBballInfoDTO);
+                  break;
+               case "X":
                   GetDataConstants.PopulateDataConstants(oBballInfoDTO.oBballDataDTO.DataConstants);
                   oBballInfoDTO.oBballDataDTO.BaseDir = System.AppDomain.CurrentDomain.BaseDirectory;
                   new AdjustmentsDO(oBballInfoDTO).UpdateYesterdaysAdjustments();
@@ -75,6 +79,59 @@ namespace Bball.BAL
 
          }
       }
+      async Task appInit(IBballInfoDTO oBballInfoDTO)
+      {
+         GetDataConstants.PopulateDataConstants(oBballInfoDTO.oBballDataDTO.DataConstants);
+         oBballInfoDTO.oBballDataDTO.BaseDir = System.AppDomain.CurrentDomain.BaseDirectory;
+
+         Task<bool> taskAdj = UpdateYesterdaysAdjustmentsAsync(oBballInfoDTO);
+
+         new DataDO().GetLeagueNames(oBballInfoDTO);
+         //
+         IBballInfoDTO _oBballInfoDTO = new BballInfoDTO();
+         oBballInfoDTO.CloneBballDataDTO(_oBballInfoDTO);
+         await taskAdj;
+         List<Task<string>> taskCalcTMs = new List<Task<string>>();
+         foreach (var item in oBballInfoDTO.oBballDataDTO.ocLeagueNames)
+         {
+            _oBballInfoDTO.LeagueName = item.Value;
+            taskCalcTMs.Add( CalcTodaysMatchupsAsync(_oBballInfoDTO));
+         }
+
+         while (taskCalcTMs.Count > 0)
+         {
+            Task finishedTask = await Task.WhenAny(taskCalcTMs);
+
+            for (int i= 0; i < taskCalcTMs.Count;i++)
+            {
+               if (taskCalcTMs[i].Result != null)
+               {
+                  taskCalcTMs.RemoveAt(i);
+                  break;
+               }
+            }
+            
+         }
+      }
+
+      async Task<bool> UpdateYesterdaysAdjustmentsAsync(IBballInfoDTO oBballInfoDTO)
+      {
+         await Task.Run(() =>
+            new AdjustmentsDO(oBballInfoDTO).UpdateYesterdaysAdjustments());
+         return true;
+      }
+
+      async Task<string> CalcTodaysMatchupsAsync(IBballInfoDTO oBballInfoDTO)
+      {
+         await Task.Run(() =>
+            {
+               new LoadBoxScores(oBballInfoDTO);
+               new DataDO().Exec_uspCalcTodaysMatchups(oBballInfoDTO);
+            }
+         );
+         return oBballInfoDTO.LeagueName;
+      }
+
 
       // Posts
       public void PostData(IBballInfoDTO oBballInfoDTO)

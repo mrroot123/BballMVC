@@ -43,6 +43,7 @@ namespace BballMVC.Models
         public virtual DbSet<TodaysMatchups> TodaysMatchups { get; set; }
         public virtual DbSet<LeagueInfo> LeagueInfo { get; set; }
         public virtual DbSet<BoxScoresLast5Min> BoxScoresLast5Min { get; set; }
+        public virtual DbSet<TodaysPlaysData> TodaysPlaysData { get; set; }
     
         public virtual int Bball_UpdateAdjs(Nullable<System.DateTime> processDate, Nullable<int> testMode)
         {
