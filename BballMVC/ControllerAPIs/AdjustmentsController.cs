@@ -48,23 +48,23 @@ namespace BballMVC.ControllerAPIs
          return Request.CreateResponse(HttpStatusCode.OK, oBballInfoDTO.oBballDataDTO);
       }
     //  GetAdjustmentInfo(IBballInfoDTO oBballInfoDTO)
-      [HttpGet]   // G3
-      public HttpResponseMessage UpdateYesterdaysAdjustments()
-      {
-         try
-         { 
-            oAdjustmentsBO.UpdateYesterdaysAdjustments();
+      //[HttpGet]   // G3
+      //public HttpResponseMessage UpdateYesterdaysAdjustments()
+      //{
+      //   try
+      //   { 
+      //      oAdjustmentsBO.UpdateYesterdaysAdjustments();
 
-         }
-         catch (Exception ex)
-         {
-            throw new Exception($"UpdateYesterdaysAdjustments error - Message: {ex.Message} - Stacktrace: {ex.StackTrace}");
-         }
-         oBballInfoDTO.CollectionType = "DataConstants";
-         new DataBO().GetData(oBballInfoDTO);
-         oBballInfoDTO.oBballDataDTO.BaseDir = BaseDir;
-         return Request.CreateResponse(HttpStatusCode.OK, oBballInfoDTO.oBballDataDTO);
-      }
+      //   }
+      //   catch (Exception ex)
+      //   {
+      //      throw new Exception($"UpdateYesterdaysAdjustments error - Message: {ex.Message} - Stacktrace: {ex.StackTrace}");
+      //   }
+      //   oBballInfoDTO.CollectionType = "DataConstants";
+      //   new DataBO().GetData(oBballInfoDTO);
+      //   oBballInfoDTO.oBballDataDTO.BaseDir = BaseDir;
+      //   return Request.CreateResponse(HttpStatusCode.OK, oBballInfoDTO.oBballDataDTO);
+      //}
 
 
 

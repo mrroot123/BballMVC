@@ -7,6 +7,7 @@ using Bball.DataBaseFunctions;
 using BballMVC.DTOs;
 using BballMVC.IDTOs;
 using System.Data.SqlClient;
+using System.Threading.Tasks;
 
 namespace Bball.DAL.Tables
 {
@@ -113,10 +114,13 @@ namespace Bball.DAL.Tables
          writeRotation();
          insertLines();
       }
-      private void insertLines()
+      private async Task insertLines()
       {
-         LinesDO oLines = new LinesDO(_GameDate, _oLeagueDTO, _ConnectionString, _strLoadDateTime);
-         oLines.InsertLinesFromRotation();
+         await Task.Run(() =>
+         {
+            new LinesDO(_GameDate, _oLeagueDTO, _ConnectionString, _strLoadDateTime).InsertLinesFromRotation();
+         });
+
       }
       #endregion GetRows
 

@@ -112,7 +112,7 @@ namespace Bball.BAL
             }
             
          }
-      }
+      }  // appInit
 
       async Task<bool> UpdateYesterdaysAdjustmentsAsync(IBballInfoDTO oBballInfoDTO)
       {
@@ -125,12 +125,13 @@ namespace Bball.BAL
       {
          await Task.Run(() =>
             {
-               new LoadBoxScores(oBballInfoDTO);
+               new LoadBoxScores(oBballInfoDTO).LoadTodaysRotation();
                new DataDO().Exec_uspCalcTodaysMatchups(oBballInfoDTO);
             }
          );
          return oBballInfoDTO.LeagueName;
       }
+
 
 
       // Posts

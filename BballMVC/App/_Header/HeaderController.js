@@ -19,6 +19,7 @@
          })
             .then(data => {
                $rootScope.oBballInfoDTO.oBballDataDTO.ocLeagueNames = data.ocLeagueNames;
+               $rootScope.oBballInfoDTO.oBballDataDTO.BaseDir = data.BaseDir;
                RefreshLeagueNamesDropDown();
             })
             .catch(error => {

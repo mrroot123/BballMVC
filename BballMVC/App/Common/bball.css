@@ -44,6 +44,11 @@
 .bigCheckBox.input[type='checkbox']:checked {
    background: #abd;
 }
+.num {
+   text-align: right;
+}.alRight {
+   text-align: right;
+}
 /*
 input[type='checkbox'] {
    -webkit-appearance: none;

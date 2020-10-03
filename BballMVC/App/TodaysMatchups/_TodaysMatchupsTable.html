@@ -224,8 +224,8 @@
       </td>
 
 
-      <td ng-hide="Multi">{{item.PlayDiff | number:1}}</td>
-      <td ng-show="Multi">
+      <td class="num" ng-hide="Multi">{{item.PlayDiff | number:1}}</td>
+      <td class="num" ng-show="Multi">
          <table>
             <tr>
                <td>{{item.OurTotalLineAway - ((item.TotalLine-item.SideLine)/2) | number:1}}</td>

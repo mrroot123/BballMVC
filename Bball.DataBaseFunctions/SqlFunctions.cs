@@ -8,13 +8,13 @@ namespace Bball.DataBaseFunctions
 {
    public static class SqlFunctions
    {
-      const string BballConnectionStringName = "BballEntities";
-        const string SqlServerConnectionStringKeith =
-           @"Data Source=Localhost\Bball;Initial Catalog=00TTI_LeagueScores;Integrated Security=SSPI";
-        const string SqlServerConnectionStringTest =
-         @"Data Source=Localhost\SQLEXPRESS;Initial Catalog=00TTI_LeagueScores;Integrated Security=SSPI";
-      const string SqlServerConnectionStringArvixe =
-         @"Data Source=Localhost\;   Initial Catalog=00TTI_LeagueScores;Integrated Security=false;User ID=theroot;Password=788788kd";
+      //const string BballConnectionStringName = "BballEntities";  todo delete commented code 10/3/2020
+      //  const string SqlServerConnectionStringKeith =
+      //     @"Data Source=Localhost\Bball;Initial Catalog=00TTI_LeagueScores;Integrated Security=SSPI";
+      //  const string SqlServerConnectionStringTest =
+      //   @"Data Source=Localhost\SQLEXPRESS;Initial Catalog=00TTI_LeagueScores;Integrated Security=SSPI";
+      //const string SqlServerConnectionStringArvixe =
+      //   @"Data Source=Localhost\;   Initial Catalog=00TTI_LeagueScores;Integrated Security=false;User ID=theroot;Password=788788kd";
 
       public static int CalcSubSeasonPeriod(string ConnectionString, DateTime GameDate, string LeagueName)
       {
@@ -51,15 +51,24 @@ namespace Bball.DataBaseFunctions
 
       public static string GetConnectionString()
       {
-         if (System.AppDomain.CurrentDomain.BaseDirectory.IndexOf(@"mrroot\") >= 0)
-            return SqlServerConnectionStringArvixe;
+         const string SqlServerConnectionStringLOCAL =
+            @"Data Source=Localhost\Bball;Initial Catalog=00TTI_LeagueScores;Integrated Security=SSPI";
 
-         if (System.AppDomain.CurrentDomain.BaseDirectory.IndexOf("wwwroot") >= 0)
-            return SqlServerConnectionStringKeith;
+         const string SqlServerConnectionStringBballPROD =
+            @"Data Source=Localhost\BballPROD;Initial Catalog=00TTI_LeagueScores;Integrated Security=SSPI";
 
-         return SqlServerConnectionStringTest;
+         const string SqlServerConnectionStringARVIXE =
+            @"Data Source=Localhost\;     Initial Catalog=00TTI_LeagueScores;Integrated Security=false;User ID=theroot;Password=788788kd";
 
-         
+         if (System.AppDomain.CurrentDomain.BaseDirectory.IndexOf(@"T:\BballMVC") >= 0)
+            return SqlServerConnectionStringBballPROD;
+
+         if (System.AppDomain.CurrentDomain.BaseDirectory.IndexOf(@"\HostingSpaces\") >= 0)
+            return SqlServerConnectionStringARVIXE;
+
+         return SqlServerConnectionStringLOCAL;
+
+
       }
 
       public static DateTime GetMaxGameDate(string ConnectionString, string LeagueName, string TableName, DateTime DefaultDate)

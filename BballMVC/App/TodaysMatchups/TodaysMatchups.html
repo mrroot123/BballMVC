@@ -9,12 +9,17 @@
    </div>
    <div class="row">
 
-      <div class="col-md-1">
+      <div class="col-md-2">
          <button type="button" class="btn btn-info active" data-toggle="tooltip" title="Refresh Today's Matchups"
                  ng-show="true" ng-click="RefreshTodaysMatchups()">
             Refresh TMs
          </button>
+         <div>
+            League Name: {{oBballInfoDTO.LeagueName}}
+            <br /> {{Getmdy(oBballInfoDTO.GameDate)}}
+         </div>
       </div>
+      <div ng-include="'Common/_GameDate.html'"></div>
       <div class="col-md-3">
          <div class="row">
             <div class="col-md-6">
@@ -28,20 +33,13 @@
             </div>
          </div>
       </div>
-      <div class="col-md-2">
-         League Name: {{oBballInfoDTO.LeagueName}}
-         <br /> {{Getmdy(oBballInfoDTO.GameDate)}}
 
-      </div>
-      <div class="col-md-2">
-         <div ng-include="'Common/_GameDate.html'"></div>
-      </div>
       <div class="col-md-2">
       </div>
    </div>
-   <div class="row" show="ShowDailySummary">
+   <!--<div class="row" show="ShowDailySummary">
       <div ng-include="'TodaysMatchups/_DailySummary.html'"></div>
-   </div>
+   </div>-->
    <div class="table-responsive">
       <div ng-include="'TodaysMatchups/_TodaysMatchupsTable.html'"></div>
    </div>
