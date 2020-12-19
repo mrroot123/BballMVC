@@ -1,0 +1,2 @@
+﻿12/19/2020 - Log T-Sql events
+             Log C#
