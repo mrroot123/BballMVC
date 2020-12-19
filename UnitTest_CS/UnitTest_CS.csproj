@@ -67,6 +67,10 @@
       <Project>{853742b2-9d6c-4673-8a8d-8cfe9759939d}</Project>
       <Name>BballMVC.DTOs</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BballMVC.IDTOs\BballMVC.IDTOs.csproj">
+      <Project>{ACD5303E-7878-4A29-A82B-F89FA1B15CDF}</Project>
+      <Name>BballMVC.IDTOs</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

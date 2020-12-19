@@ -95,6 +95,7 @@
     <Compile Include="Tables\AdjustmentsDO.cs" />
     <Compile Include="Tables\BaseTableDO.cs" />
     <Compile Include="Tables\BoxScoreDO.cs" />
+    <Compile Include="Tables\DailySummaryDO.cs" />
     <Compile Include="Tables\DataDO.cs" />
     <Compile Include="Tables\LeagueInfoDO.cs" />
     <Compile Include="Tables\LinesDO.cs" />

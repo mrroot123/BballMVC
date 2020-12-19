@@ -49,7 +49,8 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
 
       ajx.AjaxGet(url.UrlRefreshTodaysMatchups, { UserName: $rootScope.oBballInfoDTO.UserName, GameDate: $rootScope.oBballInfoDTO.GameDate.toDateString(), LeagueName: $rootScope.oBballInfoDTO.LeagueName })   // Get TodaysMatchups from server
          .then(data => {
-            $rootScope.oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO = data;
+            $rootScope.oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO = data.ocTodaysMatchupsDTO;
+            $rootScope.oBballInfoDTO.oBballDataDTO.oDailySummaryDTO = data.oDailySummaryDTO;
             populateTodaysMatchups();
             f.MessageSuccess("Matchups Refreshed for " + f.Getmdy($rootScope.oBballInfoDTO.GameDate));
             f.ShowScreen("screen");

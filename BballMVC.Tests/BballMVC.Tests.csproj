@@ -54,6 +54,22 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bball.DAL\Bball.DAL.csproj">
+      <Project>{b9db69ff-5285-413f-bae1-9a9433f5bc5d}</Project>
+      <Name>Bball.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bball.DataBaseFunctions\Bball.DataBaseFunctions.csproj">
+      <Project>{337ecf5c-824b-4404-8636-8db6e405754b}</Project>
+      <Name>Bball.DataBaseFunctions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BballMVC.DTOs\BballMVC.DTOs.csproj">
+      <Project>{853742b2-9d6c-4673-8a8d-8cfe9759939d}</Project>
+      <Name>BballMVC.DTOs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BballMVC.IDTOs\BballMVC.IDTOs.csproj">
+      <Project>{acd5303e-7878-4a29-a82b-f89fa1b15cdf}</Project>
+      <Name>BballMVC.IDTOs</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BballMVC\BballMVC.csproj">
       <Project>{9d4b069c-ad14-4eca-9d85-d9c8008eb0bc}</Project>
       <Name>BballMVC</Name>

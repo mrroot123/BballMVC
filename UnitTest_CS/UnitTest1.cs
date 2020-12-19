@@ -19,10 +19,12 @@ namespace UnitTest_CS
       [TestMethod]
       public void TestMethod1()
       {
+         Assert.AreEqual(1, 1);
+         Assert.AreNotEqual(1, 1);
       }
    }  // default class
 
-   [TestClass]
+   //[TestClass]
    public class UnitTest_DailySummary
    {
      LeagueDTO _oLeagueDTO;
@@ -33,7 +35,7 @@ namespace UnitTest_CS
 
 
       [TestMethod]
-      public void TestMethod1()
+      public void Test_DailySummary_GetRow()
       {
          // 1) Arrange
          string LeagueName = "NBA";

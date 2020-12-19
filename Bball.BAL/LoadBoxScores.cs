@@ -10,6 +10,8 @@ using Bball.DAL.Tables;
 using Bball.DAL.Functions;
 using Bball.DataBaseFunctions;
 using System.Text;
+using Bball.DAL.Parsing;
+using System.IO;
 
 namespace Bball.BAL
 {
@@ -30,7 +32,7 @@ namespace Bball.BAL
       // Constructor
       public LoadBoxScores(IBballInfoDTO oBballInfoDTO)
       {
-         new LeagueInfoDO(oBballInfoDTO.LeagueName, _oLeagueDTO, oBballInfoDTO.ConnectionString);  // Init _oLeagueDTO
+         new LeagueInfoDO(oBballInfoDTO.LeagueName, _oLeagueDTO, oBballInfoDTO.ConnectionString, oBballInfoDTO.GameDate);  // Init _oLeagueDTO
          _oSeasonInfoDO = new SeasonInfoDO(oBballInfoDTO.GameDate, _oLeagueDTO.LeagueName);
 
          _oBballInfoDTO = new BballInfoDTO();
@@ -42,7 +44,7 @@ namespace Bball.BAL
       }
       public LoadBoxScores(string UserName, string LeagueName, DateTime GameDate, string ConnectionString)
       {
-         new LeagueInfoDO(LeagueName, _oLeagueDTO, ConnectionString);  // Init _oLeagueDTO
+         new LeagueInfoDO(LeagueName, _oLeagueDTO, ConnectionString, GameDate);  // Init _oLeagueDTO
          _oSeasonInfoDO = new SeasonInfoDO(GameDate, _oLeagueDTO.LeagueName);
          _oBballInfoDTO = new BballInfoDTO()
          {
@@ -167,6 +169,7 @@ namespace Bball.BAL
             if (! String.IsNullOrEmpty(_oLeagueDTO.BoxScoresL5MinURL))
             {
                // Write Last 5 Minutes stats
+               BoxScoresLast5Min oLast5Min = null;
                BoxScoresLast5MinDTO oLast5MinDTOHome = new BoxScoresLast5MinDTO()
                {
                   LeagueName = oCoversDTO.LeagueName,
@@ -180,10 +183,15 @@ namespace Bball.BAL
                try
                {
                   //Bball.DAL.Tables.
-                  BoxScoreDO.InsertAwayHomeRowsBoxScoresLast5Min(oLast5MinDTOHome, _oBballInfoDTO.ConnectionString);
+                  BoxScoreDO.InsertAwayHomeRowsBoxScoresLast5Min(oLast5MinDTOHome, _oBballInfoDTO.ConnectionString, oLast5Min);
+               }
+               catch (FileNotFoundException ex)
+               {
+                  // bypass 404 url not found -  todo log it
                }
                catch (Exception ex)
                {
+                  //if (oLast5Min.oWebPageGet)
                   string msg = $"BoxScoreL5Min Load Error - "
                      + $"{_oLeagueDTO.LeagueName}: {GameDate}  {oCoversDTO.RotNum}:  {oCoversDTO.TeamAway}-{oCoversDTO.TeamHome} "
                      + "\n" + Bball.DAL.Parsing.BoxScoresLast5Min.BuildBoxScoresLast5MinUrl(oLast5MinDTOHome);
@@ -204,7 +212,7 @@ namespace Bball.BAL
       }
       public void FixBoxscores(string LeagueName, DateTime GameDate, string _ConnectionString)
       {
-         new LeagueInfoDO(LeagueName, _oLeagueDTO, _ConnectionString);  // Init _oLeagueDTO
+         new LeagueInfoDO(LeagueName, _oLeagueDTO, _ConnectionString, GameDate);  // Init _oLeagueDTO
          //_strLoadDateTime = DateTime.Now.ToLongDateString();
          _oSeasonInfoDO = new SeasonInfoDO(GameDate, _oLeagueDTO.LeagueName);
          if (_oSeasonInfoDO.oSeasonInfoDTO.Bypass)

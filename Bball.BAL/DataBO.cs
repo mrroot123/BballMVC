@@ -68,6 +68,7 @@ namespace Bball.BAL
                   break;
                case GetDataConstants.RefreshTodaysMatchups:       // Run uspCalcTMs, Get ocTodaysMatchupsDTO
                   new DataDO().RefreshTodaysMatchups(oBballInfoDTO);
+                  new DataDO().GetDailySummaryDTO(oBballInfoDTO);
                   break;
                case "error":
                   var x = 0;

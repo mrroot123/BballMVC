@@ -36,7 +36,7 @@ namespace Bball.DAL.Tables
       public AdjustmentsDO(DateTime GameDate, string LeagueName, string ConnectionString)
       {
          _ConnectionString = ConnectionString;
-         new LeagueInfoDO(LeagueName, _oLeagueDTO, _ConnectionString);  // Init _oLeagueDTO
+         new LeagueInfoDO(LeagueName, _oLeagueDTO, _ConnectionString, GameDate);  // Init _oLeagueDTO
          _GameDate = GameDate;
 
       }

@@ -108,7 +108,7 @@ namespace Bball.DAL.Tables
             , LeagueName = _oLeagueDTO.LeagueName
             , Season = oSeasonInfo.oSeasonInfoDTO.Season
             , SubSeason = oSeasonInfo.oSeasonInfoDTO.SubSeason
-            , SubSeasonPeriod = oSeasonInfo.CalcSubSeasonPeriod()
+            , SubSeasonPeriod = 0      // oSeasonInfo.CalcSubSeasonPeriod()
             , NumOfMatchups = NumOfMatchups
          };
 

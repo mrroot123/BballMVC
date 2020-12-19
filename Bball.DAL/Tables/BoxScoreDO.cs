@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using BballMVC.DTOs;
 using Bball.DataBaseFunctions;
+using Bball.DAL.Parsing;
 
 //using Bball.VbClasses.Bball.VbClasses;
 
@@ -124,10 +125,10 @@ namespace Bball.DAL.Tables
 
       #endregion BoxScoreInsert
       #region BoxScoresLast5Min
-      public static void InsertAwayHomeRowsBoxScoresLast5Min(BoxScoresLast5MinDTO oLast5MinDTOHome, string ConnectionString)
-      {
+      public static void InsertAwayHomeRowsBoxScoresLast5Min(BoxScoresLast5MinDTO oLast5MinDTOHome, string ConnectionString, BoxScoresLast5Min oLast5Min)
+      {  // kd 12/15/2020 Injected oLast5Min
          string url = Bball.DAL.Parsing.BoxScoresLast5Min.BuildBoxScoresLast5MinUrl(oLast5MinDTOHome);  // Get Bb-ref Play by Play url
-         Bball.DAL.Parsing.BoxScoresLast5Min oLast5Min = new Bball.DAL.Parsing.BoxScoresLast5Min(url);
+         oLast5Min = new BoxScoresLast5Min(url);
          oLast5Min.ParseBoxScoresLast5Min(oLast5MinDTOHome);
          InsertBoxScoresLast5Min(oLast5MinDTOHome, ConnectionString);   // Insert Home 
 

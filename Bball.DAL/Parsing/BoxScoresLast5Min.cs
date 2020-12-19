@@ -3,6 +3,7 @@ using HtmlParserNameSpace;
 using HtmlParsing.Common4vb.HtmlParsing;
 using BballMVC.DTOs;
 using Bball.DataBaseFunctions;
+using System.IO;
 //using SysDAL.Functions.
 
 namespace Bball.DAL.Parsing
@@ -27,7 +28,9 @@ namespace Bball.DAL.Parsing
    
           d:\my documents\wwwroot\testhtmlparser\htmlparser\htmlparser.cs 
           */
-          
+
+      public WebPageGet oWebPageGet { get; set; }
+
       private string _html;
       trTDs otrTDs = new trTDs();
       trTDs oPrevtrTDs = new trTDs();
@@ -35,11 +38,14 @@ namespace Bball.DAL.Parsing
 
       public BoxScoresLast5Min(string url)
       {
-         WebPageGet oWebPageGet = new WebPageGet();
+         oWebPageGet = new WebPageGet();
          oWebPageGet.NewWebPageGet(url);
          if (oWebPageGet.ReturnCode != 0)
          {
-            throw new Exception("BoxScoresLast5Min WebPageGet Error: \n" + oWebPageGet.ToString());
+            if (oWebPageGet.StatusCode == 404)
+               throw new FileNotFoundException("BoxScoresLast5Min WebPageGet url not found (404): \n" + url);
+            else
+               throw new Exception("BoxScoresLast5Min WebPageGet Error: \n" + oWebPageGet.ToString());
          }
          _html = oWebPageGet.Html;
       }
