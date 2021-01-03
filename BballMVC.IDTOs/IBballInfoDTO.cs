@@ -19,6 +19,7 @@ namespace BballMVC.IDTOs
       IBballDataDTO oBballDataDTO { get; set; }
       string LoadDateTime { get; set; }
       void CloneBballDataDTO(IBballInfoDTO c);
+     
    }
    //public interface JsonString
    //{

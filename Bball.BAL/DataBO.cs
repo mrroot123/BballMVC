@@ -29,7 +29,7 @@ namespace Bball.BAL
                   appInit(oBballInfoDTO);
                   break;
                case "X":
-                  GetDataConstants.PopulateDataConstants(oBballInfoDTO.oBballDataDTO.DataConstants);
+                  GetDataConstants.PopulateGetDataConstants(oBballInfoDTO.oBballDataDTO.DataConstants);
                   oBballInfoDTO.oBballDataDTO.BaseDir = System.AppDomain.CurrentDomain.BaseDirectory;
                   new AdjustmentsDO(oBballInfoDTO).UpdateYesterdaysAdjustments();
                   new DataDO().GetLeagueNames(oBballInfoDTO);
@@ -45,13 +45,14 @@ namespace Bball.BAL
 
                   break;
                case GetDataConstants.DataConstants:
-                  GetDataConstants.PopulateDataConstants(oBballInfoDTO.oBballDataDTO.DataConstants);
+                  GetDataConstants.PopulateGetDataConstants(oBballInfoDTO.oBballDataDTO.DataConstants);
                   break;
                case GetDataConstants.GetBoxScoresSeeds:           // ocBoxScoresSeedsDTO
                   new DataDO().GetBoxScoresSeeds(oBballInfoDTO);
                   break;
                case GetDataConstants.GetDailySummaryDTO:          // oDailySummaryDTO
                   new DataDO().GetDailySummaryDTO(oBballInfoDTO);
+                  new DataDO().GetUserLeagueParmsDTO(oBballInfoDTO);
                   break;
                // 1) ocAdjustments  2) ocAdjustmentNames  3) ocTeams  4) RefreshTodaysMatchups  5) ocPostGameAnalysisDTO
                case GetDataConstants.GetLeagueData:
@@ -69,6 +70,7 @@ namespace Bball.BAL
                case GetDataConstants.RefreshTodaysMatchups:       // Run uspCalcTMs, Get ocTodaysMatchupsDTO
                   new DataDO().RefreshTodaysMatchups(oBballInfoDTO);
                   new DataDO().GetDailySummaryDTO(oBballInfoDTO);
+                  new DataDO().GetUserLeagueParmsDTO(oBballInfoDTO);
                   break;
                case "error":
                   var x = 0;
@@ -82,10 +84,10 @@ namespace Bball.BAL
       }
       async Task appInit(IBballInfoDTO oBballInfoDTO)
       {
-         GetDataConstants.PopulateDataConstants(oBballInfoDTO.oBballDataDTO.DataConstants);
+         GetDataConstants.PopulateGetDataConstants(oBballInfoDTO.oBballDataDTO.DataConstants);
          oBballInfoDTO.oBballDataDTO.BaseDir = System.AppDomain.CurrentDomain.BaseDirectory;
 
-         Task<bool> taskAdj = UpdateYesterdaysAdjustmentsAsync(oBballInfoDTO);
+         Task<bool> taskAdj = updateYesterdaysAdjustmentsAsync(oBballInfoDTO);
 
          new DataDO().GetLeagueNames(oBballInfoDTO);
          //
@@ -96,7 +98,7 @@ namespace Bball.BAL
          foreach (var item in oBballInfoDTO.oBballDataDTO.ocLeagueNames)
          {
             _oBballInfoDTO.LeagueName = item.Value;
-            taskCalcTMs.Add( CalcTodaysMatchupsAsync(_oBballInfoDTO));
+            taskCalcTMs.Add( calcTodaysMatchupsAsync(_oBballInfoDTO));
          }
 
          while (taskCalcTMs.Count > 0)
@@ -115,14 +117,14 @@ namespace Bball.BAL
          }
       }  // appInit
 
-      async Task<bool> UpdateYesterdaysAdjustmentsAsync(IBballInfoDTO oBballInfoDTO)
+      async Task<bool> updateYesterdaysAdjustmentsAsync(IBballInfoDTO oBballInfoDTO)
       {
          await Task.Run(() =>
             new AdjustmentsDO(oBballInfoDTO).UpdateYesterdaysAdjustments());
          return true;
       }
 
-      async Task<string> CalcTodaysMatchupsAsync(IBballInfoDTO oBballInfoDTO)
+      async Task<string> calcTodaysMatchupsAsync(IBballInfoDTO oBballInfoDTO)
       {
          await Task.Run(() =>
             {
@@ -175,7 +177,7 @@ namespace Bball.BAL
       public const string RefreshPostGameAnalysis = "RefreshPostGameAnalysis";
       public const string RefreshTodaysMatchups = "RefreshTodaysMatchups";
 
-      public static void PopulateDataConstants(dynamic d)
+      public static void PopulateGetDataConstants(dynamic d)
       {
          d.AppInit = AppInit;
          d.DataConstants = DataConstants;
@@ -194,7 +196,7 @@ namespace Bball.BAL
       public const string ProcessPlays = "ProcessPlays";
       public const string UpdateAdjustments = "UpdateAdjustments";
       
-      public static void PopulateDataConstants(dynamic d)
+      public static void PopulatePostDataConstants(dynamic d)
       {
          d.InsertAdjustment = InsertAdjustment;
          d.ProcessPlays = ProcessPlays;

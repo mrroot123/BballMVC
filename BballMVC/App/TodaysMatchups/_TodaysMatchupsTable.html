@@ -4,7 +4,7 @@
    <tr style="color:{{LeagueColor}};">
       <th colspan="3"></th>
 
-      <th class="text-center" ng-show="showHistory" colspan="3">History (Games Back)</th>
+      <th class="text-center" ng-show="showHistory" colspan="3">History (Games Back/Weight)</th>
 
       <th></th>
       <th></th>
@@ -21,9 +21,9 @@
       <th><br />Teams</th>
       <th>Team<br />Strength</th>
 
-      <th ng-show="showHistory">Last {{TMparms.GB1}}</th>
-      <th ng-show="showHistory">Last {{TMparms.GB2}}</th>
-      <th ng-show="showHistory">Last {{TMparms.GB3}}</th>
+      <th ng-show="showHistory">Last {{TMparms.GB1}}<br />&nbsp;&nbsp;&nbsp;{{TMparms.WeightGB1}}</th>
+      <th ng-show="showHistory">Last {{TMparms.GB2}}<br />&nbsp;&nbsp;&nbsp;{{TMparms.WeightGB2}}</th>
+      <th ng-show="showHistory">Last {{TMparms.GB3}}<br />&nbsp;&nbsp;&nbsp;{{TMparms.WeightGB3}}</th>
 
       <th>UnAdj<br />Total</th>
       <th>Points<br />Allowed</th>
@@ -178,8 +178,19 @@
             </tr>
          </table>
       </td>
-
-      <td>{{item.AdjOTwithSide*2 | number:1}}</td>
+      <td>
+         <table>
+            <tr>
+               <td ng-show="Multi">{{item.AdjOTwithSide | number:1}}</td>
+            </tr>
+            <tr>
+               <td ng-show="Multi">{{item.AdjOTwithSide | number:1}}</td>
+            </tr>
+            <tr>
+               <td class="statTotal">{{item.AdjOTwithSide*2 | number:1}}</td>
+            </tr>
+         </table>
+      </td>
 
       <td>
          <table>
@@ -203,7 +214,7 @@
                <td ng-show="Multi">{{(item.TotalLine+item.SideLine)/2 | number:1}}</td>
             </tr>
             <tr>
-               <td id="TotalLine_{{$index}}"  class="statTotal">{{item.TotalLine | number:1}}</td>
+               <td id="TotalLine_{{$index}}" class="statTotal">{{item.TotalLine | number:1}}</td>
             </tr>
 
          </table>
@@ -223,24 +234,32 @@
          </table>
       </td>
 
-
-      <td class="num" ng-hide="Multi">{{item.PlayDiff | number:1}}</td>
-      <td class="num" ng-show="Multi">
+      <td class="num">
          <table>
             <tr>
-               <td>{{item.OurTotalLineAway - ((item.TotalLine-item.SideLine)/2) | number:1}}</td>
+               <td ng-show="Multi">{{item.OurTotalLineAway - ((item.TotalLine-item.SideLine)/2) | number:1}}</td>
             </tr>
             <tr>
-               <td>{{item.OurTotalLineHome - ((item.TotalLine+item.SideLine)/2) | number:1}}</td>
+               <td ng-show="Multi">{{item.OurTotalLineHome - ((item.TotalLine+item.SideLine)/2) | number:1}}</td>
             </tr>
             <tr>
-               <td  class="statTotal">{{item.PlayDiff |  number:1}}</td>
+               <td class="statTotal">{{item.PlayDiff |  number:1}}</td>
             </tr>
          </table>
       </td>
 
       <td id="Play_{{$index}}">
-         {{item.Play}}
+         <table>
+            <tr>
+               <td ng-show="Multi"> </td>
+            </tr>
+            <tr>
+               <td ng-show="Multi"> </td>
+            </tr>
+            <tr>
+               <td class="statTotal">{{item.Play}}</td>
+            </tr>
+         </table>
       </td>
 
       <!-- PlayEntry -->

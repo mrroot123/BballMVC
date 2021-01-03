@@ -93,7 +93,7 @@ namespace Bball.DAL.Tables
       }
       #endregion todaysPlays
 
-
+      #region leagueInfo
       public void GetLeagueNames(IBballInfoDTO oBballInfoDTO)
       {
          var strSql = "SELECT Distinct LeagueName, LeagueName  FROM LeagueInfo";
@@ -107,6 +107,25 @@ namespace Bball.DAL.Tables
             { Value = (string)rdr.GetValue(0).ToString().Trim(), Text = (string)rdr.GetValue(1).ToString().Trim() });
       }
 
+      public void GetLeagueData(IBballInfoDTO oBballInfoDTO)
+      {
+         // Populates: 1) ocAdjustments  2) ocAdjustmentNames  3) ocTeams  
+         //            4) RefreshTodaysMatchups (Exec_uspCalcTodaysMatchups, ocTodaysMatchupsDTO)  
+         //            5) ocPostGameAnalysisDTO
+
+         IBballDataDTO oBballDataDTO = new AdjustmentsDO(oBballInfoDTO.GameDate, oBballInfoDTO.LeagueName, oBballInfoDTO.ConnectionString).GetAdjustmentInfo(oBballInfoDTO.GameDate, oBballInfoDTO.LeagueName);
+         oBballInfoDTO.oBballDataDTO.ocAdjustments = oBballDataDTO.ocAdjustments;         // 1)
+         oBballInfoDTO.oBballDataDTO.ocAdjustmentNames = oBballDataDTO.ocAdjustmentNames; // 2)
+         oBballInfoDTO.oBballDataDTO.ocTeams = oBballDataDTO.ocTeams;                     // 3)
+
+         RefreshTodaysMatchups(oBballInfoDTO);                                            // 4)
+
+         if (oBballInfoDTO.GameDate < DateTime.Today.Date)
+         {
+            RefreshPostGameAnalysis(oBballInfoDTO);                                       // 5)         
+         }
+      }
+      #endregion leagueInfo
 
       //public void PostData(string strJObject, string CollectionType)
       //{
@@ -144,11 +163,12 @@ namespace Bball.DAL.Tables
          o.LeagueName = rdr["LeagueName"].ToString().Trim();
          o.LgAvgAssistsAway = rdr["LgAvgAssistsAway"] == DBNull.Value ? null : (double?)rdr["LgAvgAssistsAway"];
          o.LgAvgAssistsHome = rdr["LgAvgAssistsHome"] == DBNull.Value ? null : (double?)rdr["LgAvgAssistsHome"];
-         o.LgAvgGamesBack = rdr["LgAvgGamesBack"] == DBNull.Value ? null : (int?)rdr["LgAvgGamesBack"];
-         o.LgAvgLastMinPt1 = (double)rdr["LgAvgLastMinPt1"];
-         o.LgAvgLastMinPt2 = (double)rdr["LgAvgLastMinPt2"];
-         o.LgAvgLastMinPt3 = (double)rdr["LgAvgLastMinPt3"];
-         o.LgAvgLastMinPts = (double)rdr["LgAvgLastMinPts"];
+         o.LgAvgGamesBack = (int)rdr["LgAvgGamesBack"];
+         o.LgAvgGamesBackActual = rdr["LgAvgGamesBackActual"] == DBNull.Value ? null : (int?)rdr["LgAvgGamesBackActual"];
+         o.LgAvgLastMinPt1 = rdr["LgAvgLastMinPt1"] == DBNull.Value ? null : (double?)rdr["LgAvgLastMinPt1"];
+         o.LgAvgLastMinPt2 = rdr["LgAvgLastMinPt2"] == DBNull.Value ? null : (double?)rdr["LgAvgLastMinPt2"];
+         o.LgAvgLastMinPt3 = rdr["LgAvgLastMinPt3"] == DBNull.Value ? null : (double?)rdr["LgAvgLastMinPt3"];
+         o.LgAvgLastMinPts = rdr["LgAvgLastMinPts"] == DBNull.Value ? null : (double?)rdr["LgAvgLastMinPts"];
          o.LgAvgOffRBAway = rdr["LgAvgOffRBAway"] == DBNull.Value ? null : (double?)rdr["LgAvgOffRBAway"];
          o.LgAvgOffRBHome = rdr["LgAvgOffRBHome"] == DBNull.Value ? null : (double?)rdr["LgAvgOffRBHome"];
          o.LgAvgPace = rdr["LgAvgPace"] == DBNull.Value ? null : (double?)rdr["LgAvgPace"];
@@ -159,9 +179,10 @@ namespace Bball.DAL.Tables
          o.LgAvgShotsMadeAwayPt2 = (double)rdr["LgAvgShotsMadeAwayPt2"];
          o.LgAvgShotsMadeAwayPt3 = (double)rdr["LgAvgShotsMadeAwayPt3"];
          o.LgAvgShotsMadeHomePt1 = (double)rdr["LgAvgShotsMadeHomePt1"];
-         o.LgAvgShotsMadeHomePt2 = (double)rdr["LgAvgShotsMadeHomePt2"];
-         o.LgAvgShotsMadeHomePt3 = (double)rdr["LgAvgShotsMadeHomePt3"];
+         o.LgAvgShotsMadeHomePt2 = rdr["LgAvgShotsMadeHomePt2"] == DBNull.Value ? null : (double?)rdr["LgAvgShotsMadeHomePt2"];
+         o.LgAvgShotsMadeHomePt3 = rdr["LgAvgShotsMadeHomePt3"] == DBNull.Value ? null : (double?)rdr["LgAvgShotsMadeHomePt3"];
          o.LgAvgStartDate = rdr["LgAvgStartDate"] == DBNull.Value ? null : (DateTime?)rdr["LgAvgStartDate"];
+         o.LgAvgStartDateActual = rdr["LgAvgStartDateActual"] == DBNull.Value ? null : (DateTime?)rdr["LgAvgStartDateActual"];
          o.LgAvgTurnOversAway = rdr["LgAvgTurnOversAway"] == DBNull.Value ? null : (double?)rdr["LgAvgTurnOversAway"];
          o.LgAvgTurnOversHome = rdr["LgAvgTurnOversHome"] == DBNull.Value ? null : (double?)rdr["LgAvgTurnOversHome"];
          o.LgAvgVolatilityGame = rdr["LgAvgVolatilityGame"] == DBNull.Value ? null : (double?)rdr["LgAvgVolatilityGame"];
@@ -180,6 +201,7 @@ namespace Bball.DAL.Tables
 
          // Populate Basic columns
 
+         // 
 
          List<string> ocColumnNames = new List<string>() { "GameDate", "LeagueName", "Season", "SubSeason", "SubSeasonPeriod", "NumOfMatchups" };
          List<string> ocColumnValues = new List<string>()
@@ -197,6 +219,7 @@ namespace Bball.DAL.Tables
       }
       #endregion GetDailySummary
 
+      #region todaysMatchups
       public void RefreshTodaysMatchups(IBballInfoDTO oBballInfoDTO)
       {
          Exec_uspCalcTodaysMatchups(oBballInfoDTO);
@@ -207,27 +230,9 @@ namespace Bball.DAL.Tables
          Log("DataDO.Exec_uspCalcTodaysMatchups." + oBballInfoDTO.LeagueName);
          List<string> SqlParmNames = new List<string>() { "UserName", "LeagueName", "GameDate", "Display" };
          List<object> SqlParmValues = new List<object>() { oBballInfoDTO.UserName, oBballInfoDTO.LeagueName, oBballInfoDTO.GameDate, 0 };
-         SysDAL.Functions.DALfunctions.ExecuteStoredProcedureNonQuery(oBballInfoDTO.ConnectionString, "uspCalcTodaysMatchups", SqlParmNames, SqlParmValues);
+         SysDAL.Functions.DALfunctions.ExecuteStoredProcedureNonQuery(oBballInfoDTO.ConnectionString, uspCalcTodaysMatchups, SqlParmNames, SqlParmValues);
       }
 
-      public void GetLeagueData(IBballInfoDTO oBballInfoDTO)
-      {
-         // Populates: 1) ocAdjustments  2) ocAdjustmentNames  3) ocTeams  
-         //            4) RefreshTodaysMatchups (Exec_uspCalcTodaysMatchups, ocTodaysMatchupsDTO)  5) ocPostGameAnalysisDTO
-         IBballDataDTO oBballDataDTO = new AdjustmentsDO(oBballInfoDTO.GameDate, oBballInfoDTO.LeagueName, oBballInfoDTO.ConnectionString).GetAdjustmentInfo(oBballInfoDTO.GameDate, oBballInfoDTO.LeagueName);
-         oBballInfoDTO.oBballDataDTO.ocAdjustments = oBballDataDTO.ocAdjustments;
-         oBballInfoDTO.oBballDataDTO.ocAdjustmentNames = oBballDataDTO.ocAdjustmentNames;
-         oBballInfoDTO.oBballDataDTO.ocTeams = oBballDataDTO.ocTeams;
-
-         RefreshTodaysMatchups(oBballInfoDTO);
-
-         if (oBballInfoDTO.GameDate < DateTime.Today.Date)
-         {
-            RefreshPostGameAnalysis(oBballInfoDTO);
-         }
-
-      }
-      #region getTodaysMatchups
       public void GetTodaysMatchups(IBballInfoDTO oBballInfoDTO)
       {
          //      if (ocTodaysMatchupsDTO == null)
@@ -348,7 +353,7 @@ namespace Bball.DAL.Tables
          ((List<ITodaysMatchupsDTO>)oRow).Add(o);
 
       }
-      #endregion getTodaysMatchups
+      #endregion todaysMatchups
 
       #region boxScoresSeed
       public void GetBoxScoresSeeds(IBballInfoDTO oBballInfoDTO)
@@ -559,6 +564,45 @@ namespace Bball.DAL.Tables
       }
       #endregion postGameAnalysis
 
+      #region userLeagueParms
+      public void GetUserLeagueParmsDTO(IBballInfoDTO oBballInfoDTO)
+      {
+         Log("DataDO.GetUserLeagueParmsDTO");
+         string getRowSql =
+            $"SELECT TOP (1) *  FROM UserLeagueParms  Where LeagueName = '{oBballInfoDTO.LeagueName}' AND StartDate <= '{oBballInfoDTO.GameDate.ToShortDateString()}' Order by StartDate desc ";
+         int rows = SysDAL.Functions.DALfunctions.ExecuteSqlQuery(oBballInfoDTO.ConnectionString, getRowSql
+            , oBballInfoDTO.oBballDataDTO.oUserLeagueParmsDTO, populateUserLeagueParmsDTOFromRdr);
+      }
+      static void populateUserLeagueParmsDTOFromRdr(object oRow, SqlDataReader rdr)
+      {
+         UserLeagueParmsDTO o = (UserLeagueParmsDTO)oRow;
 
-   }
-}
+         o.BothHome_Away = (bool)rdr["BothHome_Away"];
+         o.BoxscoresSpanSeasons = rdr["BoxscoresSpanSeasons"] == DBNull.Value ? null : (bool?)rdr["BoxscoresSpanSeasons"];
+         o.StartDate = (DateTime)rdr["StartDate"];
+         o.LgAvgStartDate = (DateTime)rdr["LgAvgStartDate"];
+         o.WeightGB1 = (double)rdr["WeightGB1"];
+         o.WeightGB2 = (double)rdr["WeightGB2"];
+         o.WeightGB3 = (double)rdr["WeightGB3"];
+         o.Threshold = (double)rdr["Threshold"];
+         o.BxScLinePct = (double)rdr["BxScLinePct"];
+         o.BxScTmStrPct = (double)rdr["BxScTmStrPct"];
+         o.TmStrAdjPct = (double)rdr["TmStrAdjPct"];
+         o.RecentLgHistoryAdjPct = (double)rdr["RecentLgHistoryAdjPct"];
+         o.LgAvgGamesBack = (int)rdr["LgAvgGamesBack"];
+         o.TeamAvgGamesBack = (int)rdr["TeamAvgGamesBack"];
+         o.TeamPaceGamesBack = (int)rdr["TeamPaceGamesBack"];
+         o.TeamSeedGames = (int)rdr["TeamSeedGames"];
+         o.LoadRotationDaysAhead = (int)rdr["LoadRotationDaysAhead"];
+         o.GB1 = (int)rdr["GB1"];
+         o.GB2 = (int)rdr["GB2"];
+         o.GB3 = (int)rdr["GB3"];
+         o.UserLeagueParmsID = (int)rdr["UserLeagueParmsID"];
+         o.UserName = rdr["UserName"].ToString().Trim();
+         o.LeagueName = rdr["LeagueName"].ToString().Trim();
+
+      }
+      #endregion
+
+   }  // class
+}  // namespace

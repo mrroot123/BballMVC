@@ -176,20 +176,32 @@
     <Compile Include="ControllerAPIs\BaseApiController.cs" />
     <Compile Include="ControllerAPIs\DataController.cs" />
     <Compile Include="ControllerAPIs\LogController.cs" />
-    <Compile Include="Controllers\AdjustmentsCodesController.cs" />
-    <Compile Include="Controllers\AdjustmentsController.cs" />
-    <Compile Include="Controllers\BoxScoresController.cs" />
-    <Compile Include="Controllers\RotationController.cs" />
-    <Compile Include="Controllers\UsersController.cs" />
-    <Compile Include="Models\Adjustments.cs">
-      <DependentUpon>BballEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AdjustmentsCodes.cs">
-      <DependentUpon>BballEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdjustmentsCodesController.cs" />
+    <Compile Include="Controllers\AdjustmentsController.cs" />
+    <Compile Include="Controllers\BoxScoresController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ParmTablesController.cs" />
+    <Compile Include="Controllers\RotationController.cs" />
+    <Compile Include="Controllers\UserLeagueParmsController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Adjustment.cs">
+      <DependentUpon>BballEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AdjustmentOTsideLine.cs">
+      <DependentUpon>BballEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AdjustmentsCode.cs">
+      <DependentUpon>BballEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AnalysisResult.cs">
+      <DependentUpon>BballEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\BballEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -205,27 +217,28 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BballEntities.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\BoxScores.cs">
+    <Compile Include="Models\BoxScore.cs">
       <DependentUpon>BballEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ParmTablesController.cs" />
+    <Compile Include="Models\BoxScoresAdjusted.cs">
+      <DependentUpon>BballEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\BoxScoresLast5Min.cs">
       <DependentUpon>BballEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\BoxScoresSeeds.cs">
+    <Compile Include="Models\BoxScoresLast5MinEmpty.cs">
+      <DependentUpon>BballEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BoxScoresSeed.cs">
       <DependentUpon>BballEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DailySummary.cs">
       <DependentUpon>BballEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Global.asax.cs">
-      <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
     <Compile Include="Models\LeagueInfo.cs">
       <DependentUpon>BballEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Lines.cs">
+    <Compile Include="Models\Line.cs">
       <DependentUpon>BballEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ParmTable.cs">
@@ -243,22 +256,61 @@
     <Compile Include="Models\TeamLookupSourceToSource_Result.cs">
       <DependentUpon>BballEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TodaysMatchups.cs">
+    <Compile Include="Models\TeamStat.cs">
       <DependentUpon>BballEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TodaysPlays.cs">
+    <Compile Include="Models\TeamStatsAverage.cs">
       <DependentUpon>BballEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TodaysPlaysData.cs">
+    <Compile Include="Models\TeamStrength.cs">
       <DependentUpon>BballEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\udfDailyParms_Result.cs">
+    <Compile Include="Models\TodaysMatchup.cs">
+      <DependentUpon>BballEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TodaysMatchupsResult.cs">
+      <DependentUpon>BballEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TodaysPlay.cs">
+      <DependentUpon>BballEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TTILog.cs">
+      <DependentUpon>BballEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\udfQueryAdjustmentsByTeamTotal_Result.cs">
       <DependentUpon>BballEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">
       <DependentUpon>BballEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\UserLeagueParms.cs">
+      <DependentUpon>BballEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\uspCalcPtPct_Result.cs">
+      <DependentUpon>BballEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\uspCalcTodaysMatchupsx_Result.cs">
+      <DependentUpon>BballEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\uspCalcTodaysMatchups_Result.cs">
+      <DependentUpon>BballEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\uspQueryAdjustmentCodes_Result.cs">
+      <DependentUpon>BballEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\uspQueryAdjustmentInfo_Result.cs">
+      <DependentUpon>BballEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\uspQueryAdjustmentsByTeamTotal_Result.cs">
+      <DependentUpon>BballEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\uspQueryAdjustmentsForTodaysMatchups_Result.cs">
+      <DependentUpon>BballEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\uspQueryAdjustments_Result.cs">
+      <DependentUpon>BballEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\uspQueryAnalysisResults_Result.cs">
       <DependentUpon>BballEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\uspQueryCalcTeamStrength_Result.cs">
@@ -267,10 +319,13 @@
     <Compile Include="Models\uspQueryLeagueAverages_Result.cs">
       <DependentUpon>BballEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\uspQueryTeams_Result.cs">
+    <Compile Include="Models\uspQuerySeasonInfo_Result.cs">
       <DependentUpon>BballEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\vPostGameAnalysis.cs">
+    <Compile Include="Models\vPostGameAnalysi.cs">
+      <DependentUpon>BballEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\xudfDailyParms_Result.cs">
       <DependentUpon>BballEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -287,6 +342,7 @@
     <Content Include="App\BoxScoresSeeds\_BoxScoresSeedsTable.html" />
     <Content Include="App\Common\accordian.css" />
     <Content Include="App\Common\bball.css" />
+    <Content Include="App\Common\tooltip.css" />
     <Content Include="App\Common\_GameDate.html" />
     <Content Include="App\Common\_GameDateLocal.html" />
     <Content Include="App\Components\accordianSection.html" />
@@ -308,6 +364,12 @@
     <Content Include="App\_layout\layoutController.js" />
     <Content Include="App\_Services\Run.js" />
     <Content Include="App\_Services\Services.js" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
     <Content Include="Models\BballEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>BballEntities.edmx</DependentUpon>
@@ -318,12 +380,6 @@
       <DependentUpon>BballEntities.edmx</DependentUpon>
       <LastGenOutput>BballEntities.cs</LastGenOutput>
     </Content>
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
-    <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -378,7 +434,6 @@
     <Content Include="Sql\RunTMs.sql" />
     <Content Include="Sql\scrAdjRecendHistory.sql" />
     <Content Include="Sql\scrAdjustmentsLoadFromAdjX.sql" />
-    <Content Include="Sql\scrCalcTodaysMatchups.sql" />
     <Content Include="Sql\scrCreateBoxScoresFromV1.sql" />
     <Content Include="Sql\scrCreateBoxScoresProd.sql" />
     <Content Include="Sql\scrCreateBoxScoresSeedsTable.sql" />
@@ -434,6 +489,9 @@
     <Content Include="_Documentation\Doc_Help_examples.txt" />
     <Content Include="_Documentation\GeneralNotesChanges.txt" />
     <Content Include="_Documentation\Todo.txt" />
+    <Content Include="libman.json" />
+    <Content Include="App\app.module.js" />
+    <Content Include="App\data.json" />
     <EntityDeploy Include="Models\BballEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>BballEntities.Designer.cs</LastGenOutput>
@@ -441,9 +499,6 @@
     <Content Include="Models\BballEntities.edmx.diagram">
       <DependentUpon>BballEntities.edmx</DependentUpon>
     </Content>
-    <Content Include="libman.json" />
-    <Content Include="App\app.module.js" />
-    <Content Include="App\data.json" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -509,6 +564,11 @@
     <Content Include="Views\BoxScores\Details.cshtml" />
     <Content Include="Views\BoxScores\Edit.cshtml" />
     <Content Include="Views\BoxScores\Index.cshtml" />
+    <Content Include="Views\UserLeagueParms\Create.cshtml" />
+    <Content Include="Views\UserLeagueParms\Delete.cshtml" />
+    <Content Include="Views\UserLeagueParms\Details.cshtml" />
+    <Content Include="Views\UserLeagueParms\Edit.cshtml" />
+    <Content Include="Views\UserLeagueParms\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Log\" />

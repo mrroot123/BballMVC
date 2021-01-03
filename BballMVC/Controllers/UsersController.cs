@@ -12,10 +12,10 @@ namespace BballMVC.Controllers
 {
     public class UsersController : Controller
     {
-        private BballEntities1 db = new BballEntities1();
+      private Entities2 db = new Entities2();
 
-        // GET: Users
-        public ActionResult Index()
+      // GET: Users
+      public ActionResult Index()
         {
             return View(db.Users.ToList());
         }

@@ -1,2 +1,39 @@
 ﻿12/19/2020 - Log T-Sql events
              Log C#
+12/20/2020 - All updated complete
+   Table Updates - DailySummary - Cols: ActualStartDate, ActualGamesBack - Bball, BballProd, Arvixe <-- Cols added in all 3 envs
+   Update UDF: udfQueryLeagueGamesBack - Bball, BballProd, Arvixe <-- Updated in all 3 envs
+   Update SPs - [uspInsertDailySummary] - Bball, BballProd, Arvixe <-- Updated in all 3 envs
+      uspQueryLeagueAverages - Bball 
+         DailySummaryDO . populateDTO
+
+SP Name -- '%varLgAvgGamesBack%'
+udfDailyParms -- decommission - DONE renamed to xudfDailyParms
+udfQueryLeagueGamesBack
+uspQueryCalcTeamStrength
+uspCalcTodaysMatchups
+
+SP Name -- varTeamAvgGamesBack
+udfDailyParms -- decommission
+uspCalcTodaysMatchups
+
+Task - 12/24/2020
+Rename DailySummary cols
+   ActualStartDate --> LgAvgStartDateActual
+   ActualGamesBack --> LgAvgGamesBackActual
+
+x   1) Rename Bball.DailySummary
+x   2) Search C# - renamed in _DailySummary.html
+x   3) Search SQL - renamed in uspInsertDailySummary
+   3a) redo EF
+   3b) Update models
+   4) Rename in BballProd
+   5) Rename in Arvixe
+
+EF Table Updates
+   DailySummary
+   TodaysMatchups
+   TodaysPlays
+   BoxScoreSeeds
+
+TeamStrength

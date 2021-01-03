@@ -42,7 +42,7 @@ namespace BballMVC.ControllerAPIs
       [HttpGet]
       public HttpResponseMessage RefreshTodaysMatchups(string UserName, DateTime GameDate, string LeagueName)
       {
-         #region MyRegion
+         #region refreshTodaysMatchupsTryCatch
          try
          {
             oBballInfoDTO.UserName = UserName;
@@ -62,8 +62,8 @@ namespace BballMVC.ControllerAPIs
             oTTILogMessage.CallStack = ex.StackTrace;
             new LogBO().LogMessage(oTTILogMessage, oBballInfoDTO.ConnectionString, oBballInfoDTO.LogName);
             throw new Exception($"Message: {ex.Message} - Stacktrace: {ex.StackTrace}");
-         } 
-         #endregion
+         }
+         #endregion refreshTodaysMatchupsTryCatch
 
          return Request.CreateResponse(HttpStatusCode.OK, oBballInfoDTO.oBballDataDTO);
       }

@@ -44,6 +44,13 @@
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\MSTest.TestFramework.1.2.0\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\keith\.nuget\packages\newtonsoft.json\10.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.3.12.0\lib\net45\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
@@ -70,6 +77,10 @@
     <ProjectReference Include="..\BballMVC.IDTOs\BballMVC.IDTOs.csproj">
       <Project>{ACD5303E-7878-4A29-A82B-F89FA1B15CDF}</Project>
       <Name>BballMVC.IDTOs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CommonClasses\DAL.Functions\SysDAL.Functions.csproj">
+      <Project>{f08657dc-56b9-4ea3-9bab-c3234c143145}</Project>
+      <Name>SysDAL.Functions</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

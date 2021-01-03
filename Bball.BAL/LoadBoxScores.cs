@@ -24,20 +24,20 @@ namespace Bball.BAL
       }
 
       private ILeagueDTO _oLeagueDTO = new LeagueDTO();
-      private SeasonInfoDO _oSeasonInfoDO;
+     // private SeasonInfoDO _oSeasonInfoDO;
       private IBballInfoDTO _oBballInfoDTO;
-      private DateTime _DefaultDate;
+      private readonly DateTime _DefaultDate;
 
       #region Constructors & Init
       // Constructor
       public LoadBoxScores(IBballInfoDTO oBballInfoDTO)
       {
          new LeagueInfoDO(oBballInfoDTO.LeagueName, _oLeagueDTO, oBballInfoDTO.ConnectionString, oBballInfoDTO.GameDate);  // Init _oLeagueDTO
-         _oSeasonInfoDO = new SeasonInfoDO(oBballInfoDTO.GameDate, _oLeagueDTO.LeagueName);
+         SeasonInfoDO oSeasonInfoDO = new SeasonInfoDO(oBballInfoDTO.GameDate, _oLeagueDTO.LeagueName);
 
          _oBballInfoDTO = new BballInfoDTO();
          oBballInfoDTO.CloneBballDataDTO(_oBballInfoDTO);
-         _oBballInfoDTO.oSeasonInfoDTO = _oSeasonInfoDO.oSeasonInfoDTO;
+         _oBballInfoDTO.oSeasonInfoDTO = oSeasonInfoDO.oSeasonInfoDTO;
 
          _DefaultDate = SeasonInfoDO.DefaultDate;
          LoadBoxScoreRange(_oBballInfoDTO.LeagueName, _oBballInfoDTO.ConnectionString, SeasonInfoDO.DefaultDate);
@@ -45,14 +45,16 @@ namespace Bball.BAL
       public LoadBoxScores(string UserName, string LeagueName, DateTime GameDate, string ConnectionString)
       {
          new LeagueInfoDO(LeagueName, _oLeagueDTO, ConnectionString, GameDate);  // Init _oLeagueDTO
-         _oSeasonInfoDO = new SeasonInfoDO(GameDate, _oLeagueDTO.LeagueName);
+         SeasonInfoDO oSeasonInfoDO = new SeasonInfoDO(GameDate, LeagueName);
+
+         oSeasonInfoDO = new SeasonInfoDO(GameDate, _oLeagueDTO.LeagueName);
          _oBballInfoDTO = new BballInfoDTO()
          {
             ConnectionString = ConnectionString,
-            GameDate = _oSeasonInfoDO.GameDate,
+            GameDate = oSeasonInfoDO.GameDate,
             LeagueName = LeagueName,
             UserName = UserName,
-            oSeasonInfoDTO = _oSeasonInfoDO.oSeasonInfoDTO
+            oSeasonInfoDTO = oSeasonInfoDO.oSeasonInfoDTO
          };
          _DefaultDate = SeasonInfoDO.DefaultDate;
          LoadBoxScoreRange(LeagueName, ConnectionString, SeasonInfoDO.DefaultDate, _oLeagueDTO.BoxScoresL5MinURL);
@@ -72,8 +74,8 @@ namespace Bball.BAL
             _oBballInfoDTO.ConnectionString, _oBballInfoDTO.LeagueName, "Rotation", _DefaultDate);
          GameDate = getNextGameDate(GameDate);
          SeasonInfoDO _oSeasonInfoDO = new SeasonInfoDO(GameDate, _oBballInfoDTO.LeagueName);
-         int LoadRotationDaysAhead = Int32.Parse(
-               SqlFunctions.ParmTableParmValueQuery(_oBballInfoDTO.ConnectionString, "LoadRotationDaysAhead"));
+         int LoadRotationDaysAhead = 2;  // kdtodo - hardcoded for now  use query
+
          while (_oBballInfoDTO.GameDate <= DateTime.Today.AddDays(LoadRotationDaysAhead))  // Is GameDate > Tomorrow)
          {
             // string _strLoadDateTime = _oBballInfoDTO.LoadDateTime();    // _oSeasonInfoDO.GameDate.ToString();
@@ -127,6 +129,7 @@ namespace Bball.BAL
 
          SortedList<string, CoversDTO> ocRotation = new SortedList<string, CoversDTO>();
          _oBballInfoDTO.GameDate = GameDate;
+         SeasonInfoDO oSeasonInfoDO = new SeasonInfoDO(GameDate, _oLeagueDTO.LeagueName);
          RotationDO.PopulateRotation(ocRotation, _oBballInfoDTO, _oLeagueDTO);   // Get Rotation for GameDate - Populate if Not Found
          if (ocRotation.Count == 0)
             return 0;   // No Games for GameDate
@@ -154,7 +157,7 @@ namespace Bball.BAL
                   // Write Away & Home rows to BoxScores
                   BoxScoresDTO BoxScoresDTO = new BoxScoresDTO();
                   oCoversBoxscore.PopulateBoxScoresDTO(BoxScoresDTO, arVenue[i]
-                                 , _oSeasonInfoDO.oSeasonInfoDTO.Season, _oSeasonInfoDO.oSeasonInfoDTO.SubSeason, LoadDateTime
+                                 , oSeasonInfoDO.oSeasonInfoDTO.Season, oSeasonInfoDO.oSeasonInfoDTO.SubSeason, LoadDateTime
                                  , oCoversBoxscore.LoadTimeSecound, "Covers");
                   Bball.DAL.Tables.BoxScoreDO.InsertBoxScores(BoxScoresDTO, _oBballInfoDTO.ConnectionString);
                }
@@ -212,10 +215,11 @@ namespace Bball.BAL
       }
       public void FixBoxscores(string LeagueName, DateTime GameDate, string _ConnectionString)
       {
+         SeasonInfoDO oSeasonInfoDO = new SeasonInfoDO(GameDate, LeagueName);
          new LeagueInfoDO(LeagueName, _oLeagueDTO, _ConnectionString, GameDate);  // Init _oLeagueDTO
          //_strLoadDateTime = DateTime.Now.ToLongDateString();
-         _oSeasonInfoDO = new SeasonInfoDO(GameDate, _oLeagueDTO.LeagueName);
-         if (_oSeasonInfoDO.oSeasonInfoDTO.Bypass)
+         oSeasonInfoDO = new SeasonInfoDO(GameDate, _oLeagueDTO.LeagueName);
+         if (oSeasonInfoDO.oSeasonInfoDTO.Bypass)
          {
             Console.WriteLine($"No Games Scheduled for {GameDate}");
             return;

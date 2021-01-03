@@ -1,0 +1,155 @@
+﻿@model IEnumerable<BballMVC.Models.UserLeagueParms>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+   <tr>
+      <th></th>
+      <th>
+         @Html.DisplayNameFor(model => model.UserName)
+      </th>
+      <th>League </th>
+      <th>
+         @Html.DisplayNameFor(model => model.StartDate)
+      </th>
+      <th>
+         @Html.DisplayNameFor(model => model.LgAvgStartDate)
+      </th>
+      <th> LgAvg<br />GamesBack) </th>
+      <th>
+         TeamAvg<br />GamesBack
+      </th>
+      <th>
+         TeamPace<br />GamesBack
+      </th>
+      <th>
+         Team<br />SeedGames
+      </th>
+      <th>
+         LoadRotation<br />DaysAhead
+      </th>
+      <th>
+         GB1
+      </th>
+      <th>
+         GB2
+      </th>
+      <th>
+         GB3
+      </th>
+      <th>
+         Weight<br />GB1
+      </th>
+      <th>
+         Weight<br />GB2
+      </th>
+      <th>
+         Weight<br />GB3
+      </th>
+      <th>
+         Thresh<br />hold
+      </th>
+      <th>
+         BxSc<br />LinePct
+      </th>
+      <th>
+         BxSc<br />TmStrPct
+      </th>
+      <th>
+         TmStr<br />AdjPct
+      </th>
+      <th>
+         RecentLgHistory<br />AdjPct
+      </th>
+      <th>
+         Both<br />Home_Away
+      </th>
+      <th>
+         Boxscores<br />SpanSeasons)
+      </th>
+
+   </tr>
+
+@foreach (var item in Model) {
+    <tr>
+       <td>
+          @Html.ActionLink("Edit", "Edit", new { id = item.UserLeagueParmsID }) 
+       </td>
+       <td>
+          @Html.DisplayFor(modelItem => item.UserName)
+       </td>
+       <td>
+          @Html.DisplayFor(modelItem => item.LeagueName)
+       </td>
+       <td>
+          @Html.DisplayFor(modelItem => item.StartDate)
+       </td>
+       <td>
+          @Html.DisplayFor(modelItem => item.LgAvgStartDate)
+       </td>
+       <td>
+          @Html.DisplayFor(modelItem => item.LgAvgGamesBack)
+       </td>
+       <td>
+          @Html.DisplayFor(modelItem => item.TeamAvgGamesBack)
+       </td>
+       <td>
+          @Html.DisplayFor(modelItem => item.TeamPaceGamesBack)
+       </td>
+       <td>
+          @Html.DisplayFor(modelItem => item.TeamSeedGames)
+       </td>
+       <td>
+          @Html.DisplayFor(modelItem => item.LoadRotationDaysAhead)
+       </td>
+       <td>
+          @Html.DisplayFor(modelItem => item.GB1)
+       </td>
+       <td>
+          @Html.DisplayFor(modelItem => item.GB2)
+       </td>
+       <td>
+          @Html.DisplayFor(modelItem => item.GB3)
+       </td>
+       <td>
+          @Html.DisplayFor(modelItem => item.WeightGB1)
+       </td>
+       <td>
+          @Html.DisplayFor(modelItem => item.WeightGB2)
+       </td>
+       <td>
+          @Html.DisplayFor(modelItem => item.WeightGB3)
+       </td>
+       <td>
+          @Html.DisplayFor(modelItem => item.Threshold)
+       </td>
+       <td>
+          @Html.DisplayFor(modelItem => item.BxScLinePct)
+       </td>
+       <td>
+          @Html.DisplayFor(modelItem => item.BxScTmStrPct)
+       </td>
+       <td>
+          @Html.DisplayFor(modelItem => item.TmStrAdjPct)
+       </td>
+       <td>
+          @Html.DisplayFor(modelItem => item.RecentLgHistoryAdjPct)
+       </td>
+       <td>
+          @Html.DisplayFor(modelItem => item.BothHome_Away)
+       </td>
+       <td>
+          @Html.DisplayFor(modelItem => item.BoxscoresSpanSeasons)
+       </td>
+
+    </tr>
+}
+
+</table>

@@ -1,0 +1,31 @@
+﻿using System;
+
+namespace BballMVC.IDTOs
+{
+   public interface IUserLeagueParmsDTO
+   {
+      bool BothHome_Away { get; set; }
+      bool? BoxscoresSpanSeasons { get; set; }
+      double BxScLinePct { get; set; }
+      double BxScTmStrPct { get; set; }
+      int GB1 { get; set; }
+      int GB2 { get; set; }
+      int GB3 { get; set; }
+      string LeagueName { get; set; }
+      int LgAvgGamesBack { get; set; }
+      DateTime LgAvgStartDate { get; set; }
+      int LoadRotationDaysAhead { get; set; }
+      double RecentLgHistoryAdjPct { get; set; }
+      DateTime StartDate { get; set; }
+      int TeamAvgGamesBack { get; set; }
+      int TeamPaceGamesBack { get; set; }
+      int TeamSeedGames { get; set; }
+      double Threshold { get; set; }
+      double TmStrAdjPct { get; set; }
+      int UserLeagueParmsID { get; set; }
+      string UserName { get; set; }
+      double WeightGB1 { get; set; }
+      double WeightGB2 { get; set; }
+      double WeightGB3 { get; set; }
+   }
+}

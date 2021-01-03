@@ -3,7 +3,7 @@ using BballMVC.IDTOs;
 
 namespace BballMVC.DTOs
 {
-   public class DailySummaryDTO : IDailySummaryDTO 
+   public class DailySummaryDTO : IDailySummaryDTO
    {
       public int DailySummaryID { get; set; }
       public System.DateTime GameDate { get; set; }
@@ -13,7 +13,9 @@ namespace BballMVC.DTOs
       public int SubSeasonPeriod { get; set; }
       public int NumOfMatchups { get; set; }
       public Nullable<System.DateTime> LgAvgStartDate { get; set; }
-      public Nullable<int> LgAvgGamesBack { get; set; }
+      public Nullable<System.DateTime> LgAvgStartDateActual { get; set; }
+      public int LgAvgGamesBack { get; set; }
+      public Nullable<int> LgAvgGamesBackActual { get; set; }
       public double LgAvgScoreAway { get; set; }
       public double LgAvgScoreHome { get; set; }
       public double LgAvgScoreFinal { get; set; }
@@ -21,12 +23,12 @@ namespace BballMVC.DTOs
       public double LgAvgShotsMadeAwayPt2 { get; set; }
       public double LgAvgShotsMadeAwayPt3 { get; set; }
       public double LgAvgShotsMadeHomePt1 { get; set; }
-      public double LgAvgShotsMadeHomePt2 { get; set; }
-      public double LgAvgShotsMadeHomePt3 { get; set; }
-      public double LgAvgLastMinPts { get; set; }
-      public double LgAvgLastMinPt1 { get; set; }
-      public double LgAvgLastMinPt2 { get; set; }
-      public double LgAvgLastMinPt3 { get; set; }
+      public Nullable<double> LgAvgShotsMadeHomePt2 { get; set; }
+      public Nullable<double> LgAvgShotsMadeHomePt3 { get; set; }
+      public Nullable<double> LgAvgLastMinPts { get; set; }
+      public Nullable<double> LgAvgLastMinPt1 { get; set; }
+      public Nullable<double> LgAvgLastMinPt2 { get; set; }
+      public Nullable<double> LgAvgLastMinPt3 { get; set; }
       public Nullable<double> LgAvgTurnOversAway { get; set; }
       public Nullable<double> LgAvgTurnOversHome { get; set; }
       public Nullable<double> LgAvgOffRBAway { get; set; }
@@ -38,6 +40,5 @@ namespace BballMVC.DTOs
       public Nullable<double> LgAvgVolatilityGame { get; set; }
       public Nullable<double> AdjRecentLeagueHistory { get; set; }
       public Nullable<System.DateTime> TS { get; set; }
-
    }
 }

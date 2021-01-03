@@ -1,17 +1,21 @@
-﻿<table class="table table-bordred table-striped w-auto" style="width:80%">
+﻿<div class="tooltip">
+   Box Score Line Pct:
+   <span class="tooltiptext">Tooltip text</span>
+</div>
+<table class="table table-bordred table-striped w-auto" style="width:80%">
    <tr style="color:{{LeagueColor}};">
-      <td>League Averages</td>
+      <td>Daily Summary League Averages</td>
    </tr>
    <tr>
       <td>
          <table class="alRight">
             <tr>
-               <td style="color:{{LeagueColor}};">Lg Avg Start Date: </td>
-               <td>{{oBballInfoDTO.oBballDataDTO.oDailySummaryDTO.LgAvgStartDate}}</td>
+               <td style="color:{{LeagueColor}};">Lg Avg Start Date:&nbsp;&nbsp;</td>
+               <td>{{oBballInfoDTO.oBballDataDTO.oDailySummaryDTO.LgAvgStartDate | date:'MM/dd/yyyy'}}</td>
             </tr>
             <tr>
-               <td style="color:{{LeagueColor}};">Actual Start Date: </td>
-               <td>{{oBballInfoDTO.oBballDataDTO.oDailySummaryDTO.ActualStartDate}}</td>
+               <td style="color:{{LeagueColor}};">Actual Start Date:&nbsp;&nbsp; </td>
+               <td>{{oBballInfoDTO.oBballDataDTO.oDailySummaryDTO.LgAvgStartDateActual | date:'MM/dd/yyyy'}}</td>
             </tr>
             <tr>
                <td style="color:{{LeagueColor}};">Lg Avg Games Back: </td>
@@ -19,16 +23,57 @@
             </tr>
             <tr>
                <td style="color:{{LeagueColor}};">Actual Games Back: </td>
-               <td>{{oBballInfoDTO.oBballDataDTO.oDailySummaryDTO.ActualGamesBack}}</td>
+               <td>{{oBballInfoDTO.oBballDataDTO.oDailySummaryDTO.LgAvgGamesBackActual}}</td>
             </tr>
 
          </table>
       </td>
-      <td>&nbsp;&nbsp;&nbsp;</td>
+      <td>
+         <table>
+            <!-- 1) BxScLinePct -->
+            <tr>
+               <td style="color:{{LeagueColor}};" title="0% = no curve to TL - use actual score || 100% = nullify Score use TL instead \n- MAKE 75%	Ex: Result: 225, TL:220, Score: 240">
+                  Boxscore Line Pct:
+               </td>
+               <td class="num">{{oBballInfoDTO.oBballDataDTO.oUserLeagueParmsDTO.BxScLinePct * 100}}%</td>
+            </tr>
+            <!-- 2) BxScTmStrPct -->
+            <tr>
+               <td style="color:{{LeagueColor}};" title="0% = no BxSc Opp Adj || 100% = Max Adjustment">
+                  Boxscore Tm Str Pct:
+               </td>
+               <td class="num">{{oBballInfoDTO.oBballDataDTO.oUserLeagueParmsDTO.BxScTmStrPct * 100}}%</td>
+            </tr>
+            <!-- 3) TmStrAdjPct -->
+            <tr>
+               <td style="color:{{LeagueColor}};" title="0% = no adj  || 100% = Full Opp Point adj">
+                  Todays Matchups Opposition Adj Pct:
+               </td>
+               <td class="num">{{oBballInfoDTO.oBballDataDTO.oUserLeagueParmsDTO.TmStrAdjPct * 100}}%</td>
+            </tr>
+            <tr>
+               <td style="color:{{LeagueColor}};">Use Both Home / Away: </td>
+               <td class="num">{{oBballInfoDTO.oBballDataDTO.oUserLeagueParmsDTO.BothHome_Away }}</td>
+            </tr>
+            <tr>
+               <td style="color:{{LeagueColor}};">Use Last Year's Boxscores: </td>
+               <td class="num">{{oBballInfoDTO.oBballDataDTO.oUserLeagueParmsDTO.BoxscoresSpanSeasons }}</td>
+            </tr>
+            <tr>
+               <td></td>
+            </tr>
+            <tr>
+               <td></td>
+            </tr>
+            <tr>
+               <td></td>
+            </tr>
+         </table>
+      </td>
       <td>
          <table>
             <tr>
-               <td style="color:{{LeagueColor}};">Away Stats </td>
+               <td style="color:{{LeagueColor}};font-weight:bold">Away Stats </td>
             </tr>
             <tr>
                <td style="color:{{LeagueColor}};">Avg 1 PTers: </td>
@@ -43,9 +88,10 @@
                <td class="num">{{oBballInfoDTO.oBballDataDTO.oDailySummaryDTO.LgAvgShotsMadeAwayPt3 | number:1}}</td>
             </tr>
             <tr>
-               <td style="color:{{LeagueColor}};">Total Away: </td>
+               <td style="color:{{LeagueColor}};font-weight:bold">Total Away: </td>
                <td class="num">
-                  {{oBballInfoDTO.oBballDataDTO.oDailySummaryDTO.LgAvgShotsMadeAwayPt1
+                  {{
+                    oBballInfoDTO.oBballDataDTO.oDailySummaryDTO.LgAvgShotsMadeAwayPt1
                   + oBballInfoDTO.oBballDataDTO.oDailySummaryDTO.LgAvgShotsMadeAwayPt2 * 2
                   + oBballInfoDTO.oBballDataDTO.oDailySummaryDTO.LgAvgShotsMadeAwayPt3 * 3
                         | number:1
@@ -55,7 +101,37 @@
 
          </table>
       </td>
-      <td>&nbsp;&nbsp;&nbsp;</td>
+      <td>
+         <table>
+            <tr>
+               <td style="color:{{LeagueColor}};font-weight:bold">Home Stats </td>
+            </tr>
+            <tr>
+               <td style="color:{{LeagueColor}};">Avg 1 PTers: </td>
+               <td class="num">{{oBballInfoDTO.oBballDataDTO.oDailySummaryDTO.LgAvgShotsMadeHomePt1 | number:1}}</td>
+            </tr>
+            <tr>
+               <td style="color:{{LeagueColor}};">Avg 2 PTers: </td>
+               <td class="num">{{oBballInfoDTO.oBballDataDTO.oDailySummaryDTO.LgAvgShotsMadeHomePt2 | number:1}}</td>
+            </tr>
+            <tr>
+               <td style="color:{{LeagueColor}};">Avg 3 PTers: </td>
+               <td class="num">{{oBballInfoDTO.oBballDataDTO.oDailySummaryDTO.LgAvgShotsMadeHomePt3 | number:1}}</td>
+            </tr>
+            <tr>
+               <td style="color:{{LeagueColor}};font-weight:bold">Total Home: </td>
+               <td class="num">
+                  {{
+                    oBballInfoDTO.oBballDataDTO.oDailySummaryDTO.LgAvgShotsMadeHomePt1
+                  + oBballInfoDTO.oBballDataDTO.oDailySummaryDTO.LgAvgShotsMadeHomePt2 * 2
+                  + oBballInfoDTO.oBballDataDTO.oDailySummaryDTO.LgAvgShotsMadeHomePt3 * 3
+                        | number:1
+                  }}
+               </td>
+            </tr>
+
+         </table>
+      </td>
       <td>
          <table>
             <tr>
@@ -76,25 +152,7 @@
             </tr>
          </table>
       </td>
-      <td>
-         <table>
-            <tr>
-               <td></td>
-            </tr>
-            <tr>
-               <td></td>
-            </tr>
-            <tr>
-               <td></td>
-            </tr>
-            <tr>
-               <td></td>
-            </tr>
-            <tr>
-               <td></td>
-            </tr>
-         </table>
-      </td>
+
       <td>
          <table>
             <tr>

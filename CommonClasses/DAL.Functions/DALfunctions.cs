@@ -83,6 +83,7 @@ namespace SysDAL.Functions
 
       public static int ExecuteDynamicSqlQuery(string ConnectionString, string strSql, List<JObject> ocJObject)
       {
+         // https://www.newtonsoft.com/json/help/html/ReadJsonWithJsonTextReader.htm
          int ctrRows = 0;
 
          try
@@ -110,8 +111,8 @@ namespace SysDAL.Functions
 
                   while (rdr.Read())
                   {
-                     JObject jObj = JObject.Parse("{}");
-                     for (int i = 0; i < ocColNames.Count; i++)
+                     JObject jObj = JObject.Parse("{}");          // row obj
+                     for (int i = 0; i < ocColNames.Count; i++)   // add cols to row obj
                      {
                         if (rdr[ocColNames[i]] == DBNull.Value)
                         {
@@ -149,7 +150,7 @@ namespace SysDAL.Functions
                         }  // if
                         
                      }  // for
-                     ocJObject.Add(jObj);
+                     ocJObject.Add(jObj); // add row
                   }  // while rdr
                }  // using rdr
             }  // using conn

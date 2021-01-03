@@ -1,5 +1,5 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+//using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using System.Collections.Generic;
 
@@ -9,17 +9,38 @@ using BballMVC.DTOs;
 using Bball.DAL;
 using Bball.DAL.Tables;
 using Bball.DataBaseFunctions;
+using Newtonsoft.Json.Linq;
+using NUnit.Framework;
 
 
 namespace UnitTest_CS
 {
-  // [TestClass]
+    [TestFixture]
    public class UnitTest1
    {
-      [TestMethod]
+      [Test]
       public void TestMethod1()
       {
-         Assert.AreEqual(1, 1);
+         int i = 1;
+         Assert.AreEqual(i, 2);
+         //Assert.AreNotEqual(1, 1);
+      }
+   }  // default class
+
+   [TestFixture]
+   public class UnitTest_SQL
+   {
+      [Test]
+      public void Test_ExecuteDynamicSqlQuery()
+      {
+         string ConnectionString = SqlFunctions.GetConnectionString();
+         string strSql = "SELECT top 3 * FROM UserLeagueParms Where LeagueName = 'nba'   order by StartDate desc";
+         List<JObject> ocJObject = new List<JObject>();
+         SysDAL.Functions.DALfunctions.ExecuteDynamicSqlQuery(ConnectionString, strSql, ocJObject);
+         var x = ocJObject.ToString();
+         int i = 1;
+        // var y = ocJObject.CopyTo.ToString();
+         Assert.AreEqual(i, 1);
          Assert.AreNotEqual(1, 1);
       }
    }  // default class
@@ -34,10 +55,12 @@ namespace UnitTest_CS
       string _strLoadDateTime  = DateTime.Today.AddDays(-2).ToString();
 
 
-      [TestMethod]
+      [Test]
       public void Test_DailySummary_GetRow()
       {
+         // 12/26/2020 - DailySummaryDO was decommissioned to DataDO - so this test is ng
          // 1) Arrange
+         string UserName = "Test";
          string LeagueName = "NBA";
          DateTime GameDate = DateTime.Today.AddDays(-2);
          initAll(GameDate, LeagueName);
@@ -49,12 +72,12 @@ namespace UnitTest_CS
 
          // 2) Act
          DailySummaryDTO oDailySummaryDTO = new DailySummaryDTO();
-         DailySummaryDO oDailySummary = new DailySummaryDO(_GameDate, _oLeagueDTO, _ConnectionString, _strLoadDateTime);
-         oDailySummary.RefreshRow(5);
-         int rows = oDailySummary.GetRow(oDailySummaryDTO);
+        // DailySummaryDO oDailySummary = new DailySummaryDO(_GameDate, _oLeagueDTO, _ConnectionString, _strLoadDateTime, UserName);
+         //oDailySummary.RefreshRow(5);
+         //int rows = oDailySummary.GetRow(oDailySummaryDTO);
 
          // 3) Assert
-         Assert.AreEqual(1, rows);
+        // Assert.AreEqual(1, rows);
 
       }
       void initAll(DateTime GameDate, string LeagueName)

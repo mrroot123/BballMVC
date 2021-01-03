@@ -19,9 +19,9 @@ namespace BballMVC.Models
         public Nullable<System.DateTime> EndDate { get; set; }
         public string Team { get; set; }
         public string AdjustmentType { get; set; }
-        public float AdjustmentAmount { get; set; }
+        public Nullable<double> AdjustmentAmount { get; set; }
         public string Player { get; set; }
         public string Description { get; set; }
-        public Nullable<System.DateTime> TS { get; set; }
+        public System.DateTime TS { get; set; }
     }
 }

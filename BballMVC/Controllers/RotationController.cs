@@ -12,10 +12,10 @@ namespace BballMVC.Controllers
 {
     public class RotationController : Controller
     {
-        private BballEntities1 db = new BballEntities1();
+      private Entities2 db = new Entities2();
 
-        // GET: Rotation
-        public ActionResult Index()
+      // GET: Rotation
+      public ActionResult Index()
         {
             return View(db.Rotation.ToList());
         }

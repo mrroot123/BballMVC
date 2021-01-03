@@ -13,7 +13,7 @@ namespace BballMVC.Controllers
 {
     public class ParmTablesController : Controller
     {
-        private BballEntities1 db = new BballEntities1();
+        private Entities2 db = new Entities2();
 
         // GET: ParmTables
         public ActionResult Index()

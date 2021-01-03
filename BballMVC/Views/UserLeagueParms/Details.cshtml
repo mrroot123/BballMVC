@@ -1,0 +1,194 @@
+﻿@model BballMVC.Models.UserLeagueParms
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>UserLeagueParms</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LeagueName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LeagueName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LgAvgStartDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LgAvgStartDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LgAvgGamesBack)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LgAvgGamesBack)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TeamAvgGamesBack)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TeamAvgGamesBack)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TeamPaceGamesBack)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TeamPaceGamesBack)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TeamSeedGames)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TeamSeedGames)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LoadRotationDaysAhead)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LoadRotationDaysAhead)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GB1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GB1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GB2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GB2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GB3)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GB3)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WeightGB1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WeightGB1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WeightGB2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WeightGB2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WeightGB3)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WeightGB3)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Threshold)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Threshold)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BxScLinePct)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BxScLinePct)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BxScTmStrPct)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BxScTmStrPct)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TmStrAdjPct)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TmStrAdjPct)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RecentLgHistoryAdjPct)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RecentLgHistoryAdjPct)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BothHome_Away)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BothHome_Away)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BoxscoresSpanSeasons)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BoxscoresSpanSeasons)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.UserLeagueParmsID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

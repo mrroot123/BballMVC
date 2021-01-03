@@ -9,6 +9,7 @@ namespace Bball.DAL.Tables
 {
    public class BaseTableDO
    {
+      protected readonly string uspCalcTodaysMatchups = "uspCalcTodaysMatchups";
 
       public void Log(string msg)
       {

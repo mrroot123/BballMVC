@@ -6,7 +6,7 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
 
    $scope.PlayEntry = false;
    $scope.ShowPlaysOnly = false;
-   $scope.Multi = false;
+   $scope.Multi = true;
    $scope.showHistory = true;
 
    let ocOuts = [
@@ -49,8 +49,10 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
 
       ajx.AjaxGet(url.UrlRefreshTodaysMatchups, { UserName: $rootScope.oBballInfoDTO.UserName, GameDate: $rootScope.oBballInfoDTO.GameDate.toDateString(), LeagueName: $rootScope.oBballInfoDTO.LeagueName })   // Get TodaysMatchups from server
          .then(data => {
+            // See ajx.AjaxGet in HeaderController for same moves
             $rootScope.oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO = data.ocTodaysMatchupsDTO;
             $rootScope.oBballInfoDTO.oBballDataDTO.oDailySummaryDTO = data.oDailySummaryDTO;
+            $rootScope.oBballInfoDTO.oBballDataDTO.oUserLeagueParmsDTO = data.oUserLeagueParmsDTO;
             populateTodaysMatchups();
             f.MessageSuccess("Matchups Refreshed for " + f.Getmdy($rootScope.oBballInfoDTO.GameDate));
             f.ShowScreen("screen");

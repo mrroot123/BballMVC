@@ -25,6 +25,7 @@ namespace BballMVC.Models
         public string Team { get; set; }
         public string Opp { get; set; }
         public string GameTime { get; set; }
+        public Nullable<bool> Canceled { get; set; }
         public string TV { get; set; }
         public Nullable<double> SideLine { get; set; }
         public Nullable<double> TotalLine { get; set; }
@@ -35,6 +36,5 @@ namespace BballMVC.Models
         public string BoxScoreUrl { get; set; }
         public System.DateTime CreateDate { get; set; }
         public Nullable<System.DateTime> UpdateDate { get; set; }
-        public Nullable<bool> Canceled { get; set; }
     }
 }

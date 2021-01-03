@@ -12,10 +12,10 @@ namespace BballMVC.Controllers
 {
     public class AdjustmentsCodesController : Controller
     {
-        private BballEntities1 db = new BballEntities1();
+      private Entities2 db = new Entities2();
 
-        // GET: AdjustmentsCodes
-        public ActionResult Index()
+      // GET: AdjustmentsCodes
+      public ActionResult Index()
         {
             return View(db.AdjustmentsCodes.ToList());
         }
@@ -27,7 +27,7 @@ namespace BballMVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AdjustmentsCodes adjustmentsCodes = db.AdjustmentsCodes.Find(id);
+            AdjustmentsCode adjustmentsCodes = db.AdjustmentsCodes.Find(id);
             if (adjustmentsCodes == null)
             {
                 return HttpNotFound();
@@ -46,7 +46,7 @@ namespace BballMVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "AdjustmentsCodesID,Type,Description,Range")] AdjustmentsCodes adjustmentsCodes)
+        public ActionResult Create([Bind(Include = "AdjustmentsCodesID,Type,Description,Range")] AdjustmentsCode adjustmentsCodes)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +65,7 @@ namespace BballMVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AdjustmentsCodes adjustmentsCodes = db.AdjustmentsCodes.Find(id);
+            AdjustmentsCode adjustmentsCodes = db.AdjustmentsCodes.Find(id);
             if (adjustmentsCodes == null)
             {
                 return HttpNotFound();
@@ -78,7 +78,7 @@ namespace BballMVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "AdjustmentsCodesID,Type,Description,Range")] AdjustmentsCodes adjustmentsCodes)
+        public ActionResult Edit([Bind(Include = "AdjustmentsCodesID,Type,Description,Range")] AdjustmentsCode adjustmentsCodes)
         {
             if (ModelState.IsValid)
             {
@@ -96,7 +96,7 @@ namespace BballMVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AdjustmentsCodes adjustmentsCodes = db.AdjustmentsCodes.Find(id);
+            AdjustmentsCode adjustmentsCodes = db.AdjustmentsCodes.Find(id);
             if (adjustmentsCodes == null)
             {
                 return HttpNotFound();
@@ -109,7 +109,7 @@ namespace BballMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            AdjustmentsCodes adjustmentsCodes = db.AdjustmentsCodes.Find(id);
+            AdjustmentsCode adjustmentsCodes = db.AdjustmentsCodes.Find(id);
             db.AdjustmentsCodes.Remove(adjustmentsCodes);
             db.SaveChanges();
             return RedirectToAction("Index");

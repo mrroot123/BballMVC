@@ -41,7 +41,7 @@ namespace Bball.DAL.Tables
       public void GetRotation(IBballInfoDTO oBballInfoDTO)
       {
          _oBballInfoDTO = oBballInfoDTO;
-         if (_GameDate >= DateTime.Today)    // If Today or tomorrow
+         if (_GameDate >= DateTime.Today.AddDays(-1))    // If Yesterday, Today or tomorrow 1/1/2021 added Yesterday
          {
             refreshRotation();
             return;

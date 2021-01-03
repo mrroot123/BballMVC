@@ -25,13 +25,14 @@ DonBest Url
    http://www.donbest.com/nba/scores_summary/3-509-20200110-sum/ HalfTime odds 1st or 2nd???
 
 Modify Table Structure
+   NOTE: xxxTableNameDO's have been decommission to DataDO <---
    1) Change in SS
    -- Populate Null columns
    -- Go into Table Design and remove Nulls where applicable
 
    2) Rebuild Model in BballMVC.Models Edmx - NOTE: Ctrl-MouseWheel to RESIZE Model Diagram
-   -- Open Models.edmx, Delete Table, BUILD
-   -- right clk on space, update model, Add Table, Clean & Build BUILD solution -- new model generated in BballEntities.tt 
+   -- Open Models.edmx, Open ModelBrowser, Delete Table, BUILD
+   -- right clk on space, update model from Database, Add Table, Clean & Build BUILD solution -- new model generated in BballEntities.tt 
    -- copy Model in BballMVC.Models.BballEntities.tt to DTOs and create DTO interface
       -- Add class in DTOs - modelDTO
       -- Copy _TemplateDTO into it ... modify where necessary
@@ -57,14 +58,33 @@ Modify Table Structure
       This will move values from the DTO to ocValues for INSERT sql method -- Writing Rows
 
    5) IF GET ROWS is Necessary
-   -- Update columns in method Populate{TableName}DTO Method - 
-   -- In Sql Server run #scrPopulateDTO.sql - Update TableName
+   -- Update/Create columns in method Populate{TableName}DTO Method in DataDO.cs
+   -- In Sql Server run #scrPopulateDTO.sql - Update TableName (C:\Users\keith\OneDrive\Documents\SQL Server Management Studio)
    -- Open D:\My Documents\Projects\Code Misc\Code Generators \ CodeGenerator.xlsm
-   -- Goto Sheet: populateDTO  
+   -- Goto Sheet: populateDTO - Click Clear Button (col A1)
    -- Paste rows from #scrPopulateDTO into Cols A - D
+   5A) Create
+   -- Create DTO
+      -- Goto Models - Open Model in BballEntities.tt
+      -- Goto BballMVC.DTOs - Open _TemplateDTO.cs and copy
+      -- In BballMVC.DTOs create new Class - paste in _TemplateDTO.cs - change class name & make public
+      -- Paste in Props from Model in BballEntities.tt
+      -- rt clk, generate Interface
+      -- Copy Interface 
+      -- Create Interface in BballMVC.IDTOs
+      -- Paste from copy - make public
+      -- Delete Interface form BballMVC.DTOs
+      -- In DtaDO create region &  populate{TABLE}DTOFromRdr method - change Table name
+         static void populate{TABLE}DTOFromRdr(object oRow, SqlDataReader rdr)
+         {
+            {TABLE}DTO o = ({TABLE}DTO)oRow;
+   -- DTO created  
    -- Paste Result col rows to populateDTO method in Bball.DAL.Tables new TableDO (Data Object)
    -- This method will pop the DTO from the Sql RDR on a QUERY             -- Reading Rows
-
+   -- Update BballDataDTO & IBballDataDTO
+      -- Add Interface DTO property
+      -- Init DTO in constructor
+      -- Add new class to IBballDataDTO
 
 BoxScores Changes
    1) changed stat fields from INT to FLOAT

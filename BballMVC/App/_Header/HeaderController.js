@@ -50,8 +50,10 @@
          , CollectionType: "GetLeagueData~GetDailySummaryDTO"
       })
          .then(data => {
+            // See $scope.RefreshTodaysMatchups in TodaysMatchupsController for same moves
             $rootScope.oBballInfoDTO.oBballDataDTO.oDailySummaryDTO = data.oDailySummaryDTO;   
-            $rootScope.oBballInfoDTO.oBballDataDTO.ocAdjustmentNames = data.ocAdjustmentNames;   
+            $rootScope.oBballInfoDTO.oBballDataDTO.ocAdjustmentNames = data.ocAdjustmentNames;  
+            $rootScope.oBballInfoDTO.oBballDataDTO.oUserLeagueParmsDTO = data.oUserLeagueParmsDTO;
             $rootScope.oBballInfoDTO.oBballDataDTO.ocAdjustments = data.ocAdjustments;   
             $rootScope.oBballInfoDTO.oBballDataDTO.ocPostGameAnalysisDTO = data.ocPostGameAnalysisDTO;   
             $rootScope.oBballInfoDTO.oBballDataDTO.ocTeams = data.ocTeams;   

@@ -20,13 +20,15 @@ namespace Bball.DAL.Tables
       ILeagueDTO _oLeagueDTO;
       string _ConnectionString;
       string _strLoadDateTime;
+      private readonly string _UserName;
 
-      public DailySummaryDO(DateTime GameDate, ILeagueDTO oLeagueDTO, string ConnectionString, string strLoadDateTime)
+      public DailySummaryDO(DateTime GameDate, ILeagueDTO oLeagueDTO, string ConnectionString, string strLoadDateTime, string UserName)
       {
          _GameDate = GameDate;
          _oLeagueDTO = oLeagueDTO;
          _ConnectionString = ConnectionString;
          _strLoadDateTime = strLoadDateTime;
+         _UserName = UserName;
       }
 
       #region GetRows
@@ -90,14 +92,14 @@ namespace Bball.DAL.Tables
       {
          deleteDailySummary();
          //                            TableName     ColNames (csv)     DTO                     Insert into DTO Method
-         SqlFunctions.DALInsertRow(DailySummaryTable, ColumnNames, populateDTO(NumOfMatchups), populateoDailySummaryValuesForInsert, _ConnectionString);
+         SqlFunctions.DALInsertRow(DailySummaryTable, ColumnNames, populateDTO(NumOfMatchups, _UserName), populateoDailySummaryValuesForInsert, _ConnectionString);
       }
       private void deleteDailySummary()
       {
          string strSql = $"DELETE From {DailySummaryTable} Where LeagueName = '{_oLeagueDTO.LeagueName}' AND GameDate = '{_GameDate.ToShortDateString()}'";
          int rows = SysDAL.Functions.DALfunctions.ExecuteSqlNonQuery(SqlFunctions.GetConnectionString(), strSql);
       }
-      private DailySummaryDTO populateDTO(int NumOfMatchups)
+      private DailySummaryDTO populateDTO(int NumOfMatchups, string UserName)
       {
          SeasonInfoDO oSeasonInfo = new SeasonInfoDO(_GameDate, _oLeagueDTO.LeagueName);
 
@@ -113,9 +115,10 @@ namespace Bball.DAL.Tables
          };
 
          // Calc Averages and Populate rest of DTO
-         List<string> SqlParmNames = new List<string>() { "GameDate", "LeagueName", "Season", "SubSeason" };
+         List<string> SqlParmNames = new List<string>() { "GameDate", "LeagueName", "Season", "SubSeason", "UserName" };
          List<object> SqlParmValues = new List<object>()
-            { _GameDate.ToShortDateString(), _oLeagueDTO.LeagueName, oSeasonInfo.oSeasonInfoDTO.Season, oSeasonInfo.oSeasonInfoDTO.SubSeason };
+            { _GameDate.ToShortDateString(), _oLeagueDTO.LeagueName,
+               oSeasonInfo.oSeasonInfoDTO.Season, oSeasonInfo.oSeasonInfoDTO.SubSeason, UserName };
 
          SysDAL.Functions.DALfunctions.ExecuteStoredProcedureQuery(_ConnectionString, "uspQueryLeagueAverages"
                              , SqlParmNames, SqlParmValues, oDailySummaryDTO, LoadLgAvgStatsToDTO);
