@@ -12,63 +12,70 @@ namespace Bball.DAL.Tables
 {
    // Change TodaysPlays --> TableName
    //public 
-   class TodaysPlaysDO
+   public class TodaysPlaysDO
    {
       const string TableName = "TodaysPlays";
       const string TableColumns = "GameDate,LeagueName,RotNum,GameTime,TeamAway,TeamHome,WeekEndDate,PlayLength,PlayType,Line,Info,PlayAmount,PlayWeight,Juice,Out,Author,Result,OT,Score,ResultAmount,CreateUser,CreateDate";
 
-      BballInfoDTO _oBballInfoDTO;
+      IBballInfoDTO _oBballInfoDTO;
 
 
       // Constructor
-      public TodaysPlaysDO(BballInfoDTO oBballInfoDTO)
+
+      public TodaysPlaysDO(IBballInfoDTO oBballInfoDTO)
       {
          _oBballInfoDTO = oBballInfoDTO;
       }
+      public TodaysPlaysDO(DateTime GameDate)
+      {
+         _oBballInfoDTO = new BballInfoDTO() { GameDate = GameDate };
+      }
+
 
       #region GetRows
       public int GetTodaysPlays(IList<ITodaysPlaysDTO>  ocTodaysPlaysDTO)
       {
-         int rows = SysDAL.Functions.DALfunctions.ExecuteSqlQuery(_oBballInfoDTO.ConnectionString, getRowSql(), ocTodaysPlaysDTO, populateDTOFromRdr);
+         int rows = SysDAL.Functions.DALfunctions.ExecuteSqlQuery(_oBballInfoDTO.ConnectionString, getRowSql(_oBballInfoDTO.GameDate), ocTodaysPlaysDTO, populateDTOFromRdr);
          return rows;
       }
       static void populateDTOFromRdr(object oRow, SqlDataReader rdr)
       {
 
-         ITodaysPlaysDTO o = new TodaysPlaysDTO();
+         ITodaysPlaysDTO o = new BballMVC.DTOs.TodaysPlaysDTO();
 
-         o.Author = rdr["Author"].ToString().Trim();
-         o.CreateDate = (DateTime)rdr["CreateDate"];
-         o.CreateUser = rdr["CreateUser"].ToString().Trim();
          o.GameDate = (DateTime)rdr["GameDate"];
-         o.GameTime = rdr["GameTime"].ToString().Trim();
-         o.Info = rdr["Info"].ToString().Trim();
-         o.Juice = (double)rdr["Juice"];
-         o.LeagueName = rdr["LeagueName"].ToString().Trim();
-         o.Line = (double)rdr["Line"];
-         o.OT = rdr["OT"] == DBNull.Value ? null : (bool?)rdr["OT"];
-         o.Out = rdr["Out"].ToString().Trim();
-         o.PlayAmount = (double)rdr["PlayAmount"];
-         o.PlayLength = rdr["PlayLength"].ToString().Trim();
-         o.PlayType = rdr["PlayType"].ToString().Trim();
-         o.PlayWeight = (double)rdr["PlayWeight"];
-         o.Result = rdr["Result"] == DBNull.Value ? null : (string)rdr["Result"];
+         o.WeekEndDate = (DateTime)rdr["WeekEndDate"];
+         o.CreateDate = (DateTime)rdr["CreateDate"];
+         o.OtAffacted = rdr["OtAffacted"] == DBNull.Value ? null : (decimal?)rdr["OtAffacted"];
          o.ResultAmount = rdr["ResultAmount"] == DBNull.Value ? null : (double?)rdr["ResultAmount"];
+         o.Line = (double)rdr["Line"];
+         o.PlayAmount = (double)rdr["PlayAmount"];
+         o.PlayWeight = (double)rdr["PlayWeight"];
+         o.Juice = (double)rdr["Juice"];
+         o.TodaysPlaysID = (int)rdr["TodaysPlaysID"];
+         o.TranType = rdr["TranType"] == DBNull.Value ? null : (int?)rdr["TranType"];
          o.RotNum = (int)rdr["RotNum"];
-         o.Score = rdr["Score"] == DBNull.Value ? null : (int?)rdr["Score"];
+         o.FinalScore = rdr["FinalScore"] == DBNull.Value ? null : (int?)rdr["FinalScore"];
+         o.Result = rdr["Result"] == DBNull.Value ? null : (int?)rdr["Result"];
+         o.CreateUser = rdr["CreateUser"].ToString().Trim();
          o.TeamAway = rdr["TeamAway"].ToString().Trim();
          o.TeamHome = rdr["TeamHome"].ToString().Trim();
-         o.TodaysPlaysID = (int)rdr["TodaysPlaysID"];
-         o.WeekEndDate = (DateTime)rdr["WeekEndDate"];
+         o.LeagueName = rdr["LeagueName"].ToString().Trim();
+         o.Out = rdr["Out"].ToString().Trim();
+         o.Author = rdr["Author"].ToString().Trim();
+         o.Info = rdr["Info"].ToString().Trim();
+         o.PlayLength = rdr["PlayLength"].ToString().Trim();
+         o.PlayDirection = rdr["PlayDirection"].ToString().Trim();
+
 
          ((List<ITodaysPlaysDTO>)oRow).Add(o);
       }
-      private string getRowSql()
+      private string getRowSql(DateTime GameDate)
       {
          string Sql = ""
             + $"SELECT * FROM {TableName}  "
-            + $"  Where LeagueName = '{_oBballInfoDTO.LeagueName}'  And GameDate = '{_oBballInfoDTO.GameDate}'"
-            + "   Order By RotNum"
+            + $"  Where  GameDate = '{GameDate.ToShortDateString()}'"
+            + "   Order By LeagueName, RotNum"
             ;
          return Sql;
       }
@@ -77,20 +84,20 @@ namespace Bball.DAL.Tables
       #region InsertRow
       public void InsertRow()
       {
-         TodaysPlaysDTO oThisDTO = populateDTO();
+         BballMVC.DTOs.TodaysPlaysDTO oThisDTO = populateDTO();
          //                        TableName  ColNames(csv)  DTO             Insert into DTO Method
          SqlFunctions.DALInsertRow(TableName, TableColumns, oThisDTO, populate_ocValuesForInsert, _oBballInfoDTO.ConnectionString);
       }
       private TodaysPlaysDTO populateDTO()
       {
-         TodaysPlaysDTO oThisDTO = new TodaysPlaysDTO();
+         BballMVC.DTOs.TodaysPlaysDTO oThisDTO = new BballMVC.DTOs.TodaysPlaysDTO();
          oThisDTO.LeagueName = _oBballInfoDTO.LeagueName;
          // ...
          return oThisDTO;
       }
       static void populate_ocValuesForInsert(List<string> ocValues, object DTO)
       {
-         TodaysPlaysDTO oTodaysPlaysDTO = (TodaysPlaysDTO)DTO;
+         BballMVC.DTOs.TodaysPlaysDTO oTodaysPlaysDTO = (BballMVC.DTOs.TodaysPlaysDTO)DTO;
 
          ocValues.Add(oTodaysPlaysDTO.GameDate.ToString());
          ocValues.Add(oTodaysPlaysDTO.LeagueName.ToString());
@@ -100,7 +107,7 @@ namespace Bball.DAL.Tables
          ocValues.Add(oTodaysPlaysDTO.TeamHome.ToString());
          ocValues.Add(oTodaysPlaysDTO.WeekEndDate.ToString());
          ocValues.Add(oTodaysPlaysDTO.PlayLength.ToString());
-         ocValues.Add(oTodaysPlaysDTO.PlayType.ToString());
+         ocValues.Add(oTodaysPlaysDTO.PlayDirection.ToString());
          ocValues.Add(oTodaysPlaysDTO.Line.ToString());
          ocValues.Add(oTodaysPlaysDTO.Info.ToString());
          ocValues.Add(oTodaysPlaysDTO.PlayAmount.ToString());

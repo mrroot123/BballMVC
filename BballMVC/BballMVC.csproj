@@ -271,7 +271,7 @@
     <Compile Include="Models\TodaysMatchupsResult.cs">
       <DependentUpon>BballEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TodaysPlay.cs">
+    <Compile Include="Models\TodaysPlays.cs">
       <DependentUpon>BballEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TTILog.cs">
@@ -354,8 +354,11 @@
     <Content Include="App\Test\Test.html" />
     <Content Include="App\Test\_TestColSpan.html" />
     <Content Include="App\Test\_TestTable.html" />
+    <Content Include="App\TodaysMatchups\AdjustmentsByTeamModalController.js" />
     <Content Include="App\TodaysMatchups\TodaysMatchups.html" />
     <Content Include="App\TodaysMatchups\TodaysMatchupsController.js" />
+    <Content Include="App\TodaysMatchups\_AdjustmentsByTeamModal.html" />
+    <Content Include="App\TodaysMatchups\_AdjustmentsByTeamRow.html" />
     <Content Include="App\TodaysMatchups\_DailySummary.html" />
     <Content Include="App\TodaysMatchups\_TodaysMatchupsTable.html" />
     <Content Include="App\_Header\Header.html" />

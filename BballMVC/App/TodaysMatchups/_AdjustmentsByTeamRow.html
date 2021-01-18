@@ -1,0 +1,15 @@
+﻿<table class="table table-bordred table-striped">
+   <tr><td>Team: {{AdjustmentsByTeamTeam}}</td></tr>
+   <tr>
+      <th>Adjustment<br>Amount</th>
+      <th>Adj Type</th>
+      <th>Description</th>
+      <th>Player</th>
+   </tr>
+   <tr ng-repeat="oAdjustment in ocAdjustmentsByTeam" >
+      <td>{{oAdjustment.AdjustmentAmount | number:2}}</td>
+      <td>{{oAdjustment.AdjustmentType}}</td>
+      <td>{{oAdjustment.Description}}</td>
+      <td>{{oAdjustment.Player}}</td>
+   </tr>
+</table>

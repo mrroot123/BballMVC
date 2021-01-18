@@ -824,6 +824,8 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.TeamStrength' does not have
           <Property Name="RotNum" Type="int" Nullable="false" />
           <Property Name="Team" Type="nvarchar" MaxLength="6" Nullable="false" />
           <Property Name="Venue" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="GB" Type="int" />
+          <Property Name="ActualGB" Type="int" />
           <Property Name="TeamStrength" Type="float" Nullable="false" />
           <Property Name="TeamStrengthScored" Type="float" Nullable="false" />
           <Property Name="TeamStrengthAllowed" Type="float" Nullable="false" />
@@ -1102,20 +1104,20 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.TodaysMatchupsResults' does
           <Property Name="GameTime" Type="time" Precision="7" Nullable="false" />
           <Property Name="TeamAway" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="TeamHome" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="WeekEndDate" Type="date" />
+          <Property Name="WeekEndDate" Type="date" Nullable="false" />
           <Property Name="PlayLength" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="PlayDirection" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="Line" Type="decimal" Precision="6" Scale="1" Nullable="false" />
+          <Property Name="Line" Type="float" Nullable="false" />
           <Property Name="Info" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="PlayAmount" Type="smallmoney" Nullable="false" />
-          <Property Name="PlayWeight" Type="decimal" Precision="5" Scale="2" Nullable="false" />
-          <Property Name="Juice" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="PlayAmount" Type="float" Nullable="false" />
+          <Property Name="PlayWeight" Type="float" Nullable="false" />
+          <Property Name="Juice" Type="float" Nullable="false" />
           <Property Name="Out" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="Author" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="Result" Type="nchar" MaxLength="1" />
-          <Property Name="OT" Type="bit" />
+          <Property Name="Result" Type="int" />
+          <Property Name="OtAffacted" Type="decimal" Precision="2" Scale="1" />
           <Property Name="FinalScore" Type="int" />
-          <Property Name="ResultAmount" Type="smallmoney" />
+          <Property Name="ResultAmount" Type="float" />
           <Property Name="CreateUser" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
         </EntityType>
@@ -1636,10 +1638,6 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
           <Parameter Name="GameDate" Type="date" Mode="In" />
           <Parameter Name="LeagueName" Type="varchar" Mode="In" />
         </Function>
-        <Function Name="uspQueryAdjustmentsForTodaysMatchups" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="GameDate" Type="date" Mode="In" />
-          <Parameter Name="LeagueName" Type="varchar" Mode="In" />
-        </Function>
         <Function Name="uspQueryAnalysisResults" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="RunID" Type="nchar" Mode="In" />
         </Function>
@@ -1669,6 +1667,7 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
         </Function>
         <Function Name="uspQueryTeams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="LeagueName" Type="varchar" Mode="In" />
+          <Parameter Name="GameDate" Type="date" Mode="In" />
         </Function>
         <Function Name="uspUpdateAdjustments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="GameDate" Type="date" Mode="In" />
@@ -1680,26 +1679,6 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
         </Function>
         <Function Name="uspUpdateYesterdaysAdjustments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="uspVerifyBoxscoresUpdated" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="xudfDailyParms" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="GameDate" Type="date" Mode="In" />
-          <Parameter Name="LeagueName" Type="varchar" Mode="In" />
-          <Parameter Name="UserName" Type="varchar" Mode="In" />
-          <ReturnType>
-            <CollectionType>
-              <RowType>
-                <Property Name="Season" Type="varchar" MaxLength="4" />
-                <Property Name="SubSeason" Type="varchar" MaxLength="10" />
-                <Property Name="varLgAvgGamesBack" Type="int" />
-                <Property Name="varTeamAvgGamesBack" Type="int" />
-                <Property Name="BxScLinePct" Type="float" />
-                <Property Name="BxScTmStrPct" Type="float" />
-                <Property Name="TmStrAdjPct" Type="float" />
-                <Property Name="LgAvgScoreAway" Type="float" />
-                <Property Name="LgAvgScoreHome" Type="float" />
-              </RowType>
-            </CollectionType>
-          </ReturnType>
-        </Function>
         <EntityContainer Name="TTI_LeagueScoresModelStoreContainer">
           <EntitySet Name="AdjustmentsCodes" EntityType="Self.AdjustmentsCodes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DailySummary" EntityType="Self.DailySummary" Schema="dbo" store:Type="Tables" />
@@ -2142,6 +2121,8 @@ BoxScoresAdjustedID],
     [TeamStrength].[RotNum] AS [RotNum], 
     [TeamStrength].[Team] AS [Team], 
     [TeamStrength].[Venue] AS [Venue], 
+    [TeamStrength].[GB] AS [GB], 
+    [TeamStrength].[ActualGB] AS [ActualGB], 
     [TeamStrength].[TeamStrength] AS [TeamStrength], 
     [TeamStrength].[TeamStrengthScored] AS [TeamStrengthScored], 
     [TeamStrength].[TeamStrengthAllowed] AS [TeamStrengthAllowed], 
@@ -2541,35 +2522,6 @@ BoxScoresAdjustedID],
           <Property Name="LgAvgVolatilityGame" Type="Double" />
           <Property Name="AdjRecentLeagueHistory" Type="Double" />
           <Property Name="TS" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="TodaysPlay">
-          <Key>
-            <PropertyRef Name="TodaysPlaysID" />
-          </Key>
-          <Property Name="TodaysPlaysID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TranType" Type="Int32" />
-          <Property Name="GameDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="LeagueName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="RotNum" Type="Int32" Nullable="false" />
-          <Property Name="GameTime" Type="Time" Nullable="false" Precision="7" />
-          <Property Name="TeamAway" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="TeamHome" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="WeekEndDate" Type="DateTime" Precision="0" />
-          <Property Name="PlayLength" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="PlayDirection" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Line" Type="Decimal" Precision="6" Scale="1" Nullable="false" />
-          <Property Name="Info" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="PlayAmount" Type="Decimal" Precision="10" Scale="4" Nullable="false" />
-          <Property Name="PlayWeight" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
-          <Property Name="Juice" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
-          <Property Name="Out" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Author" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Result" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
-          <Property Name="OT" Type="Boolean" />
-          <Property Name="FinalScore" Type="Int32" />
-          <Property Name="ResultAmount" Type="Decimal" Precision="10" Scale="4" />
-          <Property Name="CreateUser" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="AdjustmentOTsideLine">
           <Key>
@@ -3280,6 +3232,8 @@ BoxScoresAdjustedID],
           <Property Name="Volatility" Type="Double" />
           <Property Name="Pace" Type="Double" />
           <Property Name="TS" Type="DateTime" Precision="3" />
+          <Property Name="GB" Type="Int32" />
+          <Property Name="ActualGB" Type="Int32" />
         </EntityType>
         <EntityType Name="TodaysMatchup">
           <Key>
@@ -3823,7 +3777,6 @@ BoxScoresAdjustedID],
         <EntityContainer Name="Entities2" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AdjustmentsCodes" EntityType="Self.AdjustmentsCode" />
           <EntitySet Name="DailySummaries" EntityType="Self.DailySummary" />
-          <EntitySet Name="TodaysPlays" EntityType="Self.TodaysPlay" />
           <EntitySet Name="AdjustmentOTsideLines" EntityType="Self.AdjustmentOTsideLine" />
           <EntitySet Name="Adjustments" EntityType="Self.Adjustment" />
           <EntitySet Name="AnalysisResults" EntityType="Self.AnalysisResult" />
@@ -3996,7 +3949,8 @@ BoxScoresAdjustedID],
             <Parameter Name="LeagueName" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="uspQueryTeams" ReturnType="Collection(String)">
-          <Parameter Name="LeagueName" Mode="In" Type="String" />
+            <Parameter Name="LeagueName" Mode="In" Type="String" />
+            <Parameter Name="GameDate" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="uspUpdateAdjustments">
           <Parameter Name="GameDate" Mode="In" Type="DateTime" />
@@ -4010,6 +3964,7 @@ BoxScoresAdjustedID],
           <FunctionImport Name="uspVerifyBoxscoresUpdated" />
           <EntitySet Name="UserLeagueParms" EntityType="TTI_LeagueScoresModel.UserLeagueParms" />
           <EntitySet Name="Rotation" EntityType="TTI_LeagueScoresModel.Rotation" />
+          <EntitySet Name="TodaysPlays" EntityType="TTI_LeagueScoresModel.TodaysPlays" />
         </EntityContainer>
         <ComplexType Name="TeamLookupSourceToSource_Result">
           <Property Type="Int32" Name="TeamID" Nullable="false" />
@@ -4243,6 +4198,35 @@ BoxScoresAdjustedID],
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="UpdateDate" Type="DateTime" Precision="7" />
         </EntityType>
+        <EntityType Name="TodaysPlays">
+          <Key>
+            <PropertyRef Name="TodaysPlaysID" />
+          </Key>
+          <Property Name="TodaysPlaysID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TranType" Type="Int32" />
+          <Property Name="GameDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="LeagueName" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="RotNum" Type="Int32" Nullable="false" />
+          <Property Name="GameTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="TeamAway" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="TeamHome" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="WeekEndDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="PlayLength" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="PlayDirection" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Line" Type="Double" Nullable="false" />
+          <Property Name="Info" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="PlayAmount" Type="Double" Nullable="false" />
+          <Property Name="PlayWeight" Type="Double" Nullable="false" />
+          <Property Name="Juice" Type="Double" Nullable="false" />
+          <Property Name="Out" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Author" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Result" Type="Int32" />
+          <Property Name="OtAffacted" Type="Decimal" Precision="2" Scale="1" />
+          <Property Name="FinalScore" Type="Int32" />
+          <Property Name="ResultAmount" Type="Double" />
+          <Property Name="CreateUser" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4298,36 +4282,6 @@ BoxScoresAdjustedID],
                 <ScalarProperty Name="LgAvgVolatilityGame" ColumnName="LgAvgVolatilityGame" />
                 <ScalarProperty Name="AdjRecentLeagueHistory" ColumnName="AdjRecentLeagueHistory" />
                 <ScalarProperty Name="TS" ColumnName="TS" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TodaysPlays">
-            <EntityTypeMapping TypeName="TTI_LeagueScoresModel.TodaysPlay">
-              <MappingFragment StoreEntitySet="TodaysPlays">
-                <ScalarProperty Name="TodaysPlaysID" ColumnName="TodaysPlaysID" />
-                <ScalarProperty Name="TranType" ColumnName="TranType" />
-                <ScalarProperty Name="GameDate" ColumnName="GameDate" />
-                <ScalarProperty Name="LeagueName" ColumnName="LeagueName" />
-                <ScalarProperty Name="RotNum" ColumnName="RotNum" />
-                <ScalarProperty Name="GameTime" ColumnName="GameTime" />
-                <ScalarProperty Name="TeamAway" ColumnName="TeamAway" />
-                <ScalarProperty Name="TeamHome" ColumnName="TeamHome" />
-                <ScalarProperty Name="WeekEndDate" ColumnName="WeekEndDate" />
-                <ScalarProperty Name="PlayLength" ColumnName="PlayLength" />
-                <ScalarProperty Name="PlayDirection" ColumnName="PlayDirection" />
-                <ScalarProperty Name="Line" ColumnName="Line" />
-                <ScalarProperty Name="Info" ColumnName="Info" />
-                <ScalarProperty Name="PlayAmount" ColumnName="PlayAmount" />
-                <ScalarProperty Name="PlayWeight" ColumnName="PlayWeight" />
-                <ScalarProperty Name="Juice" ColumnName="Juice" />
-                <ScalarProperty Name="Out" ColumnName="Out" />
-                <ScalarProperty Name="Author" ColumnName="Author" />
-                <ScalarProperty Name="Result" ColumnName="Result" />
-                <ScalarProperty Name="OT" ColumnName="OT" />
-                <ScalarProperty Name="FinalScore" ColumnName="FinalScore" />
-                <ScalarProperty Name="ResultAmount" ColumnName="ResultAmount" />
-                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -4763,6 +4717,8 @@ BoxScoresAdjustedID],
           <EntitySetMapping Name="TeamStrengths">
             <EntityTypeMapping TypeName="TTI_LeagueScoresModel.TeamStrength">
               <MappingFragment StoreEntitySet="TeamStrength">
+                <ScalarProperty Name="ActualGB" ColumnName="ActualGB" />
+                <ScalarProperty Name="GB" ColumnName="GB" />
                 <ScalarProperty Name="TeamStrengthID" ColumnName="TeamStrengthID" />
                 <ScalarProperty Name="LeagueName" ColumnName="LeagueName" />
                 <ScalarProperty Name="GameDate" ColumnName="GameDate" />
@@ -5118,21 +5074,6 @@ BoxScoresAdjustedID],
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionName="TTI_LeagueScoresModel.Store.xudfDailyParms" FunctionImportName="xudfDailyParms">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="TTI_LeagueScoresModel.xudfDailyParms_Result">
-                <ScalarProperty Name="Season" ColumnName="Season" />
-                <ScalarProperty Name="SubSeason" ColumnName="SubSeason" />
-                <ScalarProperty Name="varLgAvgGamesBack" ColumnName="varLgAvgGamesBack" />
-                <ScalarProperty Name="varTeamAvgGamesBack" ColumnName="varTeamAvgGamesBack" />
-                <ScalarProperty Name="BxScLinePct" ColumnName="BxScLinePct" />
-                <ScalarProperty Name="BxScTmStrPct" ColumnName="BxScTmStrPct" />
-                <ScalarProperty Name="TmStrAdjPct" ColumnName="TmStrAdjPct" />
-                <ScalarProperty Name="LgAvgScoreAway" ColumnName="LgAvgScoreAway" />
-                <ScalarProperty Name="LgAvgScoreHome" ColumnName="LgAvgScoreHome" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="f__uspTemplate" FunctionName="TTI_LeagueScoresModel.Store.f__uspTemplate" />
           <FunctionImportMapping FunctionImportName="spTeamLookup" FunctionName="TTI_LeagueScoresModel.Store.spTeamLookup" />
           <FunctionImportMapping FunctionImportName="TeamLookup" FunctionName="TTI_LeagueScoresModel.Store.TeamLookup" />
@@ -5225,22 +5166,6 @@ BoxScoresAdjustedID],
               <ComplexTypeMapping TypeName="TTI_LeagueScoresModel.uspQueryAdjustmentsByTeamTotal_Result">
                 <ScalarProperty Name="Team" ColumnName="Team" />
                 <ScalarProperty Name="adjDB" ColumnName="adjDB" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="uspQueryAdjustmentsForTodaysMatchups" FunctionName="TTI_LeagueScoresModel.Store.uspQueryAdjustmentsForTodaysMatchups">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="TTI_LeagueScoresModel.uspQueryAdjustmentsForTodaysMatchups_Result">
-                <ScalarProperty Name="AdjustmentID" ColumnName="AdjustmentID" />
-                <ScalarProperty Name="LeagueName" ColumnName="LeagueName" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-                <ScalarProperty Name="Team" ColumnName="Team" />
-                <ScalarProperty Name="AdjustmentType" ColumnName="AdjustmentType" />
-                <ScalarProperty Name="AdjustmentAmount" ColumnName="AdjustmentAmount" />
-                <ScalarProperty Name="Player" ColumnName="Player" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="TS" ColumnName="TS" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -5413,6 +5338,36 @@ BoxScoresAdjustedID],
                 <ScalarProperty Name="Season" ColumnName="Season" />
                 <ScalarProperty Name="LeagueName" ColumnName="LeagueName" />
                 <ScalarProperty Name="RotationID" ColumnName="RotationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TodaysPlays">
+            <EntityTypeMapping TypeName="TTI_LeagueScoresModel.TodaysPlays">
+              <MappingFragment StoreEntitySet="TodaysPlays">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="ResultAmount" ColumnName="ResultAmount" />
+                <ScalarProperty Name="FinalScore" ColumnName="FinalScore" />
+                <ScalarProperty Name="OtAffacted" ColumnName="OtAffacted" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+                <ScalarProperty Name="Author" ColumnName="Author" />
+                <ScalarProperty Name="Out" ColumnName="Out" />
+                <ScalarProperty Name="Juice" ColumnName="Juice" />
+                <ScalarProperty Name="PlayWeight" ColumnName="PlayWeight" />
+                <ScalarProperty Name="PlayAmount" ColumnName="PlayAmount" />
+                <ScalarProperty Name="Info" ColumnName="Info" />
+                <ScalarProperty Name="Line" ColumnName="Line" />
+                <ScalarProperty Name="PlayDirection" ColumnName="PlayDirection" />
+                <ScalarProperty Name="PlayLength" ColumnName="PlayLength" />
+                <ScalarProperty Name="WeekEndDate" ColumnName="WeekEndDate" />
+                <ScalarProperty Name="TeamHome" ColumnName="TeamHome" />
+                <ScalarProperty Name="TeamAway" ColumnName="TeamAway" />
+                <ScalarProperty Name="GameTime" ColumnName="GameTime" />
+                <ScalarProperty Name="RotNum" ColumnName="RotNum" />
+                <ScalarProperty Name="LeagueName" ColumnName="LeagueName" />
+                <ScalarProperty Name="GameDate" ColumnName="GameDate" />
+                <ScalarProperty Name="TranType" ColumnName="TranType" />
+                <ScalarProperty Name="TodaysPlaysID" ColumnName="TodaysPlaysID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

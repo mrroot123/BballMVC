@@ -74,7 +74,8 @@ namespace Bball.BAL
             _oBballInfoDTO.ConnectionString, _oBballInfoDTO.LeagueName, "Rotation", _DefaultDate);
          GameDate = getNextGameDate(GameDate);
          SeasonInfoDO _oSeasonInfoDO = new SeasonInfoDO(GameDate, _oBballInfoDTO.LeagueName);
-         int LoadRotationDaysAhead = 2;  // kdtodo - hardcoded for now  use query
+         new DataDO().GetUserLeagueParmsDTO(_oBballInfoDTO);   // will Populate _oBballInfoDTO.oBballDataDTO.oUserLeagueParmsDTO
+         int LoadRotationDaysAhead = _oBballInfoDTO.oBballDataDTO.oUserLeagueParmsDTO.LoadRotationDaysAhead; 
 
          while (_oBballInfoDTO.GameDate <= DateTime.Today.AddDays(LoadRotationDaysAhead))  // Is GameDate > Tomorrow)
          {

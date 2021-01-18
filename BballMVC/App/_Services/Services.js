@@ -5,6 +5,7 @@
    this.UrlPostAdjustmentUpdates = urlPrefix + "Adjustments/PostAdjustmentUpdates";
    this.UrlGetAdjustmentInfo = urlPrefix + "Adjustments/GetAdjustmentInfo";
    this.UrlGetAdjustments = urlPrefix + "Adjustments/GetAdjustments";
+   this.UrlGetAdjustmentsByTeam = urlPrefix + "Adjustments/GetAdjustmentsByTeam";
   // this.UrlUpdateYesterdaysAdjustments = urlPrefix + "Adjustments/UpdateYesterdaysAdjustments";
 
    this.UrlGetLeagueNames = urlPrefix + "Data/GetLeagueNames";

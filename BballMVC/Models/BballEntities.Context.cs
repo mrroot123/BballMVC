@@ -29,7 +29,6 @@ namespace BballMVC.Models
     
         public virtual DbSet<AdjustmentsCode> AdjustmentsCodes { get; set; }
         public virtual DbSet<DailySummary> DailySummaries { get; set; }
-        public virtual DbSet<TodaysPlay> TodaysPlays { get; set; }
         public virtual DbSet<AdjustmentOTsideLine> AdjustmentOTsideLines { get; set; }
         public virtual DbSet<Adjustment> Adjustments { get; set; }
         public virtual DbSet<AnalysisResult> AnalysisResults { get; set; }
@@ -53,6 +52,7 @@ namespace BballMVC.Models
         public virtual DbSet<vPostGameAnalysi> vPostGameAnalysis { get; set; }
         public virtual DbSet<UserLeagueParms> UserLeagueParms { get; set; }
         public virtual DbSet<Rotation> Rotation { get; set; }
+        public virtual DbSet<TodaysPlays> TodaysPlays { get; set; }
     
         [DbFunction("Entities2", "udfQueryAdjustmentsByTeamTotal")]
         public virtual IQueryable<udfQueryAdjustmentsByTeamTotal_Result> udfQueryAdjustmentsByTeamTotal(Nullable<System.DateTime> gameDate, string leagueName)
@@ -582,13 +582,17 @@ namespace BballMVC.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<uspQuerySeasonInfo_Result>("uspQuerySeasonInfo", gameDateParameter, leagueNameParameter);
         }
     
-        public virtual ObjectResult<string> uspQueryTeams(string leagueName)
+        public virtual ObjectResult<string> uspQueryTeams(string leagueName, Nullable<System.DateTime> gameDate)
         {
             var leagueNameParameter = leagueName != null ?
                 new ObjectParameter("LeagueName", leagueName) :
                 new ObjectParameter("LeagueName", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("uspQueryTeams", leagueNameParameter);
+            var gameDateParameter = gameDate.HasValue ?
+                new ObjectParameter("GameDate", gameDate) :
+                new ObjectParameter("GameDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("uspQueryTeams", leagueNameParameter, gameDateParameter);
         }
     
         public virtual int uspUpdateAdjustments(Nullable<System.DateTime> gameDate)

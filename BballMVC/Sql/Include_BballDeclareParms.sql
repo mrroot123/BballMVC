@@ -1,7 +1,7 @@
 use [00TTI_LeagueScores]
 
 	Declare
-			  @UserName varchar(25) = 'Test', @LeagueName varchar(10) = 'NBA', @GameDate date = '8/22/2020'
+			  @UserName varchar(25) = 'Test', @LeagueName varchar(10) = 'NBA', @GameDate date = GetDate()
 
 			,  @Team varchar(10) = 'bos'
 			, @Venue varchar(4) = 'away'

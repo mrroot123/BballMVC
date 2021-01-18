@@ -1,7 +1,7 @@
 /****** Script for SelectTopNRows command from SSMS  ******/
 use [00TTI_LeagueScores]
 
-Declare @LeagueName VarChar(4) = 'WNBA', @Team varchar(4) = 'SEA', @Team2 varchar(4) = 'SEA'
+Declare @LeagueName VarChar(4) = 'NBA', @Team varchar(4) = 'SEA', @Team2 varchar(4) = 'SEA'
 Set @LeagueName  = 'NBA'
 Set @Team = 'MIA'
 Set @Team2 = 'BOS'

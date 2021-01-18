@@ -50,6 +50,7 @@
     <Compile Include="LoadBoxScores.cs" />
     <Compile Include="LogBO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TodaysPlaysBO.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bball.DAL\Bball.DAL.csproj">

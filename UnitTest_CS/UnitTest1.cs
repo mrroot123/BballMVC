@@ -15,7 +15,7 @@ using NUnit.Framework;
 
 namespace UnitTest_CS
 {
-    [TestFixture]
+   // [TestFixture]
    public class UnitTest1
    {
       [Test]
@@ -27,7 +27,7 @@ namespace UnitTest_CS
       }
    }  // default class
 
-   [TestFixture]
+ //  [TestFixture]
    public class UnitTest_SQL
    {
       [Test]
@@ -41,7 +41,7 @@ namespace UnitTest_CS
          int i = 1;
         // var y = ocJObject.CopyTo.ToString();
          Assert.AreEqual(i, 1);
-         Assert.AreNotEqual(1, 1);
+        // Assert.AreNotEqual(1, 1);
       }
    }  // default class
 

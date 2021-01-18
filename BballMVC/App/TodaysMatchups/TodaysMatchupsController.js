@@ -21,29 +21,23 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
 
    let ocPlayers = [
       { name: "Keith", defaultAmount: 100 }
-      , { name: "Bill", defaultAmount: 200 }
+   //   , { name: "Bill", defaultAmount: 200 }
    ];
    let defaultAmount = 0;
    ocPlayers.forEach(function (item, index) {
       defaultAmount += item.defaultAmount;
    });
 
+   $scope.OpenAdjustmentsByTeamModal = function (objAdj, Venue) {
+     // $scope.GreyOutAdjustmentList();
+      var Team = Venue == 'Away' ? objAdj.item.TeamAway : objAdj.item.TeamHome;
+      $scope.$broadcast('OpenAdjustmentsByTeamEvent', Team, objAdj.item.SideLine);
+   };
+
    $scope.$on("populateTodaysMatchups", function (ev) {
       populateTodaysMatchups();
    });
 
-   //$scope.GetTodaysMatchups = function () { #kd delete
-   //   $scope.LeagueColor = $rootScope.oBballInfoDTO.LeagueName === "NBA" ? "blue" : "red";
-   //   ajx.AjaxGet(UrlGetTodaysMatchups, { GameDate: $rootScope.oBballInfoDTO.GameDate.toDateString(), LeagueName: $rootScope.oBballInfoDTO.LeagueName })   // Get TodaysMatchups from server
-   //      .then(data => {
-   //         $rootScope.oBballInfoDTO.oBballDataDTO.ocTodaysMatchups = data;
-   //         populateTodaysMatchups();
-   //         $rootScope.$broadcast('populatePostGameAnalysis');
-   //      })
-   //      .catch(error => {
-   //         f.DisplayErrorMessage(f.FormatResponse(error));
-   //      });
-   //}; // GetTodaysMatchups
    $scope.RefreshTodaysMatchups = function () {
       f.GreyScreen("screen");
 
@@ -62,7 +56,23 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
             f.ShowScreen("screen");
          });
    }; // GetTodaysMatchups
+   $scope.GetAdjustmentsByTeam = function(LeagueName, GameDate, Team){
+      // get adjs
+      ajx.AjaxGet(url.UrlGetAdjustmentsByTeam, { GameDate: $rootScope.oBballInfoDTO.GameDate.toDateString(), LeagueName: $rootScope.oBballInfoDTO.LeagueName, Team })   // Get TodaysMatchups from server
+         .then(data => {
+            // See ajx.AjaxGet in HeaderController for same moves
+            var x = data.ocAdjustmentsDTO;
 
+            populateTodaysMatchups();
+            f.ShowScreen("screen");
+         })
+         .catch(error => {
+            f.DisplayErrorMessage(f.FormatResponse(error));
+            f.ShowScreen("screen");
+         });
+      // pop modal
+      // show it
+   };
    function populateTodaysMatchups() {
       $scope.GameDate = $rootScope.oBballInfoDTO.GameDate;
       $scope.ocTodaysMatchups = $rootScope.oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO;
@@ -107,10 +117,11 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
          let play = $("#Play_" + rowNum).text().trim();
          if (play) {
             // set playtype
-            $("#PlayType_" + rowNum).val(play);
+            document.getElementById('PlayDirection_'+rowNum ).value = play;
+
             $("#Line_" + rowNum).val($("#TotalLine_" + rowNum).text());
             // set juice
-            $("#Juice_" + rowNum).val($("#Out_" + rowNum).val());
+            $("#Juice_" + rowNum).val(defaultJuice);
 
             $("#PlayAmount_" + rowNum).val(defaultAmount);
             $("#PlayWeight_" + rowNum).val(defaultWeight);
@@ -120,46 +131,66 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
       }  // while
 
    }; // InitPlayEntry
+   $scope.PlayAmountBlur = function (obj) {
+      var rowNum = obj.$index;
+      var x = $("#PlayAmount_" + rowNum).val() / defaultAmount;
+      $("#PlayWeight_" + rowNum).val(x);
+   };
+   $scope.PlayWeightBlur = function (obj) {
+      var rowNum = obj.$index;
+      var x = $("#PlayWeight_" + rowNum).val() * defaultAmount;
+      $("#PlayAmount_" + rowNum).val(x);
+   };
+   // 1)PlayLength	2)PlayType	3)Line	4)Out	5)Juice	6)Amount	7)Weight	8)cbProcessPlay
    $scope.ProcessPlays = function () {
-      let o = {
-         ocTodaysPlaysDTO : []
-      };
+      let ocTodaysPlaysDTO = [];
+      let thisSunday = new setToSunday(new Date($rootScope.oBballInfoDTO.GameDate));
+      
       let rowNum = 0;
       while ($rootScope.oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO.length > rowNum) {
-         let play = $("#Play_" + rowNum).text().trim();
+         let play = $("#Play_" + rowNum).text().trim();  // Over / Under
          if (document.getElementById("cbProcessPlay_" + rowNum).checked) {
             let oTodaysPlaysDTO = {};
             // Validate Data
 
             // build & insert row
 
-            oTodaysPlaysDTO.GameDate = $rootScope.oBballInfoDTO.GameDate;
+            oTodaysPlaysDTO.CreateUser = $rootScope.oBballInfoDTO.UserName;
+            oTodaysPlaysDTO.CreateDate = new Date();
+            oTodaysPlaysDTO.GameDate = Getmdy($rootScope.oBballInfoDTO.GameDate);
             oTodaysPlaysDTO.LeagueName = $rootScope.oBballInfoDTO.LeagueName;
             oTodaysPlaysDTO.RotNum = $("#RotNum_" + rowNum).text();
             oTodaysPlaysDTO.GameTime = $("#GameTime_" + rowNum).text();
             oTodaysPlaysDTO.TeamAway = $("#TeamAway_" + rowNum).text();
             oTodaysPlaysDTO.TeamHome = $("#TeamHome_" + rowNum).text();
-            oTodaysPlaysDTO.PlayLength = $("#PlayLength_" + rowNum).val();
-            oTodaysPlaysDTO.PlayDirection = $("#PlayDirection_" + rowNum).val();
+            oTodaysPlaysDTO.WeekEndDate = thisSunday;
+            // IP Cols 1-8
+            // 1)PlayLength 2)PlayDirection (un/ov) 3)Line 4)Out   5)Juice 6)PlayAmount 7)PlayWeight 8)cbProcessPlay
+            oTodaysPlaysDTO.PlayLength = $("#PlayLength_" + rowNum).val();       // Game, H1-h2, Q1-Q4
+            oTodaysPlaysDTO.PlayDirection = $("#PlayDirection_" + rowNum).val(); // Un/Ov, Side
             oTodaysPlaysDTO.Line = $("#Line_" + rowNum).val();
+            oTodaysPlaysDTO.Out = $("#Out_" + rowNum).val();
+
+            oTodaysPlaysDTO.Juice = parseInt($("#Juice_" + rowNum).val()) / 100;
             oTodaysPlaysDTO.PlayAmount = $("#PlayAmount_" + rowNum).val();
             oTodaysPlaysDTO.PlayWeight = $("#PlayWeight_" + rowNum).val();
-            oTodaysPlaysDTO.Juice = $("#Juice_" + rowNum).val();
-            oTodaysPlaysDTO.Out = $("#Out_" + rowNum).val();
-            oTodaysPlaysDTO.Author = $rootScope.oBballInfoDTO.UserName;
 
-            o.ocTodaysPlaysDTO.push(oTodaysPlaysDTO);
+            oTodaysPlaysDTO.Author = $rootScope.oBballInfoDTO.UserName;
+            oTodaysPlaysDTO.Info = "";
+
+            ocTodaysPlaysDTO.push(oTodaysPlaysDTO); // Add oTodaysPlaysDTO object to ocTodaysPlaysDTO collection
          }
          rowNum++;
       }  // while
-      if (o.ocTodaysPlaysDTO.length === 0) {
+      if (ocTodaysPlaysDTO.length === 0) {
          f.MessageInformational("No Plays Selected");
          return;
       }
 
-      ajx.AjaxPost(url.UrlPostObject + "?CollectionType=ProcessPlays", o)     // , "text/plain")
+      ajx.AjaxPost(url.UrlPostObject + "?CollectionType=ProcessPlays", ocTodaysPlaysDTO)     // , "text/plain")
          .then(data => {
-            f.MessageSuccess(o.ocTodaysPlaysDTO.length + " Plays Processed");
+            f.MessageSuccess(ocTodaysPlaysDTO.length + " Plays Processed");
+            resetAfterPlays();
          })
          .catch(error => {
             f.DisplayErrorMessage("Process Plays Error/n" + f.FormatResponse(error));
@@ -170,5 +201,33 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
    function setJuice(play, rowNum) {
 
    }
+   function setToSunday(d) {
+      var n = d.getDay();
+      n = (7 - (n - 7) % 7) % 7;
+      return Getmdy(new Date( d.setDate(d.getDate() + n)));
+   }
+   function formatDateToYYYY_MM_DD_string(date) {
+      var d = new Date(date),
+         month = '' + (d.getMonth() + 1),
+         day = '' + d.getDate(),
+         year = d.getFullYear();
+
+      if (month.length < 2)
+         month = '0' + month;
+      if (day.length < 2)
+         day = '0' + day;
+
+      return [year, month, day].join('-');
+   }
+   function resetAfterPlays() {
+      let rowNum = 0;
+      while ($rootScope.oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO.length > rowNum) {
+         if (document.getElementById("cbProcessPlay_" + rowNum).checked) {
+            document.getElementById("cbProcessPlay_" + rowNum).checked = false;
+            $("#Played_" + rowNum).text("PLAYED");
+         }
+         rowNum++;
+      }  // while
+   } // resetAfterPlays
 
 });   // controller

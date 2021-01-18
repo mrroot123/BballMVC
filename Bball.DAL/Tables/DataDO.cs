@@ -56,7 +56,7 @@ namespace Bball.DAL.Tables
          string jsonStr = "[{ \"id\":\"2932675\", \"t\" : \"GNK\" , \"e\" : \"LON\" , \"l\" : \"915.00\" , \"l_fix\" : \"915.00\" , \"l_cur\" : \"GBX915.00\" , \"s\": \"0\" , \"ltt\":\"5:08PM GMT\" , \"lt\" : \"Dec 11 5:08PM GMT\"}]";
          var obj = JsonConvert.DeserializeObject<JArray>(jsonStr).ToObject<List<JObject>>().FirstOrDefault();
 
-         IList<ITodaysPlaysDTO> ocAdjustmentDTO = (IList<ITodaysPlaysDTO>)oBballInfoDTO.oObject;
+         IList<TodaysPlaysDTO> ocAdjustmentDTO = (IList<TodaysPlaysDTO>)oBballInfoDTO.oObject;
 
          //JValue oJValue = (JValue)oBballInfoDTO.sJsonString;
          //dynamic xx = oJValue.ToObject<dynamic>();
@@ -238,10 +238,13 @@ namespace Bball.DAL.Tables
          //      if (ocTodaysMatchupsDTO == null)
          oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO = new List<ITodaysMatchupsDTO>();
          string Sql = ""
-            + $"SELECT * FROM TodaysMatchups  "
-            + $"  Where UserName = '{oBballInfoDTO.UserName}'  And LeagueName = '{oBballInfoDTO.LeagueName}'"
-            + $"  And GameDate = '{oBballInfoDTO.GameDate}'"
-            + "   Order By RotNum"
+            + $"SELECT tp.Played, tm.* FROM TodaysMatchups tm "
+            + $"  Left Join "
+            + $"   ( SELECT GameDate, RotNum, 'Played' as Played FROM TodaysPlays where GameDate = '{oBballInfoDTO.GameDate.ToShortDateString()}'  Group By GameDate, RotNum )"
+            + $"  tp ON tp.GameDate = tm.GameDate AND tp.RotNum = tm.RotNum AND tm.Play <> ''"
+            + $"  Where tm.UserName = '{oBballInfoDTO.UserName}'  And tm.LeagueName = '{oBballInfoDTO.LeagueName}'"
+            + $"  And tm.GameDate = '{oBballInfoDTO.GameDate.ToShortDateString()}'"
+            + "   Order By tm.RotNum"
          ;
 
          int rows = SysDAL.Functions.DALfunctions.ExecuteSqlQuery(

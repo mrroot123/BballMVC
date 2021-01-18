@@ -12,7 +12,7 @@ namespace BballMVC.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class TodaysPlay
+    public partial class TodaysPlays
     {
         public int TodaysPlaysID { get; set; }
         public Nullable<int> TranType { get; set; }
@@ -22,20 +22,20 @@ namespace BballMVC.Models
         public System.TimeSpan GameTime { get; set; }
         public string TeamAway { get; set; }
         public string TeamHome { get; set; }
-        public Nullable<System.DateTime> WeekEndDate { get; set; }
+        public System.DateTime WeekEndDate { get; set; }
         public string PlayLength { get; set; }
         public string PlayDirection { get; set; }
-        public decimal Line { get; set; }
+        public double Line { get; set; }
         public string Info { get; set; }
-        public decimal PlayAmount { get; set; }
-        public decimal PlayWeight { get; set; }
-        public decimal Juice { get; set; }
+        public double PlayAmount { get; set; }
+        public double PlayWeight { get; set; }
+        public double Juice { get; set; }
         public string Out { get; set; }
         public string Author { get; set; }
-        public string Result { get; set; }
-        public Nullable<bool> OT { get; set; }
+        public Nullable<int> Result { get; set; }
+        public Nullable<decimal> OtAffacted { get; set; }
         public Nullable<int> FinalScore { get; set; }
-        public Nullable<decimal> ResultAmount { get; set; }
+        public Nullable<double> ResultAmount { get; set; }
         public string CreateUser { get; set; }
         public System.DateTime CreateDate { get; set; }
     }

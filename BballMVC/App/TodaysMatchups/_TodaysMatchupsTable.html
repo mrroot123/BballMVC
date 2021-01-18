@@ -18,12 +18,13 @@
 
    <tr style="color:{{LeagueColor}};">
       <th>Rot #<br>Time</th>
-      <th><br />Teams</th>
+      <th><br />Team</th>
       <th>Team<br />Strength</th>
+      <th>Vol<br />atilly</th>
 
-      <th ng-show="showHistory">Last {{TMparms.GB1}}<br />&nbsp;&nbsp;&nbsp;{{TMparms.WeightGB1}}</th>
-      <th ng-show="showHistory">Last {{TMparms.GB2}}<br />&nbsp;&nbsp;&nbsp;{{TMparms.WeightGB2}}</th>
-      <th ng-show="showHistory">Last {{TMparms.GB3}}<br />&nbsp;&nbsp;&nbsp;{{TMparms.WeightGB3}}</th>
+      <th ng-show="showHistory">Last&nbsp;{{TMparms.GB1}}<br />&nbsp;&nbsp;&nbsp;{{TMparms.WeightGB1}}</th>
+      <th ng-show="showHistory">Last&nbsp;{{TMparms.GB2}}<br />&nbsp;&nbsp;&nbsp;{{TMparms.WeightGB2}}</th>
+      <th ng-show="showHistory">Last&nbsp;{{TMparms.GB3}}<br />&nbsp;&nbsp;&nbsp;{{TMparms.WeightGB3}}</th>
 
       <th>UnAdj<br />Total</th>
       <th>Points<br />Allowed</th>
@@ -55,16 +56,17 @@
    </tr>
    <tr ng-show="ocTodaysMatchups.length==0"><td>No Games Scheduled</td></tr> 
 
+
    <!-- Matchups -->
-   <tr ng-repeat="item in ocTodaysMatchups" ng-hide="ShowPlaysOnly && item.Play===''">
+   <tr ng-repeat="item in ocTodaysMatchups" ng-hide="ShowPlaysOnly && '{{item.Play.trim()}}' === ''">
 
       <td>
          <table>
             <tr>
-               <td ng-hide="Multi" id="RotNum_{{$index}}">{{item.RotNum}} - {{DisplayTimeAmPm(item.GameTime)}}</td>
+               <td ng-hide="Multi">{{item.RotNum}} - {{DisplayTimeAmPm(item.GameTime)}}</td>
             </tr>
             <tr>
-               <td ng-show="Multi">{{item.RotNum}}</td>
+               <td ng-show="Multi" id="RotNum_{{$index}}">{{item.RotNum}}</td>
             </tr>
             <tr>
                <td ng-show="Multi" id="GameTime_{{$index}}">{{DisplayTimeAmPm(item.GameTime)}}</td>
@@ -95,9 +97,25 @@
             <tr>
                <td ng-show="Multi">{{item.TmStrHome | number:1}}</td>
             </tr>
+            <tr>
+               <td ng-show="Multi">{{ (item.TmStrAway + item.TmStrHome) - oBballInfoDTO.oBballDataDTO.oDailySummaryDTO.LgAvgScoreFinal | number:1}}</td>
+            </tr>
          </table>
       </td>
+      <td>
+         <table>
+            <tr>
+               <td ng-hide="Multi">{{item.VolatilityAway | number:1}} / {{item.VolatilityHome | number:1}}</td>
+            </tr>
+            <tr>
+               <td ng-show="Multi">{{item.VolatilityAway | number:1}}</td>
+            </tr>
+            <tr>
+               <td ng-show="Multi">{{item.VolatilityHome | number:1}}</td>
+            </tr>
 
+         </table>
+      </td>
 
       <td ng-show="showHistory">
          <table>
@@ -168,10 +186,10 @@
       <td>
          <table>
             <tr>
-               <td ng-show="Multi">{{item.AdjAmtAway | number:1}}</td>
+               <td ng-show="Multi" ng-click="OpenAdjustmentsByTeamModal(this, 'Away')">{{item.AdjAmtAway | number:1}}</td>
             </tr>
             <tr>
-               <td ng-show="Multi">{{item.AdjAmtHome | number:1}}</td>
+               <td ng-show="Multi" ng-click="OpenAdjustmentsByTeamModal(this, 'Home')">{{item.AdjAmtHome | number:1}}</td>
             </tr>
             <tr>
                <td class="statTotal">{{item.AdjAmt | number:1}}</td>
@@ -263,6 +281,7 @@
       </td>
 
       <!-- PlayEntry -->
+      <!-- 1)PlayLength 2)PlayDirection (un/ov) 3)Line 4)Out 5)Juice 6)PlayAmount 7)PlayWeight 8)cbProcessPlay -->
       <td ng-show="PlayEntry">
          <select id="PlayLength_{{$index}}">
             <option value="Game" label="Game"></option>
@@ -276,6 +295,7 @@
       </td>
       <td ng-show="PlayEntry">
          <select id="PlayDirection_{{$index}}">
+            <option value="" label=""></option>
             <option value="Over" label="Over"></option>
             <option value="Under" label="Under"></option>
             <option value="Away" label="Away"></option>
@@ -288,9 +308,9 @@
 
       <td ng-show="PlayEntry">
          <select id="Out_{{$index}}">
-            <option value="-105">Pin</option>
-            <option value="-110">Chris</option>
-            <option value="-110">OTHER</option>
+            <option value="Pin">Pin</option>
+            <option value="Chris">Chris</option>
+            <option value="OTHER">OTHER</option>
          </select>
       </td>
 
@@ -298,15 +318,16 @@
          <input type="text" maxlength="4" size="2" id="Juice_{{$index}}" />
       </td>
       <td ng-show="PlayEntry">
-         <input type="text" maxlength="7" size="3" id="PlayAmount_{{$index}}" />
+         <input type="text" maxlength="7" size="3" id="PlayAmount_{{$index}}" ng-blur="PlayAmountBlur(this)"/>
       </td>
       <td ng-show="PlayEntry">
-         <input type="text" maxlength="4" size="2" id="PlayWeight_{{$index}}" />
+         <input type="text" maxlength="4" size="2" id="PlayWeight_{{$index}}"  ng-blur="PlayWeightBlur(this)" />
       </td>
       <td ng-show="PlayEntry">
          <input type="checkbox" id="cbProcessPlay_{{$index}}" />
       </td>
-
+      <td ng-show="PlayEntry" id="Played_{{$index}}">
+      </td>
    </tr>
 </table>
 

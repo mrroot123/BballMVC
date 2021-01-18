@@ -1,8 +1,8 @@
 use [00TTI_LeagueScores]
 
 Declare @serachArg varchar(50) = 
-	--'%TeamStrengthTMsAdjPctScored%' 
-	 '%TmStrAdjPct%'	--
+
+	 '%Adjustment%'	--
 	, @all bit = 01
 
 

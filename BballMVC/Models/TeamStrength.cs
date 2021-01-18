@@ -30,5 +30,7 @@ namespace BballMVC.Models
         public Nullable<double> Volatility { get; set; }
         public Nullable<double> Pace { get; set; }
         public Nullable<System.DateTime> TS { get; set; }
+        public Nullable<int> GB { get; set; }
+        public Nullable<int> ActualGB { get; set; }
     }
 }

@@ -110,10 +110,12 @@ namespace BballMVC.ControllerAPIs
       {
          return Request.CreateResponse(HttpStatusCode.OK, "Success");
       }
+
+      //  ajx.AjaxPost(url.UrlPostObject + "?CollectionType=ProcessPlays", ocTodaysPlaysDTO)
       [HttpPost]
-      public HttpResponseMessage PostObject([FromBody]List<TodaysPlaysDTO> oObject, [FromUri]string CollectionType)
+      public HttpResponseMessage PostObject([FromBody]List<DTOs.TodaysPlaysDTO> ocTodaysPlaysDTO, [FromUri]string CollectionType)
       {
-         oBballInfoDTO.oObject = oObject;
+         oBballInfoDTO.oObject = ocTodaysPlaysDTO;
          
          oBballInfoDTO.CollectionType = CollectionType;
          oDataBO.PostData(oBballInfoDTO);

@@ -108,9 +108,10 @@ namespace Bball.DAL.Tables
       }
       private void refreshRotation()
       {
-         CoversRotation oCoversRotation = new CoversRotation(_ocRotation, _GameDate, _oLeagueDTO);
-         oCoversRotation.GetRotationFromWeb();
+         //CoversRotation oCoversRotation = new CoversRotation(_ocRotation, _GameDate, _oLeagueDTO);
+         //oCoversRotation.GetRotationFromWeb();
 
+         new CoversRotation(_ocRotation, _GameDate, _oLeagueDTO).GetRotationFromWeb();
          writeRotation();
          insertLines();
       }

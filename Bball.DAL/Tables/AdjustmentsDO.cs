@@ -186,7 +186,7 @@ namespace Bball.DAL.Tables
       //      AdjustmentAmount = AdjustmentAmount
 
       //   };
-         
+
       //   oAdjustmentsDaily.InsertRow(oAdjustmentsDailyDTO);
       //}
       //// kdtodo refactor into rotation class
@@ -196,6 +196,31 @@ namespace Bball.DAL.Tables
       //   oRotation.GetRotation(null);
       //}
 
+
+      public void InsertAdjustmentRow(IAdjustmentWrapper oAdjustmentWrapper)
+      {
+         if (oAdjustmentWrapper.DecendingAdjustment)
+         {
+            DateTime StartDate = oAdjustmentWrapper.oAdjustmentDTO.StartDate;
+            double DecendingAmt = oAdjustmentWrapper.oAdjustmentDTO.AdjustmentAmount ?? 0 / (double)oAdjustmentWrapper.DecendingDays;
+
+            for (int i = oAdjustmentWrapper.DecendingDays; i > 0; i--)
+            {
+               InsertAdjustmentRow(oAdjustmentWrapper.oAdjustmentDTO);
+               oAdjustmentWrapper.oAdjustmentDTO.StartDate = StartDate;
+               oAdjustmentWrapper.oAdjustmentDTO.EndDate = StartDate.AddDays(1);
+               oAdjustmentWrapper.oAdjustmentDTO.AdjustmentAmount -= DecendingAmt;
+
+               StartDate.AddDays(1);
+            }
+            oAdjustmentWrapper.oAdjustmentDTO.StartDate = StartDate;
+            oAdjustmentWrapper.oAdjustmentDTO.EndDate = null;
+            oAdjustmentWrapper.oAdjustmentDTO.AdjustmentAmount = 0.0;
+         }
+
+         InsertAdjustmentRow(oAdjustmentWrapper.oAdjustmentDTO);
+
+      }
 
       public void InsertAdjustmentRow(IAdjustmentDTO oAdjustmentDTO)
       {
@@ -240,6 +265,17 @@ namespace Bball.DAL.Tables
          List<object> SqlParmValues = new List<object>() { GameDate, LeagueName };
 
          SysDAL.Functions.DALfunctions.ExecuteStoredProcedureQuery(_ConnectionString, "uspQueryAdjustments"
+                              , SqlParmNames, SqlParmValues, ocAdjustmentDTO, populateDTOFromRdr);
+         return ocAdjustmentDTO;
+      }
+      public List<IAdjustmentDTO> GetTodaysAdjustmentsByTeam(DateTime GameDate, string LeagueName, string Team, double SideLine)
+      {
+         List<BballMVC.IDTOs.IAdjustmentDTO> ocAdjustmentDTO = new List<BballMVC.IDTOs.IAdjustmentDTO>();
+
+         List<string> SqlParmNames = new List<string>() { "GameDate", "LeagueName", "Team", "SideLine" };
+         List<object> SqlParmValues = new List<object>() { GameDate, LeagueName, Team, SideLine };
+
+         SysDAL.Functions.DALfunctions.ExecuteStoredProcedureQuery(_ConnectionString, "uspQueryAdjustmentsByTeam"
                               , SqlParmNames, SqlParmValues, ocAdjustmentDTO, populateDTOFromRdr);
          return ocAdjustmentDTO;
       }

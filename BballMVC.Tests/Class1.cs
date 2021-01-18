@@ -13,7 +13,7 @@ using Bball.DAL.Parsing;
 
 namespace BballMVC.Tests
 {
-   [TestFixture]
+  // [TestFixture]
    public class Class1
    {
       [Test]
@@ -36,7 +36,7 @@ namespace BballMVC.Tests
       }
    }
 
-   [TestFixture]
+  // [TestFixture]
    public class Class_Test_BoxScoresLast5Min
    {
       [Test]

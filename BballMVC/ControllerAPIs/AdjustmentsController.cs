@@ -32,6 +32,12 @@ namespace BballMVC.ControllerAPIs
          List<IDTOs.IAdjustmentDTO> ocAdjustmentDTO = oAdjustmentsBO.GetTodaysAdjustments(GameDate, LeagueName);
          return Request.CreateResponse(HttpStatusCode.OK, ocAdjustmentDTO);
       }
+      [HttpGet]   // G1 By Team
+      public HttpResponseMessage GetAdjustmentsByTeam(DateTime GameDate, string LeagueName, string Team, double SideLine)
+      {
+         List<IDTOs.IAdjustmentDTO> ocAdjustmentDTO = oAdjustmentsBO.GetTodaysAdjustmentsByTeam(GameDate, LeagueName, Team, SideLine);
+         return Request.CreateResponse(HttpStatusCode.OK, ocAdjustmentDTO);
+      }
       [HttpGet]   // G2
       public HttpResponseMessage GetAdjustmentInfo(DateTime GameDate, string LeagueName)
       {
@@ -91,6 +97,12 @@ namespace BballMVC.ControllerAPIs
          oAdjustmentsBO.UpdateAdjustments(aa);
 
          return Request.CreateResponse(HttpStatusCode.OK, "Success");
+      }
+      [HttpPost] //  [ValidateAntiForgeryToken]
+      public HttpResponseMessage PostInsertAdjustment(AdjustmentWrapper oAdjustmentWrapper)
+      {
+         oAdjustmentsBO.InsertNewAdjustment(oAdjustmentWrapper);
+         return Request.CreateResponse(HttpStatusCode.OK);
       }
       [HttpPost] //  [ValidateAntiForgeryToken]
       public HttpResponseMessage PostInsertAdjustment(AdjustmentDTO oAdjustmentDTO)
