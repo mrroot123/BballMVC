@@ -176,8 +176,9 @@ Namespace Bball.VbClasses
                oParseRotation.GetHtmlEle("span")
                Integer.TryParse(oParseRotation.InnerHtml, oCoversDTO.RotNum)
                ' oCoversDTO.RotNum = CInt(oParseRotation.InnerHtml)
-
-               _ocRotation.Add(oCoversDTO.RotNum.ToString(), oCoversDTO)
+               If oCoversDTO.RotNum <> 0 Then
+                  _ocRotation.Add(oCoversDTO.RotNum.ToString(), oCoversDTO)
+               End If
             Catch ex As Exception
                Dim msg = IIf(InStr(ex.Message, "CallStack=") > 0, ex.Message, ex.Message & $" - CallStack= {ex.StackTrace}")
                Throw New Exception(StackTraceFormat($"CoversRotation.GetRotation: Error - {poLeagueDTO.LeagueName} {pGameDate} - TeamAway: {oCoversDTO.TeamAway} - TeamHome: {oCoversDTO.TeamHome}", ex, ""))

@@ -22,6 +22,7 @@ namespace Bball.BAL
          var ocLeagues = ocTodaysPlays.GroupBy(tp => tp.LeagueName ).ToList();
          foreach(var oLeagues in ocLeagues)
          {
+            oBballInfoDTO.LeagueName = oLeagues.Key;
             SortedList<string, CoversDTO> ocRotation = new SortedList<string, CoversDTO>();
             LeagueDTO oLeagueDTO = new LeagueDTO();
             new LeagueInfoDO(oBballInfoDTO.LeagueName, oLeagueDTO, oBballInfoDTO.ConnectionString, oBballInfoDTO.GameDate);  // Init _oLeagueDTO
@@ -33,6 +34,7 @@ namespace Bball.BAL
          CalcTodaysPlays(oBballInfoDTO, ocTodaysPlaysResults, ocTodaysPlays, ocRotations);
       }
 
+      // Inject ocTodaysPlays, CoversDTO>> ocRotations for Testing
       public TodaysPlaysBO(IBballInfoDTO oBballInfoDTO, List<TodaysPlaysResults> ocTodaysPlaysResults
                , IList<ITodaysPlaysDTO> ocTodaysPlays, List<SortedList<string, CoversDTO>> ocRotations)
       {

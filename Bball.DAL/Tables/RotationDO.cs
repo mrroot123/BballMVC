@@ -108,9 +108,6 @@ namespace Bball.DAL.Tables
       }
       private void refreshRotation()
       {
-         //CoversRotation oCoversRotation = new CoversRotation(_ocRotation, _GameDate, _oLeagueDTO);
-         //oCoversRotation.GetRotationFromWeb();
-
          new CoversRotation(_ocRotation, _GameDate, _oLeagueDTO).GetRotationFromWeb();
          writeRotation();
          insertLines();
@@ -139,6 +136,8 @@ namespace Bball.DAL.Tables
          // write rotation
          foreach (var kvp in _ocRotation)
          {
+            if (kvp.Key == "0") continue;  // Bypass invalid RotNums
+
             CoversDTO oCoversDTO = kvp.Value;
             //  string ConnectionString = SqlFunctions.GetConnectionString();
             //string SQL = SysDAL.Functions.DALfunctions.GenSql(RotationTable, ocColumns);
@@ -148,6 +147,7 @@ namespace Bball.DAL.Tables
             // GameTime,TV,SideLine,TotalLine,TotalLineTeam,
             // TotalLineOpp,OpenTotalLine,BoxScoreSource,BoxScoreUrl,CreateDate
             // ,UpdateDate";
+            
             List<string> ocValues = new List<string>()
             {
                _oLeagueDTO.LeagueName
