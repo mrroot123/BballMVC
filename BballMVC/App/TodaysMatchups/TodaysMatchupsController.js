@@ -144,7 +144,7 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
    // 1)PlayLength	2)PlayType	3)Line	4)Out	5)Juice	6)Amount	7)Weight	8)cbProcessPlay
    $scope.ProcessPlays = function () {
       let ocTodaysPlaysDTO = [];
-      let thisSunday = new setToSunday(new Date($rootScope.oBballInfoDTO.GameDate));
+      let thisSunday =  setToSunday(new Date($rootScope.oBballInfoDTO.GameDate));
       
       let rowNum = 0;
       while ($rootScope.oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO.length > rowNum) {
@@ -157,7 +157,7 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
 
             oTodaysPlaysDTO.CreateUser = $rootScope.oBballInfoDTO.UserName;
             oTodaysPlaysDTO.CreateDate = new Date();
-            oTodaysPlaysDTO.GameDate = Getmdy($rootScope.oBballInfoDTO.GameDate);
+            oTodaysPlaysDTO.GameDate = $scope.Getmdy($rootScope.oBballInfoDTO.GameDate);
             oTodaysPlaysDTO.LeagueName = $rootScope.oBballInfoDTO.LeagueName;
             oTodaysPlaysDTO.RotNum = $("#RotNum_" + rowNum).text();
             oTodaysPlaysDTO.GameTime = $("#GameTime_" + rowNum).text();
@@ -204,7 +204,7 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
    function setToSunday(d) {
       var n = d.getDay();
       n = (7 - (n - 7) % 7) % 7;
-      return Getmdy(new Date( d.setDate(d.getDate() + n)));
+      return $scope.Getmdy(new Date( d.setDate(d.getDate() + n)));
    }
    function formatDateToYYYY_MM_DD_string(date) {
       var d = new Date(date),
