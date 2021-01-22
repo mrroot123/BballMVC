@@ -7,6 +7,7 @@ using BballMVC.DTOs;
 using BballMVC.IDTOs;
 using Bball.DAL.Tables;
 using Bball.VbClasses.Bball.VbClasses;
+using Bball.DAL.Functions;
 
 namespace Bball.BAL
 {
@@ -15,14 +16,19 @@ namespace Bball.BAL
       #region constructors
       public TodaysPlaysBO(IBballInfoDTO oBballInfoDTO, List<TodaysPlaysResults> ocTodaysPlaysResults)
       {
+
+
          IList<ITodaysPlaysDTO> ocTodaysPlays = new List<ITodaysPlaysDTO>();
          getTodaysPlays(oBballInfoDTO, ocTodaysPlays);
 
-         List<SortedList<string, CoversDTO>> ocRotations = null;
+         List<SortedList<string, CoversDTO>> ocRotations =  new List<SortedList<string, CoversDTO>>();
          var ocLeagues = ocTodaysPlays.GroupBy(tp => tp.LeagueName ).ToList();
          foreach(var oLeagues in ocLeagues)
          {
             oBballInfoDTO.LeagueName = oLeagues.Key;
+            SeasonInfoDO oSeasonInfoDO = new SeasonInfoDO(oBballInfoDTO.GameDate, oBballInfoDTO.LeagueName);
+
+            oBballInfoDTO.oSeasonInfoDTO = oSeasonInfoDO.oSeasonInfoDTO;
             SortedList<string, CoversDTO> ocRotation = new SortedList<string, CoversDTO>();
             LeagueDTO oLeagueDTO = new LeagueDTO();
             new LeagueInfoDO(oBballInfoDTO.LeagueName, oLeagueDTO, oBballInfoDTO.ConnectionString, oBballInfoDTO.GameDate);  // Init _oLeagueDTO
@@ -80,7 +86,7 @@ namespace Bball.BAL
             oTodaysPlaysResults = new TodaysPlaysResults();
             oTodaysPlaysResults.RotNum = oTodaysPlays.RotNum;
             oTodaysPlaysResults.GameDate = oTodaysPlays.GameDate;
-            oTodaysPlaysResults.GameTime = oTodaysPlays.GameTime.ToString();
+            oTodaysPlaysResults.GameTime = oTodaysPlays.GameTime.ToString().Substring(0, 5);
             oTodaysPlaysResults.TeamAway = oTodaysPlays.TeamAway;
             oTodaysPlaysResults.TeamHome = oTodaysPlays.TeamHome;
             oTodaysPlaysResults.PlayDirection = oTodaysPlays.PlayDirection;
@@ -193,7 +199,7 @@ namespace Bball.BAL
          {
             oTodaysPlaysResults.TimeStatus = "";
             oTodaysPlaysResults.CurrentStatus = "";
-            oTodaysPlaysResults.Info = oTodaysPlays.GameTime.ToString();
+            oTodaysPlaysResults.Info = oTodaysPlays.GameTime.ToString().Substring(0, 5);
             oTodaysPlaysResults.OvUnStatus = "Game";
             
          }  // calcNotStartedl
@@ -228,14 +234,15 @@ namespace Bball.BAL
 
       void getRotation(SortedList<string, CoversDTO> ocRotation, IBballInfoDTO oBballInfoDTO, LeagueDTO oLeagueDTO)
       {
-         ocRotation = new SortedList<string, CoversDTO>();
+         //ocRotation = new SortedList<string, CoversDTO>();
          try
          {
             RotationDO.PopulateRotation(ocRotation, oBballInfoDTO, oLeagueDTO);
          }
          catch (Exception ex)
          {
-            throw new Exception($"Covers Rotation Error {oBballInfoDTO.GameDate} - {ex.Message}");
+
+            throw new Exception(DALFunctions.StackTraceFormat("Covers Rotation Error {oBballInfoDTO.GameDate} " , ex, ""));
          }
       }
       //public class TodaysPlaysResults

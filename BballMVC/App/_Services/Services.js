@@ -101,8 +101,9 @@ Type: Boolean
 
 angular.module('app').service('f', function ($rootScope, ajx, url) {
    this.DisplayErrorMessage = function (msg) {
+      var userName = typeof x === "undefined" ? "No User" : $rootScope.oBballInfoDTO.UserName;
       var TTILogMessage = {
-         UserName: $rootScope.oBballInfoDTO.UserName,
+         UserName: userName,
          ApplicationName: "Bball",
          TS: new Date(),
          MessageNum: 0,

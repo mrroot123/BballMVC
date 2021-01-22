@@ -7,7 +7,6 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
    $scope.PlayEntry = false;
    $scope.ShowPlaysOnly = false;
    $scope.Multi = true;
-   $scope.showHistory = true;
 
    let ocOuts = [
       { name: "Pin", juice: "105" }

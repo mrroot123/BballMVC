@@ -44,6 +44,7 @@ namespace Bball.DAL.Tables
          ITodaysPlaysDTO o = new BballMVC.DTOs.TodaysPlaysDTO();
 
          o.GameDate = (DateTime)rdr["GameDate"];
+         o.GameTime = (TimeSpan)rdr["GameTime"];
          o.WeekEndDate = (DateTime)rdr["WeekEndDate"];
          o.CreateDate = (DateTime)rdr["CreateDate"];
          o.OtAffacted = rdr["OtAffacted"] == DBNull.Value ? null : (decimal?)rdr["OtAffacted"];

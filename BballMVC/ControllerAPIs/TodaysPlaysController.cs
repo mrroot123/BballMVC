@@ -31,8 +31,16 @@ namespace BballMVC.ControllerAPIs
       public HttpResponseMessage GetTodaysPlays()
       {
          oBballInfoDTO.GameDate = DateTime.Today;
+         oBballInfoDTO.UserName = "TodaysPlays";
          List<TodaysPlaysResults> ocTodaysPlaysResults = new List<TodaysPlaysResults>();
-         new TodaysPlaysBO(oBballInfoDTO, ocTodaysPlaysResults);
+         try
+         {
+            new TodaysPlaysBO(oBballInfoDTO, ocTodaysPlaysResults);
+         }
+         catch (Exception ex)
+         {
+            throw new Exception($"Message: {ex.Message} - Stacktrace: {ex.StackTrace}");
+         }
 
          return Request.CreateResponse(HttpStatusCode.OK, ocTodaysPlaysResults);
       }

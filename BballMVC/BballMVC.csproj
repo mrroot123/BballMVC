@@ -362,6 +362,10 @@
     <Content Include="App\TodaysMatchups\_AdjustmentsByTeamRow.html" />
     <Content Include="App\TodaysMatchups\_DailySummary.html" />
     <Content Include="App\TodaysMatchups\_TodaysMatchupsTable.html" />
+    <Content Include="App\TodaysPlays\TodaysPlays.html" />
+    <Content Include="App\TodaysPlays\TodaysPlaysApp.js" />
+    <Content Include="App\TodaysPlays\TodaysPlaysController.js" />
+    <Content Include="App\TodaysPlays\TodaysPlaysRun.js" />
     <Content Include="App\_Header\Header.html" />
     <Content Include="App\_Header\HeaderController.js" />
     <Content Include="App\_layout\layout.html" />

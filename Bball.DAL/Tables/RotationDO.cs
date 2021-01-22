@@ -129,6 +129,7 @@ namespace Bball.DAL.Tables
          //DailySummaryDO oDailySummary = new DailySummaryDO(_GameDate, _oLeagueDTO, _ConnectionString, _strLoadDateTime);
          //oDailySummary.RefreshRow(_ocRotation.Count);
 
+
          deleteRotation();
 
          List<string> ocColumns = ColumnNames.Split(',').OfType<string>().ToList();
