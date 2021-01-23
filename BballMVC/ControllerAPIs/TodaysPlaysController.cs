@@ -28,9 +28,9 @@ namespace BballMVC.ControllerAPIs
 
 
       [HttpGet]
-      public HttpResponseMessage GetTodaysPlays()
+      public HttpResponseMessage GetTodaysPlays(DateTime GameDate)
       {
-         oBballInfoDTO.GameDate = DateTime.Today;
+         oBballInfoDTO.GameDate = GameDate;
          oBballInfoDTO.UserName = "TodaysPlays";
          List<TodaysPlaysResults> ocTodaysPlaysResults = new List<TodaysPlaysResults>();
          try

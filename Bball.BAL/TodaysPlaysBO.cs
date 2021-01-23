@@ -170,7 +170,7 @@ namespace Bball.BAL
          void calcFinal()
          {
             string playResult;
-            oTodaysPlaysResults.TimeStatus = "Final";
+            oTodaysPlaysResults.TimeStatus = $"Final {oTodaysPlaysResults.Score}";
             calcCurrentStatus();
             calcOvUnStatus();
 
@@ -182,13 +182,13 @@ namespace Bball.BAL
                   playResult = "UNDER";
                else playResult = "PUSH";
 
-               oTodaysPlaysResults.CurrentStatus = playResult;
+               oTodaysPlaysResults.CurrentStatus = $"{playResult} {oTodaysPlays.Line}";
             }  // calcCurrentStatus
             void calcOvUnStatus()   // WIN / LOSS / Push
             {
                if (playResult == "PUSH")
                   oTodaysPlaysResults.OvUnStatus = "PUSH";
-               else if (playResult == oTodaysPlays.PlayDirection)
+               else if (playResult.ToLower() == oTodaysPlays.PlayDirection.ToLower())
                   oTodaysPlaysResults.OvUnStatus = "WIN";
                else
                   oTodaysPlaysResults.OvUnStatus = "LOSS";

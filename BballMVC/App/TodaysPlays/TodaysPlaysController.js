@@ -7,7 +7,10 @@ angular.module('app').controller('todaysPlaysController', function ($rootScope, 
    $scope.RefreshTodaysPlays = function () {
       f.GreyScreen("screen");
 
-      ajx.AjaxGet(UrlRefreshTodaysPlays)   // Get TodaysPlays from server
+      if ($scope.GameDate === undefined) {
+         $scope.GameDate = new Date();
+      }
+      ajx.AjaxGet(UrlRefreshTodaysPlays, {  GameDate: $scope.GameDate.toDateString() })   // Get TodaysPlays from server
          .then(data => {
             // See ajx.AjaxGet in HeaderController for same moves
             data.forEach(editData);
