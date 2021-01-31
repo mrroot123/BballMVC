@@ -12,7 +12,7 @@ namespace BballMVC.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class AdjustmentsCode
+    public partial class AdjustmentsCodes
     {
         public int AdjustmentsCodesID { get; set; }
         public string Type { get; set; }

@@ -11,6 +11,7 @@ using System.Data;
 using BballMVC.DTOs;
 using BballMVC.IDTOs;
 using Bball.DataBaseFunctions;
+using SysDAL.Functions;
 
 
 namespace Bball.DAL.Tables
@@ -196,20 +197,20 @@ namespace Bball.DAL.Tables
       //   oRotation.GetRotation(null);
       //}
 
-
-      public void InsertAdjustmentRow(IAdjustmentWrapper oAdjustmentWrapper)
+      // Moved to DataDO
+      public void xInsertAdjustmentRow(IAdjustmentWrapper oAdjustmentWrapper)
       {
-         if (oAdjustmentWrapper.DecendingAdjustment)
+         if (oAdjustmentWrapper.DescendingAdjustment)
          {
             DateTime StartDate = oAdjustmentWrapper.oAdjustmentDTO.StartDate;
-            double DecendingAmt = oAdjustmentWrapper.oAdjustmentDTO.AdjustmentAmount ?? 0 / (double)oAdjustmentWrapper.DecendingDays;
+            double DescendingAmt = oAdjustmentWrapper.oAdjustmentDTO.AdjustmentAmount ?? 0 / (double)oAdjustmentWrapper.DescendingDays;
 
-            for (int i = oAdjustmentWrapper.DecendingDays; i > 0; i--)
+            for (int i = oAdjustmentWrapper.DescendingDays; i > 0; i--)
             {
                InsertAdjustmentRow(oAdjustmentWrapper.oAdjustmentDTO);
                oAdjustmentWrapper.oAdjustmentDTO.StartDate = StartDate;
                oAdjustmentWrapper.oAdjustmentDTO.EndDate = StartDate.AddDays(1);
-               oAdjustmentWrapper.oAdjustmentDTO.AdjustmentAmount -= DecendingAmt;
+               oAdjustmentWrapper.oAdjustmentDTO.AdjustmentAmount -= DescendingAmt;
 
                StartDate.AddDays(1);
             }
@@ -255,6 +256,11 @@ namespace Bball.DAL.Tables
 
          SysDAL.Functions.DALfunctions.ExecuteStoredProcedureNonQuery(_oBballInfoDTO.ConnectionString, "uspUpdateYesterdaysAdjustments", SqlParmNames, SqlParmValues);
       }
+
+      public void UpdateTodaysPlays()
+         => DALfunctions.ExecuteStoredProcedureNonQuery(_oBballInfoDTO.ConnectionString, "uspUpdateTodaysPlays"
+               , new List<string>(){}, new List<object>(){});
+      
 
       #region todaysAdjustments
       public List<IAdjustmentDTO> GetTodaysAdjustments(DateTime GameDate, string LeagueName)

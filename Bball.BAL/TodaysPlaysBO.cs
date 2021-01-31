@@ -149,7 +149,8 @@ namespace Bball.BAL
                else
                   period = oCoversDTO.Period.ToString();
                int mins =  ((int)(oCoversDTO.SecondsLeftInPeriod / 60));
-               int secs = oCoversDTO.SecondsLeftInPeriod % 60;
+               string secs = (oCoversDTO.SecondsLeftInPeriod % 60).ToString();
+               secs = secs.Length == 1 ? "0" + secs : secs;
                oTodaysPlaysResults.TimeStatus = $"({period}) {mins}:{secs}";
             }
             void calcCurrentStatus()   // 105 (-15)

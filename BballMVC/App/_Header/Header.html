@@ -16,9 +16,9 @@
    <div class="row">
       <div class="col-md-2"></div>
 
-      <div class="col-md-1">
+      <div class="col-md-2">
          <span class="help-block text-muted small-font">League Name</span>
-         <span class="help-block text-muted small-font" ng-hide="ShowLeagueDropDown">Retrieving League Names</span>
+         <!--<span class="help-block text-muted small-font" ng-hide="ShowLeagueDropDown">Retrieving League Names</span>-->
          <select ng-model="LeagueName" ng-show="ShowLeagueDropDown" ng-change="SelectLeague()"
                  ng-options="item.Text as item.Value for item in LeagueNameList">
             <option value="" label="--Select League--"></option>

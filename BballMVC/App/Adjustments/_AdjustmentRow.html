@@ -3,6 +3,7 @@
       <th style="width:10%;">Update<br>Amount</th>
       <th>Delete</th>
       <th>Start&nbsp;Date&nbsp;&nbsp;&nbsp;</th>
+      <th>End&nbsp;Date&nbsp;&nbsp;&nbsp;</th>
       <th>Adj Type</th>
       <th>Team</th>
       <th>Adjustment<br>Amount</th>
@@ -19,6 +20,7 @@
       <input id="cb_{{$index}}"   type="checkbox"  >
       </td>
       <td>{{oAdjustment.TS.substring(0, 10)}}</td>
+      <td>{{oAdjustment.EndDate.substring(0, 10)}}</td>      
       <td>{{oAdjustment.AdjustmentType}}</td>
       <td>{{oAdjustment.Team}}</td>
       <td>{{oAdjustment.AdjustmentAmount | number:2}}</td>

@@ -2,6 +2,7 @@
    kdAlert("HeaderController");
    $scope.ShowLeagueDropDown = false;
    GetLeagueNames();   // on app init
+  // RefreshLeagueNamesDropDown();
    $scope.GameDate = new Date();
    $rootScope.oBballInfoDTO.GameDate = new Date(); // Today as Object
 
@@ -47,21 +48,29 @@
       ajx.AjaxGet(url.UrlGetData, {
          UserName: $rootScope.oBballInfoDTO.UserName, GameDate: $rootScope.oBballInfoDTO.GameDate.toDateString()
          , LeagueName: $rootScope.oBballInfoDTO.LeagueName
-         , CollectionType: "GetLeagueData~GetDailySummaryDTO"
+         , CollectionType: "GetLeagueData"
       })
          .then(data => {
             // See $scope.RefreshTodaysMatchups in TodaysMatchupsController for same moves
-            $rootScope.oBballInfoDTO.oBballDataDTO.oDailySummaryDTO = data.oDailySummaryDTO;   
-            $rootScope.oBballInfoDTO.oBballDataDTO.ocAdjustmentNames = data.ocAdjustmentNames;  
-            $rootScope.oBballInfoDTO.oBballDataDTO.oUserLeagueParmsDTO = data.oUserLeagueParmsDTO;
-            $rootScope.oBballInfoDTO.oBballDataDTO.ocAdjustments = data.ocAdjustments;   
-            $rootScope.oBballInfoDTO.oBballDataDTO.ocPostGameAnalysisDTO = data.ocPostGameAnalysisDTO;   
-            $rootScope.oBballInfoDTO.oBballDataDTO.ocTeams = data.ocTeams;   
-            $rootScope.oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO = data.ocTodaysMatchupsDTO;   
-            $rootScope.$broadcast('populateTodaysMatchups');
-            $rootScope.$broadcast('populatePostGameAnalysis');
-            $rootScope.$broadcast('populateAdjustments');
-            $rootScope.$broadcast('populateTeams_AdjTypes');
+            // 1) ocAdjustments  2) ocAdjustmentNames  3) ocTeams  4) LeagueParmsDTO
+            $rootScope.oBballInfoDTO.oBballDataDTO.ocAdjustments = data.ocAdjustments;             // 1) lg data
+            $rootScope.oBballInfoDTO.oBballDataDTO.ocAdjustmentNames = data.ocAdjustmentNames;     // 2) lg data
+            $rootScope.oBballInfoDTO.oBballDataDTO.ocTeams = data.ocTeams;                         // 3) lg data
+            $rootScope.oBballInfoDTO.oBballDataDTO.oUserLeagueParmsDTO = data.oUserLeagueParmsDTO; // 4) lg data
+            $rootScope.$broadcast('populateAdjustments');                                          // 1) lg data
+            $rootScope.$broadcast('populateTeams_AdjTypes');                                       // 2) lg data
+
+            //$rootScope.oBballInfoDTO.oBballDataDTO.oDailySummaryDTO = data.oDailySummaryDTO;          
+            //$rootScope.oBballInfoDTO.oBballDataDTO.ocAdjustmentNames = data.ocAdjustmentNames;     // 2) lg data
+            //$rootScope.oBballInfoDTO.oBballDataDTO.oUserLeagueParmsDTO = data.oUserLeagueParmsDTO; // 4) lg data
+            //$rootScope.oBballInfoDTO.oBballDataDTO.ocAdjustments = data.ocAdjustments;             // 1) lg data
+            //$rootScope.oBballInfoDTO.oBballDataDTO.ocPostGameAnalysisDTO = data.ocPostGameAnalysisDTO;   
+            //$rootScope.oBballInfoDTO.oBballDataDTO.ocTeams = data.ocTeams;                         // 3) lg data
+            //$rootScope.oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO = data.ocTodaysMatchupsDTO;   
+            //$rootScope.$broadcast('populateTodaysMatchups');
+            //$rootScope.$broadcast('populatePostGameAnalysis');
+            //$rootScope.$broadcast('populateAdjustments');                                          // lg data
+            //$rootScope.$broadcast('populateTeams_AdjTypes');                                       // lg data
 
             $scope.$emit('showAccordian');
             $scope.$apply;

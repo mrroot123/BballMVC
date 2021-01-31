@@ -16,4 +16,5 @@ public partial class AdjustmentsCode
     public string Type { get; set; }
     public string Description { get; set; }
     public bool Range { get; set; }
+   public bool BypassDropDown { get; set; }
 }

@@ -38,15 +38,35 @@
                      <div class="col-md-1"></div>
                   </div>
                </div>
+
                <!-- Adjustment Amount -->
                <div class="row ">
                   <div class="col-md-2"></div>
-                  <div class="col-md-5 pad-adjust col-sm-4">
+                  <div class="col-md-5 pad-adjust col-sm-5">
                      <span class="help-block text-muted small-font pull-left">Adjustment Amount</span><br />
                      <input type="text" class="form-control" placeholder="Adjustment Amount" ng-model="AdjustmentAmount" id="AdjustmentAmount" />
                   </div>
+
+
+                  <div class="col-md-3">
+                     <div><input type="checkbox" ng-model="cbDescendingAdjustment"> Descending Adj</div>
+                  </div>
+                  <div class="col-md-3 pad-adjust col-sm-3" ng-show="cbDescendingAdjustment">
+                     <span class="help-block text-muted small-font pull-left">Descending Adj Days</span><br />
+                     <input type="text" class="form-control" placeholder="Descending Adj Days" ng-model="DescendingDays" id="DescendingDays" />
+                  </div>
+                  <div class="col-md-1"></div>
+
+               </div>
+
+
+               <!-- Adjustment Amount Error row -->
+               <div class="row showError">
+                  <div class="col-md-2"></div>
                   <div class="col-md-5 col-sm-3 showError">
                      <span id="errAdjustmentAmount" ng-hide="ValidateAdjustmentAmount()">Adjustment Amount required < 10 and > -10</span>
+                  </div>
+                  <div class="col-md-5 col-sm-3">
                   </div>
                </div>
                <!-- Player -->

@@ -1,9 +1,9 @@
 ﻿angular.module('app').service('url', function () {
    const urlPrefix = "../../api/";
    // Adjustments
-   this.UrlPostInsertAdjustment = urlPrefix + "Adjustments/PostInsertAdjustment";
+ // 01/25/2021  this.UrlPostInsertAdjustment = urlPrefix + "Adjustments/PostInsertAdjustment";
    this.UrlPostAdjustmentUpdates = urlPrefix + "Adjustments/PostAdjustmentUpdates";
-   this.UrlGetAdjustmentInfo = urlPrefix + "Adjustments/GetAdjustmentInfo";
+ // 01/25/2021    this.UrlGetAdjustmentInfo = urlPrefix + "Adjustments/GetAdjustmentInfo";
    this.UrlGetAdjustments = urlPrefix + "Adjustments/GetAdjustments";
    this.UrlGetAdjustmentsByTeam = urlPrefix + "Adjustments/GetAdjustmentsByTeam";
   // this.UrlUpdateYesterdaysAdjustments = urlPrefix + "Adjustments/UpdateYesterdaysAdjustments";

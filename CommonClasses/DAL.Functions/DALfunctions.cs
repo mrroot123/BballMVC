@@ -434,7 +434,9 @@ namespace SysDAL.Functions
                // 3. add parameter to command, which will be passed to the stored procedure
                // SqlParmNames, SqlParmValues
                for (int i = 0; i < SqlParmNames.Count; i++)
-                  oSqlCommand.Parameters.Add(new SqlParameter(SqlParmNames[i], SqlParmValues[i]));
+                  oSqlCommand.Parameters.Add(new SqlParameter(SqlParmNames[i]
+                                             , SqlParmValues[i] ?? DBNull.Value
+                                             ));
 
                // execute the command
                rowsAffected = oSqlCommand.ExecuteNonQuery();

@@ -8,22 +8,69 @@ using BballMVC.IDTOs;
 using Newtonsoft.Json.Linq;
 using System.Linq;
 using Newtonsoft.Json;
+using SysDAL.Functions;
 
 namespace Bball.DAL.Tables
 {
    public class DataDO : BaseTableDO
    {
-      #region adjustments
+      #region adjustments     
+      #region adjustmentInsert
+
       public void InsertAdjustmentRow(IBballInfoDTO oBballInfoDTO)
+      {
+         AdjustmentWrapper oAdjustmentWrapper = oBballInfoDTO.oJObject.ToObject<AdjustmentWrapper>();
+         if (oAdjustmentWrapper.DescendingAdjustment)
+         {
+            DateTime StartDate = oAdjustmentWrapper.oAdjustmentDTO.StartDate.Date;
+            StartDate = StartDate.AddDays(1);
+            oAdjustmentWrapper.oAdjustmentDTO.EndDate = StartDate;
+            StartDate = StartDate.AddDays(1);
+            double DescendingAmt = (oAdjustmentWrapper.oAdjustmentDTO.AdjustmentAmount ?? 0) / (double)oAdjustmentWrapper.DescendingDays;
+
+            for (int i = oAdjustmentWrapper.DescendingDays; i > 0; i--)
+            {
+               insertAdjustmentRow(oAdjustmentWrapper.oAdjustmentDTO, oBballInfoDTO.ConnectionString);
+               oAdjustmentWrapper.oAdjustmentDTO.StartDate = StartDate;
+               StartDate = StartDate.AddDays(1);
+               oAdjustmentWrapper.oAdjustmentDTO.EndDate = StartDate;
+               StartDate = StartDate.AddDays(1);
+               oAdjustmentWrapper.oAdjustmentDTO.AdjustmentAmount -= DescendingAmt;
+            }
+            oAdjustmentWrapper.oAdjustmentDTO.StartDate = StartDate;
+            oAdjustmentWrapper.oAdjustmentDTO.EndDate = null;
+            oAdjustmentWrapper.oAdjustmentDTO.AdjustmentAmount = 0.0;
+         }
+
+         insertAdjustmentRow(oAdjustmentWrapper.oAdjustmentDTO, oBballInfoDTO.ConnectionString);
+
+      }
+      private void insertAdjustmentRow(AdjustmentDTO oAdjustmentDTO, string ConnectionString)
+      {
+         // call uspInsertAdjustments to write Adj row
+         List<string> SqlParmNames = new List<string>() { "LeagueName", "StartDate", "EndDate", "Team", "AdjustmentDesc"
+                                                         , "AdjustmentAmount", "Player", "Description" };
+         List<object> SqlParmValues = new List<object>()
+         { oAdjustmentDTO.LeagueName.ToString(), oAdjustmentDTO.StartDate.ToShortDateString()
+            , oAdjustmentDTO.EndDate 
+            , oAdjustmentDTO.Team.ToString(), oAdjustmentDTO.AdjustmentType.ToString(),
+               oAdjustmentDTO.AdjustmentAmount.ToString(), oAdjustmentDTO.Player.ToString(), oAdjustmentDTO.Description.ToString() };
+         DALfunctions.ExecuteStoredProcedureNonQuery(ConnectionString, "uspInsertAdjustments", SqlParmNames, SqlParmValues);
+      }
+      public void xInsertAdjustmentRow(IBballInfoDTO oBballInfoDTO)
       {
          // call uspInsertAdjustments to write Adj row
          AdjustmentDTO oAdjustmentDTO = oBballInfoDTO.oJObject.ToObject<AdjustmentDTO>();
-         List<string> SqlParmNames = new List<string>() { "LeagueName", "StartDate", "Team", "AdjustmentDesc", "AdjustmentAmount", "Player", "Description" };
+         List<string> SqlParmNames = new List<string>() { "LeagueName", "StartDate", "Team", "AdjustmentDesc"
+                                                         , "AdjustmentAmount", "Player", "Description" };
          List<object> SqlParmValues = new List<object>()
-         { oAdjustmentDTO.LeagueName.ToString(), oAdjustmentDTO.StartDate.ToShortDateString(), oAdjustmentDTO.Team.ToString(), oAdjustmentDTO.AdjustmentType.ToString(),
+         { oAdjustmentDTO.LeagueName.ToString(), oAdjustmentDTO.StartDate.ToShortDateString()
+            , oAdjustmentDTO.Team.ToString(), oAdjustmentDTO.AdjustmentType.ToString(),
                oAdjustmentDTO.AdjustmentAmount.ToString(), oAdjustmentDTO.Player.ToString(), oAdjustmentDTO.Description.ToString() };
-         SysDAL.Functions.DALfunctions.ExecuteStoredProcedureNonQuery(oBballInfoDTO.ConnectionString, "uspInsertAdjustments", SqlParmNames, SqlParmValues);
+         DALfunctions.ExecuteStoredProcedureNonQuery(oBballInfoDTO.ConnectionString, "uspInsertAdjustments", SqlParmNames, SqlParmValues);
       }
+
+      #endregion adjustmentInsert
 
       public void UpdateAdjustments(IBballInfoDTO oBballInfoDTO)
       {
@@ -96,7 +143,9 @@ namespace Bball.DAL.Tables
       #region leagueInfo
       public void GetLeagueNames(IBballInfoDTO oBballInfoDTO)
       {
-         var strSql = "SELECT Distinct LeagueName, LeagueName  FROM LeagueInfo";
+         var strSql = "SELECT Distinct LeagueName, LeagueName  FROM LeagueInfo li "
+                     + $" where  dbo.udfIsLeagueOff('{oBballInfoDTO.GameDate}', li.LeagueName) = 0";
+
          SysDAL.Functions.DALfunctions.ExecuteSqlQuery(oBballInfoDTO.ConnectionString, strSql
             , oBballInfoDTO.oBballDataDTO.ocLeagueNames, Bball.DAL.Functions.DALFunctions.PopulateDropDownDTOFromRdr);
       }
@@ -118,12 +167,12 @@ namespace Bball.DAL.Tables
          oBballInfoDTO.oBballDataDTO.ocAdjustmentNames = oBballDataDTO.ocAdjustmentNames; // 2)
          oBballInfoDTO.oBballDataDTO.ocTeams = oBballDataDTO.ocTeams;                     // 3)
 
-         RefreshTodaysMatchups(oBballInfoDTO);                                            // 4)
+       // kd 01/28/2021  RefreshTodaysMatchups(oBballInfoDTO);                                            // 4)
 
-         if (oBballInfoDTO.GameDate < DateTime.Today.Date)
-         {
-            RefreshPostGameAnalysis(oBballInfoDTO);                                       // 5)         
-         }
+         //if (oBballInfoDTO.GameDate < DateTime.Today.Date)
+         //{
+         //   RefreshPostGameAnalysis(oBballInfoDTO);                                       // 5)         
+         //}
       }
       #endregion leagueInfo
 
@@ -171,6 +220,7 @@ namespace Bball.DAL.Tables
          o.LgAvgLastMinPts = rdr["LgAvgLastMinPts"] == DBNull.Value ? null : (double?)rdr["LgAvgLastMinPts"];
          o.LgAvgOffRBAway = rdr["LgAvgOffRBAway"] == DBNull.Value ? null : (double?)rdr["LgAvgOffRBAway"];
          o.LgAvgOffRBHome = rdr["LgAvgOffRBHome"] == DBNull.Value ? null : (double?)rdr["LgAvgOffRBHome"];
+         o.LgAvgTotalLine = rdr["LgAvgTotalLine"] == DBNull.Value ? null : (double?)rdr["LgAvgTotalLine"];
          o.LgAvgPace = rdr["LgAvgPace"] == DBNull.Value ? null : (double?)rdr["LgAvgPace"];
          o.LgAvgScoreAway = (double)rdr["LgAvgScoreAway"];
          o.LgAvgScoreFinal = (double)rdr["LgAvgScoreFinal"];

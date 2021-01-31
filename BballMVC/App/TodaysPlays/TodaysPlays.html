@@ -78,10 +78,10 @@
                   <td>
                      <table>
                         <tr>
-                           <td ng-show="cbSingleLine">{{item.PlayDirection}} {{item.Line}}</td>
+                           <td ng-show="cbSingleLine" ng-class="applyClassPlayDirection(this)">{{item.PlayDirection}} {{item.Line}}</td>
                         </tr>
                         <tr>
-                           <td ng-hide="cbSingleLine">{{item.PlayDirection}}</td>
+                           <td ng-hide="cbSingleLine" ng-class="applyClassPlayDirection(this)">{{item.PlayDirection}}</td>
                         </tr>
                         <tr>
                            <td ng-hide="cbSingleLine">{{item.Line}}</td>
@@ -120,13 +120,13 @@
                   <td>
                      <table>
                         <tr>
-                           <td ng-show="cbSingleLine">{{item.OvUnStatus}}</td>
+                           <td ng-show="cbSingleLine"  ng-class="applyClassOvUnStatus(this)">{{item.OvUnStatus}}</td>
                         </tr>
                         <tr>
                            <td ng-hide="cbSingleLine">{{item.Info}}</td>
                         </tr>
                         <tr>
-                           <td ng-hide="cbSingleLine">{{item.OvUnStatus}}</td>
+                           <td ng-hide="cbSingleLine" ng-class="applyClassOvUnStatus(this)">{{item.OvUnStatus}}</td>
                         </tr>
                      </table>
                   </td>

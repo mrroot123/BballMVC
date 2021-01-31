@@ -28,36 +28,43 @@ namespace Bball.BAL
                case GetDataConstants.AppInit:
                   appInit(oBballInfoDTO);
                   break;
-               case "X":
-                  GetDataConstants.PopulateGetDataConstants(oBballInfoDTO.oBballDataDTO.DataConstants);
-                  oBballInfoDTO.oBballDataDTO.BaseDir = System.AppDomain.CurrentDomain.BaseDirectory;
-                  new AdjustmentsDO(oBballInfoDTO).UpdateYesterdaysAdjustments();
-                  new DataDO().GetLeagueNames(oBballInfoDTO);
-                  //
-                  IBballInfoDTO _oBballInfoDTO = new BballInfoDTO();
-                  oBballInfoDTO.CloneBballDataDTO(_oBballInfoDTO);
 
-                  foreach (var item in oBballInfoDTO.oBballDataDTO.ocLeagueNames){
-                     _oBballInfoDTO.LeagueName = item.Value;
-                     new LoadBoxScores(_oBballInfoDTO);
-                     new DataDO().Exec_uspCalcTodaysMatchups(_oBballInfoDTO);
-                  }
-
+               // 1) ocAdjustments  2) ocAdjustmentNames  3) ocTeams  4) LeagueParmsDTO
+               case GetDataConstants.GetLeagueData:
+                  new DataDO().GetLeagueData(oBballInfoDTO);
+                  new DataDO().GetUserLeagueParmsDTO(oBballInfoDTO);
                   break;
+
+               case GetDataConstants.RefreshTodaysMatchups:       // Run uspCalcTMs, Get ocTodaysMatchupsDTO
+                  new DataDO().RefreshTodaysMatchups(oBballInfoDTO);
+                  new DataDO().GetDailySummaryDTO(oBballInfoDTO);
+                  break;
+
+               //case "X":
+               //   GetDataConstants.PopulateGetDataConstants(oBballInfoDTO.oBballDataDTO.DataConstants);
+               //   oBballInfoDTO.oBballDataDTO.BaseDir = System.AppDomain.CurrentDomain.BaseDirectory;
+               //   new AdjustmentsDO(oBballInfoDTO).UpdateYesterdaysAdjustments();
+               //   new DataDO().GetLeagueNames(oBballInfoDTO);
+               //   //
+               //   IBballInfoDTO _oBballInfoDTO = new BballInfoDTO();
+               //   oBballInfoDTO.CloneBballDataDTO(_oBballInfoDTO);
+               //   foreach (var item in oBballInfoDTO.oBballDataDTO.ocLeagueNames){
+               //      _oBballInfoDTO.LeagueName = item.Value;
+               //      new LoadBoxScores(_oBballInfoDTO);
+               //      new DataDO().Exec_uspCalcTodaysMatchups(_oBballInfoDTO);
+               //   }
+               //   break;
                case GetDataConstants.DataConstants:
                   GetDataConstants.PopulateGetDataConstants(oBballInfoDTO.oBballDataDTO.DataConstants);
                   break;
                case GetDataConstants.GetBoxScoresSeeds:           // ocBoxScoresSeedsDTO
                   new DataDO().GetBoxScoresSeeds(oBballInfoDTO);
                   break;
-               case GetDataConstants.GetDailySummaryDTO:          // oDailySummaryDTO
-                  new DataDO().GetDailySummaryDTO(oBballInfoDTO);
-                  new DataDO().GetUserLeagueParmsDTO(oBballInfoDTO);
-                  break;
-               // 1) ocAdjustments  2) ocAdjustmentNames  3) ocTeams  4) RefreshTodaysMatchups  5) ocPostGameAnalysisDTO
-               case GetDataConstants.GetLeagueData:
-                  new DataDO().GetLeagueData(oBballInfoDTO);
-                  break;
+               //case GetDataConstants.GetDailySummaryDTO:          // oDailySummaryDTO
+               //   new DataDO().GetDailySummaryDTO(oBballInfoDTO);
+               //   new DataDO().GetUserLeagueParmsDTO(oBballInfoDTO);
+               //   break;
+
                case GetDataConstants.GetLeagueNames:              // ocLeagueNames
                   new DataDO().GetLeagueNames(oBballInfoDTO);
                   break;
@@ -67,11 +74,7 @@ namespace Bball.BAL
                case GetDataConstants.RefreshPostGameAnalysis:     // ocPostGameAnalysisDTO
                   new DataDO().RefreshPostGameAnalysis(oBballInfoDTO); 
                   break;
-               case GetDataConstants.RefreshTodaysMatchups:       // Run uspCalcTMs, Get ocTodaysMatchupsDTO
-                  new DataDO().RefreshTodaysMatchups(oBballInfoDTO);
-                  new DataDO().GetDailySummaryDTO(oBballInfoDTO);
-                  new DataDO().GetUserLeagueParmsDTO(oBballInfoDTO);
-                  break;
+
                case "error":
                   var x = 0;
                   var y = 2 / x;
@@ -93,28 +96,35 @@ namespace Bball.BAL
          //
          IBballInfoDTO _oBballInfoDTO = new BballInfoDTO();
          oBballInfoDTO.CloneBballDataDTO(_oBballInfoDTO);
-         await taskAdj;
-         List<Task<string>> taskCalcTMs = new List<Task<string>>();
+
+         
          foreach (var item in oBballInfoDTO.oBballDataDTO.ocLeagueNames)
          {
-            _oBballInfoDTO.LeagueName = item.Value;
-            taskCalcTMs.Add( calcTodaysMatchupsAsync(_oBballInfoDTO));
+            new LoadBoxScores(oBballInfoDTO).LoadTodaysRotation();
          }
+         new AdjustmentsDO(oBballInfoDTO).UpdateTodaysPlays();
+         await taskAdj;
 
-         while (taskCalcTMs.Count > 0)
-         {
-            Task finishedTask = await Task.WhenAny(taskCalcTMs);
+         //List<Task<string>> taskCalcTMs = new List<Task<string>>();
+         //foreach (var item in oBballInfoDTO.oBballDataDTO.ocLeagueNames)
+         //{
+         //   _oBballInfoDTO.LeagueName = item.Value;
+         //   taskCalcTMs.Add(loadBoxScoresAsync(_oBballInfoDTO));
+         //}
+         //while (taskCalcTMs.Count > 0)
+         //{
+         //   Task finishedTask = await Task.WhenAny(taskCalcTMs);
+         //   for (int i= 0; i < taskCalcTMs.Count;i++)
+         //   {
+         //      if (taskCalcTMs[i].Result != null)
+         //      {
+         //         taskCalcTMs.RemoveAt(i);
+         //         break;
+         //      }
+         //   }
+         //}  // while
 
-            for (int i= 0; i < taskCalcTMs.Count;i++)
-            {
-               if (taskCalcTMs[i].Result != null)
-               {
-                  taskCalcTMs.RemoveAt(i);
-                  break;
-               }
-            }
-            
-         }
+
       }  // appInit
 
       async Task<bool> updateYesterdaysAdjustmentsAsync(IBballInfoDTO oBballInfoDTO)
@@ -124,12 +134,12 @@ namespace Bball.BAL
          return true;
       }
 
-      async Task<string> calcTodaysMatchupsAsync(IBballInfoDTO oBballInfoDTO)
+      async Task<string> loadBoxScoresAsync(IBballInfoDTO oBballInfoDTO)
       {
          await Task.Run(() =>
             {
                new LoadBoxScores(oBballInfoDTO).LoadTodaysRotation();
-               new DataDO().Exec_uspCalcTodaysMatchups(oBballInfoDTO);
+               //new DataDO().Exec_uspCalcTodaysMatchups(oBballInfoDTO);
             }
          );
          return oBballInfoDTO.LeagueName;

@@ -2,7 +2,9 @@ use [00TTI_LeagueScores]
 
 Declare @serachArg varchar(50) = 
 
-	 '%From BoxScores%'	--
+	-- '%uspCalcPtPct%'	--
+	 '%SeasonInfo%'	--
+	 
 	, @all bit = 01
 
 

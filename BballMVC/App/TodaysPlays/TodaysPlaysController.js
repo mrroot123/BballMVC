@@ -26,6 +26,25 @@ angular.module('app').controller('todaysPlaysController', function ($rootScope, 
          });
    }; // GetTodaysPlays
 
+   $scope.applyClassPlayDirection = function (obj) {
+      return obj.item.PlayDirection.toLowerCase();
+   };
+   $scope.applyClassOvUnStatus = function (obj) {
+      if (obj.item.OvUnStatus.toLowerCase().indexOf("ov") >= 0) {
+         return obj.item.PlayDirection.toLowerCase() === "over" ? "winning" : "losing";
+      }
+      if (obj.item.OvUnStatus.toLowerCase().indexOf("un") >= 0) {
+         return obj.item.PlayDirection.toLowerCase() === "under" ? "winning" : "losing";
+      }
+      if (obj.item.OvUnStatus.toLowerCase().indexOf("win") >= 0) {
+         return "winning";
+      }
+      if (obj.item.OvUnStatus.toLowerCase().indexOf("loss") >= 0) {
+         return "losing";
+      }
+      return "";
+   };
+   
    function editData(value, ix, data) {
       if (data[ix].Score === 0) {
          data[ix].Score = "";

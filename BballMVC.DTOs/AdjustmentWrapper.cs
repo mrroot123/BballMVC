@@ -2,10 +2,10 @@
 using BballMVC.IDTOs;
 namespace BballMVC.DTOs
 {
-   public class AdjustmentWrapper : IAdjustmentWrapper
+   public class AdjustmentWrapper //: IAdjustmentWrapper
    {
-      public bool DecendingAdjustment { get; set; }
-      public int DecendingDays { get; set; }
-      public IAdjustmentDTO oAdjustmentDTO { get; set; }
+      public bool DescendingAdjustment { get; set; }
+      public int DescendingDays { get; set; }
+      public AdjustmentDTO oAdjustmentDTO { get; set; }
    }
 }

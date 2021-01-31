@@ -3,8 +3,8 @@ namespace BballMVC.IDTOs
 {
    public interface IAdjustmentWrapper
    {
-      bool DecendingAdjustment { get; set; }
-      int DecendingDays { get; set; }
+      bool DescendingAdjustment { get; set; }
+      int DescendingDays { get; set; }
       IAdjustmentDTO oAdjustmentDTO { get; set; }
    }
 }

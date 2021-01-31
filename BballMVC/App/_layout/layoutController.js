@@ -4,15 +4,18 @@
    $scope.PostGameAnalysis = true;
    $scope.$on('showAccordian', function (e) {
       displayAccordian();
-   //   $scope.Accordian = true;
+  //   $scope.Accordian = true;
       $scope.$apply;
    });
 
    function displayAccordian () {
       $scope.Accordian = true;
-      $scope.$apply;
       $('#screen').css({ "display": "block", opacity: 1, "width": $(document).width(), "height": $(document).height() });
+      $scope.$apply;
 
    }
 
+   $scope.clickRefreshTodaysMatchups = function () {
+      $scope.$broadcast('refreshTodaysMatchups');
+   };
 });

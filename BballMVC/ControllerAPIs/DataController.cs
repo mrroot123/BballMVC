@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Web.Http;
 
 using Bball.BAL;
+using Bball.DAL.Functions;
 using Bball.IBAL;
 
 using BballMVC.DTOs;
@@ -126,7 +127,16 @@ namespace BballMVC.ControllerAPIs
       {
          oBballInfoDTO.oJObject = oJObject;
          oBballInfoDTO.CollectionType = CollectionType;
-         oDataBO.PostData(oBballInfoDTO);
+         try
+         {
+            oDataBO.PostData(oBballInfoDTO);
+         }
+         catch (Exception ex)
+         {
+            string msg = $"DataController/PostData error - CollectionType = {CollectionType} ";
+            throw new Exception(DALFunctions.StackTraceFormat(msg, ex, ""));
+
+         }
          return Request.CreateResponse(HttpStatusCode.OK, "Success");
       }
 

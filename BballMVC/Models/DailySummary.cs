@@ -28,6 +28,7 @@ namespace BballMVC.Models
         public double LgAvgScoreAway { get; set; }
         public double LgAvgScoreHome { get; set; }
         public double LgAvgScoreFinal { get; set; }
+        public Nullable<double> LgAvgTotalLine { get; set; }
         public double LgAvgShotsMadeAwayPt1 { get; set; }
         public double LgAvgShotsMadeAwayPt2 { get; set; }
         public double LgAvgShotsMadeAwayPt3 { get; set; }

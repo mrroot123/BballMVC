@@ -32,8 +32,8 @@ namespace Bball.BAL
       public void UpdateYesterdaysAdjustments() 
          => new AdjustmentsDO(_oBballInfoDTO).UpdateYesterdaysAdjustments();
 
-      public void InsertNewAdjustment(IAdjustmentWrapper oAdjustmentWrapper)
-         => new AdjustmentsDO(_oBballInfoDTO).InsertAdjustmentRow(oAdjustmentWrapper);
+      //public void InsertNewAdjustment(IAdjustmentWrapper oAdjustmentWrapper)
+      //   => new AdjustmentsDO(_oBballInfoDTO).InsertAdjustmentRow(oAdjustmentWrapper);
 
       public void InsertNewAdjustment(IAdjustmentDTO oAdjustmentDTO)
          => new AdjustmentsDO(_oBballInfoDTO).InsertAdjustmentRow(oAdjustmentDTO);

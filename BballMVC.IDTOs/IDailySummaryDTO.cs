@@ -30,6 +30,7 @@ namespace BballMVC.IDTOs
       double? LgAvgShotsMadeHomePt3 { get; set; }
       DateTime? LgAvgStartDate { get; set; }
       DateTime? LgAvgStartDateActual { get; set; }
+      double? LgAvgTotalLine { get; set; }
       double? LgAvgTurnOversAway { get; set; }
       double? LgAvgTurnOversHome { get; set; }
       double? LgAvgVolatilityGame { get; set; }

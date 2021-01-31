@@ -18,22 +18,27 @@ angular.module('app').controller('AdjustmentsModalController', function ($rootSc
 
    $scope.clickInsertAdjustment = function () {
 
-      let oAdjustment = {};
-      oAdjustment.LeagueName = $rootScope.oBballInfoDTO.LeagueName;
-      oAdjustment.StartDate = $rootScope.oBballInfoDTO.GameDate;
+      let oAdjustmentWrapper = {};
+      let oAdjustmentDTO = {};
+      oAdjustmentDTO.LeagueName = $rootScope.oBballInfoDTO.LeagueName;
+      oAdjustmentDTO.StartDate = $rootScope.oBballInfoDTO.GameDate;
 
-      oAdjustment.AdjustmentType = $scope.AdjustmentType;
-      oAdjustment.Team = $scope.Team;
-      oAdjustment.AdjustmentAmount = $scope.AdjustmentAmount;
-      oAdjustment.Player = $scope.Player;
-      oAdjustment.Description = $scope.Description;
+      oAdjustmentDTO.AdjustmentType = $scope.AdjustmentType;
+      oAdjustmentDTO.Team = $scope.Team;
+      oAdjustmentDTO.AdjustmentAmount = $scope.AdjustmentAmount;
+      oAdjustmentDTO.Player = $scope.Player;
+      oAdjustmentDTO.Description = $scope.Description;
 
-      //if (!ValidateAdjustmentEntry(oAdjustment, $scope)) {
+      oAdjustmentWrapper.DescendingAdjustment = $scope.cbDescendingAdjustment;
+      oAdjustmentWrapper.DescendingDays = $scope.DescendingDays === "" ? 0 : $scope.DescendingDays;
+      oAdjustmentWrapper.oAdjustmentDTO = oAdjustmentDTO;
+
+      //if (!ValidateAdjustmentEntry(oAdjustmentDTO, $scope)) {
       //   return;  // errors in Adj Entry I/P
       //}
 
       $scope.setAdjustmentsModal = f.showHideModal(false);  // $scope.showAdjustmentsModal(false);
-      ajx.AjaxPost(url.UrlPostData + "?CollectionType=InsertAdjustment", oAdjustment)     // , "text/plain")
+      ajx.AjaxPost(url.UrlPostData + "?CollectionType=InsertAdjustment", oAdjustmentWrapper)     // , "text/plain")
          .then(data => {
             rowWasInserted = true;
             f.MessageSuccess("Insert Complete");
@@ -72,6 +77,8 @@ angular.module('app').controller('AdjustmentsModalController', function ($rootSc
       $scope.AdjustmentAmount = "";
       $scope.Player = "";
       $scope.Description = "";
+      $scope.cbDescendingAdjustment = false;
+      $scope.DescendingDays = "";
 
    };
 }); // Adjustments Modal controller

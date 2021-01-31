@@ -180,7 +180,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="ControllerAPIs\TodaysPlaysController.cs" />
-    <Compile Include="Controllers\AdjustmentsCodesController.cs" />
     <Compile Include="Controllers\AdjustmentsController.cs" />
     <Compile Include="Controllers\BoxScoresController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -197,7 +196,7 @@
     <Compile Include="Models\AdjustmentOTsideLine.cs">
       <DependentUpon>BballEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\AdjustmentsCode.cs">
+    <Compile Include="Models\AdjustmentsCodes.cs">
       <DependentUpon>BballEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AnalysisResult.cs">
@@ -546,11 +545,6 @@
     <Content Include="Views\ParmTables\Details.cshtml" />
     <Content Include="Views\ParmTables\Edit.cshtml" />
     <Content Include="Views\ParmTables\Index.cshtml" />
-    <Content Include="Views\AdjustmentsCodes\Create.cshtml" />
-    <Content Include="Views\AdjustmentsCodes\Delete.cshtml" />
-    <Content Include="Views\AdjustmentsCodes\Details.cshtml" />
-    <Content Include="Views\AdjustmentsCodes\Edit.cshtml" />
-    <Content Include="Views\AdjustmentsCodes\Index.cshtml" />
     <Content Include="Views\Users\Create.cshtml" />
     <Content Include="Views\Users\Delete.cshtml" />
     <Content Include="Views\Users\Details.cshtml" />
@@ -598,6 +592,10 @@
     <ProjectReference Include="..\Bball.BAL\Bball.BAL.csproj">
       <Project>{3a1280ea-5c97-4ef5-9ec2-15bb5b272a6c}</Project>
       <Name>Bball.BAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bball.DAL\Bball.DAL.csproj">
+      <Project>{B9DB69FF-5285-413F-BAE1-9A9433F5BC5D}</Project>
+      <Name>Bball.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bball.IBAL\Bball.IBAL.csproj">
       <Project>{e6444a70-6a41-4269-8bc9-9e681dde59aa}</Project>

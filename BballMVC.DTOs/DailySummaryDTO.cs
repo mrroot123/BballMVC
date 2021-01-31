@@ -3,7 +3,7 @@ using BballMVC.IDTOs;
 
 namespace BballMVC.DTOs
 {
-   public class DailySummaryDTO : IDailySummaryDTO
+   public class DailySummaryDTO : IDailySummaryDTO 
    {
       public int DailySummaryID { get; set; }
       public System.DateTime GameDate { get; set; }
@@ -19,6 +19,7 @@ namespace BballMVC.DTOs
       public double LgAvgScoreAway { get; set; }
       public double LgAvgScoreHome { get; set; }
       public double LgAvgScoreFinal { get; set; }
+      public Nullable<double> LgAvgTotalLine { get; set; }
       public double LgAvgShotsMadeAwayPt1 { get; set; }
       public double LgAvgShotsMadeAwayPt2 { get; set; }
       public double LgAvgShotsMadeAwayPt3 { get; set; }

@@ -5,6 +5,30 @@
    width: 95%;
 }
 
+.over {
+   color: yellow;
+   background: black;
+   font-weight: bold;
+   border: 2px solid black;
+}
+.winning {
+   color: yellow;
+   background:black;
+   font-weight: bold;
+   border: 2px solid black;
+}
+.under {
+   color: yellow;
+   background: red;
+   border: 2px solid black;
+}
+.losing {
+   color: yellow;
+   background: red;
+   border: 2px solid black;
+}
+
+
 .awayR1 {
    color: black;
    background: yellow;
