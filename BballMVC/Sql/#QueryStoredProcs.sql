@@ -3,9 +3,9 @@ use [00TTI_LeagueScores]
 Declare @serachArg varchar(50) = 
 
 	-- '%uspCalcPtPct%'	--
-	 '%SeasonInfo%'	--
+	 '%##MOVE##%'	--
 	 
-	, @all bit = 01
+	, @allObjects bit = 01 -- = 0 = just SPs
 
 
 
@@ -15,7 +15,7 @@ SELECT OBJECT_NAME(m.object_id) as 'SP Name'
 	FROM sys.sql_modules m
 	Join sys.objects o  ON m.object_id = o.object_id
 
-	WHERE (objectproperty(m.object_id,'IsProcedure') = 1 or @all = 1)
+	WHERE (objectproperty(m.object_id,'IsProcedure') = 1 or @allObjects = 1)
 	 -- AND OBJECT_NAME(object_id)    like @serachArg	-- 
 	  and definition    like @serachArg
 

@@ -110,5 +110,7 @@ namespace BballMVC.Models
         public Nullable<double> TotalBubbleHome { get; set; }
         public Nullable<System.DateTime> TS { get; set; }
         public string AllAdjustmentLines { get; set; }
+        public Nullable<double> AwayAveragePtsScored { get; set; }
+        public Nullable<double> HomeAveragePtsScored { get; set; }
     }
 }

@@ -9,6 +9,7 @@ namespace BballMVC.IDTOs
       string ConnectionString { get; set; }
       string CollectionType { get; set; }
       DateTime GameDate { get; set; }
+      DateTime TS { get; set; }
       string LeagueName { get; set; }
       string UserName { get; set; }
       string LogName { get; set; }

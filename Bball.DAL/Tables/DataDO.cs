@@ -20,6 +20,8 @@ namespace Bball.DAL.Tables
       public void InsertAdjustmentRow(IBballInfoDTO oBballInfoDTO)
       {
          AdjustmentWrapper oAdjustmentWrapper = oBballInfoDTO.oJObject.ToObject<AdjustmentWrapper>();
+         //private readonly 
+         //DateTime TS = DateTime.Now;
          if (oAdjustmentWrapper.DescendingAdjustment)
          {
             DateTime StartDate = oAdjustmentWrapper.oAdjustmentDTO.StartDate.Date;
@@ -30,45 +32,45 @@ namespace Bball.DAL.Tables
 
             for (int i = oAdjustmentWrapper.DescendingDays; i > 0; i--)
             {
-               insertAdjustmentRow(oAdjustmentWrapper.oAdjustmentDTO, oBballInfoDTO.ConnectionString);
+               insertAdjustmentRow(oAdjustmentWrapper.oAdjustmentDTO, oBballInfoDTO.ConnectionString, oBballInfoDTO.TS);
                oAdjustmentWrapper.oAdjustmentDTO.StartDate = StartDate;
                StartDate = StartDate.AddDays(1);
                oAdjustmentWrapper.oAdjustmentDTO.EndDate = StartDate;
                StartDate = StartDate.AddDays(1);
                oAdjustmentWrapper.oAdjustmentDTO.AdjustmentAmount -= DescendingAmt;
             }
-            oAdjustmentWrapper.oAdjustmentDTO.StartDate = StartDate;
+        //    oAdjustmentWrapper.oAdjustmentDTO.StartDate = StartDate;
             oAdjustmentWrapper.oAdjustmentDTO.EndDate = null;
             oAdjustmentWrapper.oAdjustmentDTO.AdjustmentAmount = 0.0;
          }
 
-         insertAdjustmentRow(oAdjustmentWrapper.oAdjustmentDTO, oBballInfoDTO.ConnectionString);
+         insertAdjustmentRow(oAdjustmentWrapper.oAdjustmentDTO, oBballInfoDTO.ConnectionString, oBballInfoDTO.TS);
 
       }
-      private void insertAdjustmentRow(AdjustmentDTO oAdjustmentDTO, string ConnectionString)
+      private void insertAdjustmentRow(AdjustmentDTO oAdjustmentDTO, string ConnectionString, DateTime TS)
       {
          // call uspInsertAdjustments to write Adj row
-         List<string> SqlParmNames = new List<string>() { "LeagueName", "StartDate", "EndDate", "Team", "AdjustmentDesc"
+         List<string> SqlParmNames = new List<string>() { "LeagueName", "StartDate", "EndDate", "TS", "Team", "AdjustmentDesc"
                                                          , "AdjustmentAmount", "Player", "Description" };
          List<object> SqlParmValues = new List<object>()
          { oAdjustmentDTO.LeagueName.ToString(), oAdjustmentDTO.StartDate.ToShortDateString()
-            , oAdjustmentDTO.EndDate 
+            , oAdjustmentDTO.EndDate, TS 
             , oAdjustmentDTO.Team.ToString(), oAdjustmentDTO.AdjustmentType.ToString(),
                oAdjustmentDTO.AdjustmentAmount.ToString(), oAdjustmentDTO.Player.ToString(), oAdjustmentDTO.Description.ToString() };
          DALfunctions.ExecuteStoredProcedureNonQuery(ConnectionString, "uspInsertAdjustments", SqlParmNames, SqlParmValues);
       }
-      public void xInsertAdjustmentRow(IBballInfoDTO oBballInfoDTO)
-      {
-         // call uspInsertAdjustments to write Adj row
-         AdjustmentDTO oAdjustmentDTO = oBballInfoDTO.oJObject.ToObject<AdjustmentDTO>();
-         List<string> SqlParmNames = new List<string>() { "LeagueName", "StartDate", "Team", "AdjustmentDesc"
-                                                         , "AdjustmentAmount", "Player", "Description" };
-         List<object> SqlParmValues = new List<object>()
-         { oAdjustmentDTO.LeagueName.ToString(), oAdjustmentDTO.StartDate.ToShortDateString()
-            , oAdjustmentDTO.Team.ToString(), oAdjustmentDTO.AdjustmentType.ToString(),
-               oAdjustmentDTO.AdjustmentAmount.ToString(), oAdjustmentDTO.Player.ToString(), oAdjustmentDTO.Description.ToString() };
-         DALfunctions.ExecuteStoredProcedureNonQuery(oBballInfoDTO.ConnectionString, "uspInsertAdjustments", SqlParmNames, SqlParmValues);
-      }
+      //public void xInsertAdjustmentRow(IBballInfoDTO oBballInfoDTO)
+      //{
+      //   // call uspInsertAdjustments to write Adj row
+      //   AdjustmentDTO oAdjustmentDTO = oBballInfoDTO.oJObject.ToObject<AdjustmentDTO>();
+      //   List<string> SqlParmNames = new List<string>() { "LeagueName", "StartDate", "Team", "AdjustmentDesc"
+      //                                                   , "AdjustmentAmount", "Player", "Description" };
+      //   List<object> SqlParmValues = new List<object>()
+      //   { oAdjustmentDTO.LeagueName.ToString(), oAdjustmentDTO.StartDate.ToShortDateString()
+      //      , oAdjustmentDTO.Team.ToString(), oAdjustmentDTO.AdjustmentType.ToString(),
+      //         oAdjustmentDTO.AdjustmentAmount.ToString(), oAdjustmentDTO.Player.ToString(), oAdjustmentDTO.Description.ToString() };
+      //   DALfunctions.ExecuteStoredProcedureNonQuery(oBballInfoDTO.ConnectionString, "uspInsertAdjustments", SqlParmNames, SqlParmValues);
+      //}
 
       #endregion adjustmentInsert
 
@@ -131,7 +133,7 @@ namespace Bball.DAL.Tables
             ocValues.Add(oAdjustmentDTO.Out.ToString());
             ocValues.Add(oAdjustmentDTO.Author.ToString());
             ocValues.Add(oAdjustmentDTO.CreateUser.ToString());
-            ocValues.Add(oAdjustmentDTO.CreateDate.ToString());
+            ocValues.Add(oBballInfoDTO.TS.ToString());
 
             SysDAL.Functions.DALfunctions.InsertTableRow(oBballInfoDTO.ConnectionString, TableName, ocColumnNames, ocValues);
          }
@@ -319,6 +321,9 @@ namespace Bball.DAL.Tables
          o.AwayAverageAtmpUsPt1 = (double)rdr["AwayAverageAtmpUsPt1"];
          o.AwayAverageAtmpUsPt2 = (double)rdr["AwayAverageAtmpUsPt2"];
          o.AwayAverageAtmpUsPt3 = (double)rdr["AwayAverageAtmpUsPt3"];
+
+         o.AwayAveragePtsScored = rdr["AwayAveragePtsScored"] == DBNull.Value ? null : (double?)rdr["AwayAveragePtsScored"];
+         o.HomeAveragePtsScored = rdr["HomeAveragePtsScored"] == DBNull.Value ? null : (double?)rdr["HomeAveragePtsScored"];
          o.AwayAveragePtsAllowed = rdr["AwayAveragePtsAllowed"] == DBNull.Value ? null : (double?)rdr["AwayAveragePtsAllowed"];
          o.AwayGB1 = (double)rdr["AwayGB1"];
          o.AwayGB1Pt1 = (double)rdr["AwayGB1Pt1"];

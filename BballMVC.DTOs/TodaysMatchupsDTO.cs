@@ -23,6 +23,8 @@ namespace BballMVC.DTOs
       public double UnAdjTotalAway { get; set; }
       public double UnAdjTotalHome { get; set; }
       public double UnAdjTotal { get; set; }
+      public Nullable<double> AwayAveragePtsScored { get; set; }
+      public Nullable<double> HomeAveragePtsScored { get; set; }
       public Nullable<double> AwayAveragePtsAllowed { get; set; }
       public Nullable<double> HomeAveragePtsAllowed { get; set; }
       public double AdjAmt { get; set; }

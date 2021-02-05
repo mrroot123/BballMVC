@@ -50,7 +50,7 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
       // Data/UrlRefreshTodaysMatchups
       ajx.AjaxGet(url.UrlRefreshTodaysMatchups, {
                        UserName: $rootScope.oBballInfoDTO.UserName
-                     , GameDate: $rootScope.oBballInfoDTO.GameDate.toDateString(), LeagueName: $rootScope.oBballInfoDTO.LeagueName
+                     , GameDate: $rootScope.oBballInfoDTO.GameDate.toLocaleDateString(), LeagueName: $rootScope.oBballInfoDTO.LeagueName
       })   // Get TodaysMatchups from server
          .then(data => {
             // See ajx.AjaxGet in HeaderController for same moves
@@ -69,7 +69,7 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
    }; // GetTodaysMatchups
    $scope.GetAdjustmentsByTeam = function(LeagueName, GameDate, Team){
       // get adjs
-      ajx.AjaxGet(url.UrlGetAdjustmentsByTeam, { GameDate: $rootScope.oBballInfoDTO.GameDate.toDateString(), LeagueName: $rootScope.oBballInfoDTO.LeagueName, Team })   // Get TodaysMatchups from server
+      ajx.AjaxGet(url.UrlGetAdjustmentsByTeam, { GameDate: $rootScope.oBballInfoDTO.GameDate.toLocaleDateString(), LeagueName: $rootScope.oBballInfoDTO.LeagueName, Team })   // Get TodaysMatchups from server
          .then(data => {
             // See ajx.AjaxGet in HeaderController for same moves
             var x = data.ocAdjustmentsDTO;
@@ -170,8 +170,9 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
             // build & insert row
 
             oTodaysPlaysDTO.CreateUser = $rootScope.oBballInfoDTO.UserName;
-            oTodaysPlaysDTO.CreateDate = new Date();
-            oTodaysPlaysDTO.GameDate = $scope.Getmdy($rootScope.oBballInfoDTO.GameDate);
+            oTodaysPlaysDTO.CreateDate = new Date().toLocaleString();
+         //   oTodaysPlaysDTO.GameDate = $scope.Getmdy($rootScope.oBballInfoDTO.GameDate);
+            oTodaysPlaysDTO.GameDate = $rootScope.oBballInfoDTO.GameDate.toLocaleDateString();
             oTodaysPlaysDTO.LeagueName = $rootScope.oBballInfoDTO.LeagueName;
             oTodaysPlaysDTO.RotNum = $("#RotNum_" + rowNum).text();
             oTodaysPlaysDTO.GameTime = $("#GameTime_" + rowNum).text();

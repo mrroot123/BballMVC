@@ -14,6 +14,7 @@ namespace BballMVC.DTOs
 
       public string UserName { get; set; }
       public DateTime GameDate { get; set; }
+      public DateTime TS { get; set; }
       public string LeagueName { get; set; }
       public string CollectionType { get; set; }
       public string ConnectionString { get; set; }

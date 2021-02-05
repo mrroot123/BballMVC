@@ -9,7 +9,7 @@ angular.module('app').controller('BoxScoresSeedsController', function ($rootScop
       $('#screen').css({ "display": "block", opacity: 0.2, "width": $(document).width(), "height": $(document).height() });
 
       ajx.AjaxGet(url.UrlGetData, {
-         UserName: $rootScope.oBballInfoDTO.UserName, GameDate: $rootScope.oBballInfoDTO.GameDate.toDateString()
+         UserName: $rootScope.oBballInfoDTO.UserName, GameDate: $rootScope.oBballInfoDTO.GameDate.toLocaleDateString()
          , LeagueName: $rootScope.oBballInfoDTO.LeagueName, CollectionType: "GetBoxScoresSeeds"
       })
          .then(data => {
@@ -48,7 +48,7 @@ angular.module('app').controller('BoxScoresSeedsController', function ($rootScop
 
       ajx.AjaxPost(url.UrlPostBoxScoresSeeds
          , {
-            UserName: $rootScope.oBballInfoDTO.UserName, GameDate: $rootScope.oBballInfoDTO.GameDate.toDateString(), LeagueName: $rootScope.oBballInfoDTO.LeagueName
+            UserName: $rootScope.oBballInfoDTO.UserName, GameDate: $rootScope.oBballInfoDTO.GameDate.toLocaleDateString(), LeagueName: $rootScope.oBballInfoDTO.LeagueName
                , ocBBSupdates: ocBBSupdates
          })
          .then(data => {

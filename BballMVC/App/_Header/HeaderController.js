@@ -46,7 +46,7 @@
       $('#screen').css({ "display": "block", opacity: 0.2, "width": $(document).width(), "height": $(document).height() });
 
       ajx.AjaxGet(url.UrlGetData, {
-         UserName: $rootScope.oBballInfoDTO.UserName, GameDate: $rootScope.oBballInfoDTO.GameDate.toDateString()
+         UserName: $rootScope.oBballInfoDTO.UserName, GameDate: $rootScope.oBballInfoDTO.GameDate.toLocaleDateString()  
          , LeagueName: $rootScope.oBballInfoDTO.LeagueName
          , CollectionType: "GetLeagueData"
       })

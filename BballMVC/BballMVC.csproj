@@ -180,6 +180,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="ControllerAPIs\TodaysPlaysController.cs" />
+    <Compile Include="Controllers\AdjustmentsCodesController.cs" />
     <Compile Include="Controllers\AdjustmentsController.cs" />
     <Compile Include="Controllers\BoxScoresController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -571,6 +572,11 @@
     <Content Include="Views\UserLeagueParms\Details.cshtml" />
     <Content Include="Views\UserLeagueParms\Edit.cshtml" />
     <Content Include="Views\UserLeagueParms\Index.cshtml" />
+    <Content Include="Views\AdjustmentsCodes\Create.cshtml" />
+    <Content Include="Views\AdjustmentsCodes\Delete.cshtml" />
+    <Content Include="Views\AdjustmentsCodes\Details.cshtml" />
+    <Content Include="Views\AdjustmentsCodes\Edit.cshtml" />
+    <Content Include="Views\AdjustmentsCodes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Log\" />

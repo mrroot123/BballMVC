@@ -5,11 +5,11 @@
       <!-- Header 1 -->
       <tr style="color:{{LeagueColor}};">
          <th colspan="2"></th>
-         <th colspan="2" ng-Hide="condensed"></th>
+         <th colspan="1" ng-Hide="condensed"></th>
 
          <th class="text-center" ng-Hide="condensed" colspan="3">History (Games Back/Weight)</th>
 
-         <th colspan="2"></th>
+         <th colspan="4"></th>
          <th colspan="2" ng-Hide="condensed">Adjustments</th>
 
          <th ng-show="Multi" colspan="2">Lines</th>
@@ -22,7 +22,6 @@
       <tr style="color:{{LeagueColor}};">
          <th>Rot #<br>Time</th>
          <th><br />Team</th>
-         <th ng-Hide="condensed">Team<br />Strength</th>
          <th ng-Hide="condensed">Vol<br />atilly</th>
 
          <th ng-Hide="condensed">Last&nbsp;{{TMparms.GB1}}<br />&nbsp;&nbsp;&nbsp;{{TMparms.WeightGB1}}</th>
@@ -30,7 +29,10 @@
          <th ng-Hide="condensed">Last&nbsp;{{TMparms.GB3}}<br />&nbsp;&nbsp;&nbsp;{{TMparms.WeightGB3}}</th>
 
          <th ng-Hide="condensed">UnAdj<br />Total</th>
+         <th ng-Hide="condensed">Points<br />Scored</th>
          <th ng-Hide="condensed">Points<br />Allowed</th>
+         <th ng-Hide="condensed">Team<br />Strength</th>
+
          <th ng-Hide="condensed">Adjust<br />ments</th>
          <th ng-Hide="condensed">OT/Side<br />Adj</th>
 
@@ -89,22 +91,7 @@
                </tr>
             </table>
          </td>
-         <td ng-Hide="condensed">
-            <table>
-               <tr>
-                  <td ng-hide="Multi">{{item.TmStrAway | number:1}} / {{item.TmStrHome | number:1}}</td>
-               </tr>
-               <tr>
-                  <td ng-show="Multi">{{item.TmStrAway | number:1}}</td>
-               </tr>
-               <tr>
-                  <td ng-show="Multi">{{item.TmStrHome | number:1}}</td>
-               </tr>
-               <tr>
-                  <td ng-show="Multi">{{ (item.TmStrAway + item.TmStrHome) - oBballInfoDTO.oBballDataDTO.oDailySummaryDTO.LgAvgScoreFinal | number:1}}</td>
-               </tr>
-            </table>
-         </td>
+
          <td ng-Hide="condensed">
             <table>
                <tr>
@@ -176,6 +163,19 @@
          <td ng-Hide="condensed">
             <table>
                <tr>
+                  <td ng-show="Multi">{{item.AwayAveragePtsScored | number:1}}</td>
+               </tr>
+               <tr>
+                  <td ng-show="Multi">{{item.HomeAveragePtsScored | number:1}}</td>
+               </tr>
+               <tr>
+                  <td class="statTotal">{{item.AwayAveragePtsScored+item.HomeAveragePtsScored | number:1}}</td>
+               </tr>
+            </table>
+         </td>
+         <td ng-Hide="condensed">
+            <table>
+               <tr>
                   <td ng-show="Multi">{{item.AwayAveragePtsAllowed | number:1}}</td>
                </tr>
                <tr>
@@ -186,6 +186,23 @@
                </tr>
             </table>
          </td>
+         <td ng-Hide="condensed">
+            <table>
+               <tr>
+                  <td ng-hide="Multi">{{item.TmStrAway | number:1}} / {{item.TmStrHome | number:1}}</td>
+               </tr>
+               <tr>
+                  <td ng-show="Multi">{{item.TmStrAway | number:1}}</td>
+               </tr>
+               <tr>
+                  <td ng-show="Multi">{{item.TmStrHome | number:1}}</td>
+               </tr>
+               <tr>
+                  <td ng-show="Multi">{{ (item.TmStrAway + item.TmStrHome) - oBballInfoDTO.oBballDataDTO.oDailySummaryDTO.LgAvgScoreFinal | number:1}}</td>
+               </tr>
+            </table>
+         </td>
+
          <td ng-Hide="condensed">
             <table>
                <tr>

@@ -21,7 +21,7 @@ angular.module('app').controller('AdjustmentsModalController', function ($rootSc
       let oAdjustmentWrapper = {};
       let oAdjustmentDTO = {};
       oAdjustmentDTO.LeagueName = $rootScope.oBballInfoDTO.LeagueName;
-      oAdjustmentDTO.StartDate = $rootScope.oBballInfoDTO.GameDate;
+      oAdjustmentDTO.StartDate = $rootScope.oBballInfoDTO.GameDate.toLocaleDateString();
 
       oAdjustmentDTO.AdjustmentType = $scope.AdjustmentType;
       oAdjustmentDTO.Team = $scope.Team;

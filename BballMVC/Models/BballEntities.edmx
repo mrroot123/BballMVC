@@ -929,6 +929,8 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.TodaysMatchups' does not ha
           <Property Name="UnAdjTotalAway" Type="float" Nullable="false" />
           <Property Name="UnAdjTotalHome" Type="float" Nullable="false" />
           <Property Name="UnAdjTotal" Type="float" Nullable="false" />
+          <Property Name="AwayAveragePtsScored" Type="float" />
+          <Property Name="HomeAveragePtsScored" Type="float" />
           <Property Name="AwayAveragePtsAllowed" Type="float" />
           <Property Name="HomeAveragePtsAllowed" Type="float" />
           <Property Name="AdjAmt" Type="float" Nullable="false" />
@@ -2156,6 +2158,8 @@ BoxScoresAdjustedID],
     [TodaysMatchups].[UnAdjTotalAway] AS [UnAdjTotalAway], 
     [TodaysMatchups].[UnAdjTotalHome] AS [UnAdjTotalHome], 
     [TodaysMatchups].[UnAdjTotal] AS [UnAdjTotal], 
+    [TodaysMatchups].[AwayAveragePtsScored] AS [AwayAveragePtsScored], 
+    [TodaysMatchups].[HomeAveragePtsScored] AS [HomeAveragePtsScored], 
     [TodaysMatchups].[AwayAveragePtsAllowed] AS [AwayAveragePtsAllowed], 
     [TodaysMatchups].[HomeAveragePtsAllowed] AS [HomeAveragePtsAllowed], 
     [TodaysMatchups].[AdjAmt] AS [AdjAmt], 
@@ -3355,6 +3359,8 @@ BoxScoresAdjustedID],
           <Property Name="TotalBubbleHome" Type="Double" />
           <Property Name="TS" Type="DateTime" Precision="3" />
           <Property Name="AllAdjustmentLines" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AwayAveragePtsScored" Type="Double" />
+          <Property Name="HomeAveragePtsScored" Type="Double" />
         </EntityType>
         <EntityType Name="TodaysMatchupsResult">
           <Key>
@@ -4693,6 +4699,8 @@ BoxScoresAdjustedID],
           <EntitySetMapping Name="TodaysMatchups">
             <EntityTypeMapping TypeName="TTI_LeagueScoresModel.TodaysMatchup">
               <MappingFragment StoreEntitySet="TodaysMatchups">
+                <ScalarProperty Name="HomeAveragePtsScored" ColumnName="HomeAveragePtsScored" />
+                <ScalarProperty Name="AwayAveragePtsScored" ColumnName="AwayAveragePtsScored" />
                 <ScalarProperty Name="TodaysMatchupsID" ColumnName="TodaysMatchupsID" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="LeagueName" ColumnName="LeagueName" />

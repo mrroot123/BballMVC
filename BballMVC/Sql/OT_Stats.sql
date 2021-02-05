@@ -1,4 +1,5 @@
-use [00TTI_LeagueScores]
+-- Run in SqlExpress2012 ???
+use [00TTI_LeagueScores_10_03]
 
 Declare @q1 bit = 0
 		, @Q2 bit = 01

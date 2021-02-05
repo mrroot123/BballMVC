@@ -1,14 +1,16 @@
 /****** Script for SelectTopNRows command from SSMS  ******/
 use [00TTI_LeagueScores]
 
-Declare @LeagueName VarChar(4) = 'NBA', @Team varchar(4) = 'SEA', @Team2 varchar(4) = 'SEA'
+Declare @LeagueName VarChar(4) = 'NBA', @Team varchar(4) = 'SEA', @Team2 varchar(4) = 'SEA', @GB int = 7, @GameDate date = GetDate()
 Set @LeagueName  = 'NBA'
-Set @Team = 'MIA'
-Set @Team2 = 'BOS'
+Set @Team = 'LAL'
+Set @Team2 = 'LAL'
+Set @GameDate = '1/25/2021'
 
 Select top 1 *
   FROM [00TTI_LeagueScores].[dbo].[DailySummary]
   where LeagueName = @LeagueName 
+    and GameDate <= @GameDate
   order by GameDate desc
 
 
@@ -32,7 +34,7 @@ FROM(
 		  FROM [00TTI_LeagueScores].[dbo].[BoxScores]
 		  Where Exclude = 0
 			AND LeagueName = @LeagueName
-			AND GameDate > '9/2/2020'
+			AND GameDate > '9/2/2020' AND GameDate < @GameDate
 		 Group by LeagueName, Team
 	--	
 		 ) q1
@@ -57,7 +59,7 @@ Select  @Team2
 	, Min(GameDate) as Start	, Max(GameDate) as EndDate
 
   From (
-	SELECT TOP (5) *
+	SELECT TOP (@GB) *
 			--[LeagueName]
 			--,[ScoreReg]      ,[ScoreRegUs]      ,[ScoreRegOp]
 			--,[ShotsActualMadeUsPt1]      ,[ShotsActualMadeUsPt2]      ,[ShotsActualMadeUsPt3]
@@ -69,7 +71,7 @@ Select  @Team2
 		Order by GameDate desc
 	) q1
 
-		SELECT TOP (5) 
+		SELECT TOP (@GB) 
 			[LeagueName], GameDate, SubSeason, Team, Opp
 			,[ScoreReg]      ,[ScoreRegUs]      ,[ScoreRegOp]
 			,[ShotsActualMadeUsPt1]      ,[ShotsActualMadeUsPt2]      ,[ShotsActualMadeUsPt3]
@@ -78,5 +80,5 @@ Select  @Team2
 	  Where Exclude = 0
 			AND LeagueName = @LeagueName
 			AND Team = @Team2
-			AND GameDate > '9/2/2020'
+			AND GameDate > '9/2/2020' AND GameDate < @GameDate
 		Order by GameDate desc

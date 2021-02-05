@@ -21,7 +21,10 @@ namespace BballMVC.ControllerAPIs
          oBballInfoDTO = new BballInfoDTO();
          oBballInfoDTO.ConnectionString = GetConnectionString();
          oBballInfoDTO.LogName = LogName;
-        // oBballInfoDTO.oBballDataDTO.BaseDir = BaseDir;
+         // oBballInfoDTO.oBballDataDTO.BaseDir = BaseDir;
+         var timeUtc = DateTime.UtcNow;
+         TimeZoneInfo easternZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+         oBballInfoDTO.TS = TimeZoneInfo.ConvertTimeFromUtc(timeUtc, easternZone);
       }
       protected string GetUser()
       {

@@ -19,6 +19,7 @@ namespace BballMVC.IDTOs
       double AwayAverageAtmpUsPt2 { get; set; }
       double AwayAverageAtmpUsPt3 { get; set; }
       double? AwayAveragePtsAllowed { get; set; }
+      double? AwayAveragePtsScored { get; set; }
       double AwayGB1 { get; set; }
       double AwayGB1Pt1 { get; set; }
       double AwayGB1Pt2 { get; set; }
@@ -48,6 +49,7 @@ namespace BballMVC.IDTOs
       double HomeAverageAtmpUsPt2 { get; set; }
       double HomeAverageAtmpUsPt3 { get; set; }
       double? HomeAveragePtsAllowed { get; set; }
+      double? HomeAveragePtsScored { get; set; }
       double HomeGB1 { get; set; }
       double HomeGB1Pt1 { get; set; }
       double HomeGB1Pt2 { get; set; }
