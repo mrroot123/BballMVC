@@ -2,8 +2,8 @@ use [00TTI_LeagueScores]
 
 Declare @serachArg varchar(50) = 
 
-	 '%StartDate = @GameDate%'	--
-	-- '%##MOVE##%'	--
+	-- '%StartDate = @GameDate%'	--
+	 '%##MOVE##%'	--
 	 
 	, @allObjects bit = 01 -- = 0 = just SPs
 
