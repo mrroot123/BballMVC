@@ -1,9 +1,19 @@
 ﻿
 #AdjustmentsModal {
    width: 750px;
-   height: 418px;
+   height: 450px;
    background: #000000;
    text-align: center;
+   position: fixed;
+   left: 37.5%;
+   top: 5%;
+   z-index: 20;
+   display: none;
+   padding-top: 9px
+}
+#AdjustmentsByTeamModal {
+   border-style: double;
+   text-align: left;
    position: fixed;
    left: 37.5%;
    top: 5%;
@@ -12,7 +22,7 @@
    padding-top: 6px
 }
 
-#AdjustmentsList {
+#AdjustmentsListContainer {
 }
 
 .showError {

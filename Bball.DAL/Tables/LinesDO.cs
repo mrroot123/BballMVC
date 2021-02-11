@@ -7,6 +7,7 @@ using Bball.DataBaseFunctions;
 using BballMVC.DTOs;
 using BballMVC.IDTOs;
 using System.Data.SqlClient;
+using SysDAL.Functions;
 
 namespace Bball.DAL.Tables
 {
@@ -41,6 +42,19 @@ namespace Bball.DAL.Tables
       }
 
       #region GetRows
+
+      public static double GetOpenTotalLine(string ConnectionString, DateTime GameDate, int RotNum)
+      {
+         string strSql = "Select Isnull("
+            +  "(SELECT Top 1 IsNull(l.Line, 0) as OpenTotalLine "
+            + "FROM Lines l "
+            + $"Where l.GameDate >= '{GameDate.ToShortDateString()}' and l.RotNum = {RotNum}  AND l.PlayType = 'Tot' AND l.PlayDuration = 'Game' "
+            + "order by l.CreateDate) , 0)  as OpenTotalLine";
+
+         var x = DALfunctions.ExecuteSqlQueryReturnSingleParm(ConnectionString, strSql, "OpenTotalLine");
+         return (double)x;
+      }
+
       public int GetRow(LinesDTO oLinesDTO)
       {
          int rows = SysDAL.Functions.DALfunctions.ExecuteSqlQuery(_ConnectionString, getRowSql(), oLinesDTO, populateDTOFromRdr);

@@ -16,6 +16,6 @@
    }
 
    $scope.clickRefreshTodaysMatchups = function () {
-      $scope.$broadcast('refreshTodaysMatchups');
+      $scope.$broadcast('eventRefreshTodaysMatchups');
    };
 });

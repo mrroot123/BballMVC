@@ -38,5 +38,7 @@ namespace BballMVC.Models
         public Nullable<double> ResultAmount { get; set; }
         public string CreateUser { get; set; }
         public System.DateTime CreateDate { get; set; }
+        public Nullable<int> ScoreAway { get; set; }
+        public Nullable<int> ScoreHome { get; set; }
     }
 }

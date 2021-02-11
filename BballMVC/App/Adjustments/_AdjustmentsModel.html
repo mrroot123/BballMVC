@@ -1,12 +1,12 @@
 ﻿<div ng-controller="AdjustmentsModalController">
    <div class="row " id="AdjustmentsModal" ng-style="setAdjustmentsModal">
-      <div class="col-md-3">
-      </div>
+
+
       <div class="col-md-12">
          <div class="panel panel-default">
+
             <div class="panel-heading text-center">
                Adjustment Entry
-
             </div>
             <div class="panel-body text-center">
                <!-- Adjustment Type / Team Dropdown -->
@@ -59,7 +59,6 @@
 
                </div>
 
-
                <!-- Adjustment Amount Error row -->
                <div class="row showError">
                   <div class="col-md-2"></div>
@@ -99,7 +98,7 @@
                <div class="row ">
                   <div class="col-md-2"></div>
                   <div class="col-md-3 col-sm-3 col-xs-3 pad-adjust">
-                     <input type="button" class="btn btn-danger" value="Close" ng-click="CloseAdjustmentEntry()" />
+                     <input type="button" class="btn btn-danger" value="Close" ng-click="AdjustmentsModalClose()" />
                   </div>
                   <div class="col-md-5 col-sm-5 col-xs-5 pad-adjust">
                      <input type="button" class="btn btn-success btn-block" xng-show="ValidateAdjustmentForm()" value="Update" ng-click="clickInsertAdjustment()" />
@@ -111,9 +110,7 @@
          </div>
 
       </div>
-      <div class="col-md-3">
 
-      </div>
 
    </div>
 </div>

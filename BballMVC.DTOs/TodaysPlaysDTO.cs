@@ -27,6 +27,8 @@ namespace BballMVC.DTOs
       public Nullable<int> Result { get; set; }
       public Nullable<decimal> OtAffacted { get; set; }
       public Nullable<int> FinalScore { get; set; }
+      public Nullable<int> ScoreAway { get; set; }
+      public Nullable<int> ScoreHome { get; set; }
       public Nullable<double> ResultAmount { get; set; }
       public string CreateUser { get; set; }
       public System.DateTime CreateDate { get; set; }

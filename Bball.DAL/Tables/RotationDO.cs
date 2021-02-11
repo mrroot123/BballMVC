@@ -23,6 +23,7 @@ namespace Bball.DAL.Tables
       string _ConnectionString;
       string _strLoadDateTime;
       IBballInfoDTO _oBballInfoDTO;
+      private static bool _RefreshRotation = false;
 
       public RotationDO(SortedList<string, CoversDTO> ocRotation, DateTime GameDate, ILeagueDTO oLeagueDTO, string ConnectionString, string strLoadDateTime)
       {
@@ -31,6 +32,11 @@ namespace Bball.DAL.Tables
          _oLeagueDTO = oLeagueDTO;
          _ConnectionString = ConnectionString;
          _strLoadDateTime = strLoadDateTime;
+      }
+      public static void PopulateRotation(SortedList<string, CoversDTO> ocRotation, IBballInfoDTO oBballInfoDTO, ILeagueDTO _oLeagueDTO, bool RefreshRotation)
+      {
+         _RefreshRotation = RefreshRotation;
+         PopulateRotation(ocRotation, oBballInfoDTO, _oLeagueDTO);
       }
       public static void PopulateRotation(SortedList<string, CoversDTO> ocRotation, IBballInfoDTO oBballInfoDTO, ILeagueDTO _oLeagueDTO)
       {
@@ -41,7 +47,7 @@ namespace Bball.DAL.Tables
       public void GetRotation(IBballInfoDTO oBballInfoDTO)
       {
          _oBballInfoDTO = oBballInfoDTO;
-         if (_GameDate >= DateTime.Today.AddDays(-1))    // If Yesterday, Today or tomorrow 1/1/2021 added Yesterday
+         if (_GameDate >= DateTime.Today.AddDays(-1) || _RefreshRotation)    // If Yesterday, Today or tomorrow 1/1/2021 added Yesterday
          {
             refreshRotation();
             return;
@@ -148,7 +154,10 @@ namespace Bball.DAL.Tables
             // GameTime,TV,SideLine,TotalLine,TotalLineTeam,
             // TotalLineOpp,OpenTotalLine,BoxScoreSource,BoxScoreUrl,CreateDate
             // ,UpdateDate";
-            
+            if (oCoversDTO.LineTotalOpen == null || oCoversDTO.LineTotalOpen == 0)
+            {
+               oCoversDTO.LineTotalOpen = (float)LinesDO.GetOpenTotalLine(_ConnectionString, oCoversDTO.GameDate, oCoversDTO.RotNum);
+            }
             List<string> ocValues = new List<string>()
             {
                _oLeagueDTO.LeagueName

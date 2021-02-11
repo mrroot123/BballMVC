@@ -9,6 +9,8 @@ namespace BballMVC.IDTOs
       DateTime CreateDate { get; set; }
       string CreateUser { get; set; }
       int? FinalScore { get; set; }
+      int? ScoreAway { get; set; }
+      int? ScoreHome { get; set; }
       DateTime GameDate { get; set; }
       TimeSpan GameTime { get; set; }
       string Info { get; set; }

@@ -14,9 +14,9 @@ namespace Bball.BAL
    public class TodaysPlaysBO
    {
       #region constructors
+      // Prod
       public TodaysPlaysBO(IBballInfoDTO oBballInfoDTO, List<TodaysPlaysResults> ocTodaysPlaysResults)
       {
-
 
          IList<ITodaysPlaysDTO> ocTodaysPlays = new List<ITodaysPlaysDTO>();
          getTodaysPlays(oBballInfoDTO, ocTodaysPlays);
@@ -26,7 +26,7 @@ namespace Bball.BAL
          foreach(var oLeagues in ocLeagues)
          {
             oBballInfoDTO.LeagueName = oLeagues.Key;
-            SeasonInfoDO oSeasonInfoDO = new SeasonInfoDO(oBballInfoDTO.GameDate, oBballInfoDTO.LeagueName);
+            SeasonInfoDO oSeasonInfoDO = new SeasonInfoDO(oBballInfoDTO.GameDate, oBballInfoDTO.LeagueName, oBballInfoDTO.ConnectionString);
 
             oBballInfoDTO.oSeasonInfoDTO = oSeasonInfoDO.oSeasonInfoDTO;
             SortedList<string, CoversDTO> ocRotation = new SortedList<string, CoversDTO>();
@@ -54,7 +54,8 @@ namespace Bball.BAL
       }
       #endregion constructors
 
-      public void CalcTodaysPlays(IBballInfoDTO oBballInfoDTO, List<TodaysPlaysResults> ocTodaysPlaysResults
+//      public void CalcTodaysPlays(IBballInfoDTO oBballInfoDTO, List<TodaysPlaysResults> ocTodaysPlaysResults
+      private void CalcTodaysPlays(IBballInfoDTO oBballInfoDTO, List<TodaysPlaysResults> ocTodaysPlaysResults
             , IList<ITodaysPlaysDTO> ocTodaysPlays, List<SortedList<string, CoversDTO>> ocRotations)
       {
          if (ocTodaysPlays.Count == 0)
@@ -67,20 +68,35 @@ namespace Bball.BAL
          CoversDTO oCoversDTO = null;
          string LeagueName = "";
          LeagueDTO oLeagueDTO = null;
+         int? ScoreAway = 0;
+         int? ScoreHome = 0;
+         int GameStatus;
          #endregion defineLocals
 
-         foreach (var x in ocTodaysPlays)
+         foreach (var oTP in ocTodaysPlays)
          {
-            oTodaysPlays = x;
-            if (oTodaysPlays.LeagueName != LeagueName)
+            oTodaysPlays = oTP;
+            if (oBballInfoDTO.GameDate < DateTime.Today && oTodaysPlays.ScoreAway != null)
             {
-               oLeagueDTO = new LeagueDTO();
-               new LeagueInfoDO(oBballInfoDTO.LeagueName, oLeagueDTO, oBballInfoDTO.ConnectionString, oBballInfoDTO.GameDate);  // Init _oLeagueDTO
-               int i = getRotation(ocRotations, oTodaysPlays.LeagueName);
-               ocRotation = ocRotations[i];
-               LeagueName = oTodaysPlays.LeagueName;
+               ScoreAway = oTodaysPlays.ScoreAway;
+               ScoreHome = oTodaysPlays.ScoreHome;
+               GameStatus = (int)CoversRotation.GameStatus.Final;
             }
-            oCoversDTO = ocRotation[oTodaysPlays.RotNum.ToString()];
+            else
+            { 
+               if (oTodaysPlays.LeagueName != LeagueName)
+               {
+                  oLeagueDTO = new LeagueDTO();
+                  new LeagueInfoDO(oBballInfoDTO.LeagueName, oLeagueDTO, oBballInfoDTO.ConnectionString, oBballInfoDTO.GameDate);  // Init _oLeagueDTO
+                  int i = getRotation(ocRotations, oTodaysPlays.LeagueName);
+                  ocRotation = ocRotations[i];
+                  LeagueName = oTodaysPlays.LeagueName;
+               }
+               oCoversDTO = ocRotation[oTodaysPlays.RotNum.ToString()];
+               ScoreAway = oCoversDTO.ScoreAway;
+               ScoreHome = oCoversDTO.ScoreHome;
+               GameStatus = oCoversDTO.GameStatus;
+            }
 
             // Populate common TodaysPlaysResults props
             oTodaysPlaysResults = new TodaysPlaysResults();
@@ -91,12 +107,12 @@ namespace Bball.BAL
             oTodaysPlaysResults.TeamHome = oTodaysPlays.TeamHome;
             oTodaysPlaysResults.PlayDirection = oTodaysPlays.PlayDirection;
             oTodaysPlaysResults.Line = oTodaysPlays.Line;
-            oTodaysPlaysResults.Score = oCoversDTO.ScoreAway + oCoversDTO.ScoreHome;
-            oTodaysPlaysResults.ScoreAway = oCoversDTO.ScoreAway;
-            oTodaysPlaysResults.ScoreHome = oCoversDTO.ScoreHome;
+            oTodaysPlaysResults.Score = (double)(ScoreAway + ScoreHome);
+            oTodaysPlaysResults.ScoreAway = (double)ScoreAway;
+            oTodaysPlaysResults.ScoreHome = (double)ScoreHome;
             oTodaysPlaysResults.Info = oTodaysPlays.Info;
 
-            switch (oCoversDTO.GameStatus)
+            switch (GameStatus)
             {
                case (int)CoversRotation.GameStatus.InProgress:
                {

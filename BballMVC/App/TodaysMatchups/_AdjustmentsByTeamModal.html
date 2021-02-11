@@ -1,18 +1,32 @@
 ﻿<div ng-controller="AdjustmentsByTeamModalController">
-   <div class="row " id="AdjustmentsByTeamModal" ng-style="setAdjustmentsByTeamModal">
-      <div class="col-md-3">
-      </div>
+   <div class="row " id="AdjustmentsByTeamModal" ng-style="setModal">
+
       <div class="col-md-12">
          <div class="panel panel-default">
-            <div class="table-responsive">
-               <div ng-include="'TodaysMatchups/_AdjustmentsByTeamRow.html'"></div>
-            </div>
+
+            <table class="table table-bordred table-striped">
+               <tr>
+                  <td>Team: {{AdjustmentsByTeamTeam}}</td>
+                  <td>&nbsp;&nbsp;&nbsp;</td>
+                  <td>
+                     <input type="button" class="btn btn-danger" value="Close" ng-click="AdjustmentsByTeamModalClose()" />
+                  </td>
+               </tr>
+               <tr>
+                  <th>Adjustment<br>Amount</th>
+                  <th>Adj Type</th>
+                  <th>Description</th>
+                  <th>Player</th>
+               </tr>
+               <tr ng-repeat="oAdjustment in ocAdjustmentsByTeam">
+                  <td>{{oAdjustment.AdjustmentAmount | number:2}}</td>
+                  <td>{{oAdjustment.AdjustmentType}}</td>
+                  <td>{{oAdjustment.Description}}</td>
+                  <td>{{oAdjustment.Player}}</td>
+               </tr>
+            </table>
+
          </div>
-
       </div>
-      <div class="col-md-3">
-
-      </div>
-
    </div>
 </div>

@@ -1,7 +1,12 @@
 ﻿angular.module('app').controller('HeaderController', function ($rootScope, $scope, f, ajx, url) {
    kdAlert("HeaderController");
    $scope.ShowLeagueDropDown = false;
-   GetLeagueNames();   // on app init
+
+   $scope.$on("eventPopulateLeagueNamesDropDown", function (ev) {
+      RefreshLeagueNamesDropDown();
+   });
+
+ //  GetLeagueNames();   // on app init
   // RefreshLeagueNamesDropDown();
    $scope.GameDate = new Date();
    $rootScope.oBballInfoDTO.GameDate = new Date(); // Today as Object
@@ -35,7 +40,12 @@
       $scope.$apply();
    }
    $scope.SelectLeague = function () {
+      var currentLeagueName = $scope.LeagueName;
       if ($scope.LeagueName === undefined || $scope.LeagueName === null || $scope.LeagueName === "--Select League--") {
+         if (!currentLeagueName) {
+            $scope.LeagueName = currentLeagueName;
+            return;
+         }
          alert("Select League");
          return;
       }
@@ -57,20 +67,8 @@
             $rootScope.oBballInfoDTO.oBballDataDTO.ocAdjustmentNames = data.ocAdjustmentNames;     // 2) lg data
             $rootScope.oBballInfoDTO.oBballDataDTO.ocTeams = data.ocTeams;                         // 3) lg data
             $rootScope.oBballInfoDTO.oBballDataDTO.oUserLeagueParmsDTO = data.oUserLeagueParmsDTO; // 4) lg data
-            $rootScope.$broadcast('populateAdjustments');                                          // 1) lg data
-            $rootScope.$broadcast('populateTeams_AdjTypes');                                       // 2) lg data
-
-            //$rootScope.oBballInfoDTO.oBballDataDTO.oDailySummaryDTO = data.oDailySummaryDTO;          
-            //$rootScope.oBballInfoDTO.oBballDataDTO.ocAdjustmentNames = data.ocAdjustmentNames;     // 2) lg data
-            //$rootScope.oBballInfoDTO.oBballDataDTO.oUserLeagueParmsDTO = data.oUserLeagueParmsDTO; // 4) lg data
-            //$rootScope.oBballInfoDTO.oBballDataDTO.ocAdjustments = data.ocAdjustments;             // 1) lg data
-            //$rootScope.oBballInfoDTO.oBballDataDTO.ocPostGameAnalysisDTO = data.ocPostGameAnalysisDTO;   
-            //$rootScope.oBballInfoDTO.oBballDataDTO.ocTeams = data.ocTeams;                         // 3) lg data
-            //$rootScope.oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO = data.ocTodaysMatchupsDTO;   
-            //$rootScope.$broadcast('populateTodaysMatchups');
-            //$rootScope.$broadcast('populatePostGameAnalysis');
-            //$rootScope.$broadcast('populateAdjustments');                                          // lg data
-            //$rootScope.$broadcast('populateTeams_AdjTypes');                                       // lg data
+            $rootScope.$broadcast('eventPopulateAdjustments');                                          // 1) lg data
+            $rootScope.$broadcast('eventPopulateTeamsAdjTypes');                                       // 2) lg data
 
             $scope.$emit('showAccordian');
             $scope.$apply;
@@ -86,7 +84,4 @@
 
    }; // SelectLeague
 
-   //function Getmdy(d) {
-   //   return (d.getMonth()+1) + "/" + d.getDate() + "/" + (d.getYear()+1900);
-   //}
 });

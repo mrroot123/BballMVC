@@ -39,7 +39,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -343,6 +343,7 @@
     <Content Include="App\BoxScoresSeeds\_BoxScoresSeedsTable.html" />
     <Content Include="App\Common\accordian.css" />
     <Content Include="App\Common\bball.css" />
+    <Content Include="App\Common\Release.html" />
     <Content Include="App\Common\tooltip.css" />
     <Content Include="App\Common\_GameDate.html" />
     <Content Include="App\Common\_GameDateLocal.html" />
@@ -404,13 +405,10 @@
     <Content Include="Sql\BballSqlMenu.sql" />
     <Content Include="Sql\Bball_Utility_sql.sql" />
     <Content Include="Sql\CalcGamePace.sql" />
-    <Content Include="Sql\CalcTeamStatAverages.sql" />
-    <Content Include="Sql\CalcTodaysMatchups.sql" />
     <Content Include="Sql\Creade_AdjustmentsCodes.sql" />
     <Content Include="Sql\Create_Teams.sql" />
     <Content Include="Sql\Create_Team_Table.sql" />
     <Content Include="Sql\Create_TodaysPlays.sql" />
-    <Content Include="Sql\DropExtraTables.sql" />
     <Content Include="Sql\Include_BballDeclareParms.sql" />
     <Content Include="Sql\InsertDailyTeamStrengths.sql" />
     <Content Include="Sql\InsertLines.sql" />
@@ -444,12 +442,6 @@
     <Content Include="Sql\scrAdjustmentsLoadFromAdjX.sql" />
     <Content Include="Sql\scrCreateBoxScoresFromV1.sql" />
     <Content Include="Sql\scrCreateBoxScoresProd.sql" />
-    <Content Include="Sql\scrCreateBoxScoresSeedsTable.sql" />
-    <Content Include="Sql\scrCreateBoxScoresSeedsTable2.sql" />
-    <Content Include="Sql\scrCreateBoxScoresSeedsTable3.sql" />
-    <Content Include="Sql\scrCreateBoxScoresSeedsTable4.sql" />
-    <Content Include="Sql\scrCreateBoxScoresSeedsTable5.sql" />
-    <Content Include="Sql\scrCreateBoxScoresSeedsTable_OK.sql" />
     <Content Include="Sql\scrCreateNewAdjustments.sql" />
     <Content Include="Sql\scrCreateRotationFromSchedule.sql" />
     <Content Include="Sql\scrCreateRotationProd.sql" />
@@ -467,7 +459,6 @@
     <Content Include="Sql\scrW_L_Results.sql" />
     <Content Include="Sql\scr_udfCalcPointPercentages.sql" />
     <Content Include="Sql\scr_udfQueryAdjustmentsByTeamTotal.sql" />
-    <Content Include="Sql\scr_uspCalcTodaysMatchups.sql" />
     <Content Include="Sql\scr_uspInsertTodaysMatchupsResults.sql" />
     <Content Include="Sql\scr_uspQueryAdjustmentsByTeamTotal.sql" />
     <Content Include="Sql\Select_BxSc_V1.sql" />
@@ -481,7 +472,6 @@
     <Content Include="Sql\TeamListByLeague.sql" />
     <Content Include="Sql\TeamLookup.sql" />
     <Content Include="Sql\TeamLookupByCovers.sql" />
-    <Content Include="Sql\TeamStatAverages.sql" />
     <Content Include="Sql\TeamStatAveragesWORKAREA.sql" />
     <Content Include="Sql\TeamStatAverages_TESTarea.sql" />
     <Content Include="Sql\temp.sql" />
@@ -490,7 +480,6 @@
     <Content Include="Sql\uspQueryCalcTeamStrength.sql" />
     <Content Include="Sql\uspQueryLeagueAverages.sql" />
     <Content Include="Sql\usp_DatabaseBackupRestore.sql" />
-    <Content Include="Sql\VerifyRotationTotalLines.sql" />
     <Content Include="Sql\Verify_Boxscores.sql" />
     <Content Include="Views\Adjustments\xAdjustmentRow.html" />
     <Content Include="_Documentation\Api.txt" />

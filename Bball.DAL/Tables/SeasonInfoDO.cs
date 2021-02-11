@@ -17,14 +17,17 @@ namespace Bball.DAL.Tables
       public SeasonInfoDTO oSeasonInfoDTO = new SeasonInfoDTO();
 
       public DateTime GameDate { get; set; }
-      String _LeagueName;
+      private readonly string _LeagueName;
+      private readonly string _ConnectionString;
 
       // constructor
-      public SeasonInfoDO(DateTime GameDate, String LeagueName)
+      public SeasonInfoDO(DateTime GameDate, String LeagueName, string ConnectionString)
       {
          this.GameDate = GameDate;
          _LeagueName = LeagueName;
+         _ConnectionString = ConnectionString;
          populateSeasonInfoDTO();
+
       }
       public DateTime GetNextGameDate()
       {
@@ -51,7 +54,7 @@ namespace Bball.DAL.Tables
       private  void populateSeasonInfoDTO()
       {
          // kdtodo - move SqlFunctions.GetConnectionString() to constructor 2b injected
-         int rows = SysDAL.Functions.DALfunctions.ExecuteSqlQuery(SqlFunctions.GetConnectionString(), SeasonInfoRowSql()
+         int rows = SysDAL.Functions.DALfunctions.ExecuteSqlQuery(_ConnectionString, SeasonInfoRowSql()
                        ,  oSeasonInfoDTO, PopulateDTO);
          if (rows == 0)
             throw new Exception($"SeasonInfo row not found - League: {_LeagueName}  GameDate: {GameDate.ToShortDateString()}");

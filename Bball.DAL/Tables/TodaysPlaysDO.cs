@@ -56,6 +56,9 @@ namespace Bball.DAL.Tables
          o.TodaysPlaysID = (int)rdr["TodaysPlaysID"];
          o.TranType = rdr["TranType"] == DBNull.Value ? null : (int?)rdr["TranType"];
          o.RotNum = (int)rdr["RotNum"];
+
+         o.ScoreAway = rdr["ScoreAway"] == DBNull.Value ? null : (int?)rdr["ScoreAway"];
+         o.ScoreHome = rdr["ScoreHome"] == DBNull.Value ? null : (int?)rdr["ScoreHome"];
          o.FinalScore = rdr["FinalScore"] == DBNull.Value ? null : (int?)rdr["FinalScore"];
          o.Result = rdr["Result"] == DBNull.Value ? null : (int?)rdr["Result"];
          o.CreateUser = rdr["CreateUser"].ToString().Trim();
@@ -68,15 +71,16 @@ namespace Bball.DAL.Tables
          o.PlayLength = rdr["PlayLength"].ToString().Trim();
          o.PlayDirection = rdr["PlayDirection"].ToString().Trim();
 
-
          ((List<ITodaysPlaysDTO>)oRow).Add(o);
       }
       private string getRowSql(DateTime GameDate)
       {
          string Sql = ""
-            + $"SELECT * FROM {TableName}  "
-            + $"  Where  GameDate = '{GameDate.ToShortDateString()}'"
-            + "   Order By LeagueName, RotNum"
+            + $"SELECT Convert(int, b.ScoreRegOp) as ScoreAway, Convert(int, b.ScoreRegUs) as ScoreHome, tp.*  "
+            + $"  FROM TodaysPlays tp  "
+            + $"  Left JOIN BoxScores b ON b.GameDate = tp.GameDate AND b.RotNum = tp.RotNum  "
+            + $"  Where  tp.GameDate = '{GameDate.ToShortDateString()}'"
+            + "   Order By tp.LeagueName, tp.RotNum"
             ;
          return Sql;
       }

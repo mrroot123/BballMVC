@@ -249,7 +249,7 @@ namespace Bball.DAL.Tables
 
       public void InsertDailySummary(IBballInfoDTO oBballInfoDTO, int NumOfMatchups)
       {
-         SeasonInfoDO oSeasonInfo = new SeasonInfoDO(oBballInfoDTO.GameDate, oBballInfoDTO.LeagueName);
+         SeasonInfoDO oSeasonInfo = new SeasonInfoDO(oBballInfoDTO.GameDate, oBballInfoDTO.LeagueName, oBballInfoDTO.ConnectionString);
 
          // Populate Basic columns
 
@@ -416,7 +416,7 @@ namespace Bball.DAL.Tables
       #region boxScoresSeed
       public void GetBoxScoresSeeds(IBballInfoDTO oBballInfoDTO)
       {
-         oBballInfoDTO.oBballDataDTO.oSeasonInfoDTO = new SeasonInfoDO(oBballInfoDTO.GameDate, oBballInfoDTO.LeagueName).oSeasonInfoDTO;
+         oBballInfoDTO.oBballDataDTO.oSeasonInfoDTO = new SeasonInfoDO(oBballInfoDTO.GameDate, oBballInfoDTO.LeagueName, oBballInfoDTO.ConnectionString).oSeasonInfoDTO;
 
          var strSql = "SELECT * FROM BoxScoresSeeds "
                     + $" Where LeagueName = '{oBballInfoDTO.LeagueName}' AND Season = '{oBballInfoDTO.oBballDataDTO.oSeasonInfoDTO.Season}'"
@@ -636,28 +636,30 @@ namespace Bball.DAL.Tables
          UserLeagueParmsDTO o = (UserLeagueParmsDTO)oRow;
 
          o.BothHome_Away = (bool)rdr["BothHome_Away"];
-         o.BoxscoresSpanSeasons = rdr["BoxscoresSpanSeasons"] == DBNull.Value ? null : (bool?)rdr["BoxscoresSpanSeasons"];
-         o.StartDate = (DateTime)rdr["StartDate"];
-         o.LgAvgStartDate = (DateTime)rdr["LgAvgStartDate"];
-         o.WeightGB1 = (double)rdr["WeightGB1"];
-         o.WeightGB2 = (double)rdr["WeightGB2"];
-         o.WeightGB3 = (double)rdr["WeightGB3"];
-         o.Threshold = (double)rdr["Threshold"];
+         o.BoxscoresSpanSeasons = (bool)rdr["BoxscoresSpanSeasons"];
          o.BxScLinePct = (double)rdr["BxScLinePct"];
          o.BxScTmStrPct = (double)rdr["BxScTmStrPct"];
-         o.TmStrAdjPct = (double)rdr["TmStrAdjPct"];
-         o.RecentLgHistoryAdjPct = (double)rdr["RecentLgHistoryAdjPct"];
-         o.LgAvgGamesBack = (int)rdr["LgAvgGamesBack"];
-         o.TeamAvgGamesBack = (int)rdr["TeamAvgGamesBack"];
-         o.TeamPaceGamesBack = (int)rdr["TeamPaceGamesBack"];
-         o.TeamSeedGames = (int)rdr["TeamSeedGames"];
-         o.LoadRotationDaysAhead = (int)rdr["LoadRotationDaysAhead"];
          o.GB1 = (int)rdr["GB1"];
          o.GB2 = (int)rdr["GB2"];
          o.GB3 = (int)rdr["GB3"];
+         o.LeagueName = rdr["LeagueName"].ToString().Trim();
+         o.LgAvgGamesBack = (int)rdr["LgAvgGamesBack"];
+         o.LgAvgStartDate = (DateTime)rdr["LgAvgStartDate"];
+         o.LoadRotationDaysAhead = (int)rdr["LoadRotationDaysAhead"];
+         o.RecentLgHistoryAdjPct = (double)rdr["RecentLgHistoryAdjPct"];
+         o.StartDate = (DateTime)rdr["StartDate"];
+         o.TeamAvgGamesBack = (int)rdr["TeamAvgGamesBack"];
+         o.TeamPaceGamesBack = (int)rdr["TeamPaceGamesBack"];
+         o.TeamSeedGames = (int)rdr["TeamSeedGames"];
+         o.TeamStrengthGamesBack = (int)rdr["TeamStrengthGamesBack"];
+         o.Threshold = (double)rdr["Threshold"];
+         o.TmStrAdjPct = (double)rdr["TmStrAdjPct"];
          o.UserLeagueParmsID = (int)rdr["UserLeagueParmsID"];
          o.UserName = rdr["UserName"].ToString().Trim();
-         o.LeagueName = rdr["LeagueName"].ToString().Trim();
+         o.VolatilityGamesBack = (int)rdr["VolatilityGamesBack"];
+         o.WeightGB1 = (double)rdr["WeightGB1"];
+         o.WeightGB2 = (double)rdr["WeightGB2"];
+         o.WeightGB3 = (double)rdr["WeightGB3"];
 
       }
       #endregion

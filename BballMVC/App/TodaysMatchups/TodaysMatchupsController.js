@@ -3,6 +3,7 @@
 angular.module('app').controller('TodaysMatchupsController', function ($rootScope, $scope, f, ajx, url) {
    //alert("TodaysMatchupsController");
    let TodaysMatchupsParms = { scope: $scope, f: f, LeagueName: $rootScope.oBballInfoDTO.LeagueName, ajx: ajx };
+   let localGameDate = null;
    
    $scope.PlayEntry = false;
    $scope.ShowPlaysOnly = false;
@@ -27,28 +28,50 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
       defaultAmount += item.defaultAmount;
    });
 
+   const modalName = "AdjustmentsByTeamModal";
+   const containerName = "TodaysMatchupsContainer";
+   $scope.$on('eventReshowTodaysMatchupsContainer', function (ev) {
+      f.ShowScreen(containerName);
+   });
+
    $scope.OpenAdjustmentsByTeamModal = function (objAdj, Venue) {
      // $scope.GreyOutAdjustmentList();
       var Team = Venue === 'Away' ? objAdj.item.TeamAway : objAdj.item.TeamHome;
-      $scope.$broadcast('OpenAdjustmentsByTeamEvent', Team, objAdj.item.SideLine);
+      $scope.$broadcast('eventOpenAdjustmentsByTeamModal', Team, objAdj.item.SideLine);
    };
 
-   $scope.$on("populateTodaysMatchups", function (ev) {
-      populateTodaysMatchups();
-   });
+   //$scope.$on("populateTodaysMatchups", function (ev) { 2/8/2020
+   //   populateTodaysMatchups();
+   //});
 
-   let refreshState = true;
-   $scope.$on("refreshTodaysMatchups", function (ev) {
-      if (refreshState) {
-         refreshState = false;
-         $scope.RefreshTodaysMatchups();
+   $scope.$on("eventSetRefreshTodaysMatchups", function (ev) {
+      $rootScope.RefreshTodaysMatchupsState = true;
+   });
+   $scope.$on("eventRefreshTodaysMatchups", function (ev) {
+      if ($rootScope.RefreshTodaysMatchupsState) {
+         $scope.RefreshTodaysMatchups(true);
       }
    });
 
-   $scope.RefreshTodaysMatchups = function () {
+   $scope.RefreshTodaysMatchups = function (refresh) {
+      if (!$rootScope.RefreshTodaysMatchupsState &&!refresh) {
+         if (localGameDate === $rootScope.oBballInfoDTO.GameDate) {
+            alert(localGameDate.toLocaleDateString() + " is already Selected");
+            return;
+         }
+      }
+
+      $rootScope.RefreshTodaysMatchupsState = false;
+      $scope.PlayEntry = false;
+      $scope.ShowPlaysOnly = false;
+      $scope.ShowDailySummary = true;
+
+      var URL = $rootScope.oBballInfoDTO.GameDate < f.Today() ? url.UrlGetPastMatchups : url.UrlRefreshTodaysMatchups;
+      localGameDate = $rootScope.oBballInfoDTO.GameDate;
+
       f.GreyScreen("screen");
       // Data/UrlRefreshTodaysMatchups
-      ajx.AjaxGet(url.UrlRefreshTodaysMatchups, {
+      ajx.AjaxGet(URL, {
                        UserName: $rootScope.oBballInfoDTO.UserName
                      , GameDate: $rootScope.oBballInfoDTO.GameDate.toLocaleDateString(), LeagueName: $rootScope.oBballInfoDTO.LeagueName
       })   // Get TodaysMatchups from server
@@ -58,7 +81,10 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
             $rootScope.oBballInfoDTO.oBballDataDTO.oDailySummaryDTO = data.oDailySummaryDTO;
           //  $rootScope.oBballInfoDTO.oBballDataDTO.oUserLeagueParmsDTO = data.oUserLeagueParmsDTO;
             populateTodaysMatchups();
-            $scope.PlayEntry = false;
+
+            f.GreyScreen(containerName);
+            f.ShowScreen(containerName);
+
             f.MessageSuccess("Matchups Refreshed for " + f.Getmdy($rootScope.oBballInfoDTO.GameDate));
             f.ShowScreen("screen");
          })
@@ -97,9 +123,8 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
    //function onGameDateChange() {
    //   $scope.RefreshTodaysMatchups();
    //}
+   // Used in html - visable in this scope
    $scope.Getmdy = function (GameDate) {
-     // $scope.GameDateChange(GameDate);
-     // alert(GameDate);
       return f.Getmdy(GameDate);
    };
    $scope.GameDateChange = function (GameDate) {

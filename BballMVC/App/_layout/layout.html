@@ -4,18 +4,18 @@
    <div ng-include="'_Header/Header.html'"></div>
 
    <div class="panel-group" id="accordion" ng-model="ngAccordian" ng-show="Accordian">
-
+      <!--Todays Matchups-->
       <div class="panel panel-default">
          <div class="panel-heading">
             <h4 class="panel-title">
-               <a class="accordion-toggle" data-toggle="collapse" 
-                     data-parent="#accordion" href="#accTodaysMatchups" ng-click="clickRefreshTodaysMatchups()" >
+               <a class="accordion-toggle" data-toggle="collapse"
+                  data-parent="#accordion" href="#accTodaysMatchups" ng-click="clickRefreshTodaysMatchups()">
                   <span class="glyphicon glyphicon-menu-right"></span>
                   Todays Matchups
                </a>
             </h4>
          </div>
-         <div id="accTodaysMatchups" class="panel-collapse collapse" >
+         <div id="accTodaysMatchups" class="panel-collapse collapse">
             <div class="panel-body">
                <div ng-include="'TodaysMatchups/TodaysMatchups.html'"></div>
             </div>

@@ -1,5 +1,12 @@
 ﻿<table class="table table-bordred table-striped">
-   <tr><td>Team: {{AdjustmentsByTeamTeam}}</td></tr>
+   <tr>
+      <td>Team: {{AdjustmentsByTeamTeam}}</td>
+      <td>&nbsp;&nbsp;&nbsp;</td>
+      <td>
+         <input type="button" class="btn btn-danger" value="Close" ng-click="AdjustmentsByTeamModalClose()" />
+      </td>
+
+   </tr>
    <tr>
       <th>Adjustment<br>Amount</th>
       <th>Adj Type</th>

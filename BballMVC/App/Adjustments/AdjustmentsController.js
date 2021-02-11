@@ -3,6 +3,7 @@ angular.module('app').controller("AdjustmentsController", function ($rootScope, 
    $scope.ocAdjustments;
    $scope.cbShowZeroAdjustments = true;
    let rowWasInserted = false;
+  
 
    $scope.cbChange = function (adjAmtID) {
       alert("cb");
@@ -27,30 +28,34 @@ angular.module('app').controller("AdjustmentsController", function ($rootScope, 
          f.DisplayMessage("No Updates were made");
          return;
       }
-
-      $scope.GreyOutAdjustmentList();
+      $rootScope.$broadcast('eventSetRefreshTodaysMatchups');  
+      f.GreyScreen($rootScope.ADJUSTMENTSLISTCONTAINER);
+      //$scope.GreyOutAdjustmentList();
       ajx.AjaxPost(url.UrlPostAdjustmentUpdates, ocAdjustmentDTO)
          .then(data => {
             $scope.GetAdjustments($scope, f, ajx);
             f.DisplayMessage("Updates Complete");
-            $scope.ShowAdjustmentList();
+            f.ShowScreen($rootScope.ADJUSTMENTSLISTCONTAINER);
+            //$scope.ShowAdjustmentList();
          })
          .catch(error => {
             f.DisplayErrorMessage(f.FormatResponse(error));
-            $scope.ShowAdjustmentList();
+            f.ShowScreen($rootScope.ADJUSTMENTSLISTCONTAINER);
+            //$scope.ShowAdjustmentList();
          });
    };   // ProcessAdjustmentUpdates 
-   $scope.OpenAdjustmentEntryModal = function () {
-      $scope.GreyOutAdjustmentList();
-      $scope.$broadcast('OpenAdjustmentEntryModalEvent');
+   $scope.OpenAdjustmentsModal = function () {
+     // verify $scope.GreyOutAdjustmentList();
+      $scope.$broadcast('eventOpenAdjustmentsModal');
    };
-   $scope.$on('CloseAdjustmentEntry', function (e, rowWasInserted) {
+   $scope.$on('eventReshowAdjustmentsListContainer', function (e, rowWasInserted) {
       if (rowWasInserted)
          $scope.GetAdjustments($scope, f, ajx);
-      $scope.ShowAdjustmentList();
+      f.ShowScreen($rootScope.ADJUSTMENTSLISTCONTAINER);
+            //$scope.ShowAdjustmentList();
    });
 
-   $scope.$on('populateAdjustments', function () {
+   $scope.$on('eventPopulateAdjustments', function () {
       populateAdjustments();
    });
 
@@ -81,12 +86,12 @@ angular.module('app').controller("AdjustmentsController", function ($rootScope, 
       $scope.$apply();
    }
 
-   $scope.ShowAdjustmentList = function () {
-      $('#AdjustmentsList').css({ "display": "block", opacity: 1, "width": $(document).width(), "height": $(document).height() });
-   };
+   //$scope.ShowAdjustmentList = function () {
+   //   $('#AdjustmentsListContainer').css({ "display": "block", opacity: 1, "width": $(document).width(), "height": $(document).height() });
+   //};
    // grey out Adjustments
-   $scope.GreyOutAdjustmentList = function () {
-      $('#AdjustmentsList').css({ "display": "block", opacity: 0.2, "width": $(document).width(), "height": $(document).height() });
-   };
+   //$scope.GreyOutAdjustmentList = function () {
+   //   $('#AdjustmentsListContainer').css({ "display": "block", opacity: 0.2, "width": $(document).width(), "height": $(document).height() });
+   //};
 
 }); // Adjustments controller

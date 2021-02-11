@@ -40,6 +40,11 @@ namespace Bball.BAL
                   new DataDO().GetDailySummaryDTO(oBballInfoDTO);
                   break;
 
+               case GetDataConstants.GetPastMatchups:       
+                  new DataDO().GetTodaysMatchups(oBballInfoDTO);
+                  new DataDO().GetDailySummaryDTO(oBballInfoDTO);
+                  break;
+
                //case "X":
                //   GetDataConstants.PopulateGetDataConstants(oBballInfoDTO.oBballDataDTO.DataConstants);
                //   oBballInfoDTO.oBballDataDTO.BaseDir = System.AppDomain.CurrentDomain.BaseDirectory;
@@ -85,7 +90,7 @@ namespace Bball.BAL
 
          }
       }
-      async Task appInit(IBballInfoDTO oBballInfoDTO)
+      async Task appInitAsync(IBballInfoDTO oBballInfoDTO)
       {
          GetDataConstants.PopulateGetDataConstants(oBballInfoDTO.oBballDataDTO.DataConstants);
          oBballInfoDTO.oBballDataDTO.BaseDir = System.AppDomain.CurrentDomain.BaseDirectory;
@@ -104,6 +109,48 @@ namespace Bball.BAL
          }
          new AdjustmentsDO(oBballInfoDTO).UpdateTodaysPlays();
          await taskAdj;
+
+         //List<Task<string>> taskCalcTMs = new List<Task<string>>();
+         //foreach (var item in oBballInfoDTO.oBballDataDTO.ocLeagueNames)
+         //{
+         //   _oBballInfoDTO.LeagueName = item.Value;
+         //   taskCalcTMs.Add(loadBoxScoresAsync(_oBballInfoDTO));
+         //}
+         //while (taskCalcTMs.Count > 0)
+         //{
+         //   Task finishedTask = await Task.WhenAny(taskCalcTMs);
+         //   for (int i= 0; i < taskCalcTMs.Count;i++)
+         //   {
+         //      if (taskCalcTMs[i].Result != null)
+         //      {
+         //         taskCalcTMs.RemoveAt(i);
+         //         break;
+         //      }
+         //   }
+         //}  // while
+
+
+      }  // appInit
+      void appInit(IBballInfoDTO oBballInfoDTO)
+      {
+         GetDataConstants.PopulateGetDataConstants(oBballInfoDTO.oBballDataDTO.DataConstants);
+         oBballInfoDTO.oBballDataDTO.BaseDir = System.AppDomain.CurrentDomain.BaseDirectory;
+
+         Task<bool> taskAdj = updateYesterdaysAdjustmentsAsync(oBballInfoDTO);
+
+         new DataDO().GetLeagueNames(oBballInfoDTO);
+         //
+         IBballInfoDTO _oBballInfoDTO = new BballInfoDTO();
+         oBballInfoDTO.CloneBballDataDTO(_oBballInfoDTO);
+
+
+         foreach (var item in oBballInfoDTO.oBballDataDTO.ocLeagueNames)
+         {
+            oBballInfoDTO.LeagueName = item.Value;
+            new LoadBoxScores(oBballInfoDTO).LoadTodaysRotation();
+         }
+         new AdjustmentsDO(oBballInfoDTO).UpdateTodaysPlays();
+         //await taskAdj;
 
          //List<Task<string>> taskCalcTMs = new List<Task<string>>();
          //foreach (var item in oBballInfoDTO.oBballDataDTO.ocLeagueNames)
@@ -186,6 +233,7 @@ namespace Bball.BAL
       public const string LoadBoxScores = "LoadBoxScores";
       public const string RefreshPostGameAnalysis = "RefreshPostGameAnalysis";
       public const string RefreshTodaysMatchups = "RefreshTodaysMatchups";
+      public const string GetPastMatchups = "GetPastMatchups";
 
       public static void PopulateGetDataConstants(dynamic d)
       {

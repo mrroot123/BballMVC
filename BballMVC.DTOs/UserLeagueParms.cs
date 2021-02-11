@@ -13,6 +13,8 @@ namespace BballMVC.DTOs
       public int LgAvgGamesBack { get; set; }
       public int TeamAvgGamesBack { get; set; }
       public int TeamPaceGamesBack { get; set; }
+      public int TeamStrengthGamesBack { get; set; }
+      public int VolatilityGamesBack { get; set; }
       public int TeamSeedGames { get; set; }
       public int LoadRotationDaysAhead { get; set; }
       public int GB1 { get; set; }
@@ -27,6 +29,6 @@ namespace BballMVC.DTOs
       public double TmStrAdjPct { get; set; }
       public double RecentLgHistoryAdjPct { get; set; }
       public bool BothHome_Away { get; set; }
-      public Nullable<bool> BoxscoresSpanSeasons { get; set; }
+      public bool BoxscoresSpanSeasons { get; set; }
    }
 }

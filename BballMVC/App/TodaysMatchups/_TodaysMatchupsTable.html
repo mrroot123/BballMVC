@@ -1,6 +1,6 @@
 ﻿
 <div class="table-responsive">
-   <table class="table table-bordred table-striped  table-condensed w-auto" style="width:80%">
+   <table class="table table-bordred table-striped  table-condensed w-auto" style="width:100%">
       <!-- Colspan Doc site https://www.w3.org/WAI/tutorials/tables/irregular/ -->
       <!-- Header 1 -->
       <tr style="color:{{LeagueColor}};">
@@ -203,13 +203,14 @@
             </table>
          </td>
 
+         <!--Adjustments-->
          <td ng-Hide="condensed">
             <table>
                <tr>
-                  <td ng-show="Multi" ng-click="OpenAdjustmentsByTeamModal(this, 'Away')">{{item.AdjAmtAway | number:1}}</td>
+                  <td ng-show="Multi" ng-mouseover="OpenAdjustmentsByTeamModal(this, 'Away')">{{item.AdjAmtAway | number:1}}</td>
                </tr>
                <tr>
-                  <td ng-show="Multi" ng-click="OpenAdjustmentsByTeamModal(this, 'Home')">{{item.AdjAmtHome | number:1}}</td>
+                  <td ng-show="Multi" ng-mouseover="OpenAdjustmentsByTeamModal(this, 'Home')">{{item.AdjAmtHome | number:1}}</td>
                </tr>
                <tr>
                   <td class="statTotal">{{item.AdjAmt | number:1}}</td>

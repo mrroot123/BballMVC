@@ -5,7 +5,7 @@ namespace BballMVC.IDTOs
    public interface IUserLeagueParmsDTO
    {
       bool BothHome_Away { get; set; }
-      bool? BoxscoresSpanSeasons { get; set; }
+      bool BoxscoresSpanSeasons { get; set; }
       double BxScLinePct { get; set; }
       double BxScTmStrPct { get; set; }
       int GB1 { get; set; }
@@ -20,10 +20,12 @@ namespace BballMVC.IDTOs
       int TeamAvgGamesBack { get; set; }
       int TeamPaceGamesBack { get; set; }
       int TeamSeedGames { get; set; }
+      int TeamStrengthGamesBack { get; set; }
       double Threshold { get; set; }
       double TmStrAdjPct { get; set; }
       int UserLeagueParmsID { get; set; }
       string UserName { get; set; }
+      int VolatilityGamesBack { get; set; }
       double WeightGB1 { get; set; }
       double WeightGB2 { get; set; }
       double WeightGB3 { get; set; }

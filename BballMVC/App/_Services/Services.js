@@ -21,6 +21,7 @@
    //  this.UrlGetTodaysMatchups = urlPrefix + "TodaysMatchups/GetTodaysMatchups";
    // this.UrlLoadBoxScores = urlPrefix + "TodaysMatchups/LoadBoxScores";
    this.UrlRefreshTodaysMatchups = urlPrefix + "Data/RefreshTodaysMatchups";
+   this.UrlGetPastMatchups = urlPrefix + "Data/GetPastMatchups";
 
    this.UrlLogMessage = urlPrefix + "Log/LogMessage";
 
@@ -156,6 +157,9 @@ angular.module('app').service('f', function ($rootScope, ajx, url) {
       return msg;
    };
 
+
+
+   // Date functions
    this.Getmdy = function (d) {
       if (typeof (d) === "string")
          d = new Date(d);
@@ -189,6 +193,9 @@ angular.module('app').service('f', function ($rootScope, ajx, url) {
       return new Date(parseInt(jsonDateString.replace('/Date(', '')));
    };
 
+
+
+
    this.ShowScreen = function (ScreenID) {
       $('#' + ScreenID).css({ "display": "block", opacity: 1, "width": $(document).width(), "height": $(document).height() });
    };
@@ -197,6 +204,12 @@ angular.module('app').service('f', function ($rootScope, ajx, url) {
       $('#' + ScreenID).css({ "display": "block", opacity: 0.2, "width": $(document).width(), "height": $(document).height() });
    };
 
+   this.ShowModal = function (modalName) {
+      $('#' + modalName).css({ "display": "block" });   // Show AdjustmentsByTeam Modal
+   };
+   this.HideModal = function (modalName) {
+      $('#' + modalName).css({ "display": "none" });   // Show AdjustmentsByTeam Modal
+   };
    this.showHideModal = function (show) {
       return show ? { "display": "block" } : { "display": "none" };
    };

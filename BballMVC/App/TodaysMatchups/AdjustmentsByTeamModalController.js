@@ -1,9 +1,11 @@
 ﻿
 angular.module('app').controller('AdjustmentsByTeamModalController', function ($rootScope, $scope, f, ajx, url) {
-
-   $scope.$on('OpenAdjustmentsByTeamEvent', function (e, Team, SideLine) {
-     // $scope.GreyOutAdjustmentList();
-      $('#AdjustmentsByTeamModal').css({ "display": "block" });   // Show AdjustmentsByTeam Modal
+   const modalName = "AdjustmentsByTeamModal";
+   const containerName = "TodaysMatchupsContainer";
+   $scope.$on('eventOpenAdjustmentsByTeamModal', function (e, Team, SideLine) {
+      f.GreyScreen(containerName);
+     // $('#' + modalName).css({ "display": "block" });   // Show AdjustmentsByTeam Modal
+      var oModal = document.getElementById(modalName);
       $scope.AdjustmentsByTeamTeam = Team;
       ajx.AjaxGet(url.UrlGetAdjustmentsByTeam
          , {
@@ -13,23 +15,23 @@ angular.module('app').controller('AdjustmentsByTeamModalController', function ($
             , SideLine: SideLine
          })   // Get AdjustmentsByTeam from server
          .then(data => {
-            populateAdjustmentsByTeam(data);
+            $scope.ocAdjustmentsByTeam = data;
+            $scope.$apply();
+           // oModal.style.height = 100 + data.length * 50;
+            f.ShowModal(modalName);
+            $scope.setAdjustmentsModal = f.showHideModal(true);
+
          })
          .catch(error => {
             f.DisplayErrorMessage(f.FormatResponse(error));
          });
+      var y = 1;
    });
-   
+   // 
+   $scope.AdjustmentsByTeamModalClose = function () {    // invoked by Close click on Modal
+      f.HideModal(modalName); // Hide AdjustmentsByTeamModal Modal
+      $scope.$emit("eventReshowTodaysMatchupsContainer");
+   };
 
-   function populateAdjustmentsByTeam(data) {
-      $scope.ocAdjustmentsByTeam = data;
-      $scope.$apply();
-   }
-
-
-   //$scope.CloseAdjustmentEntry = function () {    // invoked by Close click on Adjustment Entry Modal
-   //   $('#AdjustmentsModal').css({ "display": "none" }); // Hide Adjustment Entry Modal
-   //   $scope.$emit("CloseAdjustmentEntry", rowWasInserted);
-   //};
 
 }); // Adjustments Modal controller

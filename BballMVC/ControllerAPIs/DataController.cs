@@ -68,6 +68,33 @@ namespace BballMVC.ControllerAPIs
 
          return Request.CreateResponse(HttpStatusCode.OK, oBballInfoDTO.oBballDataDTO);
       }
+      [HttpGet]
+      public HttpResponseMessage GetPastMatchups(string UserName, DateTime GameDate, string LeagueName)
+      {
+         #region getPastMatchupsTryCatch
+         try
+         {
+            oBballInfoDTO.UserName = UserName;
+            oBballInfoDTO.GameDate = GameDate;
+            oBballInfoDTO.LeagueName = LeagueName;
+
+            oBballInfoDTO.CollectionType = "GetPastMatchups";
+            oDataBO.GetData(oBballInfoDTO);
+         }
+         catch (Exception ex)
+         {
+            TTILogMessage oTTILogMessage = new TTILogMessage();
+            oTTILogMessage.UserName = UserName;
+            oTTILogMessage.ApplicationName = "Bball";
+            oTTILogMessage.MessageText = ex.Message;
+            oTTILogMessage.CallStack = ex.StackTrace;
+            new LogBO().LogMessage(oTTILogMessage, oBballInfoDTO.ConnectionString, oBballInfoDTO.LogName);
+            throw new Exception($"Message: {ex.Message} - Stacktrace: {ex.StackTrace}");
+         }
+         #endregion getPastMatchupsTryCatch
+
+         return Request.CreateResponse(HttpStatusCode.OK, oBballInfoDTO.oBballDataDTO);
+      }
 
       //[HttpPost]
       //public HttpResponseMessage PostData([FromBody]JObject strJObject)
