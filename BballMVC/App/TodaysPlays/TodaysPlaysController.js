@@ -29,6 +29,7 @@ angular.module('app').controller('todaysPlaysController', function ($rootScope, 
    $scope.applyClassPlayDirection = function (obj) {
       return obj.item.PlayDirection.toLowerCase();
    };
+   //  ng-class="applyClassOvUnStatus(this)"
    $scope.applyClassOvUnStatus = function (obj) {
       if (obj.item.OvUnStatus.toLowerCase().indexOf("ov") >= 0) {
          return obj.item.PlayDirection.toLowerCase() === "over" ? "winning" : "losing";

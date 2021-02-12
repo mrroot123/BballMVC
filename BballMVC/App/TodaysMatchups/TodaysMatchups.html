@@ -1,48 +1,51 @@
 ﻿
 <hr />
 <div ng-controller="TodaysMatchupsController">
-   <div class="container" id="TodaysMatchupsContainer">
-      <div class="row">
-         <div class="col-md-12">
-         </div>
-      </div>
-      <div class="row">
 
-         <div class="col-md-2">
-            <button type="button" class="btn btn-info active" data-toggle="tooltip" title="Refresh Today's Matchups"
-                    ng-show="true" ng-click="RefreshTodaysMatchups(true)">
-               Refresh TMs
-            </button>
-            <div>
-               League Name: {{oBballInfoDTO.LeagueName}}
-               <br /> {{Getmdy(oBballInfoDTO.GameDate)}}
+   <div class="row">
+      <div class="container" id="TodaysMatchupsContainer">
+         <div class="row">
+            <div class="col-md-12">
             </div>
          </div>
-         <div ng-include="'Common/_GameDate.html'"></div>
-         <div class="col-md-3">
-            <div class="row">
-               <div class="col-md-6">
-                  <div><input type="checkbox" ng-model="PlayEntry" class=".bigCheckBox" ng-click="InitPlayEntry()"> Play Entry</div>
-                  <div><input type="checkbox" ng-model="ShowPlaysOnly"> Show Plays Only</div>
-                  <div><input type="checkbox" ng-model="ShowDailySummary"> Show Daily Summary</div>
-               </div>
-               <div class="col-md-6">
-                  <div><input type="checkbox" ng-model="Multi"> Show Multi Lines</div>
-                  <div><input type="checkbox" ng-model="condensed"> Condensed Display</div>
+         <div class="row">
+
+            <div class="col-md-2">
+               <button type="button" class="btn btn-info active" data-toggle="tooltip" title="Refresh Today's Matchups"
+                       ng-show="true" ng-click="RefreshTodaysMatchups(true)">
+                  Refresh TMs
+               </button>
+               <div>
+                  League Name: {{oBballInfoDTO.LeagueName}}
+                  <br /> {{Getmdy(oBballInfoDTO.GameDate)}}
                </div>
             </div>
-         </div>
+            <div ng-include="'Common/_GameDate.html'"></div>
+            <div class="col-md-3">
+               <div class="row">
+                  <div class="col-md-6">
+                     <div><input type="checkbox" ng-model="PlayEntry" class=".bigCheckBox" ng-click="InitPlayEntry()"> Play Entry</div>
+                     <div><input type="checkbox" ng-model="ShowPlaysOnly"> Show Plays Only</div>
+                     <div><input type="checkbox" ng-model="ShowDailySummary"> Show Daily Summary</div>
+                  </div>
+                  <div class="col-md-6">
+                     <div><input type="checkbox" ng-model="Multi"> Show Multi Lines</div>
+                     <div><input type="checkbox" ng-model="condensed"> Condensed Display</div>
+                  </div>
+               </div>
+            </div>
 
-         <div class="col-md-2">
+            <div class="col-md-2">
+            </div>
+         </div>
+         <div class="row" show="ShowDailySummary">
+            <div ng-include="'TodaysMatchups/_DailySummary.html'"></div>
+         </div>
+         <div class="table-responsive">
+            <div ng-include="'TodaysMatchups/_TodaysMatchupsTable.html'"></div>
          </div>
       </div>
-      <div class="row" show="ShowDailySummary">
-         <div ng-include="'TodaysMatchups/_DailySummary.html'"></div>
-      </div>
-      <div class="table-responsive">
-         <div ng-include="'TodaysMatchups/_TodaysMatchupsTable.html'"></div>
-      </div>
-      </div>
+   </div>
 
    <div ng-include="'TodaysMatchups/_AdjustmentsByTeamModal.html'"></div>
 

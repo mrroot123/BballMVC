@@ -111,6 +111,31 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
       // show it
    };
    function populateTodaysMatchups() {
+      let ctrOurTotalLine = 0;
+      let totOurTotalLine = 0;
+      let ctrTotalLine = 0;
+      let totTotalLine = 0;
+      let ctrOpenTotalLine = 0;
+      let totOpenTotalLine = 0;
+
+      $rootScope.oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO.forEach(function (item, index) {
+         if (item.OurTotalLine) {
+            ctrOurTotalLine++;
+            totOurTotalLine += item.OurTotalLine;
+         }
+         if (item.TotalLine) {
+            ctrTotalLine++;
+            totTotalLine += item.TotalLine;
+         }
+         if (item.OpenTotalLine) {
+            ctrOpenTotalLine++;
+            totOpenTotalLine += item.OpenTotalLine;
+         }
+      });
+      $scope.avgOurTotalLine = totOurTotalLine / ctrOurTotalLine;
+      $scope.avgTotalLine = totTotalLine / ctrTotalLine;
+      $scope.avgOpenTotalLine = totOpenTotalLine / ctrOpenTotalLine;
+
       $scope.GameDate = $rootScope.oBballInfoDTO.GameDate;
       $scope.InitPlayEntry();
       $scope.ocTodaysMatchups = $rootScope.oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO;
@@ -269,5 +294,19 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
          rowNum++;
       }  // while
    } // resetAfterPlays
+
+   // styles
+   //  ng-class="applyClassXXX(this)"
+   $scope.applyTotalLineDirection = function (obj) {
+      if (!obj.item.TotalLine || !obj.item.OpenTotalLine) return;
+
+      if (obj.item.TotalLine > obj.item.OpenTotalLine) return "over";
+      if (obj.item.TotalLine < obj.item.OpenTotalLine) return "under";
+      return;
+   };
+   $scope.applyClassPlayColor = function (obj) {
+      return obj.item.Play.trim().toLowerCase();
+   };
+
 
 });   // controller

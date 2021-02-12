@@ -145,8 +145,8 @@ namespace Bball.DAL.Tables
       #region leagueInfo
       public void GetLeagueNames(IBballInfoDTO oBballInfoDTO)
       {
-         var strSql = "SELECT Distinct LeagueName, LeagueName  FROM LeagueInfo li "
-                     + $" where  dbo.udfIsLeagueOff('{oBballInfoDTO.GameDate}', li.LeagueName) = 0";
+         var strSql = "SELECT Distinct LeagueName, LeagueName  FROM LeagueInfo li ";
+                 //    + $" where  dbo.udfIsLeagueOff('{oBballInfoDTO.GameDate}', li.LeagueName) = 0";
 
          SysDAL.Functions.DALfunctions.ExecuteSqlQuery(oBballInfoDTO.ConnectionString, strSql
             , oBballInfoDTO.oBballDataDTO.ocLeagueNames, Bball.DAL.Functions.DALFunctions.PopulateDropDownDTOFromRdr);

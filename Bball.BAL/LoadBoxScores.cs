@@ -69,26 +69,28 @@ namespace Bball.BAL
          //
          //int rotationDays2Load = 2;
          //for (int i = 0; i < rotationDays2Load; i++) // Loop twice - Load Today's & Tomorrow's Rotation
-
+// 02/12/2021 REWRITE
          DateTime GameDate = SqlFunctions.GetMaxGameDate(
             _oBballInfoDTO.ConnectionString, _oBballInfoDTO.LeagueName, "Rotation", _DefaultDate);
          GameDate = getNextGameDate(GameDate, _oBballInfoDTO.ConnectionString);
-         SeasonInfoDO _oSeasonInfoDO = new SeasonInfoDO(GameDate, _oBballInfoDTO.LeagueName, _oBballInfoDTO.ConnectionString);
+         SeasonInfoDO _oSeasonInfoDO = new SeasonInfoDO(_oBballInfoDTO.GameDate, _oBballInfoDTO.LeagueName, _oBballInfoDTO.ConnectionString);
          new DataDO().GetUserLeagueParmsDTO(_oBballInfoDTO);   // will Populate _oBballInfoDTO.oBballDataDTO.oUserLeagueParmsDTO
          int LoadRotationDaysAhead = _oBballInfoDTO.oBballDataDTO.oUserLeagueParmsDTO.LoadRotationDaysAhead; 
 
          while (_oBballInfoDTO.GameDate <= DateTime.Today.AddDays(LoadRotationDaysAhead))  // Is GameDate > Tomorrow)
          {
             // string _strLoadDateTime = _oBballInfoDTO.LoadDateTime();    // _oSeasonInfoDO.GameDate.ToString();
-
-            SortedList<string, CoversDTO> ocRotation = new SortedList<string, CoversDTO>();
-            try
+            if (!_oSeasonInfoDO.oSeasonInfoDTO.Bypass)
             {
-               RotationDO.PopulateRotation(ocRotation, _oBballInfoDTO, _oLeagueDTO, true);   // always refresh Rotation b4 loading Boxscores
-            }
-            catch (Exception ex)
-            {
-               throw new Exception($"Covers Rotation Error {_oBballInfoDTO.GameDate} - {ex.Message}");
+               SortedList<string, CoversDTO> ocRotation = new SortedList<string, CoversDTO>();
+               try
+               {
+                  RotationDO.PopulateRotation(ocRotation, _oBballInfoDTO, _oLeagueDTO, true);   // always refresh Rotation b4 loading Boxscores
+               }
+               catch (Exception ex)
+               {
+                  throw new Exception($"Covers Rotation Error {_oBballInfoDTO.GameDate} - {ex.Message}");
+               }
             }
 
             _oBballInfoDTO.GameDate = _oBballInfoDTO.GameDate.AddDays(1); // kd make nextGameDate function

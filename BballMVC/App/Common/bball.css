@@ -16,24 +16,24 @@
    display: none;
    padding-top: 6px
 }
-.over {
+.xover  {
    color: yellow;
    background: black;
    font-weight: bold;
    border: 2px solid black;
 }
-.winning {
+.winning, .over {
    color: yellow;
    background:black;
    font-weight: bold;
    border: 2px solid black;
 }
-.under {
+.under, .losing {
    color: yellow;
    background: red;
    border: 2px solid black;
 }
-.losing {
+.xlosing {
    color: yellow;
    background: red;
    border: 2px solid black;

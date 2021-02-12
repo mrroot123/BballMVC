@@ -16,6 +16,11 @@ angular.module('app').controller('AdjustmentsByTeamModalController', function ($
          })   // Get AdjustmentsByTeam from server
          .then(data => {
             $scope.ocAdjustmentsByTeam = data;
+            $scope.AdjustmentsByTeamAdjTotal = 0;
+            $scope.ocAdjustmentsByTeam.forEach(function (item, index) {
+               $scope.AdjustmentsByTeamAdjTotal += item.AdjustmentAmount;
+            });
+            
             $scope.$apply();
            // oModal.style.height = 100 + data.length * 50;
             f.ShowModal(modalName);
