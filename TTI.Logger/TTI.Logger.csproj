@@ -49,6 +49,10 @@
     <Compile Include="TTILogMessage.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BballMVC.IDTOs\BballMVC.IDTOs.csproj">
+      <Project>{acd5303e-7878-4a29-a82b-f89fa1b15cdf}</Project>
+      <Name>BballMVC.IDTOs</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CommonClasses\DAL.Functions\SysDAL.Functions.csproj">
       <Project>{f08657dc-56b9-4ea3-9bab-c3234c143145}</Project>
       <Name>SysDAL.Functions</Name>

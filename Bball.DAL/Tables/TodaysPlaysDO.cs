@@ -80,7 +80,7 @@ namespace Bball.DAL.Tables
             + $"  FROM TodaysPlays tp  "
             + $"  Left JOIN BoxScores b ON b.GameDate = tp.GameDate AND b.RotNum = tp.RotNum  "
             + $"  Where  tp.GameDate = '{GameDate.ToShortDateString()}'"
-            + "   Order By tp.LeagueName, tp.RotNum"
+            + "   Order By tp.LeagueName, tp.GameTime, tp.RotNum"
             ;
          return Sql;
       }

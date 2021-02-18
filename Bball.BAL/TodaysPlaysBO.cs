@@ -28,7 +28,7 @@ namespace Bball.BAL
             oBballInfoDTO.LeagueName = oLeagues.Key;
             SeasonInfoDO oSeasonInfoDO = new SeasonInfoDO(oBballInfoDTO.GameDate, oBballInfoDTO.LeagueName, oBballInfoDTO.ConnectionString);
 
-            oBballInfoDTO.oSeasonInfoDTO = oSeasonInfoDO.oSeasonInfoDTO;
+            oBballInfoDTO.oBballDataDTO.oSeasonInfoDTO = oSeasonInfoDO.oSeasonInfoDTO;
             SortedList<string, CoversDTO> ocRotation = new SortedList<string, CoversDTO>();
             LeagueDTO oLeagueDTO = new LeagueDTO();
             new LeagueInfoDO(oBballInfoDTO.LeagueName, oLeagueDTO, oBballInfoDTO.ConnectionString, oBballInfoDTO.GameDate);  // Init _oLeagueDTO
@@ -171,7 +171,10 @@ namespace Bball.BAL
             }
             void calcCurrentStatus()   // 105 (-15)
             {
-               oTodaysPlaysResults.CurrentStatus = $"{oTodaysPlaysResults.Score} ({oTodaysPlays.Line - oTodaysPlaysResults.Score})";
+               if (oTodaysPlaysResults.Score > oTodaysPlays.Line)
+                  oTodaysPlaysResults.CurrentStatus = "OVER";
+               else
+                  oTodaysPlaysResults.CurrentStatus = $"{oTodaysPlaysResults.Score} ({oTodaysPlays.Line - oTodaysPlaysResults.Score})";
             }
             void calcOvUnStatus()   // Ov 10  
             {
@@ -224,7 +227,7 @@ namespace Bball.BAL
          {
             oTodaysPlaysResults.TimeStatus = "";
             oTodaysPlaysResults.CurrentStatus = "";
-            oTodaysPlaysResults.Info = "Cancelled";
+            oTodaysPlaysResults.Info = "Canceled";
             oTodaysPlaysResults.OvUnStatus = "";
          }  // calcCanceled
          #endregion localMethods

@@ -852,7 +852,6 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.TodaysMatchups' does not ha
             <PropertyRef Name="TeamHome" />
             <PropertyRef Name="RotNum" />
             <PropertyRef Name="TmStrAway" />
-            <PropertyRef Name="UnAdjTotalAway" />
             <PropertyRef Name="UnAdjTotalHome" />
             <PropertyRef Name="UnAdjTotal" />
             <PropertyRef Name="AdjAmt" />
@@ -926,9 +925,18 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.TodaysMatchups' does not ha
           <Property Name="TV" Type="char" MaxLength="8" />
           <Property Name="TmStrAway" Type="float" Nullable="false" />
           <Property Name="TmStrHome" Type="float" />
-          <Property Name="UnAdjTotalAway" Type="float" Nullable="false" />
+          <Property Name="UnAdjTotalAway" Type="float" />
           <Property Name="UnAdjTotalHome" Type="float" Nullable="false" />
           <Property Name="UnAdjTotal" Type="float" Nullable="false" />
+          <Property Name="UnAdjTotalAwayPlanB" Type="float" />
+          <Property Name="UnAdjTotalHomePlanB" Type="float" />
+          <Property Name="UnAdjTotalPlanB" Type="float" />
+          <Property Name="CalcAwayGB1PlanB" Type="float" />
+          <Property Name="CalcAwayGB2PlanB" Type="float" />
+          <Property Name="CalcAwayGB3PlanB" Type="float" />
+          <Property Name="CalcHomeGB1PlanB" Type="float" />
+          <Property Name="CalcHomeGB2PlanB" Type="float" />
+          <Property Name="CalcHomeGB3PlanB" Type="float" />
           <Property Name="AwayAveragePtsScored" Type="float" />
           <Property Name="HomeAveragePtsScored" Type="float" />
           <Property Name="AwayAveragePtsAllowed" Type="float" />
@@ -1157,8 +1165,8 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.TTILog' does not have a pri
           <Property Name="LgAvgGamesBack" Type="int" Nullable="false" />
           <Property Name="TeamAvgGamesBack" Type="int" Nullable="false" />
           <Property Name="TeamPaceGamesBack" Type="int" Nullable="false" />
-          <Property Name="TeamStrengthGamesBack" Type="int" />
-          <Property Name="VolatilityGamesBack" Type="int" />
+          <Property Name="TeamStrengthGamesBack" Type="int" Nullable="false" />
+          <Property Name="VolatilityGamesBack" Type="int" Nullable="false" />
           <Property Name="TeamSeedGames" Type="int" Nullable="false" />
           <Property Name="LoadRotationDaysAhead" Type="int" Nullable="false" />
           <Property Name="GB1" Type="int" Nullable="false" />
@@ -1173,7 +1181,7 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.TTILog' does not have a pri
           <Property Name="TmStrAdjPct" Type="float" Nullable="false" />
           <Property Name="RecentLgHistoryAdjPct" Type="float" Nullable="false" />
           <Property Name="BothHome_Away" Type="bit" Nullable="false" />
-          <Property Name="BoxscoresSpanSeasons" Type="bit" />
+          <Property Name="BoxscoresSpanSeasons" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view '00TTI_LeagueScores.dbo.Users' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -2163,6 +2171,15 @@ BoxScoresAdjustedID],
     [TodaysMatchups].[UnAdjTotalAway] AS [UnAdjTotalAway], 
     [TodaysMatchups].[UnAdjTotalHome] AS [UnAdjTotalHome], 
     [TodaysMatchups].[UnAdjTotal] AS [UnAdjTotal], 
+    [TodaysMatchups].[UnAdjTotalAwayPlanB] AS [UnAdjTotalAwayPlanB], 
+    [TodaysMatchups].[UnAdjTotalHomePlanB] AS [UnAdjTotalHomePlanB], 
+    [TodaysMatchups].[UnAdjTotalPlanB] AS [UnAdjTotalPlanB], 
+    [TodaysMatchups].[CalcAwayGB1PlanB] AS [CalcAwayGB1PlanB], 
+    [TodaysMatchups].[CalcAwayGB2PlanB] AS [CalcAwayGB2PlanB], 
+    [TodaysMatchups].[CalcAwayGB3PlanB] AS [CalcAwayGB3PlanB], 
+    [TodaysMatchups].[CalcHomeGB1PlanB] AS [CalcHomeGB1PlanB], 
+    [TodaysMatchups].[CalcHomeGB2PlanB] AS [CalcHomeGB2PlanB], 
+    [TodaysMatchups].[CalcHomeGB3PlanB] AS [CalcHomeGB3PlanB], 
     [TodaysMatchups].[AwayAveragePtsScored] AS [AwayAveragePtsScored], 
     [TodaysMatchups].[HomeAveragePtsScored] AS [HomeAveragePtsScored], 
     [TodaysMatchups].[AwayAveragePtsAllowed] AS [AwayAveragePtsAllowed], 
@@ -3196,177 +3213,6 @@ BoxScoresAdjustedID],
           <Property Name="GB" Type="Int32" />
           <Property Name="ActualGB" Type="Int32" />
         </EntityType>
-        <EntityType Name="TodaysMatchup">
-          <Key>
-            <PropertyRef Name="TodaysMatchupsID" />
-            <PropertyRef Name="UserName" />
-            <PropertyRef Name="LeagueName" />
-            <PropertyRef Name="GameDate" />
-            <PropertyRef Name="Season" />
-            <PropertyRef Name="SubSeason" />
-            <PropertyRef Name="TeamAway" />
-            <PropertyRef Name="TeamHome" />
-            <PropertyRef Name="RotNum" />
-            <PropertyRef Name="TmStrAway" />
-            <PropertyRef Name="UnAdjTotalAway" />
-            <PropertyRef Name="UnAdjTotalHome" />
-            <PropertyRef Name="UnAdjTotal" />
-            <PropertyRef Name="AdjAmt" />
-            <PropertyRef Name="AdjAmtAway" />
-            <PropertyRef Name="AdjAmtHome" />
-            <PropertyRef Name="AdjDbAway" />
-            <PropertyRef Name="AdjDbHome" />
-            <PropertyRef Name="AdjOTwithSide" />
-            <PropertyRef Name="AdjTV" />
-            <PropertyRef Name="OurTotalLineAway" />
-            <PropertyRef Name="OurTotalLineHome" />
-            <PropertyRef Name="OurTotalLine" />
-            <PropertyRef Name="SideLine" />
-            <PropertyRef Name="BxScLinePct" />
-            <PropertyRef Name="TmStrAdjPct" />
-            <PropertyRef Name="Threshold" />
-            <PropertyRef Name="GB1" />
-            <PropertyRef Name="GB2" />
-            <PropertyRef Name="GB3" />
-            <PropertyRef Name="WeightGB1" />
-            <PropertyRef Name="WeightGB2" />
-            <PropertyRef Name="WeightGB3" />
-            <PropertyRef Name="AwayProjectedPt1" />
-            <PropertyRef Name="AwayProjectedPt2" />
-            <PropertyRef Name="AwayProjectedPt3" />
-            <PropertyRef Name="HomeProjectedPt1" />
-            <PropertyRef Name="HomeProjectedPt2" />
-            <PropertyRef Name="HomeProjectedPt3" />
-            <PropertyRef Name="AwayAverageAtmpUsPt1" />
-            <PropertyRef Name="AwayAverageAtmpUsPt2" />
-            <PropertyRef Name="AwayAverageAtmpUsPt3" />
-            <PropertyRef Name="HomeAverageAtmpUsPt1" />
-            <PropertyRef Name="HomeAverageAtmpUsPt2" />
-            <PropertyRef Name="HomeAverageAtmpUsPt3" />
-            <PropertyRef Name="AwayGB1" />
-            <PropertyRef Name="AwayGB2" />
-            <PropertyRef Name="AwayGB3" />
-            <PropertyRef Name="HomeGB1" />
-            <PropertyRef Name="HomeGB2" />
-            <PropertyRef Name="HomeGB3" />
-            <PropertyRef Name="AwayGB1Pt1" />
-            <PropertyRef Name="AwayGB1Pt2" />
-            <PropertyRef Name="AwayGB1Pt3" />
-            <PropertyRef Name="AwayGB2Pt1" />
-            <PropertyRef Name="AwayGB2Pt2" />
-            <PropertyRef Name="AwayGB2Pt3" />
-            <PropertyRef Name="AwayGB3Pt1" />
-            <PropertyRef Name="AwayGB3Pt2" />
-            <PropertyRef Name="AwayGB3Pt3" />
-            <PropertyRef Name="HomeGB1Pt1" />
-            <PropertyRef Name="HomeGB1Pt2" />
-            <PropertyRef Name="HomeGB1Pt3" />
-            <PropertyRef Name="HomeGB2Pt1" />
-            <PropertyRef Name="HomeGB2Pt2" />
-            <PropertyRef Name="HomeGB2Pt3" />
-            <PropertyRef Name="HomeGB3Pt1" />
-            <PropertyRef Name="HomeGB3Pt2" />
-            <PropertyRef Name="HomeGB3Pt3" />
-          </Key>
-          <Property Name="TodaysMatchupsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserName" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="LeagueName" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="GameDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Season" Type="String" MaxLength="8" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="SubSeason" Type="String" MaxLength="8" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="TeamAway" Type="String" MaxLength="8" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="TeamHome" Type="String" MaxLength="8" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="RotNum" Type="Int32" Nullable="false" />
-          <Property Name="GameTime" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
-          <Property Name="Canceled" Type="Boolean" />
-          <Property Name="TV" Type="String" MaxLength="8" FixedLength="true" Unicode="false" />
-          <Property Name="TmStrAway" Type="Double" Nullable="false" />
-          <Property Name="TmStrHome" Type="Double" />
-          <Property Name="UnAdjTotalAway" Type="Double" Nullable="false" />
-          <Property Name="UnAdjTotalHome" Type="Double" Nullable="false" />
-          <Property Name="UnAdjTotal" Type="Double" Nullable="false" />
-          <Property Name="AwayAveragePtsAllowed" Type="Double" />
-          <Property Name="HomeAveragePtsAllowed" Type="Double" />
-          <Property Name="AdjAmt" Type="Double" Nullable="false" />
-          <Property Name="AdjAmtAway" Type="Double" Nullable="false" />
-          <Property Name="AdjAmtHome" Type="Double" Nullable="false" />
-          <Property Name="AdjDbAway" Type="Double" Nullable="false" />
-          <Property Name="AdjDbHome" Type="Double" Nullable="false" />
-          <Property Name="AdjOTwithSide" Type="Double" Nullable="false" />
-          <Property Name="AdjTV" Type="Double" Nullable="false" />
-          <Property Name="AdjRecentLeagueHistory" Type="Double" />
-          <Property Name="AdjPace" Type="Double" />
-          <Property Name="OurTotalLineAway" Type="Double" Nullable="false" />
-          <Property Name="OurTotalLineHome" Type="Double" Nullable="false" />
-          <Property Name="OurTotalLine" Type="Double" Nullable="false" />
-          <Property Name="SideLine" Type="Double" Nullable="false" />
-          <Property Name="TotalLine" Type="Double" />
-          <Property Name="OpenTotalLine" Type="Double" />
-          <Property Name="Play" Type="String" MaxLength="8" FixedLength="true" Unicode="false" />
-          <Property Name="PlayDiff" Type="Double" />
-          <Property Name="OpenPlayDiff" Type="Double" />
-          <Property Name="AdjustedDiff" Type="Double" />
-          <Property Name="BxScLinePct" Type="Double" Nullable="false" />
-          <Property Name="TmStrAdjPct" Type="Double" Nullable="false" />
-          <Property Name="VolatilityAway" Type="Double" />
-          <Property Name="VolatilityHome" Type="Double" />
-          <Property Name="Volatility" Type="Double" />
-          <Property Name="Threshold" Type="Int32" Nullable="false" />
-          <Property Name="GB1" Type="Int32" Nullable="false" />
-          <Property Name="GB2" Type="Int32" Nullable="false" />
-          <Property Name="GB3" Type="Int32" Nullable="false" />
-          <Property Name="WeightGB1" Type="Int32" Nullable="false" />
-          <Property Name="WeightGB2" Type="Int32" Nullable="false" />
-          <Property Name="WeightGB3" Type="Int32" Nullable="false" />
-          <Property Name="AwayProjectedPt1" Type="Double" Nullable="false" />
-          <Property Name="AwayProjectedPt2" Type="Double" Nullable="false" />
-          <Property Name="AwayProjectedPt3" Type="Double" Nullable="false" />
-          <Property Name="HomeProjectedPt1" Type="Double" Nullable="false" />
-          <Property Name="HomeProjectedPt2" Type="Double" Nullable="false" />
-          <Property Name="HomeProjectedPt3" Type="Double" Nullable="false" />
-          <Property Name="AwayProjectedAtmpPt1" Type="Double" />
-          <Property Name="AwayProjectedAtmpPt2" Type="Double" />
-          <Property Name="AwayProjectedAtmpPt3" Type="Double" />
-          <Property Name="HomeProjectedAtmpPt1" Type="Double" />
-          <Property Name="HomeProjectedAtmpPt2" Type="Double" />
-          <Property Name="HomeProjectedAtmpPt3" Type="Double" />
-          <Property Name="AwayAverageAtmpUsPt1" Type="Double" Nullable="false" />
-          <Property Name="AwayAverageAtmpUsPt2" Type="Double" Nullable="false" />
-          <Property Name="AwayAverageAtmpUsPt3" Type="Double" Nullable="false" />
-          <Property Name="HomeAverageAtmpUsPt1" Type="Double" Nullable="false" />
-          <Property Name="HomeAverageAtmpUsPt2" Type="Double" Nullable="false" />
-          <Property Name="HomeAverageAtmpUsPt3" Type="Double" Nullable="false" />
-          <Property Name="AwayGB1" Type="Double" Nullable="false" />
-          <Property Name="AwayGB2" Type="Double" Nullable="false" />
-          <Property Name="AwayGB3" Type="Double" Nullable="false" />
-          <Property Name="HomeGB1" Type="Double" Nullable="false" />
-          <Property Name="HomeGB2" Type="Double" Nullable="false" />
-          <Property Name="HomeGB3" Type="Double" Nullable="false" />
-          <Property Name="AwayGB1Pt1" Type="Double" Nullable="false" />
-          <Property Name="AwayGB1Pt2" Type="Double" Nullable="false" />
-          <Property Name="AwayGB1Pt3" Type="Double" Nullable="false" />
-          <Property Name="AwayGB2Pt1" Type="Double" Nullable="false" />
-          <Property Name="AwayGB2Pt2" Type="Double" Nullable="false" />
-          <Property Name="AwayGB2Pt3" Type="Double" Nullable="false" />
-          <Property Name="AwayGB3Pt1" Type="Double" Nullable="false" />
-          <Property Name="AwayGB3Pt2" Type="Double" Nullable="false" />
-          <Property Name="AwayGB3Pt3" Type="Double" Nullable="false" />
-          <Property Name="HomeGB1Pt1" Type="Double" Nullable="false" />
-          <Property Name="HomeGB1Pt2" Type="Double" Nullable="false" />
-          <Property Name="HomeGB1Pt3" Type="Double" Nullable="false" />
-          <Property Name="HomeGB2Pt1" Type="Double" Nullable="false" />
-          <Property Name="HomeGB2Pt2" Type="Double" Nullable="false" />
-          <Property Name="HomeGB2Pt3" Type="Double" Nullable="false" />
-          <Property Name="HomeGB3Pt1" Type="Double" Nullable="false" />
-          <Property Name="HomeGB3Pt2" Type="Double" Nullable="false" />
-          <Property Name="HomeGB3Pt3" Type="Double" Nullable="false" />
-          <Property Name="TotalBubbleAway" Type="Double" />
-          <Property Name="TotalBubbleHome" Type="Double" />
-          <Property Name="TS" Type="DateTime" Precision="3" />
-          <Property Name="AllAdjustmentLines" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="AwayAveragePtsScored" Type="Double" />
-          <Property Name="HomeAveragePtsScored" Type="Double" />
-        </EntityType>
         <EntityType Name="TodaysMatchupsResult">
           <Key>
             <PropertyRef Name="MatchupsResultsID" />
@@ -3754,7 +3600,6 @@ BoxScoresAdjustedID],
           <EntitySet Name="TeamStats" EntityType="Self.TeamStat" />
           <EntitySet Name="TeamStatsAverages" EntityType="Self.TeamStatsAverage" />
           <EntitySet Name="TeamStrengths" EntityType="Self.TeamStrength" />
-          <EntitySet Name="TodaysMatchups" EntityType="Self.TodaysMatchup" />
           <EntitySet Name="TodaysMatchupsResults" EntityType="Self.TodaysMatchupsResult" />
           <EntitySet Name="TTILogs" EntityType="Self.TTILog" />
           <EntitySet Name="Users" EntityType="Self.User" />
@@ -3930,6 +3775,7 @@ BoxScoresAdjustedID],
           <EntitySet Name="AdjustmentsCodes" EntityType="TTI_LeagueScoresModel.AdjustmentsCodes" />
           <EntitySet Name="DailySummary" EntityType="TTI_LeagueScoresModel.DailySummary" />
           <EntitySet Name="UserLeagueParms" EntityType="TTI_LeagueScoresModel.UserLeagueParms" />
+          <EntitySet Name="TodaysMatchups" EntityType="TTI_LeagueScoresModel.TodaysMatchups" />
         </EntityContainer>
         <ComplexType Name="TeamLookupSourceToSource_Result">
           <Property Type="Int32" Name="TeamID" Nullable="false" />
@@ -4229,8 +4075,8 @@ BoxScoresAdjustedID],
           <Property Name="LgAvgGamesBack" Type="Int32" Nullable="false" />
           <Property Name="TeamAvgGamesBack" Type="Int32" Nullable="false" />
           <Property Name="TeamPaceGamesBack" Type="Int32" Nullable="false" />
-          <Property Name="TeamStrengthGamesBack" Type="Int32" />
-          <Property Name="VolatilityGamesBack" Type="Int32" />
+          <Property Name="TeamStrengthGamesBack" Type="Int32" Nullable="false" />
+          <Property Name="VolatilityGamesBack" Type="Int32" Nullable="false" />
           <Property Name="TeamSeedGames" Type="Int32" Nullable="false" />
           <Property Name="LoadRotationDaysAhead" Type="Int32" Nullable="false" />
           <Property Name="GB1" Type="Int32" Nullable="false" />
@@ -4245,7 +4091,186 @@ BoxScoresAdjustedID],
           <Property Name="TmStrAdjPct" Type="Double" Nullable="false" />
           <Property Name="RecentLgHistoryAdjPct" Type="Double" Nullable="false" />
           <Property Name="BothHome_Away" Type="Boolean" Nullable="false" />
-          <Property Name="BoxscoresSpanSeasons" Type="Boolean" />
+          <Property Name="BoxscoresSpanSeasons" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TodaysMatchups">
+          <Key>
+            <PropertyRef Name="TodaysMatchupsID" />
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="LeagueName" />
+            <PropertyRef Name="GameDate" />
+            <PropertyRef Name="Season" />
+            <PropertyRef Name="SubSeason" />
+            <PropertyRef Name="TeamAway" />
+            <PropertyRef Name="TeamHome" />
+            <PropertyRef Name="RotNum" />
+            <PropertyRef Name="TmStrAway" />
+            <PropertyRef Name="UnAdjTotalHome" />
+            <PropertyRef Name="UnAdjTotal" />
+            <PropertyRef Name="AdjAmt" />
+            <PropertyRef Name="AdjAmtAway" />
+            <PropertyRef Name="AdjAmtHome" />
+            <PropertyRef Name="AdjDbAway" />
+            <PropertyRef Name="AdjDbHome" />
+            <PropertyRef Name="AdjOTwithSide" />
+            <PropertyRef Name="AdjTV" />
+            <PropertyRef Name="OurTotalLineAway" />
+            <PropertyRef Name="OurTotalLineHome" />
+            <PropertyRef Name="OurTotalLine" />
+            <PropertyRef Name="SideLine" />
+            <PropertyRef Name="BxScLinePct" />
+            <PropertyRef Name="TmStrAdjPct" />
+            <PropertyRef Name="Threshold" />
+            <PropertyRef Name="GB1" />
+            <PropertyRef Name="GB2" />
+            <PropertyRef Name="GB3" />
+            <PropertyRef Name="WeightGB1" />
+            <PropertyRef Name="WeightGB2" />
+            <PropertyRef Name="WeightGB3" />
+            <PropertyRef Name="AwayProjectedPt1" />
+            <PropertyRef Name="AwayProjectedPt2" />
+            <PropertyRef Name="AwayProjectedPt3" />
+            <PropertyRef Name="HomeProjectedPt1" />
+            <PropertyRef Name="HomeProjectedPt2" />
+            <PropertyRef Name="HomeProjectedPt3" />
+            <PropertyRef Name="AwayAverageAtmpUsPt1" />
+            <PropertyRef Name="AwayAverageAtmpUsPt2" />
+            <PropertyRef Name="AwayAverageAtmpUsPt3" />
+            <PropertyRef Name="HomeAverageAtmpUsPt1" />
+            <PropertyRef Name="HomeAverageAtmpUsPt2" />
+            <PropertyRef Name="HomeAverageAtmpUsPt3" />
+            <PropertyRef Name="AwayGB1" />
+            <PropertyRef Name="AwayGB2" />
+            <PropertyRef Name="AwayGB3" />
+            <PropertyRef Name="HomeGB1" />
+            <PropertyRef Name="HomeGB2" />
+            <PropertyRef Name="HomeGB3" />
+            <PropertyRef Name="AwayGB1Pt1" />
+            <PropertyRef Name="AwayGB1Pt2" />
+            <PropertyRef Name="AwayGB1Pt3" />
+            <PropertyRef Name="AwayGB2Pt1" />
+            <PropertyRef Name="AwayGB2Pt2" />
+            <PropertyRef Name="AwayGB2Pt3" />
+            <PropertyRef Name="AwayGB3Pt1" />
+            <PropertyRef Name="AwayGB3Pt2" />
+            <PropertyRef Name="AwayGB3Pt3" />
+            <PropertyRef Name="HomeGB1Pt1" />
+            <PropertyRef Name="HomeGB1Pt2" />
+            <PropertyRef Name="HomeGB1Pt3" />
+            <PropertyRef Name="HomeGB2Pt1" />
+            <PropertyRef Name="HomeGB2Pt2" />
+            <PropertyRef Name="HomeGB2Pt3" />
+            <PropertyRef Name="HomeGB3Pt1" />
+            <PropertyRef Name="HomeGB3Pt2" />
+            <PropertyRef Name="HomeGB3Pt3" />
+          </Key>
+          <Property Name="TodaysMatchupsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="LeagueName" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="GameDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Season" Type="String" Nullable="false" MaxLength="8" FixedLength="true" Unicode="false" />
+          <Property Name="SubSeason" Type="String" Nullable="false" MaxLength="8" FixedLength="true" Unicode="false" />
+          <Property Name="TeamAway" Type="String" Nullable="false" MaxLength="8" FixedLength="true" Unicode="false" />
+          <Property Name="TeamHome" Type="String" Nullable="false" MaxLength="8" FixedLength="true" Unicode="false" />
+          <Property Name="RotNum" Type="Int32" Nullable="false" />
+          <Property Name="GameTime" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="Canceled" Type="Boolean" />
+          <Property Name="TV" Type="String" MaxLength="8" FixedLength="true" Unicode="false" />
+          <Property Name="TmStrAway" Type="Double" Nullable="false" />
+          <Property Name="TmStrHome" Type="Double" />
+          <Property Name="UnAdjTotalAway" Type="Double" />
+          <Property Name="UnAdjTotalHome" Type="Double" Nullable="false" />
+          <Property Name="UnAdjTotal" Type="Double" Nullable="false" />
+          <Property Name="UnAdjTotalAwayPlanB" Type="Double" />
+          <Property Name="UnAdjTotalHomePlanB" Type="Double" />
+          <Property Name="UnAdjTotalPlanB" Type="Double" />
+          <Property Name="CalcAwayGB1PlanB" Type="Double" />
+          <Property Name="CalcAwayGB2PlanB" Type="Double" />
+          <Property Name="CalcAwayGB3PlanB" Type="Double" />
+          <Property Name="CalcHomeGB1PlanB" Type="Double" />
+          <Property Name="CalcHomeGB2PlanB" Type="Double" />
+          <Property Name="CalcHomeGB3PlanB" Type="Double" />
+          <Property Name="AwayAveragePtsScored" Type="Double" />
+          <Property Name="HomeAveragePtsScored" Type="Double" />
+          <Property Name="AwayAveragePtsAllowed" Type="Double" />
+          <Property Name="HomeAveragePtsAllowed" Type="Double" />
+          <Property Name="AdjAmt" Type="Double" Nullable="false" />
+          <Property Name="AdjAmtAway" Type="Double" Nullable="false" />
+          <Property Name="AdjAmtHome" Type="Double" Nullable="false" />
+          <Property Name="AdjDbAway" Type="Double" Nullable="false" />
+          <Property Name="AdjDbHome" Type="Double" Nullable="false" />
+          <Property Name="AdjOTwithSide" Type="Double" Nullable="false" />
+          <Property Name="AdjTV" Type="Double" Nullable="false" />
+          <Property Name="AdjRecentLeagueHistory" Type="Double" />
+          <Property Name="AdjPace" Type="Double" />
+          <Property Name="OurTotalLineAway" Type="Double" Nullable="false" />
+          <Property Name="OurTotalLineHome" Type="Double" Nullable="false" />
+          <Property Name="OurTotalLine" Type="Double" Nullable="false" />
+          <Property Name="SideLine" Type="Double" Nullable="false" />
+          <Property Name="TotalLine" Type="Double" />
+          <Property Name="OpenTotalLine" Type="Double" />
+          <Property Name="Play" Type="String" MaxLength="8" FixedLength="true" Unicode="false" />
+          <Property Name="PlayDiff" Type="Double" />
+          <Property Name="OpenPlayDiff" Type="Double" />
+          <Property Name="AdjustedDiff" Type="Double" />
+          <Property Name="BxScLinePct" Type="Double" Nullable="false" />
+          <Property Name="TmStrAdjPct" Type="Double" Nullable="false" />
+          <Property Name="VolatilityAway" Type="Double" />
+          <Property Name="VolatilityHome" Type="Double" />
+          <Property Name="Volatility" Type="Double" />
+          <Property Name="Threshold" Type="Int32" Nullable="false" />
+          <Property Name="GB1" Type="Int32" Nullable="false" />
+          <Property Name="GB2" Type="Int32" Nullable="false" />
+          <Property Name="GB3" Type="Int32" Nullable="false" />
+          <Property Name="WeightGB1" Type="Int32" Nullable="false" />
+          <Property Name="WeightGB2" Type="Int32" Nullable="false" />
+          <Property Name="WeightGB3" Type="Int32" Nullable="false" />
+          <Property Name="AwayProjectedPt1" Type="Double" Nullable="false" />
+          <Property Name="AwayProjectedPt2" Type="Double" Nullable="false" />
+          <Property Name="AwayProjectedPt3" Type="Double" Nullable="false" />
+          <Property Name="HomeProjectedPt1" Type="Double" Nullable="false" />
+          <Property Name="HomeProjectedPt2" Type="Double" Nullable="false" />
+          <Property Name="HomeProjectedPt3" Type="Double" Nullable="false" />
+          <Property Name="AwayProjectedAtmpPt1" Type="Double" />
+          <Property Name="AwayProjectedAtmpPt2" Type="Double" />
+          <Property Name="AwayProjectedAtmpPt3" Type="Double" />
+          <Property Name="HomeProjectedAtmpPt1" Type="Double" />
+          <Property Name="HomeProjectedAtmpPt2" Type="Double" />
+          <Property Name="HomeProjectedAtmpPt3" Type="Double" />
+          <Property Name="AwayAverageAtmpUsPt1" Type="Double" Nullable="false" />
+          <Property Name="AwayAverageAtmpUsPt2" Type="Double" Nullable="false" />
+          <Property Name="AwayAverageAtmpUsPt3" Type="Double" Nullable="false" />
+          <Property Name="HomeAverageAtmpUsPt1" Type="Double" Nullable="false" />
+          <Property Name="HomeAverageAtmpUsPt2" Type="Double" Nullable="false" />
+          <Property Name="HomeAverageAtmpUsPt3" Type="Double" Nullable="false" />
+          <Property Name="AwayGB1" Type="Double" Nullable="false" />
+          <Property Name="AwayGB2" Type="Double" Nullable="false" />
+          <Property Name="AwayGB3" Type="Double" Nullable="false" />
+          <Property Name="HomeGB1" Type="Double" Nullable="false" />
+          <Property Name="HomeGB2" Type="Double" Nullable="false" />
+          <Property Name="HomeGB3" Type="Double" Nullable="false" />
+          <Property Name="AwayGB1Pt1" Type="Double" Nullable="false" />
+          <Property Name="AwayGB1Pt2" Type="Double" Nullable="false" />
+          <Property Name="AwayGB1Pt3" Type="Double" Nullable="false" />
+          <Property Name="AwayGB2Pt1" Type="Double" Nullable="false" />
+          <Property Name="AwayGB2Pt2" Type="Double" Nullable="false" />
+          <Property Name="AwayGB2Pt3" Type="Double" Nullable="false" />
+          <Property Name="AwayGB3Pt1" Type="Double" Nullable="false" />
+          <Property Name="AwayGB3Pt2" Type="Double" Nullable="false" />
+          <Property Name="AwayGB3Pt3" Type="Double" Nullable="false" />
+          <Property Name="HomeGB1Pt1" Type="Double" Nullable="false" />
+          <Property Name="HomeGB1Pt2" Type="Double" Nullable="false" />
+          <Property Name="HomeGB1Pt3" Type="Double" Nullable="false" />
+          <Property Name="HomeGB2Pt1" Type="Double" Nullable="false" />
+          <Property Name="HomeGB2Pt2" Type="Double" Nullable="false" />
+          <Property Name="HomeGB2Pt3" Type="Double" Nullable="false" />
+          <Property Name="HomeGB3Pt1" Type="Double" Nullable="false" />
+          <Property Name="HomeGB3Pt2" Type="Double" Nullable="false" />
+          <Property Name="HomeGB3Pt3" Type="Double" Nullable="false" />
+          <Property Name="TotalBubbleAway" Type="Double" />
+          <Property Name="TotalBubbleHome" Type="Double" />
+          <Property Name="TS" Type="DateTime" Precision="3" />
+          <Property Name="AllAdjustmentLines" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -4703,110 +4728,6 @@ BoxScoresAdjustedID],
                 <ScalarProperty Name="Volatility" ColumnName="Volatility" />
                 <ScalarProperty Name="Pace" ColumnName="Pace" />
                 <ScalarProperty Name="TS" ColumnName="TS" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TodaysMatchups">
-            <EntityTypeMapping TypeName="TTI_LeagueScoresModel.TodaysMatchup">
-              <MappingFragment StoreEntitySet="TodaysMatchups">
-                <ScalarProperty Name="HomeAveragePtsScored" ColumnName="HomeAveragePtsScored" />
-                <ScalarProperty Name="AwayAveragePtsScored" ColumnName="AwayAveragePtsScored" />
-                <ScalarProperty Name="TodaysMatchupsID" ColumnName="TodaysMatchupsID" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="LeagueName" ColumnName="LeagueName" />
-                <ScalarProperty Name="GameDate" ColumnName="GameDate" />
-                <ScalarProperty Name="Season" ColumnName="Season" />
-                <ScalarProperty Name="SubSeason" ColumnName="SubSeason" />
-                <ScalarProperty Name="TeamAway" ColumnName="TeamAway" />
-                <ScalarProperty Name="TeamHome" ColumnName="TeamHome" />
-                <ScalarProperty Name="RotNum" ColumnName="RotNum" />
-                <ScalarProperty Name="GameTime" ColumnName="GameTime" />
-                <ScalarProperty Name="Canceled" ColumnName="Canceled" />
-                <ScalarProperty Name="TV" ColumnName="TV" />
-                <ScalarProperty Name="TmStrAway" ColumnName="TmStrAway" />
-                <ScalarProperty Name="TmStrHome" ColumnName="TmStrHome" />
-                <ScalarProperty Name="UnAdjTotalAway" ColumnName="UnAdjTotalAway" />
-                <ScalarProperty Name="UnAdjTotalHome" ColumnName="UnAdjTotalHome" />
-                <ScalarProperty Name="UnAdjTotal" ColumnName="UnAdjTotal" />
-                <ScalarProperty Name="AwayAveragePtsAllowed" ColumnName="AwayAveragePtsAllowed" />
-                <ScalarProperty Name="HomeAveragePtsAllowed" ColumnName="HomeAveragePtsAllowed" />
-                <ScalarProperty Name="AdjAmt" ColumnName="AdjAmt" />
-                <ScalarProperty Name="AdjAmtAway" ColumnName="AdjAmtAway" />
-                <ScalarProperty Name="AdjAmtHome" ColumnName="AdjAmtHome" />
-                <ScalarProperty Name="AdjDbAway" ColumnName="AdjDbAway" />
-                <ScalarProperty Name="AdjDbHome" ColumnName="AdjDbHome" />
-                <ScalarProperty Name="AdjOTwithSide" ColumnName="AdjOTwithSide" />
-                <ScalarProperty Name="AdjTV" ColumnName="AdjTV" />
-                <ScalarProperty Name="AdjRecentLeagueHistory" ColumnName="AdjRecentLeagueHistory" />
-                <ScalarProperty Name="AdjPace" ColumnName="AdjPace" />
-                <ScalarProperty Name="OurTotalLineAway" ColumnName="OurTotalLineAway" />
-                <ScalarProperty Name="OurTotalLineHome" ColumnName="OurTotalLineHome" />
-                <ScalarProperty Name="OurTotalLine" ColumnName="OurTotalLine" />
-                <ScalarProperty Name="SideLine" ColumnName="SideLine" />
-                <ScalarProperty Name="TotalLine" ColumnName="TotalLine" />
-                <ScalarProperty Name="OpenTotalLine" ColumnName="OpenTotalLine" />
-                <ScalarProperty Name="Play" ColumnName="Play" />
-                <ScalarProperty Name="PlayDiff" ColumnName="PlayDiff" />
-                <ScalarProperty Name="OpenPlayDiff" ColumnName="OpenPlayDiff" />
-                <ScalarProperty Name="AdjustedDiff" ColumnName="AdjustedDiff" />
-                <ScalarProperty Name="BxScLinePct" ColumnName="BxScLinePct" />
-                <ScalarProperty Name="TmStrAdjPct" ColumnName="TmStrAdjPct" />
-                <ScalarProperty Name="VolatilityAway" ColumnName="VolatilityAway" />
-                <ScalarProperty Name="VolatilityHome" ColumnName="VolatilityHome" />
-                <ScalarProperty Name="Volatility" ColumnName="Volatility" />
-                <ScalarProperty Name="Threshold" ColumnName="Threshold" />
-                <ScalarProperty Name="GB1" ColumnName="GB1" />
-                <ScalarProperty Name="GB2" ColumnName="GB2" />
-                <ScalarProperty Name="GB3" ColumnName="GB3" />
-                <ScalarProperty Name="WeightGB1" ColumnName="WeightGB1" />
-                <ScalarProperty Name="WeightGB2" ColumnName="WeightGB2" />
-                <ScalarProperty Name="WeightGB3" ColumnName="WeightGB3" />
-                <ScalarProperty Name="AwayProjectedPt1" ColumnName="AwayProjectedPt1" />
-                <ScalarProperty Name="AwayProjectedPt2" ColumnName="AwayProjectedPt2" />
-                <ScalarProperty Name="AwayProjectedPt3" ColumnName="AwayProjectedPt3" />
-                <ScalarProperty Name="HomeProjectedPt1" ColumnName="HomeProjectedPt1" />
-                <ScalarProperty Name="HomeProjectedPt2" ColumnName="HomeProjectedPt2" />
-                <ScalarProperty Name="HomeProjectedPt3" ColumnName="HomeProjectedPt3" />
-                <ScalarProperty Name="AwayProjectedAtmpPt1" ColumnName="AwayProjectedAtmpPt1" />
-                <ScalarProperty Name="AwayProjectedAtmpPt2" ColumnName="AwayProjectedAtmpPt2" />
-                <ScalarProperty Name="AwayProjectedAtmpPt3" ColumnName="AwayProjectedAtmpPt3" />
-                <ScalarProperty Name="HomeProjectedAtmpPt1" ColumnName="HomeProjectedAtmpPt1" />
-                <ScalarProperty Name="HomeProjectedAtmpPt2" ColumnName="HomeProjectedAtmpPt2" />
-                <ScalarProperty Name="HomeProjectedAtmpPt3" ColumnName="HomeProjectedAtmpPt3" />
-                <ScalarProperty Name="AwayAverageAtmpUsPt1" ColumnName="AwayAverageAtmpUsPt1" />
-                <ScalarProperty Name="AwayAverageAtmpUsPt2" ColumnName="AwayAverageAtmpUsPt2" />
-                <ScalarProperty Name="AwayAverageAtmpUsPt3" ColumnName="AwayAverageAtmpUsPt3" />
-                <ScalarProperty Name="HomeAverageAtmpUsPt1" ColumnName="HomeAverageAtmpUsPt1" />
-                <ScalarProperty Name="HomeAverageAtmpUsPt2" ColumnName="HomeAverageAtmpUsPt2" />
-                <ScalarProperty Name="HomeAverageAtmpUsPt3" ColumnName="HomeAverageAtmpUsPt3" />
-                <ScalarProperty Name="AwayGB1" ColumnName="AwayGB1" />
-                <ScalarProperty Name="AwayGB2" ColumnName="AwayGB2" />
-                <ScalarProperty Name="AwayGB3" ColumnName="AwayGB3" />
-                <ScalarProperty Name="HomeGB1" ColumnName="HomeGB1" />
-                <ScalarProperty Name="HomeGB2" ColumnName="HomeGB2" />
-                <ScalarProperty Name="HomeGB3" ColumnName="HomeGB3" />
-                <ScalarProperty Name="AwayGB1Pt1" ColumnName="AwayGB1Pt1" />
-                <ScalarProperty Name="AwayGB1Pt2" ColumnName="AwayGB1Pt2" />
-                <ScalarProperty Name="AwayGB1Pt3" ColumnName="AwayGB1Pt3" />
-                <ScalarProperty Name="AwayGB2Pt1" ColumnName="AwayGB2Pt1" />
-                <ScalarProperty Name="AwayGB2Pt2" ColumnName="AwayGB2Pt2" />
-                <ScalarProperty Name="AwayGB2Pt3" ColumnName="AwayGB2Pt3" />
-                <ScalarProperty Name="AwayGB3Pt1" ColumnName="AwayGB3Pt1" />
-                <ScalarProperty Name="AwayGB3Pt2" ColumnName="AwayGB3Pt2" />
-                <ScalarProperty Name="AwayGB3Pt3" ColumnName="AwayGB3Pt3" />
-                <ScalarProperty Name="HomeGB1Pt1" ColumnName="HomeGB1Pt1" />
-                <ScalarProperty Name="HomeGB1Pt2" ColumnName="HomeGB1Pt2" />
-                <ScalarProperty Name="HomeGB1Pt3" ColumnName="HomeGB1Pt3" />
-                <ScalarProperty Name="HomeGB2Pt1" ColumnName="HomeGB2Pt1" />
-                <ScalarProperty Name="HomeGB2Pt2" ColumnName="HomeGB2Pt2" />
-                <ScalarProperty Name="HomeGB2Pt3" ColumnName="HomeGB2Pt3" />
-                <ScalarProperty Name="HomeGB3Pt1" ColumnName="HomeGB3Pt1" />
-                <ScalarProperty Name="HomeGB3Pt2" ColumnName="HomeGB3Pt2" />
-                <ScalarProperty Name="HomeGB3Pt3" ColumnName="HomeGB3Pt3" />
-                <ScalarProperty Name="TotalBubbleAway" ColumnName="TotalBubbleAway" />
-                <ScalarProperty Name="TotalBubbleHome" ColumnName="TotalBubbleHome" />
-                <ScalarProperty Name="TS" ColumnName="TS" />
-                <ScalarProperty Name="AllAdjustmentLines" ColumnName="AllAdjustmentLines" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -5395,6 +5316,119 @@ BoxScoresAdjustedID],
                 <ScalarProperty Name="LeagueName" ColumnName="LeagueName" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="UserLeagueParmsID" ColumnName="UserLeagueParmsID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TodaysMatchups">
+            <EntityTypeMapping TypeName="TTI_LeagueScoresModel.TodaysMatchups">
+              <MappingFragment StoreEntitySet="TodaysMatchups">
+                <ScalarProperty Name="AllAdjustmentLines" ColumnName="AllAdjustmentLines" />
+                <ScalarProperty Name="TS" ColumnName="TS" />
+                <ScalarProperty Name="TotalBubbleHome" ColumnName="TotalBubbleHome" />
+                <ScalarProperty Name="TotalBubbleAway" ColumnName="TotalBubbleAway" />
+                <ScalarProperty Name="HomeGB3Pt3" ColumnName="HomeGB3Pt3" />
+                <ScalarProperty Name="HomeGB3Pt2" ColumnName="HomeGB3Pt2" />
+                <ScalarProperty Name="HomeGB3Pt1" ColumnName="HomeGB3Pt1" />
+                <ScalarProperty Name="HomeGB2Pt3" ColumnName="HomeGB2Pt3" />
+                <ScalarProperty Name="HomeGB2Pt2" ColumnName="HomeGB2Pt2" />
+                <ScalarProperty Name="HomeGB2Pt1" ColumnName="HomeGB2Pt1" />
+                <ScalarProperty Name="HomeGB1Pt3" ColumnName="HomeGB1Pt3" />
+                <ScalarProperty Name="HomeGB1Pt2" ColumnName="HomeGB1Pt2" />
+                <ScalarProperty Name="HomeGB1Pt1" ColumnName="HomeGB1Pt1" />
+                <ScalarProperty Name="AwayGB3Pt3" ColumnName="AwayGB3Pt3" />
+                <ScalarProperty Name="AwayGB3Pt2" ColumnName="AwayGB3Pt2" />
+                <ScalarProperty Name="AwayGB3Pt1" ColumnName="AwayGB3Pt1" />
+                <ScalarProperty Name="AwayGB2Pt3" ColumnName="AwayGB2Pt3" />
+                <ScalarProperty Name="AwayGB2Pt2" ColumnName="AwayGB2Pt2" />
+                <ScalarProperty Name="AwayGB2Pt1" ColumnName="AwayGB2Pt1" />
+                <ScalarProperty Name="AwayGB1Pt3" ColumnName="AwayGB1Pt3" />
+                <ScalarProperty Name="AwayGB1Pt2" ColumnName="AwayGB1Pt2" />
+                <ScalarProperty Name="AwayGB1Pt1" ColumnName="AwayGB1Pt1" />
+                <ScalarProperty Name="HomeGB3" ColumnName="HomeGB3" />
+                <ScalarProperty Name="HomeGB2" ColumnName="HomeGB2" />
+                <ScalarProperty Name="HomeGB1" ColumnName="HomeGB1" />
+                <ScalarProperty Name="AwayGB3" ColumnName="AwayGB3" />
+                <ScalarProperty Name="AwayGB2" ColumnName="AwayGB2" />
+                <ScalarProperty Name="AwayGB1" ColumnName="AwayGB1" />
+                <ScalarProperty Name="HomeAverageAtmpUsPt3" ColumnName="HomeAverageAtmpUsPt3" />
+                <ScalarProperty Name="HomeAverageAtmpUsPt2" ColumnName="HomeAverageAtmpUsPt2" />
+                <ScalarProperty Name="HomeAverageAtmpUsPt1" ColumnName="HomeAverageAtmpUsPt1" />
+                <ScalarProperty Name="AwayAverageAtmpUsPt3" ColumnName="AwayAverageAtmpUsPt3" />
+                <ScalarProperty Name="AwayAverageAtmpUsPt2" ColumnName="AwayAverageAtmpUsPt2" />
+                <ScalarProperty Name="AwayAverageAtmpUsPt1" ColumnName="AwayAverageAtmpUsPt1" />
+                <ScalarProperty Name="HomeProjectedAtmpPt3" ColumnName="HomeProjectedAtmpPt3" />
+                <ScalarProperty Name="HomeProjectedAtmpPt2" ColumnName="HomeProjectedAtmpPt2" />
+                <ScalarProperty Name="HomeProjectedAtmpPt1" ColumnName="HomeProjectedAtmpPt1" />
+                <ScalarProperty Name="AwayProjectedAtmpPt3" ColumnName="AwayProjectedAtmpPt3" />
+                <ScalarProperty Name="AwayProjectedAtmpPt2" ColumnName="AwayProjectedAtmpPt2" />
+                <ScalarProperty Name="AwayProjectedAtmpPt1" ColumnName="AwayProjectedAtmpPt1" />
+                <ScalarProperty Name="HomeProjectedPt3" ColumnName="HomeProjectedPt3" />
+                <ScalarProperty Name="HomeProjectedPt2" ColumnName="HomeProjectedPt2" />
+                <ScalarProperty Name="HomeProjectedPt1" ColumnName="HomeProjectedPt1" />
+                <ScalarProperty Name="AwayProjectedPt3" ColumnName="AwayProjectedPt3" />
+                <ScalarProperty Name="AwayProjectedPt2" ColumnName="AwayProjectedPt2" />
+                <ScalarProperty Name="AwayProjectedPt1" ColumnName="AwayProjectedPt1" />
+                <ScalarProperty Name="WeightGB3" ColumnName="WeightGB3" />
+                <ScalarProperty Name="WeightGB2" ColumnName="WeightGB2" />
+                <ScalarProperty Name="WeightGB1" ColumnName="WeightGB1" />
+                <ScalarProperty Name="GB3" ColumnName="GB3" />
+                <ScalarProperty Name="GB2" ColumnName="GB2" />
+                <ScalarProperty Name="GB1" ColumnName="GB1" />
+                <ScalarProperty Name="Threshold" ColumnName="Threshold" />
+                <ScalarProperty Name="Volatility" ColumnName="Volatility" />
+                <ScalarProperty Name="VolatilityHome" ColumnName="VolatilityHome" />
+                <ScalarProperty Name="VolatilityAway" ColumnName="VolatilityAway" />
+                <ScalarProperty Name="TmStrAdjPct" ColumnName="TmStrAdjPct" />
+                <ScalarProperty Name="BxScLinePct" ColumnName="BxScLinePct" />
+                <ScalarProperty Name="AdjustedDiff" ColumnName="AdjustedDiff" />
+                <ScalarProperty Name="OpenPlayDiff" ColumnName="OpenPlayDiff" />
+                <ScalarProperty Name="PlayDiff" ColumnName="PlayDiff" />
+                <ScalarProperty Name="Play" ColumnName="Play" />
+                <ScalarProperty Name="OpenTotalLine" ColumnName="OpenTotalLine" />
+                <ScalarProperty Name="TotalLine" ColumnName="TotalLine" />
+                <ScalarProperty Name="SideLine" ColumnName="SideLine" />
+                <ScalarProperty Name="OurTotalLine" ColumnName="OurTotalLine" />
+                <ScalarProperty Name="OurTotalLineHome" ColumnName="OurTotalLineHome" />
+                <ScalarProperty Name="OurTotalLineAway" ColumnName="OurTotalLineAway" />
+                <ScalarProperty Name="AdjPace" ColumnName="AdjPace" />
+                <ScalarProperty Name="AdjRecentLeagueHistory" ColumnName="AdjRecentLeagueHistory" />
+                <ScalarProperty Name="AdjTV" ColumnName="AdjTV" />
+                <ScalarProperty Name="AdjOTwithSide" ColumnName="AdjOTwithSide" />
+                <ScalarProperty Name="AdjDbHome" ColumnName="AdjDbHome" />
+                <ScalarProperty Name="AdjDbAway" ColumnName="AdjDbAway" />
+                <ScalarProperty Name="AdjAmtHome" ColumnName="AdjAmtHome" />
+                <ScalarProperty Name="AdjAmtAway" ColumnName="AdjAmtAway" />
+                <ScalarProperty Name="AdjAmt" ColumnName="AdjAmt" />
+                <ScalarProperty Name="HomeAveragePtsAllowed" ColumnName="HomeAveragePtsAllowed" />
+                <ScalarProperty Name="AwayAveragePtsAllowed" ColumnName="AwayAveragePtsAllowed" />
+                <ScalarProperty Name="HomeAveragePtsScored" ColumnName="HomeAveragePtsScored" />
+                <ScalarProperty Name="AwayAveragePtsScored" ColumnName="AwayAveragePtsScored" />
+                <ScalarProperty Name="CalcHomeGB3PlanB" ColumnName="CalcHomeGB3PlanB" />
+                <ScalarProperty Name="CalcHomeGB2PlanB" ColumnName="CalcHomeGB2PlanB" />
+                <ScalarProperty Name="CalcHomeGB1PlanB" ColumnName="CalcHomeGB1PlanB" />
+                <ScalarProperty Name="CalcAwayGB3PlanB" ColumnName="CalcAwayGB3PlanB" />
+                <ScalarProperty Name="CalcAwayGB2PlanB" ColumnName="CalcAwayGB2PlanB" />
+                <ScalarProperty Name="CalcAwayGB1PlanB" ColumnName="CalcAwayGB1PlanB" />
+                <ScalarProperty Name="UnAdjTotalPlanB" ColumnName="UnAdjTotalPlanB" />
+                <ScalarProperty Name="UnAdjTotalHomePlanB" ColumnName="UnAdjTotalHomePlanB" />
+                <ScalarProperty Name="UnAdjTotalAwayPlanB" ColumnName="UnAdjTotalAwayPlanB" />
+                <ScalarProperty Name="UnAdjTotal" ColumnName="UnAdjTotal" />
+                <ScalarProperty Name="UnAdjTotalHome" ColumnName="UnAdjTotalHome" />
+                <ScalarProperty Name="UnAdjTotalAway" ColumnName="UnAdjTotalAway" />
+                <ScalarProperty Name="TmStrHome" ColumnName="TmStrHome" />
+                <ScalarProperty Name="TmStrAway" ColumnName="TmStrAway" />
+                <ScalarProperty Name="TV" ColumnName="TV" />
+                <ScalarProperty Name="Canceled" ColumnName="Canceled" />
+                <ScalarProperty Name="GameTime" ColumnName="GameTime" />
+                <ScalarProperty Name="RotNum" ColumnName="RotNum" />
+                <ScalarProperty Name="TeamHome" ColumnName="TeamHome" />
+                <ScalarProperty Name="TeamAway" ColumnName="TeamAway" />
+                <ScalarProperty Name="SubSeason" ColumnName="SubSeason" />
+                <ScalarProperty Name="Season" ColumnName="Season" />
+                <ScalarProperty Name="GameDate" ColumnName="GameDate" />
+                <ScalarProperty Name="LeagueName" ColumnName="LeagueName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="TodaysMatchupsID" ColumnName="TodaysMatchupsID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -7,6 +7,7 @@ using Bball.IBAL;
 using Bball.DAL.Constants;
 using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
+using TTI.Logger;
 
 namespace Bball.BAL
 {
@@ -23,10 +24,16 @@ namespace Bball.BAL
          string[] arCollectionTypes = oBballInfoDTO.CollectionType.Split('~');
          foreach (var CollectionType in arCollectionTypes)
          {
+            Helper.Log(oBballInfoDTO, $"DataDO.GetData - CollectionType: {CollectionType}");
+
             switch (CollectionType)
             {
                case GetDataConstants.AppInit:
                   appInit(oBballInfoDTO);
+                  break;
+
+               case PostDataConstants.ReloadBoxScores:
+                  new LoadBoxScores().ReloadBoxScores(oBballInfoDTO);
                   break;
 
                // 1) ocAdjustments  2) ocAdjustmentNames  3) ocTeams  4) LeagueParmsDTO
@@ -45,20 +52,6 @@ namespace Bball.BAL
                   new DataDO().GetDailySummaryDTO(oBballInfoDTO);
                   break;
 
-               //case "X":
-               //   GetDataConstants.PopulateGetDataConstants(oBballInfoDTO.oBballDataDTO.DataConstants);
-               //   oBballInfoDTO.oBballDataDTO.BaseDir = System.AppDomain.CurrentDomain.BaseDirectory;
-               //   new AdjustmentsDO(oBballInfoDTO).UpdateYesterdaysAdjustments();
-               //   new DataDO().GetLeagueNames(oBballInfoDTO);
-               //   //
-               //   IBballInfoDTO _oBballInfoDTO = new BballInfoDTO();
-               //   oBballInfoDTO.CloneBballDataDTO(_oBballInfoDTO);
-               //   foreach (var item in oBballInfoDTO.oBballDataDTO.ocLeagueNames){
-               //      _oBballInfoDTO.LeagueName = item.Value;
-               //      new LoadBoxScores(_oBballInfoDTO);
-               //      new DataDO().Exec_uspCalcTodaysMatchups(_oBballInfoDTO);
-               //   }
-               //   break;
                case GetDataConstants.DataConstants:
                   GetDataConstants.PopulateGetDataConstants(oBballInfoDTO.oBballDataDTO.DataConstants);
                   break;
@@ -73,9 +66,10 @@ namespace Bball.BAL
                case GetDataConstants.GetLeagueNames:              // ocLeagueNames
                   new DataDO().GetLeagueNames(oBballInfoDTO);
                   break;
-               case GetDataConstants.LoadBoxScores:
-                  new LoadBoxScores(oBballInfoDTO.UserName, oBballInfoDTO.LeagueName, oBballInfoDTO.GameDate, oBballInfoDTO.ConnectionString).LoadTodaysRotation();
-                  break;
+               //case GetDataConstants.LoadBoxScores:  02/13/2021
+               //  // new LoadBoxScores(oBballInfoDTO.UserName, oBballInfoDTO.LeagueName, oBballInfoDTO.GameDate, oBballInfoDTO.ConnectionString).LoadTodaysRotation();
+               //   new LoadBoxScores(oBballInfoDTO).LoadTodaysRotation();
+               //   break;
                case GetDataConstants.RefreshPostGameAnalysis:     // ocPostGameAnalysisDTO
                   new DataDO().RefreshPostGameAnalysis(oBballInfoDTO); 
                   break;
@@ -85,7 +79,7 @@ namespace Bball.BAL
                   var y = 2 / x;
                   break;
                default:
-                  throw new Exception("Invalid CollectionType: " + CollectionType);
+                  throw new Exception("DataBO.GetData - Invalid CollectionType: " + CollectionType);
             }
 
          }
@@ -147,6 +141,7 @@ namespace Bball.BAL
          foreach (var item in oBballInfoDTO.oBballDataDTO.ocLeagueNames)
          {
             oBballInfoDTO.LeagueName = item.Value;
+            
             new LoadBoxScores(oBballInfoDTO).LoadTodaysRotation();
          }
          new AdjustmentsDO(oBballInfoDTO).UpdateTodaysPlays();
@@ -216,6 +211,10 @@ namespace Bball.BAL
                _DataDO.ProcessPlays(oBballInfoDTO);
                break;
 
+            case PostDataConstants.ReloadBoxScores:
+               new LoadBoxScores().ReloadBoxScores(oBballInfoDTO);
+               break;
+
             default:
                throw new Exception("DataDO.PostData - Invalid CollectionType :" + oBballInfoDTO.CollectionType);
          }
@@ -246,18 +245,22 @@ namespace Bball.BAL
          d.LoadBoxScores = LoadBoxScores;
          d.RefreshPostGameAnalysis = RefreshPostGameAnalysis;
          d.RefreshTodaysMatchups = RefreshTodaysMatchups;
+         d.GetPastMatchups = GetPastMatchups;
       }
    }
    public class PostDataConstants
    {
+      
       public const string InsertAdjustment = "InsertAdjustment";
       public const string ProcessPlays = "ProcessPlays";
+      public const string ReloadBoxScores = "ReloadBoxScores";
       public const string UpdateAdjustments = "UpdateAdjustments";
       
       public static void PopulatePostDataConstants(dynamic d)
       {
          d.InsertAdjustment = InsertAdjustment;
          d.ProcessPlays = ProcessPlays;
+         d.ReloadBoxScores = ReloadBoxScores;
          d.UpdateAdjustments = UpdateAdjustments;
       }
 

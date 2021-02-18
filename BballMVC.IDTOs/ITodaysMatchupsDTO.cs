@@ -39,6 +39,12 @@ namespace BballMVC.IDTOs
       double AwayProjectedPt2 { get; set; }
       double AwayProjectedPt3 { get; set; }
       double BxScLinePct { get; set; }
+      double? CalcAwayGB1PlanB { get; set; }
+      double? CalcAwayGB2PlanB { get; set; }
+      double? CalcAwayGB3PlanB { get; set; }
+      double? CalcHomeGB1PlanB { get; set; }
+      double? CalcHomeGB2PlanB { get; set; }
+      double? CalcHomeGB3PlanB { get; set; }
       bool? Canceled { get; set; }
       DateTime GameDate { get; set; }
       string GameTime { get; set; }
@@ -93,8 +99,11 @@ namespace BballMVC.IDTOs
       DateTime? TS { get; set; }
       string TV { get; set; }
       double UnAdjTotal { get; set; }
-      double UnAdjTotalAway { get; set; }
+      double? UnAdjTotalAway { get; set; }
+      double? UnAdjTotalAwayPlanB { get; set; }
       double UnAdjTotalHome { get; set; }
+      double? UnAdjTotalHomePlanB { get; set; }
+      double? UnAdjTotalPlanB { get; set; }
       string UserName { get; set; }
       double? Volatility { get; set; }
       double? VolatilityAway { get; set; }

@@ -4,7 +4,7 @@ using System.Linq;
 using BballMVC.DTOs;
 using Bball.DataBaseFunctions;
 using Bball.DAL.Parsing;
-
+using SysDAL.Functions;
 //using Bball.VbClasses.Bball.VbClasses;
 
 namespace Bball.DAL.Tables
@@ -33,20 +33,18 @@ namespace Bball.DAL.Tables
 
       delegate  void  PopulateDTOValues(List<string> ocValues, object DTO);
 
-
-
       #region BoxScoreInsert
       public static void InsertBoxScores(BoxScoresDTO oBoxScoresDTO, string ConnectionString)
-         => InsertRowPrep(ConnectionString, BoxScoresTable, BoxScoresColumns, oBoxScoresDTO, populate_ocValues);
+         => insertRowPrep(ConnectionString, BoxScoresTable, BoxScoresColumns, oBoxScoresDTO, populate_ocValues);
 
-      static string InsertRowPrep(string ConnectionString, string TableName, string ColumnNames, object DTO, PopulateDTOValues delPopulateDTOValues)
+      static string insertRowPrep(string ConnectionString, string TableName, string ColumnNames, object DTO, PopulateDTOValues delPopulateDTOValues)
       {
          List<string> ocColumns = ColumnNames.Split(',').OfType<string>().ToList();
          List<string> ocValues = new List<string>();
          delPopulateDTOValues(ocValues, DTO);   // Execute Delegate
        //  string ConnectionString = SqlFunctions.GetConnectionString();
          string SQL = SysDAL.Functions.DALfunctions.GenSql(TableName, ocColumns);
-         return SysDAL.Functions.DALfunctions.InsertRow(ConnectionString, SQL, ocColumns, ocValues);
+         return DALfunctions.InsertRow(ConnectionString, SQL, ocColumns, ocValues);
       }
       static void populate_ocValues(List<string> ocValues, object DTO)
       {
@@ -117,13 +115,15 @@ namespace Bball.DAL.Tables
          ocValues.Add(oBoxScoresDTO.Source.ToString());
          ocValues.Add(oBoxScoresDTO.LoadDate.ToString());
          ocValues.Add(oBoxScoresDTO.LoadTimeSeconds.ToString());
-
-
          #endregion pastedBoxScoresRows
-
-      }
-
+      }  // populate_ocValues
       #endregion BoxScoreInsert
+
+      public static void DeleteBoxScoresByDate(String ConnectionString, string LeagueName, DateTime GameDate)
+      {
+         string strSql = $"Delete BoxScores Where LeagueName = '{LeagueName}' AND GameDate = '{GameDate.ToShortDateString()}'";
+         DALfunctions.ExecuteSqlNonQuery(ConnectionString, strSql);
+      }
       #region BoxScoresLast5Min
       public static void InsertAwayHomeRowsBoxScoresLast5Min(BoxScoresLast5MinDTO oLast5MinDTOHome, string ConnectionString, BoxScoresLast5Min oLast5Min)
       {  // kd 12/15/2020 Injected oLast5Min
@@ -138,7 +138,7 @@ namespace Bball.DAL.Tables
       }
 
       static void InsertBoxScoresLast5Min(BoxScoresLast5MinDTO oBoxScoresLast5MinDTO, string ConnectionString) 
-         => InsertRowPrep(ConnectionString, BoxScoresLast5MinTable, BoxScoresLast5MinColumns, oBoxScoresLast5MinDTO, populateBoxScoreLast5MinDTOValues);
+         => insertRowPrep(ConnectionString, BoxScoresLast5MinTable, BoxScoresLast5MinColumns, oBoxScoresLast5MinDTO, populateBoxScoreLast5MinDTOValues);
 
       static void populateAwayBoxScoreLast5MinDTOValues(BoxScoresLast5MinDTO oHomeDTO, BoxScoresLast5MinDTO oAwayDTO)
       {

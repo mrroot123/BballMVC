@@ -20,7 +20,9 @@
                   <br /> {{Getmdy(oBballInfoDTO.GameDate)}}
                </div>
             </div>
-            <div ng-include="'Common/_GameDate.html'"></div>
+            <div class="col-md-3">
+               <div ng-include="'Common/_GameDate.html'"></div>
+            </div>
             <div class="col-md-3">
                <div class="row">
                   <div class="col-md-6">
@@ -31,6 +33,7 @@
                   <div class="col-md-6">
                      <div><input type="checkbox" ng-model="Multi"> Show Multi Lines</div>
                      <div><input type="checkbox" ng-model="condensed"> Condensed Display</div>
+                     <div><input type="checkbox" ng-model="ShowCanceledGames"> Show Canceled Games</div>
                   </div>
                </div>
             </div>

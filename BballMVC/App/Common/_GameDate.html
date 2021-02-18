@@ -1,8 +1,32 @@
-﻿<div class="col-md-3">
-   
-   <input type="date" ng-model="oBballInfoDTO.GameDate" />
-   <button type="button" class="btn btn-info active" data-toggle="tooltip" title="Select Game Date"
-           ng-show="true" ng-click="RefreshTodaysMatchups()">
-      Select Game Date
-   </button>
+﻿<div class="container">
+   <div class="row">
+      <div class="col-md-4">
+         <button type="button" class="btn-xs btn-info active" data-toggle="tooltip" title="Select Game Date"
+                 ng-show="true" ng-click="RefreshTodaysMatchups()">
+            Select Game Date
+         </button>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-md-4">
+         <input type="date" ng-model="oBballInfoDTO.GameDate" />
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-sm-12">
+
+         <button type="button" class="btn-xs btn-info active" data-toggle="tooltip" title="Select Yesterday's Game Date"
+                 ng-show="true" ng-click="RefreshTodaysMatchups(false, 'yesterday')">
+            Yesterday
+         </button>
+         <button type="button" class="btn-xs btn-info active" data-toggle="tooltip" title="Select Today's Game Date"
+                 ng-show="true" ng-click="RefreshTodaysMatchups(false, 'today')">
+            Today
+         </button>
+         <button type="button" class="btn-xs btn-info active" data-toggle="tooltip" title="Select Tomorrow's Game Date"
+                 ng-show="true" ng-click="RefreshTodaysMatchups(false, 'tomorrow')">
+            Tomorrow
+         </button>
+      </div>
+   </div>
 </div>

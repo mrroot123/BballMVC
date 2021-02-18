@@ -4,24 +4,23 @@
       <table class="table table-bordred table-striped  table-condensed w-auto" style="width:90%">
          <!-- Colspan Doc site https://www.w3.org/WAI/tutorials/tables/irregular/ -->
          <!--
-                1     2    3        4       5       6       7      8       9      10        11      12       13      14     15       16   17
-              Rot # Team  Vol     Last 3  Last 5  Last 7  UnAdj  Points  Points  Team      Adjust  OT/Sid  Calced   Total  Side     Line Play
-              Time        atilly    1       1       1     Total  Scored  Allowe  Strength  ments    Adj     Line    Line   Open TL  Diff
-         cons              x        x       x       x       x      x       x       x         x       x
-                 -->
+          1     2    3        4       5       6       7      7B      8       9      10        11      12       13      14     15       16   17
+        Rot # Team  Vol     Last 3  Last 5  Last 7  UnAdj  UnAdj  Points  Points  Team      Adjust  OT/Sid  Calced   Total  Side     Line Play
+        Time        atilly    1       1       1     Total  PlanB  Scored  Allowe  Strength  ments    Adj     Line    Line   Open TL  Diff
+   cons              x        x       x       x       x      x       x       x         x       x
+           -->
          <!-- Header 1 -->
-         <tr style="color:{{LeagueColor}};">
-            <th colspan="2"></th>
+         <!--<tr style="color:{{LeagueColor}};">
+      <th colspan="2"></th>
 
-            <th colspan="1" ng-Hide="condensed"></th>
-            <th colspan="3" ng-Hide="condensed" class="text-center"><=== History (Games Back/Weight) ===></th>
-            <th colspan="4" ng-Hide="condensed"></th>
-            <th colspan="2" ng-Hide="condensed">Adjustments</th>
+      <th colspan="1" ng-Hide="condensed"></th>
+      <th colspan="3" ng-Hide="condensed" class="text-center"><=== History (Games Back/Weight) ===></th>
+      <th colspan="4" ng-Hide="condensed"></th>
+      <th colspan="2" ng-Hide="condensed">Adjustments</th>
 
-            <th colspan="3">Lines</th>
-            <th colspan="2"></th>
-         </tr>
-
+      <th colspan="3">Lines</th>
+      <th colspan="2"></th>
+   </tr>-->
          <!-- Header 2 -->
          <tr style="color:{{LeagueColor}};">
             <th>Rot #<br>Time</th>
@@ -33,6 +32,7 @@
             <th ng-Hide="condensed">Last&nbsp;{{TMparms.GB3}}<br />&nbsp;&nbsp;&nbsp;{{TMparms.WeightGB3}}</th>
 
             <th ng-Hide="condensed">UnAdj<br />Total</th>
+            <th ng-Hide="condensed">UnAdj Tot<br />Plan B</th>
             <th ng-Hide="condensed">Points<br />Scored</th>
             <th ng-Hide="condensed">Points<br />Allowed</th>
             <th ng-Hide="condensed">Team<br />Strength</th>
@@ -83,18 +83,18 @@
          <tr ng-show="ocTodaysMatchups.length==0"><td>No Games Scheduled</td></tr>
 
          <!-- Matchups -->
-         <tr ng-repeat="item in ocTodaysMatchups" ng-hide="ShowPlaysOnly && '{{item.Play.trim()}}' === ''">
+         <tr ng-repeat="item in ocTodaysMatchups" ng-hide="HideMatchupRow(this)">
 
             <td>
                <table>
                   <tr>
-                     <td ng-hide="Multi">{{item.RotNum}} - {{DisplayTimeAmPm(item.GameTime)}}</td>
+                     <td ng-hide="Multi" id="RotNumGameTime_{{$index}}">{{item.RotNum}} - {{DisplayTimeAmPm(this)}}</td>
                   </tr>
                   <tr>
                      <td ng-show="Multi" id="RotNum_{{$index}}">{{item.RotNum}}</td>
                   </tr>
                   <tr>
-                     <td ng-show="Multi" id="GameTime_{{$index}}">{{DisplayTimeAmPm(item.GameTime)}}</td>
+                     <td ng-show="Multi" id="GameTime_{{$index}}">{{DisplayTimeAmPm(this)}}</td>
                   </tr>
                </table>
             </td>
@@ -177,6 +177,19 @@
                   </tr>
                   <tr>
                      <td class="statTotal">{{item.UnAdjTotal | number:1}}</td>
+                  </tr>
+               </table>
+            </td>
+            <td ng-Hide="condensed">
+               <table>
+                  <tr>
+                     <td ng-show="Multi">{{item.UnAdjTotalAwayPlanB | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td ng-show="Multi">{{item.UnAdjTotalHomePlanB | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td class="statTotal">{{item.UnAdjTotalPlanB | number:1}}</td>
                   </tr>
                </table>
             </td>
@@ -273,7 +286,7 @@
                      <td ng-show="Multi">{{(item.TotalLine+item.SideLine)/2 | number:1}}</td>
                   </tr>
                   <tr>
-                     <td id="TotalLine_{{$index}}"  ng-class="applyTotalLineDirection(this)">{{item.TotalLine | number:1}}</td>
+                     <td id="TotalLine_{{$index}}" ng-class="applyTotalLineDirection(this)">{{item.TotalLine | number:1}}</td>
                   </tr>
 
                </table>
@@ -288,7 +301,7 @@
                   </tr>
                   <tr><td ng-show="Multi">&nbsp;</td> </tr>
                   <tr>
-                     <td ng-show="Multi">{{item.OpenTotalLine |  number:1}}</td>
+                     <td ng-show="Multi">{{item.OpenTotalLine === 0.0 ? "" : item.OpenTotalLine }}</td>
                   </tr>
                </table>
             </td>

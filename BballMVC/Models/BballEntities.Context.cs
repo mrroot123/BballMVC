@@ -43,7 +43,6 @@ namespace BballMVC.Models
         public virtual DbSet<TeamStat> TeamStats { get; set; }
         public virtual DbSet<TeamStatsAverage> TeamStatsAverages { get; set; }
         public virtual DbSet<TeamStrength> TeamStrengths { get; set; }
-        public virtual DbSet<TodaysMatchup> TodaysMatchups { get; set; }
         public virtual DbSet<TodaysMatchupsResult> TodaysMatchupsResults { get; set; }
         public virtual DbSet<TTILog> TTILogs { get; set; }
         public virtual DbSet<User> Users { get; set; }
@@ -53,6 +52,7 @@ namespace BballMVC.Models
         public virtual DbSet<AdjustmentsCodes> AdjustmentsCodes { get; set; }
         public virtual DbSet<DailySummary> DailySummary { get; set; }
         public virtual DbSet<UserLeagueParms> UserLeagueParms { get; set; }
+        public virtual DbSet<TodaysMatchups> TodaysMatchups { get; set; }
     
         [DbFunction("Entities2", "udfQueryAdjustmentsByTeamTotal")]
         public virtual IQueryable<udfQueryAdjustmentsByTeamTotal_Result> udfQueryAdjustmentsByTeamTotal(Nullable<System.DateTime> gameDate, string leagueName)

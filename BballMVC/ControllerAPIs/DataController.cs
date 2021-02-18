@@ -44,13 +44,14 @@ namespace BballMVC.ControllerAPIs
       public HttpResponseMessage RefreshTodaysMatchups(string UserName, DateTime GameDate, string LeagueName)
       {
          #region refreshTodaysMatchupsTryCatch
+         Helper.Log(oBballInfoDTO, "RefreshTodaysMatchups Entry");
          try
          {
             oBballInfoDTO.UserName = UserName;
             oBballInfoDTO.GameDate = GameDate;
             oBballInfoDTO.LeagueName = LeagueName;
 
-            new LoadBoxScores(UserName, LeagueName, GameDate, oBballInfoDTO.ConnectionString).LoadTodaysRotation();
+           // 02/13/2021 new LoadBoxScores(UserName, LeagueName, GameDate, oBballInfoDTO.ConnectionString).LoadTodaysRotation();
             oBballInfoDTO.CollectionType = "RefreshTodaysMatchups";
             oDataBO.GetData(oBballInfoDTO);
          }
@@ -65,9 +66,12 @@ namespace BballMVC.ControllerAPIs
             throw new Exception($"Message: {ex.Message} - Stacktrace: {ex.StackTrace}");
          }
          #endregion refreshTodaysMatchupsTryCatch
+         stopwatch.Stop();
+         Helper.Log(oBballInfoDTO, $"RefreshTodaysMatchups Exit - ET in ms: {stopwatch.ElapsedMilliseconds}");
 
          return Request.CreateResponse(HttpStatusCode.OK, oBballInfoDTO.oBballDataDTO);
       }
+      // Get Matchups with past date
       [HttpGet]
       public HttpResponseMessage GetPastMatchups(string UserName, DateTime GameDate, string LeagueName)
       {
@@ -79,6 +83,10 @@ namespace BballMVC.ControllerAPIs
             oBballInfoDTO.LeagueName = LeagueName;
 
             oBballInfoDTO.CollectionType = "GetPastMatchups";
+
+            //oBballInfoDTO.CollectionType = "ReloadBoxScores"; kdcleanup
+            //oBballInfoDTO.GameDate = Convert.ToDateTime("2/1/2021");
+
             oDataBO.GetData(oBballInfoDTO);
          }
          catch (Exception ex)
@@ -96,7 +104,7 @@ namespace BballMVC.ControllerAPIs
          return Request.CreateResponse(HttpStatusCode.OK, oBballInfoDTO.oBballDataDTO);
       }
 
-      //[HttpPost]
+      //[HttpPost] kdcleanup
       //public HttpResponseMessage PostData([FromBody]JObject strJObject)
       //{
       //   var CollectionType = "";
@@ -121,10 +129,10 @@ namespace BballMVC.ControllerAPIs
       //   oDataBO.PostData(oBballInfoDTO);
       //   return Request.CreateResponse(HttpStatusCode.OK, "Success");
       //}
-      public class MyClass
-      {
-         public string MyString { get; set; }
-      }
+      //public class MyClass
+      //{
+      //   public string MyString { get; set; }
+      //}
       [HttpPost]
       public HttpResponseMessage PostJsonString([FromBody] JsonString oJsonString, [FromUri]string CollectionType)
       {
@@ -208,61 +216,7 @@ namespace BballMVC.ControllerAPIs
          public float AdjustmentAmountMade { get; set; }
          public float AdjustmentAmountAllowed { get; set; }
       }
-      /*
-      [HttpGet]
-      public HttpResponseMessage GetAdjustmentInfo(DateTime GameDate, string LeagueName)
-      {
-         IAdjustmentInitDataDTO oAdjustmentInitDataDTO = oDataBO.GetAdjustmentInfo(GameDate, LeagueName);
-         return Request.CreateResponse(HttpStatusCode.OK, oAdjustmentInitDataDTO);
-      }
 
-      [HttpPost]
-      public HttpResponseMessage PostProcessUpdates(List<AdjustmentDTO> ocAdjustmentDTO)
-      {
-         //   var a = new AdjustmentDTO { AdjustmentAmount = 2, AdjustmentID = 1 };
-         //   var b =  Request.RequestUri.GetLeftPart(System.UriPartial.Authority);
-         IList<IAdjustmentDTO> aa = new List<IAdjustmentDTO>();
-         foreach (AdjustmentDTO adj in ocAdjustmentDTO)
-         {
-            aa.Add(adj);
-         }
-         //  IList<IAdjustmentDTO> x = (IList<IAdjustmentDTO>) ocAdjustmentDTO;
-         oDataBO.UpdateData(aa);
-
-         return Request.CreateResponse(HttpStatusCode.OK, "Success");
-      }
-      [HttpPost] //  [ValidateAntiForgeryToken]
-      public HttpResponseMessage PostInsertAdjustment(AdjustmentDTO oAdjustmentDTO)
-      {
-         try
-         {
-            oDataBO.InsertNewAdjustment(oAdjustmentDTO);
-         }
-         catch (SqlException ex)
-         {
-            if (ex.State == 0)
-            {
-               return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
-            }
-            throw new Exception(ex.Message);
-         }
-         catch (Exception ex)
-         {
-            throw new Exception(ex.Message);
-         }
-         return Request.CreateResponse(HttpStatusCode.OK);
-      }
-*/
    }
-   //public class GetDataConstants
-   //{
-   //   public const string DataConstants = "DataConstants";
-   //   public const string GetBoxScoresSeeds = "GetBoxScoresSeeds";
-   //   public const string GetDailySummaryDTO = "GetDailySummaryDTO";
-   //   public const string GetLeagueData = "GetLeagueData";
-   //   public const string GetLeagueNames = "GetLeagueNames";
-   //   public const string LoadBoxScores = "LoadBoxScores";
-   //   public const string RefreshPostGameAnalysis = "RefreshPostGameAnalysis";
-   //   public const string RefreshTodaysMatchups = "RefreshTodaysMatchups";
-   //}
+
 }

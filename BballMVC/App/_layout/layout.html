@@ -73,6 +73,44 @@
          </div>
       </div>
 
-   </div>
+      <div class="panel panel-default">
+         <div class="panel-heading">
+            <h4 class="panel-title">
+               <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#accBballManagement"
+                     ng-click="ClickBballManagement()">
+                  <span class="glyphicon glyphicon-menu-right"></span>
+                  Bball Management
+               </a>
+            </h4>
+         </div>
+         <div id="accBballManagement" class="panel-collapse collapse">
+            <div class="panel-body">
+               <div ng-include="'BballManagement/BballManagement.html'"></div>
+            </div>
+         </div>
+      </div>
 
+      <!--TEMPLATE-->
+      <!--
+   <div class="panel panel-default">
+      <div class="panel-heading">
+         <h4 class="panel-title">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#accTEMPLATE">
+               <span class="glyphicon glyphicon-menu-right"></span>
+               Template DisplayName
+            </a>
+         </h4>
+      </div>
+      <div id="accTEMPLATE" class="panel-collapse collapse">
+         <div class="panel-body">
+            <div ng-include="'TEMPLATE.html'"></div>
+         </div>
+      </div>
+   </div>
+      -->
+
+   </div>
+   <div class="panel-body">
+      <div ng-include="'Common/AlertModal.html'"></div>
+   </div>
 </div>

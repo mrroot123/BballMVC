@@ -14,14 +14,27 @@
 #AdjustmentsByTeamModal {
    border-style: double;
    text-align: left;
-   position: fixed;
-   left: 37.5%;
+   xposition: fixed;
+   left: 5%;
    top: 5%;
    z-index: 20;
    display: none;
    padding-top: 6px
 }
 
+#AlertModal {
+   border-style: double;
+   text-align: left;
+   background: yellow;
+   font-size: large;
+   position: fixed;
+   left: 5%;
+   right: 5%;
+   top: 5%;
+   z-index: 20;
+   display: none;
+   padding: 6px
+}
 #AdjustmentsListContainer {
 }
 

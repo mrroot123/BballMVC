@@ -32,7 +32,7 @@ namespace Bball.DAL.Tables
 
       public void InsertLinesFromRotation()
       {
-         // call SP to writeLines
+         // call SP to Read Rotation by Lg & GameDate and writeLines
          List<string> SqlParmNames = new List<string>() { "GameDate", "LeagueName" };
          List<object> SqlParmValues = new List<object>()
             { _GameDate.ToShortDateString(), _oLeagueDTO.LeagueName };
@@ -57,6 +57,7 @@ namespace Bball.DAL.Tables
 
       public int GetRow(LinesDTO oLinesDTO)
       {
+         // 2/13/2021 - NOTE: not accessed - and will got ALL rows for GameDate
          int rows = SysDAL.Functions.DALfunctions.ExecuteSqlQuery(_ConnectionString, getRowSql(), oLinesDTO, populateDTOFromRdr);
          return rows;
       }

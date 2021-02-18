@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Http.Filters;
+using BballMVC.IDTOs;
 
 
 namespace TTI.Logger
@@ -11,6 +12,29 @@ namespace TTI.Logger
    {
       const string TTILog = "TTILog";
 
+      public static void Log(IBballInfoDTO oBballInfoDTO,  string Message)
+      {
+         logIt(oBballInfoDTO, "Log", Message, "");
+      }
+      public static void LogMessage(IBballInfoDTO oBballInfoDTO, Exception ex, string Message)
+      {
+         logIt(oBballInfoDTO, "Error", Message, ex.StackTrace);
+      }
+      private static void logIt(IBballInfoDTO oBballInfoDTO, string MessageType, string Message, string StackTrace)
+      {
+         TTILogMessage oTTILogMessage = new TTILogMessage()
+         {
+            TS = oBballInfoDTO.TS,
+            UserName = oBballInfoDTO.UserName,
+            ApplicationName = "Bball",
+            MessageNum = 0,
+            MessageType = MessageType,
+            MessageText = Message,
+            CallStack = StackTrace
+         };
+
+         LogMessage(oTTILogMessage, oBballInfoDTO.ConnectionString, oBballInfoDTO.LogName);
+      }
       public static void LogMessage(HttpActionExecutedContext context)
       {
          TTILogMessage oTTILogMessage = new TTILogMessage()
@@ -40,16 +64,24 @@ namespace TTI.Logger
          List<string> ocValues = new List<string>()
          {
             oTTILogMessage.TS == null ? DateTime.Now.ToLongTimeString() : oTTILogMessage.TS.ToString(),
-            oTTILogMessage.UserName,
+            oTTILogMessage.UserName ?? "",
             oTTILogMessage.ApplicationName,
             oTTILogMessage.MessageNum.ToString(),
-            oTTILogMessage.MessageType == null ? "Error" : oTTILogMessage.MessageType,
+            oTTILogMessage.MessageType ?? "Error",
             oTTILogMessage.MessageText,
-            oTTILogMessage.CallStack == null ? "" : oTTILogMessage.CallStack
+            oTTILogMessage.CallStack ?? ""
          };
 
          // insert row
-         string rc = SysDAL.Functions.DALfunctions.InsertTableRow(ConnectionString, TTILogTable, ocColumns, ocValues);
+         string rc = "";
+         //try
+         //{
+            rc = SysDAL.Functions.DALfunctions.InsertTableRow(ConnectionString, TTILogTable, ocColumns, ocValues);
+         //}
+         //catch (Exception ex)
+         //{
+         //   throw new Exception("Invalid TTILogTable Insert/n" + ex.Message);
+         //}
          if (rc == "1")
             return "success - TTILog row inserted";
          if (rc == "0")

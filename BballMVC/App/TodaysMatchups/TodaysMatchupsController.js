@@ -8,6 +8,7 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
    $scope.PlayEntry = false;
    $scope.ShowPlaysOnly = false;
    $scope.Multi = true;
+   $scope.ShowCanceledGames = true;
 
    let ocOuts = [
       { name: "Pin", juice: "105" }
@@ -53,11 +54,33 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
       }
    });
 
-   $scope.RefreshTodaysMatchups = function (refresh) {
-      if (!$rootScope.RefreshTodaysMatchupsState &&!refresh) {
-         if (localGameDate === $rootScope.oBballInfoDTO.GameDate) {
+   $scope.RefreshTodaysMatchups = function (refresh, newDateLiteral) {
+      if (newDateLiteral) {
+         let newDate = null;
+         if (newDateLiteral === "yesterday") {
+            newDate = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1);
+         }
+         else if (newDateLiteral === "today") {
+            newDate = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+         }
+         else if (newDateLiteral === "tomorrow") {
+            newDate = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 1);
+         }
+         else {
+            return;
+         }
+         if (newDate.toDateString() === $rootScope.oBballInfoDTO.GameDate.toDateString()) {
             alert(localGameDate.toLocaleDateString() + " is already Selected");
             return;
+         }
+         $rootScope.oBballInfoDTO.GameDate = newDate;
+      }
+      else {
+         if (!$rootScope.RefreshTodaysMatchupsState && !refresh) {
+            if (localGameDate === $rootScope.oBballInfoDTO.GameDate) {
+               alert(localGameDate.toLocaleDateString() + " is already Selected");
+               return;
+            }
          }
       }
 
@@ -65,6 +88,7 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
       $scope.PlayEntry = false;
       $scope.ShowPlaysOnly = false;
       $scope.ShowDailySummary = true;
+      $scope.ShowCanceledGames = true;
 
       var URL = $rootScope.oBballInfoDTO.GameDate < f.Today() ? url.UrlGetPastMatchups : url.UrlRefreshTodaysMatchups;
       localGameDate = $rootScope.oBballInfoDTO.GameDate;
@@ -156,7 +180,25 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
       alert("GameDateChange");
       // $rootScope.oBballInfoDTO.GameDate = GameDate;
    };
-   $scope.DisplayTimeAmPm = function (GameTime) {
+   // <tr ng-repeat="item in ocTodaysMatchups" 
+   // ng - hide=" (ShowPlaysOnly && '{{item.Play.trim()}}' === '') ||  " >
+   $scope.HideMatchupRow = function (obj) {
+      if (obj.item.Canceled && !$scope.ShowCanceledGames)
+         return true;
+      if (obj.item.Play === null)
+         obj.item.Play = "";
+      if ($scope.ShowPlaysOnly && (obj.item.Play === null || obj.item.Play.trim() === '') )
+         return true;
+
+      return false;
+   };
+   $scope.DisplayTimeAmPm = function (obj) {
+      if (obj.item.Canceled) {
+         $("#RotNumGameTime_" + obj.$index).addClass("under");
+         $("#GameTime_" + obj.$index).addClass("under");
+         return "Canceled";
+      }
+      let GameTime = obj.item.GameTime;
       if (!GameTime)
          return;
       if (GameTime.indexOf(":") === -1)
@@ -305,6 +347,8 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
       return;
    };
    $scope.applyClassPlayColor = function (obj) {
+      if (obj.item.Play === null)
+         return "";
       return obj.item.Play.trim().toLowerCase();
    };
 

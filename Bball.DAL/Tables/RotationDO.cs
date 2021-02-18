@@ -162,9 +162,9 @@ namespace Bball.DAL.Tables
             {
                _oLeagueDTO.LeagueName
 
-               , _oBballInfoDTO.oSeasonInfoDTO.Season
-               , _oBballInfoDTO.oSeasonInfoDTO.SubSeason
-               , _oBballInfoDTO.oSeasonInfoDTO.SubSeasonPeriod.ToString()
+               , _oBballInfoDTO.oBballDataDTO.oSeasonInfoDTO.Season
+               , _oBballInfoDTO.oBballDataDTO.oSeasonInfoDTO.SubSeason
+               , _oBballInfoDTO.oBballDataDTO.oSeasonInfoDTO.SubSeasonPeriod.ToString()
 
                , _GameDate.ToShortDateString()
                , oCoversDTO.RotNum.ToString()
@@ -194,9 +194,9 @@ namespace Bball.DAL.Tables
             {
                _oLeagueDTO.LeagueName
 
-               , _oBballInfoDTO.oSeasonInfoDTO.Season
-               , _oBballInfoDTO.oSeasonInfoDTO.SubSeason
-               , _oBballInfoDTO.oSeasonInfoDTO.SubSeasonPeriod.ToString()
+               , _oBballInfoDTO.oBballDataDTO.oSeasonInfoDTO.Season
+               , _oBballInfoDTO.oBballDataDTO.oSeasonInfoDTO.SubSeason
+               , _oBballInfoDTO.oBballDataDTO.oSeasonInfoDTO.SubSeasonPeriod.ToString()
 
                , _GameDate.ToShortDateString()
                , (oCoversDTO.RotNum + 1).ToString()

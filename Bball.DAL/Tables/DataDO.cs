@@ -290,13 +290,15 @@ namespace Bball.DAL.Tables
          //      if (ocTodaysMatchupsDTO == null)
          oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO = new List<ITodaysMatchupsDTO>();
          string Sql = ""
-            + $"SELECT tp.Played, tm.* FROM TodaysMatchups tm "
+            + $"SELECT tp.Played, r.Canceled AS rCanceled, tm.* "
+            + $"  FROM TodaysMatchups tm "
+            + $"  Join Rotation r ON r.GameDate = tm.GameDate and r.RotNum = tm.RotNum "
             + $"  Left Join "
             + $"   ( SELECT GameDate, RotNum, 'Played' as Played FROM TodaysPlays where GameDate = '{oBballInfoDTO.GameDate.ToShortDateString()}'  Group By GameDate, RotNum )"
-            + $"  tp ON tp.GameDate = tm.GameDate AND tp.RotNum = tm.RotNum AND tm.Play <> ''"
+            + $"      tp ON tp.GameDate = tm.GameDate AND tp.RotNum = tm.RotNum AND tm.Play <> ''"
             + $"  Where tm.UserName = '{oBballInfoDTO.UserName}'  And tm.LeagueName = '{oBballInfoDTO.LeagueName}'"
-            + $"  And tm.GameDate = '{oBballInfoDTO.GameDate.ToShortDateString()}'"
-            + "   Order By tm.RotNum"
+            + $"    And tm.GameDate = '{oBballInfoDTO.GameDate.ToShortDateString()}'"
+            + "   Order By tm.GameTime, tm.RotNum"
          ;
 
          int rows = SysDAL.Functions.DALfunctions.ExecuteSqlQuery(
@@ -307,105 +309,115 @@ namespace Bball.DAL.Tables
       {
          ITodaysMatchupsDTO o = new TodaysMatchupsDTO(); //  (TodaysMatchupsDTO)oRow;
 
+         o.TV = rdr["TV"] == DBNull.Value ? null : (string)rdr["TV"];
+         o.Play = rdr["Play"] == DBNull.Value ? null : (string)rdr["Play"];
+         o.Season = rdr["Season"].ToString().Trim();
+         o.SubSeason = rdr["SubSeason"].ToString().Trim();
+         o.TeamAway = rdr["TeamAway"].ToString().Trim();
+         o.TeamHome = rdr["TeamHome"].ToString().Trim();
+         o.UserName = rdr["UserName"].ToString().Trim();
+         o.LeagueName = rdr["LeagueName"].ToString().Trim();
+         o.GameDate = (DateTime)rdr["GameDate"];
+         o.TS = rdr["TS"] == DBNull.Value ? null : (DateTime?)rdr["TS"];
+         o.PlayDiff = rdr["PlayDiff"] == DBNull.Value ? null : (double?)rdr["PlayDiff"];
+         o.OpenPlayDiff = rdr["OpenPlayDiff"] == DBNull.Value ? null : (double?)rdr["OpenPlayDiff"];
+         o.AdjustedDiff = rdr["AdjustedDiff"] == DBNull.Value ? null : (double?)rdr["AdjustedDiff"];
+         o.BxScLinePct = (double)rdr["BxScLinePct"];
+         o.TmStrAdjPct = (double)rdr["TmStrAdjPct"];
+         o.VolatilityAway = rdr["VolatilityAway"] == DBNull.Value ? null : (double?)rdr["VolatilityAway"];
+         o.VolatilityHome = rdr["VolatilityHome"] == DBNull.Value ? null : (double?)rdr["VolatilityHome"];
+         o.Volatility = rdr["Volatility"] == DBNull.Value ? null : (double?)rdr["Volatility"];
+         o.TmStrAway = (double)rdr["TmStrAway"];
+         o.TmStrHome = rdr["TmStrHome"] == DBNull.Value ? null : (double?)rdr["TmStrHome"];
+         o.UnAdjTotalAway = rdr["UnAdjTotalAway"] == DBNull.Value ? null : (double?)rdr["UnAdjTotalAway"];
+         o.UnAdjTotalHome = (double)rdr["UnAdjTotalHome"];
+         o.UnAdjTotal = (double)rdr["UnAdjTotal"];
+         o.UnAdjTotalAwayPlanB = rdr["UnAdjTotalAwayPlanB"] == DBNull.Value ? null : (double?)rdr["UnAdjTotalAwayPlanB"];
+         o.UnAdjTotalHomePlanB = rdr["UnAdjTotalHomePlanB"] == DBNull.Value ? null : (double?)rdr["UnAdjTotalHomePlanB"];
+         o.UnAdjTotalPlanB = rdr["UnAdjTotalPlanB"] == DBNull.Value ? null : (double?)rdr["UnAdjTotalPlanB"];
+         o.CalcAwayGB1PlanB = rdr["CalcAwayGB1PlanB"] == DBNull.Value ? null : (double?)rdr["CalcAwayGB1PlanB"];
+         o.CalcAwayGB2PlanB = rdr["CalcAwayGB2PlanB"] == DBNull.Value ? null : (double?)rdr["CalcAwayGB2PlanB"];
+         o.CalcAwayGB3PlanB = rdr["CalcAwayGB3PlanB"] == DBNull.Value ? null : (double?)rdr["CalcAwayGB3PlanB"];
+         o.CalcHomeGB1PlanB = rdr["CalcHomeGB1PlanB"] == DBNull.Value ? null : (double?)rdr["CalcHomeGB1PlanB"];
+         o.CalcHomeGB2PlanB = rdr["CalcHomeGB2PlanB"] == DBNull.Value ? null : (double?)rdr["CalcHomeGB2PlanB"];
+         o.CalcHomeGB3PlanB = rdr["CalcHomeGB3PlanB"] == DBNull.Value ? null : (double?)rdr["CalcHomeGB3PlanB"];
+         o.AwayAveragePtsScored = rdr["AwayAveragePtsScored"] == DBNull.Value ? null : (double?)rdr["AwayAveragePtsScored"];
+         o.HomeAveragePtsScored = rdr["HomeAveragePtsScored"] == DBNull.Value ? null : (double?)rdr["HomeAveragePtsScored"];
+         o.AwayAveragePtsAllowed = rdr["AwayAveragePtsAllowed"] == DBNull.Value ? null : (double?)rdr["AwayAveragePtsAllowed"];
+         o.HomeAveragePtsAllowed = rdr["HomeAveragePtsAllowed"] == DBNull.Value ? null : (double?)rdr["HomeAveragePtsAllowed"];
          o.AdjAmt = (double)rdr["AdjAmt"];
          o.AdjAmtAway = (double)rdr["AdjAmtAway"];
          o.AdjAmtHome = (double)rdr["AdjAmtHome"];
          o.AdjDbAway = (double)rdr["AdjDbAway"];
          o.AdjDbHome = (double)rdr["AdjDbHome"];
          o.AdjOTwithSide = (double)rdr["AdjOTwithSide"];
-         o.AdjPace = rdr["AdjPace"] == DBNull.Value ? null : (double?)rdr["AdjPace"];
-         o.AdjRecentLeagueHistory = rdr["AdjRecentLeagueHistory"] == DBNull.Value ? null : (double?)rdr["AdjRecentLeagueHistory"];
          o.AdjTV = (double)rdr["AdjTV"];
-         o.AdjustedDiff = rdr["AdjustedDiff"] == DBNull.Value ? null : (double?)rdr["AdjustedDiff"];
-         o.AllAdjustmentLines = rdr["AllAdjustmentLines"] == DBNull.Value ? null : (string)rdr["AllAdjustmentLines"];
-         o.AwayAverageAtmpUsPt1 = (double)rdr["AwayAverageAtmpUsPt1"];
-         o.AwayAverageAtmpUsPt2 = (double)rdr["AwayAverageAtmpUsPt2"];
-         o.AwayAverageAtmpUsPt3 = (double)rdr["AwayAverageAtmpUsPt3"];
-
-         o.AwayAveragePtsScored = rdr["AwayAveragePtsScored"] == DBNull.Value ? null : (double?)rdr["AwayAveragePtsScored"];
-         o.HomeAveragePtsScored = rdr["HomeAveragePtsScored"] == DBNull.Value ? null : (double?)rdr["HomeAveragePtsScored"];
-         o.AwayAveragePtsAllowed = rdr["AwayAveragePtsAllowed"] == DBNull.Value ? null : (double?)rdr["AwayAveragePtsAllowed"];
-         o.AwayGB1 = (double)rdr["AwayGB1"];
-         o.AwayGB1Pt1 = (double)rdr["AwayGB1Pt1"];
-         o.AwayGB1Pt2 = (double)rdr["AwayGB1Pt2"];
-         o.AwayGB1Pt3 = (double)rdr["AwayGB1Pt3"];
-         o.AwayGB2 = (double)rdr["AwayGB2"];
-         o.AwayGB2Pt1 = (double)rdr["AwayGB2Pt1"];
-         o.AwayGB2Pt2 = (double)rdr["AwayGB2Pt2"];
-         o.AwayGB2Pt3 = (double)rdr["AwayGB2Pt3"];
-         o.AwayGB3 = (double)rdr["AwayGB3"];
-         o.AwayGB3Pt1 = (double)rdr["AwayGB3Pt1"];
-         o.AwayGB3Pt2 = (double)rdr["AwayGB3Pt2"];
-         o.AwayGB3Pt3 = (double)rdr["AwayGB3Pt3"];
-         o.AwayProjectedAtmpPt1 = rdr["AwayProjectedAtmpPt1"] == DBNull.Value ? null : (double?)rdr["AwayProjectedAtmpPt1"];
-         o.AwayProjectedAtmpPt2 = rdr["AwayProjectedAtmpPt2"] == DBNull.Value ? null : (double?)rdr["AwayProjectedAtmpPt2"];
-         o.AwayProjectedAtmpPt3 = rdr["AwayProjectedAtmpPt3"] == DBNull.Value ? null : (double?)rdr["AwayProjectedAtmpPt3"];
+         o.AdjRecentLeagueHistory = rdr["AdjRecentLeagueHistory"] == DBNull.Value ? null : (double?)rdr["AdjRecentLeagueHistory"];
+         o.AdjPace = rdr["AdjPace"] == DBNull.Value ? null : (double?)rdr["AdjPace"];
+         o.OurTotalLineAway = (double)rdr["OurTotalLineAway"];
+         o.OurTotalLineHome = (double)rdr["OurTotalLineHome"];
+         o.OurTotalLine = (double)rdr["OurTotalLine"];
+         o.SideLine = (double)rdr["SideLine"];
+         o.TotalLine = rdr["TotalLine"] == DBNull.Value ? null : (double?)rdr["TotalLine"];
+         o.OpenTotalLine = rdr["OpenTotalLine"] == DBNull.Value ? null : (double?)rdr["OpenTotalLine"];
          o.AwayProjectedPt1 = (double)rdr["AwayProjectedPt1"];
          o.AwayProjectedPt2 = (double)rdr["AwayProjectedPt2"];
          o.AwayProjectedPt3 = (double)rdr["AwayProjectedPt3"];
-         o.BxScLinePct = (double)rdr["BxScLinePct"];
-         o.Canceled = rdr["Canceled"] == DBNull.Value ? null : (bool?)rdr["Canceled"];
-         o.GameDate = (DateTime)rdr["GameDate"];
-         o.GameTime = rdr["GameTime"] == DBNull.Value ? null : (string)rdr["GameTime"];
-         o.GB1 = (int)rdr["GB1"];
-         o.GB2 = (int)rdr["GB2"];
-         o.GB3 = (int)rdr["GB3"];
-         o.HomeAverageAtmpUsPt1 = (double)rdr["HomeAverageAtmpUsPt1"];
-         o.HomeAverageAtmpUsPt2 = (double)rdr["HomeAverageAtmpUsPt2"];
-         o.HomeAverageAtmpUsPt3 = (double)rdr["HomeAverageAtmpUsPt3"];
-         o.HomeAveragePtsAllowed = rdr["HomeAveragePtsAllowed"] == DBNull.Value ? null : (double?)rdr["HomeAveragePtsAllowed"];
-         o.HomeGB1 = (double)rdr["HomeGB1"];
-         o.HomeGB1Pt1 = (double)rdr["HomeGB1Pt1"];
-         o.HomeGB1Pt2 = (double)rdr["HomeGB1Pt2"];
-         o.HomeGB1Pt3 = (double)rdr["HomeGB1Pt3"];
-         o.HomeGB2 = (double)rdr["HomeGB2"];
-         o.HomeGB2Pt1 = (double)rdr["HomeGB2Pt1"];
-         o.HomeGB2Pt2 = (double)rdr["HomeGB2Pt2"];
-         o.HomeGB2Pt3 = (double)rdr["HomeGB2Pt3"];
-         o.HomeGB3 = (double)rdr["HomeGB3"];
-         o.HomeGB3Pt1 = (double)rdr["HomeGB3Pt1"];
-         o.HomeGB3Pt2 = (double)rdr["HomeGB3Pt2"];
-         o.HomeGB3Pt3 = (double)rdr["HomeGB3Pt3"];
-         o.HomeProjectedAtmpPt1 = rdr["HomeProjectedAtmpPt1"] == DBNull.Value ? null : (double?)rdr["HomeProjectedAtmpPt1"];
-         o.HomeProjectedAtmpPt2 = rdr["HomeProjectedAtmpPt2"] == DBNull.Value ? null : (double?)rdr["HomeProjectedAtmpPt2"];
-         o.HomeProjectedAtmpPt3 = rdr["HomeProjectedAtmpPt3"] == DBNull.Value ? null : (double?)rdr["HomeProjectedAtmpPt3"];
          o.HomeProjectedPt1 = (double)rdr["HomeProjectedPt1"];
          o.HomeProjectedPt2 = (double)rdr["HomeProjectedPt2"];
          o.HomeProjectedPt3 = (double)rdr["HomeProjectedPt3"];
-         o.LeagueName = rdr["LeagueName"].ToString().Trim();
-         o.OpenPlayDiff = rdr["OpenPlayDiff"] == DBNull.Value ? null : (double?)rdr["OpenPlayDiff"];
-         o.OpenTotalLine = rdr["OpenTotalLine"] == DBNull.Value ? null : (double?)rdr["OpenTotalLine"];
-         o.OurTotalLine = (double)rdr["OurTotalLine"];
-         o.OurTotalLineAway = (double)rdr["OurTotalLineAway"];
-         o.OurTotalLineHome = (double)rdr["OurTotalLineHome"];
-         o.Play = rdr["Play"] == DBNull.Value ? null : (string)rdr["Play"];
-         o.PlayDiff = rdr["PlayDiff"] == DBNull.Value ? null : (double?)rdr["PlayDiff"];
-         o.RotNum = (int)rdr["RotNum"];
-         o.Season = rdr["Season"].ToString().Trim();
-         o.SideLine = (double)rdr["SideLine"];
-         o.SubSeason = rdr["SubSeason"].ToString().Trim();
-         o.TeamAway = rdr["TeamAway"].ToString().Trim();
-         o.TeamHome = rdr["TeamHome"].ToString().Trim();
-         o.Threshold = (int)rdr["Threshold"];
-         o.TmStrAdjPct = (double)rdr["TmStrAdjPct"];
-         o.TmStrAway = (double)rdr["TmStrAway"];
-         o.TmStrHome = rdr["TmStrHome"] == DBNull.Value ? null : (double?)rdr["TmStrHome"];
-         o.TodaysMatchupsID = (int)rdr["TodaysMatchupsID"];
+         o.AwayProjectedAtmpPt1 = rdr["AwayProjectedAtmpPt1"] == DBNull.Value ? null : (double?)rdr["AwayProjectedAtmpPt1"];
+         o.AwayProjectedAtmpPt2 = rdr["AwayProjectedAtmpPt2"] == DBNull.Value ? null : (double?)rdr["AwayProjectedAtmpPt2"];
+         o.AwayProjectedAtmpPt3 = rdr["AwayProjectedAtmpPt3"] == DBNull.Value ? null : (double?)rdr["AwayProjectedAtmpPt3"];
+         o.HomeProjectedAtmpPt1 = rdr["HomeProjectedAtmpPt1"] == DBNull.Value ? null : (double?)rdr["HomeProjectedAtmpPt1"];
+         o.HomeProjectedAtmpPt2 = rdr["HomeProjectedAtmpPt2"] == DBNull.Value ? null : (double?)rdr["HomeProjectedAtmpPt2"];
+         o.HomeProjectedAtmpPt3 = rdr["HomeProjectedAtmpPt3"] == DBNull.Value ? null : (double?)rdr["HomeProjectedAtmpPt3"];
+         o.AwayAverageAtmpUsPt1 = (double)rdr["AwayAverageAtmpUsPt1"];
+         o.AwayAverageAtmpUsPt2 = (double)rdr["AwayAverageAtmpUsPt2"];
+         o.AwayAverageAtmpUsPt3 = (double)rdr["AwayAverageAtmpUsPt3"];
+         o.HomeAverageAtmpUsPt1 = (double)rdr["HomeAverageAtmpUsPt1"];
+         o.HomeAverageAtmpUsPt2 = (double)rdr["HomeAverageAtmpUsPt2"];
+         o.HomeAverageAtmpUsPt3 = (double)rdr["HomeAverageAtmpUsPt3"];
+         o.AwayGB1 = (double)rdr["AwayGB1"];
+         o.AwayGB2 = (double)rdr["AwayGB2"];
+         o.AwayGB3 = (double)rdr["AwayGB3"];
+         o.HomeGB1 = (double)rdr["HomeGB1"];
+         o.HomeGB2 = (double)rdr["HomeGB2"];
+         o.HomeGB3 = (double)rdr["HomeGB3"];
+         o.AwayGB1Pt1 = (double)rdr["AwayGB1Pt1"];
+         o.AwayGB1Pt2 = (double)rdr["AwayGB1Pt2"];
+         o.AwayGB1Pt3 = (double)rdr["AwayGB1Pt3"];
+         o.AwayGB2Pt1 = (double)rdr["AwayGB2Pt1"];
+         o.AwayGB2Pt2 = (double)rdr["AwayGB2Pt2"];
+         o.AwayGB2Pt3 = (double)rdr["AwayGB2Pt3"];
+         o.AwayGB3Pt1 = (double)rdr["AwayGB3Pt1"];
+         o.AwayGB3Pt2 = (double)rdr["AwayGB3Pt2"];
+         o.AwayGB3Pt3 = (double)rdr["AwayGB3Pt3"];
+         o.HomeGB1Pt1 = (double)rdr["HomeGB1Pt1"];
+         o.HomeGB1Pt2 = (double)rdr["HomeGB1Pt2"];
+         o.HomeGB1Pt3 = (double)rdr["HomeGB1Pt3"];
+         o.HomeGB2Pt1 = (double)rdr["HomeGB2Pt1"];
+         o.HomeGB2Pt2 = (double)rdr["HomeGB2Pt2"];
+         o.HomeGB2Pt3 = (double)rdr["HomeGB2Pt3"];
+         o.HomeGB3Pt1 = (double)rdr["HomeGB3Pt1"];
+         o.HomeGB3Pt2 = (double)rdr["HomeGB3Pt2"];
+         o.HomeGB3Pt3 = (double)rdr["HomeGB3Pt3"];
          o.TotalBubbleAway = rdr["TotalBubbleAway"] == DBNull.Value ? null : (double?)rdr["TotalBubbleAway"];
          o.TotalBubbleHome = rdr["TotalBubbleHome"] == DBNull.Value ? null : (double?)rdr["TotalBubbleHome"];
-         o.TotalLine = rdr["TotalLine"] == DBNull.Value ? null : (double?)rdr["TotalLine"];
-         o.TS = rdr["TS"] == DBNull.Value ? null : (DateTime?)rdr["TS"];
-         o.TV = rdr["TV"] == DBNull.Value ? null : (string)rdr["TV"];
-         o.UnAdjTotal = (double)rdr["UnAdjTotal"];
-         o.UnAdjTotalAway = (double)rdr["UnAdjTotalAway"];
-         o.UnAdjTotalHome = (double)rdr["UnAdjTotalHome"];
-         o.UserName = rdr["UserName"].ToString().Trim();
-         o.Volatility = rdr["Volatility"] == DBNull.Value ? null : (double?)rdr["Volatility"];
-         o.VolatilityAway = rdr["VolatilityAway"] == DBNull.Value ? null : (double?)rdr["VolatilityAway"];
-         o.VolatilityHome = rdr["VolatilityHome"] == DBNull.Value ? null : (double?)rdr["VolatilityHome"];
+         o.Threshold = (int)rdr["Threshold"];
+         o.GB1 = (int)rdr["GB1"];
+         o.GB2 = (int)rdr["GB2"];
+         o.GB3 = (int)rdr["GB3"];
          o.WeightGB1 = (int)rdr["WeightGB1"];
          o.WeightGB2 = (int)rdr["WeightGB2"];
          o.WeightGB3 = (int)rdr["WeightGB3"];
+         o.RotNum = (int)rdr["RotNum"];
+         o.TodaysMatchupsID = (int)rdr["TodaysMatchupsID"];
+         o.AllAdjustmentLines = rdr["AllAdjustmentLines"] == DBNull.Value ? null : (string)rdr["AllAdjustmentLines"];
+         o.GameTime = rdr["GameTime"] == DBNull.Value ? null : (string)rdr["GameTime"];
+
+
+         o.Canceled = rdr["rCanceled"] == DBNull.Value ? null : (bool?)rdr["rCanceled"];  // Pulled from Rotation.Canceled
 
 
          ((List<ITodaysMatchupsDTO>)oRow).Add(o);

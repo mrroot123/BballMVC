@@ -1,0 +1,73 @@
+﻿<div ng-controller="BballManagementController">
+
+   <div class="row">
+      <div class="container" id="BballManagementContainer">
+
+         <div class="row">
+            <div class="col-md-6">
+               <div class="container" id="ReloadBoxScoresContainer">
+
+                  <div class="row">
+                     <div class="col-md-12">
+                        Reload BoxScores
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-md-6">
+                        <div class="container LeagueNameContainer">
+
+                           <div class="row">
+                              <div class="col-md-12">
+                                 <span class="help-block text-muted small-font">League Name</span>
+
+                                 <select ng-model="LeagueName" ng-options="item.Text as item.Value for item in LeagueNameList">
+                                    <option value="" label="--Select League--"></option>
+                                 </select>
+                                 <button type="button" class="btn btn-info active" data-toggle="tooltip" title="Refresh Today's Matchups"
+                                         ng-click="ReloadBoxScores()">
+                                    Reload
+                                 </button>
+                              </div>
+                           </div>
+
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="container GameDateContainer">
+
+                           <input type="date" ng-model="GameDate" />
+
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-md-6">
+
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-md-6">
+
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="col-md-6">
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-md-12">
+            </div>
+         </div>
+
+      </div>
+   </div>
+</div>
+
+
+<div class="container" id="xContainer">
+   <div class="row">
+      <div class="col-md-12">
+      </div>
+   </div>
+</div>

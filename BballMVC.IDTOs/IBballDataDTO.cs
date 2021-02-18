@@ -18,6 +18,8 @@ namespace BballMVC.IDTOs
       IDailySummaryDTO oDailySummaryDTO { get; set; }
       ISeasonInfoDTO oSeasonInfoDTO { get; set; }
       IUserLeagueParmsDTO oUserLeagueParmsDTO { get; set; }
+      ILeagueDTO oLeagueDTO { get; set; }
       dynamic DataConstants { get; set; }
+
    }
 }

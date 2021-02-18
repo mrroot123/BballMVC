@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bball.DAL.Constants
 {
-   public  class GetDataConstants
+   public  class xGetDataConstants
    {
       public const string DataConstants = "DataConstants";
       public const string GetBoxScoresSeeds = "GetBoxScoresSeeds";

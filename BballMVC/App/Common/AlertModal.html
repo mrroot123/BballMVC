@@ -1,0 +1,11 @@
+﻿<div ng-controller="AlertModalController">
+   <div class="row"  id="AlertModal"  ng-style="setModal">
+      <div class="col-md-12">
+         <div class="panel panel-default">
+            <div><input type="button" class="btn btn-danger" value="Close" ng-click="AlertModalClose()" /></div>
+            <div class="row" id="AlertModalMsg" >{{msg}}</div>
+
+         </div>
+      </div>
+   </div>
+</div>

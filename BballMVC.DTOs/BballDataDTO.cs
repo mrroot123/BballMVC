@@ -21,6 +21,7 @@ namespace BballMVC.DTOs
 
       public IDailySummaryDTO oDailySummaryDTO  { get; set; }
       public ISeasonInfoDTO   oSeasonInfoDTO    { get; set; }
+      public ILeagueDTO oLeagueDTO { get; set; }
       public IUserLeagueParmsDTO oUserLeagueParmsDTO { get; set; }
 
       public dynamic DataConstants { get; set; }
@@ -36,9 +37,12 @@ namespace BballMVC.DTOs
          ocTodaysMatchupsDTO = new List<ITodaysMatchupsDTO>();
          ocBoxScoresSeedsDTO = new List<IBoxScoresSeedsDTO>();
          ocPostGameAnalysisDTO = new List<IvPostGameAnalysisDTO>();
+
          oDailySummaryDTO = new DailySummaryDTO();
          oSeasonInfoDTO = new SeasonInfoDTO();
+         oLeagueDTO = new LeagueDTO();
          oUserLeagueParmsDTO = new UserLeagueParmsDTO();
+
          DataConstants = new System.Dynamic.ExpandoObject();
       }
    }

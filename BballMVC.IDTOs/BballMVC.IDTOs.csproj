@@ -56,7 +56,6 @@
     <Compile Include="ICoversDTO.cs" />
     <Compile Include="IDailySummaryDTO.cs" />
     <Compile Include="IUserLeagueParms.cs" />
-    <Compile Include="xIGetDataConstants.cs" />
     <Compile Include="ILeagueDTO.cs" />
     <Compile Include="IRotationDTO.cs" />
     <Compile Include="ISeasonInfoDTO.cs" />

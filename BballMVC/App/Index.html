@@ -7,9 +7,10 @@
 
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
-   <link href="Common/bball.css" rel="stylesheet" />
-   <link href="Common/accordian.css" rel="stylesheet" />
-   <link href="Common/tooltip.css" rel="stylesheet" />
+   <link href="Common/css/loading.css" rel="stylesheet" />
+   <link href="Common/css/bball.css" rel="stylesheet" />
+   <link href="Common/css/accordian.css" rel="stylesheet" />
+   <link href="Common/css/tooltip.css" rel="stylesheet" />
    <link href="Adjustments/adjustments.css" rel="stylesheet" />
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
@@ -19,6 +20,7 @@
    <script src="app.module.js"></script>
    <script src="_Services/Services.js"></script>
    <script src="_layout/layoutController.js"></script>
+   <script src="Common/js/AlertModalController.js"></script>
 
    <script src="_Header/HeaderController.js"></script>
    <script src="Adjustments/AdjustmentsController.js"></script>
@@ -26,7 +28,9 @@
    <script src="TodaysMatchups/TodaysMatchupsController.js"></script>
    <script src="TodaysMatchups/AdjustmentsByTeamModalController.js"></script>
    <script src="PostGameAnalysis/PostGameAnalysisController.js"></script>
+   <script src="BballManagement/BballManagementController.js"></script>
    <script src="BoxScoresSeeds/BoxScoresSeedsController.js"></script>
+   <script src="Common/js/loading.js"></script>
    <script src="_Services/Run.js"></script>
 
 </head>
@@ -34,5 +38,6 @@
    <div ng-app="app">
       <div ng-include="'_layout/layout.html'"></div>
    </div>
+   <div class="overlay"></div>
 </body>
 </html>

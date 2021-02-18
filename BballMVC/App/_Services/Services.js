@@ -132,9 +132,11 @@ angular.module('app').service('f', function ($rootScope, ajx, url) {
             alert(error);
            // this.DisplayMessage(f.FormatResponse(error));
          });
+      $("body").removeClass("loading");
+      $rootScope.$broadcast('eventOpenAlertModal', msg);
 
 
-      alert(msg);
+     // alert(msg);
    };
 
    this.DisplayMessage = function (msg) {

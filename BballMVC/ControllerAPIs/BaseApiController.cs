@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using BballMVC.DTOs;
 using BballMVC.IDTOs;
+using TTI.Logger;
 
 namespace BballMVC.ControllerAPIs
 {
@@ -15,16 +17,22 @@ namespace BballMVC.ControllerAPIs
 
       public string BaseDir { get; set; }
       const string LogName = "TTILog";
+      protected Stopwatch stopwatch = new Stopwatch();
       public BaseApiController()
       {
+         stopwatch.Start();
          BaseDir = System.AppDomain.CurrentDomain.BaseDirectory;
          oBballInfoDTO = new BballInfoDTO();
          oBballInfoDTO.ConnectionString = GetConnectionString();
          oBballInfoDTO.LogName = LogName;
          // oBballInfoDTO.oBballDataDTO.BaseDir = BaseDir;
+         oBballInfoDTO.TS = GetNowEst();
+      }
+      protected DateTime GetNowEst()
+      {
          var timeUtc = DateTime.UtcNow;
          TimeZoneInfo easternZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
-         oBballInfoDTO.TS = TimeZoneInfo.ConvertTimeFromUtc(timeUtc, easternZone);
+         return TimeZoneInfo.ConvertTimeFromUtc(timeUtc, easternZone);
       }
       protected string GetUser()
       {

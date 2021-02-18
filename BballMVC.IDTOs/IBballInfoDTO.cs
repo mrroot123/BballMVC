@@ -13,7 +13,7 @@ namespace BballMVC.IDTOs
       string LeagueName { get; set; }
       string UserName { get; set; }
       string LogName { get; set; }
-      ISeasonInfoDTO oSeasonInfoDTO { get; set; }
+     // ISeasonInfoDTO oSeasonInfoDTO { get; set; }
       System.Object oObject { get; set; }
       JObject oJObject { get; set; }
       string sJsonString { get; set; }

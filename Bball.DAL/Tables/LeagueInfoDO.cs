@@ -12,9 +12,19 @@ namespace Bball.DAL.Tables
    public class LeagueInfoDO
    {
       public string LeagueInfoTable = "LeagueInfo";
-     // static LeagueDTO NbaDTO = new LeagueDTO { LeagueName = "NBA", Periods = 4, MinutesPerPeriod = 12, OverTimeMinutes = 5, MultiYearLeague = true };
+      // static LeagueDTO NbaDTO = new LeagueDTO { LeagueName = "NBA", Periods = 4, MinutesPerPeriod = 12, OverTimeMinutes = 5, MultiYearLeague = true };
 
+      public LeagueInfoDO(IBballInfoDTO oBballInfoDTO)
+      {
+         initLeagueInfoDO(oBballInfoDTO.LeagueName,  oBballInfoDTO.oBballDataDTO.oLeagueDTO, oBballInfoDTO.ConnectionString, oBballInfoDTO.GameDate);
+
+      }
       public LeagueInfoDO(string LeagueName, ILeagueDTO oLeagueDTO, string ConnectionString, DateTime GameDate)
+      {
+         initLeagueInfoDO(LeagueName, oLeagueDTO, ConnectionString, GameDate);
+
+      }
+      void  initLeagueInfoDO(string LeagueName, ILeagueDTO oLeagueDTO, string ConnectionString, DateTime GameDate)
       {
          int rows = SysDAL.Functions.DALfunctions.ExecuteSqlQuery(ConnectionString, getRowSql(LeagueName, GameDate), oLeagueDTO, PopulateDTO);
          if (rows == 0)  throw new Exception($"LeagueInfo row not found for League: {LeagueName}");

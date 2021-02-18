@@ -20,9 +20,18 @@ namespace BballMVC.DTOs
       public string TV { get; set; }
       public double TmStrAway { get; set; }
       public Nullable<double> TmStrHome { get; set; }
-      public double UnAdjTotalAway { get; set; }
+      public Nullable<double> UnAdjTotalAway { get; set; }
       public double UnAdjTotalHome { get; set; }
       public double UnAdjTotal { get; set; }
+      public Nullable<double> UnAdjTotalAwayPlanB { get; set; }
+      public Nullable<double> UnAdjTotalHomePlanB { get; set; }
+      public Nullable<double> UnAdjTotalPlanB { get; set; }
+      public Nullable<double> CalcAwayGB1PlanB { get; set; }
+      public Nullable<double> CalcAwayGB2PlanB { get; set; }
+      public Nullable<double> CalcAwayGB3PlanB { get; set; }
+      public Nullable<double> CalcHomeGB1PlanB { get; set; }
+      public Nullable<double> CalcHomeGB2PlanB { get; set; }
+      public Nullable<double> CalcHomeGB3PlanB { get; set; }
       public Nullable<double> AwayAveragePtsScored { get; set; }
       public Nullable<double> HomeAveragePtsScored { get; set; }
       public Nullable<double> AwayAveragePtsAllowed { get; set; }

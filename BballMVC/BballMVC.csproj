@@ -266,7 +266,7 @@
     <Compile Include="Models\TeamStrength.cs">
       <DependentUpon>BballEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TodaysMatchup.cs">
+    <Compile Include="Models\TodaysMatchups.cs">
       <DependentUpon>BballEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TodaysMatchupsResult.cs">
@@ -338,13 +338,20 @@
     <Content Include="App\Adjustments\AdjustmentsModalController.js" />
     <Content Include="App\Adjustments\_AdjustmentRow.html" />
     <Content Include="App\Adjustments\_AdjustmentsModel.html" />
+    <Content Include="App\BballManagement\BballManagement.html" />
+    <Content Include="App\BballManagement\BballManagementController.js" />
     <Content Include="App\BoxScoresSeeds\BoxScoresSeeds.html" />
     <Content Include="App\BoxScoresSeeds\BoxScoresSeedsController.js" />
     <Content Include="App\BoxScoresSeeds\_BoxScoresSeedsTable.html" />
-    <Content Include="App\Common\accordian.css" />
-    <Content Include="App\Common\bball.css" />
+    <Content Include="App\Common\css\accordian.css" />
+    <Content Include="App\Common\AlertModal.html" />
+    <Content Include="App\Common\images\loader.gif" />
+    <Content Include="App\Common\js\AlertModalController.js" />
+    <Content Include="App\Common\css\bball.css" />
+    <Content Include="App\Common\css\loading.css" />
+    <Content Include="App\Common\js\loading.js" />
     <Content Include="App\Common\Release.html" />
-    <Content Include="App\Common\tooltip.css" />
+    <Content Include="App\Common\css\tooltip.css" />
     <Content Include="App\Common\_GameDate.html" />
     <Content Include="App\Common\_GameDateLocal.html" />
     <Content Include="App\Components\accordianSection.html" />
@@ -373,6 +380,8 @@
     <Content Include="App\_layout\layoutController.js" />
     <Content Include="App\_Services\Run.js" />
     <Content Include="App\_Services\Services.js" />
+    <Content Include="App\_templates\template.html" />
+    <Content Include="App\_templates\templateController.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />

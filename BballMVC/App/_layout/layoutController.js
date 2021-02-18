@@ -18,4 +18,8 @@
    $scope.clickRefreshTodaysMatchups = function () {
       $scope.$broadcast('eventRefreshTodaysMatchups');
    };
+
+   $scope.ClickBballManagement = function () {
+      $scope.$broadcast('eventInitBballManagement');
+   };
 });

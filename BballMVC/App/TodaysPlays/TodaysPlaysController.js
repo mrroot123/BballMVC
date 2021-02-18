@@ -13,6 +13,7 @@ angular.module('app').controller('todaysPlaysController', function ($rootScope, 
       ajx.AjaxGet(UrlRefreshTodaysPlays, { GameDate: $scope.GameDate.toLocaleDateString() })   // Get TodaysPlays from server
          .then(data => {
             // See ajx.AjaxGet in HeaderController for same moves
+            $scope.ctrWLamt = 0;
             data.forEach(editData);
             
             $scope.ocTodaysPlays = data;
@@ -52,5 +53,13 @@ angular.module('app').controller('todaysPlaysController', function ($rootScope, 
          data[ix].ScoreHome = "";
          data[ix].ScoreAway = "";
       }
-   }
+      if (data[ix].OvUnStatus.substring(0, 3) === "Ov ") {
+         let ar = data[ix].OvUnStatus.split(" ");
+         $scope.ctrWLamt += ar[1];
+      }
+      if (data[ix].OvUnStatus.substring(0, 3) === "Un ") {
+         let ar = data[ix].OvUnStatus.split(" ");
+         $scope.ctrWLamt -= ar[1];
+      }
+   }  // editDate
 });

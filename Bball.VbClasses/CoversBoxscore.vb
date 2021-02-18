@@ -84,7 +84,8 @@ Namespace Bball.VbClasses
             Return
          End If
 
-         LoadTimeSecound = oParseBoxscore.oWebPageGet.DurationSeconds
+         '   LoadTimeSecound = oParseBoxscore.oWebPageGet.DurationSeconds  02/13/2021 use Milli seconds now
+         LoadTimeSecound = CInt(oParseBoxscore.oWebPageGet.UrlLoadTime)
          UrlLoadTime = oParseBoxscore.oWebPageGet.UrlLoadTime
          If HtmlFileName > "" Then
             oParseBoxscore.WriteHtmlToDisk(HtmlFileName)
@@ -245,6 +246,94 @@ Namespace Bball.VbClasses
          oBoxScoresDTO.LoadDate = LoadDate
          oBoxScoresDTO.LoadTimeSeconds = LoadTimeSeconds
          oBoxScoresDTO.Source = Source
+         oBoxScoresDTO.Exclude = verifyBoxScoreValues(oBoxScoresDTO)
+      End Sub
+      Public Sub PopulateBoxScoresDTO(oBoxScoresDTO As BoxScoresDTO)
+         ' , Venue As String, Season As String, SubSeason As String, LoadDate As DateTime, LoadTimeSeconds As Integer, Source As String)
+         Dim ixVenue As Integer
+         Dim ixOpVenue As Integer
+
+
+         oBoxScoresDTO.LeagueName = poLeagueDTO.LeagueName
+         oBoxScoresDTO.GameDate = pGameDate
+         If oBoxScoresDTO.Venue = "Away" Then
+            ixVenue = 0
+            ixOpVenue = 1
+            oBoxScoresDTO.RotNum = poCoversDTO.RotNum
+         Else
+            ixVenue = 1
+            ixOpVenue = 0
+            oBoxScoresDTO.RotNum = poCoversDTO.RotNum + 1
+            oBoxScoresDTO.Venue = "Home"
+
+         End If
+
+         oBoxScoresDTO.Team = oBoxscoreTeamTotalsDTO(ixVenue).Team
+         oBoxScoresDTO.Opp = oBoxscoreTeamTotalsDTO(ixOpVenue).Team
+         '
+         oBoxScoresDTO.GameTime = poCoversDTO.GameTime
+
+         ' Col 11
+         oBoxScoresDTO.MinutesPlayed = oBoxscoreTeamTotalsDTO(ixVenue).Minutes
+         oBoxScoresDTO.OtPeriods = CInt((oBoxscoreTeamTotalsDTO(ixVenue).Minutes - (poLeagueDTO.Periods * poLeagueDTO.MinutesPerPeriod)) _
+                                       / poLeagueDTO.OverTimeMinutes)
+         '
+         oBoxScoresDTO.ScoreRegUs = oBoxscoreParseStatsSummary.ScoreReg(ixVenue)
+         oBoxScoresDTO.ScoreRegOp = oBoxscoreParseStatsSummary.ScoreReg(ixOpVenue)
+         oBoxScoresDTO.ScoreOTUs = oBoxscoreParseStatsSummary.ScoreOT(ixVenue)
+         oBoxScoresDTO.ScoreOTOp = oBoxscoreParseStatsSummary.ScoreOT(ixOpVenue)
+         oBoxScoresDTO.ScoreReg = oBoxScoresDTO.ScoreRegUs + oBoxScoresDTO.ScoreRegOp
+         oBoxScoresDTO.ScoreOT = oBoxScoresDTO.ScoreOTUs + oBoxScoresDTO.ScoreOTOp
+
+         oBoxScoresDTO.ScoreQ1Us = oBoxscoreParseStatsSummary.PeriodScore(ixVenue, 0)
+         oBoxScoresDTO.ScoreQ1Op = oBoxscoreParseStatsSummary.PeriodScore(ixOpVenue, 0)
+         oBoxScoresDTO.ScoreQ2Us = oBoxscoreParseStatsSummary.PeriodScore(ixVenue, 1)
+         oBoxScoresDTO.ScoreQ2Op = oBoxscoreParseStatsSummary.PeriodScore(ixOpVenue, 1)
+         oBoxScoresDTO.ScoreQ3Us = oBoxscoreParseStatsSummary.PeriodScore(ixVenue, 2)
+         oBoxScoresDTO.ScoreQ3Op = oBoxscoreParseStatsSummary.PeriodScore(ixOpVenue, 2)
+         oBoxScoresDTO.ScoreQ4Us = oBoxscoreParseStatsSummary.PeriodScore(ixVenue, 3)
+         oBoxScoresDTO.ScoreQ4Op = oBoxscoreParseStatsSummary.PeriodScore(ixOpVenue, 3)
+
+         oBoxScoresDTO.ShotsActualMadeUsPt1 = oBoxscoreTeamTotalsDTO(ixVenue).PT1
+         oBoxScoresDTO.ShotsActualMadeOpPt1 = oBoxscoreTeamTotalsDTO(ixOpVenue).PT1
+         oBoxScoresDTO.ShotsActualAttemptedUsPt1 = oBoxscoreTeamTotalsDTO(ixVenue).Pt1Attempts
+         oBoxScoresDTO.ShotsActualAttemptedOpPt1 = oBoxscoreTeamTotalsDTO(ixOpVenue).Pt1Attempts
+         oBoxScoresDTO.ShotsActualMadeUsPt2 = oBoxscoreTeamTotalsDTO(ixVenue).PT2
+         oBoxScoresDTO.ShotsActualMadeOpPt2 = oBoxscoreTeamTotalsDTO(ixOpVenue).PT2
+         oBoxScoresDTO.ShotsActualAttemptedUsPt2 = oBoxscoreTeamTotalsDTO(ixVenue).Pt2Attempts
+         oBoxScoresDTO.ShotsActualAttemptedOpPt2 = oBoxscoreTeamTotalsDTO(ixOpVenue).Pt2Attempts
+         oBoxScoresDTO.ShotsActualMadeUsPt3 = oBoxscoreTeamTotalsDTO(ixVenue).PT3
+         oBoxScoresDTO.ShotsActualMadeOpPt3 = oBoxscoreTeamTotalsDTO(ixOpVenue).PT3
+         oBoxScoresDTO.ShotsActualAttemptedUsPt3 = oBoxscoreTeamTotalsDTO(ixVenue).Pt3Attempts
+         oBoxScoresDTO.ShotsActualAttemptedOpPt3 = oBoxscoreTeamTotalsDTO(ixOpVenue).Pt3Attempts
+
+         ' Calc OT Pct
+         Dim OTpct As Double = CDbl((poLeagueDTO.Periods * poLeagueDTO.MinutesPerPeriod) / oBoxscoreTeamTotalsDTO(ixVenue).Minutes)
+
+         oBoxScoresDTO.ShotsMadeUsRegPt1 = oBoxscoreTeamTotalsDTO(ixVenue).PT1 * OTpct
+         oBoxScoresDTO.ShotsMadeOpRegPt1 = oBoxscoreTeamTotalsDTO(ixOpVenue).PT1 * OTpct
+         oBoxScoresDTO.ShotsAttemptedUsRegPt1 = oBoxscoreTeamTotalsDTO(ixVenue).Pt1Attempts * OTpct
+         oBoxScoresDTO.ShotsAttemptedOpRegPt1 = oBoxscoreTeamTotalsDTO(ixOpVenue).Pt1Attempts * OTpct
+
+         oBoxScoresDTO.ShotsMadeUsRegPt2 = oBoxscoreTeamTotalsDTO(ixVenue).PT2 * OTpct
+         oBoxScoresDTO.ShotsMadeOpRegPt2 = oBoxscoreTeamTotalsDTO(ixOpVenue).PT2 * OTpct
+         oBoxScoresDTO.ShotsAttemptedUsRegPt2 = oBoxscoreTeamTotalsDTO(ixVenue).Pt2Attempts * OTpct
+         oBoxScoresDTO.ShotsAttemptedOpRegPt2 = oBoxscoreTeamTotalsDTO(ixOpVenue).Pt2Attempts * OTpct
+
+         oBoxScoresDTO.ShotsMadeUsRegPt3 = oBoxscoreTeamTotalsDTO(ixVenue).PT3 * OTpct
+         oBoxScoresDTO.ShotsMadeOpRegPt3 = oBoxscoreTeamTotalsDTO(ixOpVenue).PT3 * OTpct
+         oBoxScoresDTO.ShotsAttemptedUsRegPt3 = oBoxscoreTeamTotalsDTO(ixVenue).Pt3Attempts * OTpct
+         oBoxScoresDTO.ShotsAttemptedOpRegPt3 = oBoxscoreTeamTotalsDTO(ixOpVenue).Pt3Attempts * OTpct
+
+         oBoxScoresDTO.OffRBOp = oBoxscoreTeamTotalsDTO(ixOpVenue).OffRB
+         oBoxScoresDTO.OffRBUs = oBoxscoreTeamTotalsDTO(ixVenue).OffRB
+         oBoxScoresDTO.AssistsUs = oBoxscoreTeamTotalsDTO(ixVenue).Assists
+         oBoxScoresDTO.TurnOversUs = oBoxscoreTeamTotalsDTO(ixVenue).TurnOvers
+         oBoxScoresDTO.AssistsOp = oBoxscoreTeamTotalsDTO(ixOpVenue).Assists
+         oBoxScoresDTO.TurnOversOp = oBoxscoreTeamTotalsDTO(ixOpVenue).TurnOvers
+         '   oBoxScoresDTO.LoadDate = LoadDate
+         '   oBoxScoresDTO.LoadTimeSeconds = LoadTimeSeconds
+         '  oBoxScoresDTO.Source = Source
          oBoxScoresDTO.Exclude = verifyBoxScoreValues(oBoxScoresDTO)
       End Sub
 

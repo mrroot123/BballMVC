@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 
 using BballMVC.DTOs;
 using Bball.DataBaseFunctions;
+using BballMVC.IDTOs;
 
 
 namespace Bball.DAL.Tables
@@ -26,9 +27,16 @@ namespace Bball.DAL.Tables
          this.GameDate = GameDate;
          _LeagueName = LeagueName;
          _ConnectionString = ConnectionString;
-         populateSeasonInfoDTO();
-
+         populateSeasonInfoDTO(oSeasonInfoDTO);
       }
+      public SeasonInfoDO(IBballInfoDTO oBballInfoDTO)
+      {
+         this.GameDate = oBballInfoDTO.GameDate;
+         _LeagueName = oBballInfoDTO.LeagueName;
+         _ConnectionString = oBballInfoDTO.ConnectionString;
+         populateSeasonInfoDTO(oBballInfoDTO.oBballDataDTO.oSeasonInfoDTO);
+      }
+
       public DateTime GetNextGameDate()
       {
          GameDate = GameDate.AddDays(1);
@@ -42,7 +50,7 @@ namespace Bball.DAL.Tables
             // 
             GameDate = oSeasonInfoDTO.EndDate.AddDays(1);
             if (!RotationLoadedToDate())
-               populateSeasonInfoDTO();
+               populateSeasonInfoDTO(oSeasonInfoDTO);
          }
 
          return GameDate;
@@ -51,7 +59,7 @@ namespace Bball.DAL.Tables
       public bool RotationLoadedToDate() 
          => GameDate > DateTime.Today.AddDays(1);  // Is GameDate > Tomorrow
 
-      private  void populateSeasonInfoDTO()
+      private  void populateSeasonInfoDTO(ISeasonInfoDTO oSeasonInfoDTO)
       {
          // kdtodo - move SqlFunctions.GetConnectionString() to constructor 2b injected
          int rows = SysDAL.Functions.DALfunctions.ExecuteSqlQuery(_ConnectionString, SeasonInfoRowSql()
@@ -59,7 +67,32 @@ namespace Bball.DAL.Tables
          if (rows == 0)
             throw new Exception($"SeasonInfo row not found - League: {_LeagueName}  GameDate: {GameDate.ToShortDateString()}");
          oSeasonInfoDTO.SubSeasonPeriod = 0; // kdtodo call udf
-      }
+
+         // private methods
+         void PopulateDTO(object oRow, SqlDataReader rdr)
+         {
+            SeasonInfoDTO o = (SeasonInfoDTO)oRow;
+            o.LeagueName = rdr["LeagueName"].ToString().Trim();
+            o.StartDate = (DateTime)rdr["StartDate"];
+            o.EndDate = (DateTime)rdr["EndDate"];
+            o.Season = rdr["Season"].ToString().Trim();
+            o.SubSeason = rdr["SubSeason"].ToString().Trim();
+            o.Bypass = (bool)rdr["Bypass"];
+            o.IncludePre = (bool)rdr["IncludePre"];
+            o.IncludePost = (bool)rdr["IncludePost"];
+            o.BoxscoreSource = rdr["BoxscoreSource"].ToString().Trim();
+         }
+         string SeasonInfoRowSql()
+         {
+            string Sql = ""
+               + $"SELECT * FROM {SeasonInfoTable} s "
+               + $"  Where s.LeagueName = '{_LeagueName}'  And '{GameDate}' >= s.StartDate  And '{GameDate}' <= s.EndDate"
+               + "   Order By s.StartDate DESC"
+               ;
+            return Sql;
+         }
+      }  // populateSeasonInfoDTO
+
       public int CalcSubSeasonPeriod(BballInfoDTO oBballInfoDTO)
          => CalcSubSeasonPeriod(oBballInfoDTO.ConnectionString, oBballInfoDTO.GameDate, oBballInfoDTO.LeagueName);
 
@@ -79,28 +112,7 @@ namespace Bball.DAL.Tables
 
          return Int32.Parse(SubSeasonPeriod);
       }
-      string SeasonInfoRowSql()
-      {
-         string Sql = ""
-            + $"SELECT * FROM {SeasonInfoTable} s "
-            + $"  Where s.LeagueName = '{_LeagueName}'  And '{GameDate}' >= s.StartDate  And '{GameDate}' <= s.EndDate"
-            + "   Order By s.StartDate DESC"
-            ;
-         return Sql;
-      }
-      static void PopulateDTO(object oRow, SqlDataReader rdr)
-      {
-         SeasonInfoDTO oSeasonInfoDTO = (SeasonInfoDTO)oRow;
-         oSeasonInfoDTO.LeagueName = rdr["LeagueName"].ToString().Trim();
-         oSeasonInfoDTO.StartDate = (DateTime)rdr["StartDate"];
-         oSeasonInfoDTO.EndDate = (DateTime)rdr["EndDate"];
-         oSeasonInfoDTO.Season = rdr["Season"].ToString().Trim();
-         oSeasonInfoDTO.SubSeason = rdr["SubSeason"].ToString().Trim();
-         oSeasonInfoDTO.Bypass = (bool)rdr["Bypass"];
-         oSeasonInfoDTO.IncludePre = (bool)rdr["IncludePre"];
-         oSeasonInfoDTO.IncludePost = (bool)rdr["IncludePost"];
-         oSeasonInfoDTO.BoxscoreSource = rdr["BoxscoreSource"].ToString().Trim();
 
-      }
+     
    }
 }

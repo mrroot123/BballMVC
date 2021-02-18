@@ -17,12 +17,13 @@ namespace BballMVC.ControllerAPIs
 {
    public class LogController : BaseApiController
    {
-      const string TTILogTable = "TTILog";
+      
       // localhost:60679/api/Log/LogMessage
       [HttpPost]
       public HttpResponseMessage LogMessage(TTILogMessage oTTILogMessage)
       {
-         var rc = Helper.LogMessage(oTTILogMessage, oBballInfoDTO.ConnectionString, TTILogTable);
+         oTTILogMessage.TS = oBballInfoDTO.TS;
+         var rc = Helper.LogMessage(oTTILogMessage, oBballInfoDTO.ConnectionString, oBballInfoDTO.LogName);
          return Request.CreateResponse(HttpStatusCode.OK, rc);
       }
       [HttpGet]
