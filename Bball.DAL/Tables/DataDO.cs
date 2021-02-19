@@ -208,42 +208,53 @@ namespace Bball.DAL.Tables
       {
          DailySummaryDTO o = (DailySummaryDTO)oRow;
 
-         o.AdjRecentLeagueHistory = rdr["AdjRecentLeagueHistory"] == DBNull.Value ? null : (double?)rdr["AdjRecentLeagueHistory"];
          o.DailySummaryID = (int)rdr["DailySummaryID"];
          o.GameDate = (DateTime)rdr["GameDate"];
          o.LeagueName = rdr["LeagueName"].ToString().Trim();
-         o.LgAvgAssistsAway = rdr["LgAvgAssistsAway"] == DBNull.Value ? null : (double?)rdr["LgAvgAssistsAway"];
-         o.LgAvgAssistsHome = rdr["LgAvgAssistsHome"] == DBNull.Value ? null : (double?)rdr["LgAvgAssistsHome"];
+         o.Season = rdr["Season"].ToString().Trim();
+         o.SubSeason = rdr["SubSeason"].ToString().Trim();
+         o.SubSeasonPeriod = (int)rdr["SubSeasonPeriod"];
+         o.NumOfMatchups = (int)rdr["NumOfMatchups"];
+         o.LgAvgStartDate = rdr["LgAvgStartDate"] == DBNull.Value ? null : (DateTime?)rdr["LgAvgStartDate"];
+         o.LgAvgStartDateActual = rdr["LgAvgStartDateActual"] == DBNull.Value ? null : (DateTime?)rdr["LgAvgStartDateActual"];
          o.LgAvgGamesBack = (int)rdr["LgAvgGamesBack"];
          o.LgAvgGamesBackActual = rdr["LgAvgGamesBackActual"] == DBNull.Value ? null : (int?)rdr["LgAvgGamesBackActual"];
-         o.LgAvgLastMinPt1 = rdr["LgAvgLastMinPt1"] == DBNull.Value ? null : (double?)rdr["LgAvgLastMinPt1"];
-         o.LgAvgLastMinPt2 = rdr["LgAvgLastMinPt2"] == DBNull.Value ? null : (double?)rdr["LgAvgLastMinPt2"];
-         o.LgAvgLastMinPt3 = rdr["LgAvgLastMinPt3"] == DBNull.Value ? null : (double?)rdr["LgAvgLastMinPt3"];
-         o.LgAvgLastMinPts = rdr["LgAvgLastMinPts"] == DBNull.Value ? null : (double?)rdr["LgAvgLastMinPts"];
-         o.LgAvgOffRBAway = rdr["LgAvgOffRBAway"] == DBNull.Value ? null : (double?)rdr["LgAvgOffRBAway"];
-         o.LgAvgOffRBHome = rdr["LgAvgOffRBHome"] == DBNull.Value ? null : (double?)rdr["LgAvgOffRBHome"];
-         o.LgAvgTotalLine = rdr["LgAvgTotalLine"] == DBNull.Value ? null : (double?)rdr["LgAvgTotalLine"];
-         o.LgAvgPace = rdr["LgAvgPace"] == DBNull.Value ? null : (double?)rdr["LgAvgPace"];
          o.LgAvgScoreAway = (double)rdr["LgAvgScoreAway"];
-         o.LgAvgScoreFinal = (double)rdr["LgAvgScoreFinal"];
          o.LgAvgScoreHome = (double)rdr["LgAvgScoreHome"];
+         o.LgAvgScoreFinal = (double)rdr["LgAvgScoreFinal"];
+         o.LgAvgTotalLine = rdr["LgAvgTotalLine"] == DBNull.Value ? null : (double?)rdr["LgAvgTotalLine"];
+         o.LgAvgOurTotalLine = rdr["LgAvgOurTotalLine"] == DBNull.Value ? null : (double?)rdr["LgAvgOurTotalLine"];
          o.LgAvgShotsMadeAwayPt1 = (double)rdr["LgAvgShotsMadeAwayPt1"];
          o.LgAvgShotsMadeAwayPt2 = (double)rdr["LgAvgShotsMadeAwayPt2"];
          o.LgAvgShotsMadeAwayPt3 = (double)rdr["LgAvgShotsMadeAwayPt3"];
          o.LgAvgShotsMadeHomePt1 = (double)rdr["LgAvgShotsMadeHomePt1"];
          o.LgAvgShotsMadeHomePt2 = rdr["LgAvgShotsMadeHomePt2"] == DBNull.Value ? null : (double?)rdr["LgAvgShotsMadeHomePt2"];
          o.LgAvgShotsMadeHomePt3 = rdr["LgAvgShotsMadeHomePt3"] == DBNull.Value ? null : (double?)rdr["LgAvgShotsMadeHomePt3"];
-         o.LgAvgStartDate = rdr["LgAvgStartDate"] == DBNull.Value ? null : (DateTime?)rdr["LgAvgStartDate"];
-         o.LgAvgStartDateActual = rdr["LgAvgStartDateActual"] == DBNull.Value ? null : (DateTime?)rdr["LgAvgStartDateActual"];
+         o.LgAvgShotsAttemptedAwayPt1 = rdr["LgAvgShotsAttemptedAwayPt1"] == DBNull.Value ? null : (double?)rdr["LgAvgShotsAttemptedAwayPt1"];
+         o.LgAvgShotsAttemptedAwayPt2 = rdr["LgAvgShotsAttemptedAwayPt2"] == DBNull.Value ? null : (double?)rdr["LgAvgShotsAttemptedAwayPt2"];
+         o.LgAvgShotsAttemptedAwayPt3 = rdr["LgAvgShotsAttemptedAwayPt3"] == DBNull.Value ? null : (double?)rdr["LgAvgShotsAttemptedAwayPt3"];
+         o.LgAvgShotsAttemptedHomePt1 = rdr["LgAvgShotsAttemptedHomePt1"] == DBNull.Value ? null : (double?)rdr["LgAvgShotsAttemptedHomePt1"];
+         o.LgAvgShotsAttemptedHomePt2 = rdr["LgAvgShotsAttemptedHomePt2"] == DBNull.Value ? null : (double?)rdr["LgAvgShotsAttemptedHomePt2"];
+         o.LgAvgShotsAttemptedHomePt3 = rdr["LgAvgShotsAttemptedHomePt3"] == DBNull.Value ? null : (double?)rdr["LgAvgShotsAttemptedHomePt3"];
+         o.LgAvgShotPct = rdr["LgAvgShotPct"] == DBNull.Value ? null : (double?)rdr["LgAvgShotPct"];
+         o.LgAvgShotPctPt2 = rdr["LgAvgShotPctPt2"] == DBNull.Value ? null : (double?)rdr["LgAvgShotPctPt2"];
+         o.LgAvgShotPctPt3 = rdr["LgAvgShotPctPt3"] == DBNull.Value ? null : (double?)rdr["LgAvgShotPctPt3"];
+         o.LgAvgLastMinPts = rdr["LgAvgLastMinPts"] == DBNull.Value ? null : (double?)rdr["LgAvgLastMinPts"];
+         o.LgAvgLastMinPt1 = rdr["LgAvgLastMinPt1"] == DBNull.Value ? null : (double?)rdr["LgAvgLastMinPt1"];
+         o.LgAvgLastMinPt2 = rdr["LgAvgLastMinPt2"] == DBNull.Value ? null : (double?)rdr["LgAvgLastMinPt2"];
+         o.LgAvgLastMinPt3 = rdr["LgAvgLastMinPt3"] == DBNull.Value ? null : (double?)rdr["LgAvgLastMinPt3"];
          o.LgAvgTurnOversAway = rdr["LgAvgTurnOversAway"] == DBNull.Value ? null : (double?)rdr["LgAvgTurnOversAway"];
          o.LgAvgTurnOversHome = rdr["LgAvgTurnOversHome"] == DBNull.Value ? null : (double?)rdr["LgAvgTurnOversHome"];
-         o.LgAvgVolatilityGame = rdr["LgAvgVolatilityGame"] == DBNull.Value ? null : (double?)rdr["LgAvgVolatilityGame"];
+         o.LgAvgOffRBAway = rdr["LgAvgOffRBAway"] == DBNull.Value ? null : (double?)rdr["LgAvgOffRBAway"];
+         o.LgAvgOffRBHome = rdr["LgAvgOffRBHome"] == DBNull.Value ? null : (double?)rdr["LgAvgOffRBHome"];
+         o.LgAvgAssistsAway = rdr["LgAvgAssistsAway"] == DBNull.Value ? null : (double?)rdr["LgAvgAssistsAway"];
+         o.LgAvgAssistsHome = rdr["LgAvgAssistsHome"] == DBNull.Value ? null : (double?)rdr["LgAvgAssistsHome"];
+         o.LgAvgPace = rdr["LgAvgPace"] == DBNull.Value ? null : (double?)rdr["LgAvgPace"];
          o.LgAvgVolatilityTeam = rdr["LgAvgVolatilityTeam"] == DBNull.Value ? null : (double?)rdr["LgAvgVolatilityTeam"];
-         o.NumOfMatchups = (int)rdr["NumOfMatchups"];
-         o.Season = rdr["Season"].ToString().Trim();
-         o.SubSeason = rdr["SubSeason"].ToString().Trim();
-         o.SubSeasonPeriod = (int)rdr["SubSeasonPeriod"];
+         o.LgAvgVolatilityGame = rdr["LgAvgVolatilityGame"] == DBNull.Value ? null : (double?)rdr["LgAvgVolatilityGame"];
+         o.AdjRecentLeagueHistory = rdr["AdjRecentLeagueHistory"] == DBNull.Value ? null : (double?)rdr["AdjRecentLeagueHistory"];
          o.TS = rdr["TS"] == DBNull.Value ? null : (DateTime?)rdr["TS"];
+
 
       }
 

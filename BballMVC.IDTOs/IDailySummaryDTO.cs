@@ -22,6 +22,15 @@ namespace BballMVC.IDTOs
       double LgAvgScoreAway { get; set; }
       double LgAvgScoreFinal { get; set; }
       double LgAvgScoreHome { get; set; }
+      double? LgAvgShotPct { get; set; }
+      double? LgAvgShotPctPt2 { get; set; }
+      double? LgAvgShotPctPt3 { get; set; }
+      double? LgAvgShotsAttemptedAwayPt1 { get; set; }
+      double? LgAvgShotsAttemptedAwayPt2 { get; set; }
+      double? LgAvgShotsAttemptedAwayPt3 { get; set; }
+      double? LgAvgShotsAttemptedHomePt1 { get; set; }
+      double? LgAvgShotsAttemptedHomePt2 { get; set; }
+      double? LgAvgShotsAttemptedHomePt3 { get; set; }
       double LgAvgShotsMadeAwayPt1 { get; set; }
       double LgAvgShotsMadeAwayPt2 { get; set; }
       double LgAvgShotsMadeAwayPt3 { get; set; }
@@ -31,6 +40,7 @@ namespace BballMVC.IDTOs
       DateTime? LgAvgStartDate { get; set; }
       DateTime? LgAvgStartDateActual { get; set; }
       double? LgAvgTotalLine { get; set; }
+      double? LgAvgOurTotalLine { get; set; }
       double? LgAvgTurnOversAway { get; set; }
       double? LgAvgTurnOversHome { get; set; }
       double? LgAvgVolatilityGame { get; set; }

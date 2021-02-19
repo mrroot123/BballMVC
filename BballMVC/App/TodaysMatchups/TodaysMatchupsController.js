@@ -215,6 +215,7 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
    };
 
    $scope.InitPlayEntry = function () {
+      $scope.condensed = $scope.PlayEntry;   // flip to condensed for play entry
       // 1)PlayLength	2)PlayType	3)Line	4)Out	5)Juice	6)Amount	7)Weight	8)Process
       let defaultJuice = -105;
       let defaultWeight = 1;

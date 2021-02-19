@@ -20,12 +20,22 @@ namespace BballMVC.DTOs
       public double LgAvgScoreHome { get; set; }
       public double LgAvgScoreFinal { get; set; }
       public Nullable<double> LgAvgTotalLine { get; set; }
+      public Nullable<double> LgAvgOurTotalLine { get; set; }
       public double LgAvgShotsMadeAwayPt1 { get; set; }
       public double LgAvgShotsMadeAwayPt2 { get; set; }
       public double LgAvgShotsMadeAwayPt3 { get; set; }
       public double LgAvgShotsMadeHomePt1 { get; set; }
       public Nullable<double> LgAvgShotsMadeHomePt2 { get; set; }
       public Nullable<double> LgAvgShotsMadeHomePt3 { get; set; }
+      public Nullable<double> LgAvgShotsAttemptedAwayPt1 { get; set; }
+      public Nullable<double> LgAvgShotsAttemptedAwayPt2 { get; set; }
+      public Nullable<double> LgAvgShotsAttemptedAwayPt3 { get; set; }
+      public Nullable<double> LgAvgShotsAttemptedHomePt1 { get; set; }
+      public Nullable<double> LgAvgShotsAttemptedHomePt2 { get; set; }
+      public Nullable<double> LgAvgShotsAttemptedHomePt3 { get; set; }
+      public Nullable<double> LgAvgShotPct { get; set; }
+      public Nullable<double> LgAvgShotPctPt2 { get; set; }
+      public Nullable<double> LgAvgShotPctPt3 { get; set; }
       public Nullable<double> LgAvgLastMinPts { get; set; }
       public Nullable<double> LgAvgLastMinPt1 { get; set; }
       public Nullable<double> LgAvgLastMinPt2 { get; set; }

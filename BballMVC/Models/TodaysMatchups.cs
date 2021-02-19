@@ -121,5 +121,7 @@ namespace BballMVC.Models
         public Nullable<double> TotalBubbleHome { get; set; }
         public Nullable<System.DateTime> TS { get; set; }
         public string AllAdjustmentLines { get; set; }
+        public string TeamRecordAway { get; set; }
+        public string TeamRecordHome { get; set; }
     }
 }

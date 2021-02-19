@@ -62,5 +62,7 @@ namespace BballMVC.Models
         public Nullable<double> HomeGB2 { get; set; }
         public Nullable<double> HomeGB3 { get; set; }
         public Nullable<System.DateTime> TS { get; set; }
+        public string TeamWinning { get; set; }
+        public string TeamLosing { get; set; }
     }
 }

@@ -50,9 +50,9 @@ namespace BballMVC.Models
         public virtual DbSet<Rotation> Rotation { get; set; }
         public virtual DbSet<TodaysPlays> TodaysPlays { get; set; }
         public virtual DbSet<AdjustmentsCodes> AdjustmentsCodes { get; set; }
-        public virtual DbSet<DailySummary> DailySummary { get; set; }
         public virtual DbSet<UserLeagueParms> UserLeagueParms { get; set; }
         public virtual DbSet<TodaysMatchups> TodaysMatchups { get; set; }
+        public virtual DbSet<DailySummary> DailySummary { get; set; }
     
         [DbFunction("Entities2", "udfQueryAdjustmentsByTeamTotal")]
         public virtual IQueryable<udfQueryAdjustmentsByTeamTotal_Result> udfQueryAdjustmentsByTeamTotal(Nullable<System.DateTime> gameDate, string leagueName)
