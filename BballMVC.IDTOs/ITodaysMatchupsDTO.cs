@@ -82,12 +82,15 @@ namespace BballMVC.IDTOs
       double OurTotalLineHome { get; set; }
       string Play { get; set; }
       double? PlayDiff { get; set; }
+      string Played { get; set; }
       int RotNum { get; set; }
       string Season { get; set; }
       double SideLine { get; set; }
       string SubSeason { get; set; }
       string TeamAway { get; set; }
       string TeamHome { get; set; }
+      string TeamRecordAway { get; set; }
+      string TeamRecordHome { get; set; }
       int Threshold { get; set; }
       double TmStrAdjPct { get; set; }
       double TmStrAway { get; set; }

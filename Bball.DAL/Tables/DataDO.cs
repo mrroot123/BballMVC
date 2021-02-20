@@ -320,26 +320,22 @@ namespace Bball.DAL.Tables
       {
          ITodaysMatchupsDTO o = new TodaysMatchupsDTO(); //  (TodaysMatchupsDTO)oRow;
 
-         o.TV = rdr["TV"] == DBNull.Value ? null : (string)rdr["TV"];
-         o.Play = rdr["Play"] == DBNull.Value ? null : (string)rdr["Play"];
+         o.TodaysMatchupsID = (int)rdr["TodaysMatchupsID"];
+         o.UserName = rdr["UserName"].ToString().Trim();
+         o.LeagueName = rdr["LeagueName"].ToString().Trim();
+         o.GameDate = (DateTime)rdr["GameDate"];
          o.Season = rdr["Season"].ToString().Trim();
          o.SubSeason = rdr["SubSeason"].ToString().Trim();
          o.TeamAway = rdr["TeamAway"].ToString().Trim();
          o.TeamHome = rdr["TeamHome"].ToString().Trim();
-         o.UserName = rdr["UserName"].ToString().Trim();
-         o.LeagueName = rdr["LeagueName"].ToString().Trim();
-         o.GameDate = (DateTime)rdr["GameDate"];
-         o.TS = rdr["TS"] == DBNull.Value ? null : (DateTime?)rdr["TS"];
-         o.PlayDiff = rdr["PlayDiff"] == DBNull.Value ? null : (double?)rdr["PlayDiff"];
-         o.OpenPlayDiff = rdr["OpenPlayDiff"] == DBNull.Value ? null : (double?)rdr["OpenPlayDiff"];
-         o.AdjustedDiff = rdr["AdjustedDiff"] == DBNull.Value ? null : (double?)rdr["AdjustedDiff"];
-         o.BxScLinePct = (double)rdr["BxScLinePct"];
-         o.TmStrAdjPct = (double)rdr["TmStrAdjPct"];
-         o.VolatilityAway = rdr["VolatilityAway"] == DBNull.Value ? null : (double?)rdr["VolatilityAway"];
-         o.VolatilityHome = rdr["VolatilityHome"] == DBNull.Value ? null : (double?)rdr["VolatilityHome"];
-         o.Volatility = rdr["Volatility"] == DBNull.Value ? null : (double?)rdr["Volatility"];
+         o.RotNum = (int)rdr["RotNum"];
+         o.GameTime = rdr["GameTime"] == DBNull.Value ? null : (string)rdr["GameTime"];
+         o.Canceled = rdr["Canceled"] == DBNull.Value ? null : (bool?)rdr["Canceled"];
+         o.TV = rdr["TV"] == DBNull.Value ? null : (string)rdr["TV"];
          o.TmStrAway = (double)rdr["TmStrAway"];
          o.TmStrHome = rdr["TmStrHome"] == DBNull.Value ? null : (double?)rdr["TmStrHome"];
+         o.TeamRecordAway = rdr["TeamRecordAway"] == DBNull.Value ? null : (string)rdr["TeamRecordAway"];
+         o.TeamRecordHome = rdr["TeamRecordHome"] == DBNull.Value ? null : (string)rdr["TeamRecordHome"];
          o.UnAdjTotalAway = rdr["UnAdjTotalAway"] == DBNull.Value ? null : (double?)rdr["UnAdjTotalAway"];
          o.UnAdjTotalHome = (double)rdr["UnAdjTotalHome"];
          o.UnAdjTotal = (double)rdr["UnAdjTotal"];
@@ -371,6 +367,23 @@ namespace Bball.DAL.Tables
          o.SideLine = (double)rdr["SideLine"];
          o.TotalLine = rdr["TotalLine"] == DBNull.Value ? null : (double?)rdr["TotalLine"];
          o.OpenTotalLine = rdr["OpenTotalLine"] == DBNull.Value ? null : (double?)rdr["OpenTotalLine"];
+         o.Play = rdr["Play"] == DBNull.Value ? null : (string)rdr["Play"];
+         o.Played = rdr["Played"] == DBNull.Value ? null : (string)rdr["Played"];
+         o.PlayDiff = rdr["PlayDiff"] == DBNull.Value ? null : (double?)rdr["PlayDiff"];
+         o.OpenPlayDiff = rdr["OpenPlayDiff"] == DBNull.Value ? null : (double?)rdr["OpenPlayDiff"];
+         o.AdjustedDiff = rdr["AdjustedDiff"] == DBNull.Value ? null : (double?)rdr["AdjustedDiff"];
+         o.BxScLinePct = (double)rdr["BxScLinePct"];
+         o.TmStrAdjPct = (double)rdr["TmStrAdjPct"];
+         o.VolatilityAway = rdr["VolatilityAway"] == DBNull.Value ? null : (double?)rdr["VolatilityAway"];
+         o.VolatilityHome = rdr["VolatilityHome"] == DBNull.Value ? null : (double?)rdr["VolatilityHome"];
+         o.Volatility = rdr["Volatility"] == DBNull.Value ? null : (double?)rdr["Volatility"];
+         o.Threshold = (int)rdr["Threshold"];
+         o.GB1 = (int)rdr["GB1"];
+         o.GB2 = (int)rdr["GB2"];
+         o.GB3 = (int)rdr["GB3"];
+         o.WeightGB1 = (int)rdr["WeightGB1"];
+         o.WeightGB2 = (int)rdr["WeightGB2"];
+         o.WeightGB3 = (int)rdr["WeightGB3"];
          o.AwayProjectedPt1 = (double)rdr["AwayProjectedPt1"];
          o.AwayProjectedPt2 = (double)rdr["AwayProjectedPt2"];
          o.AwayProjectedPt3 = (double)rdr["AwayProjectedPt3"];
@@ -415,17 +428,8 @@ namespace Bball.DAL.Tables
          o.HomeGB3Pt3 = (double)rdr["HomeGB3Pt3"];
          o.TotalBubbleAway = rdr["TotalBubbleAway"] == DBNull.Value ? null : (double?)rdr["TotalBubbleAway"];
          o.TotalBubbleHome = rdr["TotalBubbleHome"] == DBNull.Value ? null : (double?)rdr["TotalBubbleHome"];
-         o.Threshold = (int)rdr["Threshold"];
-         o.GB1 = (int)rdr["GB1"];
-         o.GB2 = (int)rdr["GB2"];
-         o.GB3 = (int)rdr["GB3"];
-         o.WeightGB1 = (int)rdr["WeightGB1"];
-         o.WeightGB2 = (int)rdr["WeightGB2"];
-         o.WeightGB3 = (int)rdr["WeightGB3"];
-         o.RotNum = (int)rdr["RotNum"];
-         o.TodaysMatchupsID = (int)rdr["TodaysMatchupsID"];
+         o.TS = rdr["TS"] == DBNull.Value ? null : (DateTime?)rdr["TS"];
          o.AllAdjustmentLines = rdr["AllAdjustmentLines"] == DBNull.Value ? null : (string)rdr["AllAdjustmentLines"];
-         o.GameTime = rdr["GameTime"] == DBNull.Value ? null : (string)rdr["GameTime"];
 
 
          o.Canceled = rdr["rCanceled"] == DBNull.Value ? null : (bool?)rdr["rCanceled"];  // Pulled from Rotation.Canceled

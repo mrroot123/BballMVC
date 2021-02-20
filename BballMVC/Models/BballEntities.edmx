@@ -537,6 +537,7 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.BoxScoresSeeds' does not ha
           <Property Name="LgAvgScoreHome" Type="float" Nullable="false" />
           <Property Name="LgAvgScoreFinal" Type="float" Nullable="false" />
           <Property Name="LgAvgTotalLine" Type="float" />
+          <Property Name="LgAvgOurTotalLine" Type="float" />
           <Property Name="LgAvgShotsMadeAwayPt1" Type="float" Nullable="false" />
           <Property Name="LgAvgShotsMadeAwayPt2" Type="float" Nullable="false" />
           <Property Name="LgAvgShotsMadeAwayPt3" Type="float" Nullable="false" />
@@ -968,6 +969,7 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.TodaysMatchups' does not ha
           <Property Name="TotalLine" Type="float" />
           <Property Name="OpenTotalLine" Type="float" />
           <Property Name="Play" Type="char" MaxLength="8" />
+          <Property Name="Played" Type="char" MaxLength="8" />
           <Property Name="PlayDiff" Type="float" />
           <Property Name="OpenPlayDiff" Type="float" />
           <Property Name="AdjustedDiff" Type="float" />
@@ -2215,6 +2217,7 @@ BoxScoresAdjustedID],
     [TodaysMatchups].[TotalLine] AS [TotalLine], 
     [TodaysMatchups].[OpenTotalLine] AS [OpenTotalLine], 
     [TodaysMatchups].[Play] AS [Play], 
+    [TodaysMatchups].[Played] AS [Played], 
     [TodaysMatchups].[PlayDiff] AS [PlayDiff], 
     [TodaysMatchups].[OpenPlayDiff] AS [OpenPlayDiff], 
     [TodaysMatchups].[AdjustedDiff] AS [AdjustedDiff], 
@@ -3793,8 +3796,8 @@ BoxScoresAdjustedID],
           <EntitySet Name="TodaysPlays" EntityType="TTI_LeagueScoresModel.TodaysPlays" />
           <EntitySet Name="AdjustmentsCodes" EntityType="TTI_LeagueScoresModel.AdjustmentsCodes" />
           <EntitySet Name="UserLeagueParms" EntityType="TTI_LeagueScoresModel.UserLeagueParms" />
-          <EntitySet Name="TodaysMatchups" EntityType="TTI_LeagueScoresModel.TodaysMatchups" />
           <EntitySet Name="DailySummary" EntityType="TTI_LeagueScoresModel.DailySummary" />
+          <EntitySet Name="TodaysMatchups" EntityType="TTI_LeagueScoresModel.TodaysMatchups" />
         </EntityContainer>
         <ComplexType Name="TeamLookupSourceToSource_Result">
           <Property Type="Int32" Name="TeamID" Nullable="false" />
@@ -4071,6 +4074,57 @@ BoxScoresAdjustedID],
           <Property Name="BothHome_Away" Type="Boolean" Nullable="false" />
           <Property Name="BoxscoresSpanSeasons" Type="Boolean" Nullable="false" />
         </EntityType>
+        <EntityType Name="DailySummary">
+          <Key>
+            <PropertyRef Name="DailySummaryID" />
+          </Key>
+          <Property Name="DailySummaryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GameDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="LeagueName" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Season" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="SubSeason" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="SubSeasonPeriod" Type="Int32" Nullable="false" />
+          <Property Name="NumOfMatchups" Type="Int32" Nullable="false" />
+          <Property Name="LgAvgStartDate" Type="DateTime" Precision="0" />
+          <Property Name="LgAvgStartDateActual" Type="DateTime" Precision="0" />
+          <Property Name="LgAvgGamesBack" Type="Int32" Nullable="false" />
+          <Property Name="LgAvgGamesBackActual" Type="Int32" />
+          <Property Name="LgAvgScoreAway" Type="Double" Nullable="false" />
+          <Property Name="LgAvgScoreHome" Type="Double" Nullable="false" />
+          <Property Name="LgAvgScoreFinal" Type="Double" Nullable="false" />
+          <Property Name="LgAvgTotalLine" Type="Double" />
+          <Property Name="LgAvgShotsMadeAwayPt1" Type="Double" Nullable="false" />
+          <Property Name="LgAvgShotsMadeAwayPt2" Type="Double" Nullable="false" />
+          <Property Name="LgAvgShotsMadeAwayPt3" Type="Double" Nullable="false" />
+          <Property Name="LgAvgShotsMadeHomePt1" Type="Double" Nullable="false" />
+          <Property Name="LgAvgShotsMadeHomePt2" Type="Double" />
+          <Property Name="LgAvgShotsMadeHomePt3" Type="Double" />
+          <Property Name="LgAvgShotsAttemptedAwayPt1" Type="Double" />
+          <Property Name="LgAvgShotsAttemptedAwayPt2" Type="Double" />
+          <Property Name="LgAvgShotsAttemptedAwayPt3" Type="Double" />
+          <Property Name="LgAvgShotsAttemptedHomePt1" Type="Double" />
+          <Property Name="LgAvgShotsAttemptedHomePt2" Type="Double" />
+          <Property Name="LgAvgShotsAttemptedHomePt3" Type="Double" />
+          <Property Name="LgAvgShotPct" Type="Double" />
+          <Property Name="LgAvgShotPctPt2" Type="Double" />
+          <Property Name="LgAvgShotPctPt3" Type="Double" />
+          <Property Name="LgAvgLastMinPts" Type="Double" />
+          <Property Name="LgAvgLastMinPt1" Type="Double" />
+          <Property Name="LgAvgLastMinPt2" Type="Double" />
+          <Property Name="LgAvgLastMinPt3" Type="Double" />
+          <Property Name="LgAvgTurnOversAway" Type="Double" />
+          <Property Name="LgAvgTurnOversHome" Type="Double" />
+          <Property Name="LgAvgOffRBAway" Type="Double" />
+          <Property Name="LgAvgOffRBHome" Type="Double" />
+          <Property Name="LgAvgAssistsAway" Type="Double" />
+          <Property Name="LgAvgAssistsHome" Type="Double" />
+          <Property Name="LgAvgPace" Type="Double" />
+          <Property Name="LgAvgVolatilityTeam" Type="Double" />
+          <Property Name="LgAvgVolatilityGame" Type="Double" />
+          <Property Name="AdjRecentLeagueHistory" Type="Double" />
+          <Property Name="TS" Type="DateTime" Precision="3" />
+          <Property Name="LgAvgOurTotalLine" Type="Double" />
+        </EntityType>
         <EntityType Name="TodaysMatchups">
           <Key>
             <PropertyRef Name="TodaysMatchupsID" />
@@ -4156,6 +4210,8 @@ BoxScoresAdjustedID],
           <Property Name="TV" Type="String" MaxLength="8" FixedLength="true" Unicode="false" />
           <Property Name="TmStrAway" Type="Double" Nullable="false" />
           <Property Name="TmStrHome" Type="Double" />
+          <Property Name="TeamRecordAway" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="TeamRecordHome" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="UnAdjTotalAway" Type="Double" />
           <Property Name="UnAdjTotalHome" Type="Double" Nullable="false" />
           <Property Name="UnAdjTotal" Type="Double" Nullable="false" />
@@ -4188,6 +4244,7 @@ BoxScoresAdjustedID],
           <Property Name="TotalLine" Type="Double" />
           <Property Name="OpenTotalLine" Type="Double" />
           <Property Name="Play" Type="String" MaxLength="8" FixedLength="true" Unicode="false" />
+          <Property Name="Played" Type="String" MaxLength="8" FixedLength="true" Unicode="false" />
           <Property Name="PlayDiff" Type="Double" />
           <Property Name="OpenPlayDiff" Type="Double" />
           <Property Name="AdjustedDiff" Type="Double" />
@@ -4249,58 +4306,6 @@ BoxScoresAdjustedID],
           <Property Name="TotalBubbleHome" Type="Double" />
           <Property Name="TS" Type="DateTime" Precision="3" />
           <Property Name="AllAdjustmentLines" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="TeamRecordAway" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="TeamRecordHome" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-        </EntityType>
-        <EntityType Name="DailySummary">
-          <Key>
-            <PropertyRef Name="DailySummaryID" />
-          </Key>
-          <Property Name="DailySummaryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="GameDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="LeagueName" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Season" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="SubSeason" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="SubSeasonPeriod" Type="Int32" Nullable="false" />
-          <Property Name="NumOfMatchups" Type="Int32" Nullable="false" />
-          <Property Name="LgAvgStartDate" Type="DateTime" Precision="0" />
-          <Property Name="LgAvgStartDateActual" Type="DateTime" Precision="0" />
-          <Property Name="LgAvgGamesBack" Type="Int32" Nullable="false" />
-          <Property Name="LgAvgGamesBackActual" Type="Int32" />
-          <Property Name="LgAvgScoreAway" Type="Double" Nullable="false" />
-          <Property Name="LgAvgScoreHome" Type="Double" Nullable="false" />
-          <Property Name="LgAvgScoreFinal" Type="Double" Nullable="false" />
-          <Property Name="LgAvgTotalLine" Type="Double" />
-          <Property Name="LgAvgShotsMadeAwayPt1" Type="Double" Nullable="false" />
-          <Property Name="LgAvgShotsMadeAwayPt2" Type="Double" Nullable="false" />
-          <Property Name="LgAvgShotsMadeAwayPt3" Type="Double" Nullable="false" />
-          <Property Name="LgAvgShotsMadeHomePt1" Type="Double" Nullable="false" />
-          <Property Name="LgAvgShotsMadeHomePt2" Type="Double" />
-          <Property Name="LgAvgShotsMadeHomePt3" Type="Double" />
-          <Property Name="LgAvgShotsAttemptedAwayPt1" Type="Double" />
-          <Property Name="LgAvgShotsAttemptedAwayPt2" Type="Double" />
-          <Property Name="LgAvgShotsAttemptedAwayPt3" Type="Double" />
-          <Property Name="LgAvgShotsAttemptedHomePt1" Type="Double" />
-          <Property Name="LgAvgShotsAttemptedHomePt2" Type="Double" />
-          <Property Name="LgAvgShotsAttemptedHomePt3" Type="Double" />
-          <Property Name="LgAvgShotPct" Type="Double" />
-          <Property Name="LgAvgShotPctPt2" Type="Double" />
-          <Property Name="LgAvgShotPctPt3" Type="Double" />
-          <Property Name="LgAvgLastMinPts" Type="Double" />
-          <Property Name="LgAvgLastMinPt1" Type="Double" />
-          <Property Name="LgAvgLastMinPt2" Type="Double" />
-          <Property Name="LgAvgLastMinPt3" Type="Double" />
-          <Property Name="LgAvgTurnOversAway" Type="Double" />
-          <Property Name="LgAvgTurnOversHome" Type="Double" />
-          <Property Name="LgAvgOffRBAway" Type="Double" />
-          <Property Name="LgAvgOffRBHome" Type="Double" />
-          <Property Name="LgAvgAssistsAway" Type="Double" />
-          <Property Name="LgAvgAssistsHome" Type="Double" />
-          <Property Name="LgAvgPace" Type="Double" />
-          <Property Name="LgAvgVolatilityTeam" Type="Double" />
-          <Property Name="LgAvgVolatilityGame" Type="Double" />
-          <Property Name="AdjRecentLeagueHistory" Type="Double" />
-          <Property Name="TS" Type="DateTime" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -5309,11 +5314,61 @@ BoxScoresAdjustedID],
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="DailySummary">
+            <EntityTypeMapping TypeName="TTI_LeagueScoresModel.DailySummary">
+              <MappingFragment StoreEntitySet="DailySummary">
+                <ScalarProperty Name="LgAvgOurTotalLine" ColumnName="LgAvgOurTotalLine" />
+                <ScalarProperty Name="TS" ColumnName="TS" />
+                <ScalarProperty Name="AdjRecentLeagueHistory" ColumnName="AdjRecentLeagueHistory" />
+                <ScalarProperty Name="LgAvgVolatilityGame" ColumnName="LgAvgVolatilityGame" />
+                <ScalarProperty Name="LgAvgVolatilityTeam" ColumnName="LgAvgVolatilityTeam" />
+                <ScalarProperty Name="LgAvgPace" ColumnName="LgAvgPace" />
+                <ScalarProperty Name="LgAvgAssistsHome" ColumnName="LgAvgAssistsHome" />
+                <ScalarProperty Name="LgAvgAssistsAway" ColumnName="LgAvgAssistsAway" />
+                <ScalarProperty Name="LgAvgOffRBHome" ColumnName="LgAvgOffRBHome" />
+                <ScalarProperty Name="LgAvgOffRBAway" ColumnName="LgAvgOffRBAway" />
+                <ScalarProperty Name="LgAvgTurnOversHome" ColumnName="LgAvgTurnOversHome" />
+                <ScalarProperty Name="LgAvgTurnOversAway" ColumnName="LgAvgTurnOversAway" />
+                <ScalarProperty Name="LgAvgLastMinPt3" ColumnName="LgAvgLastMinPt3" />
+                <ScalarProperty Name="LgAvgLastMinPt2" ColumnName="LgAvgLastMinPt2" />
+                <ScalarProperty Name="LgAvgLastMinPt1" ColumnName="LgAvgLastMinPt1" />
+                <ScalarProperty Name="LgAvgLastMinPts" ColumnName="LgAvgLastMinPts" />
+                <ScalarProperty Name="LgAvgShotPctPt3" ColumnName="LgAvgShotPctPt3" />
+                <ScalarProperty Name="LgAvgShotPctPt2" ColumnName="LgAvgShotPctPt2" />
+                <ScalarProperty Name="LgAvgShotPct" ColumnName="LgAvgShotPct" />
+                <ScalarProperty Name="LgAvgShotsAttemptedHomePt3" ColumnName="LgAvgShotsAttemptedHomePt3" />
+                <ScalarProperty Name="LgAvgShotsAttemptedHomePt2" ColumnName="LgAvgShotsAttemptedHomePt2" />
+                <ScalarProperty Name="LgAvgShotsAttemptedHomePt1" ColumnName="LgAvgShotsAttemptedHomePt1" />
+                <ScalarProperty Name="LgAvgShotsAttemptedAwayPt3" ColumnName="LgAvgShotsAttemptedAwayPt3" />
+                <ScalarProperty Name="LgAvgShotsAttemptedAwayPt2" ColumnName="LgAvgShotsAttemptedAwayPt2" />
+                <ScalarProperty Name="LgAvgShotsAttemptedAwayPt1" ColumnName="LgAvgShotsAttemptedAwayPt1" />
+                <ScalarProperty Name="LgAvgShotsMadeHomePt3" ColumnName="LgAvgShotsMadeHomePt3" />
+                <ScalarProperty Name="LgAvgShotsMadeHomePt2" ColumnName="LgAvgShotsMadeHomePt2" />
+                <ScalarProperty Name="LgAvgShotsMadeHomePt1" ColumnName="LgAvgShotsMadeHomePt1" />
+                <ScalarProperty Name="LgAvgShotsMadeAwayPt3" ColumnName="LgAvgShotsMadeAwayPt3" />
+                <ScalarProperty Name="LgAvgShotsMadeAwayPt2" ColumnName="LgAvgShotsMadeAwayPt2" />
+                <ScalarProperty Name="LgAvgShotsMadeAwayPt1" ColumnName="LgAvgShotsMadeAwayPt1" />
+                <ScalarProperty Name="LgAvgTotalLine" ColumnName="LgAvgTotalLine" />
+                <ScalarProperty Name="LgAvgScoreFinal" ColumnName="LgAvgScoreFinal" />
+                <ScalarProperty Name="LgAvgScoreHome" ColumnName="LgAvgScoreHome" />
+                <ScalarProperty Name="LgAvgScoreAway" ColumnName="LgAvgScoreAway" />
+                <ScalarProperty Name="LgAvgGamesBackActual" ColumnName="LgAvgGamesBackActual" />
+                <ScalarProperty Name="LgAvgGamesBack" ColumnName="LgAvgGamesBack" />
+                <ScalarProperty Name="LgAvgStartDateActual" ColumnName="LgAvgStartDateActual" />
+                <ScalarProperty Name="LgAvgStartDate" ColumnName="LgAvgStartDate" />
+                <ScalarProperty Name="NumOfMatchups" ColumnName="NumOfMatchups" />
+                <ScalarProperty Name="SubSeasonPeriod" ColumnName="SubSeasonPeriod" />
+                <ScalarProperty Name="SubSeason" ColumnName="SubSeason" />
+                <ScalarProperty Name="Season" ColumnName="Season" />
+                <ScalarProperty Name="LeagueName" ColumnName="LeagueName" />
+                <ScalarProperty Name="GameDate" ColumnName="GameDate" />
+                <ScalarProperty Name="DailySummaryID" ColumnName="DailySummaryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="TodaysMatchups">
             <EntityTypeMapping TypeName="TTI_LeagueScoresModel.TodaysMatchups">
               <MappingFragment StoreEntitySet="TodaysMatchups">
-                <ScalarProperty Name="TeamRecordHome" ColumnName="TeamRecordHome" />
-                <ScalarProperty Name="TeamRecordAway" ColumnName="TeamRecordAway" />
                 <ScalarProperty Name="AllAdjustmentLines" ColumnName="AllAdjustmentLines" />
                 <ScalarProperty Name="TS" ColumnName="TS" />
                 <ScalarProperty Name="TotalBubbleHome" ColumnName="TotalBubbleHome" />
@@ -5375,6 +5430,7 @@ BoxScoresAdjustedID],
                 <ScalarProperty Name="AdjustedDiff" ColumnName="AdjustedDiff" />
                 <ScalarProperty Name="OpenPlayDiff" ColumnName="OpenPlayDiff" />
                 <ScalarProperty Name="PlayDiff" ColumnName="PlayDiff" />
+                <ScalarProperty Name="Played" ColumnName="Played" />
                 <ScalarProperty Name="Play" ColumnName="Play" />
                 <ScalarProperty Name="OpenTotalLine" ColumnName="OpenTotalLine" />
                 <ScalarProperty Name="TotalLine" ColumnName="TotalLine" />
@@ -5407,6 +5463,8 @@ BoxScoresAdjustedID],
                 <ScalarProperty Name="UnAdjTotal" ColumnName="UnAdjTotal" />
                 <ScalarProperty Name="UnAdjTotalHome" ColumnName="UnAdjTotalHome" />
                 <ScalarProperty Name="UnAdjTotalAway" ColumnName="UnAdjTotalAway" />
+                <ScalarProperty Name="TeamRecordHome" ColumnName="TeamRecordHome" />
+                <ScalarProperty Name="TeamRecordAway" ColumnName="TeamRecordAway" />
                 <ScalarProperty Name="TmStrHome" ColumnName="TmStrHome" />
                 <ScalarProperty Name="TmStrAway" ColumnName="TmStrAway" />
                 <ScalarProperty Name="TV" ColumnName="TV" />
@@ -5421,57 +5479,6 @@ BoxScoresAdjustedID],
                 <ScalarProperty Name="LeagueName" ColumnName="LeagueName" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="TodaysMatchupsID" ColumnName="TodaysMatchupsID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DailySummary">
-            <EntityTypeMapping TypeName="TTI_LeagueScoresModel.DailySummary">
-              <MappingFragment StoreEntitySet="DailySummary">
-                <ScalarProperty Name="TS" ColumnName="TS" />
-                <ScalarProperty Name="AdjRecentLeagueHistory" ColumnName="AdjRecentLeagueHistory" />
-                <ScalarProperty Name="LgAvgVolatilityGame" ColumnName="LgAvgVolatilityGame" />
-                <ScalarProperty Name="LgAvgVolatilityTeam" ColumnName="LgAvgVolatilityTeam" />
-                <ScalarProperty Name="LgAvgPace" ColumnName="LgAvgPace" />
-                <ScalarProperty Name="LgAvgAssistsHome" ColumnName="LgAvgAssistsHome" />
-                <ScalarProperty Name="LgAvgAssistsAway" ColumnName="LgAvgAssistsAway" />
-                <ScalarProperty Name="LgAvgOffRBHome" ColumnName="LgAvgOffRBHome" />
-                <ScalarProperty Name="LgAvgOffRBAway" ColumnName="LgAvgOffRBAway" />
-                <ScalarProperty Name="LgAvgTurnOversHome" ColumnName="LgAvgTurnOversHome" />
-                <ScalarProperty Name="LgAvgTurnOversAway" ColumnName="LgAvgTurnOversAway" />
-                <ScalarProperty Name="LgAvgLastMinPt3" ColumnName="LgAvgLastMinPt3" />
-                <ScalarProperty Name="LgAvgLastMinPt2" ColumnName="LgAvgLastMinPt2" />
-                <ScalarProperty Name="LgAvgLastMinPt1" ColumnName="LgAvgLastMinPt1" />
-                <ScalarProperty Name="LgAvgLastMinPts" ColumnName="LgAvgLastMinPts" />
-                <ScalarProperty Name="LgAvgShotPctPt3" ColumnName="LgAvgShotPctPt3" />
-                <ScalarProperty Name="LgAvgShotPctPt2" ColumnName="LgAvgShotPctPt2" />
-                <ScalarProperty Name="LgAvgShotPct" ColumnName="LgAvgShotPct" />
-                <ScalarProperty Name="LgAvgShotsAttemptedHomePt3" ColumnName="LgAvgShotsAttemptedHomePt3" />
-                <ScalarProperty Name="LgAvgShotsAttemptedHomePt2" ColumnName="LgAvgShotsAttemptedHomePt2" />
-                <ScalarProperty Name="LgAvgShotsAttemptedHomePt1" ColumnName="LgAvgShotsAttemptedHomePt1" />
-                <ScalarProperty Name="LgAvgShotsAttemptedAwayPt3" ColumnName="LgAvgShotsAttemptedAwayPt3" />
-                <ScalarProperty Name="LgAvgShotsAttemptedAwayPt2" ColumnName="LgAvgShotsAttemptedAwayPt2" />
-                <ScalarProperty Name="LgAvgShotsAttemptedAwayPt1" ColumnName="LgAvgShotsAttemptedAwayPt1" />
-                <ScalarProperty Name="LgAvgShotsMadeHomePt3" ColumnName="LgAvgShotsMadeHomePt3" />
-                <ScalarProperty Name="LgAvgShotsMadeHomePt2" ColumnName="LgAvgShotsMadeHomePt2" />
-                <ScalarProperty Name="LgAvgShotsMadeHomePt1" ColumnName="LgAvgShotsMadeHomePt1" />
-                <ScalarProperty Name="LgAvgShotsMadeAwayPt3" ColumnName="LgAvgShotsMadeAwayPt3" />
-                <ScalarProperty Name="LgAvgShotsMadeAwayPt2" ColumnName="LgAvgShotsMadeAwayPt2" />
-                <ScalarProperty Name="LgAvgShotsMadeAwayPt1" ColumnName="LgAvgShotsMadeAwayPt1" />
-                <ScalarProperty Name="LgAvgTotalLine" ColumnName="LgAvgTotalLine" />
-                <ScalarProperty Name="LgAvgScoreFinal" ColumnName="LgAvgScoreFinal" />
-                <ScalarProperty Name="LgAvgScoreHome" ColumnName="LgAvgScoreHome" />
-                <ScalarProperty Name="LgAvgScoreAway" ColumnName="LgAvgScoreAway" />
-                <ScalarProperty Name="LgAvgGamesBackActual" ColumnName="LgAvgGamesBackActual" />
-                <ScalarProperty Name="LgAvgGamesBack" ColumnName="LgAvgGamesBack" />
-                <ScalarProperty Name="LgAvgStartDateActual" ColumnName="LgAvgStartDateActual" />
-                <ScalarProperty Name="LgAvgStartDate" ColumnName="LgAvgStartDate" />
-                <ScalarProperty Name="NumOfMatchups" ColumnName="NumOfMatchups" />
-                <ScalarProperty Name="SubSeasonPeriod" ColumnName="SubSeasonPeriod" />
-                <ScalarProperty Name="SubSeason" ColumnName="SubSeason" />
-                <ScalarProperty Name="Season" ColumnName="Season" />
-                <ScalarProperty Name="LeagueName" ColumnName="LeagueName" />
-                <ScalarProperty Name="GameDate" ColumnName="GameDate" />
-                <ScalarProperty Name="DailySummaryID" ColumnName="DailySummaryID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

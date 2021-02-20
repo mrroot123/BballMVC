@@ -4,7 +4,7 @@ using BballMVC.IDTOs;
 
 namespace BballMVC.DTOs
 {
-   public  class TodaysMatchupsDTO : ITodaysMatchupsDTO 
+   public  class TodaysMatchupsDTO : ITodaysMatchupsDTO
    {
       public int TodaysMatchupsID { get; set; }
       public string UserName { get; set; }
@@ -20,6 +20,8 @@ namespace BballMVC.DTOs
       public string TV { get; set; }
       public double TmStrAway { get; set; }
       public Nullable<double> TmStrHome { get; set; }
+      public string TeamRecordAway { get; set; }
+      public string TeamRecordHome { get; set; }
       public Nullable<double> UnAdjTotalAway { get; set; }
       public double UnAdjTotalHome { get; set; }
       public double UnAdjTotal { get; set; }
@@ -52,6 +54,7 @@ namespace BballMVC.DTOs
       public Nullable<double> TotalLine { get; set; }
       public Nullable<double> OpenTotalLine { get; set; }
       public string Play { get; set; }
+      public string Played { get; set; }
       public Nullable<double> PlayDiff { get; set; }
       public Nullable<double> OpenPlayDiff { get; set; }
       public Nullable<double> AdjustedDiff { get; set; }

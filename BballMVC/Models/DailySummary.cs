@@ -59,5 +59,6 @@ namespace BballMVC.Models
         public Nullable<double> LgAvgVolatilityGame { get; set; }
         public Nullable<double> AdjRecentLeagueHistory { get; set; }
         public Nullable<System.DateTime> TS { get; set; }
+        public Nullable<double> LgAvgOurTotalLine { get; set; }
     }
 }

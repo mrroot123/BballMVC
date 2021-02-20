@@ -29,8 +29,8 @@
         <EntityTypeShape EntityType="TTI_LeagueScoresModel.TodaysPlays" Width="1.5" PointX="19.375" PointY="6.75" />
         <EntityTypeShape EntityType="TTI_LeagueScoresModel.AdjustmentsCodes" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="TTI_LeagueScoresModel.UserLeagueParms" Width="1.5" PointX="3.375" PointY="0.75" />
-        <EntityTypeShape EntityType="TTI_LeagueScoresModel.TodaysMatchups" Width="1.5" PointX="13.375" PointY="16.75" />
         <EntityTypeShape EntityType="TTI_LeagueScoresModel.DailySummary" Width="1.5" PointX="19.375" PointY="13.75" />
+        <EntityTypeShape EntityType="TTI_LeagueScoresModel.TodaysMatchups" Width="1.5" PointX="13.375" PointY="16.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
