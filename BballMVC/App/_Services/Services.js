@@ -173,7 +173,16 @@ angular.module('app').service('f', function ($rootScope, ajx, url) {
    this.Yesterday = function () {
       return new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1);
    };
-
+   this.GetDayOfWeekLiteral = function (date) {
+      //Create an array containing each day, starting with Sunday.
+      var weekdays = new Array(
+         "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
+      );
+      //Use the getDay() method to get the day.
+      var day = date.getDay();
+      //Return the element that corresponds to that index.
+      return weekdays[day];
+   }
    //
    // Messages
    //
@@ -195,9 +204,27 @@ angular.module('app').service('f', function ($rootScope, ajx, url) {
       return new Date(parseInt(jsonDateString.replace('/Date(', '')));
    };
 
+// MODAL ============================
+   this.ShowModalHideParent = function (Parent, Modal) {
+      this.GreyScreen(Parent);
+      this.ShowModal(Modal);
+   };
 
+   this.ShowParentHideModal = function (Parent, Modal) {
+      this.ShowScreen(Parent);
+      this.HideModal(Modal);
+   };
+   // MODAL ============================
 
-
+   this.screenShow = function (show) {
+      return;
+      if (show) {
+         $('#screen').css({ "display": "block", opacity: 1, "width": $(document).width(), "height": $(document).height() });
+      }
+      else {
+         $('#screen').css({ "display": "block", opacity: 0.2, "width": $(document).width(), "height": $(document).height() });
+      }
+   };
    this.ShowScreen = function (ScreenID) {
       $('#' + ScreenID).css({ "display": "block", opacity: 1, "width": $(document).width(), "height": $(document).height() });
    };

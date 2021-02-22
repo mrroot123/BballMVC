@@ -124,6 +124,11 @@ namespace Bball.DAL.Tables
          string strSql = $"Delete BoxScores Where LeagueName = '{LeagueName}' AND GameDate = '{GameDate.ToShortDateString()}'";
          DALfunctions.ExecuteSqlNonQuery(ConnectionString, strSql);
       }
+      public static void DeleteBoxScoresLast5MinByDate(String ConnectionString, string LeagueName, DateTime GameDate)
+      {
+         string strSql = $"Delete BoxScoresLast5Min Where LeagueName = '{LeagueName}' AND GameDate = '{GameDate.ToShortDateString()}'";
+         DALfunctions.ExecuteSqlNonQuery(ConnectionString, strSql);
+      }
       #region BoxScoresLast5Min
       public static void InsertAwayHomeRowsBoxScoresLast5Min(BoxScoresLast5MinDTO oLast5MinDTOHome, string ConnectionString, BoxScoresLast5Min oLast5Min)
       {  // kd 12/15/2020 Injected oLast5Min

@@ -2,7 +2,33 @@
    kdAlert("run");
    $rootScope.ADJUSTMENTSLISTCONTAINER = "AdjustmentsListContainer";
    $rootScope.RefreshTodaysMatchupsState = true;
+
    
+
+   // Global functions
+   $rootScope.ParentContainerName = true;
+   $rootScope.OpenModal = function (thisObj, ParentContainerName, Modal, eventBroadcast) {
+
+      // Note: eventBroadcast = 'eventOpen' + Modal
+      // ex: 'AdjustmentsByTeamModal', 'eventOpenAdjustmentsByTeamModal'
+      f.ShowModalHideParent($rootScope.ParentContainerName, Modal);
+      if (eventBroadcast)
+         $rootScope.$broadcast(eventBroadcast, thisObj);				
+
+   }; // OpenModal
+   // ng-click="CloseModal(this, 'AdjustmentsListContainer', 'AdjustmentsModal', 'eventGetAdjustments' )"
+   $rootScope.CloseModal = function (thisObj, ParentContainerName, Modal, eventBroadcast) {
+
+      f.ShowParentHideModal($rootScope.ParentContainerName, Modal);
+      if (eventBroadcast)
+         $rootScope.$broadcast(eventBroadcast, thisObj);
+   }; // CloseModal
+
+   $rootScope.Getmdy = function (d) {
+      return f.Getmdy(d);
+   };
+   // global end
+
    $rootScope.oBballInfoDTO = 
    {
       UserName: "Test",

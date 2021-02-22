@@ -1,5 +1,9 @@
-Declare @GB int = 4, @GameDate date = '7/28/2020'
-	, @Team varchar(4) = 'CON', @BxScLinePct float = .2, @BxScTmStrPct float = .5
+Declare @GB int = 3
+	, @LeagueName Varchar(8) = 'NBA'
+	, @GameDate date = '2/21/2021'
+	, @Team varchar(4) = 'BOS'
+	, @Season varchar(4) = '2021'
+	, @BxScLinePct float = .2, @BxScTmStrPct float = .5
 
 						Select TOP (@GB)	@GB as GB,	b.GameDate, b.RotNum, b.Team, b.Venue, b.Opp
 
@@ -33,11 +37,11 @@ Declare @GB int = 4, @GameDate date = '7/28/2020'
 							Left Join TeamStrength ts					ON ts.GameDate = b.GameDate  AND  ts.LeagueName = b.LeagueName  AND  ts.Team = b.Opp
 							Left JOIN BoxScoresLast5Min bL5	ON bL5.GameDate = b.GameDate AND  bL5.RotNum = b.RotNum
 		
-						Where b.LeagueName = 'wnba'
+						Where b.LeagueName =@LeagueName
 							AND	b.GameDate <	 @GameDate
 							AND	b.Team =	@Team
 					--		AND  (b.Venue = @Venue OR @BothHome_Away = 1)
-							AND  b.Season = '20'
+							AND  b.Season = @Season
 							AND  ( b.SubSeason = '1-Reg')	--  '1-Reg'
 							AND  b.Exclude = 0
 							Order BY b.GameDate DESC

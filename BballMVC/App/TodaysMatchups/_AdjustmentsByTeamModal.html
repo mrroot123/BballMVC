@@ -11,7 +11,10 @@
                   <td>Adj Total: {{AdjustmentsByTeamAdjTotal | number:2}}</td>
                   <td>&nbsp;&nbsp;</td>
                   <td>
-                     <input type="button" class="btn btn-danger" value="Close" ng-click="AdjustmentsByTeamModalClose()" />
+                     <input type="button" class="btn btn-danger" value="Close" 
+                            ng-click="CloseModal(this, 'TodaysMatchupsContainer', 'AdjustmentsByTeamModal', 'eventReshowTodaysMatchupsContainer' )"
+                            
+                            />
                   </td>
                </tr>
                <tr>

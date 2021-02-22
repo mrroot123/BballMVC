@@ -3,16 +3,39 @@
 <div ng-controller="layoutController" id="screen" class="screen">
    <div ng-include="'_Header/Header.html'"></div>
 
-   <div class="panel-group" id="accordion" ng-model="ngAccordian" ng-show="Accordian">
+   <div class="panel-group" id="accordion" ng-model="ngAccordion" ng-show="Accordion">
+
+
+      <!--TEMPLATE-->
+      <!--
+   <div class="panel panel-default">
+      <div class="panel-heading">
+         <h4 class="panel-title">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#accTEMPLATE">   (1)
+               ng-click="clickAccordion('TEMPLATEContainer', 'eventOptionalTEMPLATE')">                        (2)
+               <span class="glyphicon glyphicon-menu-right"></span>
+               Template DisplayName                                                                            (3) Literal
+            </a>
+         </h4>
+      </div>
+      <div id="accTEMPLATE" class="panel-collapse collapse">                                                   (4) same as (1)
+         <div class="panel-body">
+            <div ng-include="'TEMPLATE.html'"></div>                                                           (5)
+         </div>
+      </div>
+   </div>
+   -->
       <!--Todays Matchups-->
       <div class="panel panel-default">
          <div class="panel-heading">
             <h4 class="panel-title">
-               <a class="accordion-toggle" data-toggle="collapse"
-                  data-parent="#accordion" href="#accTodaysMatchups" ng-click="clickRefreshTodaysMatchups()">
+
+               <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#accTodaysMatchups"
+                  ng-click="clickAccordion('TodaysMatchupsContainer', 'eventRefreshTodaysMatchups')">
                   <span class="glyphicon glyphicon-menu-right"></span>
                   Todays Matchups
                </a>
+
             </h4>
          </div>
          <div id="accTodaysMatchups" class="panel-collapse collapse">
@@ -26,7 +49,8 @@
       <div class="panel panel-default" ng-show="PostGameAnalysis">
          <div class="panel-heading">
             <h4 class="panel-title">
-               <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#accPostGameAnalysis">
+               <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#accPostGameAnalysis"
+                  ng-click="clickAccordion('PostGameAnalysisContainer', null)">
                   <span class="glyphicon glyphicon-menu-right"></span>
                   Post Game Analysis
                </a>
@@ -43,7 +67,8 @@
       <div class="panel panel-default">
          <div class="panel-heading">
             <h4 class="panel-title">
-               <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#accAdjustments">
+               <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#accAdjustments"
+                  ng-click="clickAccordion('AdjustmentsListContainer', null)">
                   <span class="glyphicon glyphicon-menu-right"></span>
                   Adjustments
                </a>
@@ -57,7 +82,7 @@
       </div>
 
       <!--BoxScoresSeeds-->
-      <div class="panel panel-default">
+      <!--<div class="panel panel-default">
          <div class="panel-heading">
             <h4 class="panel-title">
                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#accBoxScoresSeeds">
@@ -71,13 +96,13 @@
                <div ng-include="'BoxScoresSeeds/BoxScoresSeeds.html'"></div>
             </div>
          </div>
-      </div>
+      </div>-->
 
       <div class="panel panel-default">
          <div class="panel-heading">
             <h4 class="panel-title">
                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#accBballManagement"
-                     ng-click="ClickBballManagement()">
+                  ng-click="clickAccordion('BballManagementContainer', 'eventInitBballManagement')">
                   <span class="glyphicon glyphicon-menu-right"></span>
                   Bball Management
                </a>
@@ -90,27 +115,11 @@
          </div>
       </div>
 
-      <!--TEMPLATE-->
-      <!--
-   <div class="panel panel-default">
-      <div class="panel-heading">
-         <h4 class="panel-title">
-            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#accTEMPLATE">
-               <span class="glyphicon glyphicon-menu-right"></span>
-               Template DisplayName
-            </a>
-         </h4>
-      </div>
-      <div id="accTEMPLATE" class="panel-collapse collapse">
-         <div class="panel-body">
-            <div ng-include="'TEMPLATE.html'"></div>
-         </div>
-      </div>
-   </div>
-      -->
+
 
    </div>
    <div class="panel-body">
       <div ng-include="'Common/AlertModal.html'"></div>
+      <div ng-include="'TodaysMatchups/_AdjustmentsByTeamModal.html'"></div>
    </div>
 </div>

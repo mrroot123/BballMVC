@@ -343,7 +343,7 @@
     <Content Include="App\BoxScoresSeeds\BoxScoresSeeds.html" />
     <Content Include="App\BoxScoresSeeds\BoxScoresSeedsController.js" />
     <Content Include="App\BoxScoresSeeds\_BoxScoresSeedsTable.html" />
-    <Content Include="App\Common\css\accordian.css" />
+    <Content Include="App\Common\css\accordion.css" />
     <Content Include="App\Common\AlertModal.html" />
     <Content Include="App\Common\images\loader.gif" />
     <Content Include="App\Common\js\AlertModalController.js" />
@@ -378,10 +378,12 @@
     <Content Include="App\_Header\HeaderController.js" />
     <Content Include="App\_layout\layout.html" />
     <Content Include="App\_layout\layoutController.js" />
+    <Content Include="App\_Services\ModalService.js" />
     <Content Include="App\_Services\Run.js" />
     <Content Include="App\_Services\Services.js" />
     <Content Include="App\_templates\template.html" />
     <Content Include="App\_templates\templateController.js" />
+    <Content Include="App\_templates\templateModalController.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />

@@ -6,7 +6,8 @@ angular.module('app').controller('BoxScoresSeedsController', function ($rootScop
    $scope.PopulateBoxScoresSeeds = function () {
 
       $scope.LeagueName = $rootScope.oBballInfoDTO.LeagueName;
-      $('#screen').css({ "display": "block", opacity: 0.2, "width": $(document).width(), "height": $(document).height() });
+      //$('#screen').css({ "display": "block", opacity: 0.2, "width": $(document).width(), "height": $(document).height() });
+      f.screenShow(false);
 
       ajx.AjaxGet(url.UrlGetData, {
          UserName: $rootScope.oBballInfoDTO.UserName, GameDate: $rootScope.oBballInfoDTO.GameDate.toLocaleDateString()
@@ -20,7 +21,8 @@ angular.module('app').controller('BoxScoresSeedsController', function ($rootScop
          .catch(error => {
             f.DisplayErrorMessage(f.FormatResponse(error));
          });
-      $('#screen').css({ "display": "block", opacity: 1, "width": $(document).width(), "height": $(document).height() });
+      //$('#screen').css({ "display": "block", opacity: 1, "width": $(document).width(), "height": $(document).height() });
+      f.screenShow(true);
 
    }; // PopulateBoxScoresSeeds
 
@@ -59,7 +61,8 @@ angular.module('app').controller('BoxScoresSeedsController', function ($rootScop
          .catch(error => {
             f.DisplayErrorMessage(f.FormatResponse(error));
          });
-      $('#screen').css({ "display": "block", opacity: 1, "width": $(document).width(), "height": $(document).height() });
+      //$('#screen').css({ "display": "block", opacity: 1, "width": $(document).width(), "height": $(document).height() });
+      f.screenShow(true);
 
    }; // UpdateBoxScoresSeeds
 

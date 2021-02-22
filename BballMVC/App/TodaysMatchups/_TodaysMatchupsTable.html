@@ -68,7 +68,7 @@
          <tr style="color:{{LeagueColor}};">
             <th colspan="2">Averages</th>
 
-            <th colspan="10" ng-Hide="condensed"></th>
+            <th colspan="11" ng-Hide="condensed"></th>
 
             <th>{{avgOurTotalLine | number:1}}</th>
             <th>{{avgTotalLine | number:1}}</th>
@@ -104,27 +104,33 @@
                      <td ng-hide="Multi">{{item.TeamAway}}-{{item.TeamHome}}</td>
                   </tr>
                   <tr>
-                     <td ng-show="Multi" id="TeamAway_{{$index}}">
-                        <table>
-                           <tr>
-                              <td>{{item.TeamAway}}</td>
-                              <td> </td>
-                              <td>{{item.TeamRecordAway}}</td>
-                           </tr>
-                        </table>
-                     </td>
+                     <td ng-show="Multi" id="TeamAway_{{$index}}">{{item.TeamAway}}</td>
                   </tr>
                   <tr>
-                     <td ng-show="Multi" id="TeamHome_{{$index}}">
-                        <table>
-                           <tr>
-                              <td>{{item.TeamHome}}</td>
-                              <td> </td>
-                              <td>{{item.TeamRecordHome}}</td>
-                           </tr>
-                        </table> 
-                     </td>
+                     <td ng-show="Multi" id="TeamHome_{{$index}}">{{item.TeamHome}}</td>
                   </tr>
+                  <!--<tr>
+      <td ng-show="Multi" id="TeamAway_{{$index}}">
+         <table>
+            <tr>
+               <td>{{item.TeamAway}}</td>
+               <td> </td>
+               <td>{{item.TeamRecordAway}}</td>
+            </tr>
+         </table>
+      </td>
+   </tr>
+   <tr>
+      <td ng-show="Multi" id="TeamHome_{{$index}}">
+         <table>
+            <tr>
+               <td>{{item.TeamHome}}</td>
+               <td> </td>
+               <td>{{item.TeamRecordHome}}</td>
+            </tr>
+         </table>
+      </td>
+   </tr>-->
                </table>
             </td>
 
@@ -256,10 +262,14 @@
             <td ng-Hide="condensed">
                <table>
                   <tr>
-                     <td ng-show="Multi" ng-click="OpenAdjustmentsByTeamModal(this, 'Away')">{{item.AdjAmtAway | number:1}}</td>
+                     <td ng-show="Multi"
+                         ng-click="OpenModal([this, 'Away'], 'TodaysMatchupsContainer', 'AdjustmentsByTeamModal', 'eventOpenAdjustmentsByTeamModal')"
+                         >{{item.AdjAmtAway | number:1}}</td>
                   </tr>
                   <tr>
-                     <td ng-show="Multi" ng-click="OpenAdjustmentsByTeamModal(this, 'Home')">{{item.AdjAmtHome | number:1}}</td>
+                     <td ng-show="Multi" 
+                         ng-click="OpenModal([this, 'Home'], 'TodaysMatchupsContainer', 'AdjustmentsByTeamModal', 'eventOpenAdjustmentsByTeamModal')"
+                         >{{item.AdjAmtHome | number:1}}</td>
                   </tr>
                   <tr>
                      <td class="statTotal">{{item.AdjAmt | number:1}}</td>

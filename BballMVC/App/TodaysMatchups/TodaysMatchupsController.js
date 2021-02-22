@@ -4,6 +4,7 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
    //alert("TodaysMatchupsController");
    let TodaysMatchupsParms = { scope: $scope, f: f, LeagueName: $rootScope.oBballInfoDTO.LeagueName, ajx: ajx };
    let localGameDate = null;
+   const containerName = "TodaysMatchupsContainer";
    
    $scope.PlayEntry = false;
    $scope.ShowPlaysOnly = false;
@@ -29,25 +30,30 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
       defaultAmount += item.defaultAmount;
    });
 
-   const modalName = "AdjustmentsByTeamModal";
-   const containerName = "TodaysMatchupsContainer";
-   $scope.$on('eventReshowTodaysMatchupsContainer', function (ev) {
-      f.ShowScreen(containerName);
-   });
-
-   $scope.OpenAdjustmentsByTeamModal = function (objAdj, Venue) {
-     // $scope.GreyOutAdjustmentList();
-      var Team = Venue === 'Away' ? objAdj.item.TeamAway : objAdj.item.TeamHome;
-      $scope.$broadcast('eventOpenAdjustmentsByTeamModal', Team, objAdj.item.SideLine);
-   };
-
+   //const modalName = "AdjustmentsByTeamModal"; kdcleanup
+   //$scope.$on('eventReshowTodaysMatchupsContainer', function (ev) {
+   //   f.ShowScreen(containerName);
+   //});
+   //$scope.xOpenAxdjustmentsByTeamModal = function (objAdj, Venue) {
+   //  // $scope.GreyOutAdjustmentList();
+   //   var Team = Venue === 'Away' ? objAdj.item.TeamAway : objAdj.item.TeamHome;
+   //   $scope.$broadcast('eventOpenAdjustmentsByTeamModal', Team, objAdj.item.SideLine);
+   //};
+   //$scope.OpenAxdjustmentsByTeamModal = function (objAdj) {
+   //   // $scope.GreyOutAdjustmentList();
+   //   var Team = objAdj[1] === 'Away' ? objAdj[0].item.TeamAway : objAdj[0].item.TeamHome;
+   //   $scope.$broadcast('eventOpenAxdjustmentsByTeamModal', Team, objAdj[0].item.SideLine);
+   //};
    //$scope.$on("populateTodaysMatchups", function (ev) { 2/8/2020
    //   populateTodaysMatchups();
    //});
 
+   // When ADJs do Updates, this makes MUPs refresh & on App Init so it Refreshes the first time
    $scope.$on("eventSetRefreshTodaysMatchups", function (ev) {
       $rootScope.RefreshTodaysMatchupsState = true;
    });
+
+   // When Todays Matchups is clicked in Accordion it will refresh
    $scope.$on("eventRefreshTodaysMatchups", function (ev) {
       if ($rootScope.RefreshTodaysMatchupsState) {
          $scope.RefreshTodaysMatchups(true);

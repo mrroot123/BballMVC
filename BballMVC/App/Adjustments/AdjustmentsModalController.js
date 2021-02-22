@@ -1,13 +1,12 @@
 ﻿
 angular.module('app').controller('AdjustmentsModalController', function ($rootScope, $scope, f, ajx, url) {
    let rowWasInserted = false;
+   let Parent = "AdjustmentsListContainer";
+   let Modal = "AdjustmentsModal";
 
    $scope.$on('eventOpenAdjustmentsModal', function (e) {
       rowWasInserted = false;
       $scope.ClearAdjustmentEntryForm();
-      f.GreyScreen($rootScope.ADJUSTMENTSLISTCONTAINER);
-      //$scope.GreyOutAdjustmentList();
-      $('#AdjustmentsModal').css({ "display": "block" });   // Show Adjustment Entry Modal
    });
 
    $scope.$on('eventPopulateTeamsAdjTypes', function () {
@@ -17,8 +16,10 @@ angular.module('app').controller('AdjustmentsModalController', function ($rootSc
    });
 
    $scope.AdjustmentsModalClose = function () {    // invoked by Close click on Adjustment Entry Modal
-      $('#AdjustmentsModal').css({ "display": "none" }); // Hide Adjustment Entry Modal
-      $scope.$emit("eventReshowAdjustmentsListContainer", rowWasInserted);
+     // $('#AdjustmentsModal').css({ "display": "none" }); // Hide Adjustment Entry Modal
+      f.ShowParentHideModal(Parent, Modal);
+      if (rowWasInserted)
+         $scope.$emit("eventGetAdjustments");
    };
 
 

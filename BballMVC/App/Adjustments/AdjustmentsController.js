@@ -4,13 +4,19 @@ angular.module('app').controller("AdjustmentsController", function ($rootScope, 
    $scope.cbShowZeroAdjustments = true;
    let rowWasInserted = false;
   
+   // Called by AdjustmentsModal for refresh
+   $scope.$on('eventGetAdjustments', function (e) {
+      $scope.GetAdjustments($scope, f, ajx);
+   });
 
-   $scope.cbChange = function (adjAmtID) {
-      alert("cb");
-   };
-   $scope.Getmdy = function (d) {
-      return f.Getmdy(d);
-   };
+   // called by Header Select League
+   $scope.$on('eventPopulateAdjustments', function () {
+      populateAdjustments();
+   });
+
+   //$scope.Getmdy = function (d) {
+   //   return f.Getmdy(d);
+   //};
    $scope.ProcessAdjustmentUpdates = function () {
       let ocAdjustmentDTO = [];
       let rowNum = 0;
@@ -44,20 +50,8 @@ angular.module('app').controller("AdjustmentsController", function ($rootScope, 
             //$scope.ShowAdjustmentList();
          });
    };   // ProcessAdjustmentUpdates 
-   $scope.OpenAdjustmentsModal = function () {
-     // verify $scope.GreyOutAdjustmentList();
-      $scope.$broadcast('eventOpenAdjustmentsModal');
-   };
-   $scope.$on('eventReshowAdjustmentsListContainer', function (e, rowWasInserted) {
-      if (rowWasInserted)
-         $scope.GetAdjustments($scope, f, ajx);
-      f.ShowScreen($rootScope.ADJUSTMENTSLISTCONTAINER);
-            //$scope.ShowAdjustmentList();
-   });
 
-   $scope.$on('eventPopulateAdjustments', function () {
-      populateAdjustments();
-   });
+
 
    $scope.GetAdjustments = function ($scope, f, ajx) {
       let refreshAdjustments = function (ocAdjustments) {
@@ -85,13 +79,5 @@ angular.module('app').controller("AdjustmentsController", function ($rootScope, 
       });
       $scope.$apply();
    }
-
-   //$scope.ShowAdjustmentList = function () {
-   //   $('#AdjustmentsListContainer').css({ "display": "block", opacity: 1, "width": $(document).width(), "height": $(document).height() });
-   //};
-   // grey out Adjustments
-   //$scope.GreyOutAdjustmentList = function () {
-   //   $('#AdjustmentsListContainer').css({ "display": "block", opacity: 0.2, "width": $(document).width(), "height": $(document).height() });
-   //};
 
 }); // Adjustments controller

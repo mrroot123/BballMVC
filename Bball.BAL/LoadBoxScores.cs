@@ -67,6 +67,7 @@ namespace Bball.BAL
          new LeagueInfoDO(oBballInfoDTO);  // Init _oLeagueDTO
 
          BoxScoreDO.DeleteBoxScoresByDate(oBballInfoDTO.ConnectionString, oBballInfoDTO.LeagueName, oBballInfoDTO.GameDate);
+         BoxScoreDO.DeleteBoxScoresLast5MinByDate(oBballInfoDTO.ConnectionString, oBballInfoDTO.LeagueName, oBballInfoDTO.GameDate);
          loadBoxScores(oBballInfoDTO);
       }
       private int loadBoxScores(IBballInfoDTO oBballInfoDTO)   // Return NumOfMatchups

@@ -4,15 +4,20 @@
 
 
    <div class="row">
-      <div class="col-md-2">League: {{LeagueName}}  </div>
-      <div class="col-md-2"> {{GameDate}} </div>
-      <div class="col-md-2"> {{oBballInfoDTO.GameDate}} </div>
-      <div ng-include="'Common/_GameDateLocal.html'"></div>
+      <div class="container" id="PostGameAnalysisContainer">
+
+         <div class="row">
+            <div class="col-md-2">League: {{LeagueName}}  </div>
+            <div class="col-md-2"> {{GameDate}} </div>
+            <div class="col-md-2"> {{oBballInfoDTO.GameDate}} </div>
+            <div ng-include="'Common/_GameDateLocal.html'"></div>
+         </div>
+
+
+         <div class="table-responsive">
+            <div ng-include="'PostGameAnalysis/_PostGameAnalysisTable.html'"></div>
+         </div>
+
+      </div>
    </div>
-
-
-   <div class="table-responsive">
-      <div ng-include="'PostGameAnalysis/_PostGameAnalysisTable.html'"></div>
-   </div>
-
 </div>

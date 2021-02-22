@@ -1,22 +1,30 @@
-﻿angular.module("app").controller("layoutController", function ($scope) {
+﻿angular.module("app").controller("layoutController", function ($rootScope, $scope, f) {
    kdAlert("layoutController");
-   $scope.Accordian = false; // hide accordian on app init
+   $scope.Accordion = false; // hide Accordion on app init
    $scope.PostGameAnalysis = true;
-   $scope.$on('showAccordian', function (e) {
-      displayAccordian();
-  //   $scope.Accordian = true;
-      $scope.$apply;
+
+
+   $scope.$on('showAccordion', function (e) {
+      displayAccordion();
+  //   $scope.Accordion = true;
+   //   $scope.$apply;
    });
 
-   function displayAccordian () {
-      $scope.Accordian = true;
-      $('#screen').css({ "display": "block", opacity: 1, "width": $(document).width(), "height": $(document).height() });
+   function displayAccordion () {
+      $scope.Accordion = true;
+      //$('#screen').css({ "display": "block", opacity: 1, "width": $(document).width(), "height": $(document).height() });
+      f.screenShow(true);
       $scope.$apply;
-
-   }
+   }  // displayAccordion
 
    $scope.clickRefreshTodaysMatchups = function () {
       $scope.$broadcast('eventRefreshTodaysMatchups');
+   };
+
+   $scope.clickAccordion = function (ParentContainerName, eventName) {
+      $rootScope.ParentContainerName = ParentContainerName;
+      if (eventName)
+         $scope.$broadcast(eventName);
    };
 
    $scope.ClickBballManagement = function () {
