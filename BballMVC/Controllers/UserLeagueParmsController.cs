@@ -60,13 +60,14 @@ namespace BballMVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UserLeagueParmsID,UserName,LeagueName,StartDate,LgAvgStartDate,LgAvgGamesBack,TeamAvgGamesBack,TeamPaceGamesBack,TeamSeedGames,LoadRotationDaysAhead,GB1,GB2,GB3,WeightGB1,WeightGB2,WeightGB3,Threshold,BxScLinePct,BxScTmStrPct,TmStrAdjPct,RecentLgHistoryAdjPct,BothHome_Away,BoxscoresSpanSeasons")] UserLeagueParms userLeagueParms)
+        public ActionResult Edit([Bind(Include = "UserLeagueParmsID,UserName,LeagueName,StartDate,LgAvgStartDate,LgAvgGamesBack,TeamAvgGamesBack,TeamPaceGamesBack,TeamSeedGames,LoadRotationDaysAhead,GB1,GB2,GB3,WeightGB1,WeightGB2,WeightGB3,Threshold,BxScLinePct,BxScTmStrPct,TmStrAdjPct,RecentLgHistoryAdjPct,BothHome_Away,BoxscoresSpanSeasons")]
+               UserLeagueParms userLeagueParms)
         {
             if (ModelState.IsValid)
             {
                 userLeagueParms.StartDate = DateTime.Today;
-                db.UserLeagueParms.Add(userLeagueParms);
-                db.SaveChanges();
+                //db.UserLeagueParms.Add(userLeagueParms);
+                //db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
