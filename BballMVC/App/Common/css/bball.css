@@ -1,7 +1,7 @@
 ﻿body {
 }
 
-.screen {
+#screen {
    width: 2000px;
    height: 1000px;
 }
@@ -16,6 +16,10 @@
    z-index: 20;
    display: none;
    padding-top: 6px
+}
+
+.redFG {
+   color: red;
 }
 .xover  {
    color: yellow;

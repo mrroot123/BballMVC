@@ -358,6 +358,15 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
          return "";
       return obj.item.Play.trim().toLowerCase();
    };
+   $scope.applyMinusRedColor = function (n1, n2) {
+      if (!n2)
+         n2 = 0;
+
+      if (n1 < n2)
+         return "redFG";
+     // style = 'color:red;'
+      return "";
+   };
 
 
 });   // controller

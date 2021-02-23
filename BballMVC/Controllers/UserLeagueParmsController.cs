@@ -66,8 +66,8 @@ namespace BballMVC.Controllers
             if (ModelState.IsValid)
             {
                 userLeagueParms.StartDate = DateTime.Today;
-                //db.UserLeagueParms.Add(userLeagueParms);
-                //db.SaveChanges();
+                db.UserLeagueParms.Add(userLeagueParms);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
 

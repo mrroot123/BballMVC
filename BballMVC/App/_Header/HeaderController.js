@@ -22,8 +22,6 @@
       if (xx===2)     // $rootScope.oBballInfoDTO.oBballDataDTO.ocLeagueNames)
          RefreshLeagueNamesDropDown();
       else {
-         //$('#screen').css({ "display": "block", opacity: 0.2, "width": $(document).width(), "height": $(document).height() });
-         f.screenShow(false);
          ajx.AjaxGet(url.UrlGetData, {
             UserName: $rootScope.oBballInfoDTO.UserName, GameDate: new Date().toDateString()
             , LeagueName: $rootScope.oBballInfoDTO.LeagueName, CollectionType: "GetLeagueNames"
@@ -36,8 +34,6 @@
             .catch(error => {
                f.DisplayErrorMessage(f.FormatResponse(error));
             });
-         //$('#screen').css({ "display": "block", opacity: 1, "width": $(document).width(), "height": $(document).height() });
-         f.screenShow(true);
       }
    }   // GetLeagueNames
    function RefreshLeagueNamesDropDown() {
@@ -59,8 +55,6 @@
       $rootScope.oBballInfoDTO.LeagueName = $scope.LeagueName;
       $rootScope.oBballInfoDTO.GameDate = new Date(); // Today as Object
 
-      //$('#screen').css({ "display": "block", opacity: 0.2, "width": $(document).width(), "height": $(document).height() });
-      f.screenShow(false);
 
       ajx.AjaxGet(url.UrlGetData, {
          UserName: $rootScope.oBballInfoDTO.UserName, GameDate: $rootScope.oBballInfoDTO.GameDate.toLocaleDateString()  
@@ -79,15 +73,11 @@
 
             $scope.$emit('showAccordion'); // <-- will SHOW screen
             $scope.$apply;
-          //  $('#screen').css({ "display": "block", opacity: 1, "width": $(document).width(), "height": $(document).height() });
           //  alert($rootScope.oBballInfoDTO.LeagueName + " selected");
 
          })
          .catch(error => {
             f.DisplayErrorMessage(f.FormatResponse(error));
-            //$('#screen').css({ "display": "block", opacity: 1, "width": $(document).width(), "height": $(document).height() });
-            f.screenShow(true);
-
          });
 
    }; // SelectLeague

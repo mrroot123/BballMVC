@@ -12,8 +12,6 @@
 
    function displayAccordion () {
       $scope.Accordion = true;
-      //$('#screen').css({ "display": "block", opacity: 1, "width": $(document).width(), "height": $(document).height() });
-      f.screenShow(true);
       $scope.$apply;
    }  // displayAccordion
 

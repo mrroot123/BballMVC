@@ -32,9 +32,9 @@
             <th ng-Hide="condensed">Last&nbsp;{{TMparms.GB3}}<br />&nbsp;&nbsp;&nbsp;{{TMparms.WeightGB3}}</th>
 
             <th ng-Hide="condensed">UnAdj<br />Total</th>
-            <th ng-Hide="condensed">UnAdj Tot<br />Plan B</th>
-            <th ng-Hide="condensed">Points<br />Scored</th>
-            <th ng-Hide="condensed">Points<br />Allowed</th>
+            <th ng-Hide="condensed" title="Calced on Game Avgs not Point Avgs">UnAdj Tot<br />Plan B</th>
+            <th ng-Hide="condensed" title="From Adjusted BxSc Stats - GamesBack: TeamAvgGamesBack">Points<br />Scored</th>
+            <th ng-Hide="condensed" title="From Adjusted BxSc Stats - GamesBack: TeamAvgGamesBack">Points<br />Allowed</th>
             <th ng-Hide="condensed">Team<br />Strength</th>
 
             <th ng-Hide="condensed">Adjust<br />ments</th>
@@ -205,13 +205,19 @@
             <td ng-Hide="condensed">
                <table>
                   <tr>
-                     <td ng-show="Multi">{{item.UnAdjTotalAwayPlanB | number:1}}</td>
+                     <td ng-show="Multi"  ng-class="applyMinusRedColor({{item.UnAdjTotalAwayPlanB}}, {{item.UnAdjTotalAway}} )">
+                        {{item.UnAdjTotalAwayPlanB | number:1}}
+                     </td>
                   </tr>
                   <tr>
-                     <td ng-show="Multi">{{item.UnAdjTotalHomePlanB | number:1}}</td>
+                     <td ng-show="Multi"  ng-class="applyMinusRedColor({{item.UnAdjTotalHomePlanB}}, {{item.UnAdjTotalHome}} )">
+                        {{item.UnAdjTotalHomePlanB | number:1}}
+                     </td>
                   </tr>
                   <tr>
-                     <td class="statTotal">{{item.UnAdjTotalPlanB | number:1}}</td>
+                     <td class="statTotal"  ng-class="applyMinusRedColor({{item.UnAdjTotalPlanB}}, {{item.UnAdjTotal}} )">
+                        {{item.UnAdjTotalPlanB | number:1}}
+                     </td>
                   </tr>
                </table>
             </td>
@@ -299,7 +305,9 @@
                      <td ng-show="Multi">{{item.OurTotalLineHome | number:1}}</td>
                   </tr>
                   <tr>
-                     <td class="statTotal">{{item.OurTotalLine | number:1}}</td>
+                     <td class="statTotal" ng-class="applyMinusRedColor({{item.OurTotalLine}}, {{item.TotalLine}} )">
+                         {{item.OurTotalLine | number:1}}
+                     </td>
                   </tr>
                </table>
             </td>
@@ -317,8 +325,6 @@
 
                </table>
             </td>
-
-
 
             <td>
                <table>
@@ -341,7 +347,7 @@
                      <td ng-show="Multi">{{item.OurTotalLineHome - ((item.TotalLine+item.SideLine)/2) | number:1}}</td>
                   </tr>
                   <tr>
-                     <td class="statTotal">{{item.PlayDiff |  number:1}}</td>
+                     <td class="statTotal" ng-class="applyMinusRedColor({{item.PlayDiff}} )">{{item.PlayDiff |  number:1}}</td>
                   </tr>
                </table>
             </td>
