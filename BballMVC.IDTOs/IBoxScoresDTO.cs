@@ -6,6 +6,7 @@ namespace BballMVC.DTOs
    {
       double AssistsOp { get; set; }
       double AssistsUs { get; set; }
+      int BoxScoresID { get; set; }
       bool Exclude { get; set; }
       DateTime GameDate { get; set; }
       string GameTime { get; set; }
@@ -17,6 +18,7 @@ namespace BballMVC.DTOs
       double OffRBUs { get; set; }
       string Opp { get; set; }
       int OtPeriods { get; set; }
+      double? Pace { get; set; }
       int RotNum { get; set; }
       double ScoreOT { get; set; }
       double ScoreOTOp { get; set; }
@@ -59,6 +61,7 @@ namespace BballMVC.DTOs
       double ShotsMadeUsRegPt3 { get; set; }
       string Source { get; set; }
       string SubSeason { get; set; }
+      int? SubSeasonPeriod { get; set; }
       string Team { get; set; }
       double TurnOversOp { get; set; }
       double TurnOversUs { get; set; }

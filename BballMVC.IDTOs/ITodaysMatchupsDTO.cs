@@ -10,8 +10,11 @@ namespace BballMVC.IDTOs
       double AdjDbAway { get; set; }
       double AdjDbHome { get; set; }
       double AdjOTwithSide { get; set; }
-      double? AdjPace { get; set; }
+      double? AdjPaceAway { get; set; }
+      double? AdjPaceHome { get; set; }
       double? AdjRecentLeagueHistory { get; set; }
+      double? AdjTeamAway { get; set; }
+      double? AdjTeamHome { get; set; }
       double AdjTV { get; set; }
       double? AdjustedDiff { get; set; }
       string AllAdjustmentLines { get; set; }

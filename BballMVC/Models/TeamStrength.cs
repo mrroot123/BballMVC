@@ -20,6 +20,9 @@ namespace BballMVC.Models
         public int RotNum { get; set; }
         public string Team { get; set; }
         public string Venue { get; set; }
+        public Nullable<int> GB { get; set; }
+        public Nullable<int> ActualGB { get; set; }
+        public Nullable<System.DateTime> StartDate { get; set; }
         public double TeamStrength1 { get; set; }
         public double TeamStrengthScored { get; set; }
         public double TeamStrengthAllowed { get; set; }
@@ -28,9 +31,7 @@ namespace BballMVC.Models
         public Nullable<double> TeamStrengthTMsAdjPctScored { get; set; }
         public Nullable<double> TeamStrengthTMsAdjPctAllowed { get; set; }
         public Nullable<double> Volatility { get; set; }
-        public Nullable<double> Pace { get; set; }
+        public Nullable<double> TeamPaceAvg { get; set; }
         public Nullable<System.DateTime> TS { get; set; }
-        public Nullable<int> GB { get; set; }
-        public Nullable<int> ActualGB { get; set; }
     }
 }

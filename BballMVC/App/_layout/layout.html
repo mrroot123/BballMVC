@@ -3,7 +3,7 @@
 <div ng-controller="layoutController" id="screen" class="screen">
    <div ng-include="'_Header/Header.html'"></div>
 
-   <div class="panel-group" id="accordion" ng-model="ngAccordion" ng-show="Accordion">
+   <div class="panel-group" id="accordion" ng-model="ngAccordion" ng-show="true">
 
 
       <!--TEMPLATE-->
@@ -30,8 +30,8 @@
          <div class="panel-heading">
             <h4 class="panel-title">
 
-               <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#accTodaysMatchups"
-                  ng-click="clickAccordion('TodaysMatchupsContainer', 'eventRefreshTodaysMatchups')">
+               <a class="accordion-toggle" id="idTodaysMatchups" data-toggle="collapse" data-parent="#accordion" href="#accTodaysMatchups"
+                  ng-click="clickAccordion('TodaysMatchupsContainer', 'eventRefreshTodaysMatchups', $event)">
                   <span class="glyphicon glyphicon-menu-right"></span>
                   Todays Matchups
                </a>
@@ -68,7 +68,7 @@
          <div class="panel-heading">
             <h4 class="panel-title">
                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#accAdjustments"
-                  ng-click="clickAccordion('AdjustmentsListContainer', null)">
+                  ng-click="clickAccordion('AdjustmentsListContainer', 'eventGetAdjustments', $event)">
                   <span class="glyphicon glyphicon-menu-right"></span>
                   Adjustments
                </a>
@@ -102,7 +102,7 @@
          <div class="panel-heading">
             <h4 class="panel-title">
                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#accBballManagement"
-                  ng-click="clickAccordion('BballManagementContainer', 'eventInitBballManagement')">
+                  ng-click="clickAccordion('BballManagementContainer', 'eventInitBballManagement', $event)">
                   <span class="glyphicon glyphicon-menu-right"></span>
                   Bball Management
                </a>

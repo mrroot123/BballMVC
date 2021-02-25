@@ -402,7 +402,7 @@ namespace SysDAL.Functions
                {
                   while (rdr.Read())
                   {
-                     s = rdr.GetFieldValue<string>(0);
+                     s = rdr.GetFieldValue<string>(0).ToString();
                   }
                }
             }  // using conn

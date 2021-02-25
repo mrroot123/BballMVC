@@ -25,14 +25,16 @@ DonBest Url
    http://www.donbest.com/nba/scores_summary/3-509-20200110-sum/ HalfTime odds 1st or 2nd???
 
 Modify Table Structure
-   NOTE: xxxTableNameDO's have been decommission to DataDO <---
+   NOTE: xxxTableNameDO's SOME have been decommission to DataDO <---
    1) Change in SS
    -- Populate Null columns
    -- Go into Table Design and remove Nulls where applicable
 
    2) Rebuild Model in BballMVC.Models Edmx - NOTE: Ctrl-MouseWheel to RESIZE Model Diagram
-   -- Open Models.edmx, Open ModelBrowser, Delete Table, BUILD
+   -- Open Models.edmx, Clk on BG, Open ModelBrowser
+   -- Clk Entity Types, Delete OBJs -- NOTE: BballEntities.tt Models will be refreshed
    -- right clk on space, update model from Database, Add Table, Clean & Build BUILD solution -- new model generated in BballEntities.tt 
+   -- Push Changes
    -- copy Model in BballMVC.Models.BballEntities.tt to DTOs and create DTO interface
       -- Add class in DTOs - modelDTO
       -- Copy _TemplateDTO into it ... modify where necessary

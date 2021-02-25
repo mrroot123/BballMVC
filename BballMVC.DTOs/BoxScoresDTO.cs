@@ -5,8 +5,9 @@ using BballMVC.IDTOs;
 
 namespace BballMVC.DTOs
 {
-    public class BoxScoresDTO : IBoxScoresDTO
+    public class BoxScoresDTO : IBoxScoresDTO 
    {
+      public int BoxScoresID { get; set; }
       public bool Exclude { get; set; }
       public string LeagueName { get; set; }
       public System.DateTime GameDate { get; set; }
@@ -17,6 +18,7 @@ namespace BballMVC.DTOs
       public string GameTime { get; set; }
       public string Season { get; set; }
       public string SubSeason { get; set; }
+      public Nullable<int> SubSeasonPeriod { get; set; }
       public int MinutesPlayed { get; set; }
       public int OtPeriods { get; set; }
       public double ScoreReg { get; set; }
@@ -63,9 +65,9 @@ namespace BballMVC.DTOs
       public double OffRBOp { get; set; }
       public double AssistsUs { get; set; }
       public double AssistsOp { get; set; }
+      public Nullable<double> Pace { get; set; }
       public string Source { get; set; }
       public System.DateTime LoadDate { get; set; }
       public int LoadTimeSeconds { get; set; }
-
    }
 }

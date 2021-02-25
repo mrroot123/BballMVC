@@ -54,7 +54,10 @@ namespace BballMVC.Models
         public double AdjOTwithSide { get; set; }
         public double AdjTV { get; set; }
         public Nullable<double> AdjRecentLeagueHistory { get; set; }
-        public Nullable<double> AdjPace { get; set; }
+        public Nullable<double> AdjPaceAway { get; set; }
+        public Nullable<double> AdjPaceHome { get; set; }
+        public Nullable<double> AdjTeamAway { get; set; }
+        public Nullable<double> AdjTeamHome { get; set; }
         public double OurTotalLineAway { get; set; }
         public double OurTotalLineHome { get; set; }
         public double OurTotalLine { get; set; }

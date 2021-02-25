@@ -15,17 +15,30 @@
       $scope.$apply;
    }  // displayAccordion
 
-   $scope.clickRefreshTodaysMatchups = function () {
-      $scope.$broadcast('eventRefreshTodaysMatchups');
-   };
+   //$scope.clickRefreshTodaysMatchups = function () {
+   //   $scope.$broadcast('eventRefreshTodaysMatchups');
+   //};
 
-   $scope.clickAccordion = function (ParentContainerName, eventName) {
+   $scope.clickAccordion = function (ParentContainerName, eventName, ev) {
+      if (isAccordionOpen(ev))
+         return;
+
+      if (!$rootScope.oBballInfoDTO.LeagueName) {
+         f.DisplayMessage("League not selected");
+         return;
+      }
+
       $rootScope.ParentContainerName = ParentContainerName;
       if (eventName)
          $scope.$broadcast(eventName);
    };
-
-   $scope.ClickBballManagement = function () {
-      $scope.$broadcast('eventInitBballManagement');
-   };
+   function isAccordionOpen(ev) {
+      var id = ev.target.id;
+      var accID = $('#' + id).attr('href');
+      var accOpen = $(accID).attr("aria-expanded") ? $(accID).attr("aria-expanded") : "false";
+      return accOpen === "true";
+   }
+   //$scope.ClickBballManagement = function () {
+   //   $scope.$broadcast('eventInitBballManagement');
+   //};
 });

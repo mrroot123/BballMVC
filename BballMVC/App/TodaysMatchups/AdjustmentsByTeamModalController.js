@@ -8,6 +8,7 @@ angular.module('app').controller('AdjustmentsByTeamModalController', function ($
       let SideLine = objAdj[0].item.SideLine;
 
       $scope.AdjustmentsByTeamTeam = Team;
+      // Adjustments/GetAdjustmentsByTeam
       ajx.AjaxGet(url.UrlGetAdjustmentsByTeam
          , {
             GameDate: $rootScope.oBballInfoDTO.GameDate.toLocaleDateString()

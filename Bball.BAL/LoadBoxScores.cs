@@ -40,38 +40,48 @@ namespace Bball.BAL
          _oBballInfoDTO.oBballDataDTO.oSeasonInfoDTO = oSeasonInfoDO.oSeasonInfoDTO;
 
          _DefaultDate = SeasonInfoDO.DefaultDate;
-         LoadBoxScoreRange(_oBballInfoDTO.LeagueName, _oBballInfoDTO.ConnectionString, SeasonInfoDO.DefaultDate);
+         loadBoxScoreRange(_oBballInfoDTO.LeagueName, _oBballInfoDTO.ConnectionString, SeasonInfoDO.DefaultDate); // 1
       }
-      // kdcleanup
-      //public LoadBoxScores(string UserName, string LeagueName, DateTime GameDate, string ConnectionString)
-      //{
-      //   new LeagueInfoDO(LeagueName, _oLeagueDTO, ConnectionString, GameDate);  // Init _oLeagueDTO
-      //   SeasonInfoDO oSeasonInfoDO = new SeasonInfoDO(GameDate, LeagueName, ConnectionString);
 
-      //  // oSeasonInfoDO = new SeasonInfoDO(GameDate, _oLeagueDTO.LeagueName);
-      //   _oBballInfoDTO = new BballInfoDTO()
-      //   {
-      //      ConnectionString = ConnectionString,
-      //      GameDate = oSeasonInfoDO.GameDate,
-      //      LeagueName = LeagueName,
-      //      UserName = UserName,
-      //      oSeasonInfoDTO = oSeasonInfoDO.oSeasonInfoDTO
-      //   };
-      //   _DefaultDate = SeasonInfoDO.DefaultDate;
-      //   LoadBoxScoreRange(LeagueName, ConnectionString, SeasonInfoDO.DefaultDate, _oLeagueDTO.BoxScoresL5MinURL);
-      //}
       #endregion constructors
+      // called by constructor
+      private void loadBoxScoreRange(string LeagueName, string ConnectionString, DateTime DefaultDate, string BoxScoresL5MinURL = "")
+      {
+         Helper.Log(_oBballInfoDTO, $"LoadBoxScores.loadBoxScoreRange - LeagueName: {LeagueName}");
 
+         DateTime GameDate = getNextGameDate(BoxScoreDO.GetMaxBoxScoresGameDate(ConnectionString, LeagueName, DefaultDate), ConnectionString);
+
+         while (GameDate < DateTime.Today)   // Load ALL previous Boxscores - usually Yesterday's
+         {
+            int NumOfMatchups = 0;
+            try
+            {
+               NumOfMatchups = loadYesterdaysBoxScores(GameDate);  //1
+            }
+            catch (Exception ex)
+            {
+               throw new Exception(DALFunctions.StackTraceFormat(ex));
+            }
+
+            Console.WriteLine($"Processed {GameDate} - {DateTime.Now} - Matchups: {NumOfMatchups}");
+            GameDate = getNextGameDate(GameDate, ConnectionString);
+         }
+      }
+
+
+      #region reloadBoxScores
       public void ReloadBoxScores(IBballInfoDTO oBballInfoDTO)
       {
          new LeagueInfoDO(oBballInfoDTO);  // Init _oLeagueDTO
 
          BoxScoreDO.DeleteBoxScoresByDate(oBballInfoDTO.ConnectionString, oBballInfoDTO.LeagueName, oBballInfoDTO.GameDate);
          BoxScoreDO.DeleteBoxScoresLast5MinByDate(oBballInfoDTO.ConnectionString, oBballInfoDTO.LeagueName, oBballInfoDTO.GameDate);
-         loadBoxScores(oBballInfoDTO);
-      }
-      private int loadBoxScores(IBballInfoDTO oBballInfoDTO)   // Return NumOfMatchups
-      {
+       //  loadBoxScores(oBballInfoDTO);
+      //}
+
+      //// called by ReloadBoxScores
+      //private int loadBoxScores(IBballInfoDTO oBballInfoDTO)   // Return NumOfMatchups
+      //{
          /*
           * Load: Rotation and Boxscores, BoxscoresL5Min up to Yesterday
           * */
@@ -80,7 +90,7 @@ namespace Bball.BAL
          new SeasonInfoDO(oBballInfoDTO);                                        // set oBballInfoDTO.oBballDataDTO.oSeasonInfoDTO
          RotationDO.PopulateRotation(ocRotation, oBballInfoDTO, oBballInfoDTO.oBballDataDTO.oLeagueDTO);    // Get Rotation for GameDate - Populate if Not Found
          if (ocRotation.Count == 0)
-            return 0;   // No Games for GameDate
+            return;   // No Games for GameDate
 
          CoversDTO oCoversDTO = null;
          try
@@ -92,7 +102,7 @@ namespace Bball.BAL
                if (oCoversDTO.GameStatus == (int)CoversRotation.GameStatus.Canceled)   // Bypass Canceled games
                   continue;
 
-               insertBoxScore(oCoversDTO, oBballInfoDTO);      // .oBballDataDTO.oSeasonInfoDTO);
+               insertBoxScore(oCoversDTO, oBballInfoDTO);      // 1
 
             } // foreach MUP
          }
@@ -102,13 +112,9 @@ namespace Bball.BAL
                + $"{_oLeagueDTO.LeagueName}: {oBballInfoDTO.GameDate}  {oCoversDTO.RotNum}  {oCoversDTO.TeamAway}-{oCoversDTO.TeamHome} "
                + "\n" + oCoversDTO.Url;
             throw new Exception(DALFunctions.StackTraceFormat(msg, ex, ""));
-
          }
-
-         return ocRotation.Count;  // return NumOfMatchups
-
-
-      }  // LoadYesterdaysBoxScores
+      }  // ReloadBoxScores
+      #endregion reloadBoxScores
 
       public void LoadTodaysRotation()
       {
@@ -147,36 +153,17 @@ namespace Bball.BAL
          SqlFunctions.ParmTableParmValueUpdate(_oBballInfoDTO.ConnectionString, "BoxscoresLastUpdateDate", DateTime.Today.ToShortDateString());
       }
 
-      private void LoadBoxScoreRange(string LeagueName, string ConnectionString, DateTime DefaultDate, string BoxScoresL5MinURL = "")
-      {
-         Helper.Log(_oBballInfoDTO, $"LoadBoxScores.LoadBoxScoreRange - LeagueName: {LeagueName}" );
 
-         DateTime GameDate = getNextGameDate(BoxScoreDO.GetMaxBoxScoresGameDate(ConnectionString, LeagueName, DefaultDate), ConnectionString);
-
-         while (GameDate < DateTime.Today)   // Load ALL previous Boxscores - usually Yesterday's
-         {
-            int NumOfMatchups = 0;
-            try
-            {
-               NumOfMatchups = LoadYesterdaysBoxScores(GameDate);
-            }
-            catch (Exception ex)
-            {
-               throw new Exception(DALFunctions.StackTraceFormat(ex));
-            }
-
-            Console.WriteLine($"Processed {GameDate} - {DateTime.Now} - Matchups: {NumOfMatchups}");
-            GameDate = getNextGameDate(GameDate, ConnectionString);
-         }
-      }
-
-
-      private int LoadYesterdaysBoxScores(DateTime GameDate)   // Return NumOfMatchups
+      // called by loadBoxScoreRange & FixBoxscores
+      private int loadYesterdaysBoxScores(DateTime GameDate)   // Return NumOfMatchups
       {
          /*
           * Load: Rotation and Boxscores, BoxscoresL5Min up to Yesterday
           * */
-         Helper.Log(_oBballInfoDTO, $"LoadBoxScores.LoadYesterdaysBoxScores - LeagueName: {_oBballInfoDTO.LeagueName}  GameDate: {_oBballInfoDTO.GameDate}");
+
+         IBballInfoDTO oBballInfoDTO = _oBballInfoDTO;  // kdcleanup - Pass as Parm, get rid of _oBballInfoDTO refs
+
+         Helper.Log(oBballInfoDTO, $"LoadBoxScores.loadYesterdaysBoxScores - LeagueName: {_oBballInfoDTO.LeagueName}  GameDate: {_oBballInfoDTO.GameDate}");
          DateTime LoadDateTime = DateTime.Now;
 
          string _strLoadDateTime = LoadDateTime.ToString();
@@ -192,18 +179,18 @@ namespace Bball.BAL
          if (ocRotation.Count == 0)
             return 0;   // No Games for GameDate
 
+         BoxScoreDO.DeleteBoxScoresByDate(oBballInfoDTO.ConnectionString, oBballInfoDTO.LeagueName, oBballInfoDTO.GameDate);
+         BoxScoreDO.DeleteBoxScoresLast5MinByDate(oBballInfoDTO.ConnectionString, oBballInfoDTO.LeagueName, oBballInfoDTO.GameDate);
+
          CoversDTO oCoversDTO = null;
          try
          {
             foreach (var matchup in ocRotation)
             {
-
                oCoversDTO = matchup.Value;
                if (oCoversDTO.GameStatus == (int)CoversRotation.GameStatus.Canceled)   // Bypass Canceled games
                   continue;
-
-               insertBoxScore(oCoversDTO, _oBballInfoDTO);     //.oBballDataDTO.oSeasonInfoDTO);
-
+               insertBoxScore(oCoversDTO, _oBballInfoDTO);     // 2
             } // foreach MUP
          }
          catch (Exception ex)
@@ -212,14 +199,13 @@ namespace Bball.BAL
                + $"{_oLeagueDTO.LeagueName}: {GameDate}  {oCoversDTO.RotNum}  {oCoversDTO.TeamAway}-{oCoversDTO.TeamHome} "
                + "\n" + oCoversDTO.Url;
             throw new Exception(DALFunctions.StackTraceFormat(msg, ex, ""));
-
          }
 
          return ocRotation.Count;  // return NumOfMatchups
+      }  // loadYesterdaysBoxScores
 
 
-      }  // LoadYesterdaysBoxScores
-
+      // called by ReloadBoxScores & loadYesterdaysBoxScores
       private void insertBoxScore(CoversDTO oCoversDTO, IBballInfoDTO oBballInfoDTO)   // ISeasonInfoDTO oSeasonInfoDTO)
       {
          #region insertBoxScore
@@ -244,7 +230,8 @@ namespace Bball.BAL
             try
             {
                // Write Away & Home rows to BoxScores
-               BoxScoresDTO BoxScoresDTO = new BoxScoresDTO()
+               // kdpace
+               BoxScoresDTO oBoxScoresDTO = new BoxScoresDTO()
                {
                   Venue = arVenue[i],
                   Season = oBballInfoDTO.oBballDataDTO.oSeasonInfoDTO.Season,
@@ -253,8 +240,13 @@ namespace Bball.BAL
                   LoadTimeSeconds = oCoversBoxscore.LoadTimeSecound,
                   Source = "Covers"
                };
-               oCoversBoxscore.PopulateBoxScoresDTO(BoxScoresDTO);
-               Bball.DAL.Tables.BoxScoreDO.InsertBoxScores(BoxScoresDTO, oBballInfoDTO.ConnectionString);
+               oCoversBoxscore.PopulateBoxScoresDTO(oBoxScoresDTO);
+               BoxScoreDO.PopulateGamePace(oBballInfoDTO.ConnectionString, oBoxScoresDTO);
+               // kdpace populate pace
+               // DTO --> Dal
+               // Dal --> uspCalcPace
+               // DALfunctions.InsertTableRow(oBballInfoDTO.ConnectionString, TableName, ocColumnNames, ocValues);
+               Bball.DAL.Tables.BoxScoreDO.InsertBoxScores(oBoxScoresDTO, oBballInfoDTO.ConnectionString);
             }
             catch (Exception ex)
             {
@@ -325,7 +317,7 @@ namespace Bball.BAL
          SqlFunctions.ExecSql(string.Format(strSql, "BoxScores"), _ConnectionString);
          SqlFunctions.ExecSql(string.Format(strSql, "BoxScoresLast5Min"), _ConnectionString);
 
-         LoadYesterdaysBoxScores(GameDate);
+         loadYesterdaysBoxScores(GameDate);
       }
 
    }  // LoadBoxScores
@@ -337,114 +329,4 @@ namespace Bball.BAL
       }
    }  // InsertBoxScore
 }  // namespace
-   // kdcleanup
-   //private int xLoadYesterdaysBoxScores(DateTime GameDate)   // Return NumOfMatchups
-   //{
-   //   /*
-   //    * Load: Rotation and Boxscores, BoxscoresL5Min up to Yesterday
-   //    * */
-   //   DateTime LoadDateTime = DateTime.Now;
 
-//   string _strLoadDateTime = LoadDateTime.ToString();
-
-//   SortedList<string, CoversDTO> ocRotation = new SortedList<string, CoversDTO>();
-//   _oBballInfoDTO.GameDate = GameDate;
-//   SeasonInfoDO oSeasonInfoDO = new SeasonInfoDO(GameDate, _oLeagueDTO.LeagueName, _oBballInfoDTO.ConnectionString);
-//   RotationDO.PopulateRotation(ocRotation, _oBballInfoDTO, _oLeagueDTO);   // Get Rotation for GameDate - Populate if Not Found
-//   if (ocRotation.Count == 0)
-//      return 0;   // No Games for GameDate
-
-//   CoversDTO oCoversDTO = null;
-//   try
-//   {
-//      foreach (var matchup in ocRotation)
-//      {
-
-//         oCoversDTO = matchup.Value;
-//         if (oCoversDTO.GameStatus == (int)CoversRotation.GameStatus.Canceled)   // Bypass Canceled games
-//            continue;
-//         #region insertBoxScore
-//         // 1) Get BoxScore from Covers
-//         CoversBoxscore oCoversBoxscore = new CoversBoxscore(GameDate, _oLeagueDTO, oCoversDTO);
-//         oCoversBoxscore.GetBoxscore();   // Get BoxScore html from Covers
-//         if (oCoversBoxscore.ReturnCode != 0)
-//         {
-//            // kdtodo log error
-//            string msg = $"oCoversBoxscore.ReturnCode: {oCoversBoxscore.ReturnCode} - "
-//               + $"{_oLeagueDTO.LeagueName}: {GameDate}  {oCoversDTO.RotNum}  {oCoversDTO.TeamAway}-{oCoversDTO.TeamHome} "
-//               + "\n" + oCoversDTO.Url;
-//            throw new Exception(msg);
-//         }
-//         string[] arVenue = new string[] { "Away", "Home" };
-//         for (int i = 0; i < 2; i++)
-//         {
-//            try
-//            {
-//               // Write Away & Home rows to BoxScores
-//               BoxScoresDTO oBoxScoresDTO = new BoxScoresDTO();
-//               oCoversBoxscore.PopulateBoxScoresDTO(oBoxScoresDTO, arVenue[i]
-//                              , oSeasonInfoDO.oSeasonInfoDTO.Season, oSeasonInfoDO.oSeasonInfoDTO.SubSeason, LoadDateTime
-//                              , oCoversBoxscore.LoadTimeSecound, "Covers");
-//               Bball.DAL.Tables.BoxScoreDO.InsertBoxScores(oBoxScoresDTO, _oBballInfoDTO.ConnectionString);
-//            }
-//            catch (Exception ex)
-//            {
-//               string msg = $"BoxScore Load Error - "
-//                  + $"{_oLeagueDTO.LeagueName}: {GameDate}  {oCoversDTO.RotNum}:{arVenue[i]}  {oCoversDTO.TeamAway}-{oCoversDTO.TeamHome} "
-//                  + "\n" + oCoversDTO.Url;
-//               throw new Exception(DALFunctions.StackTraceFormat(msg, ex, ""));
-//            }
-//         }
-//         if (!String.IsNullOrEmpty(_oLeagueDTO.BoxScoresL5MinURL))
-//         {
-//            // Write Last 5 Minutes stats
-//            BoxScoresLast5Min oLast5Min = null;
-//            BoxScoresLast5MinDTO oLast5MinDTOHome = new BoxScoresLast5MinDTO()
-//            {
-//               LeagueName = oCoversDTO.LeagueName,
-//               GameDate = oCoversDTO.GameDate,
-//               RotNum = oCoversDTO.RotNum + 1,
-//               Team = oCoversDTO.TeamHome,
-//               Opp = oCoversDTO.TeamAway,
-//               Venue = "Home",
-//               LoadDate = LoadDateTime
-//            };
-//            try
-//            {
-//               //Bball.DAL.Tables.
-//               BoxScoreDO.InsertAwayHomeRowsBoxScoresLast5Min(oLast5MinDTOHome, _oBballInfoDTO.ConnectionString, oLast5Min);
-//            }
-//            catch (FileNotFoundException ex)
-//            {
-//               string msg = $"BoxScoreL5Min Url Error - "
-//                  + $"{_oLeagueDTO.LeagueName}: {GameDate}  {oCoversDTO.RotNum}:  {oCoversDTO.TeamAway}-{oCoversDTO.TeamHome} "
-//                  + "\n" + Bball.DAL.Parsing.BoxScoresLast5Min.BuildBoxScoresLast5MinUrl(oLast5MinDTOHome)
-//                  + "\n" + ex + Message;
-//               Helper.LogMessage(_oBballInfoDTO, ex, msg);
-//            }
-//            catch (Exception ex)
-//            {
-//               //if (oLast5Min.oWebPageGet)
-//               string msg = $"BoxScoreL5Min Load Error - "
-//                  + $"{_oLeagueDTO.LeagueName}: {GameDate}  {oCoversDTO.RotNum}:  {oCoversDTO.TeamAway}-{oCoversDTO.TeamHome} "
-//                  + "\n" + Bball.DAL.Parsing.BoxScoresLast5Min.BuildBoxScoresLast5MinUrl(oLast5MinDTOHome)
-//                  + "\n" + ex + Message;
-//               Helper.LogMessage(_oBballInfoDTO, ex, msg);
-//            }
-//         }  // Insert 
-//         #endregion insertBoxscore
-//      } // foreach MUP
-//   }
-//   catch (Exception ex)
-//   {
-//      string msg = $"BoxScore Load Error - "
-//         + $"{_oLeagueDTO.LeagueName}: {GameDate}  {oCoversDTO.RotNum}  {oCoversDTO.TeamAway}-{oCoversDTO.TeamHome} "
-//         + "\n" + oCoversDTO.Url;
-//      throw new Exception(DALFunctions.StackTraceFormat(msg, ex, ""));
-
-//   }
-
-//   return ocRotation.Count;  // return NumOfMatchups
-
-
-//}  // LoadYesterdaysBoxScores

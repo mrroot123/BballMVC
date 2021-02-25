@@ -26,7 +26,7 @@ namespace Bball.DAL.Tables
       #endregion Notes
 
       const string BoxScoresTable = "BoxScores";
-      const string BoxScoresColumns = "Exclude,LeagueName,GameDate,RotNum,Team,Opp,Venue,GameTime,Season,SubSeason,MinutesPlayed,OtPeriods,ScoreReg,ScoreOT,ScoreRegUs,ScoreRegOp,ScoreOTUs,ScoreOTOp,ScoreQ1Us,ScoreQ1Op,ScoreQ2Us,ScoreQ2Op,ScoreQ3Us,ScoreQ3Op,ScoreQ4Us,ScoreQ4Op,ShotsActualMadeUsPt1,ShotsActualMadeUsPt2,ShotsActualMadeUsPt3,ShotsActualMadeOpPt1,ShotsActualMadeOpPt2,ShotsActualMadeOpPt3,ShotsActualAttemptedUsPt1,ShotsActualAttemptedUsPt2,ShotsActualAttemptedUsPt3,ShotsActualAttemptedOpPt1,ShotsActualAttemptedOpPt2,ShotsActualAttemptedOpPt3,ShotsMadeUsRegPt1,ShotsMadeUsRegPt2,ShotsMadeUsRegPt3,ShotsMadeOpRegPt1,ShotsMadeOpRegPt2,ShotsMadeOpRegPt3,ShotsAttemptedUsRegPt1,ShotsAttemptedUsRegPt2,ShotsAttemptedUsRegPt3,ShotsAttemptedOpRegPt1,ShotsAttemptedOpRegPt2,ShotsAttemptedOpRegPt3,TurnOversUs,TurnOversOp,OffRBUs,OffRBOp,AssistsUs,AssistsOp,Source,LoadDate,LoadTimeSeconds";
+      const string BoxScoresColumns = "Exclude,LeagueName,GameDate,RotNum,Team,Opp,Venue,GameTime,Season,SubSeason,MinutesPlayed,OtPeriods,ScoreReg,ScoreOT,ScoreRegUs,ScoreRegOp,ScoreOTUs,ScoreOTOp,ScoreQ1Us,ScoreQ1Op,ScoreQ2Us,ScoreQ2Op,ScoreQ3Us,ScoreQ3Op,ScoreQ4Us,ScoreQ4Op,ShotsActualMadeUsPt1,ShotsActualMadeUsPt2,ShotsActualMadeUsPt3,ShotsActualMadeOpPt1,ShotsActualMadeOpPt2,ShotsActualMadeOpPt3,ShotsActualAttemptedUsPt1,ShotsActualAttemptedUsPt2,ShotsActualAttemptedUsPt3,ShotsActualAttemptedOpPt1,ShotsActualAttemptedOpPt2,ShotsActualAttemptedOpPt3,ShotsMadeUsRegPt1,ShotsMadeUsRegPt2,ShotsMadeUsRegPt3,ShotsMadeOpRegPt1,ShotsMadeOpRegPt2,ShotsMadeOpRegPt3,ShotsAttemptedUsRegPt1,ShotsAttemptedUsRegPt2,ShotsAttemptedUsRegPt3,ShotsAttemptedOpRegPt1,ShotsAttemptedOpRegPt2,ShotsAttemptedOpRegPt3,TurnOversUs,TurnOversOp,OffRBUs,OffRBOp,AssistsUs,AssistsOp,Source,LoadDate,LoadTimeSeconds,Pace";
 
       const string BoxScoresLast5MinTable = "BoxScoresLast5Min";
       const string BoxScoresLast5MinColumns = "LeagueName,GameDate,RotNum,Team,Opp,Venue,Q4Last5MinScore,Q4Last1MinScore,Q4Score,Q4Last1MinScoreUs,Q4Last1MinScoreOp,Q4Last1MinWinningTeam,Q4Last1MinUsPts,Q4Last1MinOpPts,Q4Last1MinUsPt1,Q4Last1MinUsPt2,Q4Last1MinUsPt3,Q4Last1MinOpPt1,Q4Last1MinOpPt2,Q4Last1MinOpPt3,Source,LoadDate";
@@ -115,9 +115,38 @@ namespace Bball.DAL.Tables
          ocValues.Add(oBoxScoresDTO.Source.ToString());
          ocValues.Add(oBoxScoresDTO.LoadDate.ToString());
          ocValues.Add(oBoxScoresDTO.LoadTimeSeconds.ToString());
+         ocValues.Add(oBoxScoresDTO.Pace.ToString());
          #endregion pastedBoxScoresRows
       }  // populate_ocValues
       #endregion BoxScoreInsert
+
+
+      public static void PopulateGamePace(String ConnectionString, BoxScoresDTO oBoxScoresDTO)
+      {
+         int five = 5;
+
+         List<string> SqlParmNames = new List<string>()
+         {
+           "LeagueName", "GameDate", "OTAdjPct"
+            ,"TeamAttemptedPt1", "TeamAttemptedPt2", "TeamAttemptedPt3", "TeamTurnOvers", "TeamOffRB"
+            ,"OppAttemptedPt1","OppAttemptedPt2", "OppAttemptedPt3", "OppTurnOvers", "OppOffRB" 
+         };
+         List<object> SqlParmValues = new List<object>()
+         {
+              oBoxScoresDTO.LeagueName, oBoxScoresDTO.GameDate
+            , (float)((float)oBoxScoresDTO.MinutesPlayed / (float) (oBoxScoresDTO.MinutesPlayed + oBoxScoresDTO.OtPeriods * five))
+
+            , oBoxScoresDTO.ShotsActualAttemptedUsPt1, oBoxScoresDTO.ShotsActualAttemptedUsPt2, oBoxScoresDTO.ShotsActualAttemptedUsPt3
+            , oBoxScoresDTO.TurnOversUs, oBoxScoresDTO.OffRBUs
+
+            , oBoxScoresDTO.ShotsActualAttemptedOpPt1, oBoxScoresDTO.ShotsActualAttemptedOpPt2, oBoxScoresDTO.ShotsActualAttemptedOpPt3
+            , oBoxScoresDTO.TurnOversOp, oBoxScoresDTO.OffRBOp
+         };
+
+         Object GamePace = DALfunctions.ExecuteStoredProcedureQueryReturnSingleParm(
+            ConnectionString, "uspCalcPaceGame", SqlParmNames, SqlParmValues);
+         oBoxScoresDTO.Pace = Convert.ToDouble(GamePace) ;
+      }
 
       public static void DeleteBoxScoresByDate(String ConnectionString, string LeagueName, DateTime GameDate)
       {

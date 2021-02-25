@@ -37,6 +37,8 @@ namespace BballMVC.Models
         public double BxScTmStrPct { get; set; }
         public double TmStrAdjPct { get; set; }
         public double RecentLgHistoryAdjPct { get; set; }
+        public Nullable<double> TeamPaceAdjPct { get; set; }
+        public Nullable<double> TeamAdjPct { get; set; }
         public bool BothHome_Away { get; set; }
         public bool BoxscoresSpanSeasons { get; set; }
     }

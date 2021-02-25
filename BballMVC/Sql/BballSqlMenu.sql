@@ -11,4 +11,4 @@ Declare @mChoice as int =1;
 
 	Print 'Verify_Boxscores          - Verify Boxscore Stats added up'
 	Print 'VerifyRotationTotalLine ZERO - Display Rotation Rows w TL = ZERO'
-	
+	Print 'TemplateInclude_BballDeclareParms	- Parms Template'
