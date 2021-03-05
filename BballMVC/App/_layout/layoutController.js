@@ -15,9 +15,7 @@
       $scope.$apply;
    }  // displayAccordion
 
-   //$scope.clickRefreshTodaysMatchups = function () {
-   //   $scope.$broadcast('eventRefreshTodaysMatchups');
-   //};
+
 
    $scope.clickAccordion = function (ParentContainerName, eventName, ev) {
       if (isAccordionOpen(ev))
@@ -38,7 +36,5 @@
       var accOpen = $(accID).attr("aria-expanded") ? $(accID).attr("aria-expanded") : "false";
       return accOpen === "true";
    }
-   //$scope.ClickBballManagement = function () {
-   //   $scope.$broadcast('eventInitBballManagement');
-   //};
+
 });

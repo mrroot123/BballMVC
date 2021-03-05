@@ -175,7 +175,7 @@ namespace Bball.BAL
          new SeasonInfoDO(_oBballInfoDTO);   // init _oBballInfoDTO.oBballDataDTO,SeasonInfoDTO
          new LeagueInfoDO(_oBballInfoDTO.LeagueName, _oBballInfoDTO.oBballDataDTO.oLeagueDTO, _oBballInfoDTO.ConnectionString, _oBballInfoDTO.GameDate);  // Init _oLeagueDTO
 
-         RotationDO.PopulateRotation(ocRotation,  _oBballInfoDTO, _oBballInfoDTO.oBballDataDTO.oLeagueDTO);   // Get Rotation for GameDate - Populate if Not Found
+         RotationDO.PopulateRotation(ocRotation,  _oBballInfoDTO, _oBballInfoDTO.oBballDataDTO.oLeagueDTO, true);   // Get Rotation for GameDate - Populate if Not Found
          if (ocRotation.Count == 0)
             return 0;   // No Games for GameDate
 

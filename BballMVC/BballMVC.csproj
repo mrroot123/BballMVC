@@ -367,7 +367,6 @@
     <Content Include="App\TodaysMatchups\TodaysMatchups.html" />
     <Content Include="App\TodaysMatchups\TodaysMatchupsController.js" />
     <Content Include="App\TodaysMatchups\_AdjustmentsByTeamModal.html" />
-    <Content Include="App\TodaysMatchups\x_AdjustmentsByTeamRow.html" />
     <Content Include="App\TodaysMatchups\_DailySummary.html" />
     <Content Include="App\TodaysMatchups\_TodaysMatchupsTable.html" />
     <Content Include="App\TodaysPlays\TodaysPlays.html" />

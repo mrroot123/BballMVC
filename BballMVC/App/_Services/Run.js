@@ -27,6 +27,25 @@
    $rootScope.Getmdy = function (d) {
       return f.Getmdy(d);
    };
+   //  ng-class="applyMinusRedColor({{item.PlayDiff}} )"
+   $rootScope.applyMinusRedColor = function (n1, n2) {
+      try {
+
+         if (!n1)
+            return "";
+
+         if (!n2)
+            n2 = 0;  
+
+         if (n1 < n2)
+            return "redFG";
+         // style = 'color:red;'
+         return "";
+      }
+      catch {
+         alert(n1 + '-' + n2);
+      }
+   };
    // global end
 
    $rootScope.oBballInfoDTO = 

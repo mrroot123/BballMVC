@@ -4,8 +4,7 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
    //alert("TodaysMatchupsController");
    let TodaysMatchupsParms = { scope: $scope, f: f, LeagueName: $rootScope.oBballInfoDTO.LeagueName, ajx: ajx };
    let localGameDate = null;
-   const containerName = "TodaysMatchupsContainer";
-   
+
    $scope.PlayEntry = false;
    $scope.ShowPlaysOnly = false;
    $scope.Multi = true;
@@ -23,30 +22,12 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
 
    let ocPlayers = [
       { name: "Keith", defaultAmount: 100 }
-   //   , { name: "Bill", defaultAmount: 200 }
+      //   , { name: "Bill", defaultAmount: 200 }
    ];
    let defaultAmount = 0;
    ocPlayers.forEach(function (item, index) {
       defaultAmount += item.defaultAmount;
    });
-
-   //const modalName = "AdjustmentsByTeamModal"; kdcleanup
-   //$scope.$on('eventReshowTodaysMatchupsContainer', function (ev) {
-   //   f.ShowScreen(containerName);
-   //});
-   //$scope.xOpenAxdjustmentsByTeamModal = function (objAdj, Venue) {
-   //  // $scope.GreyOutAdjustmentList();
-   //   var Team = Venue === 'Away' ? objAdj.item.TeamAway : objAdj.item.TeamHome;
-   //   $scope.$broadcast('eventOpenAdjustmentsByTeamModal', Team, objAdj.item.SideLine);
-   //};
-   //$scope.OpenAxdjustmentsByTeamModal = function (objAdj) {
-   //   // $scope.GreyOutAdjustmentList();
-   //   var Team = objAdj[1] === 'Away' ? objAdj[0].item.TeamAway : objAdj[0].item.TeamHome;
-   //   $scope.$broadcast('eventOpenAxdjustmentsByTeamModal', Team, objAdj[0].item.SideLine);
-   //};
-   //$scope.$on("populateTodaysMatchups", function (ev) { 2/8/2020
-   //   populateTodaysMatchups();
-   //});
 
    // When ADJs do Updates, this makes MUPs refresh & on App Init so it Refreshes the first time
    $scope.$on("eventSetRefreshTodaysMatchups", function (ev) {
@@ -96,34 +77,35 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
       $scope.ShowDailySummary = true;
       $scope.ShowCanceledGames = true;
 
-      var URL = $rootScope.oBballInfoDTO.GameDate < f.Today() ? url.UrlGetPastMatchups : url.UrlRefreshTodaysMatchups;
+      // If Today or refresh, Then refresh by uspCalcTodaysMatchups ELSE get Previous Matchups
+      var URL = $rootScope.oBballInfoDTO.GameDate < f.Today() && !refresh  ? url.UrlGetPastMatchups : url.UrlRefreshTodaysMatchups;
       localGameDate = $rootScope.oBballInfoDTO.GameDate;
 
-      f.GreyScreen("screen");
+      //f.GreyScreen("screen");
       // Data/UrlRefreshTodaysMatchups
       ajx.AjaxGet(URL, {
-                       UserName: $rootScope.oBballInfoDTO.UserName
-                     , GameDate: $rootScope.oBballInfoDTO.GameDate.toLocaleDateString(), LeagueName: $rootScope.oBballInfoDTO.LeagueName
+         UserName: $rootScope.oBballInfoDTO.UserName
+         , GameDate: $rootScope.oBballInfoDTO.GameDate.toLocaleDateString(), LeagueName: $rootScope.oBballInfoDTO.LeagueName
       })   // Get TodaysMatchups from server
          .then(data => {
             // See ajx.AjaxGet in HeaderController for same moves
             $rootScope.oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO = data.ocTodaysMatchupsDTO;
             $rootScope.oBballInfoDTO.oBballDataDTO.oDailySummaryDTO = data.oDailySummaryDTO;
-          //  $rootScope.oBballInfoDTO.oBballDataDTO.oUserLeagueParmsDTO = data.oUserLeagueParmsDTO;
+            //  $rootScope.oBballInfoDTO.oBballDataDTO.oUserLeagueParmsDTO = data.oUserLeagueParmsDTO;
             populateTodaysMatchups();
 
             f.GreyScreen(containerName);
             f.ShowScreen(containerName);
 
             f.MessageSuccess("Matchups Refreshed for " + f.Getmdy($rootScope.oBballInfoDTO.GameDate));
-            f.ShowScreen("screen");
+         //   f.ShowScreen("screen");
          })
          .catch(error => {
             f.DisplayErrorMessage(f.FormatResponse(error));
-            f.ShowScreen("screen");
+          //  f.ShowScreen("screen");
          });
    }; // GetTodaysMatchups
-   $scope.GetAdjustmentsByTeam = function(LeagueName, GameDate, Team){
+   $scope.GetAdjustmentsByTeam = function (LeagueName, GameDate, Team) {
       // get adjs
       ajx.AjaxGet(url.UrlGetAdjustmentsByTeam, { GameDate: $rootScope.oBballInfoDTO.GameDate.toLocaleDateString(), LeagueName: $rootScope.oBballInfoDTO.LeagueName, Team })   // Get TodaysMatchups from server
          .then(data => {
@@ -167,17 +149,73 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
       $scope.avgOpenTotalLine = totOpenTotalLine / ctrOpenTotalLine;
 
       $scope.GameDate = $rootScope.oBballInfoDTO.GameDate;
-      $scope.InitPlayEntry();
+      //  $scope.InitPlayEntry();
+
+      //$rootScope.oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO.sort((a, b) => {
+      //   return a.RotNum - b.RotNum;
+      //});
+
       $scope.ocTodaysMatchups = $rootScope.oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO;
       $scope.LeagueColor = $rootScope.oBballInfoDTO.LeagueName === "NBA" ? "blue" : "red";
       $scope.TMparms = $rootScope.oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO[0];
-      
+
       $scope.$apply();
-      $scope.InitPlayEntry();
+      //    $scope.InitPlayEntry();
    }
-   //function onGameDateChange() {
-   //   $scope.RefreshTodaysMatchups();
-   //}
+
+   const ssRotNum = "RotNum";
+   const ssGameTime = "GameTime";
+   let sortSeq = ssRotNum;
+   const containerName = "TodaysMatchupsContainer";
+   $scope.toggleSort = function () {
+      if (sortSeq === ssRotNum) {
+         sortSeq = ssGameTime;
+
+      } else {
+         sortSeq = ssRotNum;
+      }
+      sortTodaysMatchups(sortSeq, $scope.ocTodaysMatchups);
+    //  $scope.$apply();
+   };
+
+   function sortTodaysMatchups(sortBy, obj) {
+      // https://www.javascripttutorial.net/array/javascript-sort-an-array-of-objects/
+      // this site has links at bottom to protoype & 
+      /*
+       * javaScript Constructor Prototype
+      JavaScript Constructor Function
+      JavaScript Class Expressions
+      JavaScript Static Method
+      */
+      if (sortBy === ssRotNum) {
+         obj.sort((a, b) => {
+            return a.RotNum - b.RotNum;
+         });
+      } else {
+         obj.sort((a, b) => {
+            let fa = a.GameTime.toLowerCase() === "canceled" ? "" : a.GameTime.toLowerCase()
+              , fb = b.GameTime.toLowerCase() === "canceled" ? "" : b.GameTime.toLowerCase();
+            
+            if (fa < fb) {
+               return -1;
+            }
+            if (fa > fb) {
+               return 1;
+            }
+            return 0;
+         });
+      }
+
+      // sort by date
+      //employees.sort((a, b) => {
+      //   let da = new Date(a.joinedDate),
+      //      db = new Date(b.joinedDate);
+      //   return da - db;
+      //});
+
+   }
+
+
    // Used in html - visable in this scope
    $scope.Getmdy = function (GameDate) {
       return f.Getmdy(GameDate);
@@ -359,13 +397,19 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
       return obj.item.Play.trim().toLowerCase();
    };
    $scope.applyMinusRedColor = function (n1, n2) {
-      if (!n2)
-         n2 = 0;
+      try {
 
-      if (n1 < n2)
-         return "redFG";
-     // style = 'color:red;'
-      return "";
+         if (!n1 || !n2)
+            return "";
+
+         if (n1 < n2)
+            return "redFG";
+         // style = 'color:red;'
+         return "";
+      }
+      catch {
+         alert(n1 + '-' + n2);
+      }
    };
 
 

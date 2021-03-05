@@ -18,7 +18,9 @@ Declare @servername varchar(25) = (SELECT @@servername as servername)
 	WHERE modify_date > @LastInstallDate
 	ORDER BY
 		-- modify_date DESC
-		type, modify_date , name
+		type
+	--	, modify_date
+		 , name
 return
 
 	SELECT @servername as servername,

@@ -17,9 +17,21 @@
    display: none;
    padding-top: 6px
 }
-
+.awayR1, .homeR1 {
+   color: blue;
+}
+.awayR2, .homeR2 {
+   color: green;
+}
+.awayR3, .homeR3 {
+   color: black;
+   font-weight: bold;
+}
 .redFG {
    color: red;
+}
+.b-left {
+   border-left-style: solid;
 }
 .xover  {
    color: yellow;
@@ -27,13 +39,13 @@
    font-weight: bold;
    border: 2px solid black;
 }
-.winning, .over {
+.over, .winning, .win{
    color: yellow;
-   background:black;
+   background: black;
    font-weight: bold;
    border: 2px solid black;
 }
-.under, .losing {
+.under, .losing, .loss {
    color: yellow;
    background: red;
    border: 2px solid black;
@@ -45,10 +57,7 @@
 }
 
 
-.awayR1 {
-   color: black;
-   background: yellow;
-}
+
 
 .w-narrow {
    column-width: 50px;

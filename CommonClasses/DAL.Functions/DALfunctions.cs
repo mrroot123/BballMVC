@@ -34,7 +34,7 @@ namespace SysDAL.Functions
          catch (Exception ex)
          {
             var msg = ex.Message + $" - CallStack= {ex.StackTrace}";
-            throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name}\nSql: {strSql}\nConnectionString: {ConnectionString}\nError Message: {msg}");
+            throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name}<br>Sql: {strSql}<br>ConnectionString: {ConnectionString}<br>Error Message: {msg}");
          }
          return rowsAffected;
       }
@@ -74,8 +74,8 @@ namespace SysDAL.Functions
          }
          catch (Exception ex)
          {
-            var msg = ex.Message + "\n" + StackTraceParse(ex.StackTrace);
-            throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name}\nError Message: {msg}\nSql: {strSql}\nConnectionString: {ConnectionString}");
+            var msg = ex.Message + "<br>" + StackTraceParse(ex.StackTrace);
+            throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name}<br>Error Message: {msg}<br>Sql: {strSql}<br>ConnectionString: {ConnectionString}");
          }
          return ctrRows;
       }
@@ -157,8 +157,8 @@ namespace SysDAL.Functions
          }
          catch (Exception ex)
          {
-            var msg = ex.Message + "\n" + StackTraceParse(ex.StackTrace);
-            throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name}\nError Message: {msg}\nSql: {strSql}\nConnectionString: {ConnectionString}");
+            var msg = ex.Message + "<br>" + StackTraceParse(ex.StackTrace);
+            throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name}<br>Error Message: {msg}<br>Sql: {strSql}<br>ConnectionString: {ConnectionString}");
          }
          return ctrRows;
       }
@@ -195,15 +195,15 @@ namespace SysDAL.Functions
                      else
                         msg = "Multiple Rows Returned";
 
-                     throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name}\nError Message: {msg}\nSql: {strSql}\nConnectionString: {ConnectionString}");
+                     throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name}<br>Error Message: {msg}<br>Sql: {strSql}<br>ConnectionString: {ConnectionString}");
                   }
                }
             }  // using conn
          }
          catch (Exception ex)
          {
-            var msg = ex.Message + "\n" + StackTraceParse(ex.StackTrace);
-            throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name}\nError Message: {msg}\nSql: {strSql}\nConnectionString: {ConnectionString}");
+            var msg = ex.Message + "<br>" + StackTraceParse(ex.StackTrace);
+            throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name}<br>Error Message: {msg}<br>Sql: {strSql}<br>ConnectionString: {ConnectionString}");
          }
          return parmValue;
       }
@@ -270,15 +270,15 @@ namespace SysDAL.Functions
       //               else
       //                  msg = "Multiple Rows Returned";
 
-      //               throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name}\nError Message: {msg}\nSql: {strSql}\nConnectionString: {ConnectionString}");
+      //               throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name}<br>Error Message: {msg}<br>Sql: {strSql}<br>ConnectionString: {ConnectionString}");
       //            }
       //         }
       //      }  // using conn
       //   }
       //   catch (Exception ex)
       //   {
-      //      var msg = ex.Message + "\n" + StackTraceParse(ex.StackTrace);
-      //      throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name}\nError Message: {msg}\nSql: {strSql}\nConnectionString: {ConnectionString}");
+      //      var msg = ex.Message + "<br>" + StackTraceParse(ex.StackTrace);
+      //      throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name}<br>Error Message: {msg}<br>Sql: {strSql}<br>ConnectionString: {ConnectionString}");
       //   }
       //   return parmValue;
       //}
@@ -323,7 +323,7 @@ namespace SysDAL.Functions
          catch (Exception ex)
          {
                var msg = ex.Message.IndexOf("CallStack=") > -1 ? ex.Message : ex.Message + $" - CallStack= {ex.StackTrace}";
-               throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name}\nStored Procedure: {StoredProcedureName}\nConnectionString: {ConnectionString}\nError Message: {msg}");
+               throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name}<br>Stored Procedure: {StoredProcedureName}<br>ConnectionString: {ConnectionString}<br>Error Message: {msg}");
          }
          return s;
       }  // ExecuteStoredProcedureQuery
@@ -369,7 +369,7 @@ namespace SysDAL.Functions
          catch (Exception ex)
          {
             var msg = ex.Message.IndexOf("CallStack=") > -1 ? ex.Message : ex.Message + $" - CallStack= {ex.StackTrace}";
-            throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name}\nStored Procedure: {StoredProcedureName}\nConnectionString: {ConnectionString}\nError Message: {msg}");
+            throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name}<br>Stored Procedure: {StoredProcedureName}<br>ConnectionString: {ConnectionString}<br>Error Message: {msg}");
          }
          return s;
       }  // ExecuteStoredProcedureQuery
@@ -410,7 +410,7 @@ namespace SysDAL.Functions
          catch (Exception ex)
          {
             var msg = ex.Message.IndexOf("CallStack=") > -1 ? ex.Message : ex.Message + $" - CallStack= {ex.StackTrace}";
-            throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name}\nStored Procedure: {StoredProcedureName}\nConnectionString: {ConnectionString}\nError Message: {msg}");
+            throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name}<br>Stored Procedure: {StoredProcedureName}<br>ConnectionString: {ConnectionString}<br>Error Message: {msg}");
          }
          return s;
       }  // ExecuteStoredProcedureQuery
@@ -601,26 +601,26 @@ namespace SysDAL.Functions
       
       public static string StackTraceFormat(String PreMsg, Exception ex, string PostMsg)
       {
-         PreMsg = string.IsNullOrEmpty(PreMsg) ? "" : PreMsg + "\n";
-         PostMsg = string.IsNullOrEmpty(PostMsg) ? "" : PostMsg + "\n";
+         PreMsg = string.IsNullOrEmpty(PreMsg) ? "" : PreMsg + "<br>";
+         PostMsg = string.IsNullOrEmpty(PostMsg) ? "" : PostMsg + "<br>";
          if (ex.Message.IndexOf("= Stack Trace =") > -1)
             return PreMsg + ex.Message + PostMsg;
 
          StringBuilder msg = new StringBuilder();
          msg.Append(PreMsg);
-         msg.Append("========================= Stack Trace ==================================" + "\n");
-         msg.Append(ex.Message + "\n");
-         msg.Append(SysDAL.Functions.DALfunctions.StackTraceParse(ex.StackTrace) + "\n");
-         msg.Append("========================================================================" + "\n");
+         msg.Append("========================= Stack Trace ==================================" + "<br>");
+         msg.Append(ex.Message + "<br>");
+         msg.Append(SysDAL.Functions.DALfunctions.StackTraceParse(ex.StackTrace) + "<br>");
+         msg.Append("========================================================================" + "<br>");
          msg.Append(PostMsg);
          return msg.ToString();
       }
       private static string StackTraceParse(string StackTrace)
       {
-        // StackTrace = "   at Bball.VbClasses.Bball.VbClasses.BoxscoreParseStatsSummary.InitCoversBoxscore(String PeriodsHtml, DateTime GameDate, String LeagueName, Int32 Periods) in D:\My Documents\wwwroot\BballMVC\Bball.VbClasses\BoxscoreParseStatsSummary.vb:line 148\n   at Bball.VbClasses.Bball.VbClasses.BoxscoreParseStatsSummary.NewBoxscoreParseStatsSummary(String BoxScoreSource, String PeriodsHtml, DateTime GameDate, String LeagueName, Int32 Periods) in D:\My Documents\wwwroot\BballMVC\Bball.VbClasses\BoxscoreParseStatsSummary.vb:line 71\n   at Bball.VbClasses.Bball.VbClasses.CoversBoxscore.processPeriods(String BoxScoreUrl) in D:\My Documents\wwwroot\BballMVC\Bball.VbClasses\CoversBoxscore.vb:line 118\n   at Bball.VbClasses.Bball.VbClasses.CoversBoxscore.GetBoxscore() in D:\My Documents\wwwroot\BballMVC\Bball.VbClasses\CoversBoxscore.vb:line 98\n   at Bball.BAL.LoadBoxScores.Load(DateTime GameDate) in D:\My Documents\wwwroot\BballMVC\Bball.BAL\LoadBoxScores.cs:line 54\n   at Bball.BAL.LoadBoxScores.LoadBoxScoreRange(DateTime GameDate) in D:\My Documents\wwwroot\BballMVC\Bball.BAL\LoadBoxScores.cs:line 30\n   at UnitTestProject1.UnitTest1.TestGetBoxScores() in D:\My Documents\wwwroot\BballMVC\UnitTestProject1\UnitTest1.vb:line 46";
+        // StackTrace = "   at Bball.VbClasses.Bball.VbClasses.BoxscoreParseStatsSummary.InitCoversBoxscore(String PeriodsHtml, DateTime GameDate, String LeagueName, Int32 Periods) in D:\My Documents\wwwroot\BballMVC\Bball.VbClasses\BoxscoreParseStatsSummary.vb:line 148<br>   at Bball.VbClasses.Bball.VbClasses.BoxscoreParseStatsSummary.NewBoxscoreParseStatsSummary(String BoxScoreSource, String PeriodsHtml, DateTime GameDate, String LeagueName, Int32 Periods) in D:\My Documents\wwwroot\BballMVC\Bball.VbClasses\BoxscoreParseStatsSummary.vb:line 71<br>   at Bball.VbClasses.Bball.VbClasses.CoversBoxscore.processPeriods(String BoxScoreUrl) in D:\My Documents\wwwroot\BballMVC\Bball.VbClasses\CoversBoxscore.vb:line 118<br>   at Bball.VbClasses.Bball.VbClasses.CoversBoxscore.GetBoxscore() in D:\My Documents\wwwroot\BballMVC\Bball.VbClasses\CoversBoxscore.vb:line 98<br>   at Bball.BAL.LoadBoxScores.Load(DateTime GameDate) in D:\My Documents\wwwroot\BballMVC\Bball.BAL\LoadBoxScores.cs:line 54<br>   at Bball.BAL.LoadBoxScores.LoadBoxScoreRange(DateTime GameDate) in D:\My Documents\wwwroot\BballMVC\Bball.BAL\LoadBoxScores.cs:line 30<br>   at UnitTestProject1.UnitTest1.TestGetBoxScores() in D:\My Documents\wwwroot\BballMVC\UnitTestProject1\UnitTest1.vb:line 46";
 
          StringBuilder sb = new StringBuilder();
-         // string[] arLines = StackTrace.Split(new string[] { @"\n" }, StringSplitOptions.None);     // }, StringSplitOptions.None);
+         // string[] arLines = StackTrace.Split(new string[] { @"<br>" }, StringSplitOptions.None);     // }, StringSplitOptions.None);
          string[] arLines = StackTrace.Split('\n');  
          foreach (string line in arLines)
          {
@@ -637,7 +637,7 @@ namespace SysDAL.Functions
                   string[] inParms = arLine[1].Split(new string[] { ":line " }, StringSplitOptions.None);
                   // [0] = inParm   [1] = Line Number
                   s = inParms[1].Replace("\r", "");
-                  sb.Append("\n" + s.PadLeft(4) + " - ");
+                  sb.Append("<br>" + s.PadLeft(4) + " - ");
 
                   // inParm = "C:\...\...\ProgName.cs
                   string[] arProg = inParms[0].Split('\\');
@@ -696,7 +696,7 @@ namespace SysDAL.Functions
 //   catch (Exception ex)
 //   {
 //      var msg = ex.Message.IndexOf("CallStack=") > -1 ? ex.Message : ex.Message + $" - CallStack= {ex.StackTrace}";
-//      throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name}\nStored Procedure: {StoredProcedureName}\nConnectionString: {ConnectionString}\nError Message: {msg}");
+//      throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name}<br>Stored Procedure: {StoredProcedureName}<br>ConnectionString: {ConnectionString}<br>Error Message: {msg}");
 //   }
 //   return s;
 //}  // ExecuteStoredProcedureQuery
@@ -739,7 +739,7 @@ namespace SysDAL.Functions
 //   catch (Exception ex)
 //   {
 //      var msg = ex.Message.IndexOf("CallStack=") > -1 ? ex.Message : ex.Message + $" - CallStack= {ex.StackTrace}";
-//      throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name}\nStored Procedure: {StoredProcedureName}\nConnectionString: {ConnectionString}\nError Message: {msg}");
+//      throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name}<br>Stored Procedure: {StoredProcedureName}<br>ConnectionString: {ConnectionString}<br>Error Message: {msg}");
 //   }
 //   return s;
 //}  // ExecuteStoredProcedureQuery

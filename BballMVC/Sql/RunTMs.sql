@@ -44,11 +44,11 @@ Declare @StartTime dateTime = GetDate(), @EndTime DateTime
 
 Declare @LoopHA int, @LoopDate int, @LoopGB int, @EndYear int, @LoopGBStart int, @LoopGBLimit int, @LoopHALimit int
 
-Set @StartDate = '12/1/2017'
-Set @EndDate =   '4/15/2018' 
-Set @EndYear = 2018
+Set @StartDate = '2/1/2021'
+Set @EndDate =   '2/27/2021' 
+Set @EndYear = 2022
 Set @LoopGBStart = 5
-Set @LoopGBLimit = 10
+Set @LoopGBLimit = 6
 Set @LoopHALimit = 1	-- 2 for both 
 
 --Set @StartDate = '12/1/2019'
@@ -59,19 +59,19 @@ BEGIN -- LoopDate
 	Set @LoopGB = @LoopGBStart
 	While @LoopGB < @LoopGBLimit
 	BEGIN -- LoopGB
-		Update UserLeagueParms 
-			Set GB1 = @LoopGB
-			  , GB2 = @LoopGB * 2
-			  , GB3 = @LoopGB * 3
-			Where UserName = @UserName		
+		--Update UserLeagueParms 
+		--	Set GB1 = @LoopGB
+		--	  , GB2 = @LoopGB * 2
+		--	  , GB3 = @LoopGB * 3
+		--	Where UserName = @UserName		
 		
 
 		Set @LoopHA = 0
 		While @LoopHA < @LoopHALimit
 		BEGIN -- LoopHA
-			Update UserLeagueParms 
-				Set BothHome_Away =  @LoopHA	
-				Where UserName = @UserName
+			--Update UserLeagueParms 
+			--	Set BothHome_Away =  @LoopHA	
+			--	Where UserName = @UserName
 			---------------
 			-- Main Loop ------------------------------------------------------------
 			---------------
@@ -83,7 +83,7 @@ BEGIN -- LoopDate
 			While @GameDate <= @EndDate
 			BEGIN
 			   Select  CAST( GETDATE() AS time(0)) AS 'time', @GameDate as GameDate,  @StartDate as StartDate, @EndDate as EndDate, convert(Time(0), @StartTime) as StartTime,  @LoopGB as GamesBack, @LoopHA as BothHA
-
+				print @GameDate
 				exec uspCalcTodaysMatchups  @UserName, @LeagueName, @GameDate, @Display
 				Set @GameDate = DateAdd(d,1, @GameDate)
 				set @Display = 0

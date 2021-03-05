@@ -218,12 +218,12 @@ angular.module('app').service('f', function ($rootScope, ajx, url) {
 
    this.screenShow = function (show) {
       return;
-      if (show) {
-         $('#screen').css({ "display": "block", opacity: 1, "width": $(document).width(), "height": $(document).height() });
-      }
-      else {
-         $('#screen').css({ "display": "block", opacity: 0.2, "width": $(document).width(), "height": $(document).height() });
-      }
+      //if (show) {
+      //   $('#screen').css({ "display": "block", opacity: 1, "width": $(document).width(), "height": $(document).height() });
+      //}
+      //else {
+      //   $('#screen').css({ "display": "block", opacity: 0.2, "width": $(document).width(), "height": $(document).height() });
+      //}
    };
    this.ShowScreen = function (ScreenID) {
       $('#' + ScreenID).css({ "display": "block", opacity: 1, "width": $(document).width(), "height": $(document).height() });

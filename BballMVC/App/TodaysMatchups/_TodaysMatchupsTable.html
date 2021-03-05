@@ -23,10 +23,14 @@
    </tr>-->
          <!-- Header 2 -->
          <tr style="color:{{LeagueColor}};">
-            <th>Rot #<br>Time</th>
+            <th ng-click="toggleSort()">
+               Rot #<br>Time
+            </th>
             <th><br />Team</th>
 
+            <th ng-Hide="condensed || !Multi"><br />Record</th>
             <th ng-Hide="condensed">Vol<br />atilly</th>
+
             <th ng-Hide="condensed">Last&nbsp;{{TMparms.GB1}}<br />&nbsp;&nbsp;&nbsp;{{TMparms.WeightGB1}}</th>
             <th ng-Hide="condensed">Last&nbsp;{{TMparms.GB2}}<br />&nbsp;&nbsp;&nbsp;{{TMparms.WeightGB2}}</th>
             <th ng-Hide="condensed">Last&nbsp;{{TMparms.GB3}}<br />&nbsp;&nbsp;&nbsp;{{TMparms.WeightGB3}}</th>
@@ -39,6 +43,8 @@
 
             <th ng-Hide="condensed">Adjust<br />ments</th>
             <th ng-Hide="condensed">OT/Side<br />Adj</th>
+            <th ng-Hide="condensed">Pace<br />Adj</th>
+            <th ng-Hide="condensed">Team<br />Adj</th>
 
             <th>Calced<br />Line</th>
             <th>Total<br />Line</th>
@@ -68,7 +74,7 @@
          <tr style="color:{{LeagueColor}};">
             <th colspan="2">Averages</th>
 
-            <th colspan="11" ng-Hide="condensed"></th>
+            <th colspan="14" ng-Hide="condensed"></th>
 
             <th>{{avgOurTotalLine | number:1}}</th>
             <th>{{avgTotalLine | number:1}}</th>
@@ -110,30 +116,40 @@
                      <td ng-show="Multi" id="TeamHome_{{$index}}">{{item.TeamHome}}</td>
                   </tr>
                   <!--<tr>
-      <td ng-show="Multi" id="TeamAway_{{$index}}">
-         <table>
-            <tr>
-               <td>{{item.TeamAway}}</td>
-               <td> </td>
-               <td>{{item.TeamRecordAway}}</td>
-            </tr>
-         </table>
-      </td>
-   </tr>
-   <tr>
-      <td ng-show="Multi" id="TeamHome_{{$index}}">
-         <table>
-            <tr>
-               <td>{{item.TeamHome}}</td>
-               <td> </td>
-               <td>{{item.TeamRecordHome}}</td>
-            </tr>
-         </table>
-      </td>
-   </tr>-->
+            <td ng-show="Multi" id="TeamAway_{{$index}}">
+               <table>
+                  <tr>
+                     <td>{{item.TeamAway}}</td>
+                     <td> </td>
+                     <td>{{item.TeamRecordAway}}</td>
+                  </tr>
+               </table>
+            </td>
+         </tr>
+         <tr>
+            <td ng-show="Multi" id="TeamHome_{{$index}}">
+               <table>
+                  <tr>
+                     <td>{{item.TeamHome}}</td>
+                     <td> </td>
+                     <td>{{item.TeamRecordHome}}</td>
+                  </tr>
+               </table>
+            </td>
+         </tr>-->
                </table>
             </td>
 
+            <td ng-Hide="condensed || !Multi">
+               <table>
+                  <tr>
+                     <td ng-show="Multi">{{item.TeamRecordAway}}</td>
+                  </tr>
+                  <tr>
+                     <td ng-show="Multi">{{item.TeamRecordHome}}</td>
+                  </tr>
+               </table>
+            </td>
             <td ng-Hide="condensed">
                <table>
                   <tr>
@@ -205,17 +221,17 @@
             <td ng-Hide="condensed">
                <table>
                   <tr>
-                     <td ng-show="Multi"  ng-class="applyMinusRedColor({{item.UnAdjTotalAwayPlanB}}, {{item.UnAdjTotalAway}} )">
+                     <td ng-show="Multi" ng-class="applyMinusRedColor({{item.UnAdjTotalAwayPlanB}}, {{item.UnAdjTotalAway}} )">
                         {{item.UnAdjTotalAwayPlanB | number:1}}
                      </td>
                   </tr>
                   <tr>
-                     <td ng-show="Multi"  ng-class="applyMinusRedColor({{item.UnAdjTotalHomePlanB}}, {{item.UnAdjTotalHome}} )">
+                     <td ng-show="Multi" ng-class="applyMinusRedColor({{item.UnAdjTotalHomePlanB}}, {{item.UnAdjTotalHome}} )">
                         {{item.UnAdjTotalHomePlanB | number:1}}
                      </td>
                   </tr>
                   <tr>
-                     <td class="statTotal"  ng-class="applyMinusRedColor({{item.UnAdjTotalPlanB}}, {{item.UnAdjTotal}} )">
+                     <td class="statTotal" ng-class="applyMinusRedColor({{item.UnAdjTotalPlanB}}, {{item.UnAdjTotal}} )">
                         {{item.UnAdjTotalPlanB | number:1}}
                      </td>
                   </tr>
@@ -269,13 +285,15 @@
                <table>
                   <tr>
                      <td ng-show="Multi"
-                         ng-click="OpenModal([this, 'Away'], 'TodaysMatchupsContainer', 'AdjustmentsByTeamModal', 'eventOpenAdjustmentsByTeamModal')"
-                         >{{item.AdjAmtAway | number:1}}</td>
+                         ng-click="OpenModal([this, 'Away'], 'TodaysMatchupsContainer', 'AdjustmentsByTeamModal', 'eventOpenAdjustmentsByTeamModal')">
+                        {{item.AdjAmtAway | number:1}}
+                     </td>
                   </tr>
                   <tr>
-                     <td ng-show="Multi" 
-                         ng-click="OpenModal([this, 'Home'], 'TodaysMatchupsContainer', 'AdjustmentsByTeamModal', 'eventOpenAdjustmentsByTeamModal')"
-                         >{{item.AdjAmtHome | number:1}}</td>
+                     <td ng-show="Multi"
+                         ng-click="OpenModal([this, 'Home'], 'TodaysMatchupsContainer', 'AdjustmentsByTeamModal', 'eventOpenAdjustmentsByTeamModal')">
+                        {{item.AdjAmtHome | number:1}}
+                     </td>
                   </tr>
                   <tr>
                      <td class="statTotal">{{item.AdjAmt | number:1}}</td>
@@ -295,6 +313,32 @@
                   </tr>
                </table>
             </td>
+            <td ng-Hide="condensed">
+               <table>
+                  <tr>
+                     <td ng-show="Multi">{{item.AdjPaceAway | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td ng-show="Multi">{{item.AdjPaceHome | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td class="statTotal">{{item.AdjPaceAway +item.AdjPaceHome | number:1}}</td>
+                  </tr>
+               </table>
+            </td>
+            <td ng-Hide="condensed">
+               <table>
+                  <tr>
+                     <td ng-show="Multi">{{item.AdjTeamAway | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td ng-show="Multi">{{item.AdjTeamHome | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td class="statTotal">{{item.AdjTeamAway +item.AdjTeamHome | number:1}}</td>
+                  </tr>
+               </table>
+            </td>
 
             <td>
                <table>
@@ -306,7 +350,7 @@
                   </tr>
                   <tr>
                      <td class="statTotal" ng-class="applyMinusRedColor({{item.OurTotalLine}}, {{item.TotalLine}} )">
-                         {{item.OurTotalLine | number:1}}
+                        {{item.OurTotalLine | number:1}}
                      </td>
                   </tr>
                </table>

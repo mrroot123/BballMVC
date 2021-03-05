@@ -3,9 +3,9 @@ use [00TTI_LeagueScores]
 Declare @serachArg varchar(50) = 
 
 	-- 	
-	--'%TeamWinning%'	--
-	-- 	
-	'%##MOVE##%'	--
+	--
+	'%udfCalcAdjTeam%'	--
+	-- 	'%##MOVE##%'	--
 	 
 	, @allObjects bit = 01 -- = 0 = just SPs
 

@@ -7,8 +7,8 @@ angular.module('app').controller('AlertModalController', function ($rootScope, $
       f.GreyScreen("TodaysMatchupsContainer");
       // $('#' + modalName).css({ "display": "block" });   // Show AdjustmentsByTeam Modal
       var oModal = document.getElementById(modalName);
-     // $scope.msg = editMsg(msg);
-      $("#AlertModalMsg").html(editMsg(msg));
+      //$scope.msg = editMsg2(msg);
+      $("#AlertModalMsg").html(msg);
       $scope.$apply();
             // oModal.style.height = 100 + data.length * 50;
       f.ShowModal(modalName);
@@ -27,5 +27,19 @@ angular.module('app').controller('AlertModalController', function ($rootScope, $
       // Split Then join the pieces putting the replace string in between:
       return msg.split("\n").join("<br>");
    }
-
+   function editMsg2(msg) {
+      // substr(zeroIx, len)
+      var msgOut = "";
+      var i;
+      for (i = 0; i < msg.length - 1; i++ ) {
+         if (msg.substr(i, 2) === "\n") {
+            msgOut += "<br>";
+            i++;
+         }
+         else {
+            msgOut += msg.substr(i, 1);
+         }
+      }  // for
+      return msgOut;
+   }  // editMsg2
 }); // Adjustments Modal controller

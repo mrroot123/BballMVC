@@ -309,7 +309,7 @@ namespace Bball.DAL.Tables
             + $"      tp ON tp.GameDate = tm.GameDate AND tp.RotNum = tm.RotNum AND tm.Play <> ''"
             + $"  Where tm.UserName = '{oBballInfoDTO.UserName}'  And tm.LeagueName = '{oBballInfoDTO.LeagueName}'"
             + $"    And tm.GameDate = '{oBballInfoDTO.GameDate.ToShortDateString()}'"
-            + "   Order By tm.GameTime, tm.RotNum"
+            + "   Order By tm.RotNum"
          ;
 
          int rows = SysDAL.Functions.DALfunctions.ExecuteSqlQuery(
@@ -534,7 +534,7 @@ namespace Bball.DAL.Tables
          vPostGameAnalysis.AdjOTwithSide = (double)rdr["AdjOTwithSide"];
          vPostGameAnalysis.AdjTV = (double)rdr["AdjTV"];
          vPostGameAnalysis.AdjRecentLeagueHistory = rdr["AdjRecentLeagueHistory"] == DBNull.Value ? null : (double?)rdr["AdjRecentLeagueHistory"];
-         vPostGameAnalysis.AdjPace = rdr["AdjPace"] == DBNull.Value ? null : (double?)rdr["AdjPace"];
+     //    vPostGameAnalysis.AdjPace = rdr["AdjPace"] == DBNull.Value ? null : (double?)rdr["AdjPace"];
          vPostGameAnalysis.OurTotalLineAway = (double)rdr["OurTotalLineAway"];
          vPostGameAnalysis.OurTotalLineHome = (double)rdr["OurTotalLineHome"];
          vPostGameAnalysis.OurTotalLine = (double)rdr["OurTotalLine"];
