@@ -16,15 +16,15 @@
       <div class="col-sm-12">
 
          <button type="button" class="btn-xs btn-info active" data-toggle="tooltip" title="Select Yesterday's Game Date"
-                 ng-show="true" ng-click="RefreshTodaysMatchups(false, 'yesterday')">
+                 ng-show="true" ng-click="GetByDayButton(false, 'yesterday')">
             Yesterday
          </button>
          <button type="button" class="btn-xs btn-info active" data-toggle="tooltip" title="Select Today's Game Date"
-                 ng-show="true" ng-click="RefreshTodaysMatchups(false, 'today')">
+                 ng-show="true" ng-click="GetByDayButton(true, 'today')">
             Today
          </button>
          <button type="button" class="btn-xs btn-info active" data-toggle="tooltip" title="Select Tomorrow's Game Date"
-                 ng-show="true" ng-click="RefreshTodaysMatchups(false, 'tomorrow')">
+                 ng-show="true" ng-click="GetByDayButton(true, 'tomorrow')">
             Tomorrow
          </button>
       </div>

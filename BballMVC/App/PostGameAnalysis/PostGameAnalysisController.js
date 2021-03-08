@@ -11,6 +11,8 @@ angular.module('app').controller('PostGameAnalysisController', function ($rootSc
    });
 
    $scope.RefreshDate = function () {
+      //$scope.GameDate = $scope.pgaGameDate;
+
       if ($scope.GameDate >= f.Today()) {
          f.MessageWarning("Date must be in the past");
          return;

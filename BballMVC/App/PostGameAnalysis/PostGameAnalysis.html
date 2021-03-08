@@ -7,10 +7,21 @@
       <div class="container" id="PostGameAnalysisContainer">
 
          <div class="row">
+            
             <div class="col-md-2">League: {{LeagueName}}  </div>
-            <div class="col-md-2"> {{GameDate}} </div>
-            <div class="col-md-2"> {{oBballInfoDTO.GameDate}} </div>
-            <div ng-include="'Common/_GameDateLocal.html'"></div>
+            <div class="col-md-2"> {{GameDate.toDateString()}} </div>
+            <div class="col-md-2">  </div>
+
+            <div class="col-md-3">
+               <span class="help-block text-muted small-font">Game&nbsp;Date</span>
+               <input type="date" ng-model="GameDate" />
+               <button type="button" class="btn btn-info active" data-toggle="tooltip" title="Select Game Date"
+                       ng-show="true" ng-click="RefreshDate()">
+                  Select Game Date
+               </button>
+            </div>
+
+            <!--<div ng-include="'Common/_GameDateLocal.html'"></div>-->
          </div>
 
 

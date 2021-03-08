@@ -56,7 +56,7 @@ namespace Bball.BAL
             int NumOfMatchups = 0;
             try
             {
-               NumOfMatchups = loadYesterdaysBoxScores(GameDate);  //1
+               NumOfMatchups = loadBoxScoresAndRotationByGameDate(GameDate);  //1
             }
             catch (Exception ex)
             {
@@ -73,25 +73,21 @@ namespace Bball.BAL
       public void ReloadBoxScores(IBballInfoDTO oBballInfoDTO)
       {
          new LeagueInfoDO(oBballInfoDTO);  // Init _oLeagueDTO
-
+         // 03/06/2021 - Make Delete BxSc & L5Min one method that calls these two
          BoxScoreDO.DeleteBoxScoresByDate(oBballInfoDTO.ConnectionString, oBballInfoDTO.LeagueName, oBballInfoDTO.GameDate);
          BoxScoreDO.DeleteBoxScoresLast5MinByDate(oBballInfoDTO.ConnectionString, oBballInfoDTO.LeagueName, oBballInfoDTO.GameDate);
-       //  loadBoxScores(oBballInfoDTO);
-      //}
 
-      //// called by ReloadBoxScores
-      //private int loadBoxScores(IBballInfoDTO oBballInfoDTO)   // Return NumOfMatchups
-      //{
          /*
           * Load: Rotation and Boxscores, BoxscoresL5Min up to Yesterday
           * */
 
          SortedList<string, CoversDTO> ocRotation = new SortedList<string, CoversDTO>();
          new SeasonInfoDO(oBballInfoDTO);                                        // set oBballInfoDTO.oBballDataDTO.oSeasonInfoDTO
-         RotationDO.PopulateRotation(ocRotation, oBballInfoDTO, oBballInfoDTO.oBballDataDTO.oLeagueDTO);    // Get Rotation for GameDate - Populate if Not Found
+         RotationDO.PopulateRotation(ocRotation, oBballInfoDTO, oBballInfoDTO.oBballDataDTO.oLeagueDTO, true);    // Get Rotation for GameDate - Populate if Not Found
          if (ocRotation.Count == 0)
             return;   // No Games for GameDate
 
+         //kdtodo cleanup - Same foreach loop in ReloadBoxScores & loadBoxScoresAndRotationByGameDate
          CoversDTO oCoversDTO = null;
          try
          {
@@ -116,9 +112,10 @@ namespace Bball.BAL
       }  // ReloadBoxScores
       #endregion reloadBoxScores
 
+      // called by DataBO.appInit Only
       public void LoadTodaysRotation()
       {
-         // Load Rotations
+         // Load Rotation ONLY
          //
          //int rotationDays2Load = 2;
          //for (int i = 0; i < rotationDays2Load; i++) // Loop twice - Load Today's & Tomorrow's Rotation
@@ -146,8 +143,10 @@ namespace Bball.BAL
                }
             }
 
-            _oBballInfoDTO.GameDate = _oBballInfoDTO.GameDate.AddDays(1); // kd make nextGameDate function
-            _oSeasonInfoDO.GameDate = _oSeasonInfoDO.GameDate.AddDays(1);
+           // 03/06/2021 _oBballInfoDTO.GameDate = _oBballInfoDTO.GameDate.AddDays(1); // kd make nextGameDate function
+           // _oSeasonInfoDO.GameDate = _oSeasonInfoDO.GameDate.AddDays(1);
+            _oSeasonInfoDO.GetNextGameDate();
+            _oBballInfoDTO.GameDate = _oSeasonInfoDO.GameDate;
          }
 
          SqlFunctions.ParmTableParmValueUpdate(_oBballInfoDTO.ConnectionString, "BoxscoresLastUpdateDate", DateTime.Today.ToShortDateString());
@@ -155,7 +154,7 @@ namespace Bball.BAL
 
 
       // called by loadBoxScoreRange & FixBoxscores
-      private int loadYesterdaysBoxScores(DateTime GameDate)   // Return NumOfMatchups
+      private int loadBoxScoresAndRotationByGameDate(DateTime GameDate)   // Return NumOfMatchups
       {
          /*
           * Load: Rotation and Boxscores, BoxscoresL5Min up to Yesterday
@@ -163,25 +162,26 @@ namespace Bball.BAL
 
          IBballInfoDTO oBballInfoDTO = _oBballInfoDTO;  // kdcleanup - Pass as Parm, get rid of _oBballInfoDTO refs
 
-         Helper.Log(oBballInfoDTO, $"LoadBoxScores.loadYesterdaysBoxScores - LeagueName: {_oBballInfoDTO.LeagueName}  GameDate: {_oBballInfoDTO.GameDate}");
-         DateTime LoadDateTime = DateTime.Now;
+         Helper.Log(oBballInfoDTO, $"LoadBoxScores.loadBoxScoresAndRotationByGameDate - LeagueName: {_oBballInfoDTO.LeagueName}  GameDate: {_oBballInfoDTO.GameDate}");
 
-         string _strLoadDateTime = LoadDateTime.ToString();
-
-         SortedList<string, CoversDTO> ocRotation = new SortedList<string, CoversDTO>();
+         
          _oBballInfoDTO.GameDate = GameDate;
 
          _oBballInfoDTO.oBballDataDTO.oSeasonInfoDTO = new SeasonInfoDTO();
          new SeasonInfoDO(_oBballInfoDTO);   // init _oBballInfoDTO.oBballDataDTO,SeasonInfoDTO
          new LeagueInfoDO(_oBballInfoDTO.LeagueName, _oBballInfoDTO.oBballDataDTO.oLeagueDTO, _oBballInfoDTO.ConnectionString, _oBballInfoDTO.GameDate);  // Init _oLeagueDTO
 
-         RotationDO.PopulateRotation(ocRotation,  _oBballInfoDTO, _oBballInfoDTO.oBballDataDTO.oLeagueDTO, true);   // Get Rotation for GameDate - Populate if Not Found
+         SortedList<string, CoversDTO> ocRotation = new SortedList<string, CoversDTO>();  // Init Instance
+         // Refresh Rotation from Covers and write
+         RotationDO.PopulateRotation(ocRotation,  _oBballInfoDTO, _oBballInfoDTO.oBballDataDTO.oLeagueDTO, true);   
+         
          if (ocRotation.Count == 0)
             return 0;   // No Games for GameDate
 
          BoxScoreDO.DeleteBoxScoresByDate(oBballInfoDTO.ConnectionString, oBballInfoDTO.LeagueName, oBballInfoDTO.GameDate);
          BoxScoreDO.DeleteBoxScoresLast5MinByDate(oBballInfoDTO.ConnectionString, oBballInfoDTO.LeagueName, oBballInfoDTO.GameDate);
 
+         //kdtodo cleanup - Same foreach loop in ReloadBoxScores & loadBoxScoresAndRotationByGameDate
          CoversDTO oCoversDTO = null;
          try
          {
@@ -202,10 +202,10 @@ namespace Bball.BAL
          }
 
          return ocRotation.Count;  // return NumOfMatchups
-      }  // loadYesterdaysBoxScores
+      }  // loadBoxScoresAndRotationByGameDate
 
 
-      // called by ReloadBoxScores & loadYesterdaysBoxScores
+      // called by ReloadBoxScores & loadBoxScoresAndRotationByGameDate
       private void insertBoxScore(CoversDTO oCoversDTO, IBballInfoDTO oBballInfoDTO)   // ISeasonInfoDTO oSeasonInfoDTO)
       {
          #region insertBoxScore
@@ -317,7 +317,7 @@ namespace Bball.BAL
          SqlFunctions.ExecSql(string.Format(strSql, "BoxScores"), _ConnectionString);
          SqlFunctions.ExecSql(string.Format(strSql, "BoxScoresLast5Min"), _ConnectionString);
 
-         loadYesterdaysBoxScores(GameDate);
+         loadBoxScoresAndRotationByGameDate(GameDate);
       }
 
    }  // LoadBoxScores

@@ -31,9 +31,9 @@
             <th ng-Hide="condensed || !Multi"><br />Record</th>
             <th ng-Hide="condensed">Vol<br />atilly</th>
 
-            <th ng-Hide="condensed">Last&nbsp;{{TMparms.GB1}}<br />&nbsp;&nbsp;&nbsp;{{TMparms.WeightGB1}}</th>
-            <th ng-Hide="condensed">Last&nbsp;{{TMparms.GB2}}<br />&nbsp;&nbsp;&nbsp;{{TMparms.WeightGB2}}</th>
-            <th ng-Hide="condensed">Last&nbsp;{{TMparms.GB3}}<br />&nbsp;&nbsp;&nbsp;{{TMparms.WeightGB3}}</th>
+            <th ng-Hide="condensed || !ShowHistory"">Last&nbsp;{{TMparms.GB1}}<br />&nbsp;&nbsp;&nbsp;{{TMparms.WeightGB1}}</th>
+            <th ng-Hide="condensed || !ShowHistory"">Last&nbsp;{{TMparms.GB2}}<br />&nbsp;&nbsp;&nbsp;{{TMparms.WeightGB2}}</th>
+            <th ng-Hide="condensed || !ShowHistory"">Last&nbsp;{{TMparms.GB3}}<br />&nbsp;&nbsp;&nbsp;{{TMparms.WeightGB3}}</th>
 
             <th ng-Hide="condensed">UnAdj<br />Total</th>
             <th ng-Hide="condensed" title="Calced on Game Avgs not Point Avgs">UnAdj Tot<br />Plan B</th>
@@ -45,6 +45,10 @@
             <th ng-Hide="condensed">OT/Side<br />Adj</th>
             <th ng-Hide="condensed">Pace<br />Adj</th>
             <th ng-Hide="condensed">Team<br />Adj</th>
+
+            <th ng-Hide="condensed">Calced<br />1 PTers</th>
+            <th ng-Hide="condensed">Calced<br />2 PTers</th>
+            <th ng-Hide="condensed">Calced<br />3 PTers</th>
 
             <th>Calced<br />Line</th>
             <th>Total<br />Line</th>
@@ -73,8 +77,11 @@
          <!-- Header Averages -->
          <tr style="color:{{LeagueColor}};">
             <th colspan="2">Averages</th>
+            
 
-            <th colspan="14" ng-Hide="condensed"></th>
+            <th colspan="2" ng-Hide="condensed"></th>
+            <th colspan="3" ng-Hide="condensed || !ShowHistory"></th>
+            <th colspan="12" ng-Hide="condensed"></th>
 
             <th>{{avgOurTotalLine | number:1}}</th>
             <th>{{avgTotalLine | number:1}}</th>
@@ -140,6 +147,7 @@
                </table>
             </td>
 
+            <!--Record-->
             <td ng-Hide="condensed || !Multi">
                <table>
                   <tr>
@@ -150,6 +158,7 @@
                   </tr>
                </table>
             </td>
+            <!--Volatility-->
             <td ng-Hide="condensed">
                <table>
                   <tr>
@@ -165,7 +174,7 @@
                </table>
             </td>
 
-            <td ng-Hide="condensed">
+            <td ng-Hide="condensed || !ShowHistory">
                <table>
                   <tr>
                      <td ng-show="Multi">{{item.AwayGB1 | number:1}}</td>
@@ -178,7 +187,7 @@
                   </tr>
                </table>
             </td>
-            <td ng-Hide="condensed">
+            <td ng-Hide="condensed || !ShowHistory">
                <table>
                   <tr>
                      <td ng-show="Multi">{{item.AwayGB2 | number:1}}</td>
@@ -191,7 +200,7 @@
                   </tr>
                </table>
             </td>
-            <td ng-Hide="condensed">
+            <td ng-Hide="condensed || !ShowHistory">
                <table>
                   <tr>
                      <td ng-show="Multi">{{item.AwayGB3 | number:1}}</td>
@@ -300,6 +309,7 @@
                   </tr>
                </table>
             </td>
+            <!--Adj OT Side-->
             <td ng-Hide="condensed">
                <table>
                   <tr>
@@ -313,6 +323,7 @@
                   </tr>
                </table>
             </td>
+            <!--Adj Pace-->
             <td ng-Hide="condensed">
                <table>
                   <tr>
@@ -326,6 +337,7 @@
                   </tr>
                </table>
             </td>
+            <!--Adj Team-->
             <td ng-Hide="condensed">
                <table>
                   <tr>
@@ -340,6 +352,58 @@
                </table>
             </td>
 
+            <!--Calced Pt1-->
+            <td ng-Hide="condensed">
+               <table>
+                  <tr>
+                     <td ng-show="Multi">{{item.AwayProjectedPt1 | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td ng-show="Multi">{{item.HomeProjectedPt1 | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td class="statTotal">
+                        {{item.AwayProjectedPt1 + item.HomeProjectedPt1 | number:1}}
+                     </td>
+                  </tr>
+               </table>
+            </td>
+
+            <!--Calced Pt2-->
+            <td ng-Hide="condensed">
+               <table>
+                  <tr>
+                     <td ng-show="Multi">{{item.AwayProjectedPt2 | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td ng-show="Multi">{{item.HomeProjectedPt2 | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td class="statTotal">
+                        {{item.AwayProjectedPt2 + item.HomeProjectedPt2 | number:1}}
+                     </td>
+                  </tr>
+               </table>
+            </td>
+
+            <!--Calced Pt3-->
+            <td ng-Hide="condensed">
+               <table>
+                  <tr>
+                     <td ng-show="Multi">{{item.AwayProjectedPt3 | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td ng-show="Multi">{{item.HomeProjectedPt3 | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td class="statTotal">
+                        {{item.AwayProjectedPt3 + item.HomeProjectedPt3 | number:1}}
+                     </td>
+                  </tr>
+               </table>
+            </td>
+
+            <!--Calced Line-->
             <td>
                <table>
                   <tr>
@@ -355,6 +419,7 @@
                   </tr>
                </table>
             </td>
+            <!--Total Line-->
             <td>
                <table>
                   <tr>
@@ -457,6 +522,7 @@
                <input type="checkbox" id="cbProcessPlay_{{$index}}" />
             </td>
             <td ng-show="PlayEntry" id="Played_{{$index}}"></td>
+            <td ng-show="!PlayEntry && condensed" colspan="8" ></td>
          </tr>
       </table>
    </div>

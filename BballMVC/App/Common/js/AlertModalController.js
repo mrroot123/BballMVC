@@ -1,9 +1,8 @@
 ﻿
 angular.module('app').controller('AlertModalController', function ($rootScope, $scope, f, ajx, url) {
    const modalName = "AlertModal";
-   const containerName = "screen";
+
    $scope.$on('eventOpenAlertModal', function (e, msg) {
-     // f.GreyScreen(containerName);
       f.GreyScreen("TodaysMatchupsContainer");
       // $('#' + modalName).css({ "display": "block" });   // Show AdjustmentsByTeam Modal
       var oModal = document.getElementById(modalName);
@@ -17,7 +16,6 @@ angular.module('app').controller('AlertModalController', function ($rootScope, $
    }); // $on
    // 
    $scope.AlertModalClose = function () {    // invoked by Close click on Modal
-     // f.ShowScreen(containerName);
       f.ShowScreen("TodaysMatchupsContainer");
 
       f.HideModal(modalName); // Hide AlertModal Modal

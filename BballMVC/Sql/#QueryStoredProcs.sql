@@ -4,12 +4,12 @@ Declare @serachArg varchar(50) =
 
 	-- 	
 	--
-	'%udfCalcAdjTeam%'	--
-	-- 	'%##MOVE##%'	--
+	--'%udfCalcAdjTeam%'	--
+	 	'%##MOVE##%'	--
 	 
 	, @allObjects bit = 01 -- = 0 = just SPs
 
-Select @serachArg as serachArg
+Select @@SERVERNAME as Server, @serachArg as serachArg
 
 SELECT OBJECT_NAME(m.object_id) as 'Object Name'
 	, o.modify_date, o.create_date

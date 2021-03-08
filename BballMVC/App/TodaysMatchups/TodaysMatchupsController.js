@@ -9,6 +9,7 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
    $scope.ShowPlaysOnly = false;
    $scope.Multi = true;
    $scope.ShowCanceledGames = true;
+   $scope.ShowHistory = true;
 
    let ocOuts = [
       { name: "Pin", juice: "105" }
@@ -41,6 +42,46 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
       }
    });
 
+   /*
+     Make 3 Entry Points
+     1) Refresh TMs click  (true)
+     2) Select GameDate    ()
+     3) Yesterday, Today, Tomorrow Click  (false, newDateLiteral)
+   */
+   $scope.GetByDayButton = function (refresh, newDateLiteral) {
+      let newDate = null;
+      if (newDateLiteral === "yesterday") {
+         newDate = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1);
+      }
+      else if (newDateLiteral === "today") {
+         newDate = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+      }
+      else if (newDateLiteral === "tomorrow") {
+         newDate = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 1);
+      }
+      else {
+         return;
+      }
+      if (newDate.toDateString() === $rootScope.oBballInfoDTO.GameDate.toDateString()) {
+         alert(localGameDate.toLocaleDateString() + " is already Selected");
+         return;
+      }
+      $rootScope.oBballInfoDTO.GameDate = newDate;
+      var URL = refresh ? url.UrlRefreshTodaysMatchups : url.UrlGetPastMatchups;
+      getTodaysMatchups(URL);
+   };
+   $scope.RefreshTMs = function () {
+      getTodaysMatchups(url.UrlRefreshTodaysMatchups);
+   };
+   $scope.SelectGameDate = function () {
+      if (localGameDate === $rootScope.oBballInfoDTO.GameDate) {
+         alert(localGameDate.toLocaleDateString() + " is already Selected");
+         return;
+      }
+      var URL = $rootScope.oBballInfoDTO.GameDate < f.Today() ? url.UrlGetPastMatchups : url.UrlRefreshTodaysMatchups;
+
+      getTodaysMatchups(URL);
+   };
    $scope.RefreshTodaysMatchups = function (refresh, newDateLiteral) {
       if (newDateLiteral) {
          let newDate = null;
@@ -71,21 +112,28 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
          }
       }
 
+
+      // If Today or refresh, Then refresh by uspCalcTodaysMatchups ELSE get Previous Matchups
+      var URL = $rootScope.oBballInfoDTO.GameDate < f.Today() && !refresh ? url.UrlGetPastMatchups : url.UrlRefreshTodaysMatchups;
+      getTodaysMatchups(URL);
+   };
+
+   function getTodaysMatchups(URL) {
+      localGameDate = $rootScope.oBballInfoDTO.GameDate;
+
+
       $rootScope.RefreshTodaysMatchupsState = false;
       $scope.PlayEntry = false;
       $scope.ShowPlaysOnly = false;
       $scope.ShowDailySummary = true;
       $scope.ShowCanceledGames = true;
-
-      // If Today or refresh, Then refresh by uspCalcTodaysMatchups ELSE get Previous Matchups
-      var URL = $rootScope.oBballInfoDTO.GameDate < f.Today() && !refresh  ? url.UrlGetPastMatchups : url.UrlRefreshTodaysMatchups;
-      localGameDate = $rootScope.oBballInfoDTO.GameDate;
-
-      //f.GreyScreen("screen");
+      $scope.ShowHistory = true;
+     
       // Data/UrlRefreshTodaysMatchups
       ajx.AjaxGet(URL, {
-         UserName: $rootScope.oBballInfoDTO.UserName
-         , GameDate: $rootScope.oBballInfoDTO.GameDate.toLocaleDateString(), LeagueName: $rootScope.oBballInfoDTO.LeagueName
+           UserName:   $rootScope.oBballInfoDTO.UserName
+         , GameDate:   localGameDate.toLocaleDateString()
+         , LeagueName: $rootScope.oBballInfoDTO.LeagueName
       })   // Get TodaysMatchups from server
          .then(data => {
             // See ajx.AjaxGet in HeaderController for same moves
@@ -98,13 +146,11 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
             f.ShowScreen(containerName);
 
             f.MessageSuccess("Matchups Refreshed for " + f.Getmdy($rootScope.oBballInfoDTO.GameDate));
-         //   f.ShowScreen("screen");
          })
          .catch(error => {
             f.DisplayErrorMessage(f.FormatResponse(error));
-          //  f.ShowScreen("screen");
          });
-   }; // GetTodaysMatchups
+   } // GetTodaysMatchups
    $scope.GetAdjustmentsByTeam = function (LeagueName, GameDate, Team) {
       // get adjs
       ajx.AjaxGet(url.UrlGetAdjustmentsByTeam, { GameDate: $rootScope.oBballInfoDTO.GameDate.toLocaleDateString(), LeagueName: $rootScope.oBballInfoDTO.LeagueName, Team })   // Get TodaysMatchups from server

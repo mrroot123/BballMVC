@@ -84,7 +84,7 @@ namespace Bball.BAL
 
          }
       }
-      async Task appInitAsync(IBballInfoDTO oBballInfoDTO)
+      async Task appInitAsync(IBballInfoDTO oBballInfoDTO)  // 03/06/2021 - not referenced
       {
          GetDataConstants.PopulateGetDataConstants(oBballInfoDTO.oBballDataDTO.DataConstants);
          oBballInfoDTO.oBballDataDTO.BaseDir = System.AppDomain.CurrentDomain.BaseDirectory;
@@ -142,7 +142,7 @@ namespace Bball.BAL
          {
             oBballInfoDTO.LeagueName = item.Value;
             
-            new LoadBoxScores(oBballInfoDTO).LoadTodaysRotation();
+            new LoadBoxScores(oBballInfoDTO).LoadTodaysRotation();  // Constructor Loads BoxScores then Rotation is Loaded
          }
          new AdjustmentsDO(oBballInfoDTO).UpdateTodaysPlays();
          //await taskAdj;

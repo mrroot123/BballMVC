@@ -110,12 +110,13 @@
             <tr>
                <td>
                   <table class="awayTable">
+                     <tr class="awayR2"> <td>{{item.ScoreReg | number:1 }}</td> </tr>
                      <tr class="awayR1">
                         <td class="awayR1">
                            {{item.OurTotalLine | number:1}}
                         </td>
                      </tr>
-                     <tr class="awayR2"> <td>{{item.ScoreReg | number:1 }}</td> </tr>
+
                      <tr class="awayR3"> <td>{{item.ScoreReg-item.OurTotalLine | number:1 }}</td> </tr>
                   </table>
                </td>
@@ -123,8 +124,8 @@
             <tr>
                <td>
                   <table class="homeTable">
-                     <tr class="homeR1"><td>Result</td></tr>
                      <tr class="homeR2"><td>Line Diff</td></tr>
+                     <tr class="homeR1"><td>Result</td></tr>
                      <tr class="homeR3" ng-class="applyMinusRedColor({{item.LineDiffResultReg}})"><td>{{item.LineDiffResultReg}}</td></tr>
                   </table>
                </td>
@@ -137,8 +138,9 @@
             <tr>
                <td>
                   <table class="awayTable">
-                     <tr class="awayR1"> <td>Our Projected</td> </tr>
                      <tr class="awayR2"> <td>Actual (Reg)</td> </tr>
+                     <tr class="awayR1"> <td>Our Projected</td> </tr>
+
                      <tr class="awayR3"> <td>Difference</td> </tr>
                   </table>
                </td>
@@ -146,8 +148,9 @@
             <tr>
                <td>
                   <table class="homeTable">
-                     <tr class="homeR1"><td>Our Projected</td></tr>
                      <tr class="homeR2"><td>Actual (Reg)</td></tr>
+                     <tr class="homeR1"><td>Our Projected</td></tr>
+
                      <tr class="homeR3"><td>Difference</td></tr>
                   </table>
                </td>
@@ -160,8 +163,9 @@
             <tr>
                <td>
                   <table class="awayTable">
-                     <tr class="awayR1"> <td class="awayR1">{{item.OurTotalLineAway | number:1 }}</td> </tr>
                      <tr class="awayR2"> <td>{{item.ScoreRegOp | number:1 }}</td> </tr>
+                     <tr class="awayR1"> <td class="awayR1">{{item.OurTotalLineAway | number:1 }}</td> </tr>
+
                      <tr class="awayR3" ng-class="applyMinusRedColor({{item.ScoreRegOp-item.OurTotalLineAway}})">
                         <td>{{item.ScoreRegOp-item.OurTotalLineAway | number:1 }}</td>
                      </tr>
@@ -171,8 +175,9 @@
             <tr>
                <td>
                   <table class="homeTable">
-                     <tr class="homeR1"><td>{{item.OurTotalLineHome | number:1 }}</td></tr>
                      <tr class="homeR2"><td>{{item.ScoreRegUs | number:1 }}</td></tr>
+                     <tr class="homeR1"><td>{{item.OurTotalLineHome | number:1 }}</td></tr>
+
                      <tr class="homeR3" ng-class="applyMinusRedColor({{item.ScoreRegUs-item.OurTotalLineHome}})">
                         <td>{{item.ScoreRegUs-item.OurTotalLineHome | number:1 }}</td>
                      </tr>
@@ -187,12 +192,13 @@
             <tr>
                <td>
                   <table class="awayTable">
+                     <tr class="awayR2"> <td>{{item.ShotsMadeOpRegPt1 | number:1 }}</td> </tr>
                      <tr class="awayR1">
                         <td ng-class="applyPGAclass('OurTotalLine')">
                            {{item.AwayProjectedPt1 | number:1 }}
                         </td>
                      </tr>
-                     <tr class="awayR2"> <td>{{item.ShotsMadeOpRegPt1 | number:1 }}</td> </tr>
+
                      <tr class="awayR3" ng-class="applyMinusRedColor({{item.ShotsMadeOpRegPt1-item.AwayProjectedPt1}})"> <td>{{item.ShotsMadeOpRegPt1-item.AwayProjectedPt1 | number:1 }}</td> </tr>
                   </table>
                </td>
@@ -200,8 +206,9 @@
             <tr>
                <td>
                   <table class="homeTable">
-                     <tr class="homeR1"><td>{{item.HomeProjectedPt1 | number:1 }}</td></tr>
                      <tr class="homeR2"><td>{{item.ShotsMadeUsRegPt1 | number:1 }}</td></tr>
+                     <tr class="homeR1"><td>{{item.HomeProjectedPt1 | number:1 }}</td></tr>
+
                      <tr class="homeR3" ng-class="applyMinusRedColor({{item.ShotsMadeOpRegPt1-item.HomeProjectedPt1}})"><td>{{item.ShotsMadeUsRegPt1-item.HomeProjectedPt1 | number:1 }}</td></tr>
                   </table>
                </td>
@@ -215,8 +222,9 @@
             <tr>
                <td>
                   <table class="awayTable">
-                     <tr class="awayR1"> <td>{{item.AwayProjectedAtmpPt1 | number:1 }}</td> </tr>
                      <tr class="awayR2"> <td>{{item.ShotsAttemptedOpRegPt1 | number:1 }}</td> </tr>
+                     <tr class="awayR1"> <td>{{item.AwayProjectedAtmpPt1 | number:1 }}</td> </tr>
+
                      <tr class="awayR3" ng-class="applyMinusRedColor({{item.ShotsAttemptedOpRegPt1-item.AwayProjectedAtmpPt1 }})"> <td>{{item.ShotsAttemptedOpRegPt1-item.AwayProjectedAtmpPt1 | number:1 }}</td> </tr>
                   </table>
                </td>
@@ -224,8 +232,9 @@
             <tr>
                <td>
                   <table class="homeTable">
-                     <tr class="HomeR1"> <td>{{item.HomeProjectedAtmpPt1 | number:1 }}</td> </tr>
                      <tr class="HomeR2"> <td>{{item.ShotsAttemptedUsRegPt1 | number:1 }}</td> </tr>
+                     <tr class="HomeR1"> <td>{{item.HomeProjectedAtmpPt1 | number:1 }}</td> </tr>
+
                      <tr class="homeR3" ng-class="applyMinusRedColor({{item.ShotsAttemptedUsRegPt1-item.HomeProjectedAtmpPt1}})"> <td>{{item.ShotsAttemptedUsRegPt1-item.HomeProjectedAtmpPt1 | number:1 }}</td> </tr>
                   </table>
                </td>
@@ -238,8 +247,9 @@
             <tr>
                <td>
                   <table class="awayTable">
-                     <tr class="awayR1"> <td>{{item.AwayProjectedPt2 | number:1 }}</td> </tr>
                      <tr class="awayR2"> <td>{{item.ShotsMadeOpRegPt2 | number:1 }}</td> </tr>
+                     <tr class="awayR1"> <td>{{item.AwayProjectedPt2 | number:1 }}</td> </tr>
+
                      <tr class="awayR3" ng-class="applyMinusRedColor({{item.ShotsMadeOpRegPt2-item.AwayProjectedPt2}})"> <td>{{item.ShotsMadeOpRegPt2-item.AwayProjectedPt2 | number:1 }}</td> </tr>
                   </table>
                </td>
@@ -247,8 +257,9 @@
             <tr>
                <td>
                   <table class="homeTable">
-                     <tr class="homeR1"><td>{{item.HomeProjectedPt2 | number:1 }}</td></tr>
                      <tr class="homeR2"><td>{{item.ShotsMadeUsRegPt2 | number:1 }}</td></tr>
+                     <tr class="homeR1"><td>{{item.HomeProjectedPt2 | number:1 }}</td></tr>
+
                      <tr class="homeR3" ng-class="applyMinusRedColor({{item.ShotsMadeUsRegPt2-item.HomeProjectedPt2}})"><td>{{item.ShotsMadeUsRegPt2-item.HomeProjectedPt2 | number:1 }}</td></tr>
                   </table>
                </td>
@@ -263,8 +274,9 @@
             <tr>
                <td>
                   <table class="awayTable">
-                     <tr class="awayR1"> <td>{{item.AwayProjectedAtmpPt2 | number:1 }}</td> </tr>
                      <tr class="awayR2"> <td>{{item.ShotsAttemptedOpRegPt2 | number:1 }}</td> </tr>
+                     <tr class="awayR1"> <td>{{item.AwayProjectedAtmpPt2 | number:1 }}</td> </tr>
+
                      <tr class="awayR3" ng-class="applyMinusRedColor({{item.ShotsAttemptedOpRegPt2-item.AwayProjectedAtmpPt2}})"> <td>{{item.ShotsAttemptedOpRegPt2-item.AwayProjectedAtmpPt2 | number:1 }}</td> </tr>
                   </table>
                </td>
@@ -272,8 +284,9 @@
             <tr>
                <td>
                   <table class="homeTable">
-                     <tr class="HomeR1"> <td>{{item.HomeProjectedAtmpPt2 | number:1 }}</td> </tr>
                      <tr class="HomeR2"> <td>{{item.ShotsAttemptedUsRegPt2 | number:1 }}</td> </tr>
+                     <tr class="HomeR1"> <td>{{item.HomeProjectedAtmpPt2 | number:1 }}</td> </tr>
+
                      <tr class="homeR3" ng-class="applyMinusRedColor({{item.ShotsAttemptedUsRegPt2-item.HomeProjectedAtmpPt2}})"> <td>{{item.ShotsAttemptedUsRegPt2-item.HomeProjectedAtmpPt2 | number:1 }}</td> </tr>
                   </table>
                </td>
@@ -286,8 +299,9 @@
             <tr>
                <td>
                   <table class="awayTable">
-                     <tr class="awayR1"> <td>{{item.AwayProjectedPt3 | number:1 }}</td> </tr>
                      <tr class="awayR2"> <td>{{item.ShotsMadeOpRegPt3 | number:1 }}</td> </tr>
+                     <tr class="awayR1"> <td>{{item.AwayProjectedPt3 | number:1 }}</td> </tr>
+
                      <tr class="awayR3" ng-class="applyMinusRedColor({{item.ShotsMadeOpRegPt3-item.AwayProjectedPt3}})"> <td>{{item.ShotsMadeOpRegPt3-item.AwayProjectedPt3 | number:1 }}</td> </tr>
                   </table>
                </td>
@@ -295,8 +309,9 @@
             <tr>
                <td>
                   <table class="homeTable">
-                     <tr class="homeR1"><td>{{item.HomeProjectedPt3 | number:1 }}</td></tr>
                      <tr class="homeR2"><td>{{item.ShotsMadeUsRegPt3 | number:1 }}</td></tr>
+                     <tr class="homeR1"><td>{{item.HomeProjectedPt3 | number:1 }}</td></tr>
+
                      <tr class="homeR3" ng-class="applyMinusRedColor({{item.ShotsMadeUsRegPt3-item.HomeProjectedPt3}})"><td>{{item.ShotsMadeUsRegPt3-item.HomeProjectedPt3 | number:1 }}</td></tr>
                   </table>
                </td>
@@ -311,8 +326,9 @@
             <tr>
                <td>
                   <table class="awayTable">
-                     <tr class="awayR1"> <td>{{item.AwayProjectedAtmpPt3 | number:1 }}</td> </tr>
                      <tr class="awayR2"> <td>{{item.ShotsAttemptedOpRegPt3 | number:1 }}</td> </tr>
+                     <tr class="awayR1"> <td>{{item.AwayProjectedAtmpPt3 | number:1 }}</td> </tr>
+
                      <tr class="awayR3" ng-class="applyMinusRedColor({{item.ShotsAttemptedOpRegPt3-item.AwayProjectedAtmpPt3}})"> <td>{{item.ShotsAttemptedOpRegPt3-item.AwayProjectedAtmpPt3 | number:1 }}</td> </tr>
                   </table>
                </td>
@@ -320,8 +336,9 @@
             <tr>
                <td>
                   <table class="homeTable">
-                     <tr class="HomeR1"> <td>{{item.HomeProjectedAtmpPt3 | number:1 }}</td> </tr>
                      <tr class="HomeR2"> <td>{{item.ShotsAttemptedUsRegPt3 | number:1 }}</td> </tr>
+                     <tr class="HomeR1"> <td>{{item.HomeProjectedAtmpPt3 | number:1 }}</td> </tr>
+
                      <tr class="homeR3" ng-class="applyMinusRedColor({{item.ShotsAttemptedUsRegPt3-item.HomeProjectedAtmpPt3}})"> <td>{{item.ShotsAttemptedUsRegPt3-item.HomeProjectedAtmpPt3 | number:1 }}</td> </tr>
                   </table>
                </td>
