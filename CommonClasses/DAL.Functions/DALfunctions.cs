@@ -601,6 +601,14 @@ namespace SysDAL.Functions
       
       public static string StackTraceFormat(String PreMsg, Exception ex, string PostMsg)
       {
+         if (ex.GetType().Name == "SqlException")
+         {
+            SqlException e = ex as SqlException;
+            if (e.Number > 50000)   // User generated
+            {
+               return e.Message;
+            }
+         }
          PreMsg = string.IsNullOrEmpty(PreMsg) ? "" : PreMsg + "<br>";
          PostMsg = string.IsNullOrEmpty(PostMsg) ? "" : PostMsg + "<br>";
          if (ex.Message.IndexOf("= Stack Trace =") > -1)

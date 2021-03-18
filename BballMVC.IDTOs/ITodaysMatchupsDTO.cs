@@ -18,9 +18,15 @@ namespace BballMVC.IDTOs
       double AdjTV { get; set; }
       double? AdjustedDiff { get; set; }
       string AllAdjustmentLines { get; set; }
+      double? AwayAverageAllowedPt1 { get; set; }
+      double? AwayAverageAllowedPt2 { get; set; }
+      double? AwayAverageAllowedPt3 { get; set; }
       double AwayAverageAtmpUsPt1 { get; set; }
       double AwayAverageAtmpUsPt2 { get; set; }
       double AwayAverageAtmpUsPt3 { get; set; }
+      double? AwayAverageMadePt1 { get; set; }
+      double? AwayAverageMadePt2 { get; set; }
+      double? AwayAverageMadePt3 { get; set; }
       double? AwayAveragePtsAllowed { get; set; }
       double? AwayAveragePtsScored { get; set; }
       double AwayGB1 { get; set; }
@@ -54,9 +60,15 @@ namespace BballMVC.IDTOs
       int GB1 { get; set; }
       int GB2 { get; set; }
       int GB3 { get; set; }
+      double? HomeAverageAllowedPt1 { get; set; }
+      double? HomeAverageAllowedPt2 { get; set; }
+      double? HomeAverageAllowedPt3 { get; set; }
       double HomeAverageAtmpUsPt1 { get; set; }
       double HomeAverageAtmpUsPt2 { get; set; }
       double HomeAverageAtmpUsPt3 { get; set; }
+      double? HomeAverageMadePt1 { get; set; }
+      double? HomeAverageMadePt2 { get; set; }
+      double? HomeAverageMadePt3 { get; set; }
       double? HomeAveragePtsAllowed { get; set; }
       double? HomeAveragePtsScored { get; set; }
       double HomeGB1 { get; set; }
@@ -78,6 +90,12 @@ namespace BballMVC.IDTOs
       double HomeProjectedPt2 { get; set; }
       double HomeProjectedPt3 { get; set; }
       string LeagueName { get; set; }
+      double? LgAvgShotsMadeAwayPt1 { get; set; }
+      double? LgAvgShotsMadeAwayPt2 { get; set; }
+      double? LgAvgShotsMadeAwayPt3 { get; set; }
+      double? LgAvgShotsMadeHomePt1 { get; set; }
+      double? LgAvgShotsMadeHomePt2 { get; set; }
+      double? LgAvgShotsMadeHomePt3 { get; set; }
       double? OpenPlayDiff { get; set; }
       double? OpenTotalLine { get; set; }
       double OurTotalLine { get; set; }
@@ -95,6 +113,7 @@ namespace BballMVC.IDTOs
       string TeamRecordAway { get; set; }
       string TeamRecordHome { get; set; }
       int Threshold { get; set; }
+      double? TMoppAdjPct { get; set; }
       double TmStrAdjPct { get; set; }
       double TmStrAway { get; set; }
       double? TmStrHome { get; set; }

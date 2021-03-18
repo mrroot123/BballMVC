@@ -157,5 +157,23 @@ namespace BballMVC.Models
         public double AssistsUs { get; set; }
         public double AssistsOp { get; set; }
         public Nullable<double> Pace { get; set; }
+        public string TeamRecordAway { get; set; }
+        public string TeamRecordHome { get; set; }
+        public Nullable<double> UnAdjTotalAwayPlanB { get; set; }
+        public Nullable<double> UnAdjTotalHomePlanB { get; set; }
+        public Nullable<double> UnAdjTotalPlanB { get; set; }
+        public Nullable<double> CalcAwayGB1PlanB { get; set; }
+        public Nullable<double> CalcAwayGB2PlanB { get; set; }
+        public Nullable<double> CalcAwayGB3PlanB { get; set; }
+        public Nullable<double> CalcHomeGB1PlanB { get; set; }
+        public Nullable<double> CalcHomeGB2PlanB { get; set; }
+        public Nullable<double> CalcHomeGB3PlanB { get; set; }
+        public Nullable<double> AwayAveragePtsScored { get; set; }
+        public Nullable<double> HomeAveragePtsScored { get; set; }
+        public Nullable<double> AdjPaceAway { get; set; }
+        public Nullable<double> AdjPaceHome { get; set; }
+        public Nullable<double> AdjTeamAway { get; set; }
+        public Nullable<double> AdjTeamHome { get; set; }
+        public string Played { get; set; }
     }
 }

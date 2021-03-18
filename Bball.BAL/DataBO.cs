@@ -40,16 +40,15 @@ namespace Bball.BAL
                case GetDataConstants.GetLeagueData:
                   new DataDO().GetLeagueData(oBballInfoDTO);
                   new DataDO().GetUserLeagueParmsDTO(oBballInfoDTO);
+                  new DataDO().VerifyTables(oBballInfoDTO);
                   break;
 
                case GetDataConstants.RefreshTodaysMatchups:       // Run uspCalcTMs, Get ocTodaysMatchupsDTO
                   new DataDO().RefreshTodaysMatchups(oBballInfoDTO);
-                  new DataDO().GetDailySummaryDTO(oBballInfoDTO);
                   break;
 
                case GetDataConstants.GetPastMatchups:       
                   new DataDO().GetTodaysMatchups(oBballInfoDTO);
-                  new DataDO().GetDailySummaryDTO(oBballInfoDTO);
                   break;
 
                case GetDataConstants.DataConstants:
@@ -145,6 +144,7 @@ namespace Bball.BAL
             new LoadBoxScores(oBballInfoDTO).LoadTodaysRotation();  // Constructor Loads BoxScores then Rotation is Loaded
          }
          new AdjustmentsDO(oBballInfoDTO).UpdateTodaysPlays();
+        // new DataDO().VerifyTables(oBballInfoDTO);
          //await taskAdj;
 
          //List<Task<string>> taskCalcTMs = new List<Task<string>>();
@@ -181,7 +181,6 @@ namespace Bball.BAL
          await Task.Run(() =>
             {
                new LoadBoxScores(oBballInfoDTO).LoadTodaysRotation();
-               //new DataDO().Exec_uspCalcTodaysMatchups(oBballInfoDTO);
             }
          );
          return oBballInfoDTO.LeagueName;

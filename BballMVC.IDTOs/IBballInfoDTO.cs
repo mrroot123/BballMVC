@@ -18,6 +18,7 @@ namespace BballMVC.IDTOs
       JObject oJObject { get; set; }
       string sJsonString { get; set; }
       IBballDataDTO oBballDataDTO { get; set; }
+      ISeasonInfoDTO oSeasonInfoDTO { get; set; }
       string LoadDateTime { get; set; }
       void CloneBballDataDTO(IBballInfoDTO c);
      

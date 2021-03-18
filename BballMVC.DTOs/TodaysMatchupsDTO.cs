@@ -4,7 +4,7 @@ using BballMVC.IDTOs;
 
 namespace BballMVC.DTOs
 {
-   public  class TodaysMatchupsDTO : ITodaysMatchupsDTO 
+   public  class TodaysMatchupsDTO : ITodaysMatchupsDTO   
    {
       public int TodaysMatchupsID { get; set; }
       public string UserName { get; set; }
@@ -115,6 +115,25 @@ namespace BballMVC.DTOs
       public double HomeGB3Pt1 { get; set; }
       public double HomeGB3Pt2 { get; set; }
       public double HomeGB3Pt3 { get; set; }
+      public Nullable<double> AwayAverageMadePt1 { get; set; }
+      public Nullable<double> AwayAverageMadePt2 { get; set; }
+      public Nullable<double> AwayAverageMadePt3 { get; set; }
+      public Nullable<double> HomeAverageMadePt1 { get; set; }
+      public Nullable<double> HomeAverageMadePt2 { get; set; }
+      public Nullable<double> HomeAverageMadePt3 { get; set; }
+      public Nullable<double> AwayAverageAllowedPt1 { get; set; }
+      public Nullable<double> AwayAverageAllowedPt2 { get; set; }
+      public Nullable<double> AwayAverageAllowedPt3 { get; set; }
+      public Nullable<double> HomeAverageAllowedPt1 { get; set; }
+      public Nullable<double> HomeAverageAllowedPt2 { get; set; }
+      public Nullable<double> HomeAverageAllowedPt3 { get; set; }
+      public Nullable<double> LgAvgShotsMadeAwayPt1 { get; set; }
+      public Nullable<double> LgAvgShotsMadeAwayPt2 { get; set; }
+      public Nullable<double> LgAvgShotsMadeAwayPt3 { get; set; }
+      public Nullable<double> LgAvgShotsMadeHomePt1 { get; set; }
+      public Nullable<double> LgAvgShotsMadeHomePt2 { get; set; }
+      public Nullable<double> LgAvgShotsMadeHomePt3 { get; set; }
+      public Nullable<double> TMoppAdjPct { get; set; }
       public Nullable<double> TotalBubbleAway { get; set; }
       public Nullable<double> TotalBubbleHome { get; set; }
       public Nullable<System.DateTime> TS { get; set; }

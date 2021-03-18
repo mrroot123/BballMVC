@@ -14,21 +14,32 @@ SET NOCOUNT ON
 			, @StartDate Date 
 			, @EndDate Date
 			, @Display bit = 0	-- Set to 1 to display TodaysMatchups
-			, @RunID nchar(10) = convert(varchar, Getdate(),1) --  1=mm/dd/yy  5=dd-mm-yy
+			, @RunDate char(8) = convert(varchar, Getdate(),1) --  1=mm/dd/yy  5=dd-mm-yy
+			, @RunCtr int = 0
+			, @RunID varChar(10)
   ;
 
+ While 1 < 2
+ Begin
+	Set @RunID = concat(@RunDate, '-', convert(Varchar, @RunCtr))
+	if Not Exists (Select * from AnalysisResults Where RunID = @RunID)
+		Break;
+	Set @RunCtr = @RunCtr + 1
+End
 
-SELECT @StartDate =   Min([StartDate])
-  FROM [00TTI_LeagueScores].[dbo].[SeasonInfo]
-  where season = '18' And Bypass = 0
+ -- select @Runid as RunID; return
+
+--SELECT @StartDate =   Min([StartDate])
+--  FROM [00TTI_LeagueScores].[dbo].[SeasonInfo]
+--  where season = '18' And Bypass = 0
 
 
-Set @GameDate = @StartDate
-Set @GameDate = DateAdd(d,1, @GameDate)
+--Set @GameDate = @StartDate
+--Set @GameDate = DateAdd(d,1, @GameDate)
 
-Set @StartDate = '12/1/2017'
-Set @EndDate =   '12/2/2017' --'4/15/2018' --  DateAdd(d,15, @GameDate) '12/2/2017' --
-Set @GameDate =  @StartDate 
+--Set @StartDate = '12/1/2017'
+--Set @EndDate =   '12/2/2017' --'4/15/2018' --  DateAdd(d,15, @GameDate) '12/2/2017' --
+--Set @GameDate =  @StartDate 
 
 Declare @RunTodays bit = 0			-- 1 = @RunTodays games only  -----------------  TODAYS GAMES ------------
 If @RunTodays = 1
@@ -43,13 +54,15 @@ Declare @GameDefaultOTamt float = 2 * ( Select TOP 1 DefaultOTamt From LeagueInf
 Declare @StartTime dateTime = GetDate(), @EndTime DateTime
 
 Declare @LoopHA int, @LoopDate int, @LoopGB int, @EndYear int, @LoopGBStart int, @LoopGBLimit int, @LoopHALimit int
+	, @Description varchar(25) = ''
 
-Set @StartDate = '2/1/2021'
-Set @EndDate =   '2/27/2021' 
+Set @StartDate = '1/1/2021'
+Set @EndDate =   '3/4/2021' -- GetDate()	--
 Set @EndYear = 2022
-Set @LoopGBStart = 5
-Set @LoopGBLimit = 6
+Set @LoopGBStart = 0
+Set @LoopGBLimit = 1	-- Loop once
 Set @LoopHALimit = 1	-- 2 for both 
+Set @Description = 'Result Line Diff w OTAdj'
 
 --Set @StartDate = '12/1/2019'
 --Set @EndDate =   '3/12/2020'
@@ -57,7 +70,7 @@ Set @LoopHALimit = 1	-- 2 for both
 While Year(@StartDate) <  @EndYear
 BEGIN -- LoopDate 
 	Set @LoopGB = @LoopGBStart
-	While @LoopGB < @LoopGBLimit
+	While @LoopGB <  @LoopGBLimit
 	BEGIN -- LoopGB
 		--Update UserLeagueParms 
 		--	Set GB1 = @LoopGB
@@ -67,7 +80,7 @@ BEGIN -- LoopDate
 		
 
 		Set @LoopHA = 0
-		While @LoopHA < @LoopHALimit
+		While @LoopHA <	1	-- @LoopHALimit
 		BEGIN -- LoopHA
 			--Update UserLeagueParms 
 			--	Set BothHome_Away =  @LoopHA	
@@ -80,9 +93,9 @@ BEGIN -- LoopDate
 			Select '============ NEW ITERATION ============================================='
 		--	Select @StartDate as StartDate, @EndDate as EndDate, convert(Time(0), @StartTime) as StartTime,  @LoopGB as GamesBack, @LoopHA as BothHA
 			set @Display = 0; 			--kd
-			While @GameDate <= @EndDate
-			BEGIN
-			   Select  CAST( GETDATE() AS time(0)) AS 'time', @GameDate as GameDate,  @StartDate as StartDate, @EndDate as EndDate, convert(Time(0), @StartTime) as StartTime,  @LoopGB as GamesBack, @LoopHA as BothHA
+			While @GameDate <= @EndDate	
+			BEGIN	-- Date Loop
+			 --  Select  CAST( GETDATE() AS time(0)) AS 'time', @GameDate as GameDate,  @StartDate as StartDate, @EndDate as EndDate, convert(Time(0), @StartTime) as StartTime,  @LoopGB as GamesBack, @LoopHA as BothHA
 				print @GameDate
 				exec uspCalcTodaysMatchups  @UserName, @LeagueName, @GameDate, @Display
 				Set @GameDate = DateAdd(d,1, @GameDate)
@@ -93,7 +106,7 @@ BEGIN -- LoopDate
 			Set @EndTime = GETDATE();
 			Exec  uspInsertAnalysisResults @RunID, @UserName, @LeagueName
 						, @StartDate, @EndDate, @StartTime, @EndTime 
-						, @GameDefaultOTamt 
+						, @GameDefaultOTamt , @Description
 			
 			Set @LoopHA = @LoopHA + 1;
 		END	-- LoopHA
@@ -106,8 +119,8 @@ BEGIN -- LoopDate
 
 END -- LoopDate 
 
-Select @RunID as RunID
+Select @RunID as RunID, @Description as Description
 EXEC uspQueryAnalysisResults @RunID
 
-EXEC uspQueryAnalysisResults '09/15/20'
+--EXEC uspQueryAnalysisResults '09/15/20'
 -- Truncate Table AnalysisResults

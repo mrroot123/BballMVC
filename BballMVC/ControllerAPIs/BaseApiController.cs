@@ -27,6 +27,7 @@ namespace BballMVC.ControllerAPIs
          oBballInfoDTO.LogName = LogName;
          // oBballInfoDTO.oBballDataDTO.BaseDir = BaseDir;
          oBballInfoDTO.TS = GetNowEst();
+
       }
       protected DateTime GetNowEst()
       {

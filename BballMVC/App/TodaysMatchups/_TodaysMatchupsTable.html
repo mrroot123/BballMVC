@@ -37,8 +37,8 @@
 
             <th ng-Hide="condensed">UnAdj<br />Total</th>
             <th ng-Hide="condensed" title="Calced on Game Avgs not Point Avgs">UnAdj Tot<br />Plan B</th>
-            <th ng-Hide="condensed" title="From Adjusted BxSc Stats - GamesBack: TeamAvgGamesBack">Points<br />Scored</th>
-            <th ng-Hide="condensed" title="From Adjusted BxSc Stats - GamesBack: TeamAvgGamesBack">Points<br />Allowed</th>
+            <th ng-Hide="condensed" title="From Adjusted BxSc Stats  &#013; GamesBack: TeamAvgGamesBack">Points<br />Scored</th>
+            <th ng-Hide="condensed" title="From Adjusted BxSc Stats  &#013; GamesBack: TeamAvgGamesBack">Points<br />Allowed</th>
             <th ng-Hide="condensed">Team<br />Strength</th>
 
             <th ng-Hide="condensed">Adjust<br />ments</th>
@@ -217,7 +217,10 @@
             <td ng-Hide="condensed">
                <table>
                   <tr>
-                     <td ng-show="Multi">{{item.UnAdjTotalAway | number:1}}</td>
+                     <td ng-show="Multi"
+                         ng-click="OpenModal([this, 'Away'], 'TodaysMatchupsContainer', 'TMunAdjTotalsModal', 'eventOpenTMunAdjTotalsModal')">
+                     {{item.UnAdjTotalAway | number:1}}
+                     </td>
                   </tr>
                   <tr>
                      <td ng-show="Multi">{{item.UnAdjTotalHome | number:1}}</td>
@@ -313,13 +316,13 @@
             <td ng-Hide="condensed">
                <table>
                   <tr>
-                     <td ng-show="Multi">{{item.AdjOTwithSide | number:1}}</td>
+                     <td ng-show="Multi">{{item.AdjOTwithSide / 2 | number:1}}</td>
                   </tr>
                   <tr>
-                     <td ng-show="Multi">{{item.AdjOTwithSide | number:1}}</td>
+                     <td ng-show="Multi">{{item.AdjOTwithSide / 2 | number:1}}</td>
                   </tr>
                   <tr>
-                     <td class="statTotal">{{item.AdjOTwithSide*2 | number:1}}</td>
+                     <td class="statTotal">{{item.AdjOTwithSide | number:1}}</td>
                   </tr>
                </table>
             </td>

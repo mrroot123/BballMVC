@@ -2,16 +2,17 @@
 <hr />
 <div ng-controller="TodaysMatchupsController">
 
-   <div class="row">
+
       <div class="container" id="TodaysMatchupsContainer">
          <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12" id="kd">
             </div>
          </div>
          <div class="row">
 
             <div class="col-md-2">
-               <button type="button" class="btn btn-info active" data-toggle="tooltip" title="Refresh Today's Matchups"
+               <button type="button" class="btn btn-info active" data-toggle="tooltip"
+                       title="uspCalcTodaysMatchups&#013;GetTodaysMatchups&#013;GetDailySummaryDTO&#013;GetUserLeagueParmsDTO"
                        ng-show="true" ng-click="RefreshTodaysMatchups(true)">
                   Refresh TMs
                </button>
@@ -52,7 +53,7 @@
          </div>
 
       </div>
-   </div>
+
 
    <!--<div ng-include="'TodaysMatchups/_AdjustmentsByTeamModal.html'"></div>-->
 

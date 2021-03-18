@@ -1,0 +1,23 @@
+﻿<div ng-controller="TMunAdjTotalsModalController">
+   <div class="row" id="TMunAdjTotalsModal" ng-style="setModal">
+
+      <div class="row">
+         <div class="col-md-6 col-lg-offset-3" >
+            <h2>Unadjusted Matchup Stats</h2>
+         </div>
+         <div class="col-md-4">
+            <input type="button" class="btn btn-danger" value="Close"
+                   ng-click="CloseModal(this, 'TodaysMatchupsContainer', 'TMunAdjTotalsModal' )" />
+
+         </div>
+         
+      </div>
+      <div class="row">
+         <div class="col-md-12" >
+            <table class="table table-bordred table-striped" id="TMunAdjTotals_TableData"></table>
+         </div>
+      </div>
+
+   </div>
+</div>
+

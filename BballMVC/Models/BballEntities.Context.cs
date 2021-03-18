@@ -33,7 +33,6 @@ namespace BballMVC.Models
         public virtual DbSet<BoxScore> BoxScores { get; set; }
         public virtual DbSet<BoxScoresAdjusted> BoxScoresAdjusteds { get; set; }
         public virtual DbSet<BoxScoresLast5Min> BoxScoresLast5Min { get; set; }
-        public virtual DbSet<BoxScoresLast5MinEmpty> BoxScoresLast5MinEmpty { get; set; }
         public virtual DbSet<BoxScoresSeed> BoxScoresSeeds { get; set; }
         public virtual DbSet<LeagueInfo> LeagueInfoes { get; set; }
         public virtual DbSet<Line> Lines { get; set; }
@@ -51,8 +50,8 @@ namespace BballMVC.Models
         public virtual DbSet<AdjustmentsCodes> AdjustmentsCodes { get; set; }
         public virtual DbSet<DailySummary> DailySummary { get; set; }
         public virtual DbSet<UserLeagueParms> UserLeagueParms { get; set; }
-        public virtual DbSet<TodaysMatchups> TodaysMatchups { get; set; }
         public virtual DbSet<TeamStrength> TeamStrength { get; set; }
+        public virtual DbSet<TodaysMatchups> TodaysMatchups { get; set; }
     
         [DbFunction("Entities2", "udfQueryAdjustmentsByTeamTotal")]
         public virtual IQueryable<udfQueryAdjustmentsByTeamTotal_Result> udfQueryAdjustmentsByTeamTotal(Nullable<System.DateTime> gameDate, string leagueName)
@@ -304,7 +303,7 @@ namespace BballMVC.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("uspInsertAdjustments", leagueNameParameter, startDateParameter, endDateParameter, tSParameter, teamParameter, adjustmentDescParameter, adjustmentAmountParameter, playerParameter, descriptionParameter);
         }
     
-        public virtual int uspInsertAnalysisResults(string runID, string userName, string leagueName, Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<System.DateTime> startTime, Nullable<System.DateTime> endTime, Nullable<double> gameDefaultOTamt)
+        public virtual int uspInsertAnalysisResults(string runID, string userName, string leagueName, Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<System.DateTime> startTime, Nullable<System.DateTime> endTime, Nullable<double> gameDefaultOTamt, string description)
         {
             var runIDParameter = runID != null ?
                 new ObjectParameter("RunID", runID) :
@@ -338,7 +337,11 @@ namespace BballMVC.Models
                 new ObjectParameter("GameDefaultOTamt", gameDefaultOTamt) :
                 new ObjectParameter("GameDefaultOTamt", typeof(double));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("uspInsertAnalysisResults", runIDParameter, userNameParameter, leagueNameParameter, startDateParameter, endDateParameter, startTimeParameter, endTimeParameter, gameDefaultOTamtParameter);
+            var descriptionParameter = description != null ?
+                new ObjectParameter("Description", description) :
+                new ObjectParameter("Description", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("uspInsertAnalysisResults", runIDParameter, userNameParameter, leagueNameParameter, startDateParameter, endDateParameter, startTimeParameter, endTimeParameter, gameDefaultOTamtParameter, descriptionParameter);
         }
     
         public virtual int uspInsertDailySummary(string userName, Nullable<System.DateTime> gameDate, string leagueName, Nullable<System.DateTime> lgAvgStartDate)

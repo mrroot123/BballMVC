@@ -1,7 +1,5 @@
 ﻿
 angular.module('app').controller('AdjustmentsByTeamModalController', function ($rootScope, $scope, f, ajx, url) {
-   const modalName = "AdjustmentsByTeamModal";
-   const containerName = "TodaysMatchupsContainer";
 
    $scope.$on('eventOpenAdjustmentsByTeamModal', function (e, objAdj) {
       let Team = objAdj[1] === 'Away' ? objAdj[0].item.TeamAway : objAdj[0].item.TeamHome;

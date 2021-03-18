@@ -27,10 +27,19 @@
    <script src="Adjustments/AdjustmentsModalController.js"></script>
    <script src="TodaysMatchups/TodaysMatchupsController.js"></script>
    <script src="TodaysMatchups/AdjustmentsByTeamModalController.js"></script>
+   <script src="TodaysMatchups/_TMunAdjTotalsModalController.js"></script>
+
    <script src="PostGameAnalysis/PostGameAnalysisController.js"></script>
    <script src="BballManagement/BballManagementController.js"></script>
    <script src="BoxScoresSeeds/BoxScoresSeedsController.js"></script>
    <script src="Common/js/loading.js"></script>
+
+   <script>
+      $(function () {
+         $("#kd").load("Common/_GameDateLocal.html");
+      });
+   </script>
+
    <script src="_Services/Run.js"></script>
 
 </head>

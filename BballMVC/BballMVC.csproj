@@ -227,9 +227,6 @@
     <Compile Include="Models\BoxScoresLast5Min.cs">
       <DependentUpon>BballEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\BoxScoresLast5MinEmpty.cs">
-      <DependentUpon>BballEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\BoxScoresSeed.cs">
       <DependentUpon>BballEntities.tt</DependentUpon>
     </Compile>
@@ -354,12 +351,14 @@
     <Content Include="App\Common\css\tooltip.css" />
     <Content Include="App\Common\_GameDate.html" />
     <Content Include="App\Common\_GameDateLocal.html" />
+    <Content Include="App\Common\_LeagueName.html" />
     <Content Include="App\Components\accordianSection.html" />
     <Content Include="App\Components\helloWorld.html" />
     <Content Include="App\Index.html" />
     <Content Include="App\PostGameAnalysis\PostGameAnalysis.html" />
     <Content Include="App\PostGameAnalysis\PostGameAnalysisController.js" />
     <Content Include="App\PostGameAnalysis\_PostGameAnalysisTable.html" />
+    <Content Include="App\sandBox.html" />
     <Content Include="App\Test\Test.html" />
     <Content Include="App\Test\_TestColSpan.html" />
     <Content Include="App\Test\_TestTable.html" />
@@ -368,6 +367,8 @@
     <Content Include="App\TodaysMatchups\TodaysMatchupsController.js" />
     <Content Include="App\TodaysMatchups\_AdjustmentsByTeamModal.html" />
     <Content Include="App\TodaysMatchups\_DailySummary.html" />
+    <Content Include="App\TodaysMatchups\_TMunAdjTotalsModal.html" />
+    <Content Include="App\TodaysMatchups\_TMunAdjTotalsModalController.js" />
     <Content Include="App\TodaysMatchups\_TodaysMatchupsTable.html" />
     <Content Include="App\TodaysPlays\TodaysPlays.html" />
     <Content Include="App\TodaysPlays\TodaysPlaysApp.js" />

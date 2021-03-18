@@ -30,6 +30,9 @@
                $rootScope.oBballInfoDTO.oBballDataDTO.ocLeagueNames = data.ocLeagueNames;
                $rootScope.oBballInfoDTO.oBballDataDTO.BaseDir = data.BaseDir;
                RefreshLeagueNamesDropDown();
+               if (data.MessageNumber !== 0) {
+                  f.DisplayErrorMessage(data.Message);
+               }
             })
             .catch(error => {
                f.DisplayErrorMessage(f.FormatResponse(error));
@@ -68,10 +71,11 @@
             $rootScope.oBballInfoDTO.oBballDataDTO.ocAdjustmentNames = data.ocAdjustmentNames;     // 2) lg data
             $rootScope.oBballInfoDTO.oBballDataDTO.ocTeams = data.ocTeams;                         // 3) lg data
             $rootScope.oBballInfoDTO.oBballDataDTO.oUserLeagueParmsDTO = data.oUserLeagueParmsDTO; // 4) lg data
+            $rootScope.oBballInfoDTO.oBballDataDTO.oLeagueDTO = data.oLeagueDTO; // 5) lg data
             $rootScope.$broadcast('eventPopulateAdjustments');                                          // 1) lg data
             $rootScope.$broadcast('eventPopulateTeamsAdjTypes');                                       // 2) lg data
 
-            $scope.$emit('showAccordion'); // <-- will SHOW screen
+            $scope.$emit('showAccordion'); // <-- will SHOW screen kdtodo is this line necessary anymore
             $scope.$apply;
           //  alert($rootScope.oBballInfoDTO.LeagueName + " selected");
 

@@ -403,54 +403,6 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.BoxScoresLast5Min' does not
           <Property Name="LoadDate" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view '00TTI_LeagueScores.dbo.BoxScoresLast5MinEmpty' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="BoxScoresLast5MinEmpty">
-          <Key>
-            <PropertyRef Name="BoxScoresLast5MinID" />
-            <PropertyRef Name="LeagueName" />
-            <PropertyRef Name="GameDate" />
-            <PropertyRef Name="RotNum" />
-            <PropertyRef Name="Team" />
-            <PropertyRef Name="Opp" />
-            <PropertyRef Name="Venue" />
-            <PropertyRef Name="Q4Last5MinScore" />
-            <PropertyRef Name="Q4Last1MinScore" />
-            <PropertyRef Name="Q4Score" />
-            <PropertyRef Name="Q4Last1MinScoreUs" />
-            <PropertyRef Name="Q4Last1MinScoreOp" />
-            <PropertyRef Name="Q4Last1MinWinningTeam" />
-            <PropertyRef Name="Q4Last1MinUsPt1" />
-            <PropertyRef Name="Q4Last1MinUsPt2" />
-            <PropertyRef Name="Q4Last1MinUsPt3" />
-            <PropertyRef Name="Q4Last1MinOpPt1" />
-            <PropertyRef Name="Q4Last1MinOpPt2" />
-            <PropertyRef Name="Q4Last1MinOpPt3" />
-            <PropertyRef Name="Source" />
-            <PropertyRef Name="LoadDate" />
-          </Key>
-          <Property Name="BoxScoresLast5MinID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="LeagueName" Type="nvarchar" MaxLength="9" Nullable="false" />
-          <Property Name="GameDate" Type="date" Nullable="false" />
-          <Property Name="RotNum" Type="int" Nullable="false" />
-          <Property Name="Team" Type="nvarchar" MaxLength="6" Nullable="false" />
-          <Property Name="Opp" Type="nvarchar" MaxLength="6" Nullable="false" />
-          <Property Name="Venue" Type="nvarchar" MaxLength="5" Nullable="false" />
-          <Property Name="Q4Last5MinScore" Type="float" Nullable="false" />
-          <Property Name="Q4Last1MinScore" Type="float" Nullable="false" />
-          <Property Name="Q4Score" Type="float" Nullable="false" />
-          <Property Name="Q4Last1MinScoreUs" Type="float" Nullable="false" />
-          <Property Name="Q4Last1MinScoreOp" Type="float" Nullable="false" />
-          <Property Name="Q4Last1MinWinningTeam" Type="nvarchar" MaxLength="6" Nullable="false" />
-          <Property Name="Q4Last1MinUsPt1" Type="float" Nullable="false" />
-          <Property Name="Q4Last1MinUsPt2" Type="float" Nullable="false" />
-          <Property Name="Q4Last1MinUsPt3" Type="float" Nullable="false" />
-          <Property Name="Q4Last1MinOpPt1" Type="float" Nullable="false" />
-          <Property Name="Q4Last1MinOpPt2" Type="float" Nullable="false" />
-          <Property Name="Q4Last1MinOpPt3" Type="float" Nullable="false" />
-          <Property Name="Source" Type="nvarchar" MaxLength="21" Nullable="false" />
-          <Property Name="LoadDate" Type="datetime2" Precision="7" Nullable="false" />
-        </EntityType>
-        <!--Errors Found During Generation:
 warning 6002: The table/view '00TTI_LeagueScores.dbo.BoxScoresSeeds' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="BoxScoresSeeds">
           <Key>
@@ -1031,6 +983,25 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.TodaysMatchups' does not ha
           <Property Name="HomeGB3Pt1" Type="float" Nullable="false" />
           <Property Name="HomeGB3Pt2" Type="float" Nullable="false" />
           <Property Name="HomeGB3Pt3" Type="float" Nullable="false" />
+          <Property Name="AwayAverageMadePt1" Type="float" />
+          <Property Name="AwayAverageMadePt2" Type="float" />
+          <Property Name="AwayAverageMadePt3" Type="float" />
+          <Property Name="HomeAverageMadePt1" Type="float" />
+          <Property Name="HomeAverageMadePt2" Type="float" />
+          <Property Name="HomeAverageMadePt3" Type="float" />
+          <Property Name="AwayAverageAllowedPt1" Type="float" />
+          <Property Name="AwayAverageAllowedPt2" Type="float" />
+          <Property Name="AwayAverageAllowedPt3" Type="float" />
+          <Property Name="HomeAverageAllowedPt1" Type="float" />
+          <Property Name="HomeAverageAllowedPt2" Type="float" />
+          <Property Name="HomeAverageAllowedPt3" Type="float" />
+          <Property Name="LgAvgShotsMadeAwayPt1" Type="float" />
+          <Property Name="LgAvgShotsMadeAwayPt2" Type="float" />
+          <Property Name="LgAvgShotsMadeAwayPt3" Type="float" />
+          <Property Name="LgAvgShotsMadeHomePt1" Type="float" />
+          <Property Name="LgAvgShotsMadeHomePt2" Type="float" />
+          <Property Name="LgAvgShotsMadeHomePt3" Type="float" />
+          <Property Name="TMoppAdjPct" Type="float" />
           <Property Name="TotalBubbleAway" Type="float" />
           <Property Name="TotalBubbleHome" Type="float" />
           <Property Name="TS" Type="datetime" />
@@ -1230,7 +1201,6 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
             <PropertyRef Name="TeamHome" />
             <PropertyRef Name="RotNum" />
             <PropertyRef Name="TmStrAway" />
-            <PropertyRef Name="UnAdjTotalAway" />
             <PropertyRef Name="UnAdjTotalHome" />
             <PropertyRef Name="UnAdjTotal" />
             <PropertyRef Name="AdjAmt" />
@@ -1334,6 +1304,7 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
             <PropertyRef Name="OffRBOp" />
             <PropertyRef Name="AssistsUs" />
             <PropertyRef Name="AssistsOp" />
+            <PropertyRef Name="UnAdjTotalAway" />
           </Key>
           <Property Name="TodaysMatchupsID" Type="int" Nullable="false" />
           <Property Name="UserName" Type="char" MaxLength="10" Nullable="false" />
@@ -1349,9 +1320,22 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
           <Property Name="TV" Type="char" MaxLength="8" />
           <Property Name="TmStrAway" Type="float" Nullable="false" />
           <Property Name="TmStrHome" Type="float" />
+          <Property Name="TeamRecordAway" Type="nchar" MaxLength="10" />
+          <Property Name="TeamRecordHome" Type="nchar" MaxLength="10" />
           <Property Name="UnAdjTotalAway" Type="float" Nullable="false" />
           <Property Name="UnAdjTotalHome" Type="float" Nullable="false" />
           <Property Name="UnAdjTotal" Type="float" Nullable="false" />
+          <Property Name="UnAdjTotalAwayPlanB" Type="float" />
+          <Property Name="UnAdjTotalHomePlanB" Type="float" />
+          <Property Name="UnAdjTotalPlanB" Type="float" />
+          <Property Name="CalcAwayGB1PlanB" Type="float" />
+          <Property Name="CalcAwayGB2PlanB" Type="float" />
+          <Property Name="CalcAwayGB3PlanB" Type="float" />
+          <Property Name="CalcHomeGB1PlanB" Type="float" />
+          <Property Name="CalcHomeGB2PlanB" Type="float" />
+          <Property Name="CalcHomeGB3PlanB" Type="float" />
+          <Property Name="AwayAveragePtsScored" Type="float" />
+          <Property Name="HomeAveragePtsScored" Type="float" />
           <Property Name="AwayAveragePtsAllowed" Type="float" />
           <Property Name="HomeAveragePtsAllowed" Type="float" />
           <Property Name="AdjAmt" Type="float" Nullable="false" />
@@ -1362,7 +1346,10 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
           <Property Name="AdjOTwithSide" Type="float" Nullable="false" />
           <Property Name="AdjTV" Type="float" Nullable="false" />
           <Property Name="AdjRecentLeagueHistory" Type="float" />
-          <Property Name="AdjPace" Type="float" />
+          <Property Name="AdjPaceAway" Type="float" />
+          <Property Name="AdjPaceHome" Type="float" />
+          <Property Name="AdjTeamAway" Type="float" />
+          <Property Name="AdjTeamHome" Type="float" />
           <Property Name="OurTotalLineAway" Type="float" Nullable="false" />
           <Property Name="OurTotalLineHome" Type="float" Nullable="false" />
           <Property Name="OurTotalLine" Type="float" Nullable="false" />
@@ -1370,6 +1357,7 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
           <Property Name="TotalLine" Type="float" />
           <Property Name="OpenTotalLine" Type="float" />
           <Property Name="Play" Type="char" MaxLength="8" />
+          <Property Name="Played" Type="char" MaxLength="8" />
           <Property Name="PlayDiff" Type="float" />
           <Property Name="OpenPlayDiff" Type="float" />
           <Property Name="AdjustedDiff" Type="float" />
@@ -1635,6 +1623,7 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
           <Parameter Name="StartTime" Type="datetime" Mode="In" />
           <Parameter Name="EndTime" Type="datetime" Mode="In" />
           <Parameter Name="GameDefaultOTamt" Type="float" Mode="In" />
+          <Parameter Name="Description" Type="varchar" Mode="In" />
         </Function>
         <Function Name="uspInsertDailySummary" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserName" Type="varchar" Mode="In" />
@@ -1934,31 +1923,6 @@ BoxScoresAdjustedID],
     [BoxScoresLast5Min].[Source] AS [Source], 
     [BoxScoresLast5Min].[LoadDate] AS [LoadDate]
     FROM [dbo].[BoxScoresLast5Min] AS [BoxScoresLast5Min]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="BoxScoresLast5MinEmpty" EntityType="Self.BoxScoresLast5MinEmpty" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [BoxScoresLast5MinEmpty].[BoxScoresLast5MinID] AS [BoxScoresLast5MinID], 
-    [BoxScoresLast5MinEmpty].[LeagueName] AS [LeagueName], 
-    [BoxScoresLast5MinEmpty].[GameDate] AS [GameDate], 
-    [BoxScoresLast5MinEmpty].[RotNum] AS [RotNum], 
-    [BoxScoresLast5MinEmpty].[Team] AS [Team], 
-    [BoxScoresLast5MinEmpty].[Opp] AS [Opp], 
-    [BoxScoresLast5MinEmpty].[Venue] AS [Venue], 
-    [BoxScoresLast5MinEmpty].[Q4Last5MinScore] AS [Q4Last5MinScore], 
-    [BoxScoresLast5MinEmpty].[Q4Last1MinScore] AS [Q4Last1MinScore], 
-    [BoxScoresLast5MinEmpty].[Q4Score] AS [Q4Score], 
-    [BoxScoresLast5MinEmpty].[Q4Last1MinScoreUs] AS [Q4Last1MinScoreUs], 
-    [BoxScoresLast5MinEmpty].[Q4Last1MinScoreOp] AS [Q4Last1MinScoreOp], 
-    [BoxScoresLast5MinEmpty].[Q4Last1MinWinningTeam] AS [Q4Last1MinWinningTeam], 
-    [BoxScoresLast5MinEmpty].[Q4Last1MinUsPt1] AS [Q4Last1MinUsPt1], 
-    [BoxScoresLast5MinEmpty].[Q4Last1MinUsPt2] AS [Q4Last1MinUsPt2], 
-    [BoxScoresLast5MinEmpty].[Q4Last1MinUsPt3] AS [Q4Last1MinUsPt3], 
-    [BoxScoresLast5MinEmpty].[Q4Last1MinOpPt1] AS [Q4Last1MinOpPt1], 
-    [BoxScoresLast5MinEmpty].[Q4Last1MinOpPt2] AS [Q4Last1MinOpPt2], 
-    [BoxScoresLast5MinEmpty].[Q4Last1MinOpPt3] AS [Q4Last1MinOpPt3], 
-    [BoxScoresLast5MinEmpty].[Source] AS [Source], 
-    [BoxScoresLast5MinEmpty].[LoadDate] AS [LoadDate]
-    FROM [dbo].[BoxScoresLast5MinEmpty] AS [BoxScoresLast5MinEmpty]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="BoxScoresSeeds" EntityType="Self.BoxScoresSeeds" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -2285,6 +2249,25 @@ BoxScoresAdjustedID],
     [TodaysMatchups].[HomeGB3Pt1] AS [HomeGB3Pt1], 
     [TodaysMatchups].[HomeGB3Pt2] AS [HomeGB3Pt2], 
     [TodaysMatchups].[HomeGB3Pt3] AS [HomeGB3Pt3], 
+    [TodaysMatchups].[AwayAverageMadePt1] AS [AwayAverageMadePt1], 
+    [TodaysMatchups].[AwayAverageMadePt2] AS [AwayAverageMadePt2], 
+    [TodaysMatchups].[AwayAverageMadePt3] AS [AwayAverageMadePt3], 
+    [TodaysMatchups].[HomeAverageMadePt1] AS [HomeAverageMadePt1], 
+    [TodaysMatchups].[HomeAverageMadePt2] AS [HomeAverageMadePt2], 
+    [TodaysMatchups].[HomeAverageMadePt3] AS [HomeAverageMadePt3], 
+    [TodaysMatchups].[AwayAverageAllowedPt1] AS [AwayAverageAllowedPt1], 
+    [TodaysMatchups].[AwayAverageAllowedPt2] AS [AwayAverageAllowedPt2], 
+    [TodaysMatchups].[AwayAverageAllowedPt3] AS [AwayAverageAllowedPt3], 
+    [TodaysMatchups].[HomeAverageAllowedPt1] AS [HomeAverageAllowedPt1], 
+    [TodaysMatchups].[HomeAverageAllowedPt2] AS [HomeAverageAllowedPt2], 
+    [TodaysMatchups].[HomeAverageAllowedPt3] AS [HomeAverageAllowedPt3], 
+    [TodaysMatchups].[LgAvgShotsMadeAwayPt1] AS [LgAvgShotsMadeAwayPt1], 
+    [TodaysMatchups].[LgAvgShotsMadeAwayPt2] AS [LgAvgShotsMadeAwayPt2], 
+    [TodaysMatchups].[LgAvgShotsMadeAwayPt3] AS [LgAvgShotsMadeAwayPt3], 
+    [TodaysMatchups].[LgAvgShotsMadeHomePt1] AS [LgAvgShotsMadeHomePt1], 
+    [TodaysMatchups].[LgAvgShotsMadeHomePt2] AS [LgAvgShotsMadeHomePt2], 
+    [TodaysMatchups].[LgAvgShotsMadeHomePt3] AS [LgAvgShotsMadeHomePt3], 
+    [TodaysMatchups].[TMoppAdjPct] AS [TMoppAdjPct], 
     [TodaysMatchups].[TotalBubbleAway] AS [TotalBubbleAway], 
     [TodaysMatchups].[TotalBubbleHome] AS [TotalBubbleHome], 
     [TodaysMatchups].[TS] AS [TS], 
@@ -2380,9 +2363,22 @@ BoxScoresAdjustedID],
     [vPostGameAnalysis].[TV] AS [TV], 
     [vPostGameAnalysis].[TmStrAway] AS [TmStrAway], 
     [vPostGameAnalysis].[TmStrHome] AS [TmStrHome], 
+    [vPostGameAnalysis].[TeamRecordAway] AS [TeamRecordAway], 
+    [vPostGameAnalysis].[TeamRecordHome] AS [TeamRecordHome], 
     [vPostGameAnalysis].[UnAdjTotalAway] AS [UnAdjTotalAway], 
     [vPostGameAnalysis].[UnAdjTotalHome] AS [UnAdjTotalHome], 
     [vPostGameAnalysis].[UnAdjTotal] AS [UnAdjTotal], 
+    [vPostGameAnalysis].[UnAdjTotalAwayPlanB] AS [UnAdjTotalAwayPlanB], 
+    [vPostGameAnalysis].[UnAdjTotalHomePlanB] AS [UnAdjTotalHomePlanB], 
+    [vPostGameAnalysis].[UnAdjTotalPlanB] AS [UnAdjTotalPlanB], 
+    [vPostGameAnalysis].[CalcAwayGB1PlanB] AS [CalcAwayGB1PlanB], 
+    [vPostGameAnalysis].[CalcAwayGB2PlanB] AS [CalcAwayGB2PlanB], 
+    [vPostGameAnalysis].[CalcAwayGB3PlanB] AS [CalcAwayGB3PlanB], 
+    [vPostGameAnalysis].[CalcHomeGB1PlanB] AS [CalcHomeGB1PlanB], 
+    [vPostGameAnalysis].[CalcHomeGB2PlanB] AS [CalcHomeGB2PlanB], 
+    [vPostGameAnalysis].[CalcHomeGB3PlanB] AS [CalcHomeGB3PlanB], 
+    [vPostGameAnalysis].[AwayAveragePtsScored] AS [AwayAveragePtsScored], 
+    [vPostGameAnalysis].[HomeAveragePtsScored] AS [HomeAveragePtsScored], 
     [vPostGameAnalysis].[AwayAveragePtsAllowed] AS [AwayAveragePtsAllowed], 
     [vPostGameAnalysis].[HomeAveragePtsAllowed] AS [HomeAveragePtsAllowed], 
     [vPostGameAnalysis].[AdjAmt] AS [AdjAmt], 
@@ -2393,7 +2389,10 @@ BoxScoresAdjustedID],
     [vPostGameAnalysis].[AdjOTwithSide] AS [AdjOTwithSide], 
     [vPostGameAnalysis].[AdjTV] AS [AdjTV], 
     [vPostGameAnalysis].[AdjRecentLeagueHistory] AS [AdjRecentLeagueHistory], 
-    [vPostGameAnalysis].[AdjPace] AS [AdjPace], 
+    [vPostGameAnalysis].[AdjPaceAway] AS [AdjPaceAway], 
+    [vPostGameAnalysis].[AdjPaceHome] AS [AdjPaceHome], 
+    [vPostGameAnalysis].[AdjTeamAway] AS [AdjTeamAway], 
+    [vPostGameAnalysis].[AdjTeamHome] AS [AdjTeamHome], 
     [vPostGameAnalysis].[OurTotalLineAway] AS [OurTotalLineAway], 
     [vPostGameAnalysis].[OurTotalLineHome] AS [OurTotalLineHome], 
     [vPostGameAnalysis].[OurTotalLine] AS [OurTotalLine], 
@@ -2401,6 +2400,7 @@ BoxScoresAdjustedID],
     [vPostGameAnalysis].[TotalLine] AS [TotalLine], 
     [vPostGameAnalysis].[OpenTotalLine] AS [OpenTotalLine], 
     [vPostGameAnalysis].[Play] AS [Play], 
+    [vPostGameAnalysis].[Played] AS [Played], 
     [vPostGameAnalysis].[PlayDiff] AS [PlayDiff], 
     [vPostGameAnalysis].[OpenPlayDiff] AS [OpenPlayDiff], 
     [vPostGameAnalysis].[AdjustedDiff] AS [AdjustedDiff], 
@@ -2897,52 +2897,6 @@ BoxScoresAdjustedID],
           <Property Name="Q4Last1MinWinningTeam" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Q4Last1MinUsPts" Type="Double" />
           <Property Name="Q4Last1MinOpPts" Type="Double" />
-          <Property Name="Q4Last1MinUsPt1" Type="Double" Nullable="false" />
-          <Property Name="Q4Last1MinUsPt2" Type="Double" Nullable="false" />
-          <Property Name="Q4Last1MinUsPt3" Type="Double" Nullable="false" />
-          <Property Name="Q4Last1MinOpPt1" Type="Double" Nullable="false" />
-          <Property Name="Q4Last1MinOpPt2" Type="Double" Nullable="false" />
-          <Property Name="Q4Last1MinOpPt3" Type="Double" Nullable="false" />
-          <Property Name="Source" Type="String" MaxLength="21" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="LoadDate" Type="DateTime" Nullable="false" Precision="7" />
-        </EntityType>
-        <EntityType Name="BoxScoresLast5MinEmpty">
-          <Key>
-            <PropertyRef Name="BoxScoresLast5MinID" />
-            <PropertyRef Name="LeagueName" />
-            <PropertyRef Name="GameDate" />
-            <PropertyRef Name="RotNum" />
-            <PropertyRef Name="Team" />
-            <PropertyRef Name="Opp" />
-            <PropertyRef Name="Venue" />
-            <PropertyRef Name="Q4Last5MinScore" />
-            <PropertyRef Name="Q4Last1MinScore" />
-            <PropertyRef Name="Q4Score" />
-            <PropertyRef Name="Q4Last1MinScoreUs" />
-            <PropertyRef Name="Q4Last1MinScoreOp" />
-            <PropertyRef Name="Q4Last1MinWinningTeam" />
-            <PropertyRef Name="Q4Last1MinUsPt1" />
-            <PropertyRef Name="Q4Last1MinUsPt2" />
-            <PropertyRef Name="Q4Last1MinUsPt3" />
-            <PropertyRef Name="Q4Last1MinOpPt1" />
-            <PropertyRef Name="Q4Last1MinOpPt2" />
-            <PropertyRef Name="Q4Last1MinOpPt3" />
-            <PropertyRef Name="Source" />
-            <PropertyRef Name="LoadDate" />
-          </Key>
-          <Property Name="BoxScoresLast5MinID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="LeagueName" Type="String" MaxLength="9" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="GameDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="RotNum" Type="Int32" Nullable="false" />
-          <Property Name="Team" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Opp" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Venue" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Q4Last5MinScore" Type="Double" Nullable="false" />
-          <Property Name="Q4Last1MinScore" Type="Double" Nullable="false" />
-          <Property Name="Q4Score" Type="Double" Nullable="false" />
-          <Property Name="Q4Last1MinScoreUs" Type="Double" Nullable="false" />
-          <Property Name="Q4Last1MinScoreOp" Type="Double" Nullable="false" />
-          <Property Name="Q4Last1MinWinningTeam" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Q4Last1MinUsPt1" Type="Double" Nullable="false" />
           <Property Name="Q4Last1MinUsPt2" Type="Double" Nullable="false" />
           <Property Name="Q4Last1MinUsPt3" Type="Double" Nullable="false" />
@@ -3583,6 +3537,24 @@ BoxScoresAdjustedID],
           <Property Name="AssistsUs" Type="Double" Nullable="false" />
           <Property Name="AssistsOp" Type="Double" Nullable="false" />
           <Property Name="Pace" Type="Double" />
+          <Property Name="TeamRecordAway" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="TeamRecordHome" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="UnAdjTotalAwayPlanB" Type="Double" />
+          <Property Name="UnAdjTotalHomePlanB" Type="Double" />
+          <Property Name="UnAdjTotalPlanB" Type="Double" />
+          <Property Name="CalcAwayGB1PlanB" Type="Double" />
+          <Property Name="CalcAwayGB2PlanB" Type="Double" />
+          <Property Name="CalcAwayGB3PlanB" Type="Double" />
+          <Property Name="CalcHomeGB1PlanB" Type="Double" />
+          <Property Name="CalcHomeGB2PlanB" Type="Double" />
+          <Property Name="CalcHomeGB3PlanB" Type="Double" />
+          <Property Name="AwayAveragePtsScored" Type="Double" />
+          <Property Name="HomeAveragePtsScored" Type="Double" />
+          <Property Name="AdjPaceAway" Type="Double" />
+          <Property Name="AdjPaceHome" Type="Double" />
+          <Property Name="AdjTeamAway" Type="Double" />
+          <Property Name="AdjTeamHome" Type="Double" />
+          <Property Name="Played" Type="String" MaxLength="8" FixedLength="true" Unicode="false" />
         </EntityType>
         <EntityContainer Name="Entities2" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AdjustmentOTsideLines" EntityType="Self.AdjustmentOTsideLine" />
@@ -3591,7 +3563,6 @@ BoxScoresAdjustedID],
           <EntitySet Name="BoxScores" EntityType="Self.BoxScore" />
           <EntitySet Name="BoxScoresAdjusteds" EntityType="Self.BoxScoresAdjusted" />
           <EntitySet Name="BoxScoresLast5Min" EntityType="Self.BoxScoresLast5Min" />
-          <EntitySet Name="BoxScoresLast5MinEmpty" EntityType="Self.BoxScoresLast5MinEmpty" />
           <EntitySet Name="BoxScoresSeeds" EntityType="Self.BoxScoresSeed" />
           <EntitySet Name="LeagueInfoes" EntityType="Self.LeagueInfo" />
           <EntitySet Name="Lines" EntityType="Self.Line" />
@@ -3684,6 +3655,7 @@ BoxScoresAdjustedID],
             <Parameter Name="StartTime" Mode="In" Type="DateTime" />
             <Parameter Name="EndTime" Mode="In" Type="DateTime" />
             <Parameter Name="GameDefaultOTamt" Mode="In" Type="Double" />
+            <Parameter Name="Description" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="uspInsertDailySummary">
             <Parameter Name="UserName" Mode="In" Type="String" />
@@ -3775,8 +3747,8 @@ BoxScoresAdjustedID],
           <EntitySet Name="AdjustmentsCodes" EntityType="TTI_LeagueScoresModel.AdjustmentsCodes" />
           <EntitySet Name="DailySummary" EntityType="TTI_LeagueScoresModel.DailySummary" />
           <EntitySet Name="UserLeagueParms" EntityType="TTI_LeagueScoresModel.UserLeagueParms" />
-          <EntitySet Name="TodaysMatchups" EntityType="TTI_LeagueScoresModel.TodaysMatchups" />
           <EntitySet Name="TeamStrength" EntityType="TTI_LeagueScoresModel.TeamStrength" />
+          <EntitySet Name="TodaysMatchups" EntityType="TTI_LeagueScoresModel.TodaysMatchups" />
         </EntityContainer>
         <ComplexType Name="TeamLookupSourceToSource_Result">
           <Property Type="Int32" Name="TeamID" Nullable="false" />
@@ -4106,6 +4078,38 @@ BoxScoresAdjustedID],
           <Property Name="BothHome_Away" Type="Boolean" Nullable="false" />
           <Property Name="BoxscoresSpanSeasons" Type="Boolean" Nullable="false" />
         </EntityType>
+        <EntityType Name="TeamStrength">
+          <Key>
+            <PropertyRef Name="TeamStrengthID" />
+            <PropertyRef Name="LeagueName" />
+            <PropertyRef Name="GameDate" />
+            <PropertyRef Name="RotNum" />
+            <PropertyRef Name="Team" />
+            <PropertyRef Name="Venue" />
+            <PropertyRef Name="TeamStrength1" />
+            <PropertyRef Name="TeamStrengthScored" />
+            <PropertyRef Name="TeamStrengthAllowed" />
+          </Key>
+          <Property Name="TeamStrengthID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LeagueName" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="true" />
+          <Property Name="GameDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="RotNum" Type="Int32" Nullable="false" />
+          <Property Name="Team" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="Venue" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="GB" Type="Int32" />
+          <Property Name="ActualGB" Type="Int32" />
+          <Property Name="StartDate" Type="DateTime" Precision="0" />
+          <Property Name="TeamStrength1" Type="Double" Nullable="false" />
+          <Property Name="TeamStrengthScored" Type="Double" Nullable="false" />
+          <Property Name="TeamStrengthAllowed" Type="Double" Nullable="false" />
+          <Property Name="TeamStrengthBxScAdjPctScored" Type="Double" />
+          <Property Name="TeamStrengthBxScAdjPctAllowed" Type="Double" />
+          <Property Name="TeamStrengthTMsAdjPctScored" Type="Double" />
+          <Property Name="TeamStrengthTMsAdjPctAllowed" Type="Double" />
+          <Property Name="Volatility" Type="Double" />
+          <Property Name="TeamPaceAvg" Type="Double" />
+          <Property Name="TS" Type="DateTime" Precision="3" />
+        </EntityType>
         <EntityType Name="TodaysMatchups">
           <Key>
             <PropertyRef Name="TodaysMatchupsID" />
@@ -4286,42 +4290,29 @@ BoxScoresAdjustedID],
           <Property Name="HomeGB3Pt1" Type="Double" Nullable="false" />
           <Property Name="HomeGB3Pt2" Type="Double" Nullable="false" />
           <Property Name="HomeGB3Pt3" Type="Double" Nullable="false" />
+          <Property Name="AwayAverageMadePt1" Type="Double" />
+          <Property Name="AwayAverageMadePt2" Type="Double" />
+          <Property Name="AwayAverageMadePt3" Type="Double" />
+          <Property Name="HomeAverageMadePt1" Type="Double" />
+          <Property Name="HomeAverageMadePt2" Type="Double" />
+          <Property Name="HomeAverageMadePt3" Type="Double" />
+          <Property Name="AwayAverageAllowedPt1" Type="Double" />
+          <Property Name="AwayAverageAllowedPt2" Type="Double" />
+          <Property Name="AwayAverageAllowedPt3" Type="Double" />
+          <Property Name="HomeAverageAllowedPt1" Type="Double" />
+          <Property Name="HomeAverageAllowedPt2" Type="Double" />
+          <Property Name="HomeAverageAllowedPt3" Type="Double" />
+          <Property Name="LgAvgShotsMadeAwayPt1" Type="Double" />
+          <Property Name="LgAvgShotsMadeAwayPt2" Type="Double" />
+          <Property Name="LgAvgShotsMadeAwayPt3" Type="Double" />
+          <Property Name="LgAvgShotsMadeHomePt1" Type="Double" />
+          <Property Name="LgAvgShotsMadeHomePt2" Type="Double" />
+          <Property Name="LgAvgShotsMadeHomePt3" Type="Double" />
+          <Property Name="TMoppAdjPct" Type="Double" />
           <Property Name="TotalBubbleAway" Type="Double" />
           <Property Name="TotalBubbleHome" Type="Double" />
           <Property Name="TS" Type="DateTime" Precision="3" />
           <Property Name="AllAdjustmentLines" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="TeamStrength">
-          <Key>
-            <PropertyRef Name="TeamStrengthID" />
-            <PropertyRef Name="LeagueName" />
-            <PropertyRef Name="GameDate" />
-            <PropertyRef Name="RotNum" />
-            <PropertyRef Name="Team" />
-            <PropertyRef Name="Venue" />
-            <PropertyRef Name="TeamStrength1" />
-            <PropertyRef Name="TeamStrengthScored" />
-            <PropertyRef Name="TeamStrengthAllowed" />
-          </Key>
-          <Property Name="TeamStrengthID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="LeagueName" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="true" />
-          <Property Name="GameDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="RotNum" Type="Int32" Nullable="false" />
-          <Property Name="Team" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
-          <Property Name="Venue" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Name="GB" Type="Int32" />
-          <Property Name="ActualGB" Type="Int32" />
-          <Property Name="StartDate" Type="DateTime" Precision="0" />
-          <Property Name="TeamStrength1" Type="Double" Nullable="false" />
-          <Property Name="TeamStrengthScored" Type="Double" Nullable="false" />
-          <Property Name="TeamStrengthAllowed" Type="Double" Nullable="false" />
-          <Property Name="TeamStrengthBxScAdjPctScored" Type="Double" />
-          <Property Name="TeamStrengthBxScAdjPctAllowed" Type="Double" />
-          <Property Name="TeamStrengthTMsAdjPctScored" Type="Double" />
-          <Property Name="TeamStrengthTMsAdjPctAllowed" Type="Double" />
-          <Property Name="Volatility" Type="Double" />
-          <Property Name="TeamPaceAvg" Type="Double" />
-          <Property Name="TS" Type="DateTime" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -4539,33 +4530,6 @@ BoxScoresAdjustedID],
                 <ScalarProperty Name="Q4Last1MinWinningTeam" ColumnName="Q4Last1MinWinningTeam" />
                 <ScalarProperty Name="Q4Last1MinUsPts" ColumnName="Q4Last1MinUsPts" />
                 <ScalarProperty Name="Q4Last1MinOpPts" ColumnName="Q4Last1MinOpPts" />
-                <ScalarProperty Name="Q4Last1MinUsPt1" ColumnName="Q4Last1MinUsPt1" />
-                <ScalarProperty Name="Q4Last1MinUsPt2" ColumnName="Q4Last1MinUsPt2" />
-                <ScalarProperty Name="Q4Last1MinUsPt3" ColumnName="Q4Last1MinUsPt3" />
-                <ScalarProperty Name="Q4Last1MinOpPt1" ColumnName="Q4Last1MinOpPt1" />
-                <ScalarProperty Name="Q4Last1MinOpPt2" ColumnName="Q4Last1MinOpPt2" />
-                <ScalarProperty Name="Q4Last1MinOpPt3" ColumnName="Q4Last1MinOpPt3" />
-                <ScalarProperty Name="Source" ColumnName="Source" />
-                <ScalarProperty Name="LoadDate" ColumnName="LoadDate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="BoxScoresLast5MinEmpty">
-            <EntityTypeMapping TypeName="TTI_LeagueScoresModel.BoxScoresLast5MinEmpty">
-              <MappingFragment StoreEntitySet="BoxScoresLast5MinEmpty">
-                <ScalarProperty Name="BoxScoresLast5MinID" ColumnName="BoxScoresLast5MinID" />
-                <ScalarProperty Name="LeagueName" ColumnName="LeagueName" />
-                <ScalarProperty Name="GameDate" ColumnName="GameDate" />
-                <ScalarProperty Name="RotNum" ColumnName="RotNum" />
-                <ScalarProperty Name="Team" ColumnName="Team" />
-                <ScalarProperty Name="Opp" ColumnName="Opp" />
-                <ScalarProperty Name="Venue" ColumnName="Venue" />
-                <ScalarProperty Name="Q4Last5MinScore" ColumnName="Q4Last5MinScore" />
-                <ScalarProperty Name="Q4Last1MinScore" ColumnName="Q4Last1MinScore" />
-                <ScalarProperty Name="Q4Score" ColumnName="Q4Score" />
-                <ScalarProperty Name="Q4Last1MinScoreUs" ColumnName="Q4Last1MinScoreUs" />
-                <ScalarProperty Name="Q4Last1MinScoreOp" ColumnName="Q4Last1MinScoreOp" />
-                <ScalarProperty Name="Q4Last1MinWinningTeam" ColumnName="Q4Last1MinWinningTeam" />
                 <ScalarProperty Name="Q4Last1MinUsPt1" ColumnName="Q4Last1MinUsPt1" />
                 <ScalarProperty Name="Q4Last1MinUsPt2" ColumnName="Q4Last1MinUsPt2" />
                 <ScalarProperty Name="Q4Last1MinUsPt3" ColumnName="Q4Last1MinUsPt3" />
@@ -4840,6 +4804,24 @@ BoxScoresAdjustedID],
           <EntitySetMapping Name="vPostGameAnalysis">
             <EntityTypeMapping TypeName="TTI_LeagueScoresModel.vPostGameAnalysi">
               <MappingFragment StoreEntitySet="vPostGameAnalysis">
+                <ScalarProperty Name="Played" ColumnName="Played" />
+                <ScalarProperty Name="AdjTeamHome" ColumnName="AdjTeamHome" />
+                <ScalarProperty Name="AdjTeamAway" ColumnName="AdjTeamAway" />
+                <ScalarProperty Name="AdjPaceHome" ColumnName="AdjPaceHome" />
+                <ScalarProperty Name="AdjPaceAway" ColumnName="AdjPaceAway" />
+                <ScalarProperty Name="HomeAveragePtsScored" ColumnName="HomeAveragePtsScored" />
+                <ScalarProperty Name="AwayAveragePtsScored" ColumnName="AwayAveragePtsScored" />
+                <ScalarProperty Name="CalcHomeGB3PlanB" ColumnName="CalcHomeGB3PlanB" />
+                <ScalarProperty Name="CalcHomeGB2PlanB" ColumnName="CalcHomeGB2PlanB" />
+                <ScalarProperty Name="CalcHomeGB1PlanB" ColumnName="CalcHomeGB1PlanB" />
+                <ScalarProperty Name="CalcAwayGB3PlanB" ColumnName="CalcAwayGB3PlanB" />
+                <ScalarProperty Name="CalcAwayGB2PlanB" ColumnName="CalcAwayGB2PlanB" />
+                <ScalarProperty Name="CalcAwayGB1PlanB" ColumnName="CalcAwayGB1PlanB" />
+                <ScalarProperty Name="UnAdjTotalPlanB" ColumnName="UnAdjTotalPlanB" />
+                <ScalarProperty Name="UnAdjTotalHomePlanB" ColumnName="UnAdjTotalHomePlanB" />
+                <ScalarProperty Name="UnAdjTotalAwayPlanB" ColumnName="UnAdjTotalAwayPlanB" />
+                <ScalarProperty Name="TeamRecordHome" ColumnName="TeamRecordHome" />
+                <ScalarProperty Name="TeamRecordAway" ColumnName="TeamRecordAway" />
                 <ScalarProperty Name="TodaysMatchupsID" ColumnName="TodaysMatchupsID" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="LeagueName" ColumnName="LeagueName" />
@@ -4867,7 +4849,6 @@ BoxScoresAdjustedID],
                 <ScalarProperty Name="AdjOTwithSide" ColumnName="AdjOTwithSide" />
                 <ScalarProperty Name="AdjTV" ColumnName="AdjTV" />
                 <ScalarProperty Name="AdjRecentLeagueHistory" ColumnName="AdjRecentLeagueHistory" />
-                <ScalarProperty Name="AdjPace" ColumnName="AdjPace" />
                 <ScalarProperty Name="OurTotalLineAway" ColumnName="OurTotalLineAway" />
                 <ScalarProperty Name="OurTotalLineHome" ColumnName="OurTotalLineHome" />
                 <ScalarProperty Name="OurTotalLine" ColumnName="OurTotalLine" />
@@ -5360,6 +5341,31 @@ BoxScoresAdjustedID],
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="TeamStrength">
+            <EntityTypeMapping TypeName="TTI_LeagueScoresModel.TeamStrength">
+              <MappingFragment StoreEntitySet="TeamStrength">
+                <ScalarProperty Name="TS" ColumnName="TS" />
+                <ScalarProperty Name="TeamPaceAvg" ColumnName="TeamPaceAvg" />
+                <ScalarProperty Name="Volatility" ColumnName="Volatility" />
+                <ScalarProperty Name="TeamStrengthTMsAdjPctAllowed" ColumnName="TeamStrengthTMsAdjPctAllowed" />
+                <ScalarProperty Name="TeamStrengthTMsAdjPctScored" ColumnName="TeamStrengthTMsAdjPctScored" />
+                <ScalarProperty Name="TeamStrengthBxScAdjPctAllowed" ColumnName="TeamStrengthBxScAdjPctAllowed" />
+                <ScalarProperty Name="TeamStrengthBxScAdjPctScored" ColumnName="TeamStrengthBxScAdjPctScored" />
+                <ScalarProperty Name="TeamStrengthAllowed" ColumnName="TeamStrengthAllowed" />
+                <ScalarProperty Name="TeamStrengthScored" ColumnName="TeamStrengthScored" />
+                <ScalarProperty Name="TeamStrength1" ColumnName="TeamStrength" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="ActualGB" ColumnName="ActualGB" />
+                <ScalarProperty Name="GB" ColumnName="GB" />
+                <ScalarProperty Name="Venue" ColumnName="Venue" />
+                <ScalarProperty Name="Team" ColumnName="Team" />
+                <ScalarProperty Name="RotNum" ColumnName="RotNum" />
+                <ScalarProperty Name="GameDate" ColumnName="GameDate" />
+                <ScalarProperty Name="LeagueName" ColumnName="LeagueName" />
+                <ScalarProperty Name="TeamStrengthID" ColumnName="TeamStrengthID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="TodaysMatchups">
             <EntityTypeMapping TypeName="TTI_LeagueScoresModel.TodaysMatchups">
               <MappingFragment StoreEntitySet="TodaysMatchups">
@@ -5367,6 +5373,25 @@ BoxScoresAdjustedID],
                 <ScalarProperty Name="TS" ColumnName="TS" />
                 <ScalarProperty Name="TotalBubbleHome" ColumnName="TotalBubbleHome" />
                 <ScalarProperty Name="TotalBubbleAway" ColumnName="TotalBubbleAway" />
+                <ScalarProperty Name="TMoppAdjPct" ColumnName="TMoppAdjPct" />
+                <ScalarProperty Name="LgAvgShotsMadeHomePt3" ColumnName="LgAvgShotsMadeHomePt3" />
+                <ScalarProperty Name="LgAvgShotsMadeHomePt2" ColumnName="LgAvgShotsMadeHomePt2" />
+                <ScalarProperty Name="LgAvgShotsMadeHomePt1" ColumnName="LgAvgShotsMadeHomePt1" />
+                <ScalarProperty Name="LgAvgShotsMadeAwayPt3" ColumnName="LgAvgShotsMadeAwayPt3" />
+                <ScalarProperty Name="LgAvgShotsMadeAwayPt2" ColumnName="LgAvgShotsMadeAwayPt2" />
+                <ScalarProperty Name="LgAvgShotsMadeAwayPt1" ColumnName="LgAvgShotsMadeAwayPt1" />
+                <ScalarProperty Name="HomeAverageAllowedPt3" ColumnName="HomeAverageAllowedPt3" />
+                <ScalarProperty Name="HomeAverageAllowedPt2" ColumnName="HomeAverageAllowedPt2" />
+                <ScalarProperty Name="HomeAverageAllowedPt1" ColumnName="HomeAverageAllowedPt1" />
+                <ScalarProperty Name="AwayAverageAllowedPt3" ColumnName="AwayAverageAllowedPt3" />
+                <ScalarProperty Name="AwayAverageAllowedPt2" ColumnName="AwayAverageAllowedPt2" />
+                <ScalarProperty Name="AwayAverageAllowedPt1" ColumnName="AwayAverageAllowedPt1" />
+                <ScalarProperty Name="HomeAverageMadePt3" ColumnName="HomeAverageMadePt3" />
+                <ScalarProperty Name="HomeAverageMadePt2" ColumnName="HomeAverageMadePt2" />
+                <ScalarProperty Name="HomeAverageMadePt1" ColumnName="HomeAverageMadePt1" />
+                <ScalarProperty Name="AwayAverageMadePt3" ColumnName="AwayAverageMadePt3" />
+                <ScalarProperty Name="AwayAverageMadePt2" ColumnName="AwayAverageMadePt2" />
+                <ScalarProperty Name="AwayAverageMadePt1" ColumnName="AwayAverageMadePt1" />
                 <ScalarProperty Name="HomeGB3Pt3" ColumnName="HomeGB3Pt3" />
                 <ScalarProperty Name="HomeGB3Pt2" ColumnName="HomeGB3Pt2" />
                 <ScalarProperty Name="HomeGB3Pt1" ColumnName="HomeGB3Pt1" />
@@ -5476,31 +5501,6 @@ BoxScoresAdjustedID],
                 <ScalarProperty Name="LeagueName" ColumnName="LeagueName" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="TodaysMatchupsID" ColumnName="TodaysMatchupsID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TeamStrength">
-            <EntityTypeMapping TypeName="TTI_LeagueScoresModel.TeamStrength">
-              <MappingFragment StoreEntitySet="TeamStrength">
-                <ScalarProperty Name="TS" ColumnName="TS" />
-                <ScalarProperty Name="TeamPaceAvg" ColumnName="TeamPaceAvg" />
-                <ScalarProperty Name="Volatility" ColumnName="Volatility" />
-                <ScalarProperty Name="TeamStrengthTMsAdjPctAllowed" ColumnName="TeamStrengthTMsAdjPctAllowed" />
-                <ScalarProperty Name="TeamStrengthTMsAdjPctScored" ColumnName="TeamStrengthTMsAdjPctScored" />
-                <ScalarProperty Name="TeamStrengthBxScAdjPctAllowed" ColumnName="TeamStrengthBxScAdjPctAllowed" />
-                <ScalarProperty Name="TeamStrengthBxScAdjPctScored" ColumnName="TeamStrengthBxScAdjPctScored" />
-                <ScalarProperty Name="TeamStrengthAllowed" ColumnName="TeamStrengthAllowed" />
-                <ScalarProperty Name="TeamStrengthScored" ColumnName="TeamStrengthScored" />
-                <ScalarProperty Name="TeamStrength1" ColumnName="TeamStrength" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="ActualGB" ColumnName="ActualGB" />
-                <ScalarProperty Name="GB" ColumnName="GB" />
-                <ScalarProperty Name="Venue" ColumnName="Venue" />
-                <ScalarProperty Name="Team" ColumnName="Team" />
-                <ScalarProperty Name="RotNum" ColumnName="RotNum" />
-                <ScalarProperty Name="GameDate" ColumnName="GameDate" />
-                <ScalarProperty Name="LeagueName" ColumnName="LeagueName" />
-                <ScalarProperty Name="TeamStrengthID" ColumnName="TeamStrengthID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

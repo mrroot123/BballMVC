@@ -5,11 +5,8 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
    let TodaysMatchupsParms = { scope: $scope, f: f, LeagueName: $rootScope.oBballInfoDTO.LeagueName, ajx: ajx };
    let localGameDate = null;
 
-   $scope.PlayEntry = false;
-   $scope.ShowPlaysOnly = false;
-   $scope.Multi = true;
-   $scope.ShowCanceledGames = true;
-   $scope.ShowHistory = true;
+   setCheckBoxes();
+   $rootScope.RefreshTodaysMatchupsState = true;
 
    let ocOuts = [
       { name: "Pin", juice: "105" }
@@ -120,16 +117,13 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
 
    function getTodaysMatchups(URL) {
       localGameDate = $rootScope.oBballInfoDTO.GameDate;
-
-
-      $rootScope.RefreshTodaysMatchupsState = false;
-      $scope.PlayEntry = false;
-      $scope.ShowPlaysOnly = false;
-      $scope.ShowDailySummary = true;
-      $scope.ShowCanceledGames = true;
-      $scope.ShowHistory = true;
+      setCheckBoxes();
      
-      // Data/UrlRefreshTodaysMatchups
+      // Data/UrlRefreshTodaysMatchups - exec uspCalcTodaysMatchups
+      // Data/UrlGetPastMatchups
+      // GetTodaysMatchups
+      // GetDailySummaryDTO
+      // GetUserLeagueParmsDTO
       ajx.AjaxGet(URL, {
            UserName:   $rootScope.oBballInfoDTO.UserName
          , GameDate:   localGameDate.toLocaleDateString()
@@ -151,6 +145,17 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
             f.DisplayErrorMessage(f.FormatResponse(error));
          });
    } // GetTodaysMatchups
+
+   function setCheckBoxes(){
+      $rootScope.RefreshTodaysMatchupsState = false;
+      $scope.PlayEntry = false;
+      $scope.ShowPlaysOnly = false;
+      $scope.Multi = true;
+      $scope.ShowDailySummary = true;
+      $scope.ShowCanceledGames = true;
+      $scope.ShowHistory = true;
+   }
+
    $scope.GetAdjustmentsByTeam = function (LeagueName, GameDate, Team) {
       // get adjs
       ajx.AjaxGet(url.UrlGetAdjustmentsByTeam, { GameDate: $rootScope.oBballInfoDTO.GameDate.toLocaleDateString(), LeagueName: $rootScope.oBballInfoDTO.LeagueName, Team })   // Get TodaysMatchups from server
@@ -202,8 +207,8 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
       //});
 
       $scope.ocTodaysMatchups = $rootScope.oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO;
-      $scope.LeagueColor = $rootScope.oBballInfoDTO.LeagueName === "NBA" ? "blue" : "red";
-      $scope.TMparms = $rootScope.oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO[0];
+      $scope.LeagueColor = $rootScope.oBballInfoDTO.oBballDataDTO.oLeagueDTO.LeagueColor;
+      $scope.TMparms =     $rootScope.oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO[0];
 
       $scope.$apply();
       //    $scope.InitPlayEntry();

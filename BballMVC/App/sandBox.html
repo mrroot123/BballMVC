@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>SandBox</title>
+   <script>
+     // alert('sandbox open');
+      let item = { AwayGB1Pt1: 17.111, AwayGB1Pt2: 17.222, AwayGB1Pt3: 17.333, pt2: 18.222 };
+      let pt = item['pt' + 1];
+     
+      
+      let tmAdjOppPct = .95;
+
+      let ixVenue = 0;
+      let arVenue = [];
+      for (ixVenue = 1; ixVenue <= 2; ixVenue++) {
+         let Venue = ixVenue === 1 ? "Away" | "Home";
+         let oppVenue = ixVenue === 1 ? "Home" | "Away";
+         let GB;
+         let arGB = [];
+         for (GB = 1; GB <= 3; GB++) {
+            let PtValue;
+            let arPtValue = [];
+            for (PtValue = 1; PtValue <= 3; PtValue++) {
+               // 1) AwayGB1Pt1  2) PtValue  3) AwayAverageMadePt1   4) AwayAverageAllowedPt1   5) LgAvgShotsMadeHomePt1   6) TMoppAdjPct
+               let r = formatPointRow(
+                  item[Venue + 'GB' + GB + 'Pt' + PtValue],
+                  PtValue,
+                  item[Venue + 'AverageMadePt' + PtValue],
+                  item['LgAvgShotsMade' + oppVenue + PtValue],
+                  TMoppAdjPct);
+               arPtValue.push(r);
+            }
+            arGB.push(arPtValue);
+         }
+         arVenue.push(arGB);
+      }
+
+
+      function formatPointRow(TotPts, PtValue, Pt, oppPt, LgAvg, TMoppAdjPct) {
+         TotPts = formatNum(TotPts, 4, 1);
+         Pt = formatNum(Pt, 4, 1);
+         oppPt = formatNum(oppPt, 4, 1);
+         LgAvg = formatNum(LgAvg, 4, 1);
+         TMoppAdjPct = formatNum(TMoppAdjPct * 100, 3, 0);
+
+         let template = `${TotPts} = ${PtValue} * ( ${Pt} + ((${oppPt}-${LgAvg}) * ${TMoppAdjPct}% ) `;
+         return template;
+
+         function formatNum(num, len, dec) {
+            let n = num.toFixed(dec).toString();
+            while (n.length < len) {
+               n = " " + n;
+            }
+            return n;
+         }
+      }
+
+   </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,125 +1,127 @@
 ﻿
 
 <div ng-controller="layoutController" id="screen" class="screen">
-   <div ng-include="'_Header/Header.html'"></div>
+   <!--<div class="container">
+      <div class="row">-->
+         <div ng-include="'_Header/Header.html'"></div>
 
-   <div class="panel-group" id="accordion" ng-model="ngAccordion" ng-show="true">
+         <div class="panel-group" id="accordion" ng-model="ngAccordion" ng-show="true">
 
+            <!--TEMPLATE-->
+            <!--
+            <div class="panel panel-default">
+               <div class="panel-heading">
+                  <h4 class="panel-title">
+                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#accTEMPLATE">   (1)
+                        ng-click="clickAccordion('TEMPLATEContainer', 'eventOptionalTEMPLATE')">                        (2)
+                        <span class="glyphicon glyphicon-menu-right"></span>
+                        Template DisplayName                                                                            (3) Literal
+                     </a>
+                  </h4>
+               </div>
+               <div id="accTEMPLATE" class="panel-collapse collapse">                                                   (4) same as (1)
+                  <div class="panel-body">
+                     <div ng-include="'TEMPLATE.html'"></div>                                                           (5)
+                  </div>
+               </div>
+            </div>
+            -->
+            <!--Todays Matchups-->
+            <div class="panel panel-default">
+               <div class="panel-heading">
+                  <h4 class="panel-title text">
 
-      <!--TEMPLATE-->
-      <!--
-   <div class="panel panel-default">
-      <div class="panel-heading">
-         <h4 class="panel-title">
-            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#accTEMPLATE">   (1)
-               ng-click="clickAccordion('TEMPLATEContainer', 'eventOptionalTEMPLATE')">                        (2)
-               <span class="glyphicon glyphicon-menu-right"></span>
-               Template DisplayName                                                                            (3) Literal
-            </a>
-         </h4>
-      </div>
-      <div id="accTEMPLATE" class="panel-collapse collapse">                                                   (4) same as (1)
+                     <a class="accordion-toggle" id="idTodaysMatchups" data-toggle="collapse" data-parent="#accordion" href="#accTodaysMatchups"
+                        ng-click="clickAccordion('TodaysMatchupsContainer', 'eventRefreshTodaysMatchups', $event)">
+                        <span class="glyphicon glyphicon-menu-right"></span>
+                        Todays Matchups
+                     </a>
+
+                  </h4>
+               </div>
+               <div id="accTodaysMatchups" class="panel-collapse collapse">
+                  <div class="panel-body">
+                     <div ng-include="'TodaysMatchups/TodaysMatchups.html'"></div>
+                  </div>
+               </div>
+            </div>
+
+            <!--Post Game Analysis-->
+            <div class="panel panel-default" ng-show="PostGameAnalysis">
+               <div class="panel-heading">
+                  <h4 class="panel-title">
+                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#accPostGameAnalysis"
+                        ng-click="clickAccordion('PostGameAnalysisContainer', 'eventInitPostGameAnalysis', $event)">
+                        <span class="glyphicon glyphicon-menu-right"></span>
+                        Post Game Analysis
+                     </a>
+                  </h4>
+               </div>
+               <div id="accPostGameAnalysis" class="panel-collapse collapse">
+                  <div class="panel-body">
+                     <div ng-include="'PostGameAnalysis/PostGameAnalysis.html'"></div>
+                  </div>
+               </div>
+            </div>
+
+            <!--Adjustments-->
+            <div class="panel panel-default">
+               <div class="panel-heading">
+                  <h4 class="panel-title">
+                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#accAdjustments"
+                        ng-click="clickAccordion('AdjustmentsListContainer', 'eventGetAdjustments', $event)">
+                        <span class="glyphicon glyphicon-menu-right"></span>
+                        Adjustments
+                     </a>
+                  </h4>
+               </div>
+               <div id="accAdjustments" class="panel-collapse collapse">
+                  <div class="panel-body">
+                     <div ng-include="'Adjustments/Adjustments.html'"></div>
+                  </div>
+               </div>
+            </div>
+
+            <!--BoxScoresSeeds-->
+            <!--<div class="panel panel-default">
+               <div class="panel-heading">
+                  <h4 class="panel-title">
+                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#accBoxScoresSeeds">
+                        <span class="glyphicon glyphicon-menu-right"></span>
+                        Pre-season BoxScores Seeds
+                     </a>
+                  </h4>
+               </div>
+               <div id="accBoxScoresSeeds" class="panel-collapse collapse">
+                  <div class="panel-body">
+                     <div ng-include="'BoxScoresSeeds/BoxScoresSeeds.html'"></div>
+                  </div>
+               </div>
+            </div>-->
+
+            <div class="panel panel-default">
+               <div class="panel-heading">
+                  <h4 class="panel-title">
+                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#accBballManagement"
+                        ng-click="clickAccordion('BballManagementContainer', 'eventInitBballManagement', $event)">
+                        <span class="glyphicon glyphicon-menu-right"></span>
+                        Bball Management
+                     </a>
+                  </h4>
+               </div>
+               <div id="accBballManagement" class="panel-collapse collapse">
+                  <div class="panel-body">
+                     <div ng-include="'BballManagement/BballManagement.html'"></div>
+                  </div>
+               </div>
+            </div>
+
+         </div>
          <div class="panel-body">
-            <div ng-include="'TEMPLATE.html'"></div>                                                           (5)
+            <div ng-include="'Common/AlertModal.html'"></div>
+            <div ng-include="'TodaysMatchups/_AdjustmentsByTeamModal.html'"></div>
+            <div ng-include="'TodaysMatchups/_TMunAdjTotalsModal.html'"></div>
          </div>
       </div>
-   </div>
-   -->
-      <!--Todays Matchups-->
-      <div class="panel panel-default">
-         <div class="panel-heading">
-            <h4 class="panel-title">
-
-               <a class="accordion-toggle" id="idTodaysMatchups" data-toggle="collapse" data-parent="#accordion" href="#accTodaysMatchups"
-                  ng-click="clickAccordion('TodaysMatchupsContainer', 'eventRefreshTodaysMatchups', $event)">
-                  <span class="glyphicon glyphicon-menu-right"></span>
-                  Todays Matchups
-               </a>
-
-            </h4>
-         </div>
-         <div id="accTodaysMatchups" class="panel-collapse collapse">
-            <div class="panel-body">
-               <div ng-include="'TodaysMatchups/TodaysMatchups.html'"></div>
-            </div>
-         </div>
-      </div>
-
-      <!--Post Game Analysis-->
-      <div class="panel panel-default" ng-show="PostGameAnalysis">
-         <div class="panel-heading">
-            <h4 class="panel-title">
-               <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#accPostGameAnalysis"
-                  ng-click="clickAccordion('PostGameAnalysisContainer', 'eventInitPostGameAnalysis', $event)">
-                  <span class="glyphicon glyphicon-menu-right"></span>
-                  Post Game Analysis
-               </a>
-            </h4>
-         </div>
-         <div id="accPostGameAnalysis" class="panel-collapse collapse">
-            <div class="panel-body">
-               <div ng-include="'PostGameAnalysis/PostGameAnalysis.html'"></div>
-            </div>
-         </div>
-      </div>
-
-      <!--Adjustments-->
-      <div class="panel panel-default">
-         <div class="panel-heading">
-            <h4 class="panel-title">
-               <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#accAdjustments"
-                  ng-click="clickAccordion('AdjustmentsListContainer', 'eventGetAdjustments', $event)">
-                  <span class="glyphicon glyphicon-menu-right"></span>
-                  Adjustments
-               </a>
-            </h4>
-         </div>
-         <div id="accAdjustments" class="panel-collapse collapse">
-            <div class="panel-body">
-               <div ng-include="'Adjustments/Adjustments.html'"></div>
-            </div>
-         </div>
-      </div>
-
-      <!--BoxScoresSeeds-->
-      <!--<div class="panel panel-default">
-         <div class="panel-heading">
-            <h4 class="panel-title">
-               <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#accBoxScoresSeeds">
-                  <span class="glyphicon glyphicon-menu-right"></span>
-                  Pre-season BoxScores Seeds
-               </a>
-            </h4>
-         </div>
-         <div id="accBoxScoresSeeds" class="panel-collapse collapse">
-            <div class="panel-body">
-               <div ng-include="'BoxScoresSeeds/BoxScoresSeeds.html'"></div>
-            </div>
-         </div>
-      </div>-->
-
-      <div class="panel panel-default">
-         <div class="panel-heading">
-            <h4 class="panel-title">
-               <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#accBballManagement"
-                  ng-click="clickAccordion('BballManagementContainer', 'eventInitBballManagement', $event)">
-                  <span class="glyphicon glyphicon-menu-right"></span>
-                  Bball Management
-               </a>
-            </h4>
-         </div>
-         <div id="accBballManagement" class="panel-collapse collapse">
-            <div class="panel-body">
-               <div ng-include="'BballManagement/BballManagement.html'"></div>
-            </div>
-         </div>
-      </div>
-
-
-
-   </div>
-   <div class="panel-body">
-      <div ng-include="'Common/AlertModal.html'"></div>
-      <div ng-include="'TodaysMatchups/_AdjustmentsByTeamModal.html'"></div>
-   </div>
-</div>
+   <!--</div>
+</div>-->

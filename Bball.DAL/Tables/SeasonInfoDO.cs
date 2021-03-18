@@ -34,7 +34,7 @@ namespace Bball.DAL.Tables
          this.GameDate = oBballInfoDTO.GameDate;
          _LeagueName = oBballInfoDTO.LeagueName;
          _ConnectionString = oBballInfoDTO.ConnectionString;
-         populateSeasonInfoDTO(oBballInfoDTO.oBballDataDTO.oSeasonInfoDTO);
+         populateSeasonInfoDTO(oBballInfoDTO.oSeasonInfoDTO);
       }
 
       public DateTime GetNextGameDate()

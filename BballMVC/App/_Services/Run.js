@@ -78,6 +78,9 @@
          $rootScope.DataConstants = oBballDataDTO.DataConstants;
          $rootScope.oBballInfoDTO.oBballDataDTO.ocLeagueNames = oBballDataDTO.ocLeagueNames;
          $rootScope.$broadcast('eventPopulateLeagueNamesDropDown');
+         if (oBballDataDTO.MessageNumber !== 0) {
+            f.DisplayErrorMessage(oBballDataDTO.Message);
+         }
       })
       .catch(error => {
          f.DisplayErrorMessage(f.FormatResponse(error));

@@ -9,6 +9,7 @@ namespace BballMVC.DTOs
       // Constructor
       public BballInfoDTO()
       {
+         oSeasonInfoDTO = new SeasonInfoDTO();
          oBballDataDTO = new BballDataDTO();
       }
 
@@ -25,7 +26,7 @@ namespace BballMVC.DTOs
 
       public System.Object oObject { get; set; }
       public JObject oJObject { get; set; }
-    //  public ISeasonInfoDTO oSeasonInfoDTO { get; set; }
+      public ISeasonInfoDTO oSeasonInfoDTO { get; set; }
       public IBballDataDTO oBballDataDTO { get; set; }
 
       

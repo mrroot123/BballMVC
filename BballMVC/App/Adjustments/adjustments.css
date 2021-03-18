@@ -21,6 +21,22 @@
    display: none;
    padding-top: 6px
 }
+#TMunAdjTotalsModal {
+   border-style: double;
+   width: 1300px;
+   height: 500px;
+   background: white;
+   text-align: left;
+   position: fixed;
+   left: 37.5%;
+   top: 5%;
+   z-index: 20;
+   display: none;
+   padding-top: 9px;
+   font-family: 'Courier New';
+   font-weight: bold;
+}
+
 
 #AlertModal {
    border-style: double;

@@ -16,10 +16,10 @@ angular.module('app').controller('AlertModalController', function ($rootScope, $
    }); // $on
    // 
    $scope.AlertModalClose = function () {    // invoked by Close click on Modal
-      f.ShowScreen("TodaysMatchupsContainer");
+      f.ShowScreen("TodaysMatchupsContainer");  // kdtodo make TodaysMatchupsContainer generic
 
       f.HideModal(modalName); // Hide AlertModal Modal
-      $scope.$emit("eventReshowTodaysMatchupsContainer");
+      $scope.$emit("eventReshowTodaysMatchupsContainer");   //  kdtodo make eventReshowTodaysMatchupsContainer generic
    };
    function editMsg(msg) {
       // Split Then join the pieces putting the replace string in between:
@@ -40,4 +40,4 @@ angular.module('app').controller('AlertModalController', function ($rootScope, $
       }  // for
       return msgOut;
    }  // editMsg2
-}); // Adjustments Modal controller
+}); // Alert Modal controller
