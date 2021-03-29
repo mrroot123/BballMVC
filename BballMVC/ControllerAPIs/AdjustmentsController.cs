@@ -32,6 +32,19 @@ namespace BballMVC.ControllerAPIs
          List<IDTOs.IAdjustmentDTO> ocAdjustmentDTO = oAdjustmentsBO.GetTodaysAdjustments(GameDate, LeagueName);
          return Request.CreateResponse(HttpStatusCode.OK, ocAdjustmentDTO);
       }
+      // G1 new GetTodaysAdjustments
+      [HttpGet]   // G1
+      public HttpResponseMessage GetAdjustments(string UserName, DateTime GameDate, string LeagueName)
+      {
+         oBballInfoDTO.UserName = UserName;
+         oBballInfoDTO.GameDate = GameDate;
+         oBballInfoDTO.LeagueName = LeagueName;
+
+         oAdjustmentsBO.GetTodaysAdjustments(oBballInfoDTO);
+
+         //List<IDTOs.IAdjustmentDTO> ocAdjustmentDTO = oAdjustmentsBO.GetTodaysAdjustments(GameDate, LeagueName);
+         return Request.CreateResponse(HttpStatusCode.OK, oBballInfoDTO.oBballDataDTO.ocAdjustments);
+      }
       [HttpGet]   // G1 By Team
       public HttpResponseMessage GetAdjustmentsByTeam(DateTime GameDate, string LeagueName, string Team, double SideLine)
       {

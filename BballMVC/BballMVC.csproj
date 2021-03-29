@@ -329,7 +329,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App\Adjustments\adjustments.css" />
+    <Content Include="App\Adjustments\xadjustments.css" />
     <Content Include="App\Adjustments\Adjustments.html" />
     <Content Include="App\Adjustments\AdjustmentsController.js" />
     <Content Include="App\Adjustments\AdjustmentsModalController.js" />
@@ -342,6 +342,7 @@
     <Content Include="App\BoxScoresSeeds\_BoxScoresSeedsTable.html" />
     <Content Include="App\Common\css\accordion.css" />
     <Content Include="App\Common\AlertModal.html" />
+    <Content Include="App\Common\css\modal.css" />
     <Content Include="App\Common\images\loader.gif" />
     <Content Include="App\Common\js\AlertModalController.js" />
     <Content Include="App\Common\css\bball.css" />
@@ -363,6 +364,7 @@
     <Content Include="App\Test\_TestColSpan.html" />
     <Content Include="App\Test\_TestTable.html" />
     <Content Include="App\TodaysMatchups\AdjustmentsByTeamModalController.js" />
+    <Content Include="App\TodaysMatchups\TMunAdjTotals.js" />
     <Content Include="App\TodaysMatchups\TodaysMatchups.html" />
     <Content Include="App\TodaysMatchups\TodaysMatchupsController.js" />
     <Content Include="App\TodaysMatchups\_AdjustmentsByTeamModal.html" />

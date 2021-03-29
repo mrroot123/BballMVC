@@ -23,7 +23,7 @@
    </tr>-->
          <!-- Header 2 -->
          <tr style="color:{{LeagueColor}};">
-            <th ng-click="toggleSort()">
+            <th ng-click="toggleSort()" class="clickable">
                Rot #<br>Time
             </th>
             <th><br />Team</th>
@@ -36,9 +36,9 @@
             <th ng-Hide="condensed || !ShowHistory"">Last&nbsp;{{TMparms.GB3}}<br />&nbsp;&nbsp;&nbsp;{{TMparms.WeightGB3}}</th>
 
             <th ng-Hide="condensed">UnAdj<br />Total</th>
-            <th ng-Hide="condensed" title="Calced on Game Avgs not Point Avgs">UnAdj Tot<br />Plan B</th>
-            <th ng-Hide="condensed" title="From Adjusted BxSc Stats  &#013; GamesBack: TeamAvgGamesBack">Points<br />Scored</th>
-            <th ng-Hide="condensed" title="From Adjusted BxSc Stats  &#013; GamesBack: TeamAvgGamesBack">Points<br />Allowed</th>
+            <th ng-Hide="condensed" class="title" title="Calced on Game Avgs not Point Avgs">UnAdj Tot<br />Plan B</th>
+            <th ng-Hide="condensed" class="title" title="From Adjusted BxSc Stats  &#013; GamesBack: TeamAvgGamesBack">Points<br />Scored</th>
+            <th ng-Hide="condensed" class="title" title="From Adjusted BxSc Stats  &#013; GamesBack: TeamAvgGamesBack">Points<br />Allowed</th>
             <th ng-Hide="condensed">Team<br />Strength</th>
 
             <th ng-Hide="condensed">Adjust<br />ments</th>
@@ -51,7 +51,7 @@
             <th ng-Hide="condensed">Calced<br />3 PTers</th>
 
             <th>Calced<br />Line</th>
-            <th>Total<br />Line</th>
+            <th class="title" title="Fav in Black &#013;Dog in Red">Total<br />Line</th>
 
             <th ng-hide="Multi">Side<br />Line</th>
             <th ng-show="Multi">Side<br />Open TL</th>
@@ -67,7 +67,7 @@
             <th ng-show="PlayEntry"><br />Amount</th>
             <th ng-show="PlayEntry"><br />Weight</th>
             <th ng-show="PlayEntry">
-               <button type="button" class="btn btn-info active" data-toggle="tooltip" title="Process Plays"
+               <button type="button" class="btn btn-info active title" data-toggle="tooltip" title="Process Plays"
                        ng-show="true" ng-click="ProcessPlays()">
                   Process Plays
                </button>
@@ -96,7 +96,7 @@
          <tr ng-show="ocTodaysMatchups.length==0"><td>No Games Scheduled</td></tr>
 
          <!-- Matchups -->
-         <tr ng-repeat="item in ocTodaysMatchups" ng-hide="HideMatchupRow(this)">
+         <tr ng-repeat="item in ocTodaysMatchups" ng-hide="HideMatchupRow(this)"  id="trTM_{{$index}}" >
 
             <td>
                <table>
@@ -217,16 +217,16 @@
             <td ng-Hide="condensed">
                <table>
                   <tr>
-                     <td ng-show="Multi"
-                         ng-click="OpenModal([this, 'Away'], 'TodaysMatchupsContainer', 'TMunAdjTotalsModal', 'eventOpenTMunAdjTotalsModal')">
-                     {{item.UnAdjTotalAway | number:1}}
+                     <td ng-show="Multi">
+                        {{item.UnAdjTotalAway | number:1}}
                      </td>
                   </tr>
                   <tr>
                      <td ng-show="Multi">{{item.UnAdjTotalHome | number:1}}</td>
                   </tr>
                   <tr>
-                     <td class="statTotal">{{item.UnAdjTotal | number:1}}</td>
+                     <td class="statTotal clickable"
+                        ng-click="OpenTMunAdjTotalsModal(this)">{{item.UnAdjTotal | number:1}}</td>
                   </tr>
                </table>
             </td>
@@ -293,16 +293,16 @@
             </td>
 
             <!--Adjustments-->
-            <td ng-Hide="condensed">
+            <td ng-Hide="condensed" class="appleGreen">
                <table>
                   <tr>
-                     <td ng-show="Multi"
+                     <td ng-show="Multi"  class="clickable"
                          ng-click="OpenModal([this, 'Away'], 'TodaysMatchupsContainer', 'AdjustmentsByTeamModal', 'eventOpenAdjustmentsByTeamModal')">
                         {{item.AdjAmtAway | number:1}}
                      </td>
                   </tr>
                   <tr>
-                     <td ng-show="Multi"
+                     <td ng-show="Multi"  class="clickable"
                          ng-click="OpenModal([this, 'Home'], 'TodaysMatchupsContainer', 'AdjustmentsByTeamModal', 'eventOpenAdjustmentsByTeamModal')">
                         {{item.AdjAmtHome | number:1}}
                      </td>
@@ -313,7 +313,7 @@
                </table>
             </td>
             <!--Adj OT Side-->
-            <td ng-Hide="condensed">
+            <td ng-Hide="condensed" class="appleGreen">
                <table>
                   <tr>
                      <td ng-show="Multi">{{item.AdjOTwithSide / 2 | number:1}}</td>
@@ -327,7 +327,7 @@
                </table>
             </td>
             <!--Adj Pace-->
-            <td ng-Hide="condensed">
+            <td ng-Hide="condensed" class="appleGreen">
                <table>
                   <tr>
                      <td ng-show="Multi">{{item.AdjPaceAway | number:1}}</td>
@@ -341,7 +341,7 @@
                </table>
             </td>
             <!--Adj Team-->
-            <td ng-Hide="condensed">
+            <td ng-Hide="condensed" class="appleGreen">
                <table>
                   <tr>
                      <td ng-show="Multi">{{item.AdjTeamAway | number:1}}</td>
@@ -416,7 +416,7 @@
                      <td ng-show="Multi">{{item.OurTotalLineHome | number:1}}</td>
                   </tr>
                   <tr>
-                     <td class="statTotal" ng-class="applyMinusRedColor({{item.OurTotalLine}}, {{item.TotalLine}} )">
+                     <td class="statTotal applyMinusRedColor({{item.OurTotalLine}}, {{item.TotalLine}} )">
                         {{item.OurTotalLine | number:1}}
                      </td>
                   </tr>
@@ -426,10 +426,10 @@
             <td>
                <table>
                   <tr>
-                     <td ng-show="Multi">{{(item.TotalLine-item.SideLine)/2 | number:1}}</td>
+                     <td ng-show="Multi" ng-class="applyDogFavColor(this, 'Away')">{{(item.TotalLine+item.SideLine)/2 | number:1}}</td>
                   </tr>
                   <tr>
-                     <td ng-show="Multi">{{(item.TotalLine+item.SideLine)/2 | number:1}}</td>
+                     <td ng-show="Multi" ng-class="applyDogFavColor(this, 'Home')">{{(item.TotalLine-item.SideLine)/2 | number:1}}</td>
                   </tr>
                   <tr>
                      <td id="TotalLine_{{$index}}" ng-class="applyTotalLineDirection(this)">{{item.TotalLine | number:1}}</td>
@@ -453,10 +453,10 @@
             <td class="num">
                <table>
                   <tr>
-                     <td ng-show="Multi">{{item.OurTotalLineAway - ((item.TotalLine-item.SideLine)/2) | number:1}}</td>
+                     <td ng-show="Multi">{{item.OurTotalLineAway - ((item.TotalLine+item.SideLine)/2) | number:1}}</td>
                   </tr>
                   <tr>
-                     <td ng-show="Multi">{{item.OurTotalLineHome - ((item.TotalLine+item.SideLine)/2) | number:1}}</td>
+                     <td ng-show="Multi">{{item.OurTotalLineHome - ((item.TotalLine-item.SideLine)/2) | number:1}}</td>
                   </tr>
                   <tr>
                      <td class="statTotal" ng-class="applyMinusRedColor({{item.PlayDiff}} )">{{item.PlayDiff |  number:1}}</td>

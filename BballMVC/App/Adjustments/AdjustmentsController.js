@@ -62,7 +62,12 @@ angular.module('app').controller("AdjustmentsController", function ($rootScope, 
          $scope.$apply();
       };
 
-      ajx.AjaxGet(url.UrlGetAdjustments, { GameDate: $rootScope.oBballInfoDTO.GameDate.toLocaleDateString(), LeagueName: $rootScope.oBballInfoDTO.LeagueName })   // Get Adjustments from server
+//      ajx.AjaxGet(url.UrlGetAdjustments, { GameDate: $rootScope.oBballInfoDTO.GameDate.toLocaleDateString(), LeagueName: $rootScope.oBballInfoDTO.LeagueName })   // Get Adjustments from server
+      ajx.AjaxGet(url.UrlGetAdjustments, {
+         UserName: $rootScope.oBballInfoDTO.UserName,
+         GameDate: $rootScope.oBballInfoDTO.GameDate.toLocaleDateString(),
+         LeagueName: $rootScope.oBballInfoDTO.LeagueName
+      })   // Get Adjustments from server
          .then(data => {
             $rootScope.oBballInfoDTO.oBballDataDTO.ocAdjustments = data;
             populateAdjustments();

@@ -10,6 +10,7 @@ namespace Bball.IBAL
       IBballDataDTO GetAdjustmentInfo(DateTime GameDate, string LeagueName);  //G2
       void GetAdjustmentInfo(IBballInfoDTO oBballInfoDTO);  //G2
       List<IAdjustmentDTO> GetTodaysAdjustments(DateTime GameDate, string LeagueName); // G1
+      void GetTodaysAdjustments(IBballInfoDTO oBballInfoDTO); 
       List<IAdjustmentDTO> GetTodaysAdjustmentsByTeam(DateTime GameDate, string LeagueName, string Team, double SideLine); // G1 by Team
       void InsertNewAdjustment(IAdjustmentDTO oAdjustmentDTO);
     //  void InsertNewAdjustment(IAdjustmentWrapper oAdjustmentWrapper);

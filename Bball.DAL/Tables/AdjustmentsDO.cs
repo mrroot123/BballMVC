@@ -274,6 +274,16 @@ namespace Bball.DAL.Tables
                               , SqlParmNames, SqlParmValues, ocAdjustmentDTO, populateDTOFromRdr);
          return ocAdjustmentDTO;
       }
+      // new GetTodaysAdjustments
+      public void GetTodaysAdjustments(IBballInfoDTO oBballInfoDTO)
+      {
+         List<string> SqlParmNames = new List<string>() { "GameDate", "LeagueName" };
+         List<object> SqlParmValues = new List<object>() { oBballInfoDTO.GameDate, oBballInfoDTO.LeagueName };
+
+         SysDAL.Functions.DALfunctions.ExecuteStoredProcedureQuery(oBballInfoDTO.ConnectionString, "uspQueryAdjustments"
+                              , SqlParmNames, SqlParmValues, oBballInfoDTO.oBballDataDTO.ocAdjustments, populateDTOFromRdr);
+      }
+
       public List<IAdjustmentDTO> GetTodaysAdjustmentsByTeam(DateTime GameDate, string LeagueName, string Team, double SideLine)
       {
          List<BballMVC.IDTOs.IAdjustmentDTO> ocAdjustmentDTO = new List<BballMVC.IDTOs.IAdjustmentDTO>();

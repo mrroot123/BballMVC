@@ -18,7 +18,7 @@
 
 
    $scope.clickAccordion = function (ParentContainerName, eventName, ev) {
-      if (isAccordionOpen(ev))
+      if (ev.target.ariaExpanded)
          return;
 
       if (!$rootScope.oBballInfoDTO.LeagueName) {

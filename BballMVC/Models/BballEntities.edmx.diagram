@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="6eb71180093a417a9bff53a498d5ab2c" Name="Diagram1" ZoomLevel="24">
+      <Diagram DiagramId="6eb71180093a417a9bff53a498d5ab2c" Name="Diagram1" ZoomLevel="23">
         <EntityTypeShape EntityType="TTI_LeagueScoresModel.AdjustmentOTsideLine" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TTI_LeagueScoresModel.Adjustment" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TTI_LeagueScoresModel.AnalysisResult" Width="1.5" PointX="4.75" PointY="7.75" IsExpanded="true" />

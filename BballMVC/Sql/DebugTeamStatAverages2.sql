@@ -5,7 +5,9 @@ Declare @GB int = 3
 	, @Season varchar(4) = '2021'
 	, @BxScLinePct float = .2, @BxScTmStrPct float = .5
 
-						Select TOP (@GB)	@GB as GB,	b.GameDate, b.RotNum, b.Team, b.Venue, b.Opp
+	
+	
+	Select TOP (@GB)	@GB as GB,	b.GameDate, b.RotNum, b.Team, b.Venue, b.Opp
 
 -- 1) OT already Out
 -- 2) Last Min
@@ -18,7 +20,7 @@ Declare @GB int = 3
 --	 OT already Out		|	<<<		2) Take out Last Min	                            2 >>> | <<< 3) BxSc Curve2LiVenue = @Venuene Pct - @BxScLinePct                        3 >>> | <<< 4) Opp Tm Strength
 --[	Shots Made	    Less  Last Min                                   + Default LastMin ] | [ 1   + (( (TmTL             / ScReg	     ) -  1 ) * @BxScLinePct)	]
 --	 Seeded row calc		|	>>>		2) Last Min is NULL so non factor                2 >>> | <<< 3) r.TotalLineTeam seeded w b.ScoreRegUs                     3 >>> | <<< 4) Opp Tm Strength - ts.TeamStrengthBxScAdjPctAllowed  seeded w 1.0
-, b.ShotsMadeUsRegPt1, r.TotalLineTeam,  b.ScoreRegUs,  ( 1.0 + (( (IsNull(r.TotalLineTeam,  b.ScoreRegUs)  / b.ScoreRegUs ) - 1.0) * @BxScLinePct) )
+, b.ShotsMadeUsRegPt1, r.TotalLineTeam,  b.ScoreRegUs,  round(( 1.0 + (( (IsNull(r.TotalLineTeam,  b.ScoreRegUs)  / b.ScoreRegUs ) - 1.0) * @BxScLinePct) ),2) as 'TmTL/TmSc*Line%'
 , '===', ts.TeamStrengthBxScAdjPctAllowed, @BxScTmStrPct, ( 1.0 + (IsNull(ts.TeamStrengthBxScAdjPctAllowed, 1.0) - 1.0) * 0), '===='
 , '===', ts.TeamStrengthBxScAdjPctScored, @BxScTmStrPct, ( 1.0 + (IsNull(ts.TeamStrengthBxScAdjPctScored, 1.0) - 1.0) * @BxScTmStrPct), '===='
 

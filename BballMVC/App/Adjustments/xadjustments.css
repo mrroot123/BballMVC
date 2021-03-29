@@ -23,18 +23,19 @@
 }
 #TMunAdjTotalsModal {
    border-style: double;
-   width: 1300px;
-   height: 500px;
+   width: 2000px;
+   height: 1000px;
    background: white;
    text-align: left;
    position: fixed;
-   left: 37.5%;
+   left: 7.5%;
    top: 5%;
    z-index: 20;
    display: none;
    padding-top: 9px;
    font-family: 'Courier New';
    font-weight: bold;
+   font-size: large;
 }
 
 

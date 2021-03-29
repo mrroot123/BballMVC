@@ -111,32 +111,15 @@ angular.module('app').service('f', function ($rootScope, ajx, url) {
          MessageText: msg,
          MessageType: "Error"
       };
-      //var uu = "http://www.ttilog.com.violet.arvixe.com/api/Log/GetMessage?s=aabbcc";   // oBballInfoDTO.TTILogUrl
-      //// uu = "http://localhost:3000/api/Log/GetMessage?s=aabbcc";   // oBballInfoDTO.TTILogUrl
-      //ajx.AjaxGet(uu)
-      //   .then(data => {
-      //      alert(data);
-      //      // this.DisplayMessage(data);
-      //   })
-      //   .catch(error => {
-      //      alert(error);
-      //      // this.DisplayMessage(f.FormatResponse(error));
-      //   });
-      //var u = "http://www.ttilog.com.violet.arvixe.com/api/Log/LogMessage";   // oBballInfoDTO.TTILogUrl
+
       ajx.AjaxPost(url.UrlLogMessage, TTILogMessage)
          .then(data => {
-           // alert(data);
-           // this.DisplayMessage(data);
          })
          .catch(error => {
             alert(error);
-           // this.DisplayMessage(f.FormatResponse(error));
          });
       $("body").removeClass("loading");
       $rootScope.$broadcast('eventOpenAlertModal', msg);
-
-
-     // alert(msg);
    };
 
    this.DisplayMessage = function (msg) {
@@ -158,8 +141,6 @@ angular.module('app').service('f', function ($rootScope, ajx, url) {
 
       return msg;
    };
-
-
 
    // Date functions
    this.Getmdy = function (d) {
@@ -194,7 +175,10 @@ angular.module('app').service('f', function ($rootScope, ajx, url) {
    };
 
    this.MessageSuccess = function (msg) {
-      alert("Success: " + msg);
+      $("body").removeClass("loading");
+      $rootScope.$broadcast('eventOpenAlertModal', "Success: " + msg);
+
+   //   alert("Success: " + msg);
    };
    this.MessageWarning = function (msg) {
       alert(msg);
@@ -243,8 +227,13 @@ angular.module('app').service('f', function ($rootScope, ajx, url) {
       return show ? { "display": "block" } : { "display": "none" };
    };
 
-   this.wrapTag = function (tag, innerHtml) {
-      let ar = tag.split(" ");
-      return "<" + tag + ">" + innerHtml + "</" + ar[0] + ">";
+   this.wrapTag = function (tag, data, arAttrs) {
+      let attrsLit = "";
+      if (arAttrs) {
+         for (const attr of arAttrs) {
+            attrsLit += " " + attr;
+         }
+      }
+      return "<" + tag + attrsLit + ">" + data + "</" + tag + ">"
    };
 });

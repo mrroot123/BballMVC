@@ -19,6 +19,11 @@ namespace Bball.BAL
       // G1
       public List<IAdjustmentDTO> GetTodaysAdjustments(DateTime GameDate, string LeagueName)
          => new AdjustmentsDO(_oBballInfoDTO).GetTodaysAdjustments(GameDate, LeagueName);
+
+      // G1 new GetTodaysAdjustments
+      public void GetTodaysAdjustments(IBballInfoDTO oBballInfoDTO)
+         => new AdjustmentsDO().GetTodaysAdjustments(oBballInfoDTO);
+
       // G1 By Team
       public List<IAdjustmentDTO> GetTodaysAdjustmentsByTeam(DateTime GameDate, string LeagueName, string Team, double SideLine)
          => new AdjustmentsDO(_oBballInfoDTO).GetTodaysAdjustmentsByTeam(GameDate, LeagueName, Team, SideLine);

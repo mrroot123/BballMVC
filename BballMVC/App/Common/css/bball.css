@@ -5,31 +5,36 @@
    width: 2000px;
    height: 1000px;
 }
-.xpopupModal {
-   width: 750px;
-   height: 418px;
-   background: #000000;
-   text-align: center;
-   position: fixed;
-   left: 37.5%;
-   top: 5%;
-   z-index: 20;
-   display: none;
-   padding-top: 6px
+.unAdjTotals {
+   font-family: 'Courier New';
+   font-weight: bold;
+   font-size: large;
 }
+
+.clickable {
+   background: cyan;
+}
+
 .awayR1, .homeR1 {
    color: blue;
 }
 .awayR2, .homeR2 {
    color: green;
 }
-.awayR3, .homeR3 {
+.awayR3, .homeR3, .blackBoldFG {
    color: black;
    font-weight: bold;
 }
 .redFG {
    color: red;
 }
+.appleGreen {
+   color: green;
+}
+.title {
+   color: purple;
+}
+
 .b-left {
    border-left-style: solid;
 }

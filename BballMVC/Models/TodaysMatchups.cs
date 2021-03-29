@@ -141,6 +141,24 @@ namespace BballMVC.Models
         public Nullable<double> LgAvgShotsMadeHomePt1 { get; set; }
         public Nullable<double> LgAvgShotsMadeHomePt2 { get; set; }
         public Nullable<double> LgAvgShotsMadeHomePt3 { get; set; }
+        public Nullable<double> AverageMadeAwayGB1Pt1 { get; set; }
+        public Nullable<double> AverageMadeAwayGB1Pt2 { get; set; }
+        public Nullable<double> AverageMadeAwayGB1Pt3 { get; set; }
+        public Nullable<double> AverageMadeAwayGB2Pt1 { get; set; }
+        public Nullable<double> AverageMadeAwayGB2Pt2 { get; set; }
+        public Nullable<double> AverageMadeAwayGB2Pt3 { get; set; }
+        public Nullable<double> AverageMadeAwayGB3Pt1 { get; set; }
+        public Nullable<double> AverageMadeAwayGB3Pt2 { get; set; }
+        public Nullable<double> AverageMadeAwayGB3Pt3 { get; set; }
+        public Nullable<double> AverageMadeHomeGB1Pt1 { get; set; }
+        public Nullable<double> AverageMadeHomeGB1Pt2 { get; set; }
+        public Nullable<double> AverageMadeHomeGB1Pt3 { get; set; }
+        public Nullable<double> AverageMadeHomeGB2Pt1 { get; set; }
+        public Nullable<double> AverageMadeHomeGB2Pt2 { get; set; }
+        public Nullable<double> AverageMadeHomeGB2Pt3 { get; set; }
+        public Nullable<double> AverageMadeHomeGB3Pt1 { get; set; }
+        public Nullable<double> AverageMadeHomeGB3Pt2 { get; set; }
+        public Nullable<double> AverageMadeHomeGB3Pt3 { get; set; }
         public Nullable<double> TMoppAdjPct { get; set; }
         public Nullable<double> TotalBubbleAway { get; set; }
         public Nullable<double> TotalBubbleHome { get; set; }

@@ -1,19 +1,15 @@
-﻿'use strict';
-angular.module('app').controller('TMunAdjTotalsModalController', function ($rootScope, $scope, f, ajx, url) {
+﻿
+class TMunAdjTotals {
 
-   $scope.$on('eventOpenTMunAdjTotalsModal', function (e, arObj) {
-      $scope.OpenTMunAdjTotalsModal(arObj);
-   });
-          
-   $scope.OpenTMunAdjTotalsModal = function (arObj) {
-      let item = arObj.item;
+   constructor(arObj) {
+      this.item = arObj.item;
+   }
 
-      let html = buildHtml(item);
-      $("#trTM_" + arObj.$index).closest('tr').after(html);
+   get html() {
+      return buildHtml(this.item);
+   }
 
-   };   // on
-
-   function buildHtml(item) {
+   buildHtml(item) {
       let arData = [];
       buildData(item, arData);
 
@@ -32,7 +28,7 @@ angular.module('app').controller('TMunAdjTotalsModalController', function ($root
       return html;
    }   // buildHtml
 
-   function buildData(item, arData) {
+   buildData(item, arData) {
       let ixVenue = 0;
 
       for (ixVenue = 1; ixVenue <= 2; ixVenue++) {
@@ -64,12 +60,12 @@ angular.module('app').controller('TMunAdjTotalsModalController', function ($root
       }  // Venue loop
 
       // Local Function
-      function formatPointRow(TotPts, PtValue, Pt, oppPt, LgAvg, TMoppAdjPct) {
+      formatPointRow(TotPts, PtValue, Pt, oppPt, LgAvg, TMoppAdjPct) {
          let calcShots = (
-               Pt * (1.0 + ((oppPt / LgAvg) - 1.0) * TMoppAdjPct)
-                          );
- //                         PtValue * Pt *  ( 1  + ( (oppPt / LgAvg) - 1  ) * TMoppAdjPct) 
-// PtValue * Pt * ( 1.0 + (( (oppPt / LgAvg) - 1.0 ) * TMoppAdjPct) )
+            Pt * (1.0 + ((oppPt / LgAvg) - 1.0) * TMoppAdjPct)
+         );
+         //                         PtValue * Pt *  ( 1  + ( (oppPt / LgAvg) - 1  ) * TMoppAdjPct) 
+         // PtValue * Pt * ( 1.0 + (( (oppPt / LgAvg) - 1.0 ) * TMoppAdjPct) )
 
          const numLen = 5;
          let dec = numLen - 3;
@@ -79,13 +75,13 @@ angular.module('app').controller('TMunAdjTotalsModalController', function ($root
          oppPt = formatNum(oppPt, numLen, dec);
          LgAvg = formatNum(LgAvg, numLen, dec);
          TMoppAdjPct = formatNum(TMoppAdjPct * 100, 3, 0);
-                                                 //  PtValue  *     Pt * ( 1+ (( (oppPt / LgAvg) - 1 ) * TMoppAdjPct) )
-                           // 2 -         56.84 / 29.0          = 28.62 * (1+( 28.44   / 28.64)-1)    * 100%)
+         //  PtValue  *     Pt * ( 1+ (( (oppPt / LgAvg) - 1 ) * TMoppAdjPct) )
+         // 2 -         56.84 / 29.0          = 28.62 * (1+( 28.44   / 28.64)-1)    * 100%)
          let template = `${PtValue} - ${TotPts} / ${calcShots} = ${Pt} * (1+(${oppPt} / ${LgAvg})-1) * ${TMoppAdjPct}%)`;
-        // let template = `${TotPts} = ${PtValue} * ${Pt} * (1+(${oppPt} / ${LgAvg})-1) * ${TMoppAdjPct}%)`;
+         // let template = `${TotPts} = ${PtValue} * ${Pt} * (1+(${oppPt} / ${LgAvg})-1) * ${TMoppAdjPct}%)`;
          return convertSpaces(template);
 
-         function formatNum(num, len, dec) {
+         formatNum(num, len, dec) {
             if (num === null) {
                num = 1;
             }
@@ -99,11 +95,11 @@ angular.module('app').controller('TMunAdjTotalsModalController', function ($root
 
    }   // buildData
 
-   function convertSpaces(str) {
+   convertSpaces(str) {
       const regex = / /g;
       return str.replace(regex, '&nbsp;');
    }
-   function buildRows(item, arData) {
+   buildRows(item, arData) {
       let arRows = [];
       let arRow;
       const regex = / /g;
@@ -133,24 +129,12 @@ angular.module('app').controller('TMunAdjTotalsModalController', function ($root
          arRows.push([statHeader, statHeader, statHeader]);
          let pt = 0;
          for (pt = 0; pt < 3; pt++) {  // for each PtValues 1,2,3 => 18.10 = 1 * ( 19.13 + ((15.01-17.19) * 100% )
-            arRows.push([arData[ixVenue][0][pt], arData[ixVenue][1][pt], arData[ixVenue][2][ pt]]);
+            arRows.push([arData[ixVenue][0][pt], arData[ixVenue][1][pt], arData[ixVenue][2][pt]]);
          }
-         arRows.push([ "&nbsp;&nbsp;&nbsp;" + item[Venue + 'GB1'].toFixed(2), "&nbsp;&nbsp;&nbsp;" + item[Venue + 'GB2'].toFixed(1), "&nbsp;&nbsp;&nbsp;" + item[Venue + 'GB3'].toFixed(1) ]); // ex: AwayGB1
+         arRows.push(["&nbsp;&nbsp;&nbsp;" + item[Venue + 'GB1'].toFixed(2), "&nbsp;&nbsp;&nbsp;" + item[Venue + 'GB2'].toFixed(1), "&nbsp;&nbsp;&nbsp;" + item[Venue + 'GB3'].toFixed(1)]); // ex: AwayGB1
          arRows.push(["", "", ""]); // Blank line
       }
       return arRows;
    }  // buildRows
 
-   function xxxwrapTag(tag, data, arAttrs) {
-      let attrsLit = "";
-      if (arAttrs) {
-         for (const attr of arAttrs) {
-            attrsLit += " " + attr;
-         }
-      }
-      return "<" + tag + attrsLit + ">" + data + "</" + tag + ">"
-   }
-
-
-
-}); // Adjustments Modal controller
+}  // TMunAdjTotals

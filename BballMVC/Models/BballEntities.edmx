@@ -1001,6 +1001,24 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.TodaysMatchups' does not ha
           <Property Name="LgAvgShotsMadeHomePt1" Type="float" />
           <Property Name="LgAvgShotsMadeHomePt2" Type="float" />
           <Property Name="LgAvgShotsMadeHomePt3" Type="float" />
+          <Property Name="AverageMadeAwayGB1Pt1" Type="float" />
+          <Property Name="AverageMadeAwayGB1Pt2" Type="float" />
+          <Property Name="AverageMadeAwayGB1Pt3" Type="float" />
+          <Property Name="AverageMadeAwayGB2Pt1" Type="float" />
+          <Property Name="AverageMadeAwayGB2Pt2" Type="float" />
+          <Property Name="AverageMadeAwayGB2Pt3" Type="float" />
+          <Property Name="AverageMadeAwayGB3Pt1" Type="float" />
+          <Property Name="AverageMadeAwayGB3Pt2" Type="float" />
+          <Property Name="AverageMadeAwayGB3Pt3" Type="float" />
+          <Property Name="AverageMadeHomeGB1Pt1" Type="float" />
+          <Property Name="AverageMadeHomeGB1Pt2" Type="float" />
+          <Property Name="AverageMadeHomeGB1Pt3" Type="float" />
+          <Property Name="AverageMadeHomeGB2Pt1" Type="float" />
+          <Property Name="AverageMadeHomeGB2Pt2" Type="float" />
+          <Property Name="AverageMadeHomeGB2Pt3" Type="float" />
+          <Property Name="AverageMadeHomeGB3Pt1" Type="float" />
+          <Property Name="AverageMadeHomeGB3Pt2" Type="float" />
+          <Property Name="AverageMadeHomeGB3Pt3" Type="float" />
           <Property Name="TMoppAdjPct" Type="float" />
           <Property Name="TotalBubbleAway" Type="float" />
           <Property Name="TotalBubbleHome" Type="float" />
@@ -2267,6 +2285,24 @@ BoxScoresAdjustedID],
     [TodaysMatchups].[LgAvgShotsMadeHomePt1] AS [LgAvgShotsMadeHomePt1], 
     [TodaysMatchups].[LgAvgShotsMadeHomePt2] AS [LgAvgShotsMadeHomePt2], 
     [TodaysMatchups].[LgAvgShotsMadeHomePt3] AS [LgAvgShotsMadeHomePt3], 
+    [TodaysMatchups].[AverageMadeAwayGB1Pt1] AS [AverageMadeAwayGB1Pt1], 
+    [TodaysMatchups].[AverageMadeAwayGB1Pt2] AS [AverageMadeAwayGB1Pt2], 
+    [TodaysMatchups].[AverageMadeAwayGB1Pt3] AS [AverageMadeAwayGB1Pt3], 
+    [TodaysMatchups].[AverageMadeAwayGB2Pt1] AS [AverageMadeAwayGB2Pt1], 
+    [TodaysMatchups].[AverageMadeAwayGB2Pt2] AS [AverageMadeAwayGB2Pt2], 
+    [TodaysMatchups].[AverageMadeAwayGB2Pt3] AS [AverageMadeAwayGB2Pt3], 
+    [TodaysMatchups].[AverageMadeAwayGB3Pt1] AS [AverageMadeAwayGB3Pt1], 
+    [TodaysMatchups].[AverageMadeAwayGB3Pt2] AS [AverageMadeAwayGB3Pt2], 
+    [TodaysMatchups].[AverageMadeAwayGB3Pt3] AS [AverageMadeAwayGB3Pt3], 
+    [TodaysMatchups].[AverageMadeHomeGB1Pt1] AS [AverageMadeHomeGB1Pt1], 
+    [TodaysMatchups].[AverageMadeHomeGB1Pt2] AS [AverageMadeHomeGB1Pt2], 
+    [TodaysMatchups].[AverageMadeHomeGB1Pt3] AS [AverageMadeHomeGB1Pt3], 
+    [TodaysMatchups].[AverageMadeHomeGB2Pt1] AS [AverageMadeHomeGB2Pt1], 
+    [TodaysMatchups].[AverageMadeHomeGB2Pt2] AS [AverageMadeHomeGB2Pt2], 
+    [TodaysMatchups].[AverageMadeHomeGB2Pt3] AS [AverageMadeHomeGB2Pt3], 
+    [TodaysMatchups].[AverageMadeHomeGB3Pt1] AS [AverageMadeHomeGB3Pt1], 
+    [TodaysMatchups].[AverageMadeHomeGB3Pt2] AS [AverageMadeHomeGB3Pt2], 
+    [TodaysMatchups].[AverageMadeHomeGB3Pt3] AS [AverageMadeHomeGB3Pt3], 
     [TodaysMatchups].[TMoppAdjPct] AS [TMoppAdjPct], 
     [TodaysMatchups].[TotalBubbleAway] AS [TotalBubbleAway], 
     [TodaysMatchups].[TotalBubbleHome] AS [TotalBubbleHome], 
@@ -4308,6 +4344,24 @@ BoxScoresAdjustedID],
           <Property Name="LgAvgShotsMadeHomePt1" Type="Double" />
           <Property Name="LgAvgShotsMadeHomePt2" Type="Double" />
           <Property Name="LgAvgShotsMadeHomePt3" Type="Double" />
+          <Property Name="AverageMadeAwayGB1Pt1" Type="Double" />
+          <Property Name="AverageMadeAwayGB1Pt2" Type="Double" />
+          <Property Name="AverageMadeAwayGB1Pt3" Type="Double" />
+          <Property Name="AverageMadeAwayGB2Pt1" Type="Double" />
+          <Property Name="AverageMadeAwayGB2Pt2" Type="Double" />
+          <Property Name="AverageMadeAwayGB2Pt3" Type="Double" />
+          <Property Name="AverageMadeAwayGB3Pt1" Type="Double" />
+          <Property Name="AverageMadeAwayGB3Pt2" Type="Double" />
+          <Property Name="AverageMadeAwayGB3Pt3" Type="Double" />
+          <Property Name="AverageMadeHomeGB1Pt1" Type="Double" />
+          <Property Name="AverageMadeHomeGB1Pt2" Type="Double" />
+          <Property Name="AverageMadeHomeGB1Pt3" Type="Double" />
+          <Property Name="AverageMadeHomeGB2Pt1" Type="Double" />
+          <Property Name="AverageMadeHomeGB2Pt2" Type="Double" />
+          <Property Name="AverageMadeHomeGB2Pt3" Type="Double" />
+          <Property Name="AverageMadeHomeGB3Pt1" Type="Double" />
+          <Property Name="AverageMadeHomeGB3Pt2" Type="Double" />
+          <Property Name="AverageMadeHomeGB3Pt3" Type="Double" />
           <Property Name="TMoppAdjPct" Type="Double" />
           <Property Name="TotalBubbleAway" Type="Double" />
           <Property Name="TotalBubbleHome" Type="Double" />
@@ -5374,6 +5428,24 @@ BoxScoresAdjustedID],
                 <ScalarProperty Name="TotalBubbleHome" ColumnName="TotalBubbleHome" />
                 <ScalarProperty Name="TotalBubbleAway" ColumnName="TotalBubbleAway" />
                 <ScalarProperty Name="TMoppAdjPct" ColumnName="TMoppAdjPct" />
+                <ScalarProperty Name="AverageMadeHomeGB3Pt3" ColumnName="AverageMadeHomeGB3Pt3" />
+                <ScalarProperty Name="AverageMadeHomeGB3Pt2" ColumnName="AverageMadeHomeGB3Pt2" />
+                <ScalarProperty Name="AverageMadeHomeGB3Pt1" ColumnName="AverageMadeHomeGB3Pt1" />
+                <ScalarProperty Name="AverageMadeHomeGB2Pt3" ColumnName="AverageMadeHomeGB2Pt3" />
+                <ScalarProperty Name="AverageMadeHomeGB2Pt2" ColumnName="AverageMadeHomeGB2Pt2" />
+                <ScalarProperty Name="AverageMadeHomeGB2Pt1" ColumnName="AverageMadeHomeGB2Pt1" />
+                <ScalarProperty Name="AverageMadeHomeGB1Pt3" ColumnName="AverageMadeHomeGB1Pt3" />
+                <ScalarProperty Name="AverageMadeHomeGB1Pt2" ColumnName="AverageMadeHomeGB1Pt2" />
+                <ScalarProperty Name="AverageMadeHomeGB1Pt1" ColumnName="AverageMadeHomeGB1Pt1" />
+                <ScalarProperty Name="AverageMadeAwayGB3Pt3" ColumnName="AverageMadeAwayGB3Pt3" />
+                <ScalarProperty Name="AverageMadeAwayGB3Pt2" ColumnName="AverageMadeAwayGB3Pt2" />
+                <ScalarProperty Name="AverageMadeAwayGB3Pt1" ColumnName="AverageMadeAwayGB3Pt1" />
+                <ScalarProperty Name="AverageMadeAwayGB2Pt3" ColumnName="AverageMadeAwayGB2Pt3" />
+                <ScalarProperty Name="AverageMadeAwayGB2Pt2" ColumnName="AverageMadeAwayGB2Pt2" />
+                <ScalarProperty Name="AverageMadeAwayGB2Pt1" ColumnName="AverageMadeAwayGB2Pt1" />
+                <ScalarProperty Name="AverageMadeAwayGB1Pt3" ColumnName="AverageMadeAwayGB1Pt3" />
+                <ScalarProperty Name="AverageMadeAwayGB1Pt2" ColumnName="AverageMadeAwayGB1Pt2" />
+                <ScalarProperty Name="AverageMadeAwayGB1Pt1" ColumnName="AverageMadeAwayGB1Pt1" />
                 <ScalarProperty Name="LgAvgShotsMadeHomePt3" ColumnName="LgAvgShotsMadeHomePt3" />
                 <ScalarProperty Name="LgAvgShotsMadeHomePt2" ColumnName="LgAvgShotsMadeHomePt2" />
                 <ScalarProperty Name="LgAvgShotsMadeHomePt1" ColumnName="LgAvgShotsMadeHomePt1" />

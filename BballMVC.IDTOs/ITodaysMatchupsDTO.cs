@@ -18,6 +18,24 @@ namespace BballMVC.IDTOs
       double AdjTV { get; set; }
       double? AdjustedDiff { get; set; }
       string AllAdjustmentLines { get; set; }
+      double? AverageMadeAwayGB1Pt1 { get; set; }
+      double? AverageMadeAwayGB1Pt2 { get; set; }
+      double? AverageMadeAwayGB1Pt3 { get; set; }
+      double? AverageMadeAwayGB2Pt1 { get; set; }
+      double? AverageMadeAwayGB2Pt2 { get; set; }
+      double? AverageMadeAwayGB2Pt3 { get; set; }
+      double? AverageMadeAwayGB3Pt1 { get; set; }
+      double? AverageMadeAwayGB3Pt2 { get; set; }
+      double? AverageMadeAwayGB3Pt3 { get; set; }
+      double? AverageMadeHomeGB1Pt1 { get; set; }
+      double? AverageMadeHomeGB1Pt2 { get; set; }
+      double? AverageMadeHomeGB1Pt3 { get; set; }
+      double? AverageMadeHomeGB2Pt1 { get; set; }
+      double? AverageMadeHomeGB2Pt2 { get; set; }
+      double? AverageMadeHomeGB2Pt3 { get; set; }
+      double? AverageMadeHomeGB3Pt1 { get; set; }
+      double? AverageMadeHomeGB3Pt2 { get; set; }
+      double? AverageMadeHomeGB3Pt3 { get; set; }
       double? AwayAverageAllowedPt1 { get; set; }
       double? AwayAverageAllowedPt2 { get; set; }
       double? AwayAverageAllowedPt3 { get; set; }

@@ -444,12 +444,29 @@ namespace Bball.DAL.Tables
          o.LgAvgShotsMadeHomePt1 = rdr["LgAvgShotsMadeHomePt1"] == DBNull.Value ? null : (double?)rdr["LgAvgShotsMadeHomePt1"];
          o.LgAvgShotsMadeHomePt2 = rdr["LgAvgShotsMadeHomePt2"] == DBNull.Value ? null : (double?)rdr["LgAvgShotsMadeHomePt2"];
          o.LgAvgShotsMadeHomePt3 = rdr["LgAvgShotsMadeHomePt3"] == DBNull.Value ? null : (double?)rdr["LgAvgShotsMadeHomePt3"];
+         o.AverageMadeAwayGB1Pt1 = rdr["AverageMadeAwayGB1Pt1"] == DBNull.Value ? null : (double?)rdr["AverageMadeAwayGB1Pt1"];
+         o.AverageMadeAwayGB1Pt2 = rdr["AverageMadeAwayGB1Pt2"] == DBNull.Value ? null : (double?)rdr["AverageMadeAwayGB1Pt2"];
+         o.AverageMadeAwayGB1Pt3 = rdr["AverageMadeAwayGB1Pt3"] == DBNull.Value ? null : (double?)rdr["AverageMadeAwayGB1Pt3"];
+         o.AverageMadeAwayGB2Pt1 = rdr["AverageMadeAwayGB2Pt1"] == DBNull.Value ? null : (double?)rdr["AverageMadeAwayGB2Pt1"];
+         o.AverageMadeAwayGB2Pt2 = rdr["AverageMadeAwayGB2Pt2"] == DBNull.Value ? null : (double?)rdr["AverageMadeAwayGB2Pt2"];
+         o.AverageMadeAwayGB2Pt3 = rdr["AverageMadeAwayGB2Pt3"] == DBNull.Value ? null : (double?)rdr["AverageMadeAwayGB2Pt3"];
+         o.AverageMadeAwayGB3Pt1 = rdr["AverageMadeAwayGB3Pt1"] == DBNull.Value ? null : (double?)rdr["AverageMadeAwayGB3Pt1"];
+         o.AverageMadeAwayGB3Pt2 = rdr["AverageMadeAwayGB3Pt2"] == DBNull.Value ? null : (double?)rdr["AverageMadeAwayGB3Pt2"];
+         o.AverageMadeAwayGB3Pt3 = rdr["AverageMadeAwayGB3Pt3"] == DBNull.Value ? null : (double?)rdr["AverageMadeAwayGB3Pt3"];
+         o.AverageMadeHomeGB1Pt1 = rdr["AverageMadeHomeGB1Pt1"] == DBNull.Value ? null : (double?)rdr["AverageMadeHomeGB1Pt1"];
+         o.AverageMadeHomeGB1Pt2 = rdr["AverageMadeHomeGB1Pt2"] == DBNull.Value ? null : (double?)rdr["AverageMadeHomeGB1Pt2"];
+         o.AverageMadeHomeGB1Pt3 = rdr["AverageMadeHomeGB1Pt3"] == DBNull.Value ? null : (double?)rdr["AverageMadeHomeGB1Pt3"];
+         o.AverageMadeHomeGB2Pt1 = rdr["AverageMadeHomeGB2Pt1"] == DBNull.Value ? null : (double?)rdr["AverageMadeHomeGB2Pt1"];
+         o.AverageMadeHomeGB2Pt2 = rdr["AverageMadeHomeGB2Pt2"] == DBNull.Value ? null : (double?)rdr["AverageMadeHomeGB2Pt2"];
+         o.AverageMadeHomeGB2Pt3 = rdr["AverageMadeHomeGB2Pt3"] == DBNull.Value ? null : (double?)rdr["AverageMadeHomeGB2Pt3"];
+         o.AverageMadeHomeGB3Pt1 = rdr["AverageMadeHomeGB3Pt1"] == DBNull.Value ? null : (double?)rdr["AverageMadeHomeGB3Pt1"];
+         o.AverageMadeHomeGB3Pt2 = rdr["AverageMadeHomeGB3Pt2"] == DBNull.Value ? null : (double?)rdr["AverageMadeHomeGB3Pt2"];
+         o.AverageMadeHomeGB3Pt3 = rdr["AverageMadeHomeGB3Pt3"] == DBNull.Value ? null : (double?)rdr["AverageMadeHomeGB3Pt3"];
          o.TMoppAdjPct = rdr["TMoppAdjPct"] == DBNull.Value ? null : (double?)rdr["TMoppAdjPct"];
          o.TotalBubbleAway = rdr["TotalBubbleAway"] == DBNull.Value ? null : (double?)rdr["TotalBubbleAway"];
          o.TotalBubbleHome = rdr["TotalBubbleHome"] == DBNull.Value ? null : (double?)rdr["TotalBubbleHome"];
          o.TS = rdr["TS"] == DBNull.Value ? null : (DateTime?)rdr["TS"];
          o.AllAdjustmentLines = rdr["AllAdjustmentLines"] == DBNull.Value ? null : (string)rdr["AllAdjustmentLines"];
-
 
 
 

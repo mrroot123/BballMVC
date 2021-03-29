@@ -19,12 +19,16 @@
                </tr>
                <tr>
                   <th>Adjustment<br>Amount</th>
+                  <th>Start&nbsp;Date&nbsp;&nbsp;&nbsp;</th>
+                  <th>End&nbsp;Date&nbsp;&nbsp;&nbsp;</th>
                   <th>Adj Type</th>
                   <th>Description</th>
                   <th>Player</th>
                </tr>
                <tr ng-repeat="oAdjustment in ocAdjustmentsByTeam">
                   <td>{{oAdjustment.AdjustmentAmount | number:2}}</td>
+                  <td>{{oAdjustment.TS.substring(0, 10)}}</td>
+                  <td>{{oAdjustment.EndDate.substring(0, 10)}}</td>
                   <td>{{oAdjustment.AdjustmentType}}</td>
                   <td>{{oAdjustment.Description}}</td>
                   <td>{{oAdjustment.Player}}</td>

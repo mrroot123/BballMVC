@@ -3,10 +3,10 @@
 angular.module('app').controller('TodaysMatchupsController', function ($rootScope, $scope, f, ajx, url) {
    //alert("TodaysMatchupsController");
    let TodaysMatchupsParms = { scope: $scope, f: f, LeagueName: $rootScope.oBballInfoDTO.LeagueName, ajx: ajx };
-   let localGameDate = null;
+   let localGameDate = $rootScope.oBballInfoDTO.GameDate;
 
    setCheckBoxes();
-   $rootScope.RefreshTodaysMatchupsState = true;
+   $rootScope.RefreshTodaysMatchupsState = false;
 
    let ocOuts = [
       { name: "Pin", juice: "105" }
@@ -38,6 +38,9 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
          $scope.RefreshTodaysMatchups(true);
       }
    });
+   $scope.OpenTMunAdjTotalsModal = function (arObj) {
+      $rootScope.$broadcast('eventOpenTMunAdjTotalsModal', arObj);
+   };
 
    /*
      Make 3 Entry Points
@@ -45,73 +48,28 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
      2) Select GameDate    ()
      3) Yesterday, Today, Tomorrow Click  (false, newDateLiteral)
    */
-   $scope.GetByDayButton = function (refresh, newDateLiteral) {
-      let newDate = null;
-      if (newDateLiteral === "yesterday") {
-         newDate = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1);
-      }
-      else if (newDateLiteral === "today") {
-         newDate = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
-      }
-      else if (newDateLiteral === "tomorrow") {
-         newDate = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 1);
-      }
-      else {
-         return;
-      }
-      if (newDate.toDateString() === $rootScope.oBballInfoDTO.GameDate.toDateString()) {
+   $scope.RefreshTodaysMatchups = function () {
+      getTodaysMatchups(url.UrlRefreshTodaysMatchups);
+   };
+   $scope.SelectGameDate = function () {
+      let URL = $rootScope.oBballInfoDTO.GameDate < f.Today() ? url.UrlGetPastMatchups : url.UrlRefreshTodaysMatchups;
+      checkForSameDate($rootScope.oBballInfoDTO.GameDate, URL);
+   };
+   $scope.GetYesterday = function () {
+      let newDate = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1);
+      checkForSameDate(newDate, url.UrlGetPastMatchups);
+   };
+   $scope.GetByDayButton = function (dateOffset) {
+      let newDate = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + dateOffset);
+      checkForSameDate(newDate, url.UrlRefreshTodaysMatchups);
+   };
+
+   function checkForSameDate(newDate, URL){
+      if (newDate.toDateString() === localGameDate.toDateString()) {
          alert(localGameDate.toLocaleDateString() + " is already Selected");
          return;
       }
       $rootScope.oBballInfoDTO.GameDate = newDate;
-      var URL = refresh ? url.UrlRefreshTodaysMatchups : url.UrlGetPastMatchups;
-      getTodaysMatchups(URL);
-   };
-   $scope.RefreshTMs = function () {
-      getTodaysMatchups(url.UrlRefreshTodaysMatchups);
-   };
-   $scope.SelectGameDate = function () {
-      if (localGameDate === $rootScope.oBballInfoDTO.GameDate) {
-         alert(localGameDate.toLocaleDateString() + " is already Selected");
-         return;
-      }
-      var URL = $rootScope.oBballInfoDTO.GameDate < f.Today() ? url.UrlGetPastMatchups : url.UrlRefreshTodaysMatchups;
-
-      getTodaysMatchups(URL);
-   };
-   $scope.RefreshTodaysMatchups = function (refresh, newDateLiteral) {
-      if (newDateLiteral) {
-         let newDate = null;
-         if (newDateLiteral === "yesterday") {
-            newDate = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1);
-         }
-         else if (newDateLiteral === "today") {
-            newDate = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
-         }
-         else if (newDateLiteral === "tomorrow") {
-            newDate = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 1);
-         }
-         else {
-            return;
-         }
-         if (newDate.toDateString() === $rootScope.oBballInfoDTO.GameDate.toDateString()) {
-            alert(localGameDate.toLocaleDateString() + " is already Selected");
-            return;
-         }
-         $rootScope.oBballInfoDTO.GameDate = newDate;
-      }
-      else {
-         if (!$rootScope.RefreshTodaysMatchupsState && !refresh) {
-            if (localGameDate === $rootScope.oBballInfoDTO.GameDate) {
-               alert(localGameDate.toLocaleDateString() + " is already Selected");
-               return;
-            }
-         }
-      }
-
-
-      // If Today or refresh, Then refresh by uspCalcTodaysMatchups ELSE get Previous Matchups
-      var URL = $rootScope.oBballInfoDTO.GameDate < f.Today() && !refresh ? url.UrlGetPastMatchups : url.UrlRefreshTodaysMatchups;
       getTodaysMatchups(URL);
    };
 
@@ -128,7 +86,7 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
            UserName:   $rootScope.oBballInfoDTO.UserName
          , GameDate:   localGameDate.toLocaleDateString()
          , LeagueName: $rootScope.oBballInfoDTO.LeagueName
-      })   // Get TodaysMatchups from server
+         })   // Get TodaysMatchups from server
          .then(data => {
             // See ajx.AjaxGet in HeaderController for same moves
             $rootScope.oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO = data.ocTodaysMatchupsDTO;
@@ -200,11 +158,6 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
       $scope.avgOpenTotalLine = totOpenTotalLine / ctrOpenTotalLine;
 
       $scope.GameDate = $rootScope.oBballInfoDTO.GameDate;
-      //  $scope.InitPlayEntry();
-
-      //$rootScope.oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO.sort((a, b) => {
-      //   return a.RotNum - b.RotNum;
-      //});
 
       $scope.ocTodaysMatchups = $rootScope.oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO;
       $scope.LeagueColor = $rootScope.oBballInfoDTO.oBballDataDTO.oLeagueDTO.LeagueColor;
@@ -271,10 +224,10 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
    $scope.Getmdy = function (GameDate) {
       return f.Getmdy(GameDate);
    };
-   $scope.GameDateChange = function (GameDate) {
-      alert("GameDateChange");
-      // $rootScope.oBballInfoDTO.GameDate = GameDate;
-   };
+   //$scope.GameDateChange = function (GameDate) {
+   //   alert("GameDateChange");
+   //   // $rootScope.oBballInfoDTO.GameDate = GameDate;
+   //};
    // <tr ng-repeat="item in ocTodaysMatchups" 
    // ng - hide=" (ShowPlaysOnly && '{{item.Play.trim()}}' === '') ||  " >
    $scope.HideMatchupRow = function (obj) {
@@ -446,6 +399,22 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
       if (obj.item.Play === null)
          return "";
       return obj.item.Play.trim().toLowerCase();
+   };
+   $scope.applyDogFavColor = function (obj, Venue) {
+      if (obj.item.SideLine === 0) {  // no fav or dog
+         return;
+      }
+      if (Venue === "Away") {
+         if (obj.item.SideLine > 0){  // Away is Fav
+            return "blackBoldFG";
+         }
+         return "redFG";
+      }
+      // Home
+      if (obj.item.SideLine < 0) {  // Home is Fav
+         return "blackBoldFG";
+      }
+      return "redFG";
    };
    $scope.applyMinusRedColor = function (n1, n2) {
       try {
