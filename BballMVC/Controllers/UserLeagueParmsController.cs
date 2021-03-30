@@ -10,9 +10,11 @@ using BballMVC.Models;
 
 namespace BballMVC.Controllers
 {
-    public class UserLeagueParmsController : Controller
+    public class UserLeagueParmsController : BaseController
     {
-        private Entities2 db = new Entities2();
+
+      //  private Entities2 db = new Entities2("name=Entities2");
+      // private Entities2 db = new Entities2(EFname);
 
       // GET: UserLeagueParms
       public ActionResult IndexAll()

@@ -4,7 +4,7 @@ using BballMVC.IDTOs;
 
 namespace BballMVC.DTOs
 {
-   public class vPostGameAnalysisDTO : IvPostGameAnalysisDTO
+   public class vPostGameAnalysisDTO : IvPostGameAnalysisDTO 
    {
       public int TodaysMatchupsID { get; set; }
       public string UserName { get; set; }
@@ -16,12 +16,28 @@ namespace BballMVC.DTOs
       public string TeamHome { get; set; }
       public int RotNum { get; set; }
       public string GameTime { get; set; }
+      public Nullable<bool> Canceled { get; set; }
       public string TV { get; set; }
       public double TmStrAway { get; set; }
       public Nullable<double> TmStrHome { get; set; }
-      public double UnAdjTotalAway { get; set; }
+      public string TeamRecordAway { get; set; }
+      public string TeamRecordHome { get; set; }
+      public Nullable<double> UnAdjTotalAway { get; set; }
       public double UnAdjTotalHome { get; set; }
       public double UnAdjTotal { get; set; }
+      public Nullable<double> UnAdjTotalAwayPlanB { get; set; }
+      public Nullable<double> UnAdjTotalHomePlanB { get; set; }
+      public Nullable<double> UnAdjTotalPlanB { get; set; }
+      public Nullable<double> CalcAwayGB1PlanB { get; set; }
+      public Nullable<double> CalcAwayGB2PlanB { get; set; }
+      public Nullable<double> CalcAwayGB3PlanB { get; set; }
+      public Nullable<double> CalcHomeGB1PlanB { get; set; }
+      public Nullable<double> CalcHomeGB2PlanB { get; set; }
+      public Nullable<double> CalcHomeGB3PlanB { get; set; }
+      public Nullable<double> AwayAveragePtsScored { get; set; }
+      public Nullable<double> HomeAveragePtsScored { get; set; }
+      public Nullable<double> AwayAveragePtsAllowed { get; set; }
+      public Nullable<double> HomeAveragePtsAllowed { get; set; }
       public double AdjAmt { get; set; }
       public double AdjAmtAway { get; set; }
       public double AdjAmtHome { get; set; }
@@ -30,7 +46,10 @@ namespace BballMVC.DTOs
       public double AdjOTwithSide { get; set; }
       public double AdjTV { get; set; }
       public Nullable<double> AdjRecentLeagueHistory { get; set; }
-      public Nullable<double> AdjPace { get; set; }
+      public Nullable<double> AdjPaceAway { get; set; }
+      public Nullable<double> AdjPaceHome { get; set; }
+      public Nullable<double> AdjTeamAway { get; set; }
+      public Nullable<double> AdjTeamHome { get; set; }
       public double OurTotalLineAway { get; set; }
       public double OurTotalLineHome { get; set; }
       public double OurTotalLine { get; set; }
@@ -38,7 +57,7 @@ namespace BballMVC.DTOs
       public Nullable<double> TotalLine { get; set; }
       public Nullable<double> OpenTotalLine { get; set; }
       public string Play { get; set; }
-      public string PlayResult { get; set; }
+      public string Played { get; set; }
       public Nullable<double> PlayDiff { get; set; }
       public Nullable<double> OpenPlayDiff { get; set; }
       public Nullable<double> AdjustedDiff { get; set; }
@@ -99,6 +118,8 @@ namespace BballMVC.DTOs
       public Nullable<double> TotalBubbleAway { get; set; }
       public Nullable<double> TotalBubbleHome { get; set; }
       public Nullable<System.DateTime> TS { get; set; }
+      public string AllAdjustmentLines { get; set; }
+      public string PlayResult { get; set; }
       public int OtPeriods { get; set; }
       public double ScoreReg { get; set; }
       public double ScoreOT { get; set; }

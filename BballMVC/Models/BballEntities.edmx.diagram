@@ -22,14 +22,14 @@
         <EntityTypeShape EntityType="TTI_LeagueScoresModel.TodaysMatchupsResult" Width="1.5" PointX="16.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TTI_LeagueScoresModel.TTILog" Width="1.5" PointX="2.75" PointY="16.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TTI_LeagueScoresModel.User" Width="1.5" PointX="10.75" PointY="16.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TTI_LeagueScoresModel.vPostGameAnalysi" Width="1.5" PointX="16.75" PointY="11.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TTI_LeagueScoresModel.Rotation" Width="1.5" PointX="18.75" PointY="0.75" />
         <EntityTypeShape EntityType="TTI_LeagueScoresModel.TodaysPlays" Width="1.5" PointX="19.375" PointY="6.75" />
         <EntityTypeShape EntityType="TTI_LeagueScoresModel.AdjustmentsCodes" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="TTI_LeagueScoresModel.DailySummary" Width="1.5" PointX="19.375" PointY="13.75" />
-        <EntityTypeShape EntityType="TTI_LeagueScoresModel.UserLeagueParms" Width="1.5" PointX="3.375" PointY="0.75" />
         <EntityTypeShape EntityType="TTI_LeagueScoresModel.TeamStrength" Width="1.5" PointX="0.75" PointY="3.75" />
         <EntityTypeShape EntityType="TTI_LeagueScoresModel.TodaysMatchups" Width="1.5" PointX="13.375" PointY="16.75" />
+        <EntityTypeShape EntityType="TTI_LeagueScoresModel.UserLeagueParms" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="TTI_LeagueScoresModel.vPostGameAnalysis" Width="1.5" PointX="15.375" PointY="11.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

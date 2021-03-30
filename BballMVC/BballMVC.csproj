@@ -182,6 +182,7 @@
     <Compile Include="ControllerAPIs\TodaysPlaysController.cs" />
     <Compile Include="Controllers\AdjustmentsCodesController.cs" />
     <Compile Include="Controllers\AdjustmentsController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BoxScoresController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ParmTablesController.cs" />
@@ -233,6 +234,7 @@
     <Compile Include="Models\DailySummary.cs">
       <DependentUpon>BballEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Entities10.cs" />
     <Compile Include="Models\LeagueInfo.cs">
       <DependentUpon>BballEntities.tt</DependentUpon>
     </Compile>
@@ -320,7 +322,7 @@
     <Compile Include="Models\uspQuerySeasonInfo_Result.cs">
       <DependentUpon>BballEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\vPostGameAnalysi.cs">
+    <Compile Include="Models\vPostGameAnalysis.cs">
       <DependentUpon>BballEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\xudfDailyParms_Result.cs">
@@ -581,6 +583,7 @@
     <Content Include="Views\AdjustmentsCodes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\Base\" />
     <Folder Include="Views\Log\" />
   </ItemGroup>
   <ItemGroup>
