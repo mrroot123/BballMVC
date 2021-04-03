@@ -6,7 +6,7 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
    let localGameDate = $rootScope.oBballInfoDTO.GameDate;
 
    setCheckBoxes();
-   $rootScope.RefreshTodaysMatchupsState = false;
+   $rootScope.RefreshTodaysMatchupsState = true;
 
    let ocOuts = [
       { name: "Pin", juice: "105" }
@@ -32,12 +32,16 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
       $rootScope.RefreshTodaysMatchupsState = true;
    });
 
+
    // When Todays Matchups is clicked in Accordion it will refresh
    $scope.$on("eventRefreshTodaysMatchups", function (ev) {
-      if ($rootScope.RefreshTodaysMatchupsState) {
+      if ($rootScope.RefreshTodaysMatchupsState && isProductionRelease()) {
          $scope.RefreshTodaysMatchups(true);
       }
    });
+   function isProductionRelease() {
+      return $("#release").html().toLowerCase().indexOf("test") < 0;
+   }
    $scope.OpenTMunAdjTotalsModal = function (arObj) {
       $rootScope.$broadcast('eventOpenTMunAdjTotalsModal', arObj);
    };

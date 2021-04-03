@@ -14,9 +14,9 @@ angular.module('app').controller('AlertModalController', function ($rootScope, $
             // oModal.style.height = 100 + data.length * 50;
       f.ShowModal(modalName);
       //      $scope.setAdjustmentsModal = f.showHideModal(true);
-      setTimeout(function () {
-         $scope.AlertModalClose();
-      }, 3000);
+      //setTimeout(function () {
+      //   $scope.AlertModalClose();
+      //}, 3000);
    }); // $on
    // 
    $scope.AlertModalClose = function () {    // invoked by Close click on Modal
@@ -26,11 +26,15 @@ angular.module('app').controller('AlertModalController', function ($rootScope, $
     //  $scope.$emit("eventReshowTodaysMatchupsContainer");   //  kdtodo make eventReshowTodaysMatchupsContainer generic
    };
    function editMsg(msg) {
+     // var patt1 = /\n/;
+     // var result = str.search(patt1);
       // Split Then join the pieces putting the replace string in between:
-      return msg.split("\n").join("<br>");
+      const newLine = /\n/;
+      return msg.split(newLine).join("<br>");
    }
    function editMsg2(msg) {
       // substr(zeroIx, len)
+      const newLine = /\n/;
       var msgOut = "";
       var i;
       for (i = 0; i < msg.length - 1; i++ ) {

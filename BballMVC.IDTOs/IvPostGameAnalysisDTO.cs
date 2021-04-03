@@ -21,9 +21,33 @@ namespace BballMVC.IDTOs
       string AllAdjustmentLines { get; set; }
       double AssistsOp { get; set; }
       double AssistsUs { get; set; }
+      double? AverageMadeAwayGB1Pt1 { get; set; }
+      double? AverageMadeAwayGB1Pt2 { get; set; }
+      double? AverageMadeAwayGB1Pt3 { get; set; }
+      double? AverageMadeAwayGB2Pt1 { get; set; }
+      double? AverageMadeAwayGB2Pt2 { get; set; }
+      double? AverageMadeAwayGB2Pt3 { get; set; }
+      double? AverageMadeAwayGB3Pt1 { get; set; }
+      double? AverageMadeAwayGB3Pt2 { get; set; }
+      double? AverageMadeAwayGB3Pt3 { get; set; }
+      double? AverageMadeHomeGB1Pt1 { get; set; }
+      double? AverageMadeHomeGB1Pt2 { get; set; }
+      double? AverageMadeHomeGB1Pt3 { get; set; }
+      double? AverageMadeHomeGB2Pt1 { get; set; }
+      double? AverageMadeHomeGB2Pt2 { get; set; }
+      double? AverageMadeHomeGB2Pt3 { get; set; }
+      double? AverageMadeHomeGB3Pt1 { get; set; }
+      double? AverageMadeHomeGB3Pt2 { get; set; }
+      double? AverageMadeHomeGB3Pt3 { get; set; }
+      double? AwayAverageAllowedPt1 { get; set; }
+      double? AwayAverageAllowedPt2 { get; set; }
+      double? AwayAverageAllowedPt3 { get; set; }
       double AwayAverageAtmpUsPt1 { get; set; }
       double AwayAverageAtmpUsPt2 { get; set; }
       double AwayAverageAtmpUsPt3 { get; set; }
+      double? AwayAverageMadePt1 { get; set; }
+      double? AwayAverageMadePt2 { get; set; }
+      double? AwayAverageMadePt3 { get; set; }
       double? AwayAveragePtsAllowed { get; set; }
       double? AwayAveragePtsScored { get; set; }
       double AwayGB1 { get; set; }
@@ -57,9 +81,15 @@ namespace BballMVC.IDTOs
       int GB1 { get; set; }
       int GB2 { get; set; }
       int GB3 { get; set; }
+      double? HomeAverageAllowedPt1 { get; set; }
+      double? HomeAverageAllowedPt2 { get; set; }
+      double? HomeAverageAllowedPt3 { get; set; }
       double HomeAverageAtmpUsPt1 { get; set; }
       double HomeAverageAtmpUsPt2 { get; set; }
       double HomeAverageAtmpUsPt3 { get; set; }
+      double? HomeAverageMadePt1 { get; set; }
+      double? HomeAverageMadePt2 { get; set; }
+      double? HomeAverageMadePt3 { get; set; }
       double? HomeAveragePtsAllowed { get; set; }
       double? HomeAveragePtsScored { get; set; }
       double HomeGB1 { get; set; }
@@ -81,6 +111,12 @@ namespace BballMVC.IDTOs
       double HomeProjectedPt2 { get; set; }
       double HomeProjectedPt3 { get; set; }
       string LeagueName { get; set; }
+      double? LgAvgShotsMadeAwayPt1 { get; set; }
+      double? LgAvgShotsMadeAwayPt2 { get; set; }
+      double? LgAvgShotsMadeAwayPt3 { get; set; }
+      double? LgAvgShotsMadeHomePt1 { get; set; }
+      double? LgAvgShotsMadeHomePt2 { get; set; }
+      double? LgAvgShotsMadeHomePt3 { get; set; }
       double OffRBOp { get; set; }
       double OffRBUs { get; set; }
       double? OpenPlayDiff { get; set; }
@@ -141,6 +177,7 @@ namespace BballMVC.IDTOs
       string TeamRecordAway { get; set; }
       string TeamRecordHome { get; set; }
       int Threshold { get; set; }
+      double? TMoppAdjPct { get; set; }
       double TmStrAdjPct { get; set; }
       double TmStrAway { get; set; }
       double? TmStrHome { get; set; }

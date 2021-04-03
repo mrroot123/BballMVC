@@ -107,7 +107,8 @@ BEGIN
       ,@OverLosses = sum([OverLoss]) 
 		  FROM [00TTI_LeagueScores].[dbo].[TodaysMatchupsResults]
 		  Where Season = @Season and LeagueName = @LeagueName
-			and ( ((@Venue = 'Away' AND TeamAway = @Team) or (@Venue = 'Home' AND TeamHome = @Team)) or @Venue = 'Both')
+			and ( ((@Venue = 'Away' AND TeamAway = @Team) or (@Venue = 'Home')) or @Venue = 'Both')
+			 AND TeamHome = @Team
 
 		
 		Insert Into @TeamStats
@@ -145,8 +146,8 @@ Select @LeagueName, @Season, @GameDate
 --	order by vol Desc
 --	) q1
 
-Select
+Select t.Wins as Winss, t.Losses, 
 	 t.PtMade1 +  t.PtMade2 *2 + t.PtMade3 * 3 as PtsScored
  ,	 t.PtAllowed1 +  t.PtAllowed2 *2 + t.PtAllowed3 * 3 as PtsAllowed
  , * From @TeamStats t
- order by vol
+ order by wins desc

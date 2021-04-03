@@ -40,30 +40,30 @@
          @Html.ValidationMessageFor(model => model.LeagueName, "", new { @class = "text-danger" })
       </div>
    </div>
- 
+
 
    @*<div class="form-group">
-      <table>
-         <tr>
-            <th>
-               User Name
-            </th>
-            <th>&nbsp;&nbsp;&nbsp;</th>
-            <th>
-               League Name
-            </th>
-         </tr>
-         <tr>
-            <td>
-               @Html.DisplayFor(model => model.UserName)
-            </td>
-            <th>&nbsp;&nbsp;&nbsp;</th>
-            <td>
-               @Html.DisplayFor(model => model.LeagueName)
-            </td>
-         </tr>
-      </table>
-   </div>*@
+         <table>
+            <tr>
+               <th>
+                  User Name
+               </th>
+               <th>&nbsp;&nbsp;&nbsp;</th>
+               <th>
+                  League Name
+               </th>
+            </tr>
+            <tr>
+               <td>
+                  @Html.DisplayFor(model => model.UserName)
+               </td>
+               <th>&nbsp;&nbsp;&nbsp;</th>
+               <td>
+                  @Html.DisplayFor(model => model.LeagueName)
+               </td>
+            </tr>
+         </table>
+      </div>*@
 
 
 
@@ -99,6 +99,27 @@
          @Html.ValidationMessageFor(model => model.TeamPaceGamesBack, "", new { @class = "text-danger" })
       </div>
    </div>
+
+
+   <div class="form-group">
+      @Html.LabelFor(model => model.TeamStrengthGamesBack, htmlAttributes: new { @class = "control-label col-md-2" })
+      <div class="col-md-10">
+         @Html.EditorFor(model => model.TeamStrengthGamesBack, new { htmlAttributes = new { @class = "form-control" } })
+         @Html.ValidationMessageFor(model => model.TeamStrengthGamesBack, "", new { @class = "text-danger" })
+      </div>
+   </div>
+
+
+
+   <div class="form-group">
+      @Html.LabelFor(model => model.VolatilityGamesBack, htmlAttributes: new { @class = "control-label col-md-2" })
+      <div class="col-md-10">
+         @Html.EditorFor(model => model.VolatilityGamesBack, new { htmlAttributes = new { @class = "form-control" } })
+         @Html.ValidationMessageFor(model => model.VolatilityGamesBack, "", new { @class = "text-danger" })
+      </div>
+   </div>
+
+
 
    <div class="form-group">
       @Html.LabelFor(model => model.TeamSeedGames, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -218,6 +239,28 @@
          @Html.ValidationMessageFor(model => model.RecentLgHistoryAdjPct, "", new { @class = "text-danger" })
       </div>
    </div>
+
+
+
+   <div class="form-group">
+      @Html.LabelFor(model => model.TeamPaceAdjPct, htmlAttributes: new { @class = "control-label col-md-2" })
+      <div class="col-md-10">
+         @Html.EditorFor(model => model.TeamPaceAdjPct, new { htmlAttributes = new { @class = "form-control" } })
+         @Html.ValidationMessageFor(model => model.TeamPaceAdjPct, "", new { @class = "text-danger" })
+      </div>
+   </div>
+
+
+
+   <div class="form-group">
+      @Html.LabelFor(model => model.TeamAdjPct, htmlAttributes: new { @class = "control-label col-md-2" })
+      <div class="col-md-10">
+         @Html.EditorFor(model => model.TeamAdjPct, new { htmlAttributes = new { @class = "form-control" } })
+         @Html.ValidationMessageFor(model => model.TeamAdjPct, "", new { @class = "text-danger" })
+      </div>
+   </div>
+
+
 
    <div class="form-group">
       @Html.LabelFor(model => model.BothHome_Away, htmlAttributes: new { @class = "control-label col-md-2" })

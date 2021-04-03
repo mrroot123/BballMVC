@@ -135,7 +135,7 @@ angular.module('app').controller('TMunAdjTotalsModalController', function ($root
          for (pt = 0; pt < 3; pt++) {  // for each PtValues 1,2,3 => 18.10 = 1 * ( 19.13 + ((15.01-17.19) * 100% )
             arRows.push([arData[ixVenue][0][pt], arData[ixVenue][1][pt], arData[ixVenue][2][ pt]]);
          }
-         arRows.push([ "&nbsp;&nbsp;&nbsp;" + item[Venue + 'GB1'].toFixed(2), "&nbsp;&nbsp;&nbsp;" + item[Venue + 'GB2'].toFixed(1), "&nbsp;&nbsp;&nbsp;" + item[Venue + 'GB3'].toFixed(1) ]); // ex: AwayGB1
+         arRows.push([ "&nbsp;&nbsp;&nbsp;" + item[Venue + 'GB1'].toFixed(2), "&nbsp;&nbsp;&nbsp;" + item[Venue + 'GB2'].toFixed(2), "&nbsp;&nbsp;&nbsp;" + item[Venue + 'GB3'].toFixed(2) ]); // ex: AwayGB1
          arRows.push(["", "", ""]); // Blank line
       }
       return arRows;

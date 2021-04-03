@@ -1432,6 +1432,43 @@ warning 6002: The table/view '00TTI_LeagueScores.dbo.vPostGameAnalysis' does not
           <Property Name="HomeGB3Pt1" Type="float" Nullable="false" />
           <Property Name="HomeGB3Pt2" Type="float" Nullable="false" />
           <Property Name="HomeGB3Pt3" Type="float" Nullable="false" />
+          <Property Name="AwayAverageMadePt1" Type="float" />
+          <Property Name="AwayAverageMadePt2" Type="float" />
+          <Property Name="AwayAverageMadePt3" Type="float" />
+          <Property Name="HomeAverageMadePt1" Type="float" />
+          <Property Name="HomeAverageMadePt2" Type="float" />
+          <Property Name="HomeAverageMadePt3" Type="float" />
+          <Property Name="AwayAverageAllowedPt1" Type="float" />
+          <Property Name="AwayAverageAllowedPt2" Type="float" />
+          <Property Name="AwayAverageAllowedPt3" Type="float" />
+          <Property Name="HomeAverageAllowedPt1" Type="float" />
+          <Property Name="HomeAverageAllowedPt2" Type="float" />
+          <Property Name="HomeAverageAllowedPt3" Type="float" />
+          <Property Name="LgAvgShotsMadeAwayPt1" Type="float" />
+          <Property Name="LgAvgShotsMadeAwayPt2" Type="float" />
+          <Property Name="LgAvgShotsMadeAwayPt3" Type="float" />
+          <Property Name="LgAvgShotsMadeHomePt1" Type="float" />
+          <Property Name="LgAvgShotsMadeHomePt2" Type="float" />
+          <Property Name="LgAvgShotsMadeHomePt3" Type="float" />
+          <Property Name="AverageMadeAwayGB1Pt1" Type="float" />
+          <Property Name="AverageMadeAwayGB1Pt2" Type="float" />
+          <Property Name="AverageMadeAwayGB1Pt3" Type="float" />
+          <Property Name="AverageMadeAwayGB2Pt1" Type="float" />
+          <Property Name="AverageMadeAwayGB2Pt2" Type="float" />
+          <Property Name="AverageMadeAwayGB2Pt3" Type="float" />
+          <Property Name="AverageMadeAwayGB3Pt1" Type="float" />
+          <Property Name="AverageMadeAwayGB3Pt2" Type="float" />
+          <Property Name="AverageMadeAwayGB3Pt3" Type="float" />
+          <Property Name="AverageMadeHomeGB1Pt1" Type="float" />
+          <Property Name="AverageMadeHomeGB1Pt2" Type="float" />
+          <Property Name="AverageMadeHomeGB1Pt3" Type="float" />
+          <Property Name="AverageMadeHomeGB2Pt1" Type="float" />
+          <Property Name="AverageMadeHomeGB2Pt2" Type="float" />
+          <Property Name="AverageMadeHomeGB2Pt3" Type="float" />
+          <Property Name="AverageMadeHomeGB3Pt1" Type="float" />
+          <Property Name="AverageMadeHomeGB3Pt2" Type="float" />
+          <Property Name="AverageMadeHomeGB3Pt3" Type="float" />
+          <Property Name="TMoppAdjPct" Type="float" />
           <Property Name="TotalBubbleAway" Type="float" />
           <Property Name="TotalBubbleHome" Type="float" />
           <Property Name="TS" Type="datetime" />
@@ -2487,6 +2524,43 @@ BoxScoresAdjustedID],
     [vPostGameAnalysis].[HomeGB3Pt1] AS [HomeGB3Pt1], 
     [vPostGameAnalysis].[HomeGB3Pt2] AS [HomeGB3Pt2], 
     [vPostGameAnalysis].[HomeGB3Pt3] AS [HomeGB3Pt3], 
+    [vPostGameAnalysis].[AwayAverageMadePt1] AS [AwayAverageMadePt1], 
+    [vPostGameAnalysis].[AwayAverageMadePt2] AS [AwayAverageMadePt2], 
+    [vPostGameAnalysis].[AwayAverageMadePt3] AS [AwayAverageMadePt3], 
+    [vPostGameAnalysis].[HomeAverageMadePt1] AS [HomeAverageMadePt1], 
+    [vPostGameAnalysis].[HomeAverageMadePt2] AS [HomeAverageMadePt2], 
+    [vPostGameAnalysis].[HomeAverageMadePt3] AS [HomeAverageMadePt3], 
+    [vPostGameAnalysis].[AwayAverageAllowedPt1] AS [AwayAverageAllowedPt1], 
+    [vPostGameAnalysis].[AwayAverageAllowedPt2] AS [AwayAverageAllowedPt2], 
+    [vPostGameAnalysis].[AwayAverageAllowedPt3] AS [AwayAverageAllowedPt3], 
+    [vPostGameAnalysis].[HomeAverageAllowedPt1] AS [HomeAverageAllowedPt1], 
+    [vPostGameAnalysis].[HomeAverageAllowedPt2] AS [HomeAverageAllowedPt2], 
+    [vPostGameAnalysis].[HomeAverageAllowedPt3] AS [HomeAverageAllowedPt3], 
+    [vPostGameAnalysis].[LgAvgShotsMadeAwayPt1] AS [LgAvgShotsMadeAwayPt1], 
+    [vPostGameAnalysis].[LgAvgShotsMadeAwayPt2] AS [LgAvgShotsMadeAwayPt2], 
+    [vPostGameAnalysis].[LgAvgShotsMadeAwayPt3] AS [LgAvgShotsMadeAwayPt3], 
+    [vPostGameAnalysis].[LgAvgShotsMadeHomePt1] AS [LgAvgShotsMadeHomePt1], 
+    [vPostGameAnalysis].[LgAvgShotsMadeHomePt2] AS [LgAvgShotsMadeHomePt2], 
+    [vPostGameAnalysis].[LgAvgShotsMadeHomePt3] AS [LgAvgShotsMadeHomePt3], 
+    [vPostGameAnalysis].[AverageMadeAwayGB1Pt1] AS [AverageMadeAwayGB1Pt1], 
+    [vPostGameAnalysis].[AverageMadeAwayGB1Pt2] AS [AverageMadeAwayGB1Pt2], 
+    [vPostGameAnalysis].[AverageMadeAwayGB1Pt3] AS [AverageMadeAwayGB1Pt3], 
+    [vPostGameAnalysis].[AverageMadeAwayGB2Pt1] AS [AverageMadeAwayGB2Pt1], 
+    [vPostGameAnalysis].[AverageMadeAwayGB2Pt2] AS [AverageMadeAwayGB2Pt2], 
+    [vPostGameAnalysis].[AverageMadeAwayGB2Pt3] AS [AverageMadeAwayGB2Pt3], 
+    [vPostGameAnalysis].[AverageMadeAwayGB3Pt1] AS [AverageMadeAwayGB3Pt1], 
+    [vPostGameAnalysis].[AverageMadeAwayGB3Pt2] AS [AverageMadeAwayGB3Pt2], 
+    [vPostGameAnalysis].[AverageMadeAwayGB3Pt3] AS [AverageMadeAwayGB3Pt3], 
+    [vPostGameAnalysis].[AverageMadeHomeGB1Pt1] AS [AverageMadeHomeGB1Pt1], 
+    [vPostGameAnalysis].[AverageMadeHomeGB1Pt2] AS [AverageMadeHomeGB1Pt2], 
+    [vPostGameAnalysis].[AverageMadeHomeGB1Pt3] AS [AverageMadeHomeGB1Pt3], 
+    [vPostGameAnalysis].[AverageMadeHomeGB2Pt1] AS [AverageMadeHomeGB2Pt1], 
+    [vPostGameAnalysis].[AverageMadeHomeGB2Pt2] AS [AverageMadeHomeGB2Pt2], 
+    [vPostGameAnalysis].[AverageMadeHomeGB2Pt3] AS [AverageMadeHomeGB2Pt3], 
+    [vPostGameAnalysis].[AverageMadeHomeGB3Pt1] AS [AverageMadeHomeGB3Pt1], 
+    [vPostGameAnalysis].[AverageMadeHomeGB3Pt2] AS [AverageMadeHomeGB3Pt2], 
+    [vPostGameAnalysis].[AverageMadeHomeGB3Pt3] AS [AverageMadeHomeGB3Pt3], 
+    [vPostGameAnalysis].[TMoppAdjPct] AS [TMoppAdjPct], 
     [vPostGameAnalysis].[TotalBubbleAway] AS [TotalBubbleAway], 
     [vPostGameAnalysis].[TotalBubbleHome] AS [TotalBubbleHome], 
     [vPostGameAnalysis].[TS] AS [TS], 
@@ -4307,6 +4381,43 @@ BoxScoresAdjustedID],
           <Property Name="HomeGB3Pt1" Type="Double" Nullable="false" />
           <Property Name="HomeGB3Pt2" Type="Double" Nullable="false" />
           <Property Name="HomeGB3Pt3" Type="Double" Nullable="false" />
+          <Property Name="AwayAverageMadePt1" Type="Double" />
+          <Property Name="AwayAverageMadePt2" Type="Double" />
+          <Property Name="AwayAverageMadePt3" Type="Double" />
+          <Property Name="HomeAverageMadePt1" Type="Double" />
+          <Property Name="HomeAverageMadePt2" Type="Double" />
+          <Property Name="HomeAverageMadePt3" Type="Double" />
+          <Property Name="AwayAverageAllowedPt1" Type="Double" />
+          <Property Name="AwayAverageAllowedPt2" Type="Double" />
+          <Property Name="AwayAverageAllowedPt3" Type="Double" />
+          <Property Name="HomeAverageAllowedPt1" Type="Double" />
+          <Property Name="HomeAverageAllowedPt2" Type="Double" />
+          <Property Name="HomeAverageAllowedPt3" Type="Double" />
+          <Property Name="LgAvgShotsMadeAwayPt1" Type="Double" />
+          <Property Name="LgAvgShotsMadeAwayPt2" Type="Double" />
+          <Property Name="LgAvgShotsMadeAwayPt3" Type="Double" />
+          <Property Name="LgAvgShotsMadeHomePt1" Type="Double" />
+          <Property Name="LgAvgShotsMadeHomePt2" Type="Double" />
+          <Property Name="LgAvgShotsMadeHomePt3" Type="Double" />
+          <Property Name="AverageMadeAwayGB1Pt1" Type="Double" />
+          <Property Name="AverageMadeAwayGB1Pt2" Type="Double" />
+          <Property Name="AverageMadeAwayGB1Pt3" Type="Double" />
+          <Property Name="AverageMadeAwayGB2Pt1" Type="Double" />
+          <Property Name="AverageMadeAwayGB2Pt2" Type="Double" />
+          <Property Name="AverageMadeAwayGB2Pt3" Type="Double" />
+          <Property Name="AverageMadeAwayGB3Pt1" Type="Double" />
+          <Property Name="AverageMadeAwayGB3Pt2" Type="Double" />
+          <Property Name="AverageMadeAwayGB3Pt3" Type="Double" />
+          <Property Name="AverageMadeHomeGB1Pt1" Type="Double" />
+          <Property Name="AverageMadeHomeGB1Pt2" Type="Double" />
+          <Property Name="AverageMadeHomeGB1Pt3" Type="Double" />
+          <Property Name="AverageMadeHomeGB2Pt1" Type="Double" />
+          <Property Name="AverageMadeHomeGB2Pt2" Type="Double" />
+          <Property Name="AverageMadeHomeGB2Pt3" Type="Double" />
+          <Property Name="AverageMadeHomeGB3Pt1" Type="Double" />
+          <Property Name="AverageMadeHomeGB3Pt2" Type="Double" />
+          <Property Name="AverageMadeHomeGB3Pt3" Type="Double" />
+          <Property Name="TMoppAdjPct" Type="Double" />
           <Property Name="TotalBubbleAway" Type="Double" />
           <Property Name="TotalBubbleHome" Type="Double" />
           <Property Name="TS" Type="DateTime" Precision="3" />
@@ -5455,6 +5566,43 @@ BoxScoresAdjustedID],
                 <ScalarProperty Name="TS" ColumnName="TS" />
                 <ScalarProperty Name="TotalBubbleHome" ColumnName="TotalBubbleHome" />
                 <ScalarProperty Name="TotalBubbleAway" ColumnName="TotalBubbleAway" />
+                <ScalarProperty Name="TMoppAdjPct" ColumnName="TMoppAdjPct" />
+                <ScalarProperty Name="AverageMadeHomeGB3Pt3" ColumnName="AverageMadeHomeGB3Pt3" />
+                <ScalarProperty Name="AverageMadeHomeGB3Pt2" ColumnName="AverageMadeHomeGB3Pt2" />
+                <ScalarProperty Name="AverageMadeHomeGB3Pt1" ColumnName="AverageMadeHomeGB3Pt1" />
+                <ScalarProperty Name="AverageMadeHomeGB2Pt3" ColumnName="AverageMadeHomeGB2Pt3" />
+                <ScalarProperty Name="AverageMadeHomeGB2Pt2" ColumnName="AverageMadeHomeGB2Pt2" />
+                <ScalarProperty Name="AverageMadeHomeGB2Pt1" ColumnName="AverageMadeHomeGB2Pt1" />
+                <ScalarProperty Name="AverageMadeHomeGB1Pt3" ColumnName="AverageMadeHomeGB1Pt3" />
+                <ScalarProperty Name="AverageMadeHomeGB1Pt2" ColumnName="AverageMadeHomeGB1Pt2" />
+                <ScalarProperty Name="AverageMadeHomeGB1Pt1" ColumnName="AverageMadeHomeGB1Pt1" />
+                <ScalarProperty Name="AverageMadeAwayGB3Pt3" ColumnName="AverageMadeAwayGB3Pt3" />
+                <ScalarProperty Name="AverageMadeAwayGB3Pt2" ColumnName="AverageMadeAwayGB3Pt2" />
+                <ScalarProperty Name="AverageMadeAwayGB3Pt1" ColumnName="AverageMadeAwayGB3Pt1" />
+                <ScalarProperty Name="AverageMadeAwayGB2Pt3" ColumnName="AverageMadeAwayGB2Pt3" />
+                <ScalarProperty Name="AverageMadeAwayGB2Pt2" ColumnName="AverageMadeAwayGB2Pt2" />
+                <ScalarProperty Name="AverageMadeAwayGB2Pt1" ColumnName="AverageMadeAwayGB2Pt1" />
+                <ScalarProperty Name="AverageMadeAwayGB1Pt3" ColumnName="AverageMadeAwayGB1Pt3" />
+                <ScalarProperty Name="AverageMadeAwayGB1Pt2" ColumnName="AverageMadeAwayGB1Pt2" />
+                <ScalarProperty Name="AverageMadeAwayGB1Pt1" ColumnName="AverageMadeAwayGB1Pt1" />
+                <ScalarProperty Name="LgAvgShotsMadeHomePt3" ColumnName="LgAvgShotsMadeHomePt3" />
+                <ScalarProperty Name="LgAvgShotsMadeHomePt2" ColumnName="LgAvgShotsMadeHomePt2" />
+                <ScalarProperty Name="LgAvgShotsMadeHomePt1" ColumnName="LgAvgShotsMadeHomePt1" />
+                <ScalarProperty Name="LgAvgShotsMadeAwayPt3" ColumnName="LgAvgShotsMadeAwayPt3" />
+                <ScalarProperty Name="LgAvgShotsMadeAwayPt2" ColumnName="LgAvgShotsMadeAwayPt2" />
+                <ScalarProperty Name="LgAvgShotsMadeAwayPt1" ColumnName="LgAvgShotsMadeAwayPt1" />
+                <ScalarProperty Name="HomeAverageAllowedPt3" ColumnName="HomeAverageAllowedPt3" />
+                <ScalarProperty Name="HomeAverageAllowedPt2" ColumnName="HomeAverageAllowedPt2" />
+                <ScalarProperty Name="HomeAverageAllowedPt1" ColumnName="HomeAverageAllowedPt1" />
+                <ScalarProperty Name="AwayAverageAllowedPt3" ColumnName="AwayAverageAllowedPt3" />
+                <ScalarProperty Name="AwayAverageAllowedPt2" ColumnName="AwayAverageAllowedPt2" />
+                <ScalarProperty Name="AwayAverageAllowedPt1" ColumnName="AwayAverageAllowedPt1" />
+                <ScalarProperty Name="HomeAverageMadePt3" ColumnName="HomeAverageMadePt3" />
+                <ScalarProperty Name="HomeAverageMadePt2" ColumnName="HomeAverageMadePt2" />
+                <ScalarProperty Name="HomeAverageMadePt1" ColumnName="HomeAverageMadePt1" />
+                <ScalarProperty Name="AwayAverageMadePt3" ColumnName="AwayAverageMadePt3" />
+                <ScalarProperty Name="AwayAverageMadePt2" ColumnName="AwayAverageMadePt2" />
+                <ScalarProperty Name="AwayAverageMadePt1" ColumnName="AwayAverageMadePt1" />
                 <ScalarProperty Name="HomeGB3Pt3" ColumnName="HomeGB3Pt3" />
                 <ScalarProperty Name="HomeGB3Pt2" ColumnName="HomeGB3Pt2" />
                 <ScalarProperty Name="HomeGB3Pt1" ColumnName="HomeGB3Pt1" />
