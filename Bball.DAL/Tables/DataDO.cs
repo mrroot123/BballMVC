@@ -312,6 +312,10 @@ namespace Bball.DAL.Tables
             oBballInfoDTO.ConnectionString, Sql, oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO, populateTodaysMatchupsDTOFromRdr);
 
          GetDailySummaryDTO(oBballInfoDTO);
+
+         // POC
+ //        var ocJObject = new List <JObject>();
+   //      DALfunctions.ExecuteDynamicSqlQuery(oBballInfoDTO.ConnectionString, Sql, ocJObject);
       }
       static void populateTodaysMatchupsDTOFromRdr(object oRow, SqlDataReader rdr)
       {

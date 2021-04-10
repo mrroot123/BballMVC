@@ -122,8 +122,7 @@ namespace Bball.DataBaseFunctions
          SqlParmValues.Add(TeamNameInDatabase);
 
          string StoredProcedureName = "TeamLookupTeamNameByTeamNameInDatabase";
-         string ConnectionString = GetConnectionString(
-            );
+         string ConnectionString = GetConnectionString();
 
          string s = DALfunctions.ExecuteStoredProcedureQueryReturnSingleParm(ConnectionString, StoredProcedureName, SqlParmNames, SqlParmValues);
          if (String.IsNullOrEmpty(s))
@@ -186,11 +185,7 @@ namespace Bball.DataBaseFunctions
          string strSql = $"Select ParmValue From ParmTable Where ParmName = '{ParmName}'";
          return SysDAL.Functions.DALfunctions.ExecuteSqlQueryReturnSingleParm(ConnectionString, strSql, "ParmValue").ToString();
       }
-      //public static object ParmTableParmValueQuery(string ParmName)
-      //{
-      //   string strSql = "Select ParmValue From ParmTable Where ParmName = '{ParmName}'";
-      //   return SysDAL.Functions.DALfunctions.ExecuteSqlQueryReturnSingleParm(GetConnectionString(), strSql, "ParmValue");
-      //}
+
       public static int ParmTableParmValueUpdate(string ConnectionString, string ParmName, string ParmValue, string UserName = "default")
       {
          string strSql = $"Update ParmTable "
@@ -198,13 +193,7 @@ namespace Bball.DataBaseFunctions
                      + $"Where ParmName = '{ParmName}' ";
          return SysDAL.Functions.DALfunctions.ExecuteSqlNonQuery(ConnectionString, strSql);
       }
-      //public static int ParmTableParmValueUpdate(string ParmName, string ParmValue, string UserName = "default")
-      //{
-      //   string strSql = $"Update ParmTable "
-      //               + $"SET ParmValue = '{ParmValue}', UpdateUser = '{UserName}', UpdateDate = '{DateTime.Now}' "
-      //               + $"Where ParmName = '{ParmName}' ";
-      //   return SysDAL.Functions.DALfunctions.ExecuteSqlNonQuery(GetConnectionString(), strSql);
-      //}
+
       #endregion parmTable
    }  // class SqlFunctions
 

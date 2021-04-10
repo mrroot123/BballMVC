@@ -1,5 +1,7 @@
 use [00TTI_LeagueScores]
-
+--
+--- Results pasted in Analysis.xlsx 
+--
 Declare @LeagueName varchar(10) = 'NBA', @Season varchar(4), @GameDate Date
 Declare @VolAway float, @VolHome float,  @TmStrAway float, @TmStrHome float
 	, @PtMade1 float, @PtAtmp1 float
@@ -52,10 +54,11 @@ Exec uspQueryTeams  @LeagueName, @GameDate
 --	  order by GameDate desc
 --	  ) x on x.team = t.Team
 
+
 Declare @Team varchar(4);
 Set @Team = '';
 While 1 = 1
-BEGIN
+BEGIN		-- Loop for each Team
 ---- Get next @Team
 	Select Top 1  @Team = Team
 		From @Teams
@@ -64,10 +67,12 @@ BEGIN
 	If @@ROWCOUNT = 0
 		BREAK;
 
+	-- Get LATEST GameDate and MAX GB
 	Declare @LastGameDate date
 	Select Top 1 @LastGameDate = GameDate, @GB = GB
 		From TeamStatsAverages
-		Where LeagueName = @LeagueName and GameDate <= @GameDate and (Venue = @Venue or @Venue = 'Both')
+		Where LeagueName = @LeagueName and GameDate <= @GameDate 
+		  and (Venue = @Venue or @Venue = 'Both')
 		Order by GameDate desc, GB Desc
 
 	Declare @Ctr int = 0
@@ -77,12 +82,14 @@ BEGIN
 		Set @VenueLoops = 1
 
 	WHILE @Ctr < @VenueLoops
-	BEGIN
-		Select top 1 @VolAway = Round(Volatility,1) ,@TmStrAway = Round(TeamStrength,1)
+	BEGIN		-- Loop for each Team VENUE - once for BOTH
+	-- TmStr Stats
+		Select top 1 
+			@VolAway = Round(Volatility,1) ,@TmStrAway = Round(TeamStrength,1)
 		  from TeamStrength ts
 			Where GameDate <= @LastGameDate AND Team = @Team and (ts.Venue = @Venue or @Venue = 'Both')
 			order by GameDate desc
-
+	-- TSA Stats
 	  SELECT TOP (1)
 			@PtMade1 = Round(AverageMadeUsPt1,1) ,@PtAtmp1 = Round(AverageAtmpUsPt1,1)
 		 ,	@PtMade2 = Round(AverageMadeUsPt2,1) ,@PtAtmp2 = Round(AverageAtmpUsPt2,1)
@@ -131,7 +138,14 @@ BEGIN
 		
 END
 
-Select @LeagueName, @Season, @GameDate
+Declare @TeamStrengthGamesBack int, @GB3 int
+Select top 1 
+	@TeamStrengthGamesBack = TeamStrengthGamesBack, @GB3 = GB3
+  From UserLeagueParms
+	Where StartDate <= GetDate()
+  Order by StartDate Desc
+	
+Select @LeagueName as LeagueName, @Season as Season, @GameDate as GameDate
 
 --Select 'Top 30', Sum(q1.Wins) as W, Sum(q1.Losses) as L
 --	From (
@@ -147,7 +161,7 @@ Select @LeagueName, @Season, @GameDate
 --	) q1
 
 Select t.Wins as Winss, t.Losses, 
-	 t.PtMade1 +  t.PtMade2 *2 + t.PtMade3 * 3 as PtsScored
+	 t.PtMade1    +  t.PtMade2 *2    + t.PtMade3 * 3    as PtsScored
  ,	 t.PtAllowed1 +  t.PtAllowed2 *2 + t.PtAllowed3 * 3 as PtsAllowed
  , * From @TeamStats t
  order by wins desc

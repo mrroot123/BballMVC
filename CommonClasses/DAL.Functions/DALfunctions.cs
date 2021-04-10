@@ -85,7 +85,7 @@ namespace SysDAL.Functions
       {
          // https://www.newtonsoft.com/json/help/html/ReadJsonWithJsonTextReader.htm
          int ctrRows = 0;
-
+         JObject jObj = null;
          try
          {
             //  1)  Get Conn     SqlConnection oSqlConnection 
@@ -111,7 +111,7 @@ namespace SysDAL.Functions
 
                   while (rdr.Read())
                   {
-                     JObject jObj = JObject.Parse("{}");          // row obj
+                     jObj = JObject.Parse("{}");          // row obj
                      for (int i = 0; i < ocColNames.Count; i++)   // add cols to row obj
                      {
                         if (rdr[ocColNames[i]] == DBNull.Value)
@@ -207,83 +207,6 @@ namespace SysDAL.Functions
          }
          return parmValue;
       }
-
-      //public static object ExecuteUDF(string ConnectionString, string strSql, List<string> ocParmNames, List<SqlDbType> ocSqlDbTypes)
-      //{
-      //   object retValue = null;
-      //   try
-      //   {
-      //      //  1)  Get Conn     SqlConnection oSqlConnection 
-      //      //  2)  Open DB      oSqlConnection.Open();
-      //      //  3)  Set Command  SqlCommand oSqlCommand = new SqlCommand(sql, oSqlConnection);
-      //      //  4)  Exec Sql / Read Rows    SqlDataReader rdr = oSqlCommand.ExecuteReader();
-
-      //      using (SqlConnection oSqlConnection = new SqlConnection(ConnectionString)) // 1) Get Conn
-      //      {
-      //         oSqlConnection.Open();                                            // 2) Get Conn
-      //         using (var cmd = oSqlConnection.CreateCommand())
-      //         {
-      //            cmd.CommandType = CommandType.StoredProcedure;
-
-      //            foreach (var cmdParam in sqlParams)
-      //            {
-      //               cmd.Parameters.Add(cmdParam);
-      //            }
-      //            SqlConnection conn = new SqlConnection(@"SQLCONNECTION STRING");
-      //            SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.function_xyz(@username)", conn);
-      //            // cmd.CommandType=CommandType.StoredProcedure;  
-      //            cmd.Parameters.AddWithValue("@username", "username");
-      //            SqlDataAdapter da = new SqlDataAdapter(cmd);
-//      DataTable dt = new DataTable();
-//      da.Fill(dt);  
-//string str = dt.Rows[0][0].ToString();
-
-      //            var retValParam = new SqlParameter("RetVal", SqlDbType.Int)
-      //            {
-      //               //Set this property as return value
-      //               Direction = ParameterDirection.ReturnValue
-      //            };
-
-      //            cmd.Parameters.Add(retValParam);
-      //            cmd.ExecuteScalar();
-
-      //            retValue = retValParam.Value;
-      //         }
-
-
-
-      //            SqlCommand oSqlCommand = new SqlCommand(strSql, oSqlConnection);  // 3) Set Command
-
-      //         using (SqlDataReader rdr = oSqlCommand.ExecuteReader())           // 4) Exec Sql / Read Rows
-      //         {
-      //            int ctrRows = 0;
-      //            while (rdr.Read())
-      //            {
-      //               parmValue = rdr[ParmName];
-      //               ctrRows++;
-      //            }
-      //            if (ctrRows != 1)
-      //            {
-      //               string msg;
-      //               if (ctrRows == 0)
-      //                  msg = $"Parm {ParmName} Not Found";
-      //               else
-      //                  msg = "Multiple Rows Returned";
-
-      //               throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name}<br>Error Message: {msg}<br>Sql: {strSql}<br>ConnectionString: {ConnectionString}");
-      //            }
-      //         }
-      //      }  // using conn
-      //   }
-      //   catch (Exception ex)
-      //   {
-      //      var msg = ex.Message + "<br>" + StackTraceParse(ex.StackTrace);
-      //      throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name}<br>Error Message: {msg}<br>Sql: {strSql}<br>ConnectionString: {ConnectionString}");
-      //   }
-      //   return parmValue;
-      //}
-
-
 
       #endregion ExecuteSql
 

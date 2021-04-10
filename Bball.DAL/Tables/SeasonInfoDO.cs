@@ -35,6 +35,7 @@ namespace Bball.DAL.Tables
          _LeagueName = oBballInfoDTO.LeagueName;
          _ConnectionString = oBballInfoDTO.ConnectionString;
          populateSeasonInfoDTO(oBballInfoDTO.oSeasonInfoDTO);
+         oBballInfoDTO.oBballDataDTO.oSeasonInfoDTO = oBballInfoDTO.oSeasonInfoDTO;
       }
 
       public DateTime GetNextGameDate()
@@ -61,7 +62,6 @@ namespace Bball.DAL.Tables
 
       private  void populateSeasonInfoDTO(ISeasonInfoDTO oSeasonInfoDTO)
       {
-         // kdtodo - move SqlFunctions.GetConnectionString() to constructor 2b injected
          int rows = SysDAL.Functions.DALfunctions.ExecuteSqlQuery(_ConnectionString, SeasonInfoRowSql()
                        ,  oSeasonInfoDTO, PopulateDTO);
          if (rows == 0)

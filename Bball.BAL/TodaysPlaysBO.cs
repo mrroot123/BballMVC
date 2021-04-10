@@ -97,7 +97,11 @@ namespace Bball.BAL
                ScoreHome = oCoversDTO.ScoreHome;
                GameStatus = oCoversDTO.GameStatus;
             }
-
+            //          Columns           
+            // Row  1     2      3    4     5         6
+            //     Rot # Teams Line Score Status   Info
+            //  1  Rot#  TmAw  Un/Ov ScAw  Time    UnOvStatus
+            //  2  Time  TmHm  Line  ScHm Current
             // Populate common TodaysPlaysResults props
             oTodaysPlaysResults = new TodaysPlaysResults();
             oTodaysPlaysResults.RotNum = oTodaysPlays.RotNum;
@@ -191,10 +195,11 @@ namespace Bball.BAL
          {
             string playResult;
             oTodaysPlaysResults.TimeStatus = $"Final {oTodaysPlaysResults.Score}";
-            calcCurrentStatus();
-            calcOvUnStatus();
+            calcCurrentStatus(); // Col 5  Row 2
+            calcOvUnStatus();    // Col 6  Row 1
+            calcInfo();          // Col 6  Row 2
 
-            void calcCurrentStatus()   
+            void calcCurrentStatus()   // Col 5  Row 2
             {
                if (oTodaysPlaysResults.Score > oTodaysPlays.Line)
                   playResult = "OVER";
@@ -202,9 +207,9 @@ namespace Bball.BAL
                   playResult = "UNDER";
                else playResult = "PUSH";
 
-               oTodaysPlaysResults.CurrentStatus = $"{playResult} {oTodaysPlays.Line}";
+               oTodaysPlaysResults.CurrentStatus = $"{playResult} {oTodaysPlays.Line} ({oTodaysPlaysResults.Score - oTodaysPlaysResults.Line})";
             }  // calcCurrentStatus
-            void calcOvUnStatus()   // WIN / LOSS / Push
+            void calcOvUnStatus()   // WIN / LOSS / Push // Col 6  Row 1
             {
                if (playResult == "PUSH")
                   oTodaysPlaysResults.OvUnStatus = "PUSH";
@@ -213,6 +218,12 @@ namespace Bball.BAL
                else
                   oTodaysPlaysResults.OvUnStatus = "LOSS";
             }  // calcOvUnStatus
+            void calcInfo()   // Col 6  Row 2
+            {
+               oTodaysPlaysResults.Info = oTodaysPlays.Juice.ToString();
+               if (oTodaysPlays.PlayWeight != 1.0)
+                  oTodaysPlaysResults.Info += " Wt: " + oTodaysPlays.PlayWeight.ToString();
+            }  // calcInfo
          }  // calcFinal
 
          void calcNotStarted()

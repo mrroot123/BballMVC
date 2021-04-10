@@ -6,6 +6,7 @@ GO
 DBCC DROPCLEANBUFFERS; 
 GO
 
+--> scrRunTMs Analysis
 SET NOCOUNT ON
 
   Declare @UserName	varchar(10) = 'Test'
@@ -62,7 +63,7 @@ Set @EndYear = 2022
 Set @LoopGBStart = 0
 Set @LoopGBLimit = 1	-- Loop once
 Set @LoopHALimit = 1	-- 2 for both 
-Set @Description = 'Result Line Diff w OTAdj'
+Set @Description = 'After Allstar TmAdj Pct .25'
 
 --Set @StartDate = '12/1/2019'
 --Set @EndDate =   '3/12/2020'
