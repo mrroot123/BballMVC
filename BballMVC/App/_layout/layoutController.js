@@ -18,7 +18,7 @@
 
 
    $scope.clickAccordion = function (ParentContainerName, eventName, ev) {
-      if (ev.target.ariaExpanded)
+      if (ev.target.ariaExpanded === "true")   // If accordion section already open, then close it
          return;
 
       if (!$rootScope.oBballInfoDTO.LeagueName) {

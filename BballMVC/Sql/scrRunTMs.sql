@@ -63,7 +63,18 @@ Set @EndYear = 2022
 Set @LoopGBStart = 0
 Set @LoopGBLimit = 1	-- Loop once
 Set @LoopHALimit = 1	-- 2 for both 
-Set @Description = 'After Allstar TmAdj Pct .25'
+Set @Description = '5/10/15(w2)'
+
+Update UserLeagueParms
+	Set GB1 = 5
+	  , GB2 = 10
+	  , GB3 = 15
+	Where UserLeagueParmsID =
+ (
+ Select top 1 UserLeagueParmsID from UserLeagueParms 
+	where LeagueName = @LeagueName 
+	Order by StartDate Desc
+	)
 
 --Set @StartDate = '12/1/2019'
 --Set @EndDate =   '3/12/2020'

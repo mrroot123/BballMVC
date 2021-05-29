@@ -22,18 +22,22 @@ namespace BballMVC.Controllers
          var x = db.UserLeagueParms.ToList();
          return View(x);
       }
-      public ActionResult Index()
-      {
-         var LeagueName = "NBA";
 
+
+      public ActionResult NBA() => View("Index", userLgParms("NBA"));
+      public ActionResult WNBA() => View("Index", userLgParms("WNBA"));
+
+
+      private List<UserLeagueParms> userLgParms(string LeagueName)
+      {
          UserLeagueParms userLeagueParms =
             db.UserLeagueParms.SqlQuery(
                $"SELECT TOP (1) *  FROM UserLeagueParms  Where LeagueName = '{LeagueName}'  Order by StartDate desc")
                .FirstOrDefault<UserLeagueParms>();
 
-         var x = new List<UserLeagueParms>();
-         x.Add(userLeagueParms);
-         return View(x);
+         return new List<UserLeagueParms>() { userLeagueParms };
+        
+
       }
 
       // GET: UserLeagueParms/Details/5

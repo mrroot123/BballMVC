@@ -8,7 +8,7 @@ angular.module('app').controller('BballManagementController', function ($rootSco
 
    function InitBballManagement() {
       $scope.LeagueNameList = $rootScope.oBballInfoDTO.oBballDataDTO.ocLeagueNames;
-      $scope.$apply();
+ //     $scope.$apply();
    };
 
    //const modalName = "BballManagementModal";

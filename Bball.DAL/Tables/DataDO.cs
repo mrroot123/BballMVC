@@ -161,14 +161,14 @@ namespace Bball.DAL.Tables
       // called by DataDO
       public void GetLeagueData(IBballInfoDTO oBballInfoDTO)
       {
-         // Populates: 1) ocAdjustments  2) ocAdjustmentNames  3) ocTeams  
+         // Populates: 1) ocAdjustments  2) ocAdjustmentNames  3) ocTeams  4) oLeagueDTO
 
          IBballDataDTO oBballDataDTO = new AdjustmentsDO(oBballInfoDTO.GameDate, oBballInfoDTO.LeagueName, oBballInfoDTO.ConnectionString)
             .GetAdjustmentInfo(oBballInfoDTO.GameDate, oBballInfoDTO.LeagueName);
          oBballInfoDTO.oBballDataDTO.ocAdjustments = oBballDataDTO.ocAdjustments;         // 1)
          oBballInfoDTO.oBballDataDTO.ocAdjustmentNames = oBballDataDTO.ocAdjustmentNames; // 2)
          oBballInfoDTO.oBballDataDTO.ocTeams = oBballDataDTO.ocTeams;                     // 3)
-         new LeagueInfoDO(oBballInfoDTO);
+         new LeagueInfoDO(oBballInfoDTO);                                                 // 4)
 
       }
       #endregion leagueInfo
@@ -289,6 +289,9 @@ namespace Bball.DAL.Tables
          SysDAL.Functions.DALfunctions.ExecuteStoredProcedureNonQuery(oBballInfoDTO.ConnectionString, uspCalcTodaysMatchups, SqlParmNames, SqlParmValues);
 
          GetTodaysMatchups(oBballInfoDTO);
+
+         new DataDO().GetUserLeagueParmsDTO(oBballInfoDTO);
+         new LeagueInfoDO(oBballInfoDTO);
 
       }
 

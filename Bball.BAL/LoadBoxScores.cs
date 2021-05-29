@@ -259,7 +259,7 @@ namespace Bball.BAL
                throw new Exception(DALFunctions.StackTraceFormat(msg, ex, ""));
             }
          }
-         if (!String.IsNullOrEmpty(oBballInfoDTO.oBballDataDTO.oLeagueDTO.BoxScoresL5MinURL))
+         if (!String.IsNullOrEmpty(oBballInfoDTO.oBballDataDTO.oLeagueDTO.BoxScoresL5MinURL.Trim()))
          {
             // Write Last 5 Minutes stats
             BoxScoresLast5Min oLast5Min = null;
