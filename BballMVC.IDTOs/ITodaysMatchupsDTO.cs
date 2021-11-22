@@ -36,6 +36,10 @@ namespace BballMVC.IDTOs
       double? AverageMadeHomeGB3Pt1 { get; set; }
       double? AverageMadeHomeGB3Pt2 { get; set; }
       double? AverageMadeHomeGB3Pt3 { get; set; }
+      int? AwayActualGB1 { get; set; }
+      int? AwayActualGB2 { get; set; }
+      int? AwayActualGB3 { get; set; }
+      int? AwayActualGBTeam { get; set; }
       double? AwayAverageAllowedPt1 { get; set; }
       double? AwayAverageAllowedPt2 { get; set; }
       double? AwayAverageAllowedPt3 { get; set; }
@@ -78,6 +82,10 @@ namespace BballMVC.IDTOs
       int GB1 { get; set; }
       int GB2 { get; set; }
       int GB3 { get; set; }
+      int? HomeActualGB1 { get; set; }
+      int? HomeActualGB2 { get; set; }
+      int? HomeActualGB3 { get; set; }
+      int? HomeActualGBTeam { get; set; }
       double? HomeAverageAllowedPt1 { get; set; }
       double? HomeAverageAllowedPt2 { get; set; }
       double? HomeAverageAllowedPt3 { get; set; }

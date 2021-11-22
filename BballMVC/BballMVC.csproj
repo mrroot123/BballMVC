@@ -15,7 +15,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BballMVC</RootNamespace>
     <AssemblyName>BballMVC</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -256,9 +256,6 @@
     <Compile Include="Models\TeamLookupSourceToSource_Result.cs">
       <DependentUpon>BballEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TeamStat.cs">
-      <DependentUpon>BballEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\TeamStatsAverage.cs">
       <DependentUpon>BballEntities.tt</DependentUpon>
     </Compile>
@@ -358,6 +355,7 @@
     <Content Include="App\Components\accordianSection.html" />
     <Content Include="App\Components\helloWorld.html" />
     <Content Include="App\Index.html" />
+    <Content Include="App\mainHub.js" />
     <Content Include="App\PostGameAnalysis\PostGameAnalysis.html" />
     <Content Include="App\PostGameAnalysis\PostGameAnalysisController.js" />
     <Content Include="App\PostGameAnalysis\_PostGameAnalysisTable.html" />
@@ -410,92 +408,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Sql\#Examples of SQL.sql" />
-    <Content Include="Sql\#scrPopulteDTO.sql" />
-    <Content Include="Sql\#tmpUpdate.sql" />
-    <Content Include="Sql\#udf_TemplateBball.sql" />
-    <Content Include="Sql\#usp_Backup_00TTI_LeagueScores.sql" />
-    <Content Include="Sql\#xp_cmdShell.sql" />
-    <Content Include="Sql\BballMVC_Scripts.sql" />
-    <Content Include="Sql\BballSqlMenu.sql" />
-    <Content Include="Sql\Bball_Utility_sql.sql" />
-    <Content Include="Sql\CalcGamePace.sql" />
-    <Content Include="Sql\Creade_AdjustmentsCodes.sql" />
-    <Content Include="Sql\Create_Teams.sql" />
-    <Content Include="Sql\Create_Team_Table.sql" />
-    <Content Include="Sql\Create_TodaysPlays.sql" />
-    <Content Include="Sql\Include_BballDeclareParms.sql" />
-    <Content Include="Sql\InsertDailyTeamStrengths.sql" />
-    <Content Include="Sql\InsertLines.sql" />
-    <Content Include="Sql\InsertMatchupsResults.sql" />
-    <Content Include="Sql\Insert_TeamStrengthFromBoxscores.sql" />
-    <Content Include="Sql\L5MinAverages.sql" />
-    <Content Include="Sql\L5MinQueries.sql" />
-    <Content Include="Sql\LgAvgAnalysis.sql" />
-    <Content Include="Sql\LoadTeamSeadBoxScoreRows.sql" />
-    <Content Include="Sql\Load_TodaysMatchups.sql" />
-    <Content Include="Sql\MatchupsResultsAnalysis.sql" />
-    <Content Include="Sql\OT_Stats.sql" />
-    <Content Include="Sql\Queries_SeasonInfo.sql" />
-    <Content Include="Sql\QueryLgAvgs.sql" />
-    <Content Include="Sql\QueryTeamAvgPts.sql" />
-    <Content Include="Sql\QueryTeams.sql" />
-    <Content Include="Sql\QueryTodaysMatchups.sql" />
-    <Content Include="Sql\Query_Adjustments.sql" />
-    <Content Include="Sql\Query_AdjustmentsByTeams.sql" />
-    <Content Include="Sql\Query_LgAveFromBballSql.sql" />
-    <Content Include="Sql\Query_LgAvg.sql" />
-    <Content Include="Sql\Query_LgAvg2.sql" />
-    <Content Include="Sql\Query_LgAvg_V1.sql" />
-    <Content Include="Sql\Query_LineDiff.sql" />
-    <Content Include="Sql\Query_OT.sql" />
-    <Content Include="Sql\Query_TeamStrengthByTeam.sql" />
-    <Content Include="Sql\Query_TeamStrength_V1.sql" />
-    <Content Include="Sql\Query_V1_TeamStrength.sql" />
-    <Content Include="Sql\RunTMs.sql" />
-    <Content Include="Sql\scrAdjRecendHistory.sql" />
-    <Content Include="Sql\scrAdjustmentsLoadFromAdjX.sql" />
-    <Content Include="Sql\scrCreateBoxScoresFromV1.sql" />
-    <Content Include="Sql\scrCreateBoxScoresProd.sql" />
-    <Content Include="Sql\scrCreateNewAdjustments.sql" />
-    <Content Include="Sql\scrCreateRotationFromSchedule.sql" />
-    <Content Include="Sql\scrCreateRotationProd.sql" />
-    <Content Include="Sql\scrDisplayTodaysMatchups.sql" />
-    <Content Include="Sql\scrMatchupsResultsAnalysis.sql" />
-    <Content Include="Sql\scrMatchupsResultsAnalysis2.sql" />
-    <Content Include="Sql\scrPointValueAnalysis.sql" />
-    <Content Include="Sql\scrQueryAdjustmentsByLeague_Year.sql" />
-    <Content Include="Sql\scrQueryBoxScoresByLeagueSeason.sql" />
-    <Content Include="Sql\scrQueryScheduleByLeague_Season.sql" />
-    <Content Include="Sql\scrSeedOneRow.sql" />
-    <Content Include="Sql\scrStats_BoxscoreAnalysis.sql" />
-    <Content Include="Sql\scrUpdateBoxscoresLastUpdateDate.sql" />
-    <Content Include="Sql\scrVerifyTeamStrength.sql" />
-    <Content Include="Sql\scrW_L_Results.sql" />
-    <Content Include="Sql\scr_udfCalcPointPercentages.sql" />
-    <Content Include="Sql\scr_udfQueryAdjustmentsByTeamTotal.sql" />
-    <Content Include="Sql\scr_uspInsertTodaysMatchupsResults.sql" />
-    <Content Include="Sql\scr_uspQueryAdjustmentsByTeamTotal.sql" />
-    <Content Include="Sql\Select_BxSc_V1.sql" />
-    <Content Include="Sql\TableVerifications.sql" />
-    <Content Include="Sql\Table_Counts.sql" />
-    <Content Include="Sql\Table_DeleteRows.sql" />
-    <Content Include="Sql\Team Analysis.sql" />
-    <Content Include="Sql\Team Queries.sql" />
-    <Content Include="Sql\Team Table queries.sql" />
-    <Content Include="Sql\Team Table Tests.sql" />
-    <Content Include="Sql\TeamListByLeague.sql" />
-    <Content Include="Sql\TeamLookup.sql" />
-    <Content Include="Sql\TeamLookupByCovers.sql" />
-    <Content Include="Sql\TeamStatAveragesWORKAREA.sql" />
-    <Content Include="Sql\TeamStatAverages_TESTarea.sql" />
-    <Content Include="Sql\temp.sql" />
-    <Content Include="Sql\Truncate_Tables.sql" />
-    <Content Include="Sql\Update_LineDiffs.sql" />
-    <Content Include="Sql\uspQueryCalcTeamStrength.sql" />
-    <Content Include="Sql\uspQueryLeagueAverages.sql" />
-    <Content Include="Sql\usp_DatabaseBackupRestore.sql" />
-    <Content Include="Sql\Verify_Boxscores.sql" />
     <Content Include="Views\Adjustments\xAdjustmentRow.html" />
     <Content Include="_Documentation\Api.txt" />
     <Content Include="_Documentation\Doc_Help_examples.txt" />
@@ -511,6 +423,8 @@
     <Content Include="Models\BballEntities.edmx.diagram">
       <DependentUpon>BballEntities.edmx</DependentUpon>
     </Content>
+    <Content Include="App_Data\TTILog.csv" />
+    <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -574,13 +488,15 @@
     <Content Include="Views\UserLeagueParms\Create.cshtml" />
     <Content Include="Views\UserLeagueParms\Delete.cshtml" />
     <Content Include="Views\UserLeagueParms\Details.cshtml" />
-    <Content Include="Views\UserLeagueParms\Edit.cshtml" />
+    <Content Include="Views\UserLeagueParms\xEdit.cshtml" />
     <Content Include="Views\UserLeagueParms\Index.cshtml" />
     <Content Include="Views\AdjustmentsCodes\Create.cshtml" />
     <Content Include="Views\AdjustmentsCodes\Delete.cshtml" />
     <Content Include="Views\AdjustmentsCodes\Details.cshtml" />
     <Content Include="Views\AdjustmentsCodes\Edit.cshtml" />
     <Content Include="Views\AdjustmentsCodes\Index.cshtml" />
+    <Content Include="Views\Edit.cshtml" />
+    <Content Include="Views\UserLeagueParms\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Base\" />

@@ -2,7 +2,7 @@
 
 namespace BballMVC.Controllers
 {
-   public class AdjustmentsController : Controller
+   public class AdjustmentsController : BaseController
    {
  
       // GET: Adjustments

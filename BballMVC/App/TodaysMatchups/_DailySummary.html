@@ -37,6 +37,27 @@
                <td style="color:{{LeagueColor}};">Volatility Games Back: </td>
                <td>{{oBballInfoDTO.oBballDataDTO.oUserLeagueParmsDTO.VolatilityGamesBack}}</td>
             </tr>
+            <tr>
+               <td style="color:{{LeagueColor}}" title="0% = no adj  || 100% = Full Opp Point adj">
+                  Pace Adj Pct:
+               </td>
+               <td class="num">{{oBballInfoDTO.oBballDataDTO.oUserLeagueParmsDTO.TeamPaceAdjPct * 100}}%</td>
+            </tr>
+            <tr>
+               <td style="color:{{LeagueColor}};" title="0% = no adj  || 100% = Full Opp Point adj">
+                  Team Adj Pct:
+               </td>
+               <td class="num">{{oBballInfoDTO.oBballDataDTO.oUserLeagueParmsDTO.TeamAdjPct * 100}}%</td>
+            </tr>
+
+            <tr>
+               <td style="color:{{LeagueColor}};">Use Both Home / Away: </td>
+               <td class="num">{{oBballInfoDTO.oBballDataDTO.oUserLeagueParmsDTO.BothHome_Away }}</td>
+            </tr>
+            <tr>
+               <td style="color:{{LeagueColor}};">Use Last Year's Boxscores: </td>
+               <td class="num">{{oBballInfoDTO.oBballDataDTO.oUserLeagueParmsDTO.BoxscoresSpanSeasons }}</td>
+            </tr>
          </table>
       </td>
       <td>
@@ -64,32 +85,57 @@
             <!-- 3) TmStrAdjPct -->
             <tr>
                <td style="color:{{LeagueColor}};" title="0% = no adj  || 100% = Full Opp Point adj">
-                  Todays Matchups Adj Opposition Pct:
+                  Team Strength Adj Pct:
                </td>
                <td class="num">{{oBballInfoDTO.oBballDataDTO.oUserLeagueParmsDTO.TmStrAdjPct * 100}}%</td>
             </tr>
+            <!-- TMups Opposition PCTs -->
+            <tr>
+               <td style="color:{{LeagueColor}};" title="0% = no adj  || 100% = Full Opp Point adj">
+                  Todays Matchups Adj Opposition Pct Pt1:
+               </td>
+               <td class="num">{{oBballInfoDTO.oBballDataDTO.oUserLeagueParmsDTO.TodaysMUPsOppAdjPctPt1 * 100}}%</td>
+            </tr>
+            <tr>
+               <td style="color:{{LeagueColor}};" title="0% = no adj  || 100% = Full Opp Point adj">
+                  Todays Matchups Adj Opposition Pct Pt2:
+               </td>
+               <td class="num">{{oBballInfoDTO.oBballDataDTO.oUserLeagueParmsDTO.TodaysMUPsOppAdjPctPt2 * 100}}%</td>
+            </tr>
+            <tr>
+               <td style="color:{{LeagueColor}};" title="0% = no adj  || 100% = Full Opp Point adj">
+                  Todays Matchups Adj Opposition Pct Pt3:
+               </td>
+               <td class="num">{{oBballInfoDTO.oBballDataDTO.oUserLeagueParmsDTO.TodaysMUPsOppAdjPctPt3 * 100}}%</td>
+            </tr>
 
             <tr>
                <td style="color:{{LeagueColor}};" title="0% = no adj  || 100% = Full Opp Point adj">
-                  Pace Adj Pct:
+                  Todays Matchups Team Stat Weight
                </td>
-               <td class="num">{{oBballInfoDTO.oBballDataDTO.oUserLeagueParmsDTO.TeamPaceAdjPct * 100}}%</td>
+               
+               <td class="num"></td>
             </tr>
             <tr>
-               <td style="color:{{LeagueColor}};" title="0% = no adj  || 100% = Full Opp Point adj">
-                  Team Adj Pct:
+
+               <td>
+                  &nbsp;&nbsp;&nbsp;
+                  GB1: {{oBballInfoDTO.oBballDataDTO.oUserLeagueParmsDTO.TMUPsWeightTeamStatGB1}}&nbsp;&nbsp;&nbsp;
+                  GB2: {{oBballInfoDTO.oBballDataDTO.oUserLeagueParmsDTO.TMUPsWeightTeamStatGB2}}&nbsp;&nbsp;&nbsp;
+                  GB3: {{oBballInfoDTO.oBballDataDTO.oUserLeagueParmsDTO.TMUPsWeightTeamStatGB3}}&nbsp;&nbsp;&nbsp;
+
                </td>
-               <td class="num">{{oBballInfoDTO.oBballDataDTO.oUserLeagueParmsDTO.TeamAdjPct * 100}}%</td>
+               
             </tr>
 
             <tr>
-               <td style="color:{{LeagueColor}};">Use Both Home / Away: </td>
-               <td class="num">{{oBballInfoDTO.oBballDataDTO.oUserLeagueParmsDTO.BothHome_Away }}</td>
+               <td style="color:{{LeagueColor}};" title="0% = no adj  || 100% = Full Opp Point adj">
+                  Todays Matchups Team Stat Weight GB3:
+               </td>
+               <td class="num">{{oBballInfoDTO.oBballDataDTO.oUserLeagueParmsDTO.TMUPsWeightTeamStatGB3}}</td>
             </tr>
-            <tr>
-               <td style="color:{{LeagueColor}};">Use Last Year's Boxscores: </td>
-               <td class="num">{{oBballInfoDTO.oBballDataDTO.oUserLeagueParmsDTO.BoxscoresSpanSeasons }}</td>
-            </tr>
+
+
             <tr>
                <td></td>
             </tr>

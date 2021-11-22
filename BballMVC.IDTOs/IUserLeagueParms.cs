@@ -17,14 +17,18 @@ namespace BballMVC.IDTOs
       int LoadRotationDaysAhead { get; set; }
       double RecentLgHistoryAdjPct { get; set; }
       DateTime StartDate { get; set; }
-      double? TeamAdjPct { get; set; }
+      double TeamAdjPct { get; set; }
       int TeamAvgGamesBack { get; set; }
-      double? TeamPaceAdjPct { get; set; }
+      double TeamPaceAdjPct { get; set; }
       int TeamPaceGamesBack { get; set; }
       int TeamSeedGames { get; set; }
       int TeamStrengthGamesBack { get; set; }
+      bool TempRow { get; set; }
       double Threshold { get; set; }
       double TmStrAdjPct { get; set; }
+      double TodaysMUPsOppAdjPctPt1 { get; set; }
+      double TodaysMUPsOppAdjPctPt2 { get; set; }
+      double TodaysMUPsOppAdjPctPt3 { get; set; }
       int UserLeagueParmsID { get; set; }
       string UserName { get; set; }
       int VolatilityGamesBack { get; set; }

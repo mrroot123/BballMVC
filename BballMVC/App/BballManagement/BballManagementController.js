@@ -8,12 +8,14 @@ angular.module('app').controller('BballManagementController', function ($rootSco
 
    function InitBballManagement() {
       $scope.LeagueNameList = $rootScope.oBballInfoDTO.oBballDataDTO.ocLeagueNames;
+      $scope.ConnectionString = $rootScope.oBballInfoDTO.ConnectionString;
+      $scope.BaseDirectory = $rootScope.oBballInfoDTO.BaseDirectory;
+      
  //     $scope.$apply();
    };
 
    //const modalName = "BballManagementModal";
    //const containerName = "BballManagementContainer";
-
 
 
    $scope.ReloadBoxScores = function () {
@@ -29,14 +31,27 @@ angular.module('app').controller('BballManagementController', function ($rootSco
       ajx.AjaxGet(url.UrlGetData, {
          UserName: $rootScope.oBballInfoDTO.UserName, GameDate: $scope.GameDate.toLocaleDateString()
          , LeagueName: $scope.LeagueName, CollectionType: "ReloadBoxScores"
-      })   
-         .then(data => {
+      })
+         .then(oBballInfoDTO => {
             f.MessageSuccess("Reload complete");
          })
          .catch(error => {
             f.DisplayErrorMessage(f.FormatResponse(error));
          });
-   }; // GetTodaysMatchups
+   }; // ReloadBoxScores
+
+   $scope.RefreshBballInfo = function () {
+
+      ajx.AjaxGet(url.UrlRefreshBballInfo)   
+         .then(oBballInfoDTO => {
+            $rootScope.oBballInfoDTO = oBballInfoDTO;
+            $scope.ConnectionString = $rootScope.oBballInfoDTO.ConnectionString;
+            $scope.BaseDirectory = $rootScope.oBballInfoDTO.BaseDirectory;
+         })
+         .catch(error => {
+            f.DisplayErrorMessage(f.FormatResponse(error));
+         });
+   }; // RefreshBballInfo
 
    $scope.BballManagementAjax = function (parms) {
 

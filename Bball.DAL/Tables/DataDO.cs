@@ -474,10 +474,14 @@ namespace Bball.DAL.Tables
          o.TotalBubbleHome = rdr["TotalBubbleHome"] == DBNull.Value ? null : (double?)rdr["TotalBubbleHome"];
          o.TS = rdr["TS"] == DBNull.Value ? null : (DateTime?)rdr["TS"];
          o.AllAdjustmentLines = rdr["AllAdjustmentLines"] == DBNull.Value ? null : (string)rdr["AllAdjustmentLines"];
-
-
-
-         o.Canceled = rdr["rCanceled"] == DBNull.Value ? null : (bool?)rdr["rCanceled"];  // Pulled from Rotation.Canceled
+         o.AwayActualGB1 = rdr["AwayActualGB1"] == DBNull.Value ? null : (int?)rdr["AwayActualGB1"];
+         o.AwayActualGB2 = rdr["AwayActualGB2"] == DBNull.Value ? null : (int?)rdr["AwayActualGB2"];
+         o.AwayActualGB3 = rdr["AwayActualGB3"] == DBNull.Value ? null : (int?)rdr["AwayActualGB3"];
+         o.AwayActualGBTeam = rdr["AwayActualGBTeam"] == DBNull.Value ? null : (int?)rdr["AwayActualGBTeam"];
+         o.HomeActualGB1 = rdr["HomeActualGB1"] == DBNull.Value ? null : (int?)rdr["HomeActualGB1"];
+         o.HomeActualGB2 = rdr["HomeActualGB2"] == DBNull.Value ? null : (int?)rdr["HomeActualGB2"];
+         o.HomeActualGB3 = rdr["HomeActualGB3"] == DBNull.Value ? null : (int?)rdr["HomeActualGB3"];
+         o.HomeActualGBTeam = rdr["HomeActualGBTeam"] == DBNull.Value ? null : (int?)rdr["HomeActualGBTeam"];
 
 
          ((List<ITodaysMatchupsDTO>)oRow).Add(o);
@@ -541,10 +545,40 @@ namespace Bball.DAL.Tables
       #region postGameAnalysis
       public void RefreshPostGameAnalysis(IBballInfoDTO oBballInfoDTO)
       {
+         //RefreshPostGameAnalysisJson(oBballInfoDTO); return;
+
          string getRowSql =
             $"SELECT *  FROM vPostGameAnalysis  Where LeagueName = '{oBballInfoDTO.LeagueName}' AND GameDate = '{oBballInfoDTO.GameDate.ToShortDateString()}' ";
          int rows = SysDAL.Functions.DALfunctions.ExecuteSqlQuery(oBballInfoDTO.ConnectionString, getRowSql
             , oBballInfoDTO.oBballDataDTO.ocPostGameAnalysisDTO, populatePostGameAnalysisDTOFromRdr);
+      }
+      public void RefreshPostGameAnalysisJson(IBballInfoDTO oBballInfoDTO) => QueryJson(oBballInfoDTO, "ocPostGameAnalysisDTO");
+
+ 
+      static void QueryJson(IBballInfoDTO oBballInfoDTO, string ObjName)
+      {
+         //Log("DataDO.QueryJson");
+         string Sql = null; 
+
+         switch (ObjName)
+         {
+            case "ocPostGameAnalysisDTO":
+               Sql = $"SELECT *  FROM vPostGameAnalysis  Where LeagueName = '{oBballInfoDTO.LeagueName}' AND GameDate = '{oBballInfoDTO.GameDate.ToShortDateString()}' "
+                  + " for JSON Auto ";
+               break;
+            case "oUserLeagueParmsDTO":
+               Sql = $"SELECT TOP (1) *  FROM UserLeagueParms  Where LeagueName = '{oBballInfoDTO.LeagueName}' AND StartDate <= '{oBballInfoDTO.GameDate.ToShortDateString()}'"
+               + "Order by StartDate desc    for JSON Auto ";
+               break;
+
+            default:
+               throw new Exception("Invalid DataDO.QueryJson Object Name: " + ObjName);
+               
+         }
+
+         var sJsonString = SysDAL.Functions.DALfunctions.ExecuteSqlQueryReturnJson(oBballInfoDTO.ConnectionString, Sql);
+         JsonObjectDTO j = new JsonObjectDTO() { ObjectName = "ocPostGameAnalysisDTO", JsonString = sJsonString };
+         oBballInfoDTO.oBballDataDTO.OcJsonObjectDTO.Add(j);
       }
       static void populatePostGameAnalysisDTOFromRdr(object oRow, SqlDataReader rdr)
       {
@@ -753,6 +787,10 @@ namespace Bball.DAL.Tables
       #endregion postGameAnalysis
 
       #region userLeagueParms
+      public void GetUserLeagueParmsJson(IBballInfoDTO oBballInfoDTO)
+      {
+         QueryJson(oBballInfoDTO, "oUserLeagueParmsDTO");
+      }
       public void GetUserLeagueParmsDTO(IBballInfoDTO oBballInfoDTO)
       {
          Log("DataDO.GetUserLeagueParmsDTO");
@@ -760,38 +798,45 @@ namespace Bball.DAL.Tables
             $"SELECT TOP (1) *  FROM UserLeagueParms  Where LeagueName = '{oBballInfoDTO.LeagueName}' AND StartDate <= '{oBballInfoDTO.GameDate.ToShortDateString()}' Order by StartDate desc ";
          int rows = SysDAL.Functions.DALfunctions.ExecuteSqlQuery(oBballInfoDTO.ConnectionString, getRowSql
             , oBballInfoDTO.oBballDataDTO.oUserLeagueParmsDTO, populateUserLeagueParmsDTOFromRdr);
+
+         GetUserLeagueParmsJson(oBballInfoDTO);
       }
       static void populateUserLeagueParmsDTOFromRdr(object oRow, SqlDataReader rdr)
       {
-         UserLeagueParmsDTO o = (UserLeagueParmsDTO)oRow;
+         UserLeagueParmsDTO O = (UserLeagueParmsDTO)oRow;
 
-         o.UserLeagueParmsID = (int)rdr["UserLeagueParmsID"];
-         o.UserName = rdr["UserName"].ToString().Trim();
-         o.LeagueName = rdr["LeagueName"].ToString().Trim();
-         o.StartDate = (DateTime)rdr["StartDate"];
-         o.LgAvgStartDate = (DateTime)rdr["LgAvgStartDate"];
-         o.LgAvgGamesBack = (int)rdr["LgAvgGamesBack"];
-         o.TeamAvgGamesBack = (int)rdr["TeamAvgGamesBack"];
-         o.TeamPaceGamesBack = (int)rdr["TeamPaceGamesBack"];
-         o.TeamStrengthGamesBack = (int)rdr["TeamStrengthGamesBack"];
-         o.VolatilityGamesBack = (int)rdr["VolatilityGamesBack"];
-         o.TeamSeedGames = (int)rdr["TeamSeedGames"];
-         o.LoadRotationDaysAhead = (int)rdr["LoadRotationDaysAhead"];
-         o.GB1 = (int)rdr["GB1"];
-         o.GB2 = (int)rdr["GB2"];
-         o.GB3 = (int)rdr["GB3"];
-         o.WeightGB1 = (double)rdr["WeightGB1"];
-         o.WeightGB2 = (double)rdr["WeightGB2"];
-         o.WeightGB3 = (double)rdr["WeightGB3"];
-         o.Threshold = (double)rdr["Threshold"];
-         o.BxScLinePct = (double)rdr["BxScLinePct"];
-         o.BxScTmStrPct = (double)rdr["BxScTmStrPct"];
-         o.TmStrAdjPct = (double)rdr["TmStrAdjPct"];
-         o.RecentLgHistoryAdjPct = (double)rdr["RecentLgHistoryAdjPct"];
-         o.TeamPaceAdjPct = rdr["TeamPaceAdjPct"] == DBNull.Value ? null : (double?)rdr["TeamPaceAdjPct"];
-         o.TeamAdjPct = rdr["TeamAdjPct"] == DBNull.Value ? null : (double?)rdr["TeamAdjPct"];
-         o.BothHome_Away = (bool)rdr["BothHome_Away"];
-         o.BoxscoresSpanSeasons = (bool)rdr["BoxscoresSpanSeasons"];
+         O.UserLeagueParmsID = (int)rdr["UserLeagueParmsID"];
+         O.UserName = rdr["UserName"].ToString().Trim();
+         O.LeagueName = rdr["LeagueName"].ToString().Trim();
+         O.StartDate = (DateTime)rdr["StartDate"];
+         O.TempRow = (bool)rdr["TempRow"];
+         O.LgAvgStartDate = (DateTime)rdr["LgAvgStartDate"];
+         O.LgAvgGamesBack = (int)rdr["LgAvgGamesBack"];
+         O.TeamAvgGamesBack = (int)rdr["TeamAvgGamesBack"];
+         O.TeamPaceGamesBack = (int)rdr["TeamPaceGamesBack"];
+         O.TeamStrengthGamesBack = (int)rdr["TeamStrengthGamesBack"];
+         O.VolatilityGamesBack = (int)rdr["VolatilityGamesBack"];
+         O.TeamSeedGames = (int)rdr["TeamSeedGames"];
+         O.LoadRotationDaysAhead = (int)rdr["LoadRotationDaysAhead"];
+         O.GB1 = (int)rdr["GB1"];
+         O.GB2 = (int)rdr["GB2"];
+         O.GB3 = (int)rdr["GB3"];
+         O.WeightGB1 = (double)rdr["WeightGB1"];
+         O.WeightGB2 = (double)rdr["WeightGB2"];
+         O.WeightGB3 = (double)rdr["WeightGB3"];
+         O.Threshold = (double)rdr["Threshold"];
+         O.BxScLinePct = (double)rdr["BxScLinePct"];
+         O.BxScTmStrPct = (double)rdr["BxScTmStrPct"];
+         O.TmStrAdjPct = (double)rdr["TmStrAdjPct"];
+         O.TodaysMUPsOppAdjPctPt1 = (double)rdr["TodaysMUPsOppAdjPctPt1"];
+         O.TodaysMUPsOppAdjPctPt2 = (double)rdr["TodaysMUPsOppAdjPctPt2"];
+         O.TodaysMUPsOppAdjPctPt3 = (double)rdr["TodaysMUPsOppAdjPctPt3"];
+         O.RecentLgHistoryAdjPct = (double)rdr["RecentLgHistoryAdjPct"];
+         O.TeamPaceAdjPct = (double)rdr["TeamPaceAdjPct"];
+         O.TeamAdjPct = (double)rdr["TeamAdjPct"];
+         O.BothHome_Away = (bool)rdr["BothHome_Away"];
+         O.BoxscoresSpanSeasons = (bool)rdr["BoxscoresSpanSeasons"];
+
       }
       #endregion
 

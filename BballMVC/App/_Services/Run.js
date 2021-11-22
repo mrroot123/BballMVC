@@ -68,21 +68,34 @@
       oBballDataDTO: {}
    };
 
+   //ajx.AjaxGet(url.UrlRefreshBballInfo)
+   //   .then(oBballInfoDTO => {
+   //      $rootScope.oBballInfoDTO = oBballInfoDTO;
+   //   })
+   //   .catch(error => {
+   //      alert("Error caught in Run.js Initial RefreshBballInfo call");
+   //      f.DisplayErrorMessage(f.FormatResponse(error));
+   //   });
+
    ajx.AjaxGet(url.UrlGetData, {
       UserName: $rootScope.oBballInfoDTO.UserName, GameDate: new Date().toDateString()
       , LeagueName: "", CollectionType: "AppInit"
    })
-      .then(oBballDataDTO => {
+      .then(oBballInfoDTO => {
+         let oBballDataDTO = oBballInfoDTO.oBballDataDTO;    // 10/09/2021 - oBballInfoDTO returned instead of oBballDataDTO
          $rootScope.oBballInfoDTO.ElapsedTimeAppInit = oBballDataDTO.et; //alert("AppInit ET: " + oBballDataDTO.et);
          $rootScope.oBballInfoDTO.BaseDir = oBballDataDTO.BaseDir;
          $rootScope.DataConstants = oBballDataDTO.DataConstants;
          $rootScope.oBballInfoDTO.oBballDataDTO.ocLeagueNames = oBballDataDTO.ocLeagueNames;
+         $rootScope.oBballInfoDTO.ConnectionString = oBballInfoDTO.ConnectionString;
+         $rootScope.oBballInfoDTO.BaseDirectory = oBballInfoDTO.BaseDirectory;
          $rootScope.$broadcast('eventPopulateLeagueNamesDropDown');
          if (oBballDataDTO.MessageNumber !== 0) {
             f.DisplayErrorMessage(oBballDataDTO.Message);
          }
       })
       .catch(error => {
+         alert("Error caught in Run.js Initial GetData-AppInit call");
          f.DisplayErrorMessage(f.FormatResponse(error));
       });
 });

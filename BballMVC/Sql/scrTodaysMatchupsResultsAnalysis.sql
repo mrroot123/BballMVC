@@ -32,15 +32,17 @@ SELECT
       ,[ScoreRegHome]
       ,[ScoreRegAway]
 
-  FROM [00TTI_LeagueScores].[dbo].[TodaysMatchupsResults] t
+  FROM [TodaysMatchupsResults] t
    Join TodaysMatchups tm on tm.GameDate = t.GameDate and tm.RotNum = t.RotNum
-  Where t.Season = '2021' and abs(t.PlayDiff) > 25
-	and t.GameDate >= '1/1/2021'
+  Where t.Season = '2122' 
+	and t.Play > ''
+  --and abs(t.PlayDiff) > 25
+	and t.GameDate >= '10/21/2021'
   -- and not (TeamAway = 'was' or TeamHome = 'was')
-  order by 
-	abs(t.PlayDiff) desc,
-	-- totalLine,
-	 GameDate, RotNum
+  order by GameDate desc
+	--abs(t.PlayDiff) desc,
+	---- totalLine,
+	-- GameDate, RotNum
 
 	 return;
 
@@ -50,7 +52,7 @@ SELECT  Round(
 				, 1) as Pct
       ,sum(UnderWin)   as  UnderWin    ,sum(UnderLoss)  as  UnderLoss
 		,sum(OverWin)   as  OverWin		,sum(OverLoss)  as  OverLoss
-  FROM [00TTI_LeagueScores].[dbo].[TodaysMatchupsResults] t
-  Where Season = '2021' 
+  FROM [TodaysMatchupsResults] t
+  Where Season = '2122' 
     and GameDate >= '1/1/2021'
 --	 and abs(PlayDiff) < 15

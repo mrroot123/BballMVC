@@ -61,6 +61,15 @@
          BxSc<br />TmStrPct
       </th>
       <th>
+         TM Opp<br />Pct 1
+      </th>
+      <th>
+         TM Opp<br />Pct 2
+      </th>
+      <th>
+         TM Opp<br />Pct 3
+      </th>
+      <th>
          TmStr<br />AdjPct
       </th>
       <th>
@@ -76,78 +85,87 @@
    </tr>
 
 @foreach (var item in Model) {
-    <tr>
-       <td>
-          @Html.ActionLink("Edit", "Edit", new { id = item.UserLeagueParmsID }) 
-       </td>
-       <td>
-          @Html.DisplayFor(modelItem => item.UserName)
-       </td>
-       <td>
-          @Html.DisplayFor(modelItem => item.LeagueName)
-       </td>
-       <td>
-          @Html.DisplayFor(modelItem => item.StartDate)
-       </td>
-       <td>
-          @Html.DisplayFor(modelItem => item.LgAvgStartDate)
-       </td>
-       <td>
-          @Html.DisplayFor(modelItem => item.LgAvgGamesBack)
-       </td>
-       <td>
-          @Html.DisplayFor(modelItem => item.TeamAvgGamesBack)
-       </td>
-       <td>
-          @Html.DisplayFor(modelItem => item.TeamPaceGamesBack)
-       </td>
-       <td>
-          @Html.DisplayFor(modelItem => item.TeamSeedGames)
-       </td>
-       <td>
-          @Html.DisplayFor(modelItem => item.LoadRotationDaysAhead)
-       </td>
-       <td>
-          @Html.DisplayFor(modelItem => item.GB1)
-       </td>
-       <td>
-          @Html.DisplayFor(modelItem => item.GB2)
-       </td>
-       <td>
-          @Html.DisplayFor(modelItem => item.GB3)
-       </td>
-       <td>
-          @Html.DisplayFor(modelItem => item.WeightGB1)
-       </td>
-       <td>
-          @Html.DisplayFor(modelItem => item.WeightGB2)
-       </td>
-       <td>
-          @Html.DisplayFor(modelItem => item.WeightGB3)
-       </td>
-       <td>
-          @Html.DisplayFor(modelItem => item.Threshold)
-       </td>
-       <td>
-          @Html.DisplayFor(modelItem => item.BxScLinePct)
-       </td>
-       <td>
-          @Html.DisplayFor(modelItem => item.BxScTmStrPct)
-       </td>
-       <td>
-          @Html.DisplayFor(modelItem => item.TmStrAdjPct)
-       </td>
-       <td>
-          @Html.DisplayFor(modelItem => item.RecentLgHistoryAdjPct)
-       </td>
-       <td>
-          @Html.DisplayFor(modelItem => item.BothHome_Away)
-       </td>
-       <td>
-          @Html.DisplayFor(modelItem => item.BoxscoresSpanSeasons)
-       </td>
+<tr>
+   <td>
+      @Html.ActionLink("Edit", "Edit", new { id = item.UserLeagueParmsID })
+   </td>
+   <td>
+      @Html.DisplayFor(modelItem => item.UserName)
+   </td>
+   <td>
+      @Html.DisplayFor(modelItem => item.LeagueName)
+   </td>
+   <td>
+      @Html.DisplayFor(modelItem => item.StartDate)
+   </td>
+   <td>
+      @Html.DisplayFor(modelItem => item.LgAvgStartDate)
+   </td>
+   <td>
+      @Html.DisplayFor(modelItem => item.LgAvgGamesBack)
+   </td>
+   <td>
+      @Html.DisplayFor(modelItem => item.TeamAvgGamesBack)
+   </td>
+   <td>
+      @Html.DisplayFor(modelItem => item.TeamPaceGamesBack)
+   </td>
+   <td>
+      @Html.DisplayFor(modelItem => item.TeamSeedGames)
+   </td>
+   <td>
+      @Html.DisplayFor(modelItem => item.LoadRotationDaysAhead)
+   </td>
+   <td>
+      @Html.DisplayFor(modelItem => item.GB1)
+   </td>
+   <td>
+      @Html.DisplayFor(modelItem => item.GB2)
+   </td>
+   <td>
+      @Html.DisplayFor(modelItem => item.GB3)
+   </td>
+   <td>
+      @Html.DisplayFor(modelItem => item.WeightGB1)
+   </td>
+   <td>
+      @Html.DisplayFor(modelItem => item.WeightGB2)
+   </td>
+   <td>
+      @Html.DisplayFor(modelItem => item.WeightGB3)
+   </td>
+   <td>
+      @Html.DisplayFor(modelItem => item.Threshold)
+   </td>
+   <td>
+      @Html.DisplayFor(modelItem => item.BxScLinePct)
+   </td>
+   <td>
+      @Html.DisplayFor(modelItem => item.BxScTmStrPct)
+   </td>
+   <td>
+      @Html.DisplayFor(modelItem => item.TmStrAdjPct)
+   </td>
+   <td>
+      @Html.DisplayFor(modelItem => item.TodaysMUPsOppAdjPctPt1)
+   </td>
+   <td>
+      @Html.DisplayFor(modelItem => item.TodaysMUPsOppAdjPctPt2)
+   </td>
+   <td>
+      @Html.DisplayFor(modelItem => item.TodaysMUPsOppAdjPctPt3)
+   </td>
+   <td>
+      @Html.DisplayFor(modelItem => item.RecentLgHistoryAdjPct)
+   </td>
+   <td>
+      @Html.DisplayFor(modelItem => item.BothHome_Away)
+   </td>
+   <td>
+      @Html.DisplayFor(modelItem => item.BoxscoresSpanSeasons)
+   </td>
 
-    </tr>
+</tr>
 }
 
 </table>

@@ -18,6 +18,7 @@ namespace BballMVC.DTOs
       public IList<ITodaysMatchupsDTO>    ocTodaysMatchupsDTO  { get; set; }     // TM
       public IList<IBoxScoresSeedsDTO>    ocBoxScoresSeedsDTO  { get; set; }     // BSS
       public IList<IvPostGameAnalysisDTO> ocPostGameAnalysisDTO { get; set; }    // PGA
+      public IList<IJsonObjectDTO> OcJsonObjectDTO     { get; set; }
 
       public IDailySummaryDTO oDailySummaryDTO  { get; set; }                    // TM
       public ISeasonInfoDTO   oSeasonInfoDTO    { get; set; }                    // Lg
@@ -37,6 +38,7 @@ namespace BballMVC.DTOs
          ocTodaysMatchupsDTO = new List<ITodaysMatchupsDTO>();
          ocBoxScoresSeedsDTO = new List<IBoxScoresSeedsDTO>();
          ocPostGameAnalysisDTO = new List<IvPostGameAnalysisDTO>();
+         OcJsonObjectDTO = new List<IJsonObjectDTO>();
 
          oDailySummaryDTO = new DailySummaryDTO();
          oSeasonInfoDTO = new SeasonInfoDTO();

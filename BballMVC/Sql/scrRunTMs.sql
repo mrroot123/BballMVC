@@ -57,7 +57,7 @@ Declare @StartTime dateTime = GetDate(), @EndTime DateTime
 Declare @LoopHA int, @LoopDate int, @LoopGB int, @EndYear int, @LoopGBStart int, @LoopGBLimit int, @LoopHALimit int
 	, @Description varchar(25) = ''
 
-Set @StartDate = '3/10/2021'
+Set @StartDate = '5/11/2021'
 Set @EndDate =    GetDate()	--
 Set @EndYear = 2022
 Set @LoopGBStart = 0

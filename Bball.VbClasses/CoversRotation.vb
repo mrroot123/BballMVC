@@ -9,6 +9,8 @@ Imports BballMVC.IDTOs
 'Imports Bball.VbClassesInterfaces.Bball.VbClassesInterfaces
 Imports Bball.DataBaseFunctions
 Imports SysDAL.Functions.DALfunctions
+Imports TTI.Logger
+
 
 Namespace Bball.VbClasses
    Public Class CoversRotation
@@ -177,12 +179,22 @@ Namespace Bball.VbClasses
                Integer.TryParse(oParseRotation.InnerHtml, oCoversDTO.RotNum)
                ' oCoversDTO.RotNum = CInt(oParseRotation.InnerHtml)
                If oCoversDTO.RotNum <> 0 Then
-                  _ocRotation.Add(oCoversDTO.RotNum.ToString(), oCoversDTO)
+                  If _ocRotation.ContainsKey(oCoversDTO.RotNum.ToString()) Then
+                     ReturnCode = 1
+                     Message += "Duplicate Rotation Number: " & oCoversDTO.RotNum.ToString()
+                     '  Helper.Logit("", "")
+                  Else
+                     _ocRotation.Add(oCoversDTO.RotNum.ToString(), oCoversDTO)
+                  End If
                End If
             Catch ex As Exception
-               Dim msg = IIf(InStr(ex.Message, "CallStack=") > 0, ex.Message, ex.Message & $" - CallStack= {ex.StackTrace}")
-               Throw New Exception(StackTraceFormat($"CoversRotation.GetRotation: Error - {poLeagueDTO.LeagueName} {pGameDate} - TeamAway: {oCoversDTO.TeamAway} - TeamHome: {oCoversDTO.TeamHome}", ex, ""))
-
+               If ex.Message = "An entry with the same key already exists." Then
+                  ' kdtodo log eror
+                  Message += "Duplicate Rotation Number: " & oCoversDTO.RotNum.ToString()
+               Else
+                  Dim msg = IIf(InStr(ex.Message, "CallStack=") > 0, ex.Message, ex.Message & $" - CallStack= {ex.StackTrace}")
+                  Throw New Exception(StackTraceFormat($"CoversRotation.GetRotation: Error - {poLeagueDTO.LeagueName} {pGameDate} - TeamAway: {oCoversDTO.TeamAway} - TeamHome: {oCoversDTO.TeamHome}", ex, ""))
+               End If
             End Try
 
             oParseRotation.StringSearch("cmg_game_container") 'Point to next game matchup
@@ -377,7 +389,7 @@ Namespace Bball.VbClasses
       Private Function errorCheck(message As String) As Boolean
          If oParseRotation.Ptr = 0 Then
             ReturnCode = -1
-            message = message
+            Me.Message += message
             Return True
          End If
          Return False

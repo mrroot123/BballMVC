@@ -8,9 +8,9 @@ using Bball.BAL;
 
 namespace BballMVC.Controllers
 {
-   public class BoxScoresController : Controller
+   public class BoxScoresController : BaseController
    {
-      private Entities2 db = new Entities2();
+     // private Entities2 db = new Entities2();
 
 
 

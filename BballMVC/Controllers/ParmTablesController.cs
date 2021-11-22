@@ -11,9 +11,9 @@ using BballMVC.Controllers;
 
 namespace BballMVC.Controllers
 {
-    public class ParmTablesController : Controller
+    public class ParmTablesController : BaseController
     {
-        private Entities2 db = new Entities2();
+      //private Entities2 db = new Entities2();
 
         // GET: ParmTables
         public ActionResult Index()

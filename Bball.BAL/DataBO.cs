@@ -45,10 +45,12 @@ namespace Bball.BAL
 
                case GetDataConstants.RefreshTodaysMatchups:       // Run uspCalcTMs, Get ocTodaysMatchupsDTO
                   new DataDO().RefreshTodaysMatchups(oBballInfoDTO);
+                  new DataDO().GetUserLeagueParmsDTO(oBballInfoDTO);
                   break;
 
                case GetDataConstants.GetPastMatchups:       
                   new DataDO().GetTodaysMatchups(oBballInfoDTO);
+                  new DataDO().GetUserLeagueParmsDTO(oBballInfoDTO);
                   break;
 
                case GetDataConstants.DataConstants:
@@ -144,9 +146,9 @@ namespace Bball.BAL
             new LoadBoxScores(oBballInfoDTO).LoadTodaysRotation();  // Constructor Loads BoxScores then Rotation is Loaded
          }
          new AdjustmentsDO(oBballInfoDTO).UpdateTodaysPlays();
-        // new DataDO().VerifyTables(oBballInfoDTO);
+         #region comment4now
+         // new DataDO().VerifyTables(oBballInfoDTO);
          //await taskAdj;
-
          //List<Task<string>> taskCalcTMs = new List<Task<string>>();
          //foreach (var item in oBballInfoDTO.oBballDataDTO.ocLeagueNames)
          //{
@@ -165,7 +167,7 @@ namespace Bball.BAL
          //      }
          //   }
          //}  // while
-
+         #endregion
 
       }  // appInit
 

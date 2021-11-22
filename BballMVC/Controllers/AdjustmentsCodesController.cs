@@ -10,9 +10,9 @@ using BballMVC.Models;
 
 namespace BballMVC.Controllers
 {
-    public class AdjustmentsCodesController : Controller
+    public class AdjustmentsCodesController : BaseController
     {
-        private Entities2 db = new Entities2();
+       // private Entities2 db = new Entities2();
 
         // GET: AdjustmentsCodes
         public ActionResult Index()

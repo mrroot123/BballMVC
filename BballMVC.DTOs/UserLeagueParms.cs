@@ -3,12 +3,13 @@ using BballMVC.IDTOs;
 
 namespace BballMVC.DTOs
 {
-   public class UserLeagueParmsDTO : IUserLeagueParmsDTO 
+   public class UserLeagueParmsDTO : IUserLeagueParmsDTO
    {
       public int UserLeagueParmsID { get; set; }
       public string UserName { get; set; }
       public string LeagueName { get; set; }
       public System.DateTime StartDate { get; set; }
+      public bool TempRow { get; set; }
       public System.DateTime LgAvgStartDate { get; set; }
       public int LgAvgGamesBack { get; set; }
       public int TeamAvgGamesBack { get; set; }
@@ -27,9 +28,12 @@ namespace BballMVC.DTOs
       public double BxScLinePct { get; set; }
       public double BxScTmStrPct { get; set; }
       public double TmStrAdjPct { get; set; }
+      public double TodaysMUPsOppAdjPctPt1 { get; set; }
+      public double TodaysMUPsOppAdjPctPt2 { get; set; }
+      public double TodaysMUPsOppAdjPctPt3 { get; set; }
       public double RecentLgHistoryAdjPct { get; set; }
-      public Nullable<double> TeamPaceAdjPct { get; set; }
-      public Nullable<double> TeamAdjPct { get; set; }
+      public double TeamPaceAdjPct { get; set; }
+      public double TeamAdjPct { get; set; }
       public bool BothHome_Away { get; set; }
       public bool BoxscoresSpanSeasons { get; set; }
    }

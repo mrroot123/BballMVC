@@ -10,9 +10,9 @@ using BballMVC.Models;
 
 namespace BballMVC.Controllers
 {
-    public class RotationController : Controller
+    public class RotationController : BaseController
     {
-      private Entities2 db = new Entities2();
+    //private Entities2 db = new Entities2();
 
       // GET: Rotation
       public ActionResult Index()

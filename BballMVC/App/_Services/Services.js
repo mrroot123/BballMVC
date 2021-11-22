@@ -10,7 +10,9 @@
 
    this.UrlGetLeagueNames = urlPrefix + "Data/GetLeagueNames";
    this.UrlGetData = urlPrefix + "Data/GetData";
-   
+   this.UrlRefreshBballInfo = urlPrefix + "Data/GetBballInfo";
+   this.UrlGetBballData = urlPrefix + "Data/GetBballData";
+
    this.UrlPostJsonString = urlPrefix + "Data/PostJsonString";
    this.UrlPostData = urlPrefix + "Data/PostData";
    this.UrlPostObject = urlPrefix + "Data/PostObject";
@@ -111,7 +113,10 @@ angular.module('app').service('f', function ($rootScope, ajx, url) {
          MessageText: msg,
          MessageType: "Error"
       };
-
+      if (!msg) {
+         alert("DisplayErrorMessage function: msg is null");
+         return;
+      }
       ajx.AjaxPost(url.UrlLogMessage, TTILogMessage)
          .then(data => {
          })
@@ -226,6 +231,16 @@ angular.module('app').service('f', function ($rootScope, ajx, url) {
    this.showHideModal = function (show) {
       return show ? { "display": "block" } : { "display": "none" };
    };
+        
+   this.PopulateObjectFromJson = function(oBballDataDTO) {
+      oBballDataDTO.OcJsonObjectDTO.forEach(populate);
+
+      function populate(o) {
+         let oJson = JSON.parse(o.JsonString)[0];
+         eval("oBballDataDTO." + o.ObjectName + " = oJson")
+      }  // populate
+
+   }  // PopulateObjectFromJson
 
    this.wrapTag = function (tag, data, arAttrs) {
       let attrsLit = "";

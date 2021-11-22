@@ -15,7 +15,7 @@ angular.module('app').controller('TMunAdjTotalsModalController', function ($root
 
    function buildHtml(item) {
       let arData = [];
-      buildData(item, arData);
+      buildData(item, arData);  // pass item, return arData
 
       let arRows = buildRows(item, arData);
 
@@ -32,7 +32,7 @@ angular.module('app').controller('TMunAdjTotalsModalController', function ($root
       return html;
    }   // buildHtml
 
-   function buildData(item, arData) {
+   function buildData(item, arData) {  // arData is Built & returned
       let ixVenue = 0;
 
       for (ixVenue = 1; ixVenue <= 2; ixVenue++) {
@@ -60,7 +60,7 @@ angular.module('app').controller('TMunAdjTotalsModalController', function ($root
             }  // PtValue loop
             arGB.push(arPtValue);
          }  // GB loop
-         arData.push(arGB);
+         arData.push(arGB);   // build arData for return
       }  // Venue loop
 
       // Local Function
@@ -128,8 +128,8 @@ angular.module('app').controller('TMunAdjTotalsModalController', function ($root
       for (ixVenue = 0; ixVenue < 2; ixVenue++) {
          let Venue = ixVenue === 0 ? "Away" : "Home";
 
-         let teamTemplate = `${Venue}: ${item['Team' + Venue]}`;
-         arRows.push([teamTemplate, "", ""]);      // ex: Away: DAL
+         let teamTemplate = `${Venue}: ${item['Team' + Venue]}   - Team Avg Actual Games Back: ${item[Venue + 'ActualGBTeam']}`;  //AwayActualGBTeam
+         arRows.push([teamTemplate, "", ""]);      // ex: Away: DAL   AwayActualGBTeam: 15 
          arRows.push([statHeader, statHeader, statHeader]);
          let pt = 0;
          for (pt = 0; pt < 3; pt++) {  // for each PtValues 1,2,3 => 18.10 = 1 * ( 19.13 + ((15.01-17.19) * 100% )

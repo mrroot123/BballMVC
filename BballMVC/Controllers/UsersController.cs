@@ -10,9 +10,9 @@ using BballMVC.Models;
 
 namespace BballMVC.Controllers
 {
-    public class UsersController : Controller
+    public class UsersController : BaseController
     {
-      private Entities2 db = new Entities2();
+    //private Entities2 db = new Entities2();
 
       // GET: Users
       public ActionResult Index()

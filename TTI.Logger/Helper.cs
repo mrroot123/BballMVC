@@ -1,24 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Http.Filters;
 using BballMVC.IDTOs;
-
+using Bball.DataBaseFunctions;
+using DF = SysDAL.Functions.DALfunctions;
+using System.IO;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace TTI.Logger
 {
-   public class Helper
+    public class Helper
    {
       const string TTILog = "TTILog";
 
       public static void Log(IBballInfoDTO oBballInfoDTO,  string Message)
       {
          logIt(oBballInfoDTO, "Log", Message, "");
+
       }
       public static void LogMessage(IBballInfoDTO oBballInfoDTO, Exception ex, string Message)
       {
          logIt(oBballInfoDTO, "Error", Message, ex.StackTrace);
+      }
+      public static void LogError(string Message)
+      {
+         logIt(null, "Error", Message, "");
       }
       private static void logIt(IBballInfoDTO oBballInfoDTO, string MessageType, string Message, string StackTrace)
       {
@@ -44,11 +52,11 @@ namespace TTI.Logger
             ApplicationName = "Bball",
             MessageNum = 0,
             MessageType = "Error",
-            MessageText = context.Exception.Message,
+            MessageText = context.Exception.Message, 
             CallStack = context.Exception.StackTrace
          };
 
-         LogMessage(oTTILogMessage, GetConnectionString(), TTILog);
+         LogMessage(oTTILogMessage, DF.GetConnectionString(), TTILog);
       }
       //public static string LogMessage(TTILogMessage oTTILogMessage, string ConnectionString, string TTILogTable)
       //{ }
@@ -57,7 +65,7 @@ namespace TTI.Logger
          , string ConnectionString = null, string TTILogTable = TTILog)
       {
          if (ConnectionString == null)
-            ConnectionString = GetConnectionString();
+            ConnectionString = DF.GetConnectionString();
 
          const string ColumnNames = "TS,UserName,ApplicationName,MessageNum,MessageType,MessageText,CallStack";
          List<string> ocColumns = ColumnNames.Split(',').OfType<string>().ToList();
@@ -74,41 +82,56 @@ namespace TTI.Logger
 
          // insert row
          string rc = "";
-         //try
-         //{
-            rc = SysDAL.Functions.DALfunctions.InsertTableRow(ConnectionString, TTILogTable, ocColumns, ocValues);
-         //}
-         //catch (Exception ex)
-         //{
-         //   throw new Exception("Invalid TTILogTable Insert/n" + ex.Message);
-         //}
+         try
+         {
+            rc = write2Log(ConnectionString, TTILogTable, ocColumns, ocValues);
+            
+         }
+         catch (Exception ex)
+         {
+            return "Exception - TTILog row not inserted - Exception Message: " + ex.Message;
+         }
          if (rc == "1")
             return "success - TTILog row inserted";
          if (rc == "0")
             return "error - TTILog row not inserted";
 
          return $"Unknown SQL Insert Retruncode: {rc}";
-      }
-
-
-      static string GetConnectionString()
+      }  // LogMessage
+      private static string write2Log(string ConnectionString, string TTILogTable, List<string> ocColumns, List<string> ocValues)
       {
-         const string SqlServerConnectionStringLOCAL =
-            @"Data Source=Localhost\Bball;Initial Catalog=00TTI_LeagueScores;Integrated Security=SSPI";
+         string rc = "";
+         string CsvFile = Path.Combine(new string[] { System.AppDomain.CurrentDomain.BaseDirectory, "App_Data", TTILog + ".csv"});
 
-         const string SqlServerConnectionStringBballPROD =
-            @"Data Source=Localhost\BballPROD;Initial Catalog=00TTI_LeagueScores;Integrated Security=SSPI";
+         string msg = "";
+         if (!File.Exists(CsvFile))
+         {
+            msg = genCsvMsg(ocColumns);
+         }
 
-         const string SqlServerConnectionStringARVIXE =
-            @"Data Source=Localhost\;     Initial Catalog=00TTI_LeagueScores;Integrated Security=false;User ID=theroot;Password=788788kd";
+         msg = msg + genCsvMsg(ocValues);
 
-         if (System.AppDomain.CurrentDomain.BaseDirectory.IndexOf(@"T:\BballMVC") >= 0)
-            return SqlServerConnectionStringBballPROD;
+         File.AppendAllText(CsvFile, msg);
+         //rc = SysDAL.Functions.DALfunctions.InsertTableRow(ConnectionString, TTILogTable, ocColumns, ocValues);
 
-         if (System.AppDomain.CurrentDomain.BaseDirectory.IndexOf(@"\HostingSpaces\") >= 0)
-            return SqlServerConnectionStringARVIXE;
-
-         return SqlServerConnectionStringLOCAL;
+         return "1";
       }
-   }
-}
+      private static string genCsvMsg(List<string> ocValues)
+      {
+         string comma = "";
+         StringBuilder sb = new StringBuilder("");
+         foreach (var s in ocValues)
+         {
+            sb.Append(comma + wrap(s));
+            comma = ", ";
+         }
+
+         return sb.ToString() + ";";
+      }
+      static string wrap(string s)
+      {
+         s = Regex.Replace(s, "\"", "'");
+         return "\"" + s + "\"";
+      }
+   }  // class
+}  // nameSpace

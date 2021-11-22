@@ -27,18 +27,52 @@ namespace BballMVC.ControllerAPIs
          oDataBO = new DataBO();
       }
 
+      [HttpGet]
+      public HttpResponseMessage GetBballInfo()
+      {
+         return Request.CreateResponse(HttpStatusCode.OK, oBballInfoDTO);
+      }
+      [HttpGet]
+      public HttpResponseMessage GetBballData(string UserName, DateTime GameDate, string LeagueName, string CollectionType)
+      {
+         try
+         {
 
+            oBballInfoDTO.UserName = UserName;
+            oBballInfoDTO.GameDate = GameDate;
+            oBballInfoDTO.LeagueName = LeagueName;
+            oBballInfoDTO.CollectionType = CollectionType;
+
+            oDataBO.GetData(oBballInfoDTO);
+         }
+         catch (Exception ex)
+         {
+            oBballInfoDTO.oBballDataDTO.Message = ex.Message;
+            oBballInfoDTO.oBballDataDTO.MessageNumber = 500;
+            return Request.CreateResponse(HttpStatusCode.InternalServerError, oBballInfoDTO);
+         }
+         return Request.CreateResponse(HttpStatusCode.OK, oBballInfoDTO.oBballDataDTO);
+      }
       [HttpGet]
       public HttpResponseMessage GetData(string UserName, DateTime GameDate, string LeagueName, string CollectionType)
       {
-         oBballInfoDTO.UserName = UserName;
-         oBballInfoDTO.GameDate = GameDate;
-         oBballInfoDTO.LeagueName = LeagueName;
-         oBballInfoDTO.CollectionType = CollectionType;
+         try
+         {
 
-         oDataBO.GetData(oBballInfoDTO);
+            oBballInfoDTO.UserName = UserName;
+            oBballInfoDTO.GameDate = GameDate;
+            oBballInfoDTO.LeagueName = LeagueName;
+            oBballInfoDTO.CollectionType = CollectionType;
 
-         return Request.CreateResponse(HttpStatusCode.OK, oBballInfoDTO.oBballDataDTO);
+            oDataBO.GetData(oBballInfoDTO);
+         }
+         catch (Exception ex)
+         {
+            oBballInfoDTO.oBballDataDTO.Message = ex.Message;
+            oBballInfoDTO.oBballDataDTO.MessageNumber = 500;
+            return Request.CreateResponse(HttpStatusCode.InternalServerError, oBballInfoDTO);
+         }
+         return Request.CreateResponse(HttpStatusCode.OK, oBballInfoDTO);
       }
       [HttpGet]
       public HttpResponseMessage RefreshTodaysMatchups(string UserName, DateTime GameDate, string LeagueName)
@@ -64,6 +98,7 @@ namespace BballMVC.ControllerAPIs
             oTTILogMessage.CallStack = ex.StackTrace;
             new LogBO().LogMessage(oTTILogMessage, oBballInfoDTO.ConnectionString, oBballInfoDTO.LogName);
             throw new Exception($"Message: {ex.Message} - Stacktrace: {ex.StackTrace}");
+
          }
          #endregion refreshTodaysMatchupsTryCatch
          stopwatch.Stop();
@@ -74,7 +109,7 @@ namespace BballMVC.ControllerAPIs
       // Get Matchups with past date
       [HttpGet]
       public HttpResponseMessage GetPastMatchups(string UserName, DateTime GameDate, string LeagueName)
-      {
+      {     // kdtodo combine RefreshTodaysMatchups & GetPastMatchups to one private method passing CollectionType
          #region getPastMatchupsTryCatch
          try
          {
@@ -178,14 +213,10 @@ namespace BballMVC.ControllerAPIs
       [HttpPost]
       public HttpResponseMessage PostBoxScoresSeeds(BBSdata oBBSdata)
       {
-         IBballInfoDTO oBballInfoDTO = new BballInfoDTO()
-         {
-            UserName = oBBSdata.UserName,
-            GameDate = oBBSdata.GameDate,
-            LeagueName = oBBSdata.LeagueName,
-            ConnectionString = GetConnectionString()
-         };
-
+         oBballInfoDTO.UserName = oBBSdata.UserName;
+         oBballInfoDTO.GameDate = oBBSdata.GameDate;
+         oBballInfoDTO.LeagueName = oBBSdata.LeagueName;
+            
          IList<IBoxScoresSeedsDTO> oc = new List<IBoxScoresSeedsDTO>();
          foreach (BBSupdates o in oBBSdata.ocBBSupdates)
          {

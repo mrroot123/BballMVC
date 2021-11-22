@@ -24,8 +24,14 @@ angular.module('app').controller('PostGameAnalysisController', function ($rootSc
          , LeagueName: $rootScope.oBballInfoDTO.LeagueName
          , CollectionType: "RefreshPostGameAnalysis"
       })   // Get TodaysMatchups from server
-         .then(data => {
-            $rootScope.oBballInfoDTO.oBballDataDTO.ocPostGameAnalysisDTO = data.ocPostGameAnalysisDTO;
+         .then(oBballInfoDTO => {
+            let data = oBballInfoDTO.oBballDataDTO;   // 10/09/2021 - oBballInfoDTO returned instead of oBballDataDTO
+            //$rootScope.oBballInfoDTO.oBballDataDTO.ocPostGameAnalysisDTO = data.ocPostGameAnalysisDTO;
+
+
+            $rootScope.oBballInfoDTO.oBballDataDTO = oBballInfoDTO.oBballDataDTO;
+            f.PopulateObjectFromJson($rootScope.oBballInfoDTO.oBballDataDTO);
+
             populatePostGameAnalysis();
             f.MessageSuccess("Post Game Analysis Refreshed for " + f.Getmdy($scope.GameDate));
          })

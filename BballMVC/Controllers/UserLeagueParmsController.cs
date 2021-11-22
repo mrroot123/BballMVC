@@ -13,8 +13,10 @@ namespace BballMVC.Controllers
     public class UserLeagueParmsController : BaseController
     {
 
-      //  private Entities2 db = new Entities2("name=Entities2");
-      // private Entities2 db = new Entities2(EFname);
+      public UserLeagueParmsController()
+      {
+
+      }
 
       // GET: UserLeagueParms
       public ActionResult IndexAll()
@@ -23,7 +25,7 @@ namespace BballMVC.Controllers
          return View(x);
       }
 
-
+      public ActionResult Index() => View("Index", userLgParms("NBA"));
       public ActionResult NBA() => View("Index", userLgParms("NBA"));
       public ActionResult WNBA() => View("Index", userLgParms("WNBA"));
 
@@ -92,6 +94,7 @@ namespace BballMVC.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.LeagueName = userLeagueParms.LeagueName.Trim();
             return View(userLeagueParms);
         }
 

@@ -48,14 +48,16 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
 
    /*
      Make 3 Entry Points
-     1) Refresh TMs click  (true)
-     2) Select GameDate    ()
+     1) Refresh TMs click  (true)      UrlRefreshTodaysMatchups
+     2) Select GameDate    ()          UrlGetPastMatchups
      3) Yesterday, Today, Tomorrow Click  (false, newDateLiteral)
    */
    $scope.RefreshTodaysMatchups = function () {
-      getTodaysMatchups(url.UrlRefreshTodaysMatchups);
+      getTodaysMatchupsData("RefreshTodaysMatchups");
+//      getTodaysMatchups(url.UrlRefreshTodaysMatchups);
    };
-   $scope.SelectGameDate = function () {
+   /*
+    *    $scope.SelectGameDate = function () {
       let URL = $rootScope.oBballInfoDTO.GameDate < f.Today() ? url.UrlGetPastMatchups : url.UrlRefreshTodaysMatchups;
       checkForSameDate($rootScope.oBballInfoDTO.GameDate, URL);
    };
@@ -76,6 +78,73 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
       $rootScope.oBballInfoDTO.GameDate = newDate;
       getTodaysMatchups(URL);
    };
+   */
+   $scope.SelectGameDate = function () {
+      let CollectionType = $rootScope.oBballInfoDTO.GameDate < f.Today() ? "GetPastMatchups" : "RefreshTodaysMatchups";
+      checkForSameDate($rootScope.oBballInfoDTO.GameDate, CollectionType);
+   };
+   $scope.GetYesterday = function () {
+      let newDate = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1);
+      checkForSameDate(newDate, "GetPastMatchups");
+   };
+   $scope.GetByDayButton = function (dateOffset) {
+      let newDate = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + dateOffset);
+      checkForSameDate(newDate, "RefreshTodaysMatchups");
+   };
+
+   function checkForSameDate(newDate, CollectionType){
+      if (newDate.toDateString() === localGameDate.toDateString()) {
+         alert(localGameDate.toLocaleDateString() + " is already Selected");
+         return;
+      }
+      $rootScope.oBballInfoDTO.GameDate = newDate;
+      getTodaysMatchupsData(CollectionType);
+   };
+
+   function getTodaysMatchupsData(CollectionType) {
+      localGameDate = $rootScope.oBballInfoDTO.GameDate;
+      setCheckBoxes();
+
+      // Data/UrlRefreshTodaysMatchups - exec uspCalcTodaysMatchups
+      // Data/UrlGetPastMatchups
+      // GetTodaysMatchups
+      // GetDailySummaryDTO
+      // GetUserLeagueParmsDTO
+      ajx.AjaxGet(url.UrlGetBballData, {
+         UserName: $rootScope.oBballInfoDTO.UserName
+         , GameDate: localGameDate.toLocaleDateString()
+         , LeagueName: $rootScope.oBballInfoDTO.LeagueName
+         , CollectionType: CollectionType
+      })   // Get TodaysMatchups from server
+         .then(data => {
+            // See ajx.AjaxGet in HeaderController for same moves
+            $rootScope.oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO = data.ocTodaysMatchupsDTO;
+            $rootScope.oBballInfoDTO.oBballDataDTO.oDailySummaryDTO = data.oDailySummaryDTO;
+            //$rootScope.oBballInfoDTO.oBballDataDTO.oUserLeagueParmsDTO = data.oUserLeagueParmsDTO;
+
+            $rootScope.oBballInfoDTO.oBballDataDTO = oBballInfoDTO.oBballDataDTO;
+            f.PopulateObjectFromJson($rootScope.oBballInfoDTO.oBballDataDTO);
+
+            populateTodaysMatchups();
+
+            f.GreyScreen(containerName);
+            f.ShowScreen(containerName);
+            let msg;
+            if (data.ocTodaysMatchupsDTO.length === 0) {
+               msg = "No Games Scheduled for ";
+            }
+            else if (localGameDate < f.Today()) {
+               msg = "Matchups Retrieved for ";
+            }
+            else {
+               msg = "Matchups Refreshed for ";
+            }
+            f.MessageSuccess(msg + f.Getmdy($rootScope.oBballInfoDTO.GameDate));
+         })
+         .catch(error => {
+            f.DisplayErrorMessage(f.FormatResponse(error));
+         });
+   } // GetTodaysMatchups
 
    function getTodaysMatchups(URL) {
       localGameDate = $rootScope.oBballInfoDTO.GameDate;
@@ -95,13 +164,26 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
             // See ajx.AjaxGet in HeaderController for same moves
             $rootScope.oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO = data.ocTodaysMatchupsDTO;
             $rootScope.oBballInfoDTO.oBballDataDTO.oDailySummaryDTO = data.oDailySummaryDTO;
-            //  $rootScope.oBballInfoDTO.oBballDataDTO.oUserLeagueParmsDTO = data.oUserLeagueParmsDTO;
+            //$rootScope.oBballInfoDTO.oBballDataDTO.oUserLeagueParmsDTO = data.oUserLeagueParmsDTO;
+
+            $rootScope.oBballInfoDTO.oBballDataDTO = oBballInfoDTO.oBballDataDTO;
+            f.PopulateObjectFromJson($rootScope.oBballInfoDTO.oBballDataDTO);
+
             populateTodaysMatchups();
 
             f.GreyScreen(containerName);
             f.ShowScreen(containerName);
-
-            f.MessageSuccess("Matchups Refreshed for " + f.Getmdy($rootScope.oBballInfoDTO.GameDate));
+            let msg;
+            if (data.ocTodaysMatchupsDTO.length === 0) {
+               msg = "No Games Scheduled for ";
+            }
+            else if (localGameDate < f.Today()){
+               msg = "Matchups Retrieved for ";
+            }
+            else {
+               msg = "Matchups Refreshed for ";
+            }
+            f.MessageSuccess(msg + f.Getmdy($rootScope.oBballInfoDTO.GameDate));
          })
          .catch(error => {
             f.DisplayErrorMessage(f.FormatResponse(error));

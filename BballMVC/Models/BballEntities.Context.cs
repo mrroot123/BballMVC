@@ -39,7 +39,6 @@ namespace BballMVC.Models
         public virtual DbSet<ParmTable> ParmTables { get; set; }
         public virtual DbSet<SeasonInfo> SeasonInfoes { get; set; }
         public virtual DbSet<Team> Teams { get; set; }
-        public virtual DbSet<TeamStat> TeamStats { get; set; }
         public virtual DbSet<TeamStatsAverage> TeamStatsAverages { get; set; }
         public virtual DbSet<TodaysMatchupsResult> TodaysMatchupsResults { get; set; }
         public virtual DbSet<TTILog> TTILogs { get; set; }
@@ -49,9 +48,9 @@ namespace BballMVC.Models
         public virtual DbSet<AdjustmentsCodes> AdjustmentsCodes { get; set; }
         public virtual DbSet<DailySummary> DailySummary { get; set; }
         public virtual DbSet<TeamStrength> TeamStrength { get; set; }
-        public virtual DbSet<TodaysMatchups> TodaysMatchups { get; set; }
-        public virtual DbSet<UserLeagueParms> UserLeagueParms { get; set; }
         public virtual DbSet<vPostGameAnalysis> vPostGameAnalysis { get; set; }
+        public virtual DbSet<UserLeagueParms> UserLeagueParms { get; set; }
+        public virtual DbSet<TodaysMatchups> TodaysMatchups { get; set; }
     
         [DbFunction("Entities2", "udfQueryAdjustmentsByTeamTotal")]
         public virtual IQueryable<udfQueryAdjustmentsByTeamTotal_Result> udfQueryAdjustmentsByTeamTotal(Nullable<System.DateTime> gameDate, string leagueName)
@@ -220,7 +219,7 @@ namespace BballMVC.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<uspCalcPtPct_Result>("uspCalcPtPct", gameDateParameter, leagueNameParameter, teamParameter, venueParameter);
         }
     
-        public virtual ObjectResult<uspCalcTodaysMatchups_Result> uspCalcTodaysMatchups(string userName, string leagueName, Nullable<System.DateTime> gameDate, Nullable<bool> display)
+        public virtual ObjectResult<uspCalcTodaysMatchups_Result> uspCalcTodaysMatchups(string userName, string leagueName, Nullable<System.DateTime> gameDate, Nullable<int> display)
         {
             var userNameParameter = userName != null ?
                 new ObjectParameter("UserName", userName) :
@@ -236,7 +235,7 @@ namespace BballMVC.Models
     
             var displayParameter = display.HasValue ?
                 new ObjectParameter("Display", display) :
-                new ObjectParameter("Display", typeof(bool));
+                new ObjectParameter("Display", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<uspCalcTodaysMatchups_Result>("uspCalcTodaysMatchups", userNameParameter, leagueNameParameter, gameDateParameter, displayParameter);
         }

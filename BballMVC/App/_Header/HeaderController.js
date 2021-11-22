@@ -1,4 +1,6 @@
-﻿angular.module('app').controller('HeaderController', function ($rootScope, $scope, f, ajx, url) {
+﻿
+
+angular.module('app').controller('HeaderController', function ($rootScope, $scope, f, ajx, url) {
    kdAlert("HeaderController");
    $scope.ShowLeagueDropDown = false;
 
@@ -26,7 +28,8 @@
             UserName: $rootScope.oBballInfoDTO.UserName, GameDate: new Date().toDateString()
             , LeagueName: $rootScope.oBballInfoDTO.LeagueName, CollectionType: "GetLeagueNames"
          })
-            .then(data => {
+            .then(oBballInfoDTO => {
+               let data = oBballInfoDTO.oBballDataDTO;   // 10/09/2021 - oBballInfoDTO returned instead of oBballDataDTO
                $rootScope.oBballInfoDTO.oBballDataDTO.ocLeagueNames = data.ocLeagueNames;
                $rootScope.oBballInfoDTO.oBballDataDTO.BaseDir = data.BaseDir;
                RefreshLeagueNamesDropDown();
@@ -64,14 +67,19 @@
          , LeagueName: $rootScope.oBballInfoDTO.LeagueName
          , CollectionType: "GetLeagueData"
       })
-         .then(data => {
-            // See $scope.RefreshTodaysMatchups in TodaysMatchupsController for same moves
-            // 1) ocAdjustments  2) ocAdjustmentNames  3) ocTeams  4) LeagueParmsDTO
-            $rootScope.oBballInfoDTO.oBballDataDTO.ocAdjustments = data.ocAdjustments;             // 1) lg data
-            $rootScope.oBballInfoDTO.oBballDataDTO.ocAdjustmentNames = data.ocAdjustmentNames;     // 2) lg data
-            $rootScope.oBballInfoDTO.oBballDataDTO.ocTeams = data.ocTeams;                         // 3) lg data
-            $rootScope.oBballInfoDTO.oBballDataDTO.oUserLeagueParmsDTO = data.oUserLeagueParmsDTO; // 4) lg data
-            $rootScope.oBballInfoDTO.oBballDataDTO.oLeagueDTO = data.oLeagueDTO; // 5) lg data
+         .then(oBballInfoDTO => {
+            let data = oBballInfoDTO.oBballDataDTO;   // 10/09/2021 - oBballInfoDTO returned instead of oBballDataDTO
+          //  // See $scope.RefreshTodaysMatchups in TodaysMatchupsController for same moves
+          //  // 1) ocAdjustments  2) ocAdjustmentNames  3) ocTeams  4) LeagueParmsDTO
+          //  $rootScope.oBballInfoDTO.oBballDataDTO.ocAdjustments = data.ocAdjustments;             // 1) lg data
+          //  $rootScope.oBballInfoDTO.oBballDataDTO.ocAdjustmentNames = data.ocAdjustmentNames;     // 2) lg data
+          //  $rootScope.oBballInfoDTO.oBballDataDTO.ocTeams = data.ocTeams;                         // 3) lg data
+          ////  $rootScope.oBballInfoDTO.oBballDataDTO.oUserLeagueParmsDTO = data.oUserLeagueParmsDTO; // 4) lg data
+          //  $rootScope.oBballInfoDTO.oBballDataDTO.oLeagueDTO = data.oLeagueDTO; // 5) lg data
+
+            $rootScope.oBballInfoDTO.oBballDataDTO = oBballInfoDTO.oBballDataDTO;
+            f.PopulateObjectFromJson($rootScope.oBballInfoDTO.oBballDataDTO);
+
             $rootScope.$broadcast('eventPopulateAdjustments');                                          // 1) lg data
             $rootScope.$broadcast('eventPopulateTeamsAdjTypes');                                       // 2) lg data
             if (data.MessageNumber !== 0) {
@@ -88,4 +96,19 @@
 
    }; // SelectLeague
 
+   // kdtodo delete code 11/14/2021
+   function xPopulateObjectFromJson(oBballDataDTO) {
+      oBballDataDTO.OcJsonObjectDTO.forEach(populate);
+
+         function populate(o) {
+            let oJson = JSON.parse(o.JsonString)[0];
+            eval("oBballDataDTO." + o.ObjectName + " = oJson")
+            //switch (o.ObjectName) {
+            //   case "UserLeagueParms":
+            //      oBballDataDTO.oUserLeagueParmsDTO = null;
+            //      oBballDataDTO.oUserLeagueParmsDTO = oJson;
+            //}  // switch
+         }  // populate
+     
+   }  // PopulateObjectFromJson
 });

@@ -11,7 +11,8 @@ angular.module('app').controller('BoxScoresSeedsController', function ($rootScop
          UserName: $rootScope.oBballInfoDTO.UserName, GameDate: $rootScope.oBballInfoDTO.GameDate.toLocaleDateString()
          , LeagueName: $rootScope.oBballInfoDTO.LeagueName, CollectionType: "GetBoxScoresSeeds"
       })
-         .then(data => {
+         .then(oBballInfoDTO => {
+            let data = oBballInfoDTO.oBballDataDTO;   // 10/09/2021 - oBballInfoDTO returned instead of oBballDataDTO
             $rootScope.oBballInfoDTO.oBballDataDTO.ocBoxScoresSeedsDTO = data;
             $scope.ocBoxScoresSeedsDTO = $rootScope.oBballInfoDTO.oBballDataDTO.ocBoxScoresSeedsDTO;
             $scope.$apply;

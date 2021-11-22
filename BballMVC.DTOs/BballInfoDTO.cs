@@ -20,7 +20,9 @@ namespace BballMVC.DTOs
       public string CollectionType { get; set; }
 
       public string ConnectionString { get; set; }
+      public string BaseDirectory { get; set; }      //System.AppDomain.CurrentDomain.BaseDirectory
       public string LogName { get; set; }
+      public string LogFileNameCsvName { get; set; }
       public string sJsonString { get; set; }
       public string LoadDateTime { get; set; } = DateTime.Now.ToLongDateString();
 

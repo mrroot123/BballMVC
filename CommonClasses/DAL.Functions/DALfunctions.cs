@@ -14,7 +14,40 @@ namespace SysDAL.Functions
       public delegate void PopulateDTOx(List<object> ocRows, object oRow, SqlDataReader rdr);
       public delegate void PopulateDTO(object oRow, SqlDataReader rdr);
 
-      #region ExecuteSql
+      public static string GetConnectionString() 
+      {
+         const string SqlServerConnectionStringLOCAL =
+            @"Data Source=Localhost\Bball;Initial Catalog=00TTI_LeagueScores;Integrated Security=SSPI";
+         const string SqlServerConnectionStringBballPROD =
+            @"Data Source=Localhost\BballPROD;Initial Catalog=db_a791d7_leaguescores;Integrated Security=SSPI";
+         const string SqlServerConnectionStringARVIXE =
+            @"Data Source=Localhost\;     Initial Catalog=00TTI_LeagueScores;Integrated Security=false;User ID=theroot;Password=788788kd";
+         const string SqlServerConnectionStringSMARTERASP =
+            @"Data Source=SQL5074.site4now.net;Initial Catalog=db_a791d7_leaguescores;User Id=db_a791d7_leaguescores_admin;Password=Pizzaman#1";
+
+         // If name="Override" exists in web.config
+         //   THEN use it
+
+         string con = System.Configuration.ConfigurationManager.ConnectionStrings["Override"].ConnectionString;
+         if (con != "null")
+            return con;
+
+
+         if (System.AppDomain.CurrentDomain.BaseDirectory.IndexOf(@"T:\BballMVC") >= 0)
+            return SqlServerConnectionStringBballPROD;
+
+         if (System.AppDomain.CurrentDomain.BaseDirectory.IndexOf(@"\HostingSpaces\") >= 0)
+            return SqlServerConnectionStringARVIXE;
+
+         if (System.AppDomain.CurrentDomain.BaseDirectory.IndexOf(@"Test\mrroot123\mrroot123") >= 0)
+            return SqlServerConnectionStringLOCAL;
+
+         if (System.AppDomain.CurrentDomain.BaseDirectory.IndexOf(@"\theroot-") >= 0)
+            return SqlServerConnectionStringSMARTERASP;
+
+         return SqlServerConnectionStringSMARTERASP;
+      }
+        #region ExecuteSql
       public static int ExecuteSqlNonQuery(string ConnectionString, string strSql)
       {
          int rowsAffected = 0;
@@ -178,7 +211,7 @@ namespace SysDAL.Functions
             {
                oSqlConnection.Open();                                            // 2) Get Conn
                SqlCommand oSqlCommand = new SqlCommand(strSql, oSqlConnection);  // 3) Set Command
-               
+
                using (SqlDataReader rdr = oSqlCommand.ExecuteReader())           // 4) Exec Sql / Read Rows
                {
                   int ctrRows = 0;
@@ -197,7 +230,9 @@ namespace SysDAL.Functions
 
                      throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name}<br>Error Message: {msg}<br>Sql: {strSql}<br>ConnectionString: {ConnectionString}");
                   }
-               }
+                  rdr.Close();
+               }  // using rdr
+
             }  // using conn
          }
          catch (Exception ex)
@@ -206,6 +241,43 @@ namespace SysDAL.Functions
             throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name}<br>Error Message: {msg}<br>Sql: {strSql}<br>ConnectionString: {ConnectionString}");
          }
          return parmValue;
+      }
+
+      public static string ExecuteSqlQueryReturnJson(string ConnectionString, string strSql)
+      {
+         string Json = null;
+         try
+         {
+            //  1)  Get Conn     SqlConnection oSqlConnection 
+            //  2)  Open DB      oSqlConnection.Open();
+            //  3)  Set Command  SqlCommand oSqlCommand = new SqlCommand(sql, oSqlConnection);
+            //  4)  Exec Sql / Read Rows    SqlDataReader rdr = oSqlCommand.ExecuteReader();
+
+            using (SqlConnection oSqlConnection = new SqlConnection(ConnectionString)) // 1) Get Conn
+            {
+               oSqlConnection.Open();                                            // 2) Get Conn
+               SqlCommand oSqlCommand = new SqlCommand(strSql, oSqlConnection);  // 3) Set Command
+               
+               using (SqlDataReader rdr = oSqlCommand.ExecuteReader())           // 4) Exec Sql / Read Rows
+               {
+                  int ctrRows = 0;
+                  while (rdr.Read())
+                  {
+                     Json = rdr.GetString(0);
+                     ctrRows++;
+                  }
+
+                  rdr.Close();
+               }  // using rdr
+               
+            }  // using conn
+         }
+         catch (Exception ex)
+         {
+            var msg = ex.Message + "<br>" + StackTraceParse(ex.StackTrace);
+            throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name}<br>Error Message: {msg}<br>Sql: {strSql}<br>ConnectionString: {ConnectionString}");
+         }
+         return Json;
       }
 
       #endregion ExecuteSql
@@ -241,6 +313,7 @@ namespace SysDAL.Functions
                            delegatePopulateDTO(oRow, rdr);
                      }
                   }
+                  oSqlConnection.Close();
                }  // using conn
          }
          catch (Exception ex)

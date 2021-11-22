@@ -130,6 +130,10 @@
       <Project>{50702d84-0b14-4d58-a1a8-a2f3a9135fd4}</Project>
       <Name>HtmlParsing</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TTI.Logger\TTI.Logger.csproj">
+      <Project>{ff93d3d6-5a10-4af0-8c3c-12482b6de4d1}</Project>
+      <Name>TTI.Logger</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />

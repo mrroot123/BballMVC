@@ -164,5 +164,13 @@ namespace BballMVC.Models
         public Nullable<double> TotalBubbleHome { get; set; }
         public Nullable<System.DateTime> TS { get; set; }
         public string AllAdjustmentLines { get; set; }
+        public Nullable<int> AwayActualGB1 { get; set; }
+        public Nullable<int> AwayActualGB2 { get; set; }
+        public Nullable<int> AwayActualGB3 { get; set; }
+        public Nullable<int> AwayActualGBTeam { get; set; }
+        public Nullable<int> HomeActualGB1 { get; set; }
+        public Nullable<int> HomeActualGB2 { get; set; }
+        public Nullable<int> HomeActualGB3 { get; set; }
+        public Nullable<int> HomeActualGBTeam { get; set; }
     }
 }

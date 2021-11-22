@@ -60,5 +60,6 @@ namespace BballMVC.Models
         public Nullable<double> AdjRecentLeagueHistory { get; set; }
         public Nullable<System.DateTime> TS { get; set; }
         public Nullable<double> LgAvgOurTotalLine { get; set; }
+        public Nullable<System.DateTime> LgAvgEndDateActual { get; set; }
     }
 }

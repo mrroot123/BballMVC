@@ -8,6 +8,8 @@ using System.Web.Http;
 using BballMVC.DTOs;
 using BballMVC.IDTOs;
 using TTI.Logger;
+using SysDAL.Functions;
+
 
 namespace BballMVC.ControllerAPIs
 {
@@ -23,9 +25,10 @@ namespace BballMVC.ControllerAPIs
          stopwatch.Start();
          BaseDir = System.AppDomain.CurrentDomain.BaseDirectory;
          oBballInfoDTO = new BballInfoDTO();
-         oBballInfoDTO.ConnectionString = GetConnectionString();
+         oBballInfoDTO.ConnectionString = DALfunctions.GetConnectionString();
+         oBballInfoDTO.BaseDirectory = System.AppDomain.CurrentDomain.BaseDirectory;
          oBballInfoDTO.LogName = LogName;
-         // oBballInfoDTO.oBballDataDTO.BaseDir = BaseDir;
+         // oBballInfoDTO.oBballDataDTO.BaseDir = BaseDir;  kdtodo delete all BaseDir references
          oBballInfoDTO.TS = GetNowEst();
 
       }
@@ -39,25 +42,7 @@ namespace BballMVC.ControllerAPIs
       {
          return "Test";
       }
-      protected string GetConnectionString()
-      {
-         const string SqlServerConnectionStringLOCAL =
-            @"Data Source=Localhost\Bball;Initial Catalog=00TTI_LeagueScores;Integrated Security=SSPI";
 
-         const string SqlServerConnectionStringBballPROD =
-            @"Data Source=Localhost\BballPROD;Initial Catalog=00TTI_LeagueScores;Integrated Security=SSPI";
-
-         const string SqlServerConnectionStringARVIXE =
-            @"Data Source=Localhost\;     Initial Catalog=00TTI_LeagueScores;Integrated Security=false;User ID=theroot;Password=788788kd";
-
-         if (System.AppDomain.CurrentDomain.BaseDirectory.IndexOf(@"T:\BballMVC") >= 0)
-            return SqlServerConnectionStringBballPROD;
-
-         if (System.AppDomain.CurrentDomain.BaseDirectory.IndexOf(@"\HostingSpaces\") >= 0)
-            return SqlServerConnectionStringARVIXE;
-
-         return SqlServerConnectionStringLOCAL;
-      }
    }
 }
 
