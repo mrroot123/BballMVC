@@ -57,7 +57,7 @@ Declare @StartTime dateTime = GetDate(), @EndTime DateTime
 Declare @LoopHA int, @LoopDate int, @LoopGB int, @EndYear int, @LoopGBStart int, @LoopGBLimit int, @LoopHALimit int
 	, @Description varchar(25) = ''
 
-Set @StartDate = '5/11/2021'
+Set @StartDate = '1/1/2021'
 Set @EndDate =    GetDate()	--
 Set @EndYear = 2022
 Set @LoopGBStart = 0
@@ -65,16 +65,16 @@ Set @LoopGBLimit = 1	-- Loop once
 Set @LoopHALimit = 1	-- 2 for both 
 Set @Description = '5/10/15(w2)'
 
-Update UserLeagueParms
-	Set GB1 = 5
-	  , GB2 = 10
-	  , GB3 = 15
-	Where UserLeagueParmsID =
- (
- Select top 1 UserLeagueParmsID from UserLeagueParms 
-	where LeagueName = @LeagueName 
-	Order by StartDate Desc
-	)
+--Update UserLeagueParms
+--	Set GB1 = 3
+--	  , GB2 = 5
+--	  , GB3 = 7
+--	Where UserLeagueParmsID =
+-- (
+-- Select top 1 UserLeagueParmsID from UserLeagueParms 
+--	where LeagueName = @LeagueName and StartDate <= @GameDate
+--	Order by StartDate Desc
+--	)
 
 --Set @StartDate = '12/1/2019'
 --Set @EndDate =   '3/12/2020'
@@ -103,8 +103,8 @@ BEGIN -- LoopDate
 			Set @StartTime = GETDATE();
 			Set @GameDate = @StartDate
 			Select '============ NEW ITERATION ============================================='
-		--	Select @StartDate as StartDate, @EndDate as EndDate, convert(Time(0), @StartTime) as StartTime,  @LoopGB as GamesBack, @LoopHA as BothHA
-			set @Display = 0; 			--kd
+			Select @StartDate as StartDate, @EndDate as EndDate, convert(Time(0), @StartTime) as StartTime,  @LoopGB as GamesBack, @LoopHA as BothHA
+			set @Display = 03; 			--kd
 			While @GameDate <= @EndDate	
 			BEGIN	-- Date Loop
 			 --  Select  CAST( GETDATE() AS time(0)) AS 'time', @GameDate as GameDate,  @StartDate as StartDate, @EndDate as EndDate, convert(Time(0), @StartTime) as StartTime,  @LoopGB as GamesBack, @LoopHA as BothHA
@@ -113,6 +113,7 @@ BEGIN -- LoopDate
 				Set @GameDate = DateAdd(d,1, @GameDate)
 				set @Display = 0
 				--break
+				--print 'done'
 				--return	-- kd
 			END
 			Set @EndTime = GETDATE();

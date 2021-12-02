@@ -39,7 +39,8 @@ SELECT
   --and abs(t.PlayDiff) > 25
 	and t.GameDate >= '10/21/2021'
   -- and not (TeamAway = 'was' or TeamHome = 'was')
-  order by GameDate desc
+  order by
+   GameDate desc
 	--abs(t.PlayDiff) desc,
 	---- totalLine,
 	-- GameDate, RotNum

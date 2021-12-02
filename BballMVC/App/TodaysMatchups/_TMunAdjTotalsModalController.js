@@ -55,7 +55,8 @@ angular.module('app').controller('TMunAdjTotalsModalController', function ($root
                   item['AverageMade' + Venue + 'GB' + GB + 'Pt' + PtValue],   // 3 - AverageMadeAwayGB1Pt1
                   item[oppVenue + 'AverageAllowedPt' + PtValue],              // 4 - HomeAverageAllowedPt1
                   item['LgAvgShotsMade' + oppVenue + 'Pt' + PtValue],         // 5 - LgAvgShotsMadeHomePt1
-                  item['TMoppAdjPct']);   // 6
+                  item.LgParms['TodaysMUPsOppAdjPctPt' + PtValue]);   // 6
+                  //item['TMoppAdjPct']);   // 6
                arPtValue.push(r);
             }  // PtValue loop
             arGB.push(arPtValue);

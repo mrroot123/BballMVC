@@ -120,9 +120,9 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
             // See ajx.AjaxGet in HeaderController for same moves
             $rootScope.oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO = data.ocTodaysMatchupsDTO;
             $rootScope.oBballInfoDTO.oBballDataDTO.oDailySummaryDTO = data.oDailySummaryDTO;
-            //$rootScope.oBballInfoDTO.oBballDataDTO.oUserLeagueParmsDTO = data.oUserLeagueParmsDTO;
+            $rootScope.oBballInfoDTO.oBballDataDTO.oUserLeagueParmsDTO = data.oUserLeagueParmsDTO;
 
-            $rootScope.oBballInfoDTO.oBballDataDTO = oBballInfoDTO.oBballDataDTO;
+            $rootScope.oBballInfoDTO.oBballDataDTO.OcJsonObjectDTO = data.OcJsonObjectDTO;
             f.PopulateObjectFromJson($rootScope.oBballInfoDTO.oBballDataDTO);
 
             populateTodaysMatchups();
@@ -146,7 +146,7 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
          });
    } // GetTodaysMatchups
 
-   function getTodaysMatchups(URL) {
+   function xgetTodaysMatchups(URL) {
       localGameDate = $rootScope.oBballInfoDTO.GameDate;
       setCheckBoxes();
      
@@ -242,6 +242,10 @@ angular.module('app').controller('TodaysMatchupsController', function ($rootScop
       $scope.avgOurTotalLine = totOurTotalLine / ctrOurTotalLine;
       $scope.avgTotalLine = totTotalLine / ctrTotalLine;
       $scope.avgOpenTotalLine = totOpenTotalLine / ctrOpenTotalLine;
+
+      $rootScope.oBballInfoDTO.oBballDataDTO.ocTodaysMatchupsDTO.forEach(function (item, index) {
+         item.LgParms = $rootScope.oBballInfoDTO.oBballDataDTO.oUserLeagueParmsDTO;
+      });
 
       $scope.GameDate = $rootScope.oBballInfoDTO.GameDate;
 

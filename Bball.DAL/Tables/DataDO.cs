@@ -545,7 +545,7 @@ namespace Bball.DAL.Tables
       #region postGameAnalysis
       public void RefreshPostGameAnalysis(IBballInfoDTO oBballInfoDTO)
       {
-         //RefreshPostGameAnalysisJson(oBballInfoDTO); return;
+         RefreshPostGameAnalysisJson(oBballInfoDTO); return;
 
          string getRowSql =
             $"SELECT *  FROM vPostGameAnalysis  Where LeagueName = '{oBballInfoDTO.LeagueName}' AND GameDate = '{oBballInfoDTO.GameDate.ToShortDateString()}' ";
@@ -558,8 +558,11 @@ namespace Bball.DAL.Tables
       static void QueryJson(IBballInfoDTO oBballInfoDTO, string ObjName)
       {
          //Log("DataDO.QueryJson");
-         string Sql = null; 
-
+         string Sql = null;
+         // FOR JSON AUTO, WITHOUT_ARRAY_WRAPPER
+         // FOR JSON AUTO, INCLUDE_NULL_VALUES
+         // FOR JSON PATH, ROOT ('TOP_LEVEL')
+         // FOR JSON PATH - no child objects
          switch (ObjName)
          {
             case "ocPostGameAnalysisDTO":
@@ -568,7 +571,8 @@ namespace Bball.DAL.Tables
                break;
             case "oUserLeagueParmsDTO":
                Sql = $"SELECT TOP (1) *  FROM UserLeagueParms  Where LeagueName = '{oBballInfoDTO.LeagueName}' AND StartDate <= '{oBballInfoDTO.GameDate.ToShortDateString()}'"
-               + "Order by StartDate desc    for JSON Auto ";
+               + "Order by StartDate desc    for JSON Auto, WITHOUT_ARRAY_WRAPPER ";
+              
                break;
 
             default:
@@ -577,7 +581,7 @@ namespace Bball.DAL.Tables
          }
 
          var sJsonString = SysDAL.Functions.DALfunctions.ExecuteSqlQueryReturnJson(oBballInfoDTO.ConnectionString, Sql);
-         JsonObjectDTO j = new JsonObjectDTO() { ObjectName = "ocPostGameAnalysisDTO", JsonString = sJsonString };
+         JsonObjectDTO j = new JsonObjectDTO() { ObjectName = ObjName, JsonString = sJsonString };
          oBballInfoDTO.oBballDataDTO.OcJsonObjectDTO.Add(j);
       }
       static void populatePostGameAnalysisDTOFromRdr(object oRow, SqlDataReader rdr)
@@ -734,7 +738,7 @@ namespace Bball.DAL.Tables
          o.TotalBubbleHome = rdr["TotalBubbleHome"] == DBNull.Value ? null : (double?)rdr["TotalBubbleHome"];
          o.TS = rdr["TS"] == DBNull.Value ? null : (DateTime?)rdr["TS"];
          o.AllAdjustmentLines = rdr["AllAdjustmentLines"] == DBNull.Value ? null : (string)rdr["AllAdjustmentLines"];
-         o.PlayResult = rdr["PlayResult"] == DBNull.Value ? null : (string)rdr["PlayResult"];
+         o.PlayResult = rdr["PlayResult"] == DBNull.Value ? null : rdr["PlayResult"].ToString();
          o.OtPeriods = (int)rdr["OtPeriods"];
          o.ScoreReg = (double)rdr["ScoreReg"];
          o.ScoreOT = (double)rdr["ScoreOT"];

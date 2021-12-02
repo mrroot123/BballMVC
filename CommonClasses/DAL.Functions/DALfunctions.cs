@@ -100,7 +100,15 @@ namespace SysDAL.Functions
                   while (rdr.Read())
                   {
                      ctrRows++;
-                     delPopulateDTO( oRow, rdr);
+                     try
+                     {
+                        delPopulateDTO(oRow, rdr);
+                     }
+                     catch (Exception ex)
+                     {
+                        var msg = "DALfunctions.ExecuteSqlQuery Executing PopulateDTO Delegate - SQL: " + strSql + " - " + ex.Message + "<br>" + StackTraceParse(ex.StackTrace);
+                        throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name}<br>Error Message: {msg}<br>Sql: {strSql}<br>ConnectionString: {ConnectionString}");
+                     }
                   }
                }
             }  // using conn
@@ -246,6 +254,7 @@ namespace SysDAL.Functions
       public static string ExecuteSqlQueryReturnJson(string ConnectionString, string strSql)
       {
          string Json = null;
+         var sbJson = new StringBuilder(); // convert to string builder kdtodo
          try
          {
             //  1)  Get Conn     SqlConnection oSqlConnection 
@@ -260,10 +269,11 @@ namespace SysDAL.Functions
                
                using (SqlDataReader rdr = oSqlCommand.ExecuteReader())           // 4) Exec Sql / Read Rows
                {
+                  // if (!rdr.HasRows)       sbJson.Append("[]"); else read
                   int ctrRows = 0;
                   while (rdr.Read())
                   {
-                     Json = rdr.GetString(0);
+                     Json += rdr.GetString(0);  // sbJson.Append(rdr.GetValue(0).ToString());
                      ctrRows++;
                   }
 

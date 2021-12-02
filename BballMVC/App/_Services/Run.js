@@ -28,6 +28,7 @@
       return f.Getmdy(d);
    };
    //  ng-class="applyMinusRedColor({{item.PlayDiff}} )"
+   // kdtodo 11/24/2021 move to functions
    $rootScope.applyMinusRedColor = function (n1, n2) {
       try {
 

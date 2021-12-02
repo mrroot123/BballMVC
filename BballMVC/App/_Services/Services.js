@@ -236,7 +236,7 @@ angular.module('app').service('f', function ($rootScope, ajx, url) {
       oBballDataDTO.OcJsonObjectDTO.forEach(populate);
 
       function populate(o) {
-         let oJson = JSON.parse(o.JsonString)[0];
+         let oJson = JSON.parse(o.JsonString);
          eval("oBballDataDTO." + o.ObjectName + " = oJson")
       }  // populate
 
