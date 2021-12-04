@@ -20,30 +20,30 @@ namespace SysDAL.Functions
             @"Data Source=Localhost\Bball;Initial Catalog=00TTI_LeagueScores;Integrated Security=SSPI";
          const string SqlServerConnectionStringBballPROD =
             @"Data Source=Localhost\BballPROD;Initial Catalog=db_a791d7_leaguescores;Integrated Security=SSPI";
-         const string SqlServerConnectionStringARVIXE =
-            @"Data Source=Localhost\;     Initial Catalog=00TTI_LeagueScores;Integrated Security=false;User ID=theroot;Password=788788kd";
+
          const string SqlServerConnectionStringSMARTERASP =
-            @"Data Source=SQL5074.site4now.net;Initial Catalog=db_a791d7_leaguescores;User Id=db_a791d7_leaguescores_admin;Password=Pizzaman#1";
+            @"Data Source=SQL5074.site4now.net;Initial Catalog=db_a791d7_leaguescores;";
 
          // If name="Override" exists in web.config
          //   THEN use it
+          
 
          string con = System.Configuration.ConfigurationManager.ConnectionStrings["Override"].ConnectionString;
          if (con != "null")
             return con;
 
+         string baseDir = System.AppDomain.CurrentDomain.BaseDirectory;
 
-         if (System.AppDomain.CurrentDomain.BaseDirectory.IndexOf(@"T:\BballMVC") >= 0)
+         if (baseDir.IndexOf(@"T:\BballMVC") >= 0)
             return SqlServerConnectionStringBballPROD;
 
-         if (System.AppDomain.CurrentDomain.BaseDirectory.IndexOf(@"\HostingSpaces\") >= 0)
-            return SqlServerConnectionStringARVIXE;
 
-         if (System.AppDomain.CurrentDomain.BaseDirectory.IndexOf(@"Test\mrroot123\mrroot123") >= 0)
+         if (baseDir.IndexOf(@"Test\mrroot123\mrroot123") >= 0)
             return SqlServerConnectionStringLOCAL;
 
-         if (System.AppDomain.CurrentDomain.BaseDirectory.IndexOf(@"\theroot-") >= 0)
-            return SqlServerConnectionStringSMARTERASP;
+         // PROD
+         if (baseDir.IndexOf(@"\theroot-") >= 0)
+            return System.Configuration.ConfigurationManager.ConnectionStrings["SmarterAspConnection"].ConnectionString;
 
          return SqlServerConnectionStringSMARTERASP;
       }
