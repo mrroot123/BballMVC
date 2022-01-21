@@ -36,6 +36,10 @@
             <input type="checkbox" ng-model="cbSingleLine"><label> Single Line Display - Date: </label>
             <input type="date" ng-model="GameDate" />
             &nbsp;&nbsp;
+            <button type="button" class="btn btn-info active" data-toggle="tooltip" title="Display Yesterday's Games'"
+                    ng-show="true" ng-click="DisplayYesterdaysPlays()">
+               Yesterday
+            </button>
             <span ng-model="ctrWLamt"></span>
 
          </div>

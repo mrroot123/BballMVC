@@ -13,21 +13,21 @@ namespace StringExtensionMethods
          return str.Substring(1, str.Length - 2);
       }
 
-		public static string Pad(this string thisString, int padLeft, int padRight)
-		{
-			return thisString.PadLeft(padLeft).PadRight(padRight);
-		}
-
-		public static string ReplaceAll(this string thisString, string FromValue, string ToValue)
+      public static string Pad(this string thisString, int padLeft, int padRight)
       {
-			while (thisString.IndexOf(FromValue) != -1)
-				thisString = thisString.Replace(FromValue, ToValue);
-			return thisString;
-		}
+         return thisString.PadLeft(padLeft).PadRight(padRight);
+      }
 
-		public static string Right(this string sValue, int iMaxLength)
-		{         //Check if the value is valid
-			if (string.IsNullOrEmpty(sValue))
+      public static string ReplaceAll(this string thisString, string FromValue, string ToValue)
+      {
+         while (thisString.IndexOf(FromValue) != -1)
+            thisString = thisString.Replace(FromValue, ToValue);
+         return thisString;
+      }
+
+      public static string Right(this string sValue, int iMaxLength)
+      {         //Check if the value is valid
+         if (string.IsNullOrEmpty(sValue))
          {
             //Set valid empty string as string could be null
             sValue = string.Empty;
@@ -42,9 +42,21 @@ namespace StringExtensionMethods
          return sValue;
       }
 
-		public static string[] SplitByString(this string thisString, string SplitValue)
+      public static string[] SplitByString(this string thisString, string SplitValue)
+      {
+         return thisString.ReplaceAll(SplitValue, ((char)0).ToString()).Split((char)0);
+      }
+
+      public static bool Or(this string thisParm, params string[] list)
 		{
-			return thisString.ReplaceAll(SplitValue, ((char)0).ToString()).Split((char)0); 
+			foreach(var e in list)
+         {
+            if (thisParm == e )
+            if (thisParm == e)
+               return true;
+            continue;
+         }
+         return false;
 		}
 
 

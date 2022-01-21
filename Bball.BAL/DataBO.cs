@@ -4,21 +4,23 @@ using BballMVC.DTOs;
 using BballMVC.IDTOs;
 using Bball.DAL.Tables;
 using Bball.IBAL;
-using Bball.DAL.Constants;
-using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
 using TTI.Logger;
 
 namespace Bball.BAL
 {
-   
+
    public class DataBO : IDataBO 
    {
       // IBballInfoDTO _oBballInfoDTO;
       DataDO _DataDO = new DataDO();
       // Constructor
-  //    public DataBO(IBballInfoDTO BballInfoDTO) => _oBballInfoDTO = BballInfoDTO;
+      //    public DataBO(IBballInfoDTO BballInfoDTO) => _oBballInfoDTO = BballInfoDTO;
 
+      public string SqlToJson(string RequestType, string Parms, string ConnectionString)
+      {
+         return new DataDO().SqlToJson(RequestType, Parms, ConnectionString);
+      }
       public void GetData(IBballInfoDTO oBballInfoDTO)
       {
          string[] arCollectionTypes = oBballInfoDTO.CollectionType.Split('~');
@@ -43,14 +45,16 @@ namespace Bball.BAL
                   new DataDO().VerifyTables(oBballInfoDTO);
                   break;
 
+               // Todays Matchups
                case GetDataConstants.RefreshTodaysMatchups:       // Run uspCalcTMs, Get ocTodaysMatchupsDTO
                   new DataDO().RefreshTodaysMatchups(oBballInfoDTO);
                   new DataDO().GetUserLeagueParmsDTO(oBballInfoDTO);
+                  new DataDO().GetLeagueData(oBballInfoDTO);
                   break;
-
                case GetDataConstants.GetPastMatchups:       
                   new DataDO().GetTodaysMatchups(oBballInfoDTO);
                   new DataDO().GetUserLeagueParmsDTO(oBballInfoDTO);
+                  new DataDO().GetLeagueData(oBballInfoDTO);
                   break;
 
                case GetDataConstants.DataConstants:
@@ -131,21 +135,21 @@ namespace Bball.BAL
          GetDataConstants.PopulateGetDataConstants(oBballInfoDTO.oBballDataDTO.DataConstants);
          oBballInfoDTO.oBballDataDTO.BaseDir = System.AppDomain.CurrentDomain.BaseDirectory;
 
-         Task<bool> taskAdj = updateYesterdaysAdjustmentsAsync(oBballInfoDTO);
+         Task<bool> taskAdj = updateYesterdaysAdjustmentsAsync(oBballInfoDTO);   // Batch process
 
-         new DataDO().GetLeagueNames(oBballInfoDTO);
+         new DataDO().GetLeagueNames(oBballInfoDTO);  // return LeagueNames for dropdown & Load Boxscores
          //
          IBballInfoDTO _oBballInfoDTO = new BballInfoDTO();
          oBballInfoDTO.CloneBballDataDTO(_oBballInfoDTO);
 
 
-         foreach (var item in oBballInfoDTO.oBballDataDTO.ocLeagueNames)
+         foreach (var item in oBballInfoDTO.oBballDataDTO.ocLeagueNames)   // Batch process
          {
             oBballInfoDTO.LeagueName = item.Value;
             
             new LoadBoxScores(oBballInfoDTO).LoadTodaysRotation();  // Constructor Loads BoxScores then Rotation is Loaded
          }
-         new AdjustmentsDO(oBballInfoDTO).UpdateTodaysPlays();
+         new AdjustmentsDO(oBballInfoDTO).UpdateTodaysPlays(); // Batch process
          #region comment4now
          // new DataDO().VerifyTables(oBballInfoDTO);
          //await taskAdj;

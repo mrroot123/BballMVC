@@ -8,6 +8,7 @@ GO
 
 --> scrRunTMs Analysis
 SET NOCOUNT ON
+Declare @ScriptName varchar(20) = 'scrRunTMs'
 
   Declare @UserName	varchar(10) = 'Test'
 			, @LeagueName varchar(8) = 'NBA'
@@ -57,7 +58,7 @@ Declare @StartTime dateTime = GetDate(), @EndTime DateTime
 Declare @LoopHA int, @LoopDate int, @LoopGB int, @EndYear int, @LoopGBStart int, @LoopGBLimit int, @LoopHALimit int
 	, @Description varchar(25) = ''
 
-Set @StartDate = '1/1/2021'
+Set @StartDate = '11/28/2021'
 Set @EndDate =    GetDate()	--
 Set @EndYear = 2022
 Set @LoopGBStart = 0
@@ -102,7 +103,7 @@ BEGIN -- LoopDate
 			---------------
 			Set @StartTime = GETDATE();
 			Set @GameDate = @StartDate
-			Select '============ NEW ITERATION ============================================='
+			Select '============ NEW ITERATION =============================================', @ScriptName
 			Select @StartDate as StartDate, @EndDate as EndDate, convert(Time(0), @StartTime) as StartTime,  @LoopGB as GamesBack, @LoopHA as BothHA
 			set @Display = 03; 			--kd
 			While @GameDate <= @EndDate	

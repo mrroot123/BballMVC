@@ -1,4 +1,5 @@
-﻿
+﻿'use strict';
+
 angular.module('app').controller('templateModalController', function ($rootScope, $scope, f, ajx, url) {
    const modalName = "templateModal";
    const containerName = "parentContainer";

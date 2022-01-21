@@ -1,4 +1,5 @@
-﻿angular.module('app').service('url', function () {
+﻿'use strict';
+angular.module('app').service('url', function () {
    const urlPrefix = "../../api/";
    // Adjustments
  // 01/25/2021  this.UrlPostInsertAdjustment = urlPrefix + "Adjustments/PostInsertAdjustment";
@@ -12,7 +13,8 @@
    this.UrlGetData = urlPrefix + "Data/GetData";
    this.UrlRefreshBballInfo = urlPrefix + "Data/GetBballInfo";
    this.UrlGetBballData = urlPrefix + "Data/GetBballData";
-
+   this.UrlSqlToJson = urlPrefix + "Data/SqlToJson";
+   
    this.UrlPostJsonString = urlPrefix + "Data/PostJsonString";
    this.UrlPostData = urlPrefix + "Data/PostData";
    this.UrlPostObject = urlPrefix + "Data/PostObject";
@@ -38,13 +40,16 @@ Type: Boolean
    fitting to the default content-type "application/x-www-form-urlencoded". 
    If you want to send a DOMDocument, or other non-processed data, set this option to false.
    */
-   this.AjaxGet = function (URL, Data) {
+   this.AjaxGet = function (URL, Data, Async) {
+      if (!Async)
+         Async = true;
       var startTime = new Date();
       return new Promise((resolve, reject) => {
          $.ajax({
             url: URL,
             type: 'GET',
             data: Data,
+            async: Async,
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                data.et = new Date() - startTime;
@@ -68,7 +73,7 @@ Type: Boolean
             data: JSON.stringify(Data),
             contentType: ContentType,  
             success: function (returnData) {
-               returnData.et = new Date() - startTime;
+            //   returnData.et = new Date() - startTime;
                resolve(returnData);
             },
             error: function (error) {
@@ -133,6 +138,9 @@ angular.module('app').service('f', function ($rootScope, ajx, url) {
 
    this.FormatResponse = function (response) {
       var msg;
+      msg + =formatProp("CollectionType");
+      if (response.HasOwnProperty("ControllerName"))
+         msg += "Controller Name: " + response.ControllerName + "\n";
       if (response.status !== undefined)
          msg += "status: " + response.status + "\n";
       if (response.statusText !== undefined)
@@ -145,6 +153,12 @@ angular.module('app').service('f', function ($rootScope, ajx, url) {
          msg += "stack: " + response.stack + "\n";
 
       return msg;
+
+      formatProp(propName){
+         if (response.HasOwnProperty(propName))
+            return propName + ": " + response[propName] + "\n";
+         return "";
+      }
    };
 
    // Date functions
@@ -241,6 +255,34 @@ angular.module('app').service('f', function ($rootScope, ajx, url) {
       }  // populate
 
    }  // PopulateObjectFromJson
+
+   this.GetAjax = function (AjaxParms, scope, f) {
+
+      ajx.AjaxGet(AjaxParms.Url, {
+         UserName: AjaxParms.UserName
+         , GameDate: AjaxParms.GameDate
+         , LeagueName: AjaxParms.LeagueName
+         , CollectionType: AjaxParms.CollectionType
+      })   // Get data from server
+         .then(data => {
+            scope.oBballDataDTO.OcJsonObjectDTO = data.OcJsonObjectDTO; // move JSON data --> oBballDataDTO.OcJsonObjectDTO
+            f.PopulateObjectFromJson(scope.oBballDataDTO);              // populate oBballDataDTO.OcJsonObjectDTO
+
+            if (AjaxParms.ProcessFunction) {                            // process Local Logic
+               AjaxParms.ProcessFunction(scope);
+            }
+
+            f.GreyScreen(AjaxParms.containerName);
+            f.ShowScreen(AjaxParms.containerName);
+            if (AjaxParms.MessageFunction) {                            // process Messages
+               AjaxParms.MessageFunction(scope);
+            }
+
+         })
+         .catch(error => {
+            f.DisplayErrorMessage(f.FormatResponse(error));
+         });
+   } // GetAjax
 
    this.wrapTag = function (tag, data, arAttrs) {
       let attrsLit = "";

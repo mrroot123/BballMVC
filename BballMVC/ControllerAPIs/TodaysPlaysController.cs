@@ -17,7 +17,7 @@ namespace BballMVC.ControllerAPIs
    // [ApiExceptionFilter]
    public class TodaysPlaysController : BaseApiController
    {
-
+      // http://data.nba.net/10s/prod/v2/20211210/scoreboard.json
       //  TodaysPlaysBO oTodaysPlaysBO;
       //  IDataBO oDataBO = new DataBO();
 

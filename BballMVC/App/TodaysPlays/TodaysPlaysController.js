@@ -4,6 +4,10 @@ angular.module('app').controller('todaysPlaysController', function ($rootScope, 
    //alert("TodaysPlaysController");
    let UrlRefreshTodaysPlays = "../../api/TodaysPlays/GetTodaysPlays";
 
+   $scope.DisplayYesterdaysPlays = function () {
+      $scope.GameDate = f.Yesterday();
+      RefreshTodaysPlays();
+   }
    $scope.RefreshTodaysPlays = function () {
       f.GreyScreen("screen");
 

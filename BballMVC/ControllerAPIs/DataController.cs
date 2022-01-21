@@ -56,6 +56,7 @@ namespace BballMVC.ControllerAPIs
       [HttpGet]
       public HttpResponseMessage GetData(string UserName, DateTime GameDate, string LeagueName, string CollectionType)
       {
+        
          try
          {
 
@@ -137,6 +138,13 @@ namespace BballMVC.ControllerAPIs
          #endregion getPastMatchupsTryCatch
 
          return Request.CreateResponse(HttpStatusCode.OK, oBballInfoDTO.oBballDataDTO);
+      }
+      
+      [HttpGet]
+      public HttpResponseMessage SqlToJson(string RequestType, string Parms)
+      {
+         var json = oDataBO.SqlToJson(RequestType, Parms, oBballInfoDTO.ConnectionString);
+         return Request.CreateResponse(HttpStatusCode.OK, json);
       }
 
       //[HttpPost] kdcleanup

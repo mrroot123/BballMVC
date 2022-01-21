@@ -76,9 +76,9 @@ namespace Bball.BAL
          foreach (var oTP in ocTodaysPlays)
          {
             oTodaysPlays = oTP;
-            if (oBballInfoDTO.GameDate < DateTime.Today && oTodaysPlays.ScoreAway != null)
+            if (oBballInfoDTO.GameDate < DateTime.Today && oTodaysPlays.ScoreAway != null) // Previous Plays
             {
-               ScoreAway = oTodaysPlays.ScoreAway;
+               ScoreAway = oTodaysPlays.ScoreAway; // kdtodo get scores from SP?
                ScoreHome = oTodaysPlays.ScoreHome;
                GameStatus = (int)CoversRotation.GameStatus.Final;
             }

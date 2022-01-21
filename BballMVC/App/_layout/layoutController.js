@@ -1,4 +1,6 @@
-﻿angular.module("app").controller("layoutController", function ($rootScope, $scope, f) {
+﻿'use strict';
+
+angular.module("app").controller("layoutController", function ($rootScope, $scope, f) {
    kdAlert("layoutController");
    $scope.Accordion = false; // hide Accordion on app init
    $scope.PostGameAnalysis = true;

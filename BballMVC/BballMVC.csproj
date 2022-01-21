@@ -380,6 +380,8 @@
     <Content Include="App\_Header\HeaderController.js" />
     <Content Include="App\_layout\layout.html" />
     <Content Include="App\_layout\layoutController.js" />
+    <Content Include="App\_Services\CommonCode.js" />
+    <Content Include="App\_Services\JsonToHtml.js" />
     <Content Include="App\_Services\ModalService.js" />
     <Content Include="App\_Services\Run.js" />
     <Content Include="App\_Services\Services.js" />
@@ -522,7 +524,7 @@
       <Name>Bball.BAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bball.DAL\Bball.DAL.csproj">
-      <Project>{B9DB69FF-5285-413F-BAE1-9A9433F5BC5D}</Project>
+      <Project>{b9db69ff-5285-413f-bae1-9a9433f5bc5d}</Project>
       <Name>Bball.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bball.IBAL\Bball.IBAL.csproj">

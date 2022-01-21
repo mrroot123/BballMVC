@@ -55,6 +55,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -77,6 +78,10 @@
     <ProjectReference Include="..\CommonClasses\DAL.Functions\SysDAL.Functions.csproj">
       <Project>{f08657dc-56b9-4ea3-9bab-c3234c143145}</Project>
       <Name>SysDAL.Functions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CommonClasses\StringExtensionMethods\StringExtensionMethods.csproj">
+      <Project>{783fec2b-b8b4-439b-88fd-6b0a1d698938}</Project>
+      <Name>StringExtensionMethods</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

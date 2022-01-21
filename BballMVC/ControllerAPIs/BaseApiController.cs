@@ -18,7 +18,7 @@ namespace BballMVC.ControllerAPIs
       public IBballInfoDTO oBballInfoDTO { get; set; }
 
       public string BaseDir { get; set; }
-      const string LogName = "TTILog";
+      const string LogName = "TTILog"; // kdtodo move to web.config
       protected Stopwatch stopwatch = new Stopwatch();
       public BaseApiController()
       {

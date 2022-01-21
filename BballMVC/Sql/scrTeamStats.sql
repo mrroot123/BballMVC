@@ -1,8 +1,9 @@
 use [00TTI_LeagueScores]
+Declare @ScriptName varchar(25) = 'scrTeamStats';
 --
 --- Results pasted in Analysis.xlsx 
 --
-Declare @LeagueName varchar(10) = 'NBA', @Season varchar(4), @GameDate Date
+Declare @LeagueName varchar(10) = 'NBA', @Season varchar(4), @GameDate Date, @StartDate Date, @EndDate Date
 Declare @VolAway float, @VolHome float,  @TmStrAway float, @TmStrHome float
 	, @PtMade1 float, @PtAtmp1 float
 	, @PtMade2 float, @PtAtmp2 float
@@ -20,7 +21,8 @@ Declare @VolAway float, @VolHome float,  @TmStrAway float, @TmStrHome float
 
 
 Declare @TeamStats TABLE (
-Team Varchar(4), Venue varchar(4),Vol float, TmStr float
+	  StartDate Date, Enddate Date
+	, Team Varchar(4), Venue varchar(4),Vol float, TmStr float
 	, PtMade1 float, PtAtmp1 float
 	, PtMade2 float, PtAtmp2 float
 	, PtMade3 float, PtAtmp3 float
@@ -34,13 +36,13 @@ Team Varchar(4), Venue varchar(4),Vol float, TmStr float
 	, OverWins int	, OverLosses int
 )
 
-Set @Season = '2021'		
+Set @Season = '2122'		
 Set @GameDate  = Getdate()
 Set @Venue = 'Both'
 
 Declare @Teams TABLE (Team Varchar(4))
 Insert INTO @Teams
-Exec uspQueryTeams  @LeagueName, @GameDate
+Exec uspQueryTeams  @LeagueName, @GameDate -- Exec uspQueryTeams  'NBA', '12/1/2021'
 --Select * From @Teams; return;
 
 --Select t.Team 
@@ -112,6 +114,9 @@ BEGIN		-- Loop for each Team
       ,@UnderLosses = sum([UnderLoss]) 
       ,@OverWins = sum([OverWin]) 
       ,@OverLosses = sum([OverLoss]) 
+		,@StartDate = min(GameDate)
+		,@EndDate = max(GameDate)
+
 		  FROM [00TTI_LeagueScores].[dbo].[TodaysMatchupsResults]
 		  Where Season = @Season and LeagueName = @LeagueName
 			and ( ((@Venue = 'Away' AND TeamAway = @Team) or (@Venue = 'Home')) or @Venue = 'Both')
@@ -119,7 +124,7 @@ BEGIN		-- Loop for each Team
 
 		
 		Insert Into @TeamStats
-		Select @Team as Team, @Venue as Venue, @VolAway  ,@TmStrAway 
+		Select @StartDate, @EndDate, @Team as Team, @Venue as Venue, @VolAway  ,@TmStrAway 
 			,@PtMade1 as PtMade1 ,@PtAtmp1 as PtAtmp1
 			,@PtMade2 as PtMade2 ,@PtAtmp2 as PtAtmp2
 			,@PtMade3 as PtMade3 ,@PtAtmp3 as PtAtmp3
@@ -145,7 +150,7 @@ Select top 1
 	Where StartDate <= GetDate()
   Order by StartDate Desc
 	
-Select @LeagueName as LeagueName, @Season as Season, @GameDate as GameDate
+Select @ScriptName as ScriptName, @LeagueName as LeagueName, @Season as Season, @GameDate as GameDate
 
 --Select 'Top 30', Sum(q1.Wins) as W, Sum(q1.Losses) as L
 --	From (
@@ -160,8 +165,16 @@ Select @LeagueName as LeagueName, @Season as Season, @GameDate as GameDate
 --	order by vol Desc
 --	) q1
 
-Select t.Wins as Winss, t.Losses, 
-	 t.PtMade1    +  t.PtMade2 *2    + t.PtMade3 * 3    as PtsScored
- ,	 t.PtAllowed1 +  t.PtAllowed2 *2 + t.PtAllowed3 * 3 as PtsAllowed
- , * From @TeamStats t
- order by wins desc
+Select  Round( t2.TmStrDiff,1) ,  t2.Wins as Winss, t2.Losses, t2.TmStr, Round(t2.TmStrDiff,1) as TmStrDiff, *
+ From(
+	Select
+	   t.TmStr -	( t.PtMade1    +  t.PtMade2 *2    + t.PtMade3 * 3   +
+	 +	 t.PtAllowed1 +  t.PtAllowed2 *2 + t.PtAllowed3 * 3 ) as TmStrDiff
+		, t.PtMade1    +  t.PtMade2 *2    + t.PtMade3 * 3    as PtsScored
+	 ,	 t.PtAllowed1 +  t.PtAllowed2 *2 + t.PtAllowed3 * 3 as PtsAllowed
+	 , * From @TeamStats t
+ ) t2
+
+ order by t2.TmStrDiff desc,
+  t2.Team
+  --wins desc

@@ -273,7 +273,7 @@ namespace SysDAL.Functions
                   int ctrRows = 0;
                   while (rdr.Read())
                   {
-                     Json += rdr.GetString(0);  // sbJson.Append(rdr.GetValue(0).ToString());
+                     Json += rdr.GetString(0);  // kdtodo sbJson.Append(rdr.GetValue(0).ToString());
                      ctrRows++;
                   }
 

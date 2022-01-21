@@ -13,6 +13,7 @@ using Bball.DataBaseFunctions;
 //using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 using SysDAL.Functions;
+using StringExtensionMethods;
 
 namespace UnitTest_CS
 {
@@ -20,12 +21,22 @@ namespace UnitTest_CS
    public class UnitTest1
    {
       [Test]
-      public void TestMethod1()
+      public void TestOr()
       {
-         int i = 1;
-         Assert.AreEqual(i, 2);
-         //Assert.AreNotEqual(1, 1);
+         var expected = true;
+         var x = "a";
+        
+         var result = x.Or( "b", "c", "a");
+         Assert.AreEqual(expected, result);
       }
+
+      //[Test]
+      //public void TestMethod1b)
+      //{
+      //   int i = 1;
+      //   Assert.AreEqual(i, 2);
+      //   //Assert.AreNotEqual(1, 1);
+      //}
    }  // default class
 
  //  [TestFixture]

@@ -93,10 +93,10 @@
             <th></th>
          </tr>
 
-         <tr ng-show="ocTodaysMatchups.length==0"><td>No Games Scheduled</td></tr>
+         <tr ng-show="ocTodaysMatchupsDTO.length==0"><td>No Games Scheduled</td></tr>
 
          <!-- Matchups -->
-         <tr ng-repeat="item in ocTodaysMatchups" ng-hide="HideMatchupRow(this)" id="trTM_{{$index}}">
+         <tr ng-repeat="item in ocTodaysMatchupsDTO" ng-hide="HideMatchupRow(this)" id="trTM_{{$index}}">
 
             <td>
                <table>
@@ -462,7 +462,7 @@
                      <td ng-show="Multi">{{item.OurTotalLineHome - ((item.TotalLine-item.SideLine)/2) | number:1}}</td>
                   </tr>
                   <tr>
-                     <td class="statTotal" ng-class="applyMinusRedColor({{item.PlayDiff}} )">{{item.PlayDiff |  number:1}}</td>
+                     <td class="statTotal" ng-class="applyMinusRedColor({{item.PlayDiff}} )" title="{{item.PlayDiff |  number:3}}">{{item.PlayDiff |  number:1}}</td>
                   </tr>
                </table>
             </td>

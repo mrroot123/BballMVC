@@ -1,4 +1,4 @@
-﻿
+﻿'use strict';
 
 angular.module('app').controller('HeaderController', function ($rootScope, $scope, f, ajx, url) {
    kdAlert("HeaderController");
@@ -91,6 +91,8 @@ angular.module('app').controller('HeaderController', function ($rootScope, $scop
 
          })
          .catch(error => {
+            error.CollectionType = "GetLeagueData";
+            error.ControllerName = "HeaderController";
             f.DisplayErrorMessage(f.FormatResponse(error));
          });
 
