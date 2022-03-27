@@ -11,6 +11,7 @@ angular.module('app').service('url', function () {
 
    this.UrlGetLeagueNames = urlPrefix + "Data/GetLeagueNames";
    this.UrlGetData = urlPrefix + "Data/GetData";
+   this.UrlGetDataAsync = urlPrefix + "Data/GetDataAsync";
    this.UrlRefreshBballInfo = urlPrefix + "Data/GetBballInfo";
    this.UrlGetBballData = urlPrefix + "Data/GetBballData";
    this.UrlSqlToJson = urlPrefix + "Data/SqlToJson";
@@ -138,9 +139,9 @@ angular.module('app').service('f', function ($rootScope, ajx, url) {
 
    this.FormatResponse = function (response) {
       var msg;
-      msg + =formatProp("CollectionType");
-      if (response.HasOwnProperty("ControllerName"))
-         msg += "Controller Name: " + response.ControllerName + "\n";
+      msg += formatProp("CollectionType");
+      //if (response.hasOwnProperty("ControllerName"))
+      //   msg += "Controller Name: " + response.ControllerName + "\n";
       if (response.status !== undefined)
          msg += "status: " + response.status + "\n";
       if (response.statusText !== undefined)
@@ -154,8 +155,8 @@ angular.module('app').service('f', function ($rootScope, ajx, url) {
 
       return msg;
 
-      formatProp(propName){
-         if (response.HasOwnProperty(propName))
+      function formatProp(propName){
+         if (response.hasOwnProperty(propName))
             return propName + ": " + response[propName] + "\n";
          return "";
       }
@@ -173,6 +174,14 @@ angular.module('app').service('f', function ($rootScope, ajx, url) {
    this.Yesterday = function () {
       return new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1);
    };
+   this.AddDays = function (dt, days) {
+      return new Date(dt.getFullYear(), dt.getMonth(), dt.getDate() + days);
+   };
+   this.setToSunday = function (d) {
+      var n = d.getDay();
+      n = (7 - (n - 7) % 7) % 7;
+      return this.AddDays(d, n);
+   }
    this.GetDayOfWeekLiteral = function (date) {
       //Create an array containing each day, starting with Sunday.
       var weekdays = new Array(
@@ -257,17 +266,19 @@ angular.module('app').service('f', function ($rootScope, ajx, url) {
    }  // PopulateObjectFromJson
 
    this.GetAjax = function (AjaxParms, scope, f) {
-
-      ajx.AjaxGet(AjaxParms.Url, {
-         UserName: AjaxParms.UserName
-         , GameDate: AjaxParms.GameDate
-         , LeagueName: AjaxParms.LeagueName
-         , CollectionType: AjaxParms.CollectionType
-      })   // Get data from server
+      return ajx.AjaxGet(AjaxParms.Url, AjaxParms.UrlData)
+         //   { kdtodo
+         //   UserName: AjaxParms.UserName
+         //   , GameDate: AjaxParms.GameDate
+         //   , LeagueName: AjaxParms.LeagueName
+         //   , CollectionType: AjaxParms.CollectionType
+         //})   // Get data from server
          .then(data => {
-            scope.oBballDataDTO.OcJsonObjectDTO = data.OcJsonObjectDTO; // move JSON data --> oBballDataDTO.OcJsonObjectDTO
-            f.PopulateObjectFromJson(scope.oBballDataDTO);              // populate oBballDataDTO.OcJsonObjectDTO
-
+            scope.Payload = data;
+            if (data.oBballDataDTO) {
+               scope.oBballDataDTO.OcJsonObjectDTO = data.oBballDataDTO.OcJsonObjectDTO; // move JSON data --> oBballDataDTO.OcJsonObjectDTO
+               f.PopulateObjectFromJson(scope.oBballDataDTO);              // populate oBballDataDTO.OcJsonObjectDTO
+            }
             if (AjaxParms.ProcessFunction) {                            // process Local Logic
                AjaxParms.ProcessFunction(scope);
             }
@@ -280,10 +291,21 @@ angular.module('app').service('f', function ($rootScope, ajx, url) {
 
          })
          .catch(error => {
-            f.DisplayErrorMessage(f.FormatResponse(error));
+            if (AjaxParms.ErrorFunction) {                            // process Messages
+               AjaxParms.ErrorFunction(error);
+            }
+            else {
+               f.DisplayErrorMessage(f.FormatResponse(error));
+            }
          });
    } // GetAjax
-
+   this.EditConnectionString = function (ConnectionString) {
+      const p = "pazz".replace("zz", "ss") + "wo" + "rd";
+      if (ConnectionString.indexOf(p) > 0)
+         return "redacted";
+     
+      return ConnectionString;
+   };
    this.wrapTag = function (tag, data, arAttrs) {
       let attrsLit = "";
       if (arAttrs) {

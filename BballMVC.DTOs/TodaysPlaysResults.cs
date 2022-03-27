@@ -8,11 +8,13 @@ namespace BballMVC.DTOs
 {
    public class TodaysPlaysResults
    {
-      public DateTime GameDate { get; set; }
+      public string GameDate { get; set; }
+      public string LeagueName { get; set; }
       public int RotNum { get; set; }
       public string GameTime { get; set; }
       public string TeamAway { get; set; }
       public string TeamHome { get; set; }
+      public int Result { get; set; }
       public string PlayDirection { get; set; } // 3A - 3+
       public double Line { get; set; }          // 3B - 3+
       public double Score { get; set; }         // 5B+- 4

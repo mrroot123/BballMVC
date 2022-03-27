@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E6444A70-6A41-4269-8BC9-9E681DDE59AA}</ProjectGuid>
+    <ProjectGuid>{12E1A87E-E6F8-41BE-B3E9-B693D6D8CFE6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Bball.IBAL</RootNamespace>
-    <AssemblyName>Bball.IBAL</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <RootNamespace>TTI.Models</RootNamespace>
+    <AssemblyName>TTI.Models</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
@@ -32,9 +32,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -45,23 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IBoxScoresSeedsBO.cs" />
-    <Compile Include="IAdjustmentsBO.cs" />
-    <Compile Include="IDataBO.cs" />
+    <Compile Include="TaskInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BballMVC.DTOs\BballMVC.DTOs.csproj">
-      <Project>{853742b2-9d6c-4673-8a8d-8cfe9759939d}</Project>
-      <Name>BballMVC.DTOs</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BballMVC.IDTOs\BballMVC.IDTOs.csproj">
-      <Project>{acd5303e-7878-4a29-a82b-f89fa1b15cdf}</Project>
-      <Name>BballMVC.IDTOs</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

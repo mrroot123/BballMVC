@@ -82,6 +82,33 @@ namespace Bball.DataBaseFunctions
 
          return s;
       }
+      public static string TeamLookupTeamNameByTeamNameInDatabase(DateTime StartDate, string LeagueName, string TeamSource, string TeamNameInDatabase, string ConnectionString)
+      {
+         List<string> SqlParmNames = new List<string>();
+         List<object> SqlParmValues = new List<object>();
+
+         SqlParmNames.Add("@StartDate");
+         SqlParmValues.Add(StartDate);
+
+         SqlParmNames.Add("@LeagueName");
+         SqlParmValues.Add(LeagueName);
+
+         SqlParmNames.Add("@TeamSource");
+         SqlParmValues.Add(TeamSource);
+
+         SqlParmNames.Add("@TeamNameInDatabase");
+         SqlParmValues.Add(TeamNameInDatabase);
+
+         string StoredProcedureName = "TeamLookupTeamNameByTeamNameInDatabase";
+       //  string ConnectionString = DALfunctions.GetConnectionString();
+
+         string s = DALfunctions.ExecuteStoredProcedureQueryReturnSingleParm(ConnectionString, StoredProcedureName, SqlParmNames, SqlParmValues);
+         if (String.IsNullOrEmpty(s))
+            throw new Exception($"TeamLoop Exception - {StartDate} - {LeagueName} - TeamSource: {TeamSource} - Team: {TeamNameInDatabase}");
+
+         return s;
+      }
+
       public static string TeamLookupTeamNameByTeamNameInDatabase(DateTime StartDate, string LeagueName, string TeamSource, string TeamNameInDatabase)
       {
          List<string> SqlParmNames = new List<string>();
@@ -108,7 +135,7 @@ namespace Bball.DataBaseFunctions
 
          return s;
       }
-      public static string TeamLookupSourceToSource(DateTime StartDate, string LeagueName, string TeamSourceFrom, string TeamSourceTo, string TeamName)
+      public static string xTeamLookupSourceToSource(DateTime StartDate, string LeagueName, string TeamSourceFrom, string TeamSourceTo, string TeamName)
       {
          List<string> SqlParmNames = new List<string>();
          List<object> SqlParmValues = new List<object>();

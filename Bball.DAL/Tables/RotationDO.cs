@@ -125,10 +125,10 @@ namespace Bball.DAL.Tables
       }
       private async Task insertLines()
       {
-         await Task.Run(() =>
-         {
-            new LinesDO(_GameDate, _oLeagueDTO, _ConnectionString, _strLoadDateTime).InsertLinesFromRotation();
-         });
+        // await Task.Run(() =>
+       //  {
+           await new LinesDO(_GameDate, _oLeagueDTO, _ConnectionString, _strLoadDateTime).InsertLinesFromRotationAsync();
+        // });
 
       }
       #endregion GetRows

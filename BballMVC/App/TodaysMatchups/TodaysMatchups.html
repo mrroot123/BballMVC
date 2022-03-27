@@ -10,7 +10,7 @@
          </div>
          <div class="row">
 
-            <div class="col-md-2">
+            <div class="col-md-1">
                <button type="button" class="btn btn-info active" data-toggle="tooltip"
                        title="uspCalcTodaysMatchups&#013;GetTodaysMatchups&#013;GetDailySummaryDTO&#013;GetUserLeagueParmsDTO"
                        ng-show="true" ng-click="RefreshTodaysMatchups()">
@@ -41,12 +41,24 @@
                </div>
             </div>
 
-            <div class="col-md-2">
+            <div class="col-md-5">
             </div>
          </div>
-         <div class="row" show="ShowDailySummary">
+         <div class="row" ng-show="ShowDailySummary">
+  
+            <div class="col-md-3" style="color:{{LeagueColor}};">
+               Daily Summary League Averages
+            </div>
+            <div class="col-md-9" style="color:{{LeagueColor}};">
+               Daily Summary League Averages
+            </div>
+         </div>
+         <div class="row">
             <div ng-include="'TodaysMatchups/_DailySummary.html'"></div>
          </div>
+      
+
+
          <div class="row">
             <div class="table-responsive">
                <div ng-include="'TodaysMatchups/_TodaysMatchupsTable.html'"></div>

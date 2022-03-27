@@ -25,125 +25,197 @@
       <div ng-controller="todaysPlaysController" id="screen" class="screen">
 
          <div ng-init="RefreshTodaysPlays()"></div>
-         
-         <div>
-            <div ng-include="'../Common/Release.html'"></div>
-            <button type="button" class="btn btn-info active" data-toggle="tooltip" title="Refresh Today's Plays"
-                    ng-show="true" ng-click="RefreshTodaysPlays()">
-               Refresh
-            </button>
-            &nbsp;
-            <input type="checkbox" ng-model="cbSingleLine"><label> Single Line Display - Date: </label>
-            <input type="date" ng-model="GameDate" />
-            &nbsp;&nbsp;
-            <button type="button" class="btn btn-info active" data-toggle="tooltip" title="Display Yesterday's Games'"
-                    ng-show="true" ng-click="DisplayYesterdaysPlays()">
-               Yesterday
-            </button>
-            <span ng-model="ctrWLamt"></span>
 
+         <div class="container" id="TodaysPlaysContainer">
+
+            <div class="row">
+               <div class="col-sm-1">
+                  {{SingleLeagueName}}
+               </div>
+               <div class="col-sm-1">
+                  Wins: {{ctrWins}}
+               </div>
+               <div class="col-sm-2">
+                  Losses: {{ctrLosses}}
+               </div>
+               <div class="col-sm-6">
+                  Release
+               </div>
+            </div>
+
+            <div class="row">
+               <div class="col-sm-1">
+                  <button type="button" class="btn btn-info active" data-toggle="tooltip" title="Refresh Today's Plays"
+                          ng-show="true" ng-click="RefreshTodaysPlays()">
+                     Refresh
+                  </button>
+               </div>
+               <div class="col-sm-2">
+                  <input type="checkbox" ng-model="cbSingleLine">
+                  <label> Single Line Display</label>
+               </div>
+               <div class="col-sm-2">
+                  <label>From Date: </label>
+                  <input type="date" ng-model="FromDate" />
+               </div>
+               <div class="col-sm-2">
+                  <label>To Date: </label>
+                  <input type="date" ng-model="ToDate" />
+               </div>
+               <div class="col-sm-1">
+                  <button type="button" class="btn btn-info active" data-toggle="tooltip" title="Display Yesterday's Games'"
+                          ng-show="true" ng-click="DisplayYesterdaysPlays()">
+                     Yesterday
+                  </button>
+               </div>
+               <div class="col-sm-1">
+                  <button type="button" class="btn btn-info active" data-toggle="tooltip" title="Display Last Week's Games'"
+                          ng-show="true" ng-click="DisplayLastWeeksPlays()">
+                     Last Week
+                  </button>
+               </div>
+               <div class="col-sm-4">
+               </div>
+            </div>
+
+
+
+
+ 
+            <div class="table-responsive">
+               <table class="table table-bordred table-striped table-condensed">
+                  <tr>
+                     <th ng-hide="SingleDate" style="width:{{colWid}}%;">Game Date</th>
+                     <!--<th style="width:{{colWid}}%;">League</th>-->
+
+                     <th style="width:{{colWid}}%;">Rot #</th>
+                     <th style="width:{{colWid}}%;">Teams</th>
+                     <th style="width:{{colWid}}%;">Line</th>
+                     <th style="width:{{colWid}}%;">Score</th>
+                     <th style="width:{{colWid+5}}%;">Status</th>
+                     <th style="width:20%;">Info</th>
+                  </tr>
+
+                  <tr ng-repeat="item in ocTodaysPlays">
+
+                     <!-- Col - GameDate -->
+                     <td  ng-hide="SingleDate">
+                        <table>
+                           <tr>
+                              <td ng-show="cbSingleLine">{{item.GameDate}}</td>
+                           </tr>
+                           <tr>
+                              <td ng-hide="cbSingleLine">{{item.GameDate}}</td>
+                           </tr>
+                           <tr>
+                              <td ng-hide="cbSingleLine">{{item.LeagueName}}</td>
+                           </tr>
+                        </table>
+                     </td>
+                     <!-- Col - LeagueName -->
+                     <!--<td>
+               <table>
+                  <tr>
+                     <td ng-show="cbSingleLine">{{item.LeagueName}}</td>
+                  </tr>
+                  <tr>
+                     <td ng-hide="cbSingleLine">{{item.LeagueName}}</td>
+                  </tr>
+                  <tr>
+                     <td ng-hide="cbSingleLine">&nbsp;</td>
+                  </tr>
+               </table>
+            </td>-->
+                     <!-- Col 1 - RotNum -->
+                     <td>
+                        <table>
+                           <tr>
+                              <td ng-show="cbSingleLine">{{item.RotNum}}</td>
+                           </tr>
+                           <tr>
+                              <td ng-hide="cbSingleLine">{{item.RotNum}}</td>
+                           </tr>
+                           <tr>
+                              <td ng-hide="cbSingleLine">{{item.GameTime}}</td>
+                           </tr>
+                        </table>
+                     </td>
+                     <!-- Col 2 - Teams -->
+                     <td>
+                        <table>
+                           <tr>
+                              <td ng-show="cbSingleLine">{{item.TeamHome}}</td>
+                           </tr>
+                           <tr>
+                              <td ng-hide="cbSingleLine">{{item.TeamAway}}</td>
+                           </tr>
+                           <tr>
+                              <td ng-hide="cbSingleLine">{{item.TeamHome}}</td>
+                           </tr>
+                        </table>
+                     </td>
+                     <!-- Col 3 - Line -->
+                     <td>
+                        <table>
+                           <tr>
+                              <td ng-show="cbSingleLine" ng-class="applyClassPlayDirection(this)">{{item.PlayDirection}} {{item.Line}}</td>
+                           </tr>
+                           <tr>
+                              <td ng-hide="cbSingleLine" ng-class="applyClassPlayDirection(this)">{{item.PlayDirection}}</td>
+                           </tr>
+                           <tr>
+                              <td ng-hide="cbSingleLine">{{item.Line}}</td>
+                           </tr>
+                        </table>
+                     </td>
+                     <!-- Col 4 - Score -->
+                     <td>
+                        <table>
+                           <tr>
+                              <td ng-show="cbSingleLine">{{item.Score}}</td>
+                           </tr>
+                           <tr>
+                              <td ng-hide="cbSingleLine">{{item.ScoreAway}}</td>
+                           </tr>
+                           <tr>
+                              <td ng-hide="cbSingleLine">{{item.ScoreHome}}</td>
+                           </tr>
+                        </table>
+                     </td>
+                     <!-- Col 5 - Status -->
+                     <td>
+                        <table>
+                           <tr>
+                              <td ng-show="cbSingleLine">{{item.TimeStatus}}</td>
+                           </tr>
+                           <tr>
+                              <td ng-hide="cbSingleLine">{{item.TimeStatus}}</td>
+                           </tr>
+                           <tr>
+                              <td ng-hide="cbSingleLine">{{item.CurrentStatus}}</td>
+                           </tr>
+                        </table>
+                     </td>
+                     <!-- Col 6 -->
+                     <td>
+                        <table>
+                           <tr>
+                              <td ng-show="cbSingleLine" ng-class="applyClassOvUnStatus(this)">{{item.OvUnStatus}}</td>
+                           </tr>
+                           <tr>
+                              <td ng-hide="cbSingleLine">{{item.Info}}</td>
+                           </tr>
+                           <tr>
+                              <td ng-hide="cbSingleLine" ng-class="applyClassOvUnStatus(this)">{{item.OvUnStatus}}</td>
+                           </tr>
+                        </table>
+                     </td>
+                  </tr>
+               </table>
+            </div>
          </div>
-         <div class="table-responsive">
-            <table class="table table-bordred table-striped table-condensed">
-               <tr>
-                  <th style="width:10%;">Rot #</th>
-                  <th>Teams</th>
-                  <th>Line</th>
-                  <th>Score</th>
-                  <th>Status</th>
-                  <th>Info</th>
-               </tr>
 
-               <tr ng-repeat="item in ocTodaysPlays">
-
-                  <!-- Col 1 - RotNum -->
-                  <td>
-                     <table>
-                        <tr>
-                           <td ng-show="cbSingleLine">{{item.RotNum}}</td>
-                        </tr>
-                        <tr>
-                           <td ng-hide="cbSingleLine">{{item.RotNum}}</td>
-                        </tr>
-                        <tr>
-                           <td ng-hide="cbSingleLine">{{item.GameTime}}</td>
-                        </tr>
-                     </table>
-                  </td>
-                  <!-- Col 2 - Teams -->
-                  <td>
-                     <table>
-                        <tr>
-                           <td ng-show="cbSingleLine">{{item.TeamHome}}</td>
-                        </tr>
-                        <tr>
-                           <td ng-hide="cbSingleLine">{{item.TeamAway}}</td>
-                        </tr>
-                        <tr>
-                           <td ng-hide="cbSingleLine">{{item.TeamHome}}</td>
-                        </tr>
-                     </table>
-                  </td>
-                  <!-- Col 3 - Line -->
-                  <td>
-                     <table>
-                        <tr>
-                           <td ng-show="cbSingleLine" ng-class="applyClassPlayDirection(this)">{{item.PlayDirection}} {{item.Line}}</td>
-                        </tr>
-                        <tr>
-                           <td ng-hide="cbSingleLine" ng-class="applyClassPlayDirection(this)">{{item.PlayDirection}}</td>
-                        </tr>
-                        <tr>
-                           <td ng-hide="cbSingleLine">{{item.Line}}</td>
-                        </tr>
-                     </table>
-                  </td>
-                  <!-- Col 4 - Score -->
-                  <td>
-                     <table>
-                        <tr>
-                           <td ng-show="cbSingleLine">{{item.Score}}</td>
-                        </tr>
-                        <tr>
-                           <td ng-hide="cbSingleLine">{{item.ScoreAway}}</td>
-                        </tr>
-                        <tr>
-                           <td ng-hide="cbSingleLine">{{item.ScoreHome}}</td>
-                        </tr>
-                     </table>
-                  </td>
-                  <!-- Col 5 - Status -->
-                  <td>
-                     <table>
-                        <tr>
-                           <td ng-show="cbSingleLine">{{item.TimeStatus}}</td>
-                        </tr>
-                        <tr>
-                           <td ng-hide="cbSingleLine">{{item.TimeStatus}}</td>
-                        </tr>
-                        <tr>
-                           <td ng-hide="cbSingleLine">{{item.CurrentStatus}}</td>
-                        </tr>
-                     </table>
-                  </td>
-                  <!-- Col 6 -->
-                  <td>
-                     <table>
-                        <tr>
-                           <td ng-show="cbSingleLine" ng-class="applyClassOvUnStatus(this)">{{item.OvUnStatus}}</td>
-                        </tr>
-                        <tr>
-                           <td ng-hide="cbSingleLine">{{item.Info}}</td>
-                        </tr>
-                        <tr>
-                           <td ng-hide="cbSingleLine" ng-class="applyClassOvUnStatus(this)">{{item.OvUnStatus}}</td>
-                        </tr>
-                     </table>
-                  </td>
-               </tr>
-            </table>
+            </div>
          </div>
-      </div>
-   </div>
 </body>
 </html>

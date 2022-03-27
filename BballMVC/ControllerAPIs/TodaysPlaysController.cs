@@ -28,9 +28,11 @@ namespace BballMVC.ControllerAPIs
 
 
       [HttpGet]
-      public HttpResponseMessage GetTodaysPlays(DateTime GameDate)
+      public HttpResponseMessage GetTodaysPlays(DateTime FromDate, DateTime ToDate)
       {
-         oBballInfoDTO.GameDate = GameDate;
+         oBballInfoDTO.GameDate = FromDate;
+         oBballInfoDTO.FromDate = FromDate;
+         oBballInfoDTO.ToDate = ToDate;
          oBballInfoDTO.UserName = "TodaysPlays";
          List<TodaysPlaysResults> ocTodaysPlaysResults = new List<TodaysPlaysResults>();
          try
@@ -39,7 +41,8 @@ namespace BballMVC.ControllerAPIs
          }
          catch (Exception ex)
          {
-            throw new Exception($"Message: {ex.Message} - Stacktrace: {ex.StackTrace}");
+          //  throw new Exception($"Message: {ex.Message} - Stacktrace: {ex.StackTrace}");
+            return Request.CreateResponse(HttpStatusCode.InternalServerError, $"Message: {ex.Message} - Stacktrace: {ex.StackTrace}");
          }
 
          return Request.CreateResponse(HttpStatusCode.OK, ocTodaysPlaysResults);

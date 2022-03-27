@@ -161,7 +161,7 @@ namespace Bball.DAL.Tables
       #region BoxScoresLast5Min
       public static void InsertAwayHomeRowsBoxScoresLast5Min(BoxScoresLast5MinDTO oLast5MinDTOHome, string ConnectionString, BoxScoresLast5Min oLast5Min)
       {  // kd 12/15/2020 Injected oLast5Min
-         string url = Bball.DAL.Parsing.BoxScoresLast5Min.BuildBoxScoresLast5MinUrl(oLast5MinDTOHome);  // Get Bb-ref Play by Play url
+         string url = Bball.DAL.Parsing.BoxScoresLast5Min.BuildBoxScoresLast5MinUrl(oLast5MinDTOHome, ConnectionString);  // Get Bb-ref Play by Play url
          oLast5Min = new BoxScoresLast5Min(url);
          oLast5Min.ParseBoxScoresLast5Min(oLast5MinDTOHome);
          InsertBoxScoresLast5Min(oLast5MinDTOHome, ConnectionString);   // Insert Home 

@@ -11,6 +11,8 @@ namespace BballMVC.IDTOs
       int? FinalScore { get; set; }
       int? ScoreAway { get; set; }
       int? ScoreHome { get; set; }
+      int? RegScoreAway { get; set; }
+      int? RegScoreHome { get; set; }
       DateTime GameDate { get; set; }
       TimeSpan GameTime { get; set; }
       string Info { get; set; }

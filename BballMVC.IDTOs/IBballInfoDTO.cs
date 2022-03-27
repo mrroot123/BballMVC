@@ -10,6 +10,8 @@ namespace BballMVC.IDTOs
       string BaseDirectory { get; set; }      //System.AppDomain.CurrentDomain.BaseDirectory
       string CollectionType { get; set; }
       DateTime GameDate { get; set; }
+      DateTime FromDate { get; set; }
+      DateTime ToDate { get; set; }
       DateTime TS { get; set; }
       string LeagueName { get; set; }
       string UserName { get; set; }

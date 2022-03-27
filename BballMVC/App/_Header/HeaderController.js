@@ -20,7 +20,7 @@ angular.module('app').controller('HeaderController', function ($rootScope, $scop
    // funtions
    function GetLeagueNames() {
       $rootScope.oBballInfoDTO.UserName = "Test";
-      var xx = 1;
+      var xx = 2;
       if (xx===2)     // $rootScope.oBballInfoDTO.oBballDataDTO.ocLeagueNames)
          RefreshLeagueNamesDropDown();
       else {

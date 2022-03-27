@@ -5,8 +5,7 @@
 angular.module('app').run(function (f, ajx, url, $rootScope, JsonToHtml) {
    kdAlert("run");
    $rootScope.ADJUSTMENTSLISTCONTAINER = "AdjustmentsListContainer";
-    
-
+   
    // Global functions
    $rootScope.ParentContainerName = true;
    $rootScope.OpenModal = function (thisObj, ParentContainerName, Modal, eventBroadcast) {
@@ -49,9 +48,9 @@ angular.module('app').run(function (f, ajx, url, $rootScope, JsonToHtml) {
 
    }; // OpenInlineModal
 
-   $rootScope.Getmdy = function (d) {
-      return f.Getmdy(d);
-   };
+   //$rootScope.Getmdy = function (d) {  2/6/2022 - kdtodo commented --- delete after confirmation
+   //   return f.Getmdy(d);
+   //};
    //  ng-class="applyMinusRedColor({{item.PlayDiff}} )"
    // kdtodo 11/24/2021 move to functions
    $rootScope.applyMinusRedColor = function (n1, n2) {
@@ -94,33 +93,56 @@ angular.module('app').run(function (f, ajx, url, $rootScope, JsonToHtml) {
       oBballDataDTO: {}
    };
 
-   //ajx.AjaxGet(url.UrlRefreshBballInfo)
-   //   .then(oBballInfoDTO => {
-   //      $rootScope.oBballInfoDTO = oBballInfoDTO;
-   //   })
-   //   .catch(error => {
-   //      alert("Error caught in Run.js Initial RefreshBballInfo call");
-   //      f.DisplayErrorMessage(f.FormatResponse(error));
-   //   });
+   Date.prototype.addDays = function (noOfDays) {
+      var tmpDate = new Date(this.valueOf());
+      tmpDate.setDate(tmpDate.getDate() + noOfDays);
+      return tmpDate;
+   }
+
+   Date.prototype.getDayOfWeekLiteral = function () {
+      //Create an array containing each day, starting with Sunday.
+      var weekdays = new Array(
+         "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
+      );
+      //Use the getDay() method to get the day.
+      var day = this.getDay();
+      //Return the element that corresponds to that index.
+      return weekdays[day];
+   }
+   Date.prototype.getMDYwithSeperator = function (sep) {
+      if (!sep)
+         sep = "/";
+      return (this.getMonth() + 1) + sep + this.getDate() + sep + (this.getYear() + 1900);
+   };
+   Date.prototype.setToSunday = function () {
+      var n = this.getDay();
+      n = (7 - (n - 7) % 7) % 7;
+      return this.addDays(n);
+   }
+   Date.prototype.yesterday = function (noOfDays) {
+      return new Date() - 1;
+   }
+
 
    // Populate Global Dropdowns
    // LeagueNames
    // Adj Types
 
-   ajx.AjaxGet(url.UrlGetData, {
+   let Async = true;
+   let URL = Async ? url.UrlGetDataAsync : url.UrlGetData;
+   let collectionType = Async ? "AppInitAsync" : "AppInit";
+
+   ajx.AjaxGet(URL, {
    //   testIt();
       UserName: $rootScope.oBballInfoDTO.UserName, GameDate: new Date().toDateString()
-      , LeagueName: "", CollectionType: "AppInit"
+      , LeagueName: "", CollectionType: collectionType
    })
       .then(oBballInfoDTO => {
          let oBballDataDTO = oBballInfoDTO.oBballDataDTO;    // 10/09/2021 - oBballInfoDTO returned instead of oBballDataDTO
 
          $rootScope.oBballInfoDTO.ElapsedTimeAppInit = oBballDataDTO.et; //alert("AppInit ET: " + oBballDataDTO.et);
-        // $rootScope.oBballInfoDTO.BaseDir = oBballDataDTO.BaseDir;
          $rootScope.oBballInfoDTO.BaseDirectory = oBballInfoDTO.BaseDirectory;
-      //   $rootScope.DataConstants = oBballDataDTO.DataConstants;
          $rootScope.oBballInfoDTO.ConnectionString = oBballInfoDTO.ConnectionString;
-         
 
          $rootScope.oBballInfoDTO.oBballDataDTO.ocLeagueNames = oBballDataDTO.ocLeagueNames;
          

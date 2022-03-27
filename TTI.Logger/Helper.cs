@@ -112,7 +112,7 @@ namespace TTI.Logger
          msg = msg + genCsvMsg(ocValues);
 
          File.AppendAllText(CsvFile, msg);
-         //rc = SysDAL.Functions.DALfunctions.InsertTableRow(ConnectionString, TTILogTable, ocColumns, ocValues);
+         rc = SysDAL.Functions.DALfunctions.InsertTableRow(ConnectionString, TTILogTable, ocColumns, ocValues);
 
          return "1";
       }

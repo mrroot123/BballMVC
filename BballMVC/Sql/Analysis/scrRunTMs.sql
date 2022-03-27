@@ -22,8 +22,7 @@ Update UserLeagueParms
  where StartDate = '10/2/2019'
  for JSON Auto
  */
-select * from UserLeagueParms
- where StartDate = '10/2/2019'
+-- select * from UserLeagueParms where StartDate = '10/19/2021'
 --> scrRunTMs Analysis
 SET NOCOUNT ON
 Declare @ScriptName varchar(20) = 'scrRunTMs'
@@ -47,19 +46,7 @@ Declare @ScriptName varchar(20) = 'scrRunTMs'
 		Break;
 	Set @RunCtr = @RunCtr + 1
 End
- -- TEST select @Runid as RunID; return
 
---SELECT @StartDate =   Min([StartDate])
---  FROM [00TTI_LeagueScores].[dbo].[SeasonInfo]
---  where season = '18' And Bypass = 0
-
-
---Set @GameDate = @StartDate
---Set @GameDate = DateAdd(d,1, @GameDate)
-
---Set @StartDate = '12/1/2017'
---Set @EndDate =   '12/2/2017' --'4/15/2018' --  DateAdd(d,15, @GameDate) '12/2/2017' --
---Set @GameDate =  @StartDate 
 
 Declare @RunTodays bit = 0			-- 1 = @RunTodays games only  -----------------  TODAYS GAMES ------------
 If @RunTodays = 1
@@ -76,29 +63,49 @@ Declare @StartTime dateTime = GetDate(), @EndTime DateTime
 Declare @LoopHA int, @LoopDate int, @LoopGB int, @EndYear int, @LoopGBStart int, @LoopGBLimit int, @LoopHALimit int
 	, @Description varchar(25) = ''
 
-Set @StartDate = '11/28/2019'
-Set @EndDate =    GetDate()	--
-Set @EndYear = 2020
+
+--Set @StartDate = '10/19/2020'; 
+--Set @EndDate =  '4/1/2021' --  GetDate()	--
+--Set @EndYear = 2021
+
+Set @StartDate = '1/20/2022'; 
+Set @EndDate =   GetDate()	--
+Set @EndYear = 2022
+
+
 Set @LoopGBStart = 0
 Set @LoopGBLimit = 1	-- Loop once
 Set @LoopHALimit = 1	-- 2 for both 
-Set @Description = 'TMUPsWeightLgAvg 1 to 1, TeamAdjPct now zero'
+Set @Description = 'updating TMs - 2'	--  '2020 - run 2 reset TMLgAvg Weights '
 
---Update UserLeagueParms
---	Set GB1 = 3
---	  , GB2 = 5
---	  , GB3 = 7
---	Where UserLeagueParmsID =
--- (
--- Select top 1 UserLeagueParmsID from UserLeagueParms 
---	where LeagueName = @LeagueName and StartDate <= @GameDate
---	Order by StartDate Desc
---	)
+/*
+Update UserLeagueParms
+	Set GB1 = 3
+	  , GB2 = 5
+	  , GB3 = 7
+	Where UserLeagueParmsID =
+ (
+ Select top 1 UserLeagueParmsID from UserLeagueParms 
+	where LeagueName = @LeagueName and StartDate <= @GameDate
+	Order by StartDate Desc
+	)
 
---Set @StartDate = '12/1/2019'
---Set @EndDate =   '3/12/2020'
+Set @StartDate = '12/1/2019'
+Set @EndDate =   '3/12/2020'
 --						--	
-While Year(@StartDate) <  @EndYear
+Select TeamAdjPct, * from vUserLeagueParms
+ where LeagueName = @LeagueName
+   and StartDate   between 
+	(Select top 1 StartDate from UserLeagueParms
+		 where LeagueName = @LeagueName
+			and StartDate <= @StartDate
+			 order by StartDate desc
+	) 
+	and @EndDate
+	*/
+
+--While Year(@StartDate) <  @EndYear
+While @StartDate <  @EndDate
 BEGIN -- LoopDate 
 	Set @LoopGB = @LoopGBStart
 	While @LoopGB <  @LoopGBLimit
@@ -123,7 +130,7 @@ BEGIN -- LoopDate
 			Set @GameDate = @StartDate
 			Select '============ NEW ITERATION =============================================', @ScriptName
 			Select @StartDate as StartDate, @EndDate as EndDate, convert(Time(0), @StartTime) as StartTime,  @LoopGB as GamesBack, @LoopHA as BothHA
-			set @Display = 03; 			--kd
+			set @Display = 0; 			--kd
 			While @GameDate <= @EndDate	
 			BEGIN	-- Date Loop
 			 --  Select  CAST( GETDATE() AS time(0)) AS 'time', @GameDate as GameDate,  @StartDate as StartDate, @EndDate as EndDate, convert(Time(0), @StartTime) as StartTime,  @LoopGB as GamesBack, @LoopHA as BothHA
@@ -154,5 +161,5 @@ END -- LoopDate
 Select @RunID as RunID, @Description as Description
 EXEC uspQueryAnalysisResults @RunID
 
---EXEC uspQueryAnalysisResults '09/15/20'
+--EXEC uspQueryAnalysisResults ''
 -- Truncate Table AnalysisResults

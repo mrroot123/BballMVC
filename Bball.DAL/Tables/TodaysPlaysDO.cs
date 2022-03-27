@@ -35,7 +35,7 @@ namespace Bball.DAL.Tables
       #region GetRows
       public int GetTodaysPlays(IList<ITodaysPlaysDTO>  ocTodaysPlaysDTO)
       {
-         int rows = SysDAL.Functions.DALfunctions.ExecuteSqlQuery(_oBballInfoDTO.ConnectionString, getRowSql(_oBballInfoDTO.GameDate), ocTodaysPlaysDTO, populateDTOFromRdr);
+         int rows = SysDAL.Functions.DALfunctions.ExecuteSqlQuery(_oBballInfoDTO.ConnectionString, getRowSql(_oBballInfoDTO.FromDate, _oBballInfoDTO.ToDate), ocTodaysPlaysDTO, populateDTOFromRdr);
          return rows;
       }
       static void populateDTOFromRdr(object oRow, SqlDataReader rdr)
@@ -59,6 +59,8 @@ namespace Bball.DAL.Tables
 
          o.ScoreAway = rdr["ScoreAway"] == DBNull.Value ? null : (int?)rdr["ScoreAway"];
          o.ScoreHome = rdr["ScoreHome"] == DBNull.Value ? null : (int?)rdr["ScoreHome"];
+         o.RegScoreAway = rdr["RegScoreAway"] == DBNull.Value ? null : (int?)rdr["RegScoreAway"];
+         o.RegScoreHome = rdr["RegScoreHome"] == DBNull.Value ? null : (int?)rdr["RegScoreHome"];
          o.FinalScore = rdr["FinalScore"] == DBNull.Value ? null : (int?)rdr["FinalScore"];
          o.Result = rdr["Result"] == DBNull.Value ? null : (int?)rdr["Result"];
          o.CreateUser = rdr["CreateUser"].ToString().Trim();
@@ -72,6 +74,17 @@ namespace Bball.DAL.Tables
          o.PlayDirection = rdr["PlayDirection"].ToString().Trim();
 
          ((List<ITodaysPlaysDTO>)oRow).Add(o);
+      }
+      private string getRowSql(DateTime FromDate, DateTime ToDate)
+      {
+         string Sql = ""
+            + $"SELECT Convert(int, b.ScoreRegOp) as RegScoreAway, Convert(int, b.ScoreRegUs) as RegScoreHome, tp.*  "
+            + $"  FROM TodaysPlays tp  "
+            + $"  Left JOIN BoxScores b ON b.GameDate = tp.GameDate AND b.RotNum = tp.RotNum  "
+            + $"  Where  tp.GameDate between '{FromDate.ToShortDateString()}' and '{ToDate.ToShortDateString()}'" 
+            + "   Order By tp.GameDate, tp.LeagueName, tp.GameTime, tp.RotNum"
+            ;
+         return Sql;
       }
       private string getRowSql(DateTime GameDate)
       {

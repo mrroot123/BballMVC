@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 using Bball.BAL;
-using Bball.DAL.Functions;
+//using Bball.DAL.Functions;
 using Bball.IBAL;
 
 using BballMVC.DTOs;
@@ -47,19 +48,33 @@ namespace BballMVC.ControllerAPIs
          }
          catch (Exception ex)
          {
-            oBballInfoDTO.oBballDataDTO.Message = ex.Message;
-            oBballInfoDTO.oBballDataDTO.MessageNumber = 500;
-            return Request.CreateResponse(HttpStatusCode.InternalServerError, oBballInfoDTO);
+            return Request.CreateResponse(HttpStatusCode.InternalServerError, logErrorMsg(ex));
          }
-         return Request.CreateResponse(HttpStatusCode.OK, oBballInfoDTO.oBballDataDTO);
+         return Request.CreateResponse(HttpStatusCode.OK, oBballInfoDTO);
+      }
+      [HttpGet]
+      public async Task<HttpResponseMessage> GetDataAsync(string UserName, DateTime GameDate, string LeagueName, string CollectionType)
+      {
+         try
+         {
+            oBballInfoDTO.UserName = UserName;
+            oBballInfoDTO.GameDate = GameDate;
+            oBballInfoDTO.LeagueName = LeagueName;
+            oBballInfoDTO.CollectionType = CollectionType;
+
+            await oDataBO.GetDataAsync(oBballInfoDTO);
+         }
+         catch (Exception ex)
+         {
+            return Request.CreateResponse(HttpStatusCode.InternalServerError, logErrorMsg(ex));
+         }
+         return Request.CreateResponse(HttpStatusCode.OK, oBballInfoDTO);
       }
       [HttpGet]
       public HttpResponseMessage GetData(string UserName, DateTime GameDate, string LeagueName, string CollectionType)
       {
-        
          try
          {
-
             oBballInfoDTO.UserName = UserName;
             oBballInfoDTO.GameDate = GameDate;
             oBballInfoDTO.LeagueName = LeagueName;
@@ -69,9 +84,7 @@ namespace BballMVC.ControllerAPIs
          }
          catch (Exception ex)
          {
-            oBballInfoDTO.oBballDataDTO.Message = ex.Message;
-            oBballInfoDTO.oBballDataDTO.MessageNumber = 500;
-            return Request.CreateResponse(HttpStatusCode.InternalServerError, oBballInfoDTO);
+            return Request.CreateResponse(HttpStatusCode.InternalServerError, logErrorMsg(ex));
          }
          return Request.CreateResponse(HttpStatusCode.OK, oBballInfoDTO);
       }
@@ -92,20 +105,24 @@ namespace BballMVC.ControllerAPIs
          }
          catch (Exception ex)
          {
-            TTILogMessage oTTILogMessage = new TTILogMessage();
-            oTTILogMessage.UserName = UserName;
-            oTTILogMessage.ApplicationName = "Bball";
-            oTTILogMessage.MessageText = ex.Message;
-            oTTILogMessage.CallStack = ex.StackTrace;
-            new LogBO().LogMessage(oTTILogMessage, oBballInfoDTO.ConnectionString, oBballInfoDTO.LogName);
-            throw new Exception($"Message: {ex.Message} - Stacktrace: {ex.StackTrace}");
-
+            return Request.CreateResponse(HttpStatusCode.InternalServerError, logErrorMsg(ex));
          }
          #endregion refreshTodaysMatchupsTryCatch
          stopwatch.Stop();
          Helper.Log(oBballInfoDTO, $"RefreshTodaysMatchups Exit - ET in ms: {stopwatch.ElapsedMilliseconds}");
 
          return Request.CreateResponse(HttpStatusCode.OK, oBballInfoDTO.oBballDataDTO);
+      }
+      private string logErrorMsg(Exception ex)
+      {
+         TTILogMessage oTTILogMessage = new TTILogMessage();
+         oTTILogMessage.UserName = oBballInfoDTO.UserName;
+         oTTILogMessage.ApplicationName = "Bball";
+         oTTILogMessage.MessageText = "Request: " + oBballInfoDTO.CollectionType + " - " + ex.Message;
+         oTTILogMessage.CallStack = ex.StackTrace;
+         new LogBO().LogMessage(oTTILogMessage, oBballInfoDTO.ConnectionString, oBballInfoDTO.LogName);
+         return $"Message: {ex.Message} - Stacktrace: {ex.StackTrace}";
+
       }
       // Get Matchups with past date
       [HttpGet]
@@ -127,13 +144,7 @@ namespace BballMVC.ControllerAPIs
          }
          catch (Exception ex)
          {
-            TTILogMessage oTTILogMessage = new TTILogMessage();
-            oTTILogMessage.UserName = UserName;
-            oTTILogMessage.ApplicationName = "Bball";
-            oTTILogMessage.MessageText = ex.Message;
-            oTTILogMessage.CallStack = ex.StackTrace;
-            new LogBO().LogMessage(oTTILogMessage, oBballInfoDTO.ConnectionString, oBballInfoDTO.LogName);
-            throw new Exception($"Message: {ex.Message} - Stacktrace: {ex.StackTrace}");
+            return Request.CreateResponse(HttpStatusCode.InternalServerError, logErrorMsg(ex));
          }
          #endregion getPastMatchupsTryCatch
 
@@ -212,7 +223,8 @@ namespace BballMVC.ControllerAPIs
          catch (Exception ex)
          {
             string msg = $"DataController/PostData error - CollectionType = {CollectionType} ";
-            throw new Exception(DALFunctions.StackTraceFormat(msg, ex, ""));
+            throw new Exception(ex.Message + "/n" + msg);
+           // throw new Exception(DALFunctions.StackTraceFormat(msg, ex, ""));
 
          }
          return Request.CreateResponse(HttpStatusCode.OK, "Success");

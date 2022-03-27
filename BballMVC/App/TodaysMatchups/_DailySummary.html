@@ -1,322 +1,677 @@
-﻿<div class="tooltip">
-   Box Score Line Pct:
-   <span class="tooltiptext">Tooltip text</span>
+﻿
+
+
+<div class="container">
+   <div class="row">
+      <div class="col-md-3" style="color:{{LeagueColor}};">
+         Daily Summary League Averages
+      </div>
+      <div class="col-md-9" style="color:{{LeagueColor}};">
+
+      </div>
+   </div>
+   <div class="row">
+
+      <div class="col-md-2">1</div>
+      <div class="col-md-2">2</div>
+      <div class="col-md-2">3</div>
+      <div class="col-md-2">4</div>
+      <div class="col-md-2">5</div>
+      <div class="col-md-2">6</div>
+   </div>
+   <div class="row">
+      <div class="col-md-2">
+         <div class="row">
+            <div class="col-md-7">
+               Lg Avg Start Date:
+            </div>
+            <div class="col-md-5">
+               {{oBballDataDTO.oDailySummaryDTO.LgAvgStartDate | date:'MM/dd/yyyy'}}
+            </div>
+         </div>
+      </div>
+      <div class="col-md-2">2</div>
+      <div class="col-md-2">3</div>
+      <div class="col-md-2">4</div>
+      <div class="col-md-2">5</div>
+      <div class="col-md-2">6</div>
+   </div>
 </div>
-<table  ng-show="ShowDailySummary" class="table table-bordred table-striped w-auto  table-hover table-responsive table-sm" style="width:80%">
-   <tr style="color:{{LeagueColor}};">
-      <td>Daily Summary League Averages</td>
-   </tr>
-   <tr>
-      <td>
-         <table class="alRight">
-            <tr>
-               <td style="color:{{LeagueColor}};">Lg Avg Start Date:&nbsp;&nbsp;</td>
-               <td>{{oBballDataDTO.oDailySummaryDTO.LgAvgStartDate | date:'MM/dd/yyyy'}}</td>
-            </tr>
-            <tr>
-               <td style="color:{{LeagueColor}};">Actual Start Date:&nbsp;&nbsp; </td>
-               <td>{{oBballDataDTO.oDailySummaryDTO.LgAvgStartDateActual | date:'MM/dd/yyyy'}}</td>
-            </tr>
-            <tr>
-               <td style="color:{{LeagueColor}};">Lg Avg Games Back: </td>
-               <td>{{oBballDataDTO.oDailySummaryDTO.LgAvgGamesBack}}</td>
-            </tr>
-            <tr>
-               <td style="color:{{LeagueColor}};">Actual Games Back: </td>
-               <td>{{oBballDataDTO.oDailySummaryDTO.LgAvgGamesBackActual}}</td>
-            </tr>
-            <tr>
-               <td style="color:{{LeagueColor}};">Team Avg Games Back: </td>
-               <td>{{oBballDataDTO.oUserLeagueParmsDTO.TeamAvgGamesBack}}</td>
-            </tr>
-            <tr>
-               <td style="color:{{LeagueColor}};">Team Strength Games Back: </td>
-               <td>{{oBballDataDTO.oUserLeagueParmsDTO.TeamStrengthGamesBack}}</td>
-            </tr>
-            <tr>
-               <td style="color:{{LeagueColor}};">Volatility Games Back: </td>
-               <td>{{oBballDataDTO.oUserLeagueParmsDTO.VolatilityGamesBack}}</td>
-            </tr>
-            <tr>
-               <td style="color:{{LeagueColor}}" title="0% = no adj  || 100% = Full Opp Point adj">
-                  Pace Adj Pct:
-               </td>
-               <td class="num">{{oBballDataDTO.oUserLeagueParmsDTO.TeamPaceAdjPct * 100}}%</td>
-            </tr>
-            <tr>
-               <td style="color:{{LeagueColor}};" title="0% = no adj  || 100% = Full Opp Point adj">
-                  Team Adj Pct:
-               </td>
-               <td class="num">{{oBballDataDTO.oUserLeagueParmsDTO.TeamAdjPct * 100}}%</td>
-            </tr>
 
-            <tr>
-               <td style="color:{{LeagueColor}};">Use Both Home / Away: </td>
-               <td class="num">{{oBballDataDTO.oUserLeagueParmsDTO.BothHome_Away }}</td>
-            </tr>
-            <tr>
-               <td style="color:{{LeagueColor}};">Use Last Year's Boxscores: </td>
-               <td class="num">{{oBballDataDTO.oUserLeagueParmsDTO.BoxscoresSpanSeasons }}</td>
-            </tr>
-         </table>
-      </td>
-      <td>
-         <table>
-            <tr>
-               <td style="color:{{LeagueColor}};">
-                  Threshold:
-               </td>
-               <td class="num">{{oBballDataDTO.oUserLeagueParmsDTO.Threshold}}</td>
-            </tr>
-            <!-- 1) BxScLinePct -->
-            <tr>
-               <td style="color:{{LeagueColor}};" title="0% = no curve to TL - use actual score || 100% = nullify Score use TL instead -- MAKE 75%	Ex: Result: 225, TL:220, Score: 240">
-                  Boxscore Adj Line Pct:
-               </td>
-               <td class="num">{{oBballDataDTO.oUserLeagueParmsDTO.BxScLinePct * 100}}%</td>
-            </tr>
-            <!-- 2) BxScTmStrPct -->
-            <tr>
-               <td style="color:{{LeagueColor}};" title="0% = no BxSc Opp Adj || 100% = Max Adjustment">
-                  Boxscore Adj Tm Str Pct:
-               </td>
-               <td class="num">{{oBballDataDTO.oUserLeagueParmsDTO.BxScTmStrPct * 100}}%</td>
-            </tr>
-            <!-- 3) TmStrAdjPct -->
-            <tr>
-               <td style="color:{{LeagueColor}};" title="0% = no adj  || 100% = Full Opp Point adj">
-                  Team Strength Adj Pct:
-               </td>
-               <td class="num">{{oBballDataDTO.oUserLeagueParmsDTO.TmStrAdjPct * 100}}%</td>
-            </tr>
+<div class="row">
+   <div class="col-md-12">
+      <table class="table table-bordred table-striped w-auto  table-hover table-responsive table-sm" style="width:80%">
 
-            <!-- TMups Opposition PCTs -->
+         <tr>
+            <td>
+               <table class="alRight">
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Lg Avg Start Date:&nbsp;&nbsp;</td>
+                     <td>{{oBballDataDTO.oDailySummaryDTO.LgAvgStartDate | date:'MM/dd/yyyy'}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Actual Start Date:&nbsp;&nbsp; </td>
+                     <td>{{oBballDataDTO.oDailySummaryDTO.LgAvgStartDateActual | date:'MM/dd/yyyy'}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Lg Avg Games Back: </td>
+                     <td>{{oBballDataDTO.oDailySummaryDTO.LgAvgGamesBack}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Actual Games Back: </td>
+                     <td>{{oBballDataDTO.oDailySummaryDTO.LgAvgGamesBackActual}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Team Avg Games Back: </td>
+                     <td>{{oBballDataDTO.oUserLeagueParmsDTO.TeamAvgGamesBack}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Team Strength Games Back: </td>
+                     <td>{{oBballDataDTO.oUserLeagueParmsDTO.TeamStrengthGamesBack}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Volatility Games Back: </td>
+                     <td>{{oBballDataDTO.oUserLeagueParmsDTO.VolatilityGamesBack}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}}" title="0% = no adj  || 100% = Full Opp Point adj">
+                        Pace Adj Pct:
+                     </td>
+                     <td class="num">{{oBballDataDTO.oUserLeagueParmsDTO.TeamPaceAdjPct * 100}}%</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};" title="0% = no adj  || 100% = Full Opp Point adj">
+                        Team Adj Pct:
+                     </td>
+                     <td class="num">{{oBballDataDTO.oUserLeagueParmsDTO.TeamAdjPct * 100}}%</td>
+                  </tr>
 
-            <!-- Todays Matchups  Adj Opposition Pct -->
-            <tr>
-               <td style="color:{{LeagueColor}};" title="0% = no adj  || 100% = Full Opp Point adj">
-                  Todays Matchups Adj Opposition Pct
-               </td>
-               <td class="num"></td>
-            </tr>
-            <tr>
-               <td>
-                  &nbsp;&nbsp;&nbsp;
-                  GB1: {{oBballDataDTO.oUserLeagueParmsDTO.TodaysMUPsOppAdjPctPt1 * 100}}%&nbsp;&nbsp;&nbsp;
-                  GB2: {{oBballDataDTO.oUserLeagueParmsDTO.TodaysMUPsOppAdjPctPt2 * 100}}%&nbsp;&nbsp;&nbsp;
-                  GB3: {{oBballDataDTO.oUserLeagueParmsDTO.TodaysMUPsOppAdjPctPt3 * 100}}%&nbsp;&nbsp;&nbsp;
-               </td>
-            </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Use Both Home / Away: </td>
+                     <td class="num">{{oBballDataDTO.oUserLeagueParmsDTO.BothHome_Away }}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Use Last Year's Boxscores: </td>
+                     <td class="num">{{oBballDataDTO.oUserLeagueParmsDTO.BoxscoresSpanSeasons }}</td>
+                  </tr>
+               </table>
+            </td>
+            <td>
+               <table>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">
+                        Threshold:
+                     </td>
+                     <td class="num">{{oBballDataDTO.oUserLeagueParmsDTO.Threshold}}</td>
+                  </tr>
+                  1) BxScLinePct
+                  <tr>
+                     <td style="color:{{LeagueColor}};" title="0% = no curve to TL - use actual score || 100% = nullify Score use TL instead -- MAKE 75%	Ex: Result: 225, TL:220, Score: 240">
+                        Boxscore Adj Line Pct:
+                     </td>
+                     <td class="num">{{oBballDataDTO.oUserLeagueParmsDTO.BxScLinePct * 100}}%</td>
+                  </tr>
+                  2) BxScTmStrPct
+                  <tr>
+                     <td style="color:{{LeagueColor}};" title="0% = no BxSc Opp Adj || 100% = Max Adjustment">
+                        Boxscore Adj Tm Str Pct:
+                     </td>
+                     <td class="num">{{oBballDataDTO.oUserLeagueParmsDTO.BxScTmStrPct * 100}}%</td>
+                  </tr>
+                  3) TmStrAdjPct
+                  <tr>
+                     <td style="color:{{LeagueColor}};" title="0% = no adj  || 100% = Full Opp Point adj">
+                        Team Strength Adj Pct:
+                     </td>
+                     <td class="num">{{oBballDataDTO.oUserLeagueParmsDTO.TmStrAdjPct * 100}}%</td>
+                  </tr>
 
-            <!-- Todays Matchups Team Stat Weight -->
-            <tr>
-               <td style="color:{{LeagueColor}};" title="0 = INVALID - Tm Avg would be used">
+                  TMups Opposition PCTs
+                  Todays Matchups  Adj Opposition Pct
+                  <tr>
+                     <td style="color:{{LeagueColor}};" title="0% = no adj  || 100% = Full Opp Point adj">
+                        Todays Matchups Adj Opposition Pct
+                     </td>
+                     <td class="num"></td>
+                  </tr>
+                  <tr>
+                     <td>
+                        &nbsp;&nbsp;&nbsp;
+                        GB1: {{oBballDataDTO.oUserLeagueParmsDTO.TodaysMUPsOppAdjPctPt1 * 100}}%&nbsp;&nbsp;&nbsp;
+                        GB2: {{oBballDataDTO.oUserLeagueParmsDTO.TodaysMUPsOppAdjPctPt2 * 100}}%&nbsp;&nbsp;&nbsp;
+                        GB3: {{oBballDataDTO.oUserLeagueParmsDTO.TodaysMUPsOppAdjPctPt3 * 100}}%&nbsp;&nbsp;&nbsp;
+                     </td>
+                  </tr>
+
                   Todays Matchups Team Stat Weight
-               </td>
-               <td class="num"></td>
-            </tr>
-            <tr>
-               <td>
-                  &nbsp;&nbsp;&nbsp;
-                  GB1: {{oBballDataDTO.oUserLeagueParmsDTO.TMUPsWeightTeamStatGB1}}&nbsp;&nbsp;&nbsp;
-                  GB2: {{oBballDataDTO.oUserLeagueParmsDTO.TMUPsWeightTeamStatGB2}}&nbsp;&nbsp;&nbsp;
-                  GB3: {{oBballDataDTO.oUserLeagueParmsDTO.TMUPsWeightTeamStatGB3}}&nbsp;&nbsp;&nbsp;
-               </td>
-            </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};" title="0 = INVALID - Tm Avg would be used">
+                        Todays Matchups Team Stat Weight
+                     </td>
+                     <td class="num"></td>
+                  </tr>
+                  <tr>
+                     <td>
+                        &nbsp;&nbsp;&nbsp;
+                        GB1: {{oBballDataDTO.oUserLeagueParmsDTO.TMUPsWeightTeamStatGB1}}&nbsp;&nbsp;&nbsp;
+                        GB2: {{oBballDataDTO.oUserLeagueParmsDTO.TMUPsWeightTeamStatGB2}}&nbsp;&nbsp;&nbsp;
+                        GB3: {{oBballDataDTO.oUserLeagueParmsDTO.TMUPsWeightTeamStatGB3}}&nbsp;&nbsp;&nbsp;
+                     </td>
+                  </tr>
 
-            <!-- Todays Matchups Lg Avg Weight -->
-            <tr>
-               <td style="color:{{LeagueColor}};" title="0 = no stat adj vs the Lg Avg 123 Pters">
                   Todays Matchups Lg Avg Weight
-               </td>
-               <td class="num"></td>
-            </tr>
-            <tr>
-               <td>
-                  &nbsp;&nbsp;&nbsp;
-                  GB1: {{oBballDataDTO.oUserLeagueParmsDTO.TMUPsWeightLgAvgGB1}}&nbsp;&nbsp;&nbsp;
-                  GB2: {{oBballDataDTO.oUserLeagueParmsDTO.TMUPsWeightLgAvgGB2}}&nbsp;&nbsp;&nbsp;
-                  GB3: {{oBballDataDTO.oUserLeagueParmsDTO.TMUPsWeightLgAvgGB3}}&nbsp;&nbsp;&nbsp;
-               </td>
-            </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};" title="0 = no stat adj vs the Lg Avg 123 Pters">
+                        Todays Matchups Lg Avg Weight
+                     </td>
+                     <td class="num"></td>
+                  </tr>
+                  <tr>
+                     <td>
+                        &nbsp;&nbsp;&nbsp;
+                        GB1: {{oBballDataDTO.oUserLeagueParmsDTO.TMUPsWeightLgAvgGB1}}&nbsp;&nbsp;&nbsp;
+                        GB2: {{oBballDataDTO.oUserLeagueParmsDTO.TMUPsWeightLgAvgGB2}}&nbsp;&nbsp;&nbsp;
+                        GB3: {{oBballDataDTO.oUserLeagueParmsDTO.TMUPsWeightLgAvgGB3}}&nbsp;&nbsp;&nbsp;
+                     </td>
+                  </tr>
 
-            <tr>
-               <td></td>
-            </tr>
-            <tr>
-               <td></td>
-            </tr>
-            <tr>
-               <td></td>
-            </tr>
-         </table>
-      </td>
+                  <tr>
+                     <td></td>
+                  </tr>
+                  <tr>
+                     <td></td>
+                  </tr>
+                  <tr>
+                     <td></td>
+                  </tr>
+               </table>
+            </td>
 
-      <td>
-         <table>
-            <tr>
-               <td style="color:{{LeagueColor}};font-weight:bold">Away Stats </td>
-            </tr>
-            <tr>
-               <td style="color:{{LeagueColor}};">Avg 1 PTers: </td>
-               <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgShotsMadeAwayPt1 | number:1}}</td>
-            </tr>
-            <tr>
-               <td style="color:{{LeagueColor}};">Avg 2 PTers: </td>
-               <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgShotsMadeAwayPt2 | number:1}}</td>
-            </tr>
-            <tr>
-               <td style="color:{{LeagueColor}};">Avg 3 PTers: </td>
-               <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgShotsMadeAwayPt3 | number:1}}</td>
-            </tr>
-            <tr>
-               <td style="color:{{LeagueColor}};font-weight:bold">Total Away: </td>
-               <td class="num">
-                  {{
+            <td>
+               <table>
+                  <tr>
+                     <td style="color:{{LeagueColor}};font-weight:bold">Away Stats </td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Avg 1 PTers: </td>
+                     <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgShotsMadeAwayPt1 | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Avg 2 PTers: </td>
+                     <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgShotsMadeAwayPt2 | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Avg 3 PTers: </td>
+                     <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgShotsMadeAwayPt3 | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};font-weight:bold">Total Away: </td>
+                     <td class="num">
+                        {{
                     oBballDataDTO.oDailySummaryDTO.LgAvgShotsMadeAwayPt1
                   + oBballDataDTO.oDailySummaryDTO.LgAvgShotsMadeAwayPt2 * 2
                   + oBballDataDTO.oDailySummaryDTO.LgAvgShotsMadeAwayPt3 * 3
                         | number:1
-                  }}
-               </td>
-            </tr>
+                        }}
+                     </td>
+                  </tr>
 
-            <tr><td>&nbsp;</td></tr>
+                  <tr><td>&nbsp;</td></tr>
 
-            <tr>
-               <td style="color:{{LeagueColor}};font-weight:bold">Home Stats </td>
-            </tr>
-            <tr>
-               <td style="color:{{LeagueColor}};">Avg 1 PTers: </td>
-               <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgShotsMadeHomePt1 | number:1}}</td>
-            </tr>
-            <tr>
-               <td style="color:{{LeagueColor}};">Avg 2 PTers: </td>
-               <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgShotsMadeHomePt2 | number:1}}</td>
-            </tr>
-            <tr>
-               <td style="color:{{LeagueColor}};">Avg 3 PTers: </td>
-               <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgShotsMadeHomePt3 | number:1}}</td>
-            </tr>
-            <tr>
-               <td style="color:{{LeagueColor}};font-weight:bold">Total Home: </td>
-               <td class="num">
-                  {{
+                  <tr>
+                     <td style="color:{{LeagueColor}};font-weight:bold">Home Stats </td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Avg 1 PTers: </td>
+                     <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgShotsMadeHomePt1 | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Avg 2 PTers: </td>
+                     <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgShotsMadeHomePt2 | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Avg 3 PTers: </td>
+                     <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgShotsMadeHomePt3 | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};font-weight:bold">Total Home: </td>
+                     <td class="num">
+                        {{
                     oBballDataDTO.oDailySummaryDTO.LgAvgShotsMadeHomePt1
                   + oBballDataDTO.oDailySummaryDTO.LgAvgShotsMadeHomePt2 * 2
                   + oBballDataDTO.oDailySummaryDTO.LgAvgShotsMadeHomePt3 * 3
                         | number:1
-                  }}
-               </td>
-            </tr>
+                        }}
+                     </td>
+                  </tr>
 
-         </table>
-      </td>
-      <td>
-         <table>
-            <tr>
-               <td style="color:{{LeagueColor}};font-weight:bold">Away Attempted Stats </td>
-            </tr>
-            <tr>
-               <td style="color:{{LeagueColor}};">Avg 1 PTers: </td>
-               <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgShotsAttemptedAwayPt1 | number:1}}</td>
-            </tr>
-            <tr>
-               <td style="color:{{LeagueColor}};">Avg 2 PTers: </td>
-               <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgShotsAttemptedAwayPt2 | number:1}}</td>
-            </tr>
-            <tr>
-               <td style="color:{{LeagueColor}};">Avg 3 PTers: </td>
-               <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgShotsAttemptedAwayPt3 | number:1}}</td>
-            </tr>
-            <tr>
-               <td style="color:{{LeagueColor}};font-weight:bold">Total Away: </td>
-               <td class="num">
-                  {{
+               </table>
+            </td>
+            <td>
+               <table>
+                  <tr>
+                     <td style="color:{{LeagueColor}};font-weight:bold">Away Attempted Stats </td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Avg 1 PTers: </td>
+                     <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgShotsAttemptedAwayPt1 | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Avg 2 PTers: </td>
+                     <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgShotsAttemptedAwayPt2 | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Avg 3 PTers: </td>
+                     <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgShotsAttemptedAwayPt3 | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};font-weight:bold">Total Away: </td>
+                     <td class="num">
+                        {{
                     oBballDataDTO.oDailySummaryDTO.LgAvgShotsAttemptedAwayPt1
                   + oBballDataDTO.oDailySummaryDTO.LgAvgShotsAttemptedAwayPt2 * 2
                   + oBballDataDTO.oDailySummaryDTO.LgAvgShotsAttemptedAwayPt3 * 3
                         | number:1
-                  }}
-               </td>
-            </tr>
+                        }}
+                     </td>
+                  </tr>
 
-            <tr><td>&nbsp;</td></tr>
+                  <tr><td>&nbsp;</td></tr>
 
-            <tr>
-               <td style="color:{{LeagueColor}};font-weight:bold">Home Attempted Stats </td>
-            </tr>
-            <tr>
-               <td style="color:{{LeagueColor}};">Avg 1 PTers: </td>
-               <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgShotsAttemptedHomePt1 | number:1}}</td>
-            </tr>
-            <tr>
-               <td style="color:{{LeagueColor}};">Avg 2 PTers: </td>
-               <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgShotsAttemptedHomePt2 | number:1}}</td>
-            </tr>
-            <tr>
-               <td style="color:{{LeagueColor}};">Avg 3 PTers: </td>
-               <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgShotsAttemptedHomePt3 | number:1}}</td>
-            </tr>
-            <tr>
-               <td style="color:{{LeagueColor}};font-weight:bold">Total Home: </td>
-               <td class="num">
-                  {{
+                  <tr>
+                     <td style="color:{{LeagueColor}};font-weight:bold">Home Attempted Stats </td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Avg 1 PTers: </td>
+                     <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgShotsAttemptedHomePt1 | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Avg 2 PTers: </td>
+                     <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgShotsAttemptedHomePt2 | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Avg 3 PTers: </td>
+                     <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgShotsAttemptedHomePt3 | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};font-weight:bold">Total Home: </td>
+                     <td class="num">
+                        {{
                     oBballDataDTO.oDailySummaryDTO.LgAvgShotsAttemptedHomePt1
                   + oBballDataDTO.oDailySummaryDTO.LgAvgShotsAttemptedHomePt2 * 2
                   + oBballDataDTO.oDailySummaryDTO.LgAvgShotsAttemptedHomePt3 * 3
                         | number:1
-                  }}
-               </td>
-            </tr>
+                        }}
+                     </td>
+                  </tr>
 
-         </table>
-      </td>
+               </table>
+            </td>
 
-      <td>
-         <table>
-            <tr>
-               <td style="color:{{LeagueColor}};">Lg Avg Score Away: </td>
-               <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgScoreAway | number:1}}</td>
-            </tr>
-            <tr>
-               <td style="color:{{LeagueColor}};">Lg Avg Score Home: </td>
-               <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgScoreHome | number:1}}</td>
-            </tr>
-            <tr>
-               <td style="color:{{LeagueColor}};">Lg Avg Score : </td>
-               <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgScoreAway+oBballDataDTO.oDailySummaryDTO.LgAvgScoreHome | number:1}}</td>
-            </tr>
-            <tr>
-               <td style="color:{{LeagueColor}};">Lg Avg Score Final: </td>
-               <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgScoreFinal | number:1}}</td>
-            </tr>
-            <tr>
-               <td style="color:{{LeagueColor}};">Lg Avg Total Line: </td>
-               <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgTotalLine | number:1}}</td>
-            </tr>
-            <tr>
-               <td style="color:{{LeagueColor}};">Lg Avg Our Total Line: </td>
-               <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgOurTotalLine | number:1}}</td>
-            </tr>
+            <td>
+               <table>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Lg Avg Score Away: </td>
+                     <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgScoreAway | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Lg Avg Score Home: </td>
+                     <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgScoreHome | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Lg Avg Score : </td>
+                     <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgScoreAway+oBballDataDTO.oDailySummaryDTO.LgAvgScoreHome | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Lg Avg Score Final: </td>
+                     <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgScoreFinal | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Lg Avg Total Line: </td>
+                     <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgTotalLine | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Lg Avg Our Total Line: </td>
+                     <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgOurTotalLine | number:1}}</td>
+                  </tr>
 
-            <tr><td>&nbsp;</td></tr>
+                  <tr><td>&nbsp;</td></tr>
 
-            <tr>
-               <td style="color:{{LeagueColor}};">Shooting Pct: </td>
-               <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgShotPct * 100 | number:1}}</td>
-            </tr>
-            <tr>
-               <td style="color:{{LeagueColor}};">2 Pt Shooting Pct: </td>
-               <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgShotPctPt2 * 100 | number:1}}</td>
-            </tr>
-            <tr>
-               <td style="color:{{LeagueColor}};">3 Pt Shooting Pct: </td>
-               <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgShotPctPt3 * 100 | number:1}}</td>
-            </tr>
-         </table>
-      </td>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Shooting Pct: </td>
+                     <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgShotPct * 100 | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">2 Pt Shooting Pct: </td>
+                     <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgShotPctPt2 * 100 | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">3 Pt Shooting Pct: </td>
+                     <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgShotPctPt3 * 100 | number:1}}</td>
+                  </tr>
+               </table>
+            </td>
+         </tr>
+      </table>
+   </div>
+</div>
 
+<!--
+<div class="row">
+   <div class="col-md-12">
+      <table class="table table-bordred table-striped w-auto  table-hover table-responsive table-sm" style="width:80%">
 
-   </tr>
-</table>
+         <tr>
+            <td>
+               <table class="alRight">
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Lg Avg Start Date:&nbsp;&nbsp;</td>
+                     <td>{{oBballDataDTO.oDailySummaryDTO.LgAvgStartDate | date:'MM/dd/yyyy'}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Actual Start Date:&nbsp;&nbsp; </td>
+                     <td>{{oBballDataDTO.oDailySummaryDTO.LgAvgStartDateActual | date:'MM/dd/yyyy'}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Lg Avg Games Back: </td>
+                     <td>{{oBballDataDTO.oDailySummaryDTO.LgAvgGamesBack}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Actual Games Back: </td>
+                     <td>{{oBballDataDTO.oDailySummaryDTO.LgAvgGamesBackActual}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Team Avg Games Back: </td>
+                     <td>{{oBballDataDTO.oUserLeagueParmsDTO.TeamAvgGamesBack}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Team Strength Games Back: </td>
+                     <td>{{oBballDataDTO.oUserLeagueParmsDTO.TeamStrengthGamesBack}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Volatility Games Back: </td>
+                     <td>{{oBballDataDTO.oUserLeagueParmsDTO.VolatilityGamesBack}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}}" title="0% = no adj  || 100% = Full Opp Point adj">
+                        Pace Adj Pct:
+                     </td>
+                     <td class="num">{{oBballDataDTO.oUserLeagueParmsDTO.TeamPaceAdjPct * 100}}%</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};" title="0% = no adj  || 100% = Full Opp Point adj">
+                        Team Adj Pct:
+                     </td>
+                     <td class="num">{{oBballDataDTO.oUserLeagueParmsDTO.TeamAdjPct * 100}}%</td>
+                  </tr>
+
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Use Both Home / Away: </td>
+                     <td class="num">{{oBballDataDTO.oUserLeagueParmsDTO.BothHome_Away }}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Use Last Year's Boxscores: </td>
+                     <td class="num">{{oBballDataDTO.oUserLeagueParmsDTO.BoxscoresSpanSeasons }}</td>
+                  </tr>
+               </table>
+            </td>
+            <td>
+               <table>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">
+                        Threshold:
+                     </td>
+                     <td class="num">{{oBballDataDTO.oUserLeagueParmsDTO.Threshold}}</td>
+                  </tr>
+                  1) BxScLinePct
+                  <tr>
+                     <td style="color:{{LeagueColor}};" title="0% = no curve to TL - use actual score || 100% = nullify Score use TL instead -- MAKE 75%	Ex: Result: 225, TL:220, Score: 240">
+                        Boxscore Adj Line Pct:
+                     </td>
+                     <td class="num">{{oBballDataDTO.oUserLeagueParmsDTO.BxScLinePct * 100}}%</td>
+                  </tr>
+                  2) BxScTmStrPct
+                  <tr>
+                     <td style="color:{{LeagueColor}};" title="0% = no BxSc Opp Adj || 100% = Max Adjustment">
+                        Boxscore Adj Tm Str Pct:
+                     </td>
+                     <td class="num">{{oBballDataDTO.oUserLeagueParmsDTO.BxScTmStrPct * 100}}%</td>
+                  </tr>
+                  3) TmStrAdjPct
+                  <tr>
+                     <td style="color:{{LeagueColor}};" title="0% = no adj  || 100% = Full Opp Point adj">
+                        Team Strength Adj Pct:
+                     </td>
+                     <td class="num">{{oBballDataDTO.oUserLeagueParmsDTO.TmStrAdjPct * 100}}%</td>
+                  </tr>
+
+                  TMups Opposition PCTs
+                  Todays Matchups  Adj Opposition Pct
+                  <tr>
+                     <td style="color:{{LeagueColor}};" title="0% = no adj  || 100% = Full Opp Point adj">
+                        Todays Matchups Adj Opposition Pct
+                     </td>
+                     <td class="num"></td>
+                  </tr>
+                  <tr>
+                     <td>
+                        &nbsp;&nbsp;&nbsp;
+                        GB1: {{oBballDataDTO.oUserLeagueParmsDTO.TodaysMUPsOppAdjPctPt1 * 100}}%&nbsp;&nbsp;&nbsp;
+                        GB2: {{oBballDataDTO.oUserLeagueParmsDTO.TodaysMUPsOppAdjPctPt2 * 100}}%&nbsp;&nbsp;&nbsp;
+                        GB3: {{oBballDataDTO.oUserLeagueParmsDTO.TodaysMUPsOppAdjPctPt3 * 100}}%&nbsp;&nbsp;&nbsp;
+                     </td>
+                  </tr>
+
+                  Todays Matchups Team Stat Weight
+                  <tr>
+                     <td style="color:{{LeagueColor}};" title="0 = INVALID - Tm Avg would be used">
+                        Todays Matchups Team Stat Weight
+                     </td>
+                     <td class="num"></td>
+                  </tr>
+                  <tr>
+                     <td>
+                        &nbsp;&nbsp;&nbsp;
+                        GB1: {{oBballDataDTO.oUserLeagueParmsDTO.TMUPsWeightTeamStatGB1}}&nbsp;&nbsp;&nbsp;
+                        GB2: {{oBballDataDTO.oUserLeagueParmsDTO.TMUPsWeightTeamStatGB2}}&nbsp;&nbsp;&nbsp;
+                        GB3: {{oBballDataDTO.oUserLeagueParmsDTO.TMUPsWeightTeamStatGB3}}&nbsp;&nbsp;&nbsp;
+                     </td>
+                  </tr>
+
+                  Todays Matchups Lg Avg Weight
+                  <tr>
+                     <td style="color:{{LeagueColor}};" title="0 = no stat adj vs the Lg Avg 123 Pters">
+                        Todays Matchups Lg Avg Weight
+                     </td>
+                     <td class="num"></td>
+                  </tr>
+                  <tr>
+                     <td>
+                        &nbsp;&nbsp;&nbsp;
+                        GB1: {{oBballDataDTO.oUserLeagueParmsDTO.TMUPsWeightLgAvgGB1}}&nbsp;&nbsp;&nbsp;
+                        GB2: {{oBballDataDTO.oUserLeagueParmsDTO.TMUPsWeightLgAvgGB2}}&nbsp;&nbsp;&nbsp;
+                        GB3: {{oBballDataDTO.oUserLeagueParmsDTO.TMUPsWeightLgAvgGB3}}&nbsp;&nbsp;&nbsp;
+                     </td>
+                  </tr>
+
+                  <tr>
+                     <td></td>
+                  </tr>
+                  <tr>
+                     <td></td>
+                  </tr>
+                  <tr>
+                     <td></td>
+                  </tr>
+               </table>
+            </td>
+
+            <td>
+               <table>
+                  <tr>
+                     <td style="color:{{LeagueColor}};font-weight:bold">Away Stats </td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Avg 1 PTers: </td>
+                     <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgShotsMadeAwayPt1 | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Avg 2 PTers: </td>
+                     <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgShotsMadeAwayPt2 | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Avg 3 PTers: </td>
+                     <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgShotsMadeAwayPt3 | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};font-weight:bold">Total Away: </td>
+                     <td class="num">
+                        {{
+                    oBballDataDTO.oDailySummaryDTO.LgAvgShotsMadeAwayPt1
+                  + oBballDataDTO.oDailySummaryDTO.LgAvgShotsMadeAwayPt2 * 2
+                  + oBballDataDTO.oDailySummaryDTO.LgAvgShotsMadeAwayPt3 * 3
+                        | number:1
+                        }}
+                     </td>
+                  </tr>
+
+                  <tr><td>&nbsp;</td></tr>
+
+                  <tr>
+                     <td style="color:{{LeagueColor}};font-weight:bold">Home Stats </td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Avg 1 PTers: </td>
+                     <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgShotsMadeHomePt1 | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Avg 2 PTers: </td>
+                     <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgShotsMadeHomePt2 | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Avg 3 PTers: </td>
+                     <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgShotsMadeHomePt3 | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};font-weight:bold">Total Home: </td>
+                     <td class="num">
+                        {{
+                    oBballDataDTO.oDailySummaryDTO.LgAvgShotsMadeHomePt1
+                  + oBballDataDTO.oDailySummaryDTO.LgAvgShotsMadeHomePt2 * 2
+                  + oBballDataDTO.oDailySummaryDTO.LgAvgShotsMadeHomePt3 * 3
+                        | number:1
+                        }}
+                     </td>
+                  </tr>
+
+               </table>
+            </td>
+            <td>
+               <table>
+                  <tr>
+                     <td style="color:{{LeagueColor}};font-weight:bold">Away Attempted Stats </td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Avg 1 PTers: </td>
+                     <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgShotsAttemptedAwayPt1 | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Avg 2 PTers: </td>
+                     <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgShotsAttemptedAwayPt2 | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Avg 3 PTers: </td>
+                     <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgShotsAttemptedAwayPt3 | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};font-weight:bold">Total Away: </td>
+                     <td class="num">
+                        {{
+                    oBballDataDTO.oDailySummaryDTO.LgAvgShotsAttemptedAwayPt1
+                  + oBballDataDTO.oDailySummaryDTO.LgAvgShotsAttemptedAwayPt2 * 2
+                  + oBballDataDTO.oDailySummaryDTO.LgAvgShotsAttemptedAwayPt3 * 3
+                        | number:1
+                        }}
+                     </td>
+                  </tr>
+
+                  <tr><td>&nbsp;</td></tr>
+
+                  <tr>
+                     <td style="color:{{LeagueColor}};font-weight:bold">Home Attempted Stats </td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Avg 1 PTers: </td>
+                     <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgShotsAttemptedHomePt1 | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Avg 2 PTers: </td>
+                     <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgShotsAttemptedHomePt2 | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Avg 3 PTers: </td>
+                     <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgShotsAttemptedHomePt3 | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};font-weight:bold">Total Home: </td>
+                     <td class="num">
+                        {{
+                    oBballDataDTO.oDailySummaryDTO.LgAvgShotsAttemptedHomePt1
+                  + oBballDataDTO.oDailySummaryDTO.LgAvgShotsAttemptedHomePt2 * 2
+                  + oBballDataDTO.oDailySummaryDTO.LgAvgShotsAttemptedHomePt3 * 3
+                        | number:1
+                        }}
+                     </td>
+                  </tr>
+
+               </table>
+            </td>
+
+            <td>
+               <table>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Lg Avg Score Away: </td>
+                     <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgScoreAway | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Lg Avg Score Home: </td>
+                     <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgScoreHome | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Lg Avg Score : </td>
+                     <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgScoreAway+oBballDataDTO.oDailySummaryDTO.LgAvgScoreHome | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Lg Avg Score Final: </td>
+                     <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgScoreFinal | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Lg Avg Total Line: </td>
+                     <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgTotalLine | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Lg Avg Our Total Line: </td>
+                     <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgOurTotalLine | number:1}}</td>
+                  </tr>
+
+                  <tr><td>&nbsp;</td></tr>
+
+                  <tr>
+                     <td style="color:{{LeagueColor}};">Shooting Pct: </td>
+                     <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgShotPct * 100 | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">2 Pt Shooting Pct: </td>
+                     <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgShotPctPt2 * 100 | number:1}}</td>
+                  </tr>
+                  <tr>
+                     <td style="color:{{LeagueColor}};">3 Pt Shooting Pct: </td>
+                     <td class="num">{{oBballDataDTO.oDailySummaryDTO.LgAvgShotPctPt3 * 100 | number:1}}</td>
+                  </tr>
+               </table>
+            </td>
+         </tr>
+      </table>
+   </div>
+</div>
+-->

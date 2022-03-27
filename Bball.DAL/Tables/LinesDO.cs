@@ -8,6 +8,7 @@ using BballMVC.DTOs;
 using BballMVC.IDTOs;
 using System.Data.SqlClient;
 using SysDAL.Functions;
+using System.Threading.Tasks;
 
 namespace Bball.DAL.Tables
 {
@@ -30,6 +31,19 @@ namespace Bball.DAL.Tables
          _strLoadDateTime = strLoadDateTime;
       }
 
+      public async Task InsertLinesFromRotationAsync()
+      {
+         // call SP to Read Rotation by Lg & GameDate and writeLines
+         List<string> SqlParmNames = new List<string>() { "GameDate", "LeagueName" };
+         List<object> SqlParmValues = new List<object>()
+            { _GameDate.ToShortDateString(), _oLeagueDTO.LeagueName };
+        // // kdtodo                                                               make constant
+         await Task.Run(() =>
+         {
+            SysDAL.Functions.DALfunctions.ExecuteStoredProcedureNonQuery(_ConnectionString, "uspInsertLinesFromRotation", SqlParmNames, SqlParmValues);
+         });
+
+      }
       public void InsertLinesFromRotation()
       {
          // call SP to Read Rotation by Lg & GameDate and writeLines

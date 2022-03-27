@@ -46,12 +46,10 @@ namespace Bball.DAL.Tables
          {
             if ((GameDate <= oSeasonInfoDTO.EndDate && oSeasonInfoDTO.Bypass == false) || RotationLoadedToDate())
                break;
-            // kdtodo finish
-            //Get next SeasonInfo row
             // 
             GameDate = oSeasonInfoDTO.EndDate.AddDays(1);
             if (!RotationLoadedToDate())
-               populateSeasonInfoDTO(oSeasonInfoDTO);
+               populateSeasonInfoDTO(oSeasonInfoDTO);    //Get next SeasonInfo row
          }
 
          return GameDate;

@@ -16,36 +16,23 @@ namespace SysDAL.Functions
 
       public static string GetConnectionString() 
       {
-         const string SqlServerConnectionStringLOCAL =
-            @"Data Source=Localhost\Bball;Initial Catalog=00TTI_LeagueScores;Integrated Security=SSPI";
-         const string SqlServerConnectionStringBballPROD =
-            @"Data Source=Localhost\BballPROD;Initial Catalog=db_a791d7_leaguescores;Integrated Security=SSPI";
-
-         const string SqlServerConnectionStringSMARTERASP =
-            @"Data Source=SQL5074.site4now.net;Initial Catalog=db_a791d7_leaguescores;";
-
          // If name="Override" exists in web.config
          //   THEN use it
-          
-
-         string con = System.Configuration.ConfigurationManager.ConnectionStrings["Override"].ConnectionString;
+          string con = System.Configuration.ConfigurationManager.ConnectionStrings["Override"].ConnectionString;
          if (con != "null")
             return con;
 
          string baseDir = System.AppDomain.CurrentDomain.BaseDirectory;
-
-         if (baseDir.IndexOf(@"T:\BballMVC") >= 0)
-            return SqlServerConnectionStringBballPROD;
-
+         string ConnName = "";
 
          if (baseDir.IndexOf(@"Test\mrroot123\mrroot123") >= 0)
-            return SqlServerConnectionStringLOCAL;
-
-         // PROD
+            ConnName = "BballLocal";
+         else // PROD
          if (baseDir.IndexOf(@"\theroot-") >= 0)
-            return System.Configuration.ConfigurationManager.ConnectionStrings["SmarterAspConnection"].ConnectionString;
+            ConnName = "SmarterAspConnection";
 
-         return SqlServerConnectionStringSMARTERASP;
+
+         return System.Configuration.ConfigurationManager.ConnectionStrings[ConnName].ConnectionString;
       }
         #region ExecuteSql
       public static int ExecuteSqlNonQuery(string ConnectionString, string strSql)
@@ -106,7 +93,7 @@ namespace SysDAL.Functions
                      }
                      catch (Exception ex)
                      {
-                        var msg = "DALfunctions.ExecuteSqlQuery Executing PopulateDTO Delegate - SQL: " + strSql + " - " + ex.Message + "<br>" + StackTraceParse(ex.StackTrace);
+                        var msg = ex.Message + "<br>" + "DALfunctions.ExecuteSqlQuery Executing PopulateDTO Delegate - SQL: " + strSql + " - " + StackTraceParse(ex.StackTrace);
                         throw new Exception($"Method: {MethodBase.GetCurrentMethod().Name}<br>Error Message: {msg}<br>Sql: {strSql}<br>ConnectionString: {ConnectionString}");
                      }
                   }

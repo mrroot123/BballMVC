@@ -4,8 +4,8 @@ Declare @serachArg varchar(50) =
 
 	-- 	
 	--
-	--'%udfCalcAdjTeam%'	--
-	 	'%##MOVE##%'	--
+	'%udfCalcAdjTeam%'	--
+	-- 	'%##MOVE##%'	--
 	 
 	, @allObjects bit = 01 -- = 0 = just SPs
 

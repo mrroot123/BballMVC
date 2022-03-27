@@ -50,6 +50,16 @@ namespace Bball.DAL.Parsing
          _html = oWebPageGet.Html;
       }
 
+      public static string BuildBoxScoresLast5MinUrl(BoxScoresLast5MinDTO oLast5MinDTO, string ConnectionString)
+      {
+         oLast5MinDTO.Source = "BasketballReference";
+         string BbrferTeam = 
+            SqlFunctions.TeamLookupTeamNameByTeamNameInDatabase(
+               oLast5MinDTO.GameDate, oLast5MinDTO.LeagueName, oLast5MinDTO.Source, oLast5MinDTO.Team, ConnectionString).Trim();
+         // kdtodo - 02/16/2022 - move url string to table or config file & build it thru class method
+         return $"https://www.basketball-reference.com/boxscores/pbp/{oLast5MinDTO.GameDate.ToString("yyyyMMdd")}0{BbrferTeam}.html";
+      }
+      // kdtodo - 02/16/2016 - BuildBoxScoresLast5MinUrl above accepts ConnectionString - phase out BuildBoxScoresLast5MinUrl below
       public static string BuildBoxScoresLast5MinUrl(BoxScoresLast5MinDTO oLast5MinDTO)
       {
          oLast5MinDTO.Source = "BasketballReference";

@@ -7,7 +7,7 @@ angular.module('app').controller('BballManagementController', function ($rootSco
    });
 
    function InitBballManagement() {
-      $scope.LeagueNameList = $rootScope.oBballInfoDTO.oBballDataDTO.ocLeagueNames;
+      $scope.LeagueName = $rootScope.oBballInfoDTO.LeagueName;
       $scope.ConnectionString = $rootScope.oBballInfoDTO.ConnectionString;
       $scope.BaseDirectory = $rootScope.oBballInfoDTO.BaseDirectory;
       
@@ -19,6 +19,7 @@ angular.module('app').controller('BballManagementController', function ($rootSco
 
 
    $scope.ReloadBoxScores = function () {
+      $scope.LeagueName = $rootScope.oBballInfoDTO.LeagueName;
       if (!$scope.LeagueName || $scope.LeagueName === "--Select League--") {
          alert("Select League");
          return;
@@ -27,10 +28,12 @@ angular.module('app').controller('BballManagementController', function ($rootSco
          alert("Select Game Date");
          return;
       }
+      let CollectionType = $scope.cbAsync ? "ReloadBoxScoresAsync" : "ReloadBoxScores";
+      let URL = $scope.cbAsync ? url.UrlGetDataAsync : url.UrlGetData;
 
-      ajx.AjaxGet(url.UrlGetData, {
+      ajx.AjaxGet(URL, {
          UserName: $rootScope.oBballInfoDTO.UserName, GameDate: $scope.GameDate.toLocaleDateString()
-         , LeagueName: $scope.LeagueName, CollectionType: "ReloadBoxScores"
+         , LeagueName: $scope.LeagueName, CollectionType: CollectionType
       })
          .then(oBballInfoDTO => {
             f.MessageSuccess("Reload complete");
@@ -45,7 +48,7 @@ angular.module('app').controller('BballManagementController', function ($rootSco
       ajx.AjaxGet(url.UrlRefreshBballInfo)   
          .then(oBballInfoDTO => {
             $rootScope.oBballInfoDTO = oBballInfoDTO;
-            $scope.ConnectionString = $rootScope.oBballInfoDTO.ConnectionString;
+            $scope.ConnectionString = f.EditConnectionString($rootScope.oBballInfoDTO.ConnectionString);
             $scope.BaseDirectory = $rootScope.oBballInfoDTO.BaseDirectory;
          })
          .catch(error => {
@@ -100,5 +103,9 @@ angular.module('app').controller('BballManagementController', function ($rootSco
       return obj.item.xxx.trim().toLowerCase();
    };
 
+   class Bball {
+      constructor() {
 
+      }
+   }
 });   // controller

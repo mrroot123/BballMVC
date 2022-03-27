@@ -394,6 +394,15 @@ namespace Bball.DAL.Tables
       public void RefreshTodaysMatchups(IBballInfoDTO oBballInfoDTO)
       {
          Log("DataDO.Exec_uspCalcTodaysMatchups." + oBballInfoDTO.LeagueName);
+
+         // Refresh Rotation to get new Lines
+         SortedList<string, CoversDTO> ocRotation = new SortedList<string, CoversDTO>();
+         ILeagueDTO oLeagueDTO = oBballInfoDTO.oBballDataDTO.oLeagueDTO;
+         new LeagueInfoDO(oBballInfoDTO.LeagueName, oLeagueDTO, oBballInfoDTO.ConnectionString, oBballInfoDTO.GameDate);  // Init _oLeagueDTO
+         oBballInfoDTO.oBballDataDTO.oSeasonInfoDTO = new SeasonInfoDO(oBballInfoDTO.GameDate, oBballInfoDTO.LeagueName, oBballInfoDTO.ConnectionString).oSeasonInfoDTO; 
+
+         RotationDO.PopulateRotation(ocRotation, oBballInfoDTO, oLeagueDTO, RefreshRotation: true);    // Get Rotation for GameDate - Populate if Not Found
+
          List<string> SqlParmNames = new List<string>() { "UserName", "LeagueName", "GameDate", "Display" };
          List<object> SqlParmValues = new List<object>() { oBballInfoDTO.UserName, oBballInfoDTO.LeagueName, oBballInfoDTO.GameDate, 0 };
          SysDAL.Functions.DALfunctions.ExecuteStoredProcedureNonQuery(oBballInfoDTO.ConnectionString, uspCalcTodaysMatchups, SqlParmNames, SqlParmValues);

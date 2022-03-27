@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2024
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31911.196
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BballMVC", "BballMVC\BballMVC.csproj", "{9D4B069C-AD14-4ECA-9D85-D9C8008EB0BC}"
 EndProject
@@ -44,6 +44,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TTI.Logger", "TTI.Logger\TTI.Logger.csproj", "{FF93D3D6-5A10-4AF0-8C3C-12482B6DE4D1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BballMVC.Tests", "BballMVC.Tests\BballMVC.Tests.csproj", "{6ED6D9CC-5642-4D13-B4B1-EED7E46C8523}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TTI.Models", "TTI.Models\TTI.Models.csproj", "{12E1A87E-E6F8-41BE-B3E9-B693D6D8CFE6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -135,6 +137,10 @@ Global
 		{6ED6D9CC-5642-4D13-B4B1-EED7E46C8523}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6ED6D9CC-5642-4D13-B4B1-EED7E46C8523}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6ED6D9CC-5642-4D13-B4B1-EED7E46C8523}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12E1A87E-E6F8-41BE-B3E9-B693D6D8CFE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12E1A87E-E6F8-41BE-B3E9-B693D6D8CFE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12E1A87E-E6F8-41BE-B3E9-B693D6D8CFE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12E1A87E-E6F8-41BE-B3E9-B693D6D8CFE6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
