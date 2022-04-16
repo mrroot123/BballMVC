@@ -39,10 +39,11 @@ namespace Bball.DAL.Tables
          // FOR JSON PATH - no child objects
 
          string Sql = populateJsonSqlWithParms(oBballInfoDTO, ObjName);
-         var sJsonString = SysDAL.Functions.DALfunctions.ExecuteSqlQueryReturnJson(oBballInfoDTO.ConnectionString, Sql);
+         var sJsonString = SysDAL.Functions.DALfunctions.ExecuteSqlQueryReturnJson(oBballInfoDTO.ConnectionString, Sql);  // Exec SQL
+
          JsonObjectDTO j = new JsonObjectDTO() { ObjectName = ObjName, JsonString = sJsonString };
-         oBballInfoDTO.oBballDataDTO.OcJsonObjectDTO.Add(j);
-         json2Object(oBballInfoDTO, ObjName, sJsonString);
+         oBballInfoDTO.oBballDataDTO.OcJsonObjectDTO.Add(j);        // Add Json SQL to OcJsonObjectDTO
+         json2Object(oBballInfoDTO, ObjName, sJsonString);          // Convert Json to OLD DTO for backwards compatabillity
       }
       static void json2Object(IBballInfoDTO oBballInfoDTO, string ObjName, string json)
       {
